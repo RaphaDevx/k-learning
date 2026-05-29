@@ -1,0 +1,71 @@
+// ── Router ────────────────────────────────────────────────────────────────
+// View management: show/hide screens, update navigation
+
+window.Router = (function() {
+  const VIEWS = ['dashboard', 'feed', 'flashcards', 'topics', 'exam', 'tutor', 'profile'];
+  let currentView = 'dashboard';
+
+  function showView(name) {
+    if (!VIEWS.includes(name)) return;
+
+    VIEWS.forEach(v => {
+      const el = document.getElementById('view-' + v);
+      if (el) el.classList.add('hidden');
+    });
+    const target = document.getElementById('view-' + name);
+    if (target) target.classList.remove('hidden');
+
+    currentView = name;
+    updateNav(name);
+
+    // Call screen init
+    const screens = {
+      dashboard:  window.DashboardScreen,
+      feed:       window.FeedScreen,
+      flashcards: window.FlashcardsScreen,
+      topics:     window.TopicsScreen,
+      exam:       window.ExamScreen,
+      tutor:      window.TutorScreen,
+      profile:    window.ProfileScreen,
+    };
+    const screen = screens[name];
+    if (screen && screen.init) screen.init();
+
+    window.scrollTo(0, 0);
+  }
+
+  function updateNav(name) {
+    // Mobile bottom nav
+    VIEWS.forEach(v => {
+      const btn = document.getElementById('nav-' + v);
+      if (btn) {
+        btn.classList.toggle('text-white', v === name);
+        btn.classList.toggle('text-gray-400', v !== name);
+      }
+    });
+    // Desktop sidebar
+    VIEWS.forEach(v => {
+      const btn = document.getElementById('snav-' + v);
+      if (btn) btn.classList.toggle('active', v === name);
+    });
+  }
+
+  function current() { return currentView; }
+
+  // Keyboard navigation (desktop)
+  document.addEventListener('keydown', e => {
+    if (currentView === 'flashcards' && window.FlashcardsScreen) {
+      if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); FlashcardsScreen.flipCard(); }
+      if (e.key === 'ArrowRight') FlashcardsScreen.nextCard();
+      if (e.key === 'ArrowLeft')  FlashcardsScreen.prevCard();
+      if (e.key === '1') FlashcardsScreen.rateCard('hard');
+      if (e.key === '2') FlashcardsScreen.rateCard('medium');
+      if (e.key === '3') FlashcardsScreen.rateCard('easy');
+    }
+  });
+
+  return { showView, current };
+})();
+
+// Global shortcut
+function showView(name) { Router.showView(name); }

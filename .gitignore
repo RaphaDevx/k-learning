@@ -1,0 +1,7 @@
+*.log
+.DS_Store
+Thumbs.db
+videos/
+*.mp4
+*.mov
+tools/

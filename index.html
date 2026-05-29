@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>K-Learning</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- ── Data Layer ── -->
+  <script src="data/topics-data.js"></script>
+  <script src="data/flashcard-data.js"></script>
+  <script src="data/feed-data.js"></script>
+
+  <!-- ── App Logic ── -->
+  <script src="js/state.js"></script>
+  <script src="js/gamification.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/auth.js"></script>
+
+  <!-- ── Screens ── -->
+  <script src="js/screens/dashboard.js"></script>
+  <script src="js/screens/feed.js"></script>
+  <script src="js/screens/flashcards.js"></script>
+  <script src="js/screens/topics.js"></script>
+  <script src="js/screens/exam.js"></script>
+  <script src="js/screens/tutor.js"></script>
+  <script src="js/screens/profile.js"></script>
+
+  <style>
+    :root {
+      --primary: #1a1a2e;
+      --accent: #e94560;
+      --card-bg: #16213e;
+      --surface: #0f3460;
+      --sidebar-w: 240px;
+    }
+    body { background: var(--primary); font-family: 'Inter', system-ui, sans-serif; }
+
+    /* ── Card flip ── */
+    .card-flip { perspective: 1000px; }
+    .card-inner { transition: transform 0.5s; transform-style: preserve-3d; }
+    .card-inner.flipped { transform: rotateY(180deg); }
+    .card-front, .card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+    .card-back { transform: rotateY(180deg); }
+
+    /* ── Animations ── */
+    @keyframes streak-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+    .streak-fire { animation: streak-pulse 1.5s infinite; }
+    @keyframes slide-up { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .animate-slide-up { animation: slide-up 0.3s ease; }
+
+    /* ── Feed ── */
+    .feed-card { scroll-snap-align: start; }
+    #feed-container { scroll-snap-type: y mandatory; overflow-y: scroll; }
+    .recall-reveal { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .recall-reveal.open { max-height: 500px; }
+
+    /* ── MOBILE layout (default) ── */
+    #app-shell { display: flex; flex-direction: column; min-height: 100vh; }
+    #top-bar   { display: flex; }
+    #sidebar   { display: none; }
+    #bottom-nav { display: flex; }
+    #content-area {
+      flex: 1;
+      padding: 0 1rem 6rem;
+      max-width: 480px;
+      margin: 0 auto;
+      width: 100%;
+    }
+    #feed-container { height: calc(100vh - 120px); }
+    .feed-card-inner { min-height: calc(100vh - 140px); }
+
+    /* ── DESKTOP layout (≥768px) ── */
+    @media (min-width: 768px) {
+      #top-bar    { display: none; }
+      #bottom-nav { display: none; }
+      #sidebar {
+        display: flex; flex-direction: column;
+        width: var(--sidebar-w); min-height: 100vh;
+        background: #111827;
+        border-right: 1px solid rgba(255,255,255,0.08);
+        position: fixed; top:0; left:0; bottom:0; z-index:50;
+        padding: 1.5rem 0; gap: 0.25rem;
+      }
+      #sidebar-header {
+        padding: 0 1.25rem 1.25rem;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+        margin-bottom: 0.5rem;
+      }
+      .sidebar-nav-btn {
+        display: flex; align-items: center; gap: 0.75rem;
+        padding: 0.7rem 1.25rem; border-radius: 0;
+        font-size: 0.9rem; color: #9ca3af;
+        transition: background 0.15s, color 0.15s;
+        cursor: pointer; border: none; background: transparent;
+        width: 100%; text-align: left;
+      }
+      .sidebar-nav-btn:hover { background: rgba(255,255,255,0.05); color: white; }
+      .sidebar-nav-btn.active { background: rgba(99,102,241,0.15); color:white; border-left:3px solid #6366f1; }
+      #sidebar-stats {
+        margin-top: auto; padding: 1rem 1.25rem;
+        border-top: 1px solid rgba(255,255,255,0.08);
+        font-size: 0.8rem; color: #9ca3af;
+      }
+      #app-shell { flex-direction: row; }
+      #content-area {
+        margin-left: var(--sidebar-w);
+        max-width: none; padding: 2rem 2.5rem; flex: 1;
+      }
+      #dashboard-course-grid { grid-template-columns: repeat(4, 1fr); }
+      #feed-container { height: calc(100vh - 80px); }
+      .feed-card-inner { min-height: calc(100vh - 100px); max-width: 600px; margin: 0 auto; }
+      #flashcard-area  { max-width: 640px; }
+    }
+    .nav-icon { font-size: 1.2rem; width: 1.5rem; text-align: center; }
+  </style>
+</head>
+<body class="text-white min-h-screen">
+
+<div id="app-shell">
+
+  <!-- ── DESKTOP: Left Sidebar ── -->
+  <nav id="sidebar">
+    <div id="sidebar-header">
+      <div class="flex items-center gap-2 mb-1">
+        <span class="text-xl font-bold">HSG</span>
+        <span class="text-xs bg-blue-600 px-2 py-1 rounded-full">FS 26</span>
+      </div>
+      <div class="flex flex-col gap-1 mt-2">
+        <span class="streak-fire streak-display text-sm"></span>
+        <span class="xp-display text-yellow-400 text-sm font-bold"></span>
+        <span class="level-display text-gray-400 text-xs"></span>
+      </div>
+    </div>
+
+    <button onclick="showView('dashboard')" id="snav-dashboard" class="sidebar-nav-btn active">
+      <span class="nav-icon">🏠</span><span>Dashboard</span>
+    </button>
+    <button onclick="showView('feed')" id="snav-feed" class="sidebar-nav-btn">
+      <span class="nav-icon">⚡</span><span>Feed</span>
+    </button>
+    <button onclick="showView('topics')" id="snav-topics" class="sidebar-nav-btn">
+      <span class="nav-icon">📚</span><span>Themen</span>
+    </button>
+    <button onclick="showView('flashcards')" id="snav-flashcards" class="sidebar-nav-btn">
+      <span class="nav-icon">🃏</span><span>Flashcards</span>
+    </button>
+    <button onclick="showView('exam')" id="snav-exam" class="sidebar-nav-btn">
+      <span class="nav-icon">📝</span><span>Probeklausur</span>
+    </button>
+    <button onclick="showView('tutor')" id="snav-tutor" class="sidebar-nav-btn">
+      <span class="nav-icon">🤖</span><span>KI-Tutor</span>
+    </button>
+    <button onclick="showView('profile')" id="snav-profile" class="sidebar-nav-btn">
+      <span class="nav-icon">👤</span><span>Profil</span>
+    </button>
+
+    <div id="sidebar-stats">
+      <div class="font-semibold text-white text-sm mb-2">Prüfungen</div>
+      <div class="space-y-1">
+        <div class="flex justify-between"><span>🔥 ESF</span><span class="text-red-400">23.06.</span></div>
+        <div class="flex justify-between"><span>🔥 OM</span><span class="text-orange-400">25.06.</span></div>
+        <div class="flex justify-between"><span>⚡ Statistik</span><span class="text-blue-400">01.07.</span></div>
+        <div class="flex justify-between"><span>⚡ MakroII</span><span class="text-green-400">13.07.</span></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── MOBILE: Top Bar ── -->
+  <nav id="top-bar" class="bg-gray-900 border-b border-gray-700 px-4 py-3 flex items-center justify-between sticky top-0 z-50">
+    <div class="flex items-center gap-3">
+      <span class="text-xl font-bold text-white">K-Learning</span>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="streak-fire streak-display text-lg"></span>
+      <span class="xp-display text-yellow-400 font-bold text-sm"></span>
+    </div>
+  </nav>
+
+  <!-- ── Main Content ── -->
+  <div id="content-area">
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- DASHBOARD                                             -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <div id="view-dashboard">
+      <div class="py-4 md:py-6">
+        <h1 class="text-2xl font-bold" id="greeting">Guten Morgen! 👋</h1>
+        <p class="text-gray-400 mt-1">Prüfungen kommen. Let's go.</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-3 mb-6" id="dashboard-course-grid">
+        <!-- Statistik -->
+        <div class="bg-blue-900 rounded-2xl p-4 cursor-pointer hover:bg-blue-800 transition" onclick="showView('topics'); TopicsScreen.selectCourse('Statistik')">
+          <div class="text-2xl mb-2">📊</div>
+          <div class="font-bold">Statistik</div>
+          <div class="text-xs text-gray-300 mt-1"><span id="stat-cards-done">0</span> / <span id="stat-cards-total">0</span> Karten</div>
+          <div class="text-xs text-blue-300 mt-0.5" id="stat-days"></div>
+          <div class="mt-2 bg-blue-700 rounded-full h-1.5">
+            <div class="bg-blue-300 h-1.5 rounded-full" id="stat-progress" style="width:0%"></div>
+          </div>
+        </div>
+        <!-- MakroII -->
+        <div class="bg-green-900 rounded-2xl p-4 cursor-pointer hover:bg-green-800 transition" onclick="showView('topics'); TopicsScreen.selectCourse('MakroII')">
+          <div class="text-2xl mb-2">📈</div>
+          <div class="font-bold">MakroII</div>
+          <div class="text-xs text-gray-300 mt-1"><span id="makro-cards-done">0</span> / <span id="makro-cards-total">0</span> Karten</div>
+          <div class="text-xs text-green-300 mt-0.5" id="makro-days"></div>
+          <div class="mt-2 bg-green-700 rounded-full h-1.5">
+            <div class="bg-green-300 h-1.5 rounded-full" id="makro-progress" style="width:0%"></div>
+          </div>
+        </div>
+        <!-- ESF -->
+        <div class="bg-purple-900 rounded-2xl p-4 cursor-pointer hover:bg-purple-800 transition" onclick="showView('topics'); TopicsScreen.selectCourse('ESF')">
+          <div class="text-2xl mb-2">🔬</div>
+          <div class="font-bold">ESF</div>
+          <div class="text-xs text-gray-300 mt-1"><span id="esf-cards-done">0</span> / <span id="esf-cards-total">0</span> Karten</div>
+          <div class="text-xs text-red-300 mt-0.5" id="esf-days"></div>
+          <div class="mt-2 bg-purple-700 rounded-full h-1.5">
+            <div class="bg-purple-300 h-1.5 rounded-full" id="esf-progress" style="width:0%"></div>
+          </div>
+        </div>
+        <!-- OM -->
+        <div class="bg-orange-900 rounded-2xl p-4 cursor-pointer hover:bg-orange-800 transition" onclick="showView('topics'); TopicsScreen.selectCourse('OM')">
+          <div class="text-2xl mb-2">⚙️</div>
+          <div class="font-bold">OM</div>
+          <div class="text-xs text-gray-300 mt-1"><span id="om-cards-done">0</span> / <span id="om-cards-total">0</span> Karten</div>
+          <div class="text-xs text-orange-300 mt-0.5" id="om-days"></div>
+          <div class="mt-2 bg-orange-700 rounded-full h-1.5">
+            <div class="bg-orange-300 h-1.5 rounded-full" id="om-progress" style="width:0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-gray-800 rounded-2xl p-4 mb-4">
+        <h2 class="font-bold text-lg mb-3">📅 Heute fällig</h2>
+        <div id="due-today-list" class="space-y-2">
+          <p class="text-gray-400 text-sm">Lade Karten...</p>
+        </div>
+      </div>
+
+      <div class="space-y-3">
+        <button onclick="showView('feed'); FeedScreen.render('localvideo')" class="w-full rounded-2xl p-4 text-left transition flex items-center gap-3"
+                style="background:linear-gradient(135deg,#4c1d95,#7c3aed); border:1px solid rgba(167,139,250,0.3)">
+          <span class="text-2xl">📹</span>
+          <div>
+            <div class="font-bold">6 ESF-Lernvideos — inkl. NotebookLM AI! 🎬</div>
+            <div class="text-xs" style="color:rgba(216,180,254,0.8)">3× Short-Form + 3× NotebookLM Studio AI-Videos (8–12 min)</div>
+          </div>
+          <span class="text-xs bg-red-500 text-white px-2 py-0.5 rounded-full ml-auto flex-shrink-0">NEU</span>
+        </button>
+        <button onclick="showView('feed')" class="w-full bg-indigo-700 hover:bg-indigo-600 rounded-2xl p-4 text-left transition flex items-center gap-3">
+          <span class="text-2xl">⚡</span>
+          <div><div class="font-bold">Concept Feed</div><div class="text-xs text-indigo-200">Konzepte + YouTube-Videos · Instagram-Style</div></div>
+        </button>
+        <button onclick="showView('topics')" class="w-full bg-teal-800 hover:bg-teal-700 rounded-2xl p-4 text-left transition flex items-center gap-3">
+          <span class="text-2xl">📚</span>
+          <div><div class="font-bold">Themen-Browser</div><div class="text-xs text-teal-200">Sub-Kapitel per Kurs · Strukturiert lernen</div></div>
+        </button>
+        <button onclick="showView('flashcards')" class="w-full bg-blue-600 hover:bg-blue-500 rounded-2xl p-4 text-left transition flex items-center gap-3">
+          <span class="text-2xl">🃏</span>
+          <div><div class="font-bold">Flashcards</div><div class="text-xs text-blue-200">Spaced Repetition · Alle Kurse</div></div>
+        </button>
+        <button onclick="showView('exam')" class="w-full bg-red-800 hover:bg-red-700 rounded-2xl p-4 text-left transition flex items-center gap-3">
+          <span class="text-2xl">📝</span>
+          <div><div class="font-bold">Probeklausur</div><div class="text-xs text-red-200">Train as you fight</div></div>
+        </button>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- FEED                                                  -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <div id="view-feed" class="hidden">
+      <!-- Filter bar -->
+      <div class="flex gap-2 overflow-x-auto py-3 sticky top-0 z-10" style="background:var(--primary)">
+        <button data-filter="all"       onclick="FeedScreen.render('all')"       class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-blue-600 text-white">Alle</button>
+        <button data-filter="ESF"       onclick="FeedScreen.render('ESF')"       class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">ESF</button>
+        <button data-filter="OM"        onclick="FeedScreen.render('OM')"        class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">OM</button>
+        <button data-filter="Statistik" onclick="FeedScreen.render('Statistik')" class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">Statistik</button>
+        <button data-filter="MakroII"   onclick="FeedScreen.render('MakroII')"   class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">MakroII</button>
+        <button data-filter="video"       onclick="FeedScreen.render('video')"       class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">▶ YouTube</button>
+        <button data-filter="localvideo" onclick="FeedScreen.render('localvideo')" class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">📹 Meine Videos</button>
+      </div>
+      <div id="feed-cards-container"></div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- TOPICS — Sub-chapter browser                         -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <div id="view-topics" class="hidden py-4">
+      <div class="hidden md:block mb-6">
+        <h2 class="text-2xl font-bold">📚 Themen-Browser</h2>
+        <p class="text-gray-400 text-sm mt-1">Sub-Kapitel pro Kurs — klicke ein Thema um direkt zu den Flashcards zu springen.</p>
+      </div>
+      <div class="flex items-center gap-3 mb-4 md:hidden">
+        <button onclick="showView('dashboard')" class="text-gray-400 hover:text-white">← Zurück</button>
+        <h2 class="font-bold text-xl">Themen</h2>
+      </div>
+      <div id="topics-content"></div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- FLASHCARDS                                            -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <div id="view-flashcards" class="hidden py-4">
+      <div class="flex items-center gap-3 mb-4 md:hidden">
+        <button onclick="showView('dashboard')" class="text-gray-400 hover:text-white">← Zurück</button>
+        <h2 class="font-bold text-xl">Flashcards</h2>
+      </div>
+      <div class="hidden md:block mb-6">
+        <h2 class="text-2xl font-bold">Flashcards</h2>
+        <p class="text-gray-400 text-sm mt-1">Leertaste umdrehen · 1=Nochmal · 2=Okay · 3=Easy</p>
+      </div>
+
+      <!-- Course filter -->
+      <div class="flex gap-2 mb-4 overflow-x-auto pb-1">
+        <button data-filter="all"       onclick="FlashcardsScreen.filterCards('all')"       class="filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-blue-600 text-white">Alle</button>
+        <button data-filter="Statistik" onclick="FlashcardsScreen.filterCards('Statistik')" class="filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">Statistik</button>
+        <button data-filter="MakroII"   onclick="FlashcardsScreen.filterCards('MakroII')"   class="filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">MakroII</button>
+        <button data-filter="ESF"       onclick="FlashcardsScreen.filterCards('ESF')"       class="filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">ESF</button>
+        <button data-filter="OM"        onclick="FlashcardsScreen.filterCards('OM')"         class="filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">OM</button>
+      </div>
+
+      <div id="flashcard-area">
+        <div class="flex justify-between text-sm text-gray-400 mb-3">
+          <span id="card-counter">Karte 1 / 1</span>
+          <span id="card-topic" class="text-blue-400 text-xs truncate ml-2"></span>
+        </div>
+
+        <div class="card-flip w-full mb-5" style="height:300px;" onclick="FlashcardsScreen.flipCard()">
+          <div class="card-inner w-full h-full relative" id="card-inner">
+            <div class="card-front absolute w-full h-full bg-gray-800 rounded-3xl p-6 flex flex-col justify-between">
+              <div class="text-xs text-gray-400 uppercase tracking-widest" id="card-type-label">Frage</div>
+              <div class="text-lg font-medium text-center leading-relaxed" id="card-front-text">Karte laden...</div>
+              <div class="text-center text-gray-500 text-sm">Tippen / Leertaste zum Umdrehen</div>
+            </div>
+            <div class="card-back absolute w-full h-full bg-gray-700 rounded-3xl p-6 flex flex-col justify-between overflow-y-auto">
+              <div class="text-xs text-green-400 uppercase tracking-widest mb-2">Antwort</div>
+              <div class="text-sm leading-relaxed flex-1" id="card-back-text" style="white-space:pre-line;"></div>
+              <div class="text-center text-gray-500 text-xs mt-2">Bewerte dein Wissen</div>
+            </div>
+          </div>
+        </div>
+
+        <div id="rating-buttons" class="hidden grid grid-cols-3 gap-3">
+          <button onclick="FlashcardsScreen.rateCard('hard')"   class="bg-red-700 hover:bg-red-600 rounded-2xl py-3 font-bold transition">😰 Nochmal</button>
+          <button onclick="FlashcardsScreen.rateCard('medium')" class="bg-yellow-700 hover:bg-yellow-600 rounded-2xl py-3 font-bold transition">🤔 Okay</button>
+          <button onclick="FlashcardsScreen.rateCard('easy')"   class="bg-green-700 hover:bg-green-600 rounded-2xl py-3 font-bold transition">✅ Easy</button>
+        </div>
+        <div class="flex gap-2 mt-3">
+          <button onclick="FlashcardsScreen.prevCard()" class="flex-1 bg-gray-700 hover:bg-gray-600 rounded-xl py-2 text-sm transition">← Zurück</button>
+          <button onclick="FlashcardsScreen.nextCard()" class="flex-1 bg-gray-700 hover:bg-gray-600 rounded-xl py-2 text-sm transition">Weiter →</button>
+        </div>
+
+        <div id="no-cards-msg" class="text-center text-gray-400 py-12 hidden">
+          <div class="text-4xl mb-4">🃏</div>
+          <p>Noch keine Flashcards für dieses Thema.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- EXAM                                                  -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <div id="view-exam" class="hidden py-4">
+      <div class="flex items-center gap-3 mb-4 md:hidden">
+        <button onclick="showView('dashboard')" class="text-gray-400 hover:text-white">← Zurück</button>
+        <h2 class="font-bold text-xl">Probeklausur</h2>
+      </div>
+      <div class="hidden md:block mb-6"><h2 class="text-2xl font-bold">Probeklausur</h2></div>
+      <div id="exam-content" class="space-y-3"></div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- PROFIL                                               -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <div id="view-profile" class="hidden py-4">
+      <div class="flex items-center gap-3 mb-4 md:hidden">
+        <button onclick="showView('dashboard')" class="text-gray-400 hover:text-white">← Zurück</button>
+        <h2 class="font-bold text-xl">Profil</h2>
+      </div>
+      <div class="hidden md:block mb-6">
+        <h2 class="text-2xl font-bold">Profil</h2>
+      </div>
+      <div id="profile-content"></div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- KI TUTOR                                              -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <div id="view-tutor" class="hidden py-4">
+      <div class="flex items-center gap-3 mb-4 md:hidden">
+        <button onclick="showView('dashboard')" class="text-gray-400 hover:text-white">← Zurück</button>
+        <h2 class="font-bold text-xl">KI-Tutor</h2>
+      </div>
+      <div class="hidden md:block mb-6"><h2 class="text-2xl font-bold">KI-Tutor</h2></div>
+      <div class="bg-gray-800 rounded-2xl p-4 mb-4">
+        <p class="text-gray-300 text-sm">Erkläre dem KI ein Konzept in eigenen Worten. Du bekommst Feedback: Was war gut, was fehlt, Verständnis-Score.</p>
+      </div>
+      <div class="bg-gray-800 rounded-2xl p-4 mb-4">
+        <label class="text-xs text-gray-400 uppercase tracking-widest block mb-2">Kurs</label>
+        <select class="w-full bg-gray-700 rounded-xl px-3 py-2 text-sm mb-3" id="tutor-course">
+          <option value="statistik">Statistik</option>
+          <option value="makro">MakroII</option>
+          <option value="esf">ESF</option>
+          <option value="om">OM</option>
+        </select>
+        <label class="text-xs text-gray-400 uppercase tracking-widest block mb-2">Deine Erklärung</label>
+        <textarea id="tutor-input" class="w-full bg-gray-700 rounded-xl px-3 py-2 text-sm h-32 resize-none"
+          placeholder="Erkläre z.B. was ein Konfidenzintervall bedeutet..."></textarea>
+        <button onclick="TutorScreen.submit()" class="w-full mt-3 bg-blue-600 hover:bg-blue-500 rounded-xl py-2 font-bold transition">
+          🤖 KI-Feedback erhalten
+        </button>
+      </div>
+      <div id="tutor-response" class="hidden bg-gray-800 rounded-2xl p-4">
+        <div class="flex justify-between items-center mb-3">
+          <span class="font-bold">Feedback</span>
+          <span id="tutor-score" class="text-2xl font-bold text-green-400"></span>
+        </div>
+        <div id="tutor-feedback-text" class="text-sm text-gray-300 whitespace-pre-line"></div>
+      </div>
+      <div class="bg-gray-800 rounded-2xl p-4 text-center mt-3">
+        <div class="text-2xl mb-2">🚧</div>
+        <p class="text-gray-400 text-sm">KI-Backend in Entwicklung (Phase 3).</p>
+      </div>
+    </div>
+
+  </div><!-- /content-area -->
+
+  <!-- ── MOBILE: Bottom Navigation ── -->
+  <nav id="bottom-nav" class="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700 justify-around py-2 z-50">
+    <button onclick="showView('dashboard')" id="nav-dashboard" class="flex flex-col items-center text-xs gap-0.5 text-white px-2 py-1">
+      <span class="text-lg">🏠</span>Home
+    </button>
+    <button onclick="showView('feed')" id="nav-feed" class="flex flex-col items-center text-xs gap-0.5 text-gray-400 hover:text-white px-2 py-1">
+      <span class="text-lg">⚡</span>Feed
+    </button>
+    <button onclick="showView('topics')" id="nav-topics" class="flex flex-col items-center text-xs gap-0.5 text-gray-400 hover:text-white px-2 py-1">
+      <span class="text-lg">📚</span>Themen
+    </button>
+    <button onclick="showView('flashcards')" id="nav-flashcards" class="flex flex-col items-center text-xs gap-0.5 text-gray-400 hover:text-white px-2 py-1">
+      <span class="text-lg">🃏</span>Karten
+    </button>
+    <button onclick="showView('profile')" id="nav-profile" class="flex flex-col items-center text-xs gap-0.5 text-gray-400 hover:text-white px-2 py-1">
+      <span class="text-lg">👤</span>Profil
+    </button>
+  </nav>
+
+</div><!-- /app-shell -->
+
+<!-- ── Auth Overlay ── -->
+<div id="auth-overlay" class="hidden fixed inset-0 z-[100] flex items-center justify-center" style="background:var(--primary)">
+  <div class="text-center px-8 max-w-sm w-full">
+    <div class="text-6xl mb-4">📚</div>
+    <h1 class="text-3xl font-bold mb-1">K-Learning</h1>
+    <p class="text-gray-400 text-sm mb-10">HSG Lernplattform</p>
+    <button onclick="Auth.signInWithGoogle()"
+      class="w-full flex items-center justify-center gap-3 bg-white text-gray-900 font-semibold px-6 py-3.5 rounded-xl hover:bg-gray-100 transition text-base">
+      <svg width="20" height="20" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+        <path fill="#4285F4" d="M47.5 24.6c0-1.6-.1-3.1-.4-4.6H24v8.7h13.2c-.6 3-2.3 5.5-4.9 7.2v6h7.9c4.6-4.3 7.3-10.6 7.3-17.3z"/>
+        <path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.9-6c-2.1 1.4-4.9 2.3-8 2.3-6.1 0-11.3-4.1-13.2-9.7H2.7v6.2C6.7 42.8 14.8 48 24 48z"/>
+        <path fill="#FBBC05" d="M10.8 28.8A14.5 14.5 0 0 1 10 24c0-1.7.3-3.3.8-4.8V13H2.7A23.9 23.9 0 0 0 0 24c0 3.9.9 7.5 2.7 10.8l8.1-6z"/>
+        <path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.5l6.7-6.7C35.9 2.4 30.4 0 24 0 14.8 0 6.7 5.2 2.7 13.2l8.1 6.1C12.7 13.6 17.9 9.5 24 9.5z"/>
+      </svg>
+      Mit Google anmelden
+    </button>
+  </div>
+</div>
+
+<script>
+  // ── App Init ──────────────────────────────────────────────
+  Gamification.render();
+  showView('dashboard');
+  Auth.init();
+</script>
+
+</body>
+</html>
