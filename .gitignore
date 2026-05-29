@@ -9,3 +9,4 @@ tools/
 *.json.secret
 client_secret*.json
 *oauth*.json
+private/
