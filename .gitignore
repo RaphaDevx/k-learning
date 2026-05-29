@@ -5,3 +5,7 @@ videos/
 *.mp4
 *.mov
 tools/
+.wrangler/
+*.json.secret
+client_secret*.json
+*oauth*.json
