@@ -20,7 +20,7 @@ window.FEED_CARDS = [
     topics: ["Deduktion", "Induktion", "Falsifikation", "Abduktion"],
     duration: "1:36",
     level: "Prüfungsrelevant ⚡",
-    video_src: "videos/esf_01_deduktion_vs_induktion.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf_01_deduktion_vs_induktion.mp4",
     thumbnail_emoji: "🧠",
     block: "Wissenschaftstheorie & Forschungslogik"
   },
@@ -35,7 +35,7 @@ window.FEED_CARDS = [
     topics: ["Explorativ", "Deskriptiv", "Kausal", "Randomisierung"],
     duration: "1:44",
     level: "Prüfungsrelevant ⚡",
-    video_src: "videos/esf_02_forschungsdesigns.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf_02_forschungsdesigns.mp4",
     thumbnail_emoji: "🔬",
     block: "Wissenschaftstheorie & Forschungslogik"
   },
@@ -50,7 +50,7 @@ window.FEED_CARDS = [
     topics: ["Forschungsprozess", "Hypothesen", "Design", "Publikation"],
     duration: "1:52",
     level: "Prüfungsrelevant ⚡",
-    video_src: "videos/esf_03_forschungsprozess.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf_03_forschungsprozess.mp4",
     thumbnail_emoji: "📋",
     block: "Wissenschaftstheorie & Forschungslogik"
   },
@@ -71,7 +71,7 @@ window.FEED_CARDS = [
     topics: ["Wissenschaftstheorie", "Forschungsdesigns", "Gütekriterien", "Messung"],
     duration: "12:29",
     level: "Gesamtüberblick 🗺️",
-    video_src: "videos/Empirische_Sozialforschung.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/Empirische_Sozialforschung.mp4",
     thumbnail_emoji: "🎬",
     block: "NotebookLM Studio · Komplettüberblick"
   },
@@ -86,7 +86,7 @@ window.FEED_CARDS = [
     topics: ["Forschungslogik", "Falsifikation", "Hypothesen", "Open Science"],
     duration: "8:32",
     level: "Prüfungsrelevant ⚡",
-    video_src: "videos/ESF_FS26__Forschungslogik.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_FS26__Forschungslogik.mp4",
     thumbnail_emoji: "🔬",
     block: "NotebookLM Studio · Wissenschaftstheorie"
   },
@@ -101,7 +101,7 @@ window.FEED_CARDS = [
     topics: ["Forschungslogik", "Quantitativ", "Theorie", "Empirie"],
     duration: "10:04",
     level: "Vertiefung 📚",
-    video_src: "videos/Forschungslogik.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/Forschungslogik.mp4",
     thumbnail_emoji: "📐",
     block: "NotebookLM Studio · Klassisch"
   },

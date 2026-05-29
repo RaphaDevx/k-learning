@@ -45,82 +45,58 @@ window.FeedScreen = (function() {
   }
 
   function renderLocalVideoCard(card, index) {
-    const topicBadges = (card.topics || []).map(t =>
-      `<span class="text-xs px-2 py-0.5 rounded-full bg-gray-700 text-gray-300">${t}</span>`
-    ).join('');
-
     const prog = AppState.get('feedProgress') || {};
     const watched = prog[card.id] === 'watched';
+    const isShort = card.id.startsWith('esf-sv-');
+    const typeLabel = card.id.includes('nlm') ? '🎬 NotebookLM AI' : '📹 Short Video';
 
     return `
-    <div class="feed-card px-4 py-3" id="feed-${index}">
-      <div class="feed-card-inner rounded-3xl overflow-hidden flex flex-col"
-           style="background:linear-gradient(160deg,#12040f 0%,#1e0a2e 100%); border:1px solid ${card.courseColor}44;">
+    <div class="feed-card" id="feed-${index}" style="padding:0; margin:0;">
+      <div class="feed-card-inner relative overflow-hidden" style="background:#000; border-radius:0;">
 
-        <!-- Header -->
-        <div class="px-5 pt-5 pb-3">
-          <div class="flex items-center gap-2 mb-3">
+        <!-- Fullscreen Video -->
+        <video
+          id="vid-${card.id}"
+          style="width:100%; height:100%; object-fit:${isShort ? 'cover' : 'contain'}; display:block; background:#000;"
+          controls
+          preload="metadata"
+          playsinline
+          onplay="FeedScreen.trackVideoOpen('${card.id}')"
+        >
+          <source src="${card.video_src}" type="video/mp4">
+        </video>
+
+        <!-- Bottom gradient overlay -->
+        <div class="absolute bottom-0 left-0 right-0" style="
+          background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 60%, transparent 100%);
+          padding: 4rem 1.25rem 1.25rem; pointer-events:none;">
+
+          <div class="flex items-center gap-2 mb-2">
             <span class="text-xs font-bold px-2 py-1 rounded-full text-white"
-                  style="background:${card.courseColor}55; border:1px solid ${card.courseColor}88">${card.course}</span>
-            <span class="text-xs px-2 py-0.5 rounded-full text-white"
-                  style="${card.id.includes('nlm') ? 'background:rgba(16,185,129,0.3); border:1px solid rgba(16,185,129,0.5)' : 'background:rgba(124,58,237,0.3); border:1px solid rgba(124,58,237,0.5)'}">
-              ${card.id.includes('nlm') ? '🎬 NotebookLM AI' : '📹 Short Video'}
-            </span>
-            <span class="text-xs text-gray-400 ml-auto">${card.duration}</span>
-            ${watched ? '<span class="text-xs text-green-400 font-bold">✓ gesehen</span>' : ''}
+                  style="background:${card.courseColor}66; border:1px solid ${card.courseColor}99; pointer-events:auto">${card.course}</span>
+            <span class="text-xs text-white px-2 py-0.5 rounded-full"
+                  style="background:rgba(255,255,255,0.15)">${typeLabel}</span>
+            <span class="text-xs text-gray-300 ml-auto">${card.duration}</span>
+            ${watched ? '<span class="text-xs text-green-400 font-bold">✓</span>' : ''}
           </div>
-          <div class="text-xs text-gray-500 mb-2">${card.block || ''}</div>
-          <div class="flex items-start gap-3">
-            <div class="text-4xl">${card.emoji}</div>
-            <div>
-              <h2 class="text-lg font-bold leading-tight">${card.title}</h2>
-              <p class="text-sm mt-1" style="color:${card.courseColor}cc">${card.subtitle}</p>
-            </div>
-          </div>
-        </div>
 
-        <!-- Video Player -->
-        <div class="mx-4 mb-3 rounded-2xl overflow-hidden relative"
-             style="background:#000; border:1px solid ${card.courseColor}33;">
-          <video
-            id="vid-${card.id}"
-            class="w-full"
-            style="max-height:55vh; object-fit:contain; background:#000;"
-            controls
-            preload="metadata"
-            playsinline
-            poster=""
-            onplay="FeedScreen.trackVideoOpen('${card.id}')"
-          >
-            <source src="${card.video_src}" type="video/mp4">
-            Dein Browser unterstützt kein Video.
-          </video>
-        </div>
+          <h2 class="text-base font-bold text-white leading-tight mb-0.5">${card.title}</h2>
+          <p class="text-xs mb-3" style="color:${card.courseColor}dd">${card.subtitle}</p>
 
-        <!-- Meta -->
-        <div class="px-5 pb-2">
-          <p class="text-sm text-gray-300 mb-3">${card.description}</p>
-          <div class="flex flex-wrap gap-1.5 mb-3">${topicBadges}</div>
-          <div class="flex items-center gap-3">
-            <span class="text-xs px-2 py-1 rounded-full"
-                  style="background:${card.courseColor}22; color:${card.courseColor}; border:1px solid ${card.courseColor}44">
-              🎯 ${card.level}
-            </span>
+          <div class="flex gap-2" style="pointer-events:auto">
             <button onclick="FeedScreen.rate('${card.id}','knew')"
-                    class="flex-1 text-xs py-2 rounded-xl font-bold transition"
-                    style="background:rgba(52,211,153,0.15); color:#34d399; border:1px solid rgba(52,211,153,0.3)">
-              ✅ Verstanden
+                    class="flex-1 text-xs py-2 rounded-xl font-bold"
+                    style="background:rgba(52,211,153,0.2); color:#34d399; border:1px solid rgba(52,211,153,0.4)">
+              ✅ Kapiert
             </button>
             <button onclick="FeedScreen.rate('${card.id}','didnt')"
-                    class="flex-1 text-xs py-2 rounded-xl font-bold transition"
-                    style="background:rgba(248,113,113,0.15); color:#f87171; border:1px solid rgba(248,113,113,0.3)">
+                    class="flex-1 text-xs py-2 rounded-xl font-bold"
+                    style="background:rgba(248,113,113,0.2); color:#f87171; border:1px solid rgba(248,113,113,0.4)">
               🔁 Nochmal
             </button>
           </div>
         </div>
 
-        <!-- Spacer -->
-        <div class="h-4"></div>
       </div>
     </div>`;
   }

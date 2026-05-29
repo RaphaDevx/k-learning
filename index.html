@@ -55,6 +55,9 @@
     #feed-container { scroll-snap-type: y mandatory; overflow-y: scroll; }
     .recall-reveal { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
     .recall-reveal.open { max-height: 500px; }
+    /* Video cards: edge-to-edge fullscreen */
+    .feed-card:has(video) { padding: 0 !important; }
+    .feed-card:has(video) .feed-card-inner { border-radius: 0 !important; min-height: 100%; }
 
     /* ── MOBILE layout (default) ── */
     #app-shell { display: flex; flex-direction: column; min-height: 100vh; }
