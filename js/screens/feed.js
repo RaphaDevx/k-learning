@@ -90,7 +90,6 @@ window.FeedScreen = (function() {
     const id        = card.slug || card.id;
     const src       = card.hls_src || card.video_src;
     const isHLS     = src && src.endsWith('.m3u8');
-    const isShort   = id.includes('-sv-');
     const typeLabel = id.includes('nlm') ? '🎬 NotebookLM AI' : '📹 Short Video';
     const color     = card.course_color || card.courseColor || '#7c3aed';
 
@@ -101,21 +100,13 @@ window.FeedScreen = (function() {
         <video
           id="vid-${id}"
           style="display:block;background:#000;"
-          ${isShort ? '' : 'controls'}
+          controls
           preload="metadata"
           playsinline
           onplay="FeedScreen.onPlay('${id}', '${card.id || ''}')"
-          onclick="FeedScreen.togglePlay('${id}')"
         >
           <source src="${src}" type="${isHLS ? 'application/x-mpegURL' : 'video/mp4'}">
         </video>
-
-        <!-- Tap-to-play indicator -->
-        <div id="play-icon-${id}" class="absolute inset-0 flex items-center justify-center pointer-events-none" style="display:none!important">
-          <div style="width:64px;height:64px;background:rgba(0,0,0,0.6);border-radius:50%;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(4px)">
-            <span style="font-size:1.5rem;margin-left:4px">▶</span>
-          </div>
-        </div>
 
         <!-- Info overlay (above native controls) -->
         <div style="position:absolute;bottom:0;left:0;right:0;
