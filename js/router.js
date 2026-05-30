@@ -7,6 +7,11 @@ window.Router = (function() {
 
   function showView(name) {
     if (!VIEWS.includes(name)) return;
+    // Block navigation during active exam
+    if (window.ExamScreen && ExamScreen.isExamActive && ExamScreen.isExamActive()) {
+      ExamScreen.confirmAbort();
+      return;
+    }
 
     VIEWS.forEach(v => {
       const el = document.getElementById('view-' + v);

@@ -13,11 +13,12 @@ window.AppState = (function() {
       _state = {};
     }
     // Init defaults
-    _state.xp         = _state.xp || 0;
-    _state.streak     = _state.streak || 0;
-    _state.cardProgress = _state.cardProgress || {};
-    _state.feedProgress = _state.feedProgress || {};
+    _state.xp            = _state.xp || 0;
+    _state.streak        = _state.streak || 0;
+    _state.cardProgress  = _state.cardProgress || {};
+    _state.feedProgress  = _state.feedProgress || {};
     _state.topicProgress = _state.topicProgress || {};
+    _state.enrolledCourses = _state.enrolledCourses || null; // null = all courses
   }
 
   function save() {

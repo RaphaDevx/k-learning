@@ -8,9 +8,14 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
   <!-- ── Data Layer ── -->
+  <script src="data/courses-config.js"></script>
   <script src="data/topics-data.js"></script>
   <script src="data/flashcard-data.js"></script>
   <script src="data/feed-data.js"></script>
+
+  <!-- ── Exam Data ── -->
+  <script src="exams/esf-hs23-data.js"></script>
+  <script src="exams/statistik-pk2-data.js"></script>
 
   <!-- ── App Logic ── -->
   <script src="js/state.js"></script>
@@ -161,12 +166,7 @@
 
     <div id="sidebar-stats">
       <div class="font-semibold text-white text-sm mb-2">Prüfungen</div>
-      <div class="space-y-1">
-        <div class="flex justify-between"><span>🔥 ESF</span><span class="text-red-400">23.06.</span></div>
-        <div class="flex justify-between"><span>🔥 OM</span><span class="text-orange-400">25.06.</span></div>
-        <div class="flex justify-between"><span>⚡ Statistik</span><span class="text-blue-400">01.07.</span></div>
-        <div class="flex justify-between"><span>⚡ MakroII</span><span class="text-green-400">13.07.</span></div>
-      </div>
+      <div id="sidebar-exam-list" class="space-y-1 text-xs text-gray-400">—</div>
     </div>
   </nav>
 
@@ -194,46 +194,7 @@
       </div>
 
       <div class="grid grid-cols-2 gap-3 mb-6" id="dashboard-course-grid">
-        <!-- Statistik -->
-        <div class="bg-blue-900 rounded-2xl p-4 cursor-pointer hover:bg-blue-800 transition" onclick="showView('topics'); TopicsScreen.selectCourse('Statistik')">
-          <div class="text-2xl mb-2">📊</div>
-          <div class="font-bold">Statistik</div>
-          <div class="text-xs text-gray-300 mt-1"><span id="stat-cards-done">0</span> / <span id="stat-cards-total">0</span> Karten</div>
-          <div class="text-xs text-blue-300 mt-0.5" id="stat-days"></div>
-          <div class="mt-2 bg-blue-700 rounded-full h-1.5">
-            <div class="bg-blue-300 h-1.5 rounded-full" id="stat-progress" style="width:0%"></div>
-          </div>
-        </div>
-        <!-- MakroII -->
-        <div class="bg-green-900 rounded-2xl p-4 cursor-pointer hover:bg-green-800 transition" onclick="showView('topics'); TopicsScreen.selectCourse('MakroII')">
-          <div class="text-2xl mb-2">📈</div>
-          <div class="font-bold">MakroII</div>
-          <div class="text-xs text-gray-300 mt-1"><span id="makro-cards-done">0</span> / <span id="makro-cards-total">0</span> Karten</div>
-          <div class="text-xs text-green-300 mt-0.5" id="makro-days"></div>
-          <div class="mt-2 bg-green-700 rounded-full h-1.5">
-            <div class="bg-green-300 h-1.5 rounded-full" id="makro-progress" style="width:0%"></div>
-          </div>
-        </div>
-        <!-- ESF -->
-        <div class="bg-purple-900 rounded-2xl p-4 cursor-pointer hover:bg-purple-800 transition" onclick="showView('topics'); TopicsScreen.selectCourse('ESF')">
-          <div class="text-2xl mb-2">🔬</div>
-          <div class="font-bold">ESF</div>
-          <div class="text-xs text-gray-300 mt-1"><span id="esf-cards-done">0</span> / <span id="esf-cards-total">0</span> Karten</div>
-          <div class="text-xs text-red-300 mt-0.5" id="esf-days"></div>
-          <div class="mt-2 bg-purple-700 rounded-full h-1.5">
-            <div class="bg-purple-300 h-1.5 rounded-full" id="esf-progress" style="width:0%"></div>
-          </div>
-        </div>
-        <!-- OM -->
-        <div class="bg-orange-900 rounded-2xl p-4 cursor-pointer hover:bg-orange-800 transition" onclick="showView('topics'); TopicsScreen.selectCourse('OM')">
-          <div class="text-2xl mb-2">⚙️</div>
-          <div class="font-bold">OM</div>
-          <div class="text-xs text-gray-300 mt-1"><span id="om-cards-done">0</span> / <span id="om-cards-total">0</span> Karten</div>
-          <div class="text-xs text-orange-300 mt-0.5" id="om-days"></div>
-          <div class="mt-2 bg-orange-700 rounded-full h-1.5">
-            <div class="bg-orange-300 h-1.5 rounded-full" id="om-progress" style="width:0%"></div>
-          </div>
-        </div>
+        <!-- Rendered dynamically by DashboardScreen.renderCourseGrid() -->
       </div>
 
       <div class="bg-gray-800 rounded-2xl p-4 mb-4">
@@ -453,6 +414,112 @@
 
 </div><!-- /app-shell -->
 
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- EXAM SETUP MODAL                                                      -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div id="exam-setup-modal" class="hidden fixed inset-0 z-[160] flex items-center justify-center" style="background:rgba(0,0,0,0.85)">
+  <div class="bg-gray-800 rounded-3xl p-6 max-w-sm mx-4 w-full">
+    <h2 class="text-xl font-bold mb-1" id="exam-setup-title">Prüfung</h2>
+    <div class="text-gray-400 text-sm mb-4 space-y-1">
+      <div>⏱ Dauer: <span id="exam-setup-duration" class="text-white">—</span></div>
+      <div>📊 Punkte: <span id="exam-setup-points" class="text-white">—</span></div>
+      <div class="text-xs text-gray-500" id="exam-setup-info"></div>
+    </div>
+
+    <div class="bg-gray-900 rounded-2xl p-4 mb-4">
+      <label class="flex items-center justify-between cursor-pointer">
+        <div>
+          <div class="font-bold text-sm">Countdown-Timer</div>
+          <div class="text-xs text-gray-400">Wie bei der echten Prüfung</div>
+        </div>
+        <div class="relative">
+          <input type="checkbox" id="exam-timer-toggle" class="sr-only" checked>
+          <div class="w-11 h-6 bg-blue-600 rounded-full cursor-pointer transition peer-checked:bg-blue-600"
+               onclick="const c=document.getElementById('exam-timer-toggle'); c.checked=!c.checked; this.style.background=c.checked?'#2563eb':'#374151'"></div>
+          <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition" id="timer-toggle-knob"></div>
+        </div>
+      </label>
+    </div>
+
+    <div class="bg-yellow-950 border border-yellow-800 rounded-xl p-3 mb-4 text-xs text-yellow-300">
+      ⚠️ Einmal gestartet läuft die Prüfung durch. Kein Pausieren — wie die echte Prüfung.
+    </div>
+
+    <div class="flex gap-3">
+      <button onclick="ExamScreen.closeSetup()" class="flex-1 bg-gray-700 hover:bg-gray-600 rounded-xl py-3 font-bold transition text-sm">
+        Abbrechen
+      </button>
+      <button onclick="ExamScreen.startFromSetup()" class="flex-1 bg-red-700 hover:bg-red-600 rounded-xl py-3 font-bold transition text-sm">
+        🎯 Prüfung starten
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- EXAM FULL-SCREEN OVERLAY                                              -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div id="exam-overlay" class="hidden fixed inset-0 z-[150] flex flex-col" style="background:#080b14">
+
+  <!-- Sticky header -->
+  <div class="flex-shrink-0 border-b border-gray-800 px-4 py-3 flex items-center gap-3" style="background:#0f1623">
+    <div class="flex-1 min-w-0">
+      <div class="text-xs text-gray-500 truncate" id="exam-overlay-title"></div>
+      <div class="text-xs text-gray-400 mt-0.5" id="exam-progress-text"></div>
+    </div>
+    <div class="font-mono text-xl font-bold flex-shrink-0" id="exam-timer"></div>
+    <button onclick="ExamScreen.confirmAbort()"
+      class="flex-shrink-0 text-xs text-gray-600 hover:text-red-400 transition px-2 py-1 rounded border border-gray-700 hover:border-red-700">
+      Abbrechen
+    </button>
+  </div>
+
+  <!-- Progress bar -->
+  <div class="h-0.5 bg-gray-800 flex-shrink-0">
+    <div id="exam-progress-bar" class="h-0.5 bg-blue-500 transition-all duration-300" style="width:0%"></div>
+  </div>
+
+  <!-- Scrollable questions -->
+  <div id="exam-scroll" class="flex-1 overflow-y-auto">
+    <div class="max-w-3xl mx-auto px-4 py-6">
+      <div id="exam-questions-container"></div>
+
+      <div class="mt-6 pb-8">
+        <button onclick="ExamScreen.submitExam()"
+          class="w-full py-4 rounded-2xl font-bold text-lg bg-blue-700 hover:bg-blue-600 transition border border-blue-500">
+          Prüfung abgeben ✓
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- EXAM ABORT CONFIRMATION                                               -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div id="exam-abort-modal" class="hidden fixed inset-0 z-[200] flex items-center justify-center" style="background:rgba(0,0,0,0.85)">
+  <div class="bg-gray-800 rounded-2xl p-6 max-w-sm mx-4 text-center">
+    <div class="text-4xl mb-3">⚠️</div>
+    <h3 class="font-bold text-lg mb-2">Prüfung wirklich abbrechen?</h3>
+    <p class="text-gray-400 text-sm mb-5">Dein gesamter Fortschritt geht verloren. Diese Aktion kann nicht rückgängig gemacht werden.</p>
+    <div class="flex gap-3">
+      <button onclick="ExamScreen.cancelAbort()" class="flex-1 bg-blue-700 hover:bg-blue-600 rounded-xl py-3 font-bold transition">
+        Weitermachen
+      </button>
+      <button onclick="ExamScreen.abortExam()" class="flex-1 bg-gray-700 hover:bg-red-800 rounded-xl py-3 text-gray-400 hover:text-red-300 transition text-sm">
+        Ja, abbrechen
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- EXAM RESULTS OVERLAY                                                  -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div id="exam-results-overlay" class="hidden fixed inset-0 z-[150] overflow-y-auto" style="background:#080b14">
+  <!-- content rendered by ExamScreen._renderResults() -->
+</div>
+
 <!-- ── Auth Overlay ── -->
 <div id="auth-overlay" class="hidden fixed inset-0 z-[100] flex items-center justify-center" style="background:var(--primary)">
   <div class="text-center px-8 max-w-sm w-full">
@@ -477,6 +544,21 @@
   Gamification.render();
   showView('dashboard');
   Auth.init();
+
+  // Render dynamic sidebar exam list
+  (function renderSidebarExams() {
+    const el = document.getElementById('sidebar-exam-list');
+    if (!el || !window.COURSES_CONFIG) return;
+    const enrolled = AppState.get('enrolledCourses') || COURSES_CONFIG.map(c => c.key);
+    const sorted = COURSES_CONFIG
+      .filter(c => enrolled.includes(c.key) && c.examDate)
+      .sort((a, b) => new Date(a.examDate) - new Date(b.examDate));
+    el.innerHTML = sorted.map(c => {
+      const days = Math.ceil((new Date(c.examDate) - new Date()) / 864e5);
+      const col = days <= 3 ? 'text-red-400' : days <= 10 ? 'text-yellow-400' : 'text-gray-400';
+      return `<div class="flex justify-between"><span>${c.icon} ${c.label}</span><span class="${col}">${c.examDate.slice(5).replace('-','.')}</span></div>`;
+    }).join('');
+  })();
 </script>
 
 </body>

@@ -1,0 +1,60 @@
+// ── Courses Configuration ─────────────────────────────────────────────────
+// All available courses. User enrolls via profile screen.
+
+window.COURSES_CONFIG = [
+  {
+    key: 'Statistik',
+    label: 'Statistik',
+    icon: '📊',
+    color: 'blue',
+    tailwind: { bg: 'bg-blue-900', hover: 'hover:bg-blue-800', bar: 'bg-blue-700', fill: 'bg-blue-300', text: 'text-blue-300' },
+    hex: '#2563eb',
+    examDate: '2026-07-01',
+    examRoom: 'Raum 01-011, Sitzplatz 57',
+    examFormat: 'Teleform MC',
+    notebookId: '653a4072-ae20-4077-b850-45b9fcef6eca',
+    dataDir: 'Statistik',
+  },
+  {
+    key: 'MakroII',
+    label: 'MakroII',
+    icon: '📈',
+    color: 'green',
+    tailwind: { bg: 'bg-green-900', hover: 'hover:bg-green-800', bar: 'bg-green-700', fill: 'bg-green-300', text: 'text-green-300' },
+    hex: '#059669',
+    examDate: '2026-07-13',
+    examRoom: 'Raum 02-001, Sitzplatz 55',
+    examFormat: 'MC + offene Fragen',
+    notebookId: 'b98f0355-7a6f-40b7-b23b-daa238178253',
+    dataDir: 'MakroII',
+  },
+  {
+    key: 'ESF',
+    label: 'ESF',
+    icon: '🔬',
+    color: 'purple',
+    tailwind: { bg: 'bg-purple-900', hover: 'hover:bg-purple-800', bar: 'bg-purple-700', fill: 'bg-purple-300', text: 'text-red-300' },
+    hex: '#7c3aed',
+    examDate: '2026-06-23',
+    examRoom: 'Raum 01-111, Sitzplatz 24',
+    examFormat: '30 MC-Fragen',
+    notebookId: '7d5681b8-f3f2-43c4-90a5-9c00eca211ef',
+    dataDir: 'ESF',
+  },
+  {
+    key: 'OM',
+    label: 'OM',
+    icon: '⚙️',
+    color: 'orange',
+    tailwind: { bg: 'bg-orange-900', hover: 'hover:bg-orange-800', bar: 'bg-orange-700', fill: 'bg-orange-300', text: 'text-orange-300' },
+    hex: '#ea580c',
+    examDate: '2026-06-25',
+    examRoom: 'Raum 01-111, Sitzplatz 37',
+    examFormat: 'BYOD Excel + MC',
+    notebookId: '2ad2f793-7b38-4424-88e5-17d933a3bfe0',
+    dataDir: 'OM',
+  },
+];
+
+// Helper: get course by key
+window.getCourse = key => window.COURSES_CONFIG.find(c => c.key === key);
