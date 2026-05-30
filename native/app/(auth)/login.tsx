@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
 import { makeRedirectUri } from 'expo-auth-session';
 import { supabase } from '../../lib/supabase';
@@ -12,7 +12,10 @@ export default function LoginScreen() {
   async function signInWithGoogle() {
     setLoading(true);
     try {
-      const redirectTo = makeRedirectUri({ scheme: 'k-learning', path: 'auth/callback' });
+      // makeRedirectUri() auto-detects environment:
+      // Expo Go → exp://192.168.x.x:8081/--/auth/callback
+      // Standalone → k-learning://auth/callback (via app.json scheme)
+      const redirectTo = makeRedirectUri({ path: 'auth/callback' });
 
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
@@ -24,20 +27,10 @@ export default function LoginScreen() {
       const result = await WebBrowser.openAuthSessionAsync(data.url, redirectTo);
 
       if (result.type === 'success' && result.url) {
-        const urlParams = new URLSearchParams(result.url.split('?')[1] ?? '');
-        const code = urlParams.get('code');
-        if (code) {
-          await supabase.auth.exchangeCodeForSession(result.url.split('?')[1] ?? '');
-        } else {
-          // Implicit flow fallback
-          const { data: sessionData } = await supabase.auth.getSession();
-          if (!sessionData.session) {
-            await supabase.auth.setSession({
-              access_token: urlParams.get('access_token') ?? '',
-              refresh_token: urlParams.get('refresh_token') ?? '',
-            });
-          }
-        }
+        const params = result.url.includes('?')
+          ? result.url.split('?')[1]
+          : result.url.split('#')[1] ?? '';
+        await supabase.auth.exchangeCodeForSession(params);
       }
     } catch (e) {
       console.warn('Google sign-in error:', e);

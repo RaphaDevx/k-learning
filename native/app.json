@@ -24,12 +24,10 @@
     },
     "plugins": [
       "expo-router",
-      "expo-video",
-      "expo-web-browser",
-      "expo-status-bar"
+      "expo-video"
     ],
     "experiments": {
-      "typedRoutes": true
+      "typedRoutes": false
     }
   }
 }
