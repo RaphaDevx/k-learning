@@ -4,6 +4,7 @@ const SUPABASE_URL = 'https://ifmwcgwfvunjbnfwwbtr.supabase.co';
 const SUPABASE_KEY = 'sb_publishable__h4cSWEEpNBjY3XGPvh0_A_ipyoeEjO';
 
 window._supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+window.supabaseClient = window._supabase; // alias used by FeedScreen
 
 window.Auth = (function () {
 

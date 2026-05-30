@@ -6,6 +6,10 @@
   <title>K-Learning</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Video.js + HLS plugin for adaptive streaming -->
+  <link  href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet">
+  <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-hls@5.15.0/dist/videojs-contrib-hls.min.js"></script>
 
   <!-- ── Data Layer ── -->
   <script src="data/courses-config.js"></script>
@@ -54,6 +58,7 @@
     .streak-fire { animation: streak-pulse 1.5s infinite; }
     @keyframes slide-up { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
     .animate-slide-up { animation: slide-up 0.3s ease; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ── Feed ── */
     .recall-reveal { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }

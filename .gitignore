@@ -4,7 +4,7 @@ Thumbs.db
 videos/
 *.mp4
 *.mov
-tools/
+# tools/  # unignored: transcode + upload scripts are safe to commit
 .wrangler/
 *.json.secret
 client_secret*.json
