@@ -54,6 +54,21 @@ window.FEED_CARDS = [
     thumbnail_emoji: "📋",
     block: "Wissenschaftstheorie & Forschungslogik"
   },
+  {
+    id: "esf-sv-04",
+    type: "localvideo",
+    course: "ESF", courseColor: "#7c3aed",
+    emoji: "🔬",
+    title: "Das Laborexperiment",
+    subtitle: "Kausalität beweisen — UV, AV & Kontrollgruppe",
+    description: "Was macht ein Laborexperiment so mächtig? UV manipulieren, AV messen, interne Validität sichern — mit konkreten Beispielen aus der Praxis.",
+    topics: ["Laborexperiment", "Kausalität", "UV", "AV", "Kontrollgruppe", "Interne Validität"],
+    duration: "1:00",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/laborexperiment_reel.mp4",
+    thumbnail_emoji: "🔬",
+    block: "Forschungsdesigns & Experimente"
+  },
 
   // ═══════════════════════════════════════════════════
   // 🎬 NOTEBOOKLM STUDIO VIDEOS — AI-generierte Erklärvideos
