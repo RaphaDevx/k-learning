@@ -21,6 +21,7 @@ window.Router = (function() {
     if (target) target.classList.remove('hidden');
 
     currentView = name;
+    document.body.classList.toggle('feed-active', name === 'feed');
     updateNav(name);
 
     // Call screen init

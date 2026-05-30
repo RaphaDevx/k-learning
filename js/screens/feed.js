@@ -47,17 +47,16 @@ window.FeedScreen = (function() {
   function renderLocalVideoCard(card, index) {
     const prog = AppState.get('feedProgress') || {};
     const watched = prog[card.id] === 'watched';
-    const isShort = card.id.startsWith('esf-sv-');
     const typeLabel = card.id.includes('nlm') ? '🎬 NotebookLM AI' : '📹 Short Video';
 
     return `
-    <div class="feed-card" id="feed-${index}" style="padding:0; margin:0;">
-      <div class="feed-card-inner relative overflow-hidden" style="background:#000; border-radius:0;">
+    <div class="feed-card feed-card-video" id="feed-${index}">
+      <div class="feed-card-inner" style="background:#000;">
 
         <!-- Fullscreen Video -->
         <video
           id="vid-${card.id}"
-          style="width:100%; height:100%; object-fit:${isShort ? 'cover' : 'contain'}; display:block; background:#000;"
+          style="display:block; background:#000;"
           controls
           preload="metadata"
           playsinline
@@ -66,32 +65,34 @@ window.FeedScreen = (function() {
           <source src="${card.video_src}" type="video/mp4">
         </video>
 
-        <!-- Bottom gradient overlay -->
-        <div class="absolute bottom-0 left-0 right-0" style="
-          background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 60%, transparent 100%);
-          padding: 4rem 1.25rem 1.25rem; pointer-events:none;">
+        <!-- Info overlay: sits above video controls (~80px from bottom) -->
+        <div style="
+          position:absolute; bottom:0; left:0; right:0;
+          background:linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 50%, transparent 100%);
+          padding: 5rem 1rem 5.5rem;
+          pointer-events:none;">
 
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-xs font-bold px-2 py-1 rounded-full text-white"
-                  style="background:${card.courseColor}66; border:1px solid ${card.courseColor}99; pointer-events:auto">${card.course}</span>
+          <div class="flex items-center gap-2 mb-1.5">
+            <span class="text-xs font-bold px-2 py-0.5 rounded-full text-white"
+                  style="background:${card.courseColor}66; border:1px solid ${card.courseColor}99">${card.course}</span>
             <span class="text-xs text-white px-2 py-0.5 rounded-full"
                   style="background:rgba(255,255,255,0.15)">${typeLabel}</span>
             <span class="text-xs text-gray-300 ml-auto">${card.duration}</span>
-            ${watched ? '<span class="text-xs text-green-400 font-bold">✓</span>' : ''}
+            ${watched ? '<span class="text-xs text-green-400 font-bold ml-1">✓</span>' : ''}
           </div>
 
-          <h2 class="text-base font-bold text-white leading-tight mb-0.5">${card.title}</h2>
+          <h2 class="text-sm font-bold text-white leading-tight mb-0.5">${card.title}</h2>
           <p class="text-xs mb-3" style="color:${card.courseColor}dd">${card.subtitle}</p>
 
           <div class="flex gap-2" style="pointer-events:auto">
             <button onclick="FeedScreen.rate('${card.id}','knew')"
                     class="flex-1 text-xs py-2 rounded-xl font-bold"
-                    style="background:rgba(52,211,153,0.2); color:#34d399; border:1px solid rgba(52,211,153,0.4)">
+                    style="background:rgba(52,211,153,0.25); color:#34d399; border:1px solid rgba(52,211,153,0.5)">
               ✅ Kapiert
             </button>
             <button onclick="FeedScreen.rate('${card.id}','didnt')"
                     class="flex-1 text-xs py-2 rounded-xl font-bold"
-                    style="background:rgba(248,113,113,0.2); color:#f87171; border:1px solid rgba(248,113,113,0.4)">
+                    style="background:rgba(248,113,113,0.25); color:#f87171; border:1px solid rgba(248,113,113,0.5)">
               🔁 Nochmal
             </button>
           </div>
@@ -107,7 +108,7 @@ window.FeedScreen = (function() {
       card.course === 'OM'  ? '<span class="bg-orange-500 text-white text-xs px-2 py-0.5 rounded-full ml-2">⚠️ Bald</span>' : '';
 
     return `
-    <div class="feed-card px-4 py-3" id="feed-${index}">
+    <div class="feed-card feed-card-concept" id="feed-${index}">
       <div class="feed-card-inner rounded-3xl overflow-hidden flex flex-col"
            style="background:linear-gradient(160deg,#1e1e3a 0%,#0d1a2e 100%); border:1px solid rgba(255,255,255,0.08);">
 
@@ -173,7 +174,7 @@ window.FeedScreen = (function() {
     ).join('');
 
     return `
-    <div class="feed-card px-4 py-3" id="feed-${index}">
+    <div class="feed-card feed-card-concept" id="feed-${index}">
       <div class="feed-card-inner rounded-3xl overflow-hidden flex flex-col"
            style="background:linear-gradient(160deg,#0f1923 0%,#1a0a0a 100%); border:1px solid rgba(255,80,80,0.2);">
 

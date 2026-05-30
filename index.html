@@ -56,13 +56,8 @@
     .animate-slide-up { animation: slide-up 0.3s ease; }
 
     /* ── Feed ── */
-    .feed-card { scroll-snap-align: start; }
-    #feed-container { scroll-snap-type: y mandatory; overflow-y: scroll; }
     .recall-reveal { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
     .recall-reveal.open { max-height: 500px; }
-    /* Video cards: edge-to-edge fullscreen */
-    .feed-card:has(video) { padding: 0 !important; }
-    .feed-card:has(video) .feed-card-inner { border-radius: 0 !important; min-height: 100%; }
 
     /* ── MOBILE layout (default) ── */
     #app-shell { display: flex; flex-direction: column; min-height: 100vh; }
@@ -76,8 +71,6 @@
       margin: 0 auto;
       width: 100%;
     }
-    #feed-container { height: calc(100vh - 120px); }
-    .feed-card-inner { min-height: calc(100vh - 140px); }
 
     /* ── DESKTOP layout (≥768px) ── */
     @media (min-width: 768px) {
@@ -117,9 +110,84 @@
         max-width: none; padding: 2rem 2.5rem; flex: 1;
       }
       #dashboard-course-grid { grid-template-columns: repeat(4, 1fr); }
-      #feed-container { height: calc(100vh - 80px); }
-      .feed-card-inner { min-height: calc(100vh - 100px); max-width: 600px; margin: 0 auto; }
       #flashcard-area  { max-width: 640px; }
+    }
+
+    /* ── Feed Fullscreen (active) ── */
+    body.feed-active #top-bar { display: none !important; }
+    body.feed-active #content-area {
+      padding: 0 !important;
+      max-width: none !important;
+      margin: 0 !important;
+    }
+    body.feed-active #view-feed {
+      position: fixed !important;
+      top: 0; left: 0; right: 0; bottom: 56px;
+      z-index: 40;
+      background: #000;
+      overflow: hidden;
+    }
+    @media (min-width: 768px) {
+      body.feed-active #view-feed {
+        left: var(--sidebar-w);
+        bottom: 0;
+      }
+    }
+
+    /* Filter bar floats over videos */
+    #feed-filter-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 10;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.75) 0%, transparent 100%);
+      padding: 0.6rem 0.75rem 1.5rem;
+    }
+
+    /* Scroll snap container */
+    #feed-cards-container {
+      height: 100%;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    #feed-cards-container::-webkit-scrollbar { display: none; }
+
+    /* Each card = one viewport unit */
+    .feed-card {
+      scroll-snap-align: start;
+      height: calc(100vh - 56px);
+      position: relative;
+      overflow: hidden;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+    @media (min-width: 768px) {
+      .feed-card { height: 100vh; }
+    }
+
+    /* Video card inner: fills card absolutely */
+    .feed-card-video .feed-card-inner {
+      position: absolute;
+      inset: 0;
+      border-radius: 0 !important;
+    }
+    .feed-card-video video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Concept/link cards: scrollable within the card */
+    .feed-card-concept {
+      overflow-y: auto;
+    }
+    .feed-card-concept .feed-card-inner {
+      min-height: 100%;
+      border-radius: 0 !important;
+      padding: 1rem;
     }
     .nav-icon { font-size: 1.2rem; width: 1.5rem; text-align: center; }
   </style>
@@ -237,15 +305,15 @@
     <!-- FEED                                                  -->
     <!-- ══════════════════════════════════════════════════════ -->
     <div id="view-feed" class="hidden">
-      <!-- Filter bar -->
-      <div class="flex gap-2 overflow-x-auto py-3 sticky top-0 z-10" style="background:var(--primary)">
-        <button data-filter="all"       onclick="FeedScreen.render('all')"       class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-blue-600 text-white">Alle</button>
-        <button data-filter="ESF"       onclick="FeedScreen.render('ESF')"       class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">ESF</button>
-        <button data-filter="OM"        onclick="FeedScreen.render('OM')"        class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">OM</button>
-        <button data-filter="Statistik" onclick="FeedScreen.render('Statistik')" class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">Statistik</button>
-        <button data-filter="MakroII"   onclick="FeedScreen.render('MakroII')"   class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">MakroII</button>
-        <button data-filter="video"       onclick="FeedScreen.render('video')"       class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">▶ YouTube</button>
-        <button data-filter="localvideo" onclick="FeedScreen.render('localvideo')" class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">📹 Meine Videos</button>
+      <!-- Filter bar: floats over videos -->
+      <div id="feed-filter-bar" class="flex gap-2 overflow-x-auto">
+        <button data-filter="all"        onclick="FeedScreen.render('all')"        class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-blue-600 text-white">Alle</button>
+        <button data-filter="localvideo" onclick="FeedScreen.render('localvideo')" class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">📹 Videos</button>
+        <button data-filter="ESF"        onclick="FeedScreen.render('ESF')"        class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">ESF</button>
+        <button data-filter="OM"         onclick="FeedScreen.render('OM')"         class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">OM</button>
+        <button data-filter="Statistik"  onclick="FeedScreen.render('Statistik')"  class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">Statistik</button>
+        <button data-filter="MakroII"    onclick="FeedScreen.render('MakroII')"    class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">MakroII</button>
+        <button data-filter="video"      onclick="FeedScreen.render('video')"      class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">▶ YouTube</button>
       </div>
       <div id="feed-cards-container"></div>
     </div>
