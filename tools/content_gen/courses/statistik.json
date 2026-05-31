@@ -1,0 +1,113 @@
+{
+  "id": "statistik",
+  "display_name": "Statistik",
+  "exam_format": "Offene Aufgaben + MC; Schwerpunkt: Formeln anwenden, Berechnungen, Interpretation",
+  "flashcard_prefix": "stat",
+  "flashcard_data_path": "/home/raphael/K-Learning/data/flashcard-data.js",
+  "flashcard_insert_before": "// MAKROII",
+  "course_color": "#0ea5e9",
+  "reel_scripts_dir": "/home/raphael/ESF_Reels",
+  "modules": [
+    {
+      "id": "m01",
+      "name": "M01 — Grundlagen & Deskriptive Statistik",
+      "topics": [
+        "Lageparameter", "Streuungsmaße", "Median", "Mittelwert", "Modus",
+        "Varianz", "Standardabweichung", "Schiefe", "Kurtosis",
+        "Empirische Verteilungsfunktion", "Histogramm", "Boxplot"
+      ],
+      "content_files": [
+        "/home/raphael/Sara_Home/HSG/Bachelor/FS 26/Statistik/Skript/Statistik_M00_Einführung.md",
+        "/home/raphael/Sara_Home/HSG/Bachelor/FS 26/Statistik/Skript/Statistik_M01_Grundlagen.md"
+      ],
+      "flashcard_count": 22,
+      "reel_count": 3,
+      "reel_id_start": 2
+    },
+    {
+      "id": "m02",
+      "name": "M02 — Wahrscheinlichkeitsrechnung",
+      "topics": [
+        "Grundbegriffe", "Bedingte Wahrscheinlichkeit", "Satz von Bayes",
+        "Unabhängigkeit", "Kombinatorik", "Laplace-Experiment",
+        "Additionssatz", "Multiplikationssatz", "Totale Wahrscheinlichkeit"
+      ],
+      "content_files": [
+        "/home/raphael/Sara_Home/HSG/Bachelor/FS 26/Statistik/Skript/Statistik_Wahrscheinlichkeitsrechnung.md"
+      ],
+      "flashcard_count": 20,
+      "reel_count": 3,
+      "reel_id_start": 5
+    },
+    {
+      "id": "m03",
+      "name": "M03 — Wahrscheinlichkeitsverteilungen",
+      "topics": [
+        "Binomialverteilung", "Poissonverteilung", "Normalverteilung",
+        "Standardnormalverteilung", "z-Transformation", "Erwartungswert",
+        "Varianz diskreter Zufallsvariablen", "Mehrdimensionale Verteilungen",
+        "Kovarianz", "Korrelationskoeffizient"
+      ],
+      "content_files": [
+        "/home/raphael/Sara_Home/HSG/Bachelor/FS 26/Statistik/Skript/Statistik_M03_DiskreteVerteilungen.md",
+        "/home/raphael/Sara_Home/HSG/Bachelor/FS 26/Statistik/Skript/Statistik_Stetige Verteilungen.md",
+        "/home/raphael/Sara_Home/HSG/Bachelor/FS 26/Statistik/Skript/Statistik_Mehrdimensionale Verteilungen.md"
+      ],
+      "flashcard_count": 25,
+      "reel_count": 3,
+      "reel_id_start": 8
+    },
+    {
+      "id": "m04",
+      "name": "M04 — Stichprobenverteilungen & Schätztheorie",
+      "topics": [
+        "Zentraler Grenzwertsatz", "Stichprobenmittelwert", "Standardfehler",
+        "Chi-Quadrat-Verteilung", "t-Verteilung", "F-Verteilung",
+        "Punktschätzer", "Konfidenzintervall", "KI für Mittelwert",
+        "KI für Anteilswert", "Stichprobenumfang"
+      ],
+      "content_files": [
+        "/home/raphael/Sara_Home/HSG/Bachelor/FS 26/Statistik/Skript/Statistik_M05_Stichprobenverteilungen.md",
+        "/home/raphael/Sara_Home/HSG/Bachelor/FS 26/Statistik/Skript/Statistik_M06_Schätztheorie.md"
+      ],
+      "flashcard_count": 22,
+      "reel_count": 3,
+      "reel_id_start": 11
+    },
+    {
+      "id": "m05",
+      "name": "M05 — Hypothesentests",
+      "topics": [
+        "H0 und H1", "Fehler 1. und 2. Art", "Signifikanzniveau", "p-Wert",
+        "z-Test", "t-Test (einstichprobig)", "t-Test (zweistichprobig)",
+        "Welch-Test", "gepaarter t-Test", "Power", "Teststärke",
+        "Zweistichprobenverfahren"
+      ],
+      "content_files": [
+        "/home/raphael/Sara_Home/HSG/Bachelor/FS 26/Statistik/Skript/Statistik_M07_Hypothesentests-Grundlagen.md",
+        "/home/raphael/Sara_Home/HSG/Bachelor/FS 26/Statistik/Skript/Statistik_Hypothesentests Zweistichprobenverfahren.md"
+      ],
+      "flashcard_count": 25,
+      "reel_count": 3,
+      "reel_id_start": 14
+    },
+    {
+      "id": "m06",
+      "name": "M06 — ANOVA & Regression",
+      "topics": [
+        "Einfaktorielle ANOVA", "F-Test", "Quadratsummen", "Post-hoc-Tests",
+        "Einfache lineare Regression", "OLS-Schätzung", "Bestimmtheitsmaß R²",
+        "Residuenanalyse", "Multiple Regression", "Multikollinearität",
+        "Signifikanztest Regression", "Interpretation Koeffizienten"
+      ],
+      "content_files": [
+        "/home/raphael/Sara_Home/HSG/Bachelor/FS 26/Statistik/Skript/Statistik_M09_Varianzanalyse.md",
+        "/home/raphael/Sara_Home/HSG/Bachelor/FS 26/Statistik/Skript/Statistik_Lineare Regression M11.md",
+        "/home/raphael/Sara_Home/HSG/Bachelor/FS 26/Statistik/Skript/Statistik_Multiple Regression M12.md"
+      ],
+      "flashcard_count": 25,
+      "reel_count": 3,
+      "reel_id_start": 17
+    }
+  ]
+}

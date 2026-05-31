@@ -1,0 +1,101 @@
+{
+  "id": "esf",
+  "display_name": "Empirische Sozialforschung (ESF)",
+  "exam_format": "30 MC-Fragen (Single Choice: 1 richtig = 2P; Multiple Choice: alle richtig oder 0P)",
+  "flashcard_prefix": "esf",
+  "flashcard_data_path": "/home/raphael/K-Learning/data/flashcard-data.js",
+  "flashcard_insert_before": "// OM (OPERATIONS MANAGEMENT)",
+  "course_color": "#7c3aed",
+  "reel_scripts_dir": "/home/raphael/ESF_Reels",
+  "modules": [
+    {
+      "id": "s1",
+      "name": "Sitzung 1 — Forschungsprozess & Design",
+      "topics": [
+        "Forschungsprozess", "Forschungsdesign", "Phasenmodell",
+        "Deskriptiv", "Explorativ", "Kausal", "Querschnitt", "Längsschnitt"
+      ],
+      "content_files": [
+        "/home/raphael/Sara_Home/HSG/Bachelor/FS 26/ESF/Sitzungen/ESF_25_Sitzung1.md"
+      ],
+      "flashcard_count": 20,
+      "reel_count": 3,
+      "reel_id_start": 1
+    },
+    {
+      "id": "s2",
+      "name": "Sitzung 2 — Forschungsfrage & Hypothesen",
+      "topics": [
+        "Forschungsfrage", "Hypothesen", "H0", "H1", "Nullhypothese",
+        "Mediator", "Moderator", "UV", "AV", "Konzeptualisierung", "Operationalisierung"
+      ],
+      "content_files": [
+        "/home/raphael/Sara_Home/HSG/Bachelor/FS 26/ESF/Sitzungen/ESF_25_Sitzung2.md"
+      ],
+      "flashcard_count": 22,
+      "reel_count": 3,
+      "reel_id_start": 11
+    },
+    {
+      "id": "s3",
+      "name": "Sitzung 3 — Quantitative Forschung",
+      "topics": [
+        "Kausalität", "Korrelation", "Scheinkorrelation", "Experiment",
+        "Laborexperiment", "Feldexperiment", "Skalenniveau",
+        "Nominal", "Ordinal", "Intervall", "Likert", "Gütekriterien"
+      ],
+      "content_files": [
+        "/home/raphael/Sara_Home/HSG/Bachelor/FS 26/ESF/Sitzungen/ESF_25_Sitzung3.md",
+        "/home/raphael/Sara_Home/HSG/Bachelor/FS 26/ESF/Sitzungen/ESF_25_Sitzung3_Gastvortrag.md"
+      ],
+      "flashcard_count": 25,
+      "reel_count": 3,
+      "reel_id_start": 14
+    },
+    {
+      "id": "s4",
+      "name": "Sitzung 4 — Qualitative Forschung",
+      "topics": [
+        "Positivismus", "Interpretivismus", "Interview", "Fokusgruppe",
+        "Grounded Theory", "Theoretisches Sampling", "Purposive Sampling",
+        "Kodierung", "Offenes Kodieren", "Sättigung"
+      ],
+      "content_files": [
+        "/home/raphael/Sara_Home/HSG/Bachelor/FS 26/ESF/Sitzungen/ESF_25_Sitzung4.md"
+      ],
+      "flashcard_count": 22,
+      "reel_count": 3,
+      "reel_id_start": 17
+    },
+    {
+      "id": "s5",
+      "name": "Sitzung 5 — Gütekriterien & Open Science",
+      "topics": [
+        "Reliabilität", "Validität", "Objektivität", "Cronbach Alpha",
+        "Replikationskrise", "p-Hacking", "HARKing", "Publikationsbias",
+        "Open Science", "Präregistrierung", "Registered Report", "Power"
+      ],
+      "content_files": [
+        "/home/raphael/Sara_Home/HSG/Bachelor/FS 26/ESF/Sitzungen/ESF_25_Sitzung5.md"
+      ],
+      "flashcard_count": 22,
+      "reel_count": 3,
+      "reel_id_start": 20
+    },
+    {
+      "id": "s6",
+      "name": "Sitzung 6 — Schreiben & Publikation",
+      "topics": [
+        "Wissenschaftliches Schreiben", "APA", "Datenvisualisierung",
+        "Prüfungsformat", "Multiple Choice", "Single Choice",
+        "Publikationsprozess", "Peer Review", "VHB", "Impact Factor"
+      ],
+      "content_files": [
+        "/home/raphael/Sara_Home/HSG/Bachelor/FS 26/ESF/Sitzungen/ESF_25_Sitzung6.md"
+      ],
+      "flashcard_count": 20,
+      "reel_count": 3,
+      "reel_id_start": 23
+    }
+  ]
+}
