@@ -144,20 +144,36 @@ window.ProfileScreen = (function () {
     const msg    = document.getElementById('ai-key-msg');
     if (!input) return;
 
-    // Load from Supabase
+    // Show display info from DB — never the real key
     badge.innerHTML = '<span class="text-xs text-gray-500">Lade…</span>';
-    const stored = await AIService.loadKey();
-    if (stored) input.value = stored;
-    _updateBadge(stored);
+    const info = await AIService.getKeyInfo();
+    _renderBadge(info);
 
-    function _updateBadge(key) {
-      const p = AIService.detectProvider(key);
-      badge.innerHTML = p
-        ? `<span class="text-xs font-bold px-2 py-1 rounded-full" style="background:${p.color}22;color:${p.color}">${p.emoji} ${p.name}</span>`
-        : '<span class="text-xs text-gray-500">Kein Anbieter erkannt</span>';
+    function _renderBadge(info) {
+      if (info?.ai_provider && info?.key_preview) {
+        const p = AIService.PROVIDERS[info.ai_provider] || { name: info.ai_provider, color: '#6B7280', emoji: '⚪' };
+        badge.innerHTML = `
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold px-2 py-1 rounded-full" style="background:${p.color}22;color:${p.color}">${p.emoji} ${p.name}</span>
+            <span class="text-xs font-mono text-gray-500">${info.key_preview}</span>
+          </div>`;
+      } else {
+        badge.innerHTML = '<span class="text-xs text-gray-500">Kein Key gesetzt</span>';
+      }
     }
 
-    input.addEventListener('input', () => _updateBadge(input.value));
+    // Detect provider from what the user is currently typing — for feedback only
+    input.addEventListener('input', () => {
+      const k = input.value;
+      if (!k) return;
+      const id = k.startsWith('sk-ant-') ? 'anthropic' : k.startsWith('sk-') ? 'openai' : null;
+      if (id) {
+        const p = AIService.PROVIDERS[id];
+        badge.innerHTML = `<span class="text-xs px-2 py-1 rounded-full" style="background:${p.color}22;color:${p.color}">${p.emoji} ${p.name} erkannt</span>`;
+      } else {
+        badge.innerHTML = '<span class="text-xs text-gray-500">Kein Anbieter erkannt</span>';
+      }
+    });
 
     toggle.addEventListener('click', () => {
       const show = input.type === 'password';
@@ -167,20 +183,32 @@ window.ProfileScreen = (function () {
 
     clear.addEventListener('click', async () => {
       input.value = '';
-      await AIService.saveKey('');
-      _updateBadge('');
-      _showMsg('Key gelöscht', false);
-    });
-
-    save.addEventListener('click', async () => {
       save.disabled = true;
       save.textContent = '…';
       try {
-        const key = input.value.trim();
-        await AIService.saveKey(key);
-        const p = AIService.detectProvider(key);
-        _updateBadge(key);
-        _showMsg(key ? `Gespeichert${p ? ` · ${p.name}` : ''}` : 'Key gelöscht', false);
+        await AIService.saveKey('');
+        _renderBadge(null);
+        _showMsg('Key gelöscht', false);
+      } catch (e) {
+        _showMsg(`Fehler: ${e.message}`, true);
+      } finally {
+        save.disabled = false;
+        save.textContent = 'Key speichern';
+      }
+    });
+
+    save.addEventListener('click', async () => {
+      const key = input.value.trim();
+      if (!key) return;
+      save.disabled = true;
+      save.textContent = '…';
+      try {
+        const result = await AIService.saveKey(key);
+        input.value = '';      // clear from DOM immediately after saving
+        input.type = 'password';
+        toggle.textContent = 'Anzeigen';
+        _renderBadge({ ai_provider: result.provider, key_preview: result.preview });
+        _showMsg(`Gespeichert · Key verlässt den Browser nicht mehr`, false);
       } catch (e) {
         _showMsg(`Fehler: ${e.message}`, true);
       } finally {
@@ -192,7 +220,7 @@ window.ProfileScreen = (function () {
     function _showMsg(text, isError) {
       msg.textContent = text;
       msg.className = `mt-2 text-xs text-center rounded-lg py-1.5 ${isError ? 'bg-red-900 text-red-300' : 'bg-green-900 text-green-300'}`;
-      setTimeout(() => msg.classList.add('hidden'), 3000);
+      setTimeout(() => msg.classList.add('hidden'), 4000);
     }
   }
 

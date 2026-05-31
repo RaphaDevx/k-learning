@@ -656,15 +656,6 @@ window.ExamScreen = (function() {
     out.textContent = 'KI analysiert deine Fehler…';
 
     try {
-      const key = AIService.getKey() ?? await AIService.loadKey();
-      if (!key) {
-        out.className = 'mt-3 text-xs text-yellow-400';
-        out.textContent = 'Kein API-Key gesetzt — bitte im Profil eintragen.';
-        btn.textContent = 'Analysieren';
-        btn.disabled = false;
-        return;
-      }
-
       const results = _scoreExam();
       const wrong = [];
       results.sections.forEach(({ questions }) => {
@@ -694,8 +685,10 @@ window.ExamScreen = (function() {
       btn.textContent = 'Nochmals';
       btn.disabled = false;
     } catch (err) {
-      out.className = 'mt-3 text-xs text-red-400';
-      out.textContent = `Fehler: ${err.message}`;
+      out.className = 'mt-3 text-xs text-yellow-400';
+      out.textContent = err.message === 'no_key_set'
+        ? 'Kein API-Key gesetzt — bitte im Profil eintragen.'
+        : `Fehler: ${err.message}`;
       btn.textContent = 'Nochmals';
       btn.disabled = false;
     }

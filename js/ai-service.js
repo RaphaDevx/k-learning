@@ -1,55 +1,40 @@
 // ── AI Service ────────────────────────────────────────────────────────────
-// API key stored in Supabase user_settings (per-account, not localStorage)
+// The API key NEVER leaves the server after being saved.
+// Frontend only: save key (once), get display info, send messages.
 
 window.AIService = (function () {
   const PROXY_URL = 'https://ifmwcgwfvunjbnfwwbtr.supabase.co/functions/v1/ai-proxy';
 
-  const PROVIDERS = [
-    { id: 'anthropic', name: 'Anthropic Claude', test: k => k.startsWith('sk-ant-'), color: '#D97706', emoji: '🟡', defaultModel: 'claude-haiku-4-5-20251001' },
-    { id: 'openai',    name: 'OpenAI',           test: k => k.startsWith('sk-') && !k.startsWith('sk-ant-'), color: '#10B981', emoji: '🟢', defaultModel: 'gpt-4o-mini' },
-    { id: 'qwen',      name: 'Qwen (Alibaba)',   test: () => false, color: '#3B82F6', emoji: '🔵', defaultModel: 'qwen-plus' },
-  ];
+  const PROVIDERS = {
+    anthropic: { name: 'Anthropic Claude', color: '#D97706', emoji: '🟡' },
+    openai:    { name: 'OpenAI',           color: '#10B981', emoji: '🟢' },
+    qwen:      { name: 'Qwen (Alibaba)',   color: '#3B82F6', emoji: '🔵' },
+  };
 
-  let _cache = null; // in-memory during session
-
-  function detectProvider(key) {
-    if (!key) return null;
-    return PROVIDERS.find(p => p.test(key)) || null;
+  // Called once when user submits a new key in the profile screen.
+  // The key travels over HTTPS to Supabase and is stored encrypted in Vault.
+  // It is never returned to the browser again.
+  async function saveKey(key) {
+    const { data, error } = await _supabase.rpc('save_ai_key', { p_key: key ?? '' });
+    if (error) throw new Error(error.message);
+    return data; // { ok, provider, preview }
   }
 
-  async function loadKey() {
+  // Returns display-only info: { key_preview, ai_provider } — never the real key.
+  async function getKeyInfo() {
     const { data: { user } } = await _supabase.auth.getUser();
     if (!user) return null;
     const { data } = await _supabase
       .from('user_settings')
-      .select('ai_api_key')
+      .select('key_preview, ai_provider')
       .eq('user_id', user.id)
       .single();
-    _cache = data?.ai_api_key || null;
-    return _cache;
+    return data; // may be null if no key set
   }
 
-  async function saveKey(key) {
-    const { data: { user } } = await _supabase.auth.getUser();
-    if (!user) throw new Error('Nicht eingeloggt');
-    const trimmed = key?.trim() || null;
-    const provider = trimmed ? (detectProvider(trimmed)?.id || null) : null;
-    const { error } = await _supabase
-      .from('user_settings')
-      .upsert({ user_id: user.id, ai_api_key: trimmed, ai_provider: provider, updated_at: new Date().toISOString() });
-    if (error) throw new Error(error.message);
-    _cache = trimmed;
-  }
-
-  // Sync read of in-memory cache (call loadKey() first)
-  function getKey() { return _cache; }
-
+  // Send a request to the AI proxy. The proxy reads the key from Vault server-side.
+  // No key is sent from the browser.
   async function ask(messages, { system, model, max_tokens = 1024 } = {}) {
-    let key = _cache ?? await loadKey();
-    if (!key) throw new Error('Kein API-Key gesetzt. Bitte im Profil eintragen.');
-    const provider = detectProvider(key);
-    if (!provider) throw new Error('Anbieter nicht erkannt. Bitte Key im Profil prüfen.');
-
     const { data: { session } } = await _supabase.auth.getSession();
     const res = await fetch(PROXY_URL, {
       method: 'POST',
@@ -57,9 +42,12 @@ window.AIService = (function () {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${session?.access_token}`,
       },
-      body: JSON.stringify({ provider: provider.id, key, messages, system, model: model || provider.defaultModel, max_tokens }),
+      body: JSON.stringify({ messages, system, model, max_tokens }),
     });
-    if (!res.ok) throw new Error(`API-Fehler (${res.status}): ${await res.text()}`);
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      throw new Error(body.error || `HTTP ${res.status}`);
+    }
     return res.json();
   }
 
@@ -69,5 +57,5 @@ window.AIService = (function () {
     return '';
   }
 
-  return { detectProvider, loadKey, saveKey, getKey, ask, extractText, PROVIDERS };
+  return { saveKey, getKeyInfo, ask, extractText, PROVIDERS };
 })();
