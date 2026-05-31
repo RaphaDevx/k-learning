@@ -594,7 +594,22 @@ window.ExamScreen = (function() {
     html += `
         </div>
 
-        <div class="mt-8 flex gap-3">
+        ${AIService?.getKey() ? `
+        <div id="ai-feedback-section" class="mt-6 bg-gray-800 rounded-2xl p-4">
+          <div class="flex items-center justify-between mb-2">
+            <div>
+              <div class="font-bold text-sm">KI-Prüfungskorrektur</div>
+              <div class="text-xs text-gray-400">Personalisiertes Feedback zu deinen Fehlern</div>
+            </div>
+            <button onclick="ExamScreen.requestAiFeedback()"
+              class="bg-indigo-600 hover:bg-indigo-500 rounded-xl px-4 py-2 text-sm font-bold transition flex-shrink-0 ml-3">
+              Analysieren
+            </button>
+          </div>
+          <div id="ai-feedback-output" class="hidden"></div>
+        </div>` : ''}
+
+        <div class="mt-6 flex gap-3">
           <button onclick="ExamScreen.closeResults()" class="flex-1 bg-gray-700 hover:bg-gray-600 rounded-xl py-3 font-bold transition">
             Zurück zur Auswahl
           </button>
@@ -630,12 +645,60 @@ window.ExamScreen = (function() {
 
   function isExamActive() { return _examActive; }
 
+  async function requestAiFeedback() {
+    const btn = document.querySelector('#ai-feedback-section button');
+    const out = document.getElementById('ai-feedback-output');
+    if (!btn || !out) return;
+
+    btn.disabled = true;
+    btn.textContent = '…';
+    out.classList.remove('hidden');
+    out.className = 'mt-3 text-xs text-gray-400 animate-pulse';
+    out.textContent = 'KI analysiert deine Fehler…';
+
+    try {
+      const results = _scoreExam();
+      const wrong = [];
+      results.sections.forEach(({ questions }) => {
+        questions.forEach(({ q, userAnswer, isCorrect, correct }) => {
+          if (!isCorrect && q.type !== 'text') {
+            const userArr = Array.isArray(userAnswer) ? userAnswer : (userAnswer ? [userAnswer] : []);
+            wrong.push(`F: ${q.text}\nDeine Antwort: ${userArr.join(', ') || '(leer)'}\nRichtig: ${correct.join(', ')}`);
+          }
+        });
+      });
+
+      if (!wrong.length) {
+        out.className = 'mt-3 text-xs text-green-400';
+        out.textContent = 'Perfekt — keine Fehler zu analysieren!';
+        btn.textContent = '✓';
+        return;
+      }
+
+      const response = await AIService.ask(
+        [{ role: 'user', content: `Ich habe ${wrong.length} Fragen falsch beantwortet:\n\n${wrong.join('\n\n')}\n\nGib mir in 3–5 Sätzen auf Deutsch personalisiertes Feedback: Welche Wissenslücken zeigen sich, und was soll ich gezielt wiederholen?` }],
+        { system: 'Du bist ein präziser Prüfungscoach für Empirische Sozialforschung (HSG). Antworte auf Deutsch, knapp und direkt.', max_tokens: 512 }
+      );
+
+      const text = AIService.extractText(response);
+      out.className = 'mt-3 text-sm text-gray-200 leading-relaxed bg-gray-900 rounded-xl p-3';
+      out.textContent = text;
+      btn.textContent = 'Nochmals';
+      btn.disabled = false;
+    } catch (err) {
+      out.className = 'mt-3 text-xs text-red-400';
+      out.textContent = `Fehler: ${err.message}`;
+      btn.textContent = 'Nochmals';
+      btn.disabled = false;
+    }
+  }
+
   return {
     init, renderSelector,
     showSetup, closeSetup, startFromSetup, startExam,
     selectChoice, setTextAnswer,
     confirmAbort, cancelAbort, abortExam,
     submitExam, closeResults,
-    isExamActive,
+    isExamActive, requestAiFeedback,
   };
 })();

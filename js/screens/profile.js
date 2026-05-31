@@ -46,6 +46,31 @@ window.ProfileScreen = (function () {
         <div id="upload-history"><p class="text-gray-500 text-sm">Lade...</p></div>
       </div>
 
+      <!-- KI-Einstellungen -->
+      <div class="bg-gray-800 rounded-2xl p-4 mb-4">
+        <h3 class="font-bold mb-0.5">KI-Einstellungen</h3>
+        <p class="text-gray-400 text-xs mb-3">API-Key für KI-gestützte Prüfungskorrektur</p>
+        <div id="ai-provider-badge" class="mb-3"></div>
+        <div class="relative">
+          <input type="password" id="ai-key-input" placeholder="sk-ant-..."
+            autocomplete="off" spellcheck="false"
+            class="w-full bg-gray-900 rounded-xl px-4 py-3 pr-24 text-sm text-gray-200 font-mono">
+          <button id="ai-key-toggle"
+            class="absolute right-12 top-1/2 -translate-y-1/2 text-gray-400 text-xs px-1 py-1">
+            Anzeigen
+          </button>
+          <button id="ai-key-clear"
+            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm leading-none px-1">
+            ✕
+          </button>
+        </div>
+        <button id="ai-key-save"
+          class="mt-3 w-full bg-indigo-600 hover:bg-indigo-500 rounded-xl py-2.5 text-sm font-bold transition">
+          Key speichern
+        </button>
+        <div id="ai-key-msg" class="hidden mt-2 text-xs text-center rounded-lg py-1.5"></div>
+      </div>
+
       <!-- Sign out -->
       <button onclick="Auth.signOut()"
         class="w-full bg-gray-700 hover:bg-gray-600 rounded-xl py-3 text-sm font-medium transition">
@@ -55,6 +80,7 @@ window.ProfileScreen = (function () {
 
     document.getElementById('doc-upload-input').addEventListener('change', _handleUpload);
     _loadHistory(user);
+    _initAiKeyUI();
   }
 
   async function _handleUpload(e) {
@@ -107,6 +133,60 @@ window.ProfileScreen = (function () {
           <span class="text-xs bg-indigo-900 text-indigo-300 px-2 py-1 rounded-full flex-shrink-0 ml-3">OCR</span>
         </div>`;
     }).join('');
+  }
+
+  function _initAiKeyUI() {
+    const input   = document.getElementById('ai-key-input');
+    const badge   = document.getElementById('ai-provider-badge');
+    const toggle  = document.getElementById('ai-key-toggle');
+    const clear   = document.getElementById('ai-key-clear');
+    const save    = document.getElementById('ai-key-save');
+    const msg     = document.getElementById('ai-key-msg');
+    if (!input) return;
+
+    // Show existing key masked
+    const stored = AIService.getKey();
+    if (stored) input.value = stored;
+
+    function _updateBadge(key) {
+      const p = AIService.detectProvider(key);
+      if (!p) {
+        badge.innerHTML = '<span class="text-xs text-gray-500">Kein Anbieter erkannt</span>';
+      } else {
+        badge.innerHTML = `<span class="text-xs font-bold px-2 py-1 rounded-full" style="background:${p.color}22;color:${p.color}">${p.emoji} ${p.name}</span>`;
+      }
+    }
+
+    _updateBadge(stored);
+
+    input.addEventListener('input', () => _updateBadge(input.value));
+
+    toggle.addEventListener('click', () => {
+      const show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      toggle.textContent = show ? 'Verbergen' : 'Anzeigen';
+    });
+
+    clear.addEventListener('click', () => {
+      input.value = '';
+      AIService.saveKey('');
+      _updateBadge('');
+      _showMsg('Key gelöscht', false);
+    });
+
+    save.addEventListener('click', () => {
+      const key = input.value.trim();
+      AIService.saveKey(key);
+      const p = AIService.detectProvider(key);
+      _updateBadge(key);
+      _showMsg(key ? `Gespeichert${p ? ` · ${p.name}` : ''}` : 'Key gelöscht', !key && !p);
+    });
+
+    function _showMsg(text, isError) {
+      msg.textContent = text;
+      msg.className = `mt-2 text-xs text-center rounded-lg py-1.5 ${isError ? 'bg-red-900 text-red-300' : 'bg-green-900 text-green-300'}`;
+      setTimeout(() => msg.classList.add('hidden'), 3000);
+    }
   }
 
   return { init, refresh };
