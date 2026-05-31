@@ -3,6 +3,21 @@
 
 window.FEED_CARDS = [
   {
+    id: "esf-sv-01",
+    type: "localvideo",
+    course: "ESF", courseColor: "#7c3aed",
+    emoji: "🔬",
+    title: "Was ist Empirische Sozialforschung?",
+    subtitle: "Theorie, Empirie & Methode — das dialektische Dreieck",
+    description: "ESF = systematische Untersuchung sozialer Realität. Die drei Säulen und ihr dialektisches Verhältnis.",
+    topics: ["ESF Definition", "Theorie", "Empirie", "Methode"],
+    duration: "0:48",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf_01_was_ist_esf.mp4",
+    thumbnail_emoji: "🔬",
+    block: "Grundlagen & Forschungsprozess"
+  },
+  {
     id: "esf-sv-04",
     type: "localvideo",
     course: "ESF", courseColor: "#7c3aed",
@@ -17,7 +32,6 @@ window.FEED_CARDS = [
     thumbnail_emoji: "🔬",
     block: "Forschungsdesigns & Experimente"
   },
-,
   {
     id: "esf-sv-02",
     type: "localvideo",
