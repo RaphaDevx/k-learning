@@ -277,67 +277,6 @@ window.FLASHCARD_DATA = [
 "front":"Welche Aussagen zum Verhältnis von Theorie und Empirie sind RICHTIG? (MC-Typ)\nA) Theorie und Empirie stehen in einem dialektischen Verhältnis.\nB) Eine Theorie ist ein bewiesenes Gesetz — sie kann nicht widerlegt werden.\nC) Empirie bezeichnet ein auf systematischen Erfahrungen basierendes Wissen.\nD) Die Wissenschaft hat die Aufgabe, Theorien auszuarbeiten, zu überprüfen und zu verbessern.\nE) Empirie und Theorie sind dasselbe, da beide Wissen beschreiben.",
 "back":"RICHTIG: A, C, D\n\nA ✓ — dialektisches Verhältnis: gegenseitige Bedingtheit\nC ✓ — Empirie-Definition (Häder): auf systematischen Erfahrungen basierend\nD ✓ — Aufgabe der Wissenschaft laut Slides\n\nFALSCH:\nB ✗ — Theorien können NICHT «bewiesen» werden (Popper: nur Falsifikation möglich); sie sind widerspruchsfrei, aber nicht absolut wahr\nE ✗ — Theorie = System von Aussagen (erklärt/prognostiziert); Empirie = Beschreibung der Wirklichkeit, noch nicht ausreichend bewährt"},
 
-// ── Wissenschaftstheorie ─────────────────────────────────────────
-{"id":"esf01-01","type":"qa","course":"ESF","topic":"Wissenschaftstheorie & Forschungslogik","tags":["Forschungsprozess","Hypothesen","Deduktion"],"difficulty":2,
-"front":"Was ist der Unterschied zwischen deduktiver und induktiver Forschungslogik?",
-"back":"Deduktiv (Top-Down):\n• Theorie → Hypothese → Daten → Test\n• Hypothesenprüfend, quantitativ\n• 'Theorien können nur falsifiziert, nicht bewiesen werden' (Popper)\n\nInduktiv (Bottom-Up):\n• Beobachtung → Muster → Theorie\n• Typisch für qualitative Forschung\n• Grounded Theory: Theorie aus Daten entwickeln\n\nHybrid: Abduktion — beste Erklärung für überraschende Beobachtungen"},
-
-{"id":"esf01-02","type":"qa","course":"ESF","topic":"Wissenschaftstheorie & Forschungslogik","tags":["Forschungsdesign","explorativ","deskriptiv","kausal"],"difficulty":2,
-"front":"Erkläre exploratives, deskriptives und kausales Forschungsdesign.",
-"back":"Explorativ: Neues erkunden, noch keine klaren Hypothesen\n• Qualitativ, kleine Stichprobe, offene Fragen\n• Ziel: Erkenntnisse generieren\n\nDeskriptiv: Zustand beschreiben und quantifizieren\n• Befragungen, Beobachtungen, Häufigkeiten\n• Ziel: Wie häufig? Wie verteilt?\n\nKausal: Ursache-Wirkung nachweisen\n• Braucht ein randomisiertes Experiment\n• Ziel: X verursacht Y?\n\nReihenfolge: Erst explorieren, dann deskriptiv, dann kausal!"},
-
-// ── Quantitative Methoden ────────────────────────────────────────
-{"id":"esf02-01","type":"qa","course":"ESF","topic":"Quantitative Methoden","tags":["Experiment","Randomisierung","Kausalität"],"difficulty":2,
-"front":"Warum beweist nur ein randomisiertes Experiment Kausalität?",
-"back":"Randomisierung: Probanden zufällig auf Experimental- und Kontrollgruppe aufteilen\n→ Störvariablen (Confounds) werden GLEICHMÄSSIG verteilt\n→ Unterschied zwischen Gruppen kann nur von UV kommen\n\nOhne Randomisierung:\n• Selection Bias: Gruppen unterscheiden sich systematisch\n• Confounds: Dritte Variable erklärt Zusammenhang\n\nBeispiel: Schokolade & Nobelpreise korrelieren — Confound = Wohlstand"},
-
-{"id":"esf02-02","type":"qa","course":"ESF","topic":"Quantitative Methoden","tags":["Experiment","Labor","Feld","Online"],"difficulty":2,
-"front":"Labor-, Feld- und Online-Experiment: Unterschiede in Validität?",
-"back":"Labor:\n• Hohe interne Validität (Kontrolle)\n• Geringe externe Validität (künstliche Umgebung)\n\nFeld:\n• Hohe externe Validität (natürliche Umgebung)\n• Schwerer zu kontrollieren (interne Validität leidet)\n\nOnline:\n• Grosse Stichprobe, kostengünstig\n• Wenig Kontrolle, Attention-Checks nötig\n• Demographic Bias (Internet-User ≠ Bevölkerung)"},
-
-{"id":"esf02-03","type":"qa","course":"ESF","topic":"Quantitative Methoden","tags":["Survey","Befragung","Stichprobe","Sampling"],"difficulty":2,
-"front":"Was ist der Unterschied zwischen Zufallsstichprobe und Quotenstichprobe?",
-"back":"Zufallsstichprobe (Probability Sampling):\n• Jedes Element hat eine bekannte Auswahlwahrscheinlichkeit\n• Erlaubt statistisch valide Generalisierung\n• Aufwändig: Vollständige Population muss bekannt sein\n\nQuotenstichprobe (Non-Probability):\n• Quoten nach demographischen Merkmalen festgelegt\n• Kosteneffizient, aber keine Randomisierung\n• Keine formale statistische Inferenz möglich\n\nFaustregel: Für kausale Schlüsse → Zufallsstichprobe; für explorative Zwecke → Quotenstichprobe ok"},
-
-// ── Qualitative Methoden ─────────────────────────────────────────
-{"id":"esf03-01","type":"qa","course":"ESF","topic":"Qualitative Methoden","tags":["Interview","Grounded-Theory","Ethnographie"],"difficulty":2,
-"front":"Unterschiede zwischen strukturiertem, semi-strukturiertem und unstrukturiertem Interview?",
-"back":"Strukturiert:\n• Fester Fragebogen, gleiche Reihenfolge für alle\n• Gut vergleichbar, wenig Flexibilität\n\nSemi-strukturiert (häufigste Form):\n• Leitfaden mit offenen Fragen, flexibel erweiterbar\n• Balance zwischen Vergleichbarkeit und Tiefe\n\nUnstrukturiert / narrativ:\n• Offene Gesprächsführung, kein Leitfaden\n• Für explorative, sensitive Themen\n• Sehr schwer auswertbar"},
-
-{"id":"esf03-02","type":"qa","course":"ESF","topic":"Qualitative Methoden","tags":["Grounded-Theory","Sättigung","Sampling"],"difficulty":3,
-"front":"Was ist Theoretical Sampling in der Grounded Theory?",
-"back":"Theoretical Sampling: Datenerhebung und -analyse laufen parallel.\nNächste Stichprobe wird AUFGRUND bisheriger Analyse gewählt.\n\nZiel: Theoretische Sättigung erreichen\n→ Neue Fälle liefern keine neuen Informationen mehr\n\nAbgrenzung zum convenience sampling:\n• Nicht 'wer verfügbar', sondern 'wer liefert maximalen theoretischen Mehrwert'\n\nFolge: Stichprobengrösse nicht vorab festgelegt!"},
-
-{"id":"esf03-03","type":"qa","course":"ESF","topic":"Qualitative Methoden","tags":["Inhaltsanalyse","Kodierung","Mayring"],"difficulty":2,
-"front":"Was ist qualitative Inhaltsanalyse (nach Mayring)?",
-"back":"Systematisches, regelgeleitetes Auswerten von Textmaterial\n\n3 Grundformen:\n• Zusammenfassung: Material komprimieren\n• Explikation: unklare Stellen erklären\n• Strukturierung: Kategorien deduktiv oder induktiv anlegen\n\nKodierung:\n1. Deduktiv: Kategorien vorab aus Theorie (top-down)\n2. Induktiv: Kategorien aus Material entwickeln (bottom-up)\n\nInterkoderreliabilität: Cohens κ > 0.7 als Richtwert"},
-
-// ── Skalierung & Messung ─────────────────────────────────────────
-{"id":"esf04-01","type":"qa","course":"ESF","topic":"Skalierung & Messung","tags":["Skalenniveau","Nominal","Ordinal","Intervall","Ratio"],"difficulty":2,
-"front":"Nenne die 4 Skalenniveaus und welche Operationen jeweils erlaubt sind.",
-"back":"Nominal: Kategorien ohne Rangfolge\n• Erlaubt: Gleich/Ungleich (=, ≠), Häufigkeiten\n• Bsp: Nationalität, Geschlecht, Farbe\n\nOrdinal: Rangfolge, aber Abstände nicht gleich\n• Erlaubt: >, <, =, ≠ (keine Abstände)\n• Bsp: Schulnoten, Likert-Skala (streng)\n\nIntervall: Gleiche Abstände, kein echter Nullpunkt\n• Erlaubt: +, − (keine ×, ÷)\n• Bsp: Temperatur in °C, IQ-Werte\n\nRatio: Gleiche Abstände + echter Nullpunkt\n• Alle Operationen erlaubt\n• Bsp: Einkommen, Alter, Gewicht"},
-
-{"id":"esf04-02","type":"qa","course":"ESF","topic":"Skalierung & Messung","tags":["Likert","Cronbach","Skalierung"],"difficulty":2,
-"front":"Was ist Cronbach's Alpha und ab welchem Wert ist eine Skala reliabel?",
-"back":"Cronbach's α misst interne Konsistenz einer Skala:\n• Wie gut messen alle Items das gleiche Konstrukt?\n\nFormel basiert auf Inter-Item-Korrelationen\n\nRichtlinien:\n• α ≥ 0.9: exzellent\n• α ≥ 0.8: gut\n• α ≥ 0.7: akzeptabel (Mindeststandard)\n• α < 0.7: fraglich\n• α < 0.6: schlecht\n\nProblem: α steigt automatisch mit mehr Items → nicht 'je mehr desto besser'!"},
-
-{"id":"esf04-03","type":"why","course":"ESF","topic":"Skalierung & Messung","tags":["Messfehler","Reliabilität","Validität"],"difficulty":3,
-"front":"Warum kann ein sehr reliables Instrument trotzdem unvalide sein?",
-"back":"Reliabilität = Konsistenz der Messung (misst immer gleich)\nValidität = Messung trifft das gemeinte Konstrukt\n\nBeispiel:\n• Körpergrösse als 'Intelligenz-Messung': hoch reliabel (immer gleiche Werte), aber misst nicht Intelligenz\n• Thermometer als Leistungsmesser: reliabel, aber unvalide\n\nVisualierung: Zielscheibe\n• Reliabel aber nicht valide: Treffer dicht beieinander, aber weit von Mitte\n• Valide und reliabel: Dicht beieinander UND in der Mitte\n\nFolgerung: Reliabilität ist notwendige, aber nicht hinreichende Bedingung für Validität"},
-
-// ── Gütekriterien ────────────────────────────────────────────────
-{"id":"esf05-01","type":"qa","course":"ESF","topic":"Gütekriterien & Forschungsethik","tags":["Reliabilität","Validität","Objektivität"],"difficulty":2,
-"front":"Was sind die 3 klassischen Gütekriterien der quantitativen Forschung?",
-"back":"Objektivität: Ergebnisse sind unabhängig vom Forscher\n• Durchführungs-, Auswertungs-, Interpretationsobjektivität\n\nReliabilität: Messung ist konsistent, stabil, wiederholbar\n• Test-Retest, Paralleltest, Split-Half, Cronbach's α\n\nValidität: Messung trifft das gemeinte Konstrukt\n• Inhaltsvalidität: deckt Konstrukt vollständig ab?\n• Konstruktvalidität: theoretisch korrekt?\n• Externe Validität: generalisierbar?\n\nHierarchie: Objektivität → Reliabilität → Validität (jedes basiert auf dem vorherigen)"},
-
-{"id":"esf05-02","type":"qa","course":"ESF","topic":"Gütekriterien & Forschungsethik","tags":["Replikation","Open-Science","Pre-Registration"],"difficulty":2,
-"front":"Was ist die Replikationskrise und wie reagiert die Wissenschaft darauf?",
-"back":"Replikationskrise: Viele publizierte Studien konnten nicht repliziert werden\n• Open Science Collaboration 2015: ~60% Psychologiestudien nicht replizierbar\n• Gründe: kleine Stichproben, p-Hacking, HARKing (hypothesizing after results)\n\nAntworten der Wissenschaft:\n• Pre-Registration: Hypothesen und Methoden vorab registrieren\n• Open Data: Rohdaten veröffentlichen\n• Power Analysis: Stichprobenplanung vorab\n• Replikationsstudien gezielt fördern\n• Registered Reports: Review VOR Datenerhebung"},
-
-{"id":"esf05-03","type":"cloze","course":"ESF","topic":"Gütekriterien & Forschungsethik","tags":["p-Hacking","α-Fehler","Multiple-Testing"],"difficulty":3,
-"front":"P-Hacking: Bei {{20}} unabhängigen Tests mit α = 5% findet man im Schnitt {{1}} falsch positives Ergebnis. Das nennt sich {{Family-wise Error Rate}} Problem.",
-"back":"P-Hacking: Bei 20 unabhängigen Tests mit α = 5% findet man im Schnitt 1 falsch positives Ergebnis. Das nennt sich Family-wise Error Rate Problem.\n\nLösungen:\n• Bonferroni-Korrektur: α_korrigiert = α/n\n• Holm-Methode (weniger konservativ)\n• Pre-Registration verhindert post-hoc Test-Shopping"},
-
 // ════════════════════════════════════════════════════════════════
 // OM (OPERATIONS MANAGEMENT)
 // ════════════════════════════════════════════════════════════════
