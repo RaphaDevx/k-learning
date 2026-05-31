@@ -1,8 +1,7 @@
 // ── AI Service ────────────────────────────────────────────────────────────
-// Provider detection, key storage, and API calls via Supabase edge proxy
+// API key stored in Supabase user_settings (per-account, not localStorage)
 
 window.AIService = (function () {
-  const LS_KEY = 'hsg-ai-key';
   const PROXY_URL = 'https://ifmwcgwfvunjbnfwwbtr.supabase.co/functions/v1/ai-proxy';
 
   const PROVIDERS = [
@@ -11,20 +10,42 @@ window.AIService = (function () {
     { id: 'qwen',      name: 'Qwen (Alibaba)',   test: () => false, color: '#3B82F6', emoji: '🔵', defaultModel: 'qwen-plus' },
   ];
 
+  let _cache = null; // in-memory during session
+
   function detectProvider(key) {
     if (!key) return null;
     return PROVIDERS.find(p => p.test(key)) || null;
   }
 
-  function getKey() { return localStorage.getItem(LS_KEY) || ''; }
-
-  function saveKey(key) {
-    if (key && key.trim()) localStorage.setItem(LS_KEY, key.trim());
-    else localStorage.removeItem(LS_KEY);
+  async function loadKey() {
+    const { data: { user } } = await _supabase.auth.getUser();
+    if (!user) return null;
+    const { data } = await _supabase
+      .from('user_settings')
+      .select('ai_api_key')
+      .eq('user_id', user.id)
+      .single();
+    _cache = data?.ai_api_key || null;
+    return _cache;
   }
 
+  async function saveKey(key) {
+    const { data: { user } } = await _supabase.auth.getUser();
+    if (!user) throw new Error('Nicht eingeloggt');
+    const trimmed = key?.trim() || null;
+    const provider = trimmed ? (detectProvider(trimmed)?.id || null) : null;
+    const { error } = await _supabase
+      .from('user_settings')
+      .upsert({ user_id: user.id, ai_api_key: trimmed, ai_provider: provider, updated_at: new Date().toISOString() });
+    if (error) throw new Error(error.message);
+    _cache = trimmed;
+  }
+
+  // Sync read of in-memory cache (call loadKey() first)
+  function getKey() { return _cache; }
+
   async function ask(messages, { system, model, max_tokens = 1024 } = {}) {
-    const key = getKey();
+    let key = _cache ?? await loadKey();
     if (!key) throw new Error('Kein API-Key gesetzt. Bitte im Profil eintragen.');
     const provider = detectProvider(key);
     if (!provider) throw new Error('Anbieter nicht erkannt. Bitte Key im Profil prüfen.');
@@ -36,16 +57,8 @@ window.AIService = (function () {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${session?.access_token}`,
       },
-      body: JSON.stringify({
-        provider: provider.id,
-        key,
-        messages,
-        system,
-        model: model || provider.defaultModel,
-        max_tokens,
-      }),
+      body: JSON.stringify({ provider: provider.id, key, messages, system, model: model || provider.defaultModel, max_tokens }),
     });
-
     if (!res.ok) throw new Error(`API-Fehler (${res.status}): ${await res.text()}`);
     return res.json();
   }
@@ -56,5 +69,5 @@ window.AIService = (function () {
     return '';
   }
 
-  return { detectProvider, getKey, saveKey, ask, extractText, PROVIDERS };
+  return { detectProvider, loadKey, saveKey, getKey, ask, extractText, PROVIDERS };
 })();

@@ -594,7 +594,6 @@ window.ExamScreen = (function() {
     html += `
         </div>
 
-        ${AIService?.getKey() ? `
         <div id="ai-feedback-section" class="mt-6 bg-gray-800 rounded-2xl p-4">
           <div class="flex items-center justify-between mb-2">
             <div>
@@ -607,7 +606,7 @@ window.ExamScreen = (function() {
             </button>
           </div>
           <div id="ai-feedback-output" class="hidden"></div>
-        </div>` : ''}
+        </div>
 
         <div class="mt-6 flex gap-3">
           <button onclick="ExamScreen.closeResults()" class="flex-1 bg-gray-700 hover:bg-gray-600 rounded-xl py-3 font-bold transition">
@@ -657,6 +656,15 @@ window.ExamScreen = (function() {
     out.textContent = 'KI analysiert deine Fehler…';
 
     try {
+      const key = AIService.getKey() ?? await AIService.loadKey();
+      if (!key) {
+        out.className = 'mt-3 text-xs text-yellow-400';
+        out.textContent = 'Kein API-Key gesetzt — bitte im Profil eintragen.';
+        btn.textContent = 'Analysieren';
+        btn.disabled = false;
+        return;
+      }
+
       const results = _scoreExam();
       const wrong = [];
       results.sections.forEach(({ questions }) => {

@@ -135,29 +135,27 @@ window.ProfileScreen = (function () {
     }).join('');
   }
 
-  function _initAiKeyUI() {
-    const input   = document.getElementById('ai-key-input');
-    const badge   = document.getElementById('ai-provider-badge');
-    const toggle  = document.getElementById('ai-key-toggle');
-    const clear   = document.getElementById('ai-key-clear');
-    const save    = document.getElementById('ai-key-save');
-    const msg     = document.getElementById('ai-key-msg');
+  async function _initAiKeyUI() {
+    const input  = document.getElementById('ai-key-input');
+    const badge  = document.getElementById('ai-provider-badge');
+    const toggle = document.getElementById('ai-key-toggle');
+    const clear  = document.getElementById('ai-key-clear');
+    const save   = document.getElementById('ai-key-save');
+    const msg    = document.getElementById('ai-key-msg');
     if (!input) return;
 
-    // Show existing key masked
-    const stored = AIService.getKey();
+    // Load from Supabase
+    badge.innerHTML = '<span class="text-xs text-gray-500">Lade…</span>';
+    const stored = await AIService.loadKey();
     if (stored) input.value = stored;
+    _updateBadge(stored);
 
     function _updateBadge(key) {
       const p = AIService.detectProvider(key);
-      if (!p) {
-        badge.innerHTML = '<span class="text-xs text-gray-500">Kein Anbieter erkannt</span>';
-      } else {
-        badge.innerHTML = `<span class="text-xs font-bold px-2 py-1 rounded-full" style="background:${p.color}22;color:${p.color}">${p.emoji} ${p.name}</span>`;
-      }
+      badge.innerHTML = p
+        ? `<span class="text-xs font-bold px-2 py-1 rounded-full" style="background:${p.color}22;color:${p.color}">${p.emoji} ${p.name}</span>`
+        : '<span class="text-xs text-gray-500">Kein Anbieter erkannt</span>';
     }
-
-    _updateBadge(stored);
 
     input.addEventListener('input', () => _updateBadge(input.value));
 
@@ -167,19 +165,28 @@ window.ProfileScreen = (function () {
       toggle.textContent = show ? 'Verbergen' : 'Anzeigen';
     });
 
-    clear.addEventListener('click', () => {
+    clear.addEventListener('click', async () => {
       input.value = '';
-      AIService.saveKey('');
+      await AIService.saveKey('');
       _updateBadge('');
       _showMsg('Key gelöscht', false);
     });
 
-    save.addEventListener('click', () => {
-      const key = input.value.trim();
-      AIService.saveKey(key);
-      const p = AIService.detectProvider(key);
-      _updateBadge(key);
-      _showMsg(key ? `Gespeichert${p ? ` · ${p.name}` : ''}` : 'Key gelöscht', !key && !p);
+    save.addEventListener('click', async () => {
+      save.disabled = true;
+      save.textContent = '…';
+      try {
+        const key = input.value.trim();
+        await AIService.saveKey(key);
+        const p = AIService.detectProvider(key);
+        _updateBadge(key);
+        _showMsg(key ? `Gespeichert${p ? ` · ${p.name}` : ''}` : 'Key gelöscht', false);
+      } catch (e) {
+        _showMsg(`Fehler: ${e.message}`, true);
+      } finally {
+        save.disabled = false;
+        save.textContent = 'Key speichern';
+      }
     });
 
     function _showMsg(text, isError) {
