@@ -30,6 +30,14 @@ window.ExamScreen = (function() {
       available: true,
     },
     {
+      id: 'esf-hs22',
+      label: 'ESF — HS 2022',
+      course: 'ESF',
+      dataVar: 'EXAM_DATA_ESF_HS22',
+      file: 'exams/esf-hs22-data.js',
+      available: true,
+    },
+    {
       id: 'om-pk1',
       label: 'OM — Probeklausur 1',
       course: 'OM',
