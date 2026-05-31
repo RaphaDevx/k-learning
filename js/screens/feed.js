@@ -91,20 +91,23 @@ window.FeedScreen = (function() {
     <div class="feed-card feed-card-video" id="feed-${index}" data-slug="${id}" data-db-id="${dbId}">
       <div class="feed-card-inner" style="background:#000;">
 
-        <!-- Video: muted + loop für Autoplay (wie Instagram) -->
+        <!-- Video -->
         <video
           id="vid-${id}"
           style="display:block;background:#000;"
-          muted
-          loop
-          playsinline
-          preload="auto"
+          muted loop playsinline preload="auto"
           onplay="FeedScreen.onPlay('${id}','${dbId}')"
         >
           <source src="${src}" type="${isHLS ? 'application/x-mpegURL' : 'video/mp4'}">
         </video>
 
-        <!-- Mute-Toggle oben rechts (wie Instagram) -->
+        <!-- Tap layer: click to pause / resume -->
+        <div onclick="FeedScreen.tapCard('${id}')"
+          style="position:absolute;inset:0;z-index:5;cursor:pointer;background:transparent;">
+          <div id="tap-ind-${id}" class="feed-tap-indicator"></div>
+        </div>
+
+        <!-- Mute toggle -->
         <button id="mute-${id}" onclick="FeedScreen.toggleMute('${id}')"
           style="position:absolute;top:4rem;right:1rem;z-index:20;
                  width:40px;height:40px;border-radius:50%;border:none;
@@ -114,8 +117,8 @@ window.FeedScreen = (function() {
           🔇
         </button>
 
-        <!-- Info-Overlay unten -->
-        <div style="position:absolute;bottom:0;left:0;right:0;
+        <!-- Info overlay -->
+        <div style="position:absolute;bottom:0;left:0;right:0;z-index:10;
           background:linear-gradient(to top,rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.5) 55%,transparent 100%);
           padding:5rem 1rem 1.5rem;pointer-events:none;">
 
@@ -266,13 +269,33 @@ window.FeedScreen = (function() {
     </div>`;
   }
 
+  // ── Tap to pause / resume ─────────────────────────────────────────────────
+
+  function tapCard(slug) {
+    const vid = document.getElementById('vid-' + slug);
+    const ind = document.getElementById('tap-ind-' + slug);
+    if (!vid) return;
+    if (vid.paused) {
+      vid.play().catch(() => {});
+      _flashIndicator(ind, '▶');
+    } else {
+      vid.pause();
+      _flashIndicator(ind, '⏸');
+    }
+  }
+
+  function _flashIndicator(el, icon) {
+    if (!el) return;
+    el.textContent = icon;
+    el.style.opacity = '1';
+    clearTimeout(el._t);
+    el._t = setTimeout(() => { el.style.opacity = '0'; }, 700);
+  }
+
   // Legacy compat
   function toggleRecall(id) { const el = document.getElementById(id); if (el) el.classList.toggle('open'); }
   function trackVideoOpen(id) { onPlay(id, ''); }
-  function togglePlay(videoId) {
-    const vid = document.getElementById('vid-' + videoId);
-    if (vid) vid.paused ? vid.play() : vid.pause();
-  }
+  function togglePlay(videoId) { tapCard(videoId); }
 
-  return { init, render, load, rate, toggleMute, togglePlay, onPlay, toggleRecall, trackVideoOpen };
+  return { init, render, load, rate, toggleMute, togglePlay, tapCard, onPlay, toggleRecall, trackVideoOpen };
 })();
