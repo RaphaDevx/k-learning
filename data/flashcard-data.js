@@ -172,6 +172,111 @@ window.FLASHCARD_DATA = [
 // ESF
 // ════════════════════════════════════════════════════════════════
 
+// ── Sitzung 1: ESF Grundlagen ────────────────────────────────────
+{"id":"esf-s1-01","type":"qa","course":"ESF","topic":"Sitzung 1 — ESF Grundlagen","tags":["Definition","ESF","Häder"],"difficulty":1,
+"front":"Wie lautet die Definition von empirischer Sozialforschung nach Häder (2019)? Welche drei Kernelemente sind enthalten?",
+"back":"«Gesamtheit von Methoden, Techniken und Instrumenten zur wissenschaftlich korrekten Durchführung von Untersuchungen des menschlichen Verhaltens und weiterer sozialer Phänomene.»\n\nDie drei Kernelemente:\n① Methoden, Techniken & Instrumente → das Werkzeug\n② Menschliches Verhalten & soziale Phänomene → der Gegenstand\n③ Wissenschaftlich korrekt → der Anspruch\n\nMERKE: Alle drei müssen zusammen genannt werden — in der Prüfung fehlt oft eines."},
+
+{"id":"esf-s1-02","type":"qa","course":"ESF","topic":"Sitzung 1 — ESF Grundlagen","tags":["Theorie","Definition","Prognose"],"difficulty":1,
+"front":"Was versteht man in der ESF unter einer Theorie? Welche drei Funktionen erfüllt sie?",
+"back":"Theorie = System bzw. Netzwerk von widerspruchsfreien Aussagen.\n\nDrei Funktionen:\n① Erkenntnisse ordnen (strukturieren)\n② Tatbestände erklären\n③ Tatbestände vorhersagen (Prognose)\n\nBeispiel: «Je höher die Bildung, desto höher das Einkommen» — ordnet Beobachtungen, erklärt den Zusammenhang, macht Prognosen möglich.\n\nAufgabe der Wissenschaft: Theorien ausarbeiten, überprüfen, verbessern."},
+
+{"id":"esf-s1-03","type":"qa","course":"ESF","topic":"Sitzung 1 — ESF Grundlagen","tags":["Empirie","Theorie","dialektisch"],"difficulty":2,
+"front":"Was ist der Unterschied zwischen Theorie und Empirie, und wie stehen sie zueinander?",
+"back":"Theorie: System widerspruchsfreier Aussagen — erklärt & prognostiziert, bereits bewährt.\n\nEmpirie: Beschreibung der Wirklichkeit durch systematische Erfahrungen — noch nicht ausreichend bewährt. Reicht von historischen Quellenstudien über quantitative bis qualitative Daten.\n\nIhr Verhältnis: DIALEKTISCH → sie bedingen sich gegenseitig:\n→ Theorie leitet empirische Untersuchung\n→ Empirie überprüft und entwickelt Theorie weiter\n→ verbesserte Theorie leitet neue Empirie\n\nFALLSTRICK: «Empirie ist das Gleiche wie Praxis» — FALSCH. Empirie ist systematisch gesammeltes Erfahrungswissen."},
+
+{"id":"esf-s1-04","type":"qa","course":"ESF","topic":"Sitzung 1 — ESF Grundlagen","tags":["Forschungsmethode","Handlungsanweisungen"],"difficulty":1,
+"front":"Was sind Forschungsmethoden? Welche Rolle spielen sie in der ESF?",
+"back":"Methoden = Systeme von Handlungsanweisungen und Regeln, um bestimmte Erkenntnisse zu realisieren oder Informationen zu sammeln.\n\nSie bilden das Bindeglied zwischen Theorie und Empirie: Wie erhebe ich Daten? Wie analysiere ich sie?\n\nMethodischer Zugang bestimmt ob: qualitativ oder quantitativ\n\nMERKE: Methode ≠ Technik. Methode = übergeordnete Strategie; Technik = konkretes Instrument (z.B. Fragebogen)."},
+
+{"id":"esf-s1-05","type":"qa","course":"ESF","topic":"Sitzung 1 — ESF Grundlagen","tags":["Ziele","ESF","Gesellschaft"],"difficulty":1,
+"front":"Welche vier Hauptziele verfolgt die empirische Sozialforschung?",
+"back":"① Beschreibung und Erklärung des sozialen Lebens (zuverlässige, valide, gut dokumentierte Informationen)\n② Entwickeln und Testen von Theorien\n③ Verständnis über menschliches Verhalten aufbauen\n④ Forschung zur Lösung gesellschaftlicher Probleme nutzen\n\nBeispiel aus Geschichte: Charles Booth (1840–1916) zeigte, dass Armut durch Arbeitslosigkeit, Unterbezahlung und Krankheit entsteht — nicht durch Faulheit. → Ziel ④: gesellschaftliches Problem lösen."},
+
+{"id":"esf-s1-06","type":"qa","course":"ESF","topic":"Sitzung 1 — ESF Grundlagen","tags":["Theorie","Empirie","Methode","3 Säulen"],"difficulty":2,
+"front":"Ein Dozent sagt: «Theorie, Empirie und Methode sind die drei Säulen der ESF.» Eine Studentin ergänzt: «Und sie stehen isoliert nebeneinander.» Wer hat Recht?",
+"back":"Der Dozent hat recht, die Studentin NICHT.\n\nDie drei Säulen stehen NICHT isoliert — sie stehen in einem dialektischen Verhältnis:\n• Theorie gibt vor, was untersucht wird (Konzepte, Hypothesen)\n• Methode legt fest, wie untersucht wird\n• Empirie liefert das Datenmaterial\n• Ergebnisse fliessen zurück in die Theorie\n\nOhne Theorie: Daten ohne Interpretation\nOhne Empirie: Theorie ohne Überprüfung\nOhne Methode: Kein systematisches Vorgehen\n\nAlle drei bedingen sich gegenseitig."},
+
+// ── Sitzung 1: Forschungsprozess ─────────────────────────────────
+{"id":"esf-s1-07","type":"qa","course":"ESF","topic":"Sitzung 1 — Forschungsprozess","tags":["Bryman","Schritte","Reihenfolge"],"difficulty":2,
+"front":"Nennen Sie die 7 Schritte des Forschungsprozesses nach Bryman in der richtigen Reihenfolge.",
+"back":"① Literaturrecherche — kritische Überprüfung bestehender Forschung\n② Konzeption & Theorie — leitende Ideen formulieren\n③ Forschungsfrage — Ziel des Projekts, Hypothesen\n④ Stichprobenauswahl — Definition der Stichprobe\n⑤ Datenerhebung — Interviews, Umfragen, Archive\n⑥ Datenanalyse — Auswertung & Interpretation\n⑦ Schreiben — Aufarbeitung, Dissemination, Publikation\n\nMERKE: Erst DENKEN (①–③), dann PLANEN (④), dann TUN (⑤–⑦)\n\nPRÜFUNGSFALLE: «Daten erheben vor der Forschungsfrage» — FALSCH!"},
+
+{"id":"esf-s1-08","type":"qa","course":"ESF","topic":"Sitzung 1 — Forschungsprozess","tags":["nicht-standardisiert","iterativ","Prozess"],"difficulty":2,
+"front":"Was bedeutet es, dass der Forschungsprozess «nicht standardisiert» ist? Nennen Sie zwei Implikationen.",
+"back":"Nicht standardisiert = kein einziges fixes Schema für alle Projekte.\n\nImplikationen:\n① Iterativ: Schritte können wiederholt werden (z.B. Literaturrecherche nach erster Auswertung nochmals)\n② Variabel: Je nach Forschungsfrage, Methode und Disziplin unterschiedliche Abfolge möglich\n\nDennoch: Logische Grundstruktur bleibt (erst Frage, dann Daten, dann Analyse)\n\nBeispiel: Eine Grounded-Theory-Studie beginnt mit Datenerhebung und entwickelt die Theorie erst danach — umgekehrt zum deduktiven Modell."},
+
+{"id":"esf-s1-09","type":"qa","course":"ESF","topic":"Sitzung 1 — Forschungsprozess","tags":["Forschungsfrage","Hypothesen","Literatur"],"difficulty":2,
+"front":"Eine Forscherin überspringt die Literaturrecherche und formuliert sofort eine Forschungsfrage. Welche zwei Probleme entstehen dadurch?",
+"back":"Problem ①: Fehlende theoretische Einbettung — sie weiss nicht, was bereits bekannt ist; Gefahr: bestehende Erkenntnisse werden ignoriert oder wiederholt\n\nProblem ②: Unklare Forschungslücke — ohne Literaturkenntnis ist unklar, ob die Frage überhaupt relevant oder neu ist\n\nLaut Bryman: Literaturrecherche kommt VOR Konzeption und Forschungsfrage — sie bildet die Grundlage für alles Folgende.\n\nZusatz: Ohne Literaturkontext fehlt die Vergleichsbasis für die Interpretation der Ergebnisse."},
+
+// ── Sitzung 1: Forschungsdesign ──────────────────────────────────
+{"id":"esf-s1-10","type":"qa","course":"ESF","topic":"Sitzung 1 — Forschungsdesign","tags":["Forschungsdesign","Definition","Plan"],"difficulty":1,
+"front":"Was umfasst das Forschungsdesign laut Definition? Welche drei Elemente muss es festlegen?",
+"back":"«Plan für die Auswahl der Proband*innen, den Ort der Datenerhebung sowie die genauen Datenerhebungsmethoden, welche für die Beantwortung der Forschungsfrage/en und die Überprüfung der Hypothesen erforderlich sind.»\n\nDie drei Kernelemente:\n① Wer? → Stichprobenauswahl (Probanden)\n② Wo? → Ort der Datenerhebung\n③ Wie? → Datenerhebungsmethoden\n\nMERKE: Design ≠ Methode. Das Design ist der übergeordnete PLAN; die Methode ist das konkrete Instrument."},
+
+{"id":"esf-s1-11","type":"qa","course":"ESF","topic":"Sitzung 1 — Forschungsdesign","tags":["qualitativ","quantitativ","Ziel","Schlussverfahren"],"difficulty":2,
+"front":"Vergleichen Sie qualitative und quantitative Forschung bezüglich: (a) Ziel, (b) Schlussverfahren, (c) Forschungslogik.",
+"back":"(a) Ziel:\nQualitativ: Verstehen, Rekonstruieren, Gesetzmässigkeiten GENERIEREN\nQuantitativ: Erklären, Kausalitäten bilden, Gesetze auf Gültigkeit PRÜFEN\n\n(b) Schlussverfahren:\nQualitativ → Induktiv (Spezielles → Allgemeines)\nQuantitativ → Deduktiv (Allgemeines → Spezielles)\n\n(c) Forschungslogik:\nQualitativ → hypothesenentwickelnd (neue Theorie aus Daten)\nQuantitativ → hypothesenprüfend (bestehende Theorie testen)\n\nFALLSTRICK: «Qualitative Forschung ist unwissenschaftlich» — FALSCH. Beide sind wissenschaftlich, nur andere Erkenntnisziele."},
+
+{"id":"esf-s1-12","type":"qa","course":"ESF","topic":"Sitzung 1 — Forschungsdesign","tags":["qualitativ","quantitativ","Erhebungsmethoden","Daten"],"difficulty":2,
+"front":"Welche Erhebungsmethoden und Datenmerkmale sind typisch für (a) qualitative und (b) quantitative Forschung?",
+"back":"(a) Qualitativ:\nMethoden: Interview, Gruppendiskussion, Beobachtung, qual. Inhaltsanalyse, Einzelfallstudie\nDaten: nicht-numerisch, explikativ, «weich», realitätsnah, ganzheitlich-holistisch\nUmfang: Untersuchung eines Einzelfalls\n\n(b) Quantitativ:\nMethoden: Standardisierte Befragung, Experiment, standardisierte Beobachtung, standardisierte Inhaltsanalyse\nDaten: numerisch, reduktiv, «hart», replizierbar, partikular\nUmfang: Untersuchung einer Stichprobe\n\nMERKE: «Standardisiert» = gleiche Messung für alle → Vergleichbarkeit → quantitativ."},
+
+{"id":"esf-s1-13","type":"qa","course":"ESF","topic":"Sitzung 1 — Forschungsdesign","tags":["qualitativ","quantitativ","Wann","Anwendung"],"difficulty":2,
+"front":"Wann setzt man qualitative, wann quantitative Forschung ein? Nennen Sie je zwei typische Einsatzsituationen.",
+"back":"Qualitativ einsetzen wenn:\n① Komplexe Zusammenhänge mit wenig Vorwissen (explorativ)\n② Tiefe Einblicke über einen Forschungsgegenstand nötig\nBeispiel: «Was erleben Pflegekräfte bei der Einführung neuer Software?»\n\nQuantitativ einsetzen wenn:\n① Häufigkeit oder Verteilung eines Phänomens gemessen werden soll\n② Hypothesen geprüft oder allgemeingültige Aussagen getroffen werden sollen\nBeispiel: «Steigert flexible Arbeitszeit die Produktivität? (n=500)»\n\nFAUSTREGEL: Neues Terrain → qualitativ; Hypothesen testen → quantitativ."},
+
+{"id":"esf-s1-14","type":"qa","course":"ESF","topic":"Sitzung 1 — Forschungsdesign","tags":["Mixed Methods","Triangulation","Sequential"],"difficulty":2,
+"front":"Was ist der Mixed-Method-Ansatz? Was ist sein Ziel, und welche Designvarianten gibt es?",
+"back":"Definition: Vereint Aspekte quantitativer und qualitativer Forschung in einer Studie.\n\nZiel: Vorteile beider Ansätze kombinieren; Ergebnisse durch zweite Methode validieren → aussagekräftigere Ergebnisse.\n\nDesignvarianten:\n① Sequential Explanatory: erst quantitativ (breite Muster), dann qualitativ (Erklärung)\n② Sequential Exploratory: erst qualitativ (neue Konzepte), dann quantitativ (Generaliserbarkeit testen)\n③ Concurrent Triangulation: beide gleichzeitig, Konvergenz prüfen\n\nMERKE: Triangulation = Ergebnisse aus verschiedenen Methoden werden zusammengeführt → erhöht Glaubwürdigkeit."},
+
+{"id":"esf-s1-15","type":"qa","course":"ESF","topic":"Sitzung 1 — Forschungsdesign","tags":["Szenario","qualitativ","quantitativ","Erkennen"],"difficulty":3,
+"front":"Ordnen Sie die Forschungsfragen dem richtigen Ansatz zu und begründen Sie:\n(A) «Welche emotionalen Strategien entwickeln Eltern alleinerziehend nach Trennung?»\n(B) «Gibt es einen Zusammenhang zwischen Schlafstunden und akademischer Leistung bei HSG-Studierenden?»",
+"back":"(A) → QUALITATIV\nBegründung: explorativ, wenig Vorwissen, tiefe subjektive Einblicke gesucht, individuelle Strategien (nicht zählbar) → Interview/Einzelfallstudie; induktiv; kleines Sample\n\n(B) → QUANTITATIV\nBegründung: Zusammenhang zweier konkreter Variablen (Schlaf ↔ Leistung), Hypothese prüfbar, allgemeingültige Aussage angestrebt, messbar → standardisierte Befragung; deduktiv; repräsentatives Sample\n\nPRÜFUNGSSTRATEGIE: «Warum/Wie erlebt?» → qualitativ. «Wie häufig/Gibt es einen Zusammenhang?» → quantitativ."},
+
+{"id":"esf-s1-16","type":"qa","course":"ESF","topic":"Sitzung 1 — Forschungsdesign","tags":["Stärken","Schwächen","qualitativ","quantitativ"],"difficulty":2,
+"front":"Welche Stärken hat qualitative Forschung, die quantitative Forschung nicht hat — und umgekehrt?",
+"back":"Stärken qualitativ (die quantitativ NICHT hat):\n+ Generierung von neuem Wissen (explorativ)\n+ Kleine Stichprobe ausreichend\n+ Subjektive, detaillierte, anschauliche Antworten\n+ Kontext bleibt erhalten\n\nStärken quantitativ (die qualitativ NICHT hat):\n+ Hohe Reliabilität (wiederholbar, vergleichbar)\n+ Schnelle Verarbeitung grosser Datenmengen\n+ Intervallskalenniveau → hohe Vergleichbarkeit\n+ Kausalitätsnachweis möglich (via Experiment)\n+ Repräsentativität erreichbar\n\nFALLSTRICK: «Quantitativ ist objektiver» — nicht pauschal richtig; auch qualitativ hat strenge Gütekriterien."},
+
+// ── Sitzung 1: Primär- und Sekundärdaten ─────────────────────────
+{"id":"esf-s1-17","type":"qa","course":"ESF","topic":"Sitzung 1 — Primär & Sekundärdaten","tags":["Primärdaten","Sekundärdaten","Definition"],"difficulty":1,
+"front":"Was ist der grundlegende Unterschied zwischen Primär- und Sekundärdaten?",
+"back":"Primärdaten: Werden NEU und speziell für die eigene Forschungsfrage erhoben.\n→ Erhebungsmethoden: Befragung, Experiment, Beobachtung\n→ Vorteil: hohe Passung zur Frage\n→ Nachteil: teuer, zeitaufwändig\n\nSekundärdaten: BEREITS VORHANDEN, ursprünglich für andere Zwecke erhoben, werden wiederverwendet.\n→ Quellen: Statistiken, Archive, Social Media, Datenwettbewerbe (Kaggle)\n→ Vorteil: günstig, schnell verfügbar, grosse Stichproben\n→ Nachteil: Passung zur Forschungsfrage oft eingeschränkt\n\nFALLSTRICK: «Sekundär = minderwertig» — FALSCH. Sekundärdaten können hochwertig sein (z.B. Volkszählung)."},
+
+{"id":"esf-s1-18","type":"qa","course":"ESF","topic":"Sitzung 1 — Primär & Sekundärdaten","tags":["Primärforschung","Vor- Nachteile"],"difficulty":2,
+"front":"Nennen Sie je 3 Vor- und Nachteile der Primärforschung.",
+"back":"VORTEILE (+):\n① Hohe Aktualität — Daten sind frisch\n② Gute Passung zur Forschungsfrage — massgeschneidert\n③ Einfluss auf Datenqualität — man kontrolliert Erhebung\n(Bonus: proprietär — Daten gehören einem selbst)\n\nNACHTEILE (−):\n① Längerer Zeitbedarf\n② Höhere Kosten\n③ Grösserer Personalaufwand\n\nFAUSTREGEL: Wenn kein passender Sekundärdatensatz existiert oder Aktualität entscheidend ist → Primärdaten."},
+
+{"id":"esf-s1-19","type":"qa","course":"ESF","topic":"Sitzung 1 — Primär & Sekundärdaten","tags":["Sekundärforschung","Vor- Nachteile"],"difficulty":2,
+"front":"Nennen Sie je 3 Vor- und Nachteile der Sekundärforschung.",
+"back":"VORTEILE (+):\n① Schnelle Verfügbarkeit — sofort nutzbar\n② Niedrige Kosten — kein eigener Erhebungsaufwand\n③ Grosse Stichproben möglich (z.B. nationale Statistiken)\n\nNACHTEILE (−):\n① Mangelnde Passung zur Forschungsfrage\n② Wenig/keine Kontrolle über die Erhebung\n③ Fehlende Dokumentation (Messinstrument unklar)\n\nMERKE FÜR PRÜFUNG: Bei Sekundärdaten immer prüfen: Passen Zeitraum, Stichprobe und Messinstrument zur eigenen Frage?"},
+
+{"id":"esf-s1-20","type":"qa","course":"ESF","topic":"Sitzung 1 — Primär & Sekundärdaten","tags":["Szenario","Primär","Sekundär","Entscheidung"],"difficulty":3,
+"front":"Entscheiden und begründen Sie — Primär oder Sekundär?\n(A) Eine NGO will wissen, wie Menschen in der Schweiz 2026 über KI-Regulierung denken.\n(B) Ein Forscher untersucht, wie sich die Arbeitslosigkeit in EU-Ländern von 2000–2020 entwickelt hat.",
+"back":"(A) → PRIMÄRDATEN\nBegründung: ① Aktuelles Thema (2026), keine bestehenden Datensätze vorhanden ② Spezifische Zielgruppe (Schweiz) ③ Spezifische Frage → nur eigene Erhebung passt\nMethode: Standardisierte Befragung (Umfrage)\n\n(B) → SEKUNDÄRDATEN\nBegründung: ① Historische Längsschnittdaten nicht selbst erhebbar ② Eurostat, OECD liefern passende Zeitreihendaten ③ Günstig und verfügbar\nRisiko: Erfassungsmethode kann sich über 20 Jahre geändert haben → Dokumentation prüfen!"},
+
+{"id":"esf-s1-21","type":"qa","course":"ESF","topic":"Sitzung 1 — Primär & Sekundärdaten","tags":["Erhebungsarten","Befragung","Experiment","Beobachtung"],"difficulty":2,
+"front":"Welche drei grundlegenden Arten der Primärdatenerhebung gibt es? Nennen Sie für jede ein typisches Beispiel.",
+"back":"① Befragung (mündlich, schriftlich, online)\nBeispiel: Online-Fragebogen zur Kundenzufriedenheit\nStärke: Grosse Reichweite, standardisierbar\n\n② Beobachtung (teilnehmend/nicht-teilnehmend, offen/verdeckt)\nBeispiel: Ethnografische Beobachtung im Supermarkt (Kaufverhalten)\nStärke: Natürliches Verhalten ohne Antwortverzerrung\n\n③ Experiment (Labor, Feld, Online)\nBeispiel: A/B-Test zweier Webdesigns\nStärke: Kausalität nachweisbar durch Randomisierung\n\nMERKE: Nur das Experiment erlaubt Kausalaussagen!"},
+
+// ── Sitzung 1: Prüfungstyp-Karten (Aussagen beurteilen) ──────────
+{"id":"esf-s1-22","type":"qa","course":"ESF","topic":"Sitzung 1 — Prüfungstyp","tags":["Falsche Aussage","Sekundärdaten","Prüfungslogik"],"difficulty":3,
+"front":"Welche dieser Aussagen über Sekundärdaten ist FALSCH?\nA) Sekundärdaten wurden ursprünglich für andere Zwecke erhoben.\nB) Sekundärdaten haben keine repräsentativen Stichproben.\nC) Sekundärdaten sind oft schneller verfügbar als Primärdaten.\nD) Zu Sekundärdatenquellen gehören öffentliche Statistiken.",
+"back":"B ist FALSCH.\n\nBegründung: Sekundärdaten können sehr grosse, repräsentative Stichproben umfassen — z.B. Volkszählung (gesamte Bevölkerung), Eurostat (EU-weite Daten), OECD-Statistiken.\n\nDer eigentliche Nachteil von Sekundärdaten ist nicht die Stichprobengrösse, sondern die MANGELNDE PASSUNG zur eigenen Forschungsfrage.\n\nMERKE: Stichprobengrösse ≠ Datenqualität. Die Passung zur Forschungsfrage ist entscheidend."},
+
+{"id":"esf-s1-23","type":"qa","course":"ESF","topic":"Sitzung 1 — Prüfungstyp","tags":["Falsche Aussage","Qualitative Forschung","Prüfungslogik"],"difficulty":3,
+"front":"Welche dieser Aussagen zur qualitativen Forschung ist FALSCH?\nA) Qualitative Forschung arbeitet meist induktiv.\nB) Qualitative Forschung ist immer besser für explorative Fragen geeignet.\nC) Qualitative Forschung kann auch ein Experiment als Design nutzen.\nD) Qualitative Forschung erlaubt detaillierte, subjektive Einblicke.",
+"back":"B enthält eine Übertreibung («immer») — aber die klar FALSCHE Aussage ist C für viele Studierende, die glauben, Experimente seien nur quantitativ.\n\nRichtigstellung zu C: Es gibt QUALITATIVE Experimente (z.B. qualitatives Experiment als Erhebungsmethode in der Tabelle aus den Slides — z.B. Beobachtung unter experimentellen Bedingungen ohne Quantifizierung).\n\nRichtigstellung zu B: «Immer» ist zu absolut — qualitativ kann auch für vertiefte Hypothesenentwicklung eingesetzt werden, auch wenn quantitatives Vorwissen vorhanden.\n\nMERKE: «Immer» und «nie» in Aussagen → Vorsicht! Fast immer falsch."},
+
+{"id":"esf-s1-24","type":"qa","course":"ESF","topic":"Sitzung 1 — Prüfungstyp","tags":["Forschungsprozess","Reihenfolge","Prüfungslogik"],"difficulty":3,
+"front":"Bringen Sie diese Schritte in die richtige Reihenfolge nach Bryman:\n— Stichprobenauswahl\n— Schreiben / Publikation\n— Forschungsfrage formulieren\n— Datenerhebung\n— Literaturrecherche",
+"back":"Korrekte Reihenfolge:\n① Literaturrecherche\n② Forschungsfrage formulieren\n③ Stichprobenauswahl\n④ Datenerhebung\n⑤ Schreiben / Publikation\n\n(Vollständig nach Bryman: ①Lit → ②Konzeption/Theorie → ③Forschungsfrage → ④Stichprobe → ⑤Erhebung → ⑥Analyse → ⑦Schreiben)\n\nPRÜFUNGSFALLE: Oft wird «Datenerhebung vor Forschungsfrage» als Option angeboten — das ist FALSCH. Erst die Frage, dann die Daten."},
+
+{"id":"esf-s1-25","type":"qa","course":"ESF","topic":"Sitzung 1 — Prüfungstyp","tags":["Theorie","Empirie","Verhältnis","MC-Typ"],"difficulty":3,
+"front":"Welche Aussagen zum Verhältnis von Theorie und Empirie sind RICHTIG? (MC-Typ)\nA) Theorie und Empirie stehen in einem dialektischen Verhältnis.\nB) Eine Theorie ist ein bewiesenes Gesetz — sie kann nicht widerlegt werden.\nC) Empirie bezeichnet ein auf systematischen Erfahrungen basierendes Wissen.\nD) Die Wissenschaft hat die Aufgabe, Theorien auszuarbeiten, zu überprüfen und zu verbessern.\nE) Empirie und Theorie sind dasselbe, da beide Wissen beschreiben.",
+"back":"RICHTIG: A, C, D\n\nA ✓ — dialektisches Verhältnis: gegenseitige Bedingtheit\nC ✓ — Empirie-Definition (Häder): auf systematischen Erfahrungen basierend\nD ✓ — Aufgabe der Wissenschaft laut Slides\n\nFALSCH:\nB ✗ — Theorien können NICHT «bewiesen» werden (Popper: nur Falsifikation möglich); sie sind widerspruchsfrei, aber nicht absolut wahr\nE ✗ — Theorie = System von Aussagen (erklärt/prognostiziert); Empirie = Beschreibung der Wirklichkeit, noch nicht ausreichend bewährt"},
+
 // ── Wissenschaftstheorie ─────────────────────────────────────────
 {"id":"esf01-01","type":"qa","course":"ESF","topic":"Wissenschaftstheorie & Forschungslogik","tags":["Forschungsprozess","Hypothesen","Deduktion"],"difficulty":2,
 "front":"Was ist der Unterschied zwischen deduktiver und induktiver Forschungslogik?",
