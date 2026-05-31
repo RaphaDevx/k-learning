@@ -3,6 +3,51 @@
 
 window.FEED_CARDS = [
   {
+    id: "esf-sv-01-v2",
+    type: "localvideo",
+    course: "ESF", courseColor: "#7c3aed",
+    emoji: "🔬",
+    title: "Was ist Empirische Sozialforschung? (v2)",
+    subtitle: "Theorie, Empirie & Methode — natürlicher erklärt",
+    description: "ESF-Grundlagen mit Praxisbeispielen, fixierten Symbolen und klarer Struktur: Hook → Definition → 3 Säulen → Merke.",
+    topics: ["ESF Definition", "Theorie", "Empirie", "Methode", "Dialektik"],
+    duration: "1:18",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf_01_was_ist_esf_v2.mp4",
+    thumbnail_emoji: "🔬",
+    block: "Grundlagen & Forschungsprozess"
+  },
+  {
+    id: "esf-sv-04-v2",
+    type: "localvideo",
+    course: "ESF", courseColor: "#7c3aed",
+    emoji: "🧪",
+    title: "Das Laborexperiment (v2)",
+    subtitle: "UV, AV & Randomisierung — mit A/B-Gruppen Animation",
+    description: "Kausalität beweisen: Koffein-Beispiel, Stick-Figure A/B-Gruppen, interne vs. externe Validität.",
+    topics: ["Laborexperiment", "Kausalität", "UV", "AV", "Randomisierung", "Validität"],
+    duration: "1:15",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf_04_laborexperiment_v2.mp4",
+    thumbnail_emoji: "🧪",
+    block: "Forschungsdesigns & Experimente"
+  },
+  {
+    id: "esf-sv-05-v2",
+    type: "localvideo",
+    course: "ESF", courseColor: "#7c3aed",
+    emoji: "⚖️",
+    title: "Qualitativ vs. Quantitativ (v2)",
+    subtitle: "Zwei Welten — mit Vergleichsanimation",
+    description: "Wann qualitativ, wann quantitativ? Wie viele vs. Warum — mit SVG-Vergleichstabelle und Praxisbeispiel Kampagnenanalyse.",
+    topics: ["Qualitativ", "Quantitativ", "Paradigmen", "Methoden"],
+    duration: "1:06",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf_05_qualitativ_quantitativ_v2.mp4",
+    thumbnail_emoji: "⚖️",
+    block: "Qualitative & Quantitative Forschung"
+  },
+  {
     id: "esf-sv-01",
     type: "localvideo",
     course: "ESF", courseColor: "#7c3aed",
