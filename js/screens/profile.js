@@ -46,29 +46,14 @@ window.ProfileScreen = (function () {
         <div id="upload-history"><p class="text-gray-500 text-sm">Lade...</p></div>
       </div>
 
-      <!-- KI-Einstellungen -->
+      <!-- KI-Einstellungen (BYOK) -->
       <div class="bg-gray-800 rounded-2xl p-4 mb-4">
-        <h3 class="font-bold mb-0.5">KI-Einstellungen</h3>
-        <p class="text-gray-400 text-xs mb-3">API-Key für KI-gestützte Prüfungskorrektur</p>
-        <div id="ai-provider-badge" class="mb-3"></div>
-        <div class="relative">
-          <input type="password" id="ai-key-input" placeholder="sk-ant-..."
-            autocomplete="off" spellcheck="false"
-            class="w-full bg-gray-900 rounded-xl px-4 py-3 pr-24 text-sm text-gray-200 font-mono">
-          <button id="ai-key-toggle"
-            class="absolute right-12 top-1/2 -translate-y-1/2 text-gray-400 text-xs px-1 py-1">
-            Anzeigen
-          </button>
-          <button id="ai-key-clear"
-            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 text-sm leading-none px-1">
-            ✕
-          </button>
+        <div class="flex items-center justify-between mb-1">
+          <h3 class="font-bold">KI-Einstellungen</h3>
+          <span class="text-xs text-gray-500">BYOK</span>
         </div>
-        <button id="ai-key-save"
-          class="mt-3 w-full bg-indigo-600 hover:bg-indigo-500 rounded-xl py-2.5 text-sm font-bold transition">
-          Key speichern
-        </button>
-        <div id="ai-key-msg" class="hidden mt-2 text-xs text-center rounded-lg py-1.5"></div>
+        <p class="text-gray-400 text-xs mb-3">Dein API-Key wird verschlüsselt gespeichert und verlässt den Server nie.</p>
+        <div id="ai-key-section"><p class="text-xs text-gray-500 py-1">Lade…</p></div>
       </div>
 
       <!-- Sign out -->
@@ -136,42 +121,90 @@ window.ProfileScreen = (function () {
   }
 
   async function _initAiKeyUI() {
-    const input  = document.getElementById('ai-key-input');
-    const badge  = document.getElementById('ai-provider-badge');
-    const toggle = document.getElementById('ai-key-toggle');
-    const clear  = document.getElementById('ai-key-clear');
-    const save   = document.getElementById('ai-key-save');
-    const msg    = document.getElementById('ai-key-msg');
-    if (!input) return;
+    const section = document.getElementById('ai-key-section');
+    if (!section) return;
 
-    // Show display info from DB — never the real key
-    badge.innerHTML = '<span class="text-xs text-gray-500">Lade…</span>';
     const info = await AIService.getKeyInfo();
-    _renderBadge(info);
+    info?.key_preview ? _renderKeySet(section, info) : _renderKeyInput(section, null);
+  }
 
-    function _renderBadge(info) {
-      if (info?.ai_provider && info?.key_preview) {
-        const p = AIService.PROVIDERS[info.ai_provider] || { name: info.ai_provider, color: '#6B7280', emoji: '⚪' };
-        badge.innerHTML = `
-          <div class="flex items-center gap-2">
-            <span class="text-xs font-bold px-2 py-1 rounded-full" style="background:${p.color}22;color:${p.color}">${p.emoji} ${p.name}</span>
-            <span class="text-xs font-mono text-gray-500">${info.key_preview}</span>
-          </div>`;
-      } else {
-        badge.innerHTML = '<span class="text-xs text-gray-500">Kein Key gesetzt</span>';
+  function _renderKeySet(section, info) {
+    const p = AIService.PROVIDERS[info.ai_provider] || { name: info.ai_provider || 'API-Key', color: '#6B7280', emoji: '⚪' };
+    section.innerHTML = `
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-xs font-bold px-2.5 py-1 rounded-full" style="background:${p.color}22;color:${p.color}">${p.emoji} ${p.name}</span>
+        <button id="ai-key-delete" class="text-xs text-red-400 hover:text-red-300 px-2 py-1 rounded-lg hover:bg-red-900/30 transition">
+          Löschen
+        </button>
+      </div>
+      <div class="bg-gray-900 rounded-xl px-3 py-2 font-mono text-xs text-gray-500 mb-3 tracking-wider">
+        ${info.key_preview}
+      </div>
+      <button id="ai-key-replace" class="text-xs text-indigo-400 hover:text-indigo-300 transition">
+        Key ersetzen
+      </button>
+      <div id="ai-key-replace-form" class="hidden mt-3"></div>
+      <div id="ai-key-msg" class="hidden mt-2 text-xs text-center rounded-lg py-1.5"></div>`;
+
+    document.getElementById('ai-key-delete').addEventListener('click', async () => {
+      const btn = document.getElementById('ai-key-delete');
+      btn.textContent = '…'; btn.disabled = true;
+      try {
+        await AIService.saveKey('');
+        _renderKeyInput(section, 'Key gelöscht.');
+      } catch (e) {
+        btn.textContent = 'Löschen'; btn.disabled = false;
+        _showMsg(section, `Fehler: ${e.message}`, true);
       }
-    }
+    });
 
-    // Detect provider from what the user is currently typing — for feedback only
+    document.getElementById('ai-key-replace').addEventListener('click', () => {
+      const form = document.getElementById('ai-key-replace-form');
+      if (form.classList.contains('hidden')) {
+        form.classList.remove('hidden');
+        _wireKeyInput(form, section);
+      } else {
+        form.classList.add('hidden');
+      }
+    });
+  }
+
+  function _renderKeyInput(section, successMsg) {
+    section.innerHTML = `
+      ${successMsg ? `<p class="text-xs text-green-400 mb-3">${successMsg}</p>` : '<p class="text-xs text-gray-500 mb-3">Noch kein API-Key hinterlegt.</p>'}
+      <div id="ai-key-input-wrap"></div>
+      <div id="ai-key-msg" class="hidden mt-2 text-xs text-center rounded-lg py-1.5"></div>`;
+    _wireKeyInput(document.getElementById('ai-key-input-wrap'), section);
+  }
+
+  function _wireKeyInput(container, section) {
+    container.innerHTML = `
+      <div class="relative mb-3">
+        <input type="password" id="ai-key-input" placeholder="sk-ant-api0…"
+          autocomplete="off" spellcheck="false"
+          class="w-full bg-gray-900 rounded-xl px-4 py-3 pr-20 text-sm text-gray-200 font-mono">
+        <button id="ai-key-toggle" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 hover:text-gray-200 transition px-1">
+          Anzeigen
+        </button>
+      </div>
+      <div id="ai-key-detect" class="mb-3 h-5"></div>
+      <button id="ai-key-save" class="w-full bg-indigo-600 hover:bg-indigo-500 rounded-xl py-2.5 text-sm font-bold transition">
+        Key speichern
+      </button>`;
+
+    const input  = document.getElementById('ai-key-input');
+    const toggle = document.getElementById('ai-key-toggle');
+    const detect = document.getElementById('ai-key-detect');
+    const save   = document.getElementById('ai-key-save');
+
     input.addEventListener('input', () => {
       const k = input.value;
-      if (!k) return;
       const id = k.startsWith('sk-ant-') ? 'anthropic' : k.startsWith('sk-') ? 'openai' : null;
       if (id) {
         const p = AIService.PROVIDERS[id];
-        badge.innerHTML = `<span class="text-xs px-2 py-1 rounded-full" style="background:${p.color}22;color:${p.color}">${p.emoji} ${p.name} erkannt</span>`;
+        detect.innerHTML = `<span class="text-xs px-2 py-0.5 rounded-full" style="background:${p.color}22;color:${p.color}">${p.emoji} ${p.name} erkannt</span>`;
       } else {
-        badge.innerHTML = '<span class="text-xs text-gray-500">Kein Anbieter erkannt</span>';
+        detect.innerHTML = k ? '<span class="text-xs text-gray-500">Anbieter nicht erkannt</span>' : '';
       }
     });
 
@@ -181,47 +214,27 @@ window.ProfileScreen = (function () {
       toggle.textContent = show ? 'Verbergen' : 'Anzeigen';
     });
 
-    clear.addEventListener('click', async () => {
-      input.value = '';
-      save.disabled = true;
-      save.textContent = '…';
-      try {
-        await AIService.saveKey('');
-        _renderBadge(null);
-        _showMsg('Key gelöscht', false);
-      } catch (e) {
-        _showMsg(`Fehler: ${e.message}`, true);
-      } finally {
-        save.disabled = false;
-        save.textContent = 'Key speichern';
-      }
-    });
-
     save.addEventListener('click', async () => {
       const key = input.value.trim();
       if (!key) return;
-      save.disabled = true;
-      save.textContent = '…';
+      save.disabled = true; save.textContent = '…';
       try {
         const result = await AIService.saveKey(key);
-        input.value = '';      // clear from DOM immediately after saving
-        input.type = 'password';
-        toggle.textContent = 'Anzeigen';
-        _renderBadge({ ai_provider: result.provider, key_preview: result.preview });
-        _showMsg(`Gespeichert · Key verlässt den Browser nicht mehr`, false);
+        input.value = '';
+        _renderKeySet(section, { ai_provider: result.provider, key_preview: result.preview });
       } catch (e) {
-        _showMsg(`Fehler: ${e.message}`, true);
-      } finally {
-        save.disabled = false;
-        save.textContent = 'Key speichern';
+        save.disabled = false; save.textContent = 'Key speichern';
+        _showMsg(section, `Fehler: ${e.message}`, true);
       }
     });
+  }
 
-    function _showMsg(text, isError) {
-      msg.textContent = text;
-      msg.className = `mt-2 text-xs text-center rounded-lg py-1.5 ${isError ? 'bg-red-900 text-red-300' : 'bg-green-900 text-green-300'}`;
-      setTimeout(() => msg.classList.add('hidden'), 4000);
-    }
+  function _showMsg(section, text, isError) {
+    const msg = section.querySelector('#ai-key-msg');
+    if (!msg) return;
+    msg.textContent = text;
+    msg.className = `mt-2 text-xs text-center rounded-lg py-1.5 ${isError ? 'bg-red-900 text-red-300' : 'bg-green-900 text-green-300'}`;
+    setTimeout(() => msg.classList.add('hidden'), 4000);
   }
 
   return { init, refresh };
