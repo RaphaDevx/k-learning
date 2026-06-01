@@ -57,7 +57,8 @@ window.ExamScreen = (function() {
 
   // ── Internal state ────────────────────────────────────────────────────────
   let _examData = null;
-  let _answers = {};       // { questionId: ['A'] | 'text' }
+  let _currentEntry = null;  // EXAM_REGISTRY entry currently running
+  let _answers = {};         // { questionId: ['A'] | 'text' }
   let _timerInterval = null;
   let _secondsLeft = 0;
   let _useTimer = true;
@@ -177,6 +178,7 @@ window.ExamScreen = (function() {
     if (!data) return;
 
     _examData = data;
+    _currentEntry = entry;
     _answers = {};
     _useTimer = useTimer;
     _examActive = true;
@@ -625,6 +627,9 @@ window.ExamScreen = (function() {
     // Clean up
     _examActive = false;
     if (window._examBeforeUnload) window.removeEventListener('beforeunload', window._examBeforeUnload);
+
+    // Ergebnis async in Supabase speichern + Feed invalidieren
+    _saveResultToSupabase(results);
   }
 
   function closeResults() {
@@ -633,6 +638,48 @@ window.ExamScreen = (function() {
     _examData = null;
     _answers = {};
     renderSelector();
+  }
+
+  // ── Supabase Result Persistence ───────────────────────────────────────────
+  async function _getUserId() {
+    try {
+      const { data } = await window.supabaseClient.auth.getUser();
+      return data?.user?.id || null;
+    } catch { return null; }
+  }
+
+  async function _saveResultToSupabase(results) {
+    try {
+      const userId = await _getUserId();
+      if (!userId || !_currentEntry) return;
+
+      const pct = results.totalMax > 0
+        ? Math.round(results.totalEarned / results.totalMax * 100) : 0;
+
+      const answers = [];
+      results.sections.forEach(({ questions }) => {
+        questions.forEach(({ q, isCorrect }) => {
+          answers.push({
+            question_id: q.id,
+            topics: q.topics || [],
+            is_correct: isCorrect === true,
+          });
+        });
+      });
+
+      await window.supabaseClient.rpc('save_exam_result', {
+        p_user_id:  userId,
+        p_exam_id:  _currentEntry.id,
+        p_course:   _currentEntry.course,
+        p_score:    pct,
+        p_answers:  answers,
+      });
+
+      // Feed im Hintergrund neu laden — Schwachstellen-Videos erscheinen sofort oben
+      if (window.FeedScreen) FeedScreen.load();
+    } catch (e) {
+      console.warn('save_exam_result:', e);
+    }
   }
 
   // ── Helpers ───────────────────────────────────────────────────────────────

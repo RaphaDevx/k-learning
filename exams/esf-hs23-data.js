@@ -37,7 +37,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Ziel der Forschenden in dieser qualitativen Studie ist es, Erwartungen an digitale Objekte durch demographische Variablen vorherzusagen.' }
           ],
           correct: ['A'],
-          explanation: 'Da Interviews über mehrere Monate bis Jahre wiederholt wurden, um Veränderungen zu erfassen, handelt es sich um eine longitudinale Studie.'
+          explanation: 'Da Interviews über mehrere Monate bis Jahre wiederholt wurden, um Veränderungen zu erfassen, handelt es sich um eine longitudinale Studie.',
+          topics: ['Längsschnitt', 'Qualitativ', 'Forschungsdesign'],
         },
         {
           id: 'esf-hs23-02',
@@ -52,7 +53,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Die Stichprobe bei qualitativer Forschung sollte immer repräsentativ sein.' }
           ],
           correct: ['B'],
-          explanation: 'In qualitativer Forschung wird eine gezielte (theoretische) Stichprobe gewählt, keine repräsentative. Ergebnisse sind auf den untersuchten Kontext beschränkt und sollten entsprechend interpretiert werden.'
+          explanation: 'In qualitativer Forschung wird eine gezielte (theoretische) Stichprobe gewählt, keine repräsentative. Ergebnisse sind auf den untersuchten Kontext beschränkt und sollten entsprechend interpretiert werden.',
+          topics: ['Qualitativ', 'Datenerhebung', 'Befragung'],
         },
         {
           id: 'esf-hs23-03',
@@ -67,7 +69,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Faktoranalyse: Hiermit könnte die Beziehung der Faktoren auf einen zugrunde liegenden Faktor reduziert werden.' }
           ],
           correct: ['C'],
-          explanation: 'Grounded Theory ist eine induktive qualitative Methode, die durch systematische Prozessschritte (offenes, axiales, selektives Kodieren) ein tieferes Verständnis von Phänomenen entwickelt — passend für diese explorative qualitative Studie.'
+          explanation: 'Grounded Theory ist eine induktive qualitative Methode, die durch systematische Prozessschritte (offenes, axiales, selektives Kodieren) ein tieferes Verständnis von Phänomenen entwickelt — passend für diese explorative qualitative Studie.',
+          topics: ['Qualitativ', 'Induktion', 'Methode'],
         }
       ]
     },
@@ -91,7 +94,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'In dem Experiment werden die Teilnehmenden zufällig einer von zwei Konditionen zugeordnet.' }
           ],
           correct: ['B'],
-          explanation: 'Bei einem 2×2-Design mit zwei unabhängigen Variablen ist eine multifaktorielle (zweifaktorielle) ANOVA angemessen, da sie Haupt- und Interaktionseffekte testen kann.'
+          explanation: 'Bei einem 2×2-Design mit zwei unabhängigen Variablen ist eine multifaktorielle (zweifaktorielle) ANOVA angemessen, da sie Haupt- und Interaktionseffekte testen kann.',
+          topics: ['Experiment', 'UV', 'AV', 'Forschungsdesign'],
         },
         {
           id: 'esf-hs23-05',
@@ -106,7 +110,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Die Ungleichheit im Geschlechterverhältnis stellt ein gravierendes Problem hinsichtlich der Forschungsfrage und des Designs dar.' }
           ],
           correct: ['A'],
-          explanation: 'Da es grosse Unterschiede in der Häufigkeit von Amokläufen und in Sicherheitspraktiken über verschiedene Länder hinweg gibt, würde eine multi-nationale Studie die externe Validität (Generalisierbarkeit) verbessern.'
+          explanation: 'Da es grosse Unterschiede in der Häufigkeit von Amokläufen und in Sicherheitspraktiken über verschiedene Länder hinweg gibt, würde eine multi-nationale Studie die externe Validität (Generalisierbarkeit) verbessern.',
+          topics: ['Experiment', 'Interne Validität', 'Forschungsdesign'],
         },
         {
           id: 'esf-hs23-06',
@@ -121,7 +126,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Die Stichprobengrösse ist eindeutig zu klein, um aussagekräftige Resultate zu erhalten.' }
           ],
           correct: ['A'],
-          explanation: 'Es ist eine legitime Limitation, dass die Stichprobe aus Erwachsenen (Bürokräfte, Lehrende) besteht und die Ergebnisse möglicherweise nicht auf andere Gruppen wie Kinder übertragbar sind.'
+          explanation: 'Es ist eine legitime Limitation, dass die Stichprobe aus Erwachsenen (Bürokräfte, Lehrende) besteht und die Ergebnisse möglicherweise nicht auf andere Gruppen wie Kinder übertragbar sind.',
+          topics: ['Experiment', 'Datenerhebung', 'Forschungsdesign'],
         },
         {
           id: 'esf-hs23-07',
@@ -136,7 +142,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Anwendung von immersiven Technologien (z.B. Virtual Reality) könnte die externe Validität nicht weiter erhöhen.' }
           ],
           correct: ['C'],
-          explanation: 'Bei Studien mit psychisch belastenden Inhalten (wie simulierten Amokläufen) ist ethische Genehmigung durch eine institutionelle Prüfungskommission zwingend erforderlich.'
+          explanation: 'Bei Studien mit psychisch belastenden Inhalten (wie simulierten Amokläufen) ist ethische Genehmigung durch eine institutionelle Prüfungskommission zwingend erforderlich.',
+          topics: ['Experiment', 'Forschungsprozess', 'Randomisierung'],
         }
       ]
     },
@@ -160,7 +167,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Primärdaten zeichnen sich durch eine schnelle Verfügbarkeit und niedrige Kosten aus.' }
           ],
           correct: ['B'],
-          explanation: 'Primärdaten sind Daten, die direkt für den Forschungszweck erhoben werden (Interviews, Beobachtungen, Experimente). Sekundärdaten sind bereits vorhandene Daten, die für andere Zwecke erhoben wurden.'
+          explanation: 'Primärdaten sind Daten, die direkt für den Forschungszweck erhoben werden (Interviews, Beobachtungen, Experimente). Sekundärdaten sind bereits vorhandene Daten, die für andere Zwecke erhoben wurden.',
+          topics: ['Primärdaten', 'Sekundärdaten', 'Datenerhebung'],
         },
         {
           id: 'esf-hs23-09',
@@ -175,7 +183,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: '1=Pretest, 2=Mediator, 3=Störvariable, 4=Moderator, 5=Interne Validität' }
           ],
           correct: ['E'],
-          explanation: 'Pretest = Miniaturversion; Mediator = erklärt den Zusammenhang zwischen UV und AV; Störvariable = verzerrt die Beziehung; Moderator = verändert die Stärke/Richtung des Effekts; Interne Validität = nur untersuchte Variablen beeinflussen das Ergebnis.'
+          explanation: 'Pretest = Miniaturversion; Mediator = erklärt den Zusammenhang zwischen UV und AV; Störvariable = verzerrt die Beziehung; Moderator = verändert die Stärke/Richtung des Effekts; Interne Validität = nur untersuchte Variablen beeinflussen das Ergebnis.',
+          topics: ['UV', 'AV', 'Interne Validität', 'Experiment'],
         },
         {
           id: 'esf-hs23-10',
@@ -190,7 +199,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Die Schritte der Datenkodierung bestehen in der Abfolge: (1) selektives Kodieren, (2) axiales Kodieren, (3) offenes Kodieren.' }
           ],
           correct: ['B'],
-          explanation: 'In qualitativer Forschung wird die Stichprobengrösse nicht vorab festgelegt; stattdessen wird so lange erhoben, bis theoretische Sättigung erreicht ist (d.h. keine neuen Erkenntnisse mehr entstehen).'
+          explanation: 'In qualitativer Forschung wird die Stichprobengrösse nicht vorab festgelegt; stattdessen wird so lange erhoben, bis theoretische Sättigung erreicht ist (d.h. keine neuen Erkenntnisse mehr entstehen).',
+          topics: ['Qualitativ', 'Datenerhebung', 'Forschungsdesign'],
         },
         {
           id: 'esf-hs23-11',
@@ -205,7 +215,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Die Literaturrecherche ist keine eigenständige Forschungsmethode.' }
           ],
           correct: ['C'],
-          explanation: 'Die Literaturrecherche bezieht sich auf bereits vorhandene (sekundäre) Quellen. Primärdaten werden durch eigene Datenerhebung gewonnen (Interviews, Experimente etc.), nicht durch Literaturrecherche.'
+          explanation: 'Die Literaturrecherche bezieht sich auf bereits vorhandene (sekundäre) Quellen. Primärdaten werden durch eigene Datenerhebung gewonnen (Interviews, Experimente etc.), nicht durch Literaturrecherche.',
+          topics: ['Sekundärdaten', 'Primärdaten', 'Forschungsprozess'],
         },
         {
           id: 'esf-hs23-12',
@@ -220,7 +231,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: '1=Induktion, 2=konzeptionelles Modell, 3=Theorie, 4=Deduktion, 5=Kausalfrage, 6=Randomisierung' }
           ],
           correct: ['A'],
-          explanation: 'Deduktion = vom Allgemeinen zum Spezifischen; Theorie = verallgemeinerte Aussage; Konzeptionelles Modell = kausale Wechselbeziehungen; Induktion = vom Spezifischen zum Allgemeinen; Kausalfrage = fragt nach Ursachen; Randomisierung = zufällige Zuteilung.'
+          explanation: 'Deduktion = vom Allgemeinen zum Spezifischen; Theorie = verallgemeinerte Aussage; Konzeptionelles Modell = kausale Wechselbeziehungen; Induktion = vom Spezifischen zum Allgemeinen; Kausalfrage = fragt nach Ursachen; Randomisierung = zufällige Zuteilung.',
+          topics: ['Deduktion', 'Induktion', 'Forschungslogik', 'Randomisierung'],
         },
         {
           id: 'esf-hs23-13',
@@ -235,7 +247,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Eine Ursache für den Publikations-Bias könnte gewesen sein, dass der untersuchte Effekt eine sehr hohe Power hat.' }
           ],
           correct: ['C'],
-          explanation: 'Publikations-Bias entsteht typischerweise dadurch, dass positive Ergebnisse häufiger veröffentlicht werden als negative. Hier hätten Studien, die einen positiven Effekt von Growth-Mindset zeigen, bevorzugt publiziert worden sein können.'
+          explanation: 'Publikations-Bias entsteht typischerweise dadurch, dass positive Ergebnisse häufiger veröffentlicht werden als negative. Hier hätten Studien, die einen positiven Effekt von Growth-Mindset zeigen, bevorzugt publiziert worden sein können.',
+          topics: ['Publikation', 'Empirie', 'Forschungsprozess'],
         },
         {
           id: 'esf-hs23-14',
@@ -250,7 +263,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Die Stärke der qualitativen Forschung liegt in ihrer Fähigkeit, detaillierte und kontextspezifische Einblicke zu liefern, aber diese Stärke kann auch die Generalisierbarkeit einschränken.' }
           ],
           correct: ['E'],
-          explanation: 'E ist keine Falschaussage (kein Mythos), sondern eine korrekte Beschreibung des Trade-offs in der qualitativen Forschung: tiefe, kontextspezifische Erkenntnisse versus eingeschränkte Generalisierbarkeit.'
+          explanation: 'E ist keine Falschaussage (kein Mythos), sondern eine korrekte Beschreibung des Trade-offs in der qualitativen Forschung: tiefe, kontextspezifische Erkenntnisse versus eingeschränkte Generalisierbarkeit.',
+          topics: ['Qualitativ', 'Forschungsparadigmen'],
         },
         {
           id: 'esf-hs23-15',
@@ -265,7 +279,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Der IQ hat in den höheren Quintilen einen stärkeren Einfluss auf den GPA als die Selbstdisziplin.' }
           ],
           correct: ['B'],
-          explanation: 'Die Grafik zeigt, dass Selbstdisziplin und IQ unterschiedlich stark mit dem GPA korrelieren — Selbstdisziplin zeigt eine stärkere Differenzierung über die Quintile hinweg.'
+          explanation: 'Die Grafik zeigt, dass Selbstdisziplin und IQ unterschiedlich stark mit dem GPA korrelieren — Selbstdisziplin zeigt eine stärkere Differenzierung über die Quintile hinweg.',
+          topics: ['Empirie', 'Quantitativ', 'Methode'],
         },
         {
           id: 'esf-hs23-16',
@@ -280,7 +295,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Auch bei vorheriger Festlegung des Erhebungszeitraums können Forschende die Datenerhebung früher abbrechen, ohne die Gütekriterien zu verletzen.' }
           ],
           correct: ['B'],
-          explanation: 'Schon geringe Manipulationen kleiner Teile eines Datensatzes können statistische Ergebnisse signifikant verändern, da Effekte oft klein sind und Signifikanz von der Fehlerstreuung abhängt.'
+          explanation: 'Schon geringe Manipulationen kleiner Teile eines Datensatzes können statistische Ergebnisse signifikant verändern, da Effekte oft klein sind und Signifikanz von der Fehlerstreuung abhängt.',
+          topics: ['Empirie', 'Forschungsprozess', 'Publikation'],
         },
         {
           id: 'esf-hs23-17',
@@ -295,7 +311,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Die gesammelten Daten bestehen aus phänomenologischen Interviews mit Café-Besuchern an verschiedenen Standorten.' }
           ],
           correct: ['C'],
-          explanation: 'Bei einem interpretativen qualitativen Ansatz werden typischerweise halbstrukturierte oder unstrukturierte Interviews geführt, nicht stark strukturierte. Ein detaillierter, unflexibler Leitfaden wäre eher für quantitative Umfragen typisch.'
+          explanation: 'Bei einem interpretativen qualitativen Ansatz werden typischerweise halbstrukturierte oder unstrukturierte Interviews geführt, nicht stark strukturierte. Ein detaillierter, unflexibler Leitfaden wäre eher für quantitative Umfragen typisch.',
+          topics: ['Qualitativ', 'Befragung', 'Forschungsparadigmen'],
         },
         {
           id: 'esf-hs23-18',
@@ -310,7 +327,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Hohe Reliabilität' }
           ],
           correct: ['C'],
-          explanation: 'Quantitative Forschung folgt einem deduktiven Ansatz (von der Theorie zur Hypothese zur Prüfung). Induktion (vom Einzelfall zur Theorie) ist ein Merkmal qualitativer Forschung.'
+          explanation: 'Quantitative Forschung folgt einem deduktiven Ansatz (von der Theorie zur Hypothese zur Prüfung). Induktion (vom Einzelfall zur Theorie) ist ein Merkmal qualitativer Forschung.',
+          topics: ['Quantitativ', 'Induktion', 'Deduktion', 'Forschungslogik'],
         },
         {
           id: 'esf-hs23-19',
@@ -325,7 +343,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: '1=Metaanalyse, 2=Reproduzierbarkeit, 3=Robustheit, 4=Interne Validität' }
           ],
           correct: ['A'],
-          explanation: 'Reproduzierbarkeit = gleiche Daten, gleiche Methoden; Replizierbarkeit = neue Daten bestätigen Ergebnisse; Robustheit = stabil gegenüber Methodenvariationen; Generalisierbarkeit = Übertragbarkeit auf andere Kontexte.'
+          explanation: 'Reproduzierbarkeit = gleiche Daten, gleiche Methoden; Replizierbarkeit = neue Daten bestätigen Ergebnisse; Robustheit = stabil gegenüber Methodenvariationen; Generalisierbarkeit = Übertragbarkeit auf andere Kontexte.',
+          topics: ['Empirie', 'Forschungsprozess', 'Interne Validität'],
         },
         {
           id: 'esf-hs23-20',
@@ -340,7 +359,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Die Forschenden konzentrieren sich auf autonome Produkte, die manuelle, intellektuelle oder kreative Tätigkeiten übernehmen.' }
           ],
           correct: ['E'],
-          explanation: 'Laut dem Artikel konzentrieren sich de Bellis et al. auf autonome Produkte, die speziell manuelle Tätigkeiten übernehmen — nicht intellektuelle oder kreative. Das ist die am wenigsten zutreffende Aussage.'
+          explanation: 'Laut dem Artikel konzentrieren sich de Bellis et al. auf autonome Produkte, die speziell manuelle Tätigkeiten übernehmen — nicht intellektuelle oder kreative. Das ist die am wenigsten zutreffende Aussage.',
+          topics: ['Theorie', 'Empirie', 'Forschungsdesign'],
         }
       ]
     },
@@ -364,7 +384,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Teilt man einer KI mit, Geschlecht oder Rasse unbeachtet zu lassen, wird die KI trotzdem nicht zwingend objektiv entscheiden.' }
           ],
           correct: ['D', 'E'],
-          explanation: 'D ist korrekt: KI existiert schon länger (vor ChatGPT). E ist korrekt: Verzerrungen in KI entstehen durch Trainingsdaten und Algorithmen, nicht durch explizite Anweisungen lösbar. A ist falsch: ChatGPT ist "narrow AI". B ist falsch: Trainingsdaten-Analyse ist notwendig. C ist falsch: Auch grosse Datensätze enthalten Verzerrungen.'
+          explanation: 'D ist korrekt: KI existiert schon länger (vor ChatGPT). E ist korrekt: Verzerrungen in KI entstehen durch Trainingsdaten und Algorithmen, nicht durch explizite Anweisungen lösbar. A ist falsch: ChatGPT ist "narrow AI". B ist falsch: Trainingsdaten-Analyse ist notwendig. C ist falsch: Auch grosse Datensätze enthalten Verzerrungen.',
+          topics: ['Empirie', 'Methode'],
         },
         {
           id: 'esf-hs23-22',
@@ -379,7 +400,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'LLMs werden mit grossen Datensätzen trainiert, die vorhersagen, welches Wort als Nächstes folgt (ähnlich Autovervollständigung).' }
           ],
           correct: ['B', 'C', 'E'],
-          explanation: 'B, C, E sind korrekt. A ist falsch: LLMs halluzinieren (erzeugen falsche Infos). D ist falsch: LLMs sind probabilistisch und erzeugen variable Ergebnisse.'
+          explanation: 'B, C, E sind korrekt. A ist falsch: LLMs halluzinieren (erzeugen falsche Infos). D ist falsch: LLMs sind probabilistisch und erzeugen variable Ergebnisse.',
+          topics: ['Empirie', 'Methode', 'Datenerhebung'],
         },
         {
           id: 'esf-hs23-23',
@@ -394,7 +416,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Die Formulierung der "wichtigsten Erfolgsfaktoren von Mikrokrediten in verschiedenen Kontexten" ist genügend spezifisch als Formulierung für einen theoretischen Beitrag.' }
           ],
           correct: ['C', 'D'],
-          explanation: 'C ist korrekt: Praktische Implikationen für Entscheidungstragende sind gegeben. D ist korrekt: Ein theoretischer Beitrag setzt Kenntnis der bestehenden Literatur voraus, um eine Forschungslücke zu identifizieren. E ist falsch: Die Formulierung ist zu vage für einen klaren theoretischen Beitrag.'
+          explanation: 'C ist korrekt: Praktische Implikationen für Entscheidungstragende sind gegeben. D ist korrekt: Ein theoretischer Beitrag setzt Kenntnis der bestehenden Literatur voraus, um eine Forschungslücke zu identifizieren. E ist falsch: Die Formulierung ist zu vage für einen klaren theoretischen Beitrag.',
+          topics: ['Mixed Methods', 'Forschungsprozess', 'Befragung'],
         },
         {
           id: 'esf-hs23-24',
@@ -409,7 +432,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Das Forschungsdesign ist nicht gut angepasst. Die Forschungsfrage bedingt ein ausschliesslich quantitatives Design.' }
           ],
           correct: ['A', 'B', 'D', 'E'],
-          explanation: 'A ist falsch: Literaturrecherche = Sekundärdaten. B ist falsch: Die Sekundärdaten sind quantitativ (Statistiken), die Beobachtung sind qualitative Primärdaten. D ist falsch: 2 Freunde = sehr geringe Generalisierbarkeit. E ist falsch: Die Forschungsfrage ist explorativ und erfordert kein rein quantitatives Design.'
+          explanation: 'A ist falsch: Literaturrecherche = Sekundärdaten. B ist falsch: Die Sekundärdaten sind quantitativ (Statistiken), die Beobachtung sind qualitative Primärdaten. D ist falsch: 2 Freunde = sehr geringe Generalisierbarkeit. E ist falsch: Die Forschungsfrage ist explorativ und erfordert kein rein quantitatives Design.',
+          topics: ['Mixed Methods', 'Primärdaten', 'Sekundärdaten', 'Forschungsdesign'],
         },
         {
           id: 'esf-hs23-25',
@@ -424,7 +448,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Eine gute Hypothese ist eine gültige Aussage zu realen, empirisch testbaren Fakten, die über Einzelfälle hinausgeht.' }
           ],
           correct: ['B', 'D', 'E'],
-          explanation: 'B und D sind klar formulierte, testbare Hypothesen mit Richtungsangabe. E beschreibt korrekt das Gütekriterium einer Hypothese. A ist falsch: Eine gute Hypothese muss die Beziehung zwischen Variablen spezifizieren. C ist falsch: "könnten möglicherweise" ist zu vage und nicht testbar.'
+          explanation: 'B und D sind klar formulierte, testbare Hypothesen mit Richtungsangabe. E beschreibt korrekt das Gütekriterium einer Hypothese. A ist falsch: Eine gute Hypothese muss die Beziehung zwischen Variablen spezifizieren. C ist falsch: "könnten möglicherweise" ist zu vage und nicht testbar.',
+          topics: ['Hypothesen', 'Forschungsprozess', 'Empirie'],
         },
         {
           id: 'esf-hs23-26',
@@ -439,7 +464,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Eine optimale Operationalisierung für "Mentale Gesundheit von Jugendlichen" könnte lauten: "wird durch Befragung der Eltern zu sportlichen Aktivitäten gemessen."' }
           ],
           correct: ['A', 'B', 'C'],
-          explanation: 'A, B, C sind korrekt. D ist falsch: Stichprobenauswahl ist ein separater Schritt im Forschungsdesign. E ist falsch: Sportliche Aktivitäten sind keine valide Messung für mentale Gesundheit (fehlende Konstruktvalidität).'
+          explanation: 'A, B, C sind korrekt. D ist falsch: Stichprobenauswahl ist ein separater Schritt im Forschungsdesign. E ist falsch: Sportliche Aktivitäten sind keine valide Messung für mentale Gesundheit (fehlende Konstruktvalidität).',
+          topics: ['Operationalisierung', 'Forschungsprozess', 'Interne Validität'],
         },
         {
           id: 'esf-hs23-27',
@@ -454,7 +480,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Basierend auf dieser Darstellung kann man nicht schlussfolgern, ob es einen wesentlichen Geschlechterunterschied gibt, da nicht angegeben ist, ob der Unterschied signifikant ist.' }
           ],
           correct: ['A', 'B', 'D', 'E'],
-          explanation: 'A, B, D, E sind korrekt. C ist falsch: Eine Extrapolation in die nahe Zukunft lässt sich aus dem fallenden Trend nicht sicher ableiten.'
+          explanation: 'A, B, D, E sind korrekt. C ist falsch: Eine Extrapolation in die nahe Zukunft lässt sich aus dem fallenden Trend nicht sicher ableiten.',
+          topics: ['Längsschnitt', 'Empirie', 'Quantitativ'],
         },
         {
           id: 'esf-hs23-28',
@@ -469,7 +496,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'In der angewandten Marktforschung sollte die Fragestellung für den wissenschaftlichen Diskurs relevant sein und eine Forschungslücke schliessen.' }
           ],
           correct: ['A', 'C', 'D', 'E'],
-          explanation: 'A ist falsch: Offene Fragen sind in der qualitativen Marktforschung wertvoll. C ist falsch: Generalisierung setzt eine repräsentative Stichprobe voraus. D ist falsch: Verhalten ist oft relevanter als Einstellungen. E ist falsch: Angewandte Marktforschung hat praktische Ziele, nicht zwingend wissenschaftliche Lücken zu schliessen.'
+          explanation: 'A ist falsch: Offene Fragen sind in der qualitativen Marktforschung wertvoll. C ist falsch: Generalisierung setzt eine repräsentative Stichprobe voraus. D ist falsch: Verhalten ist oft relevanter als Einstellungen. E ist falsch: Angewandte Marktforschung hat praktische Ziele, nicht zwingend wissenschaftliche Lücken zu schliessen.',
+          topics: ['Befragung', 'Datenerhebung', 'Forschungsdesign'],
         },
         {
           id: 'esf-hs23-29',
@@ -484,7 +512,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Das verwendete Studiendesign war in allen vier Studien ausschliesslich ein experimentelles between-subjects Design.' }
           ],
           correct: ['A', 'C', 'D'],
-          explanation: 'A korrekt: Alternative Erklärungen ausschliessen stärkt interne Validität. C korrekt: Studie 4 zeigt den Moderator "meaningful time gain". D korrekt: Verschiedene AVs (Präferenz, Einstellung, Adoption) erhöhen externe Validität. B ist falsch: Verschiedene Produkte erhöhen externe, nicht interne Validität. E ist falsch: Studie 1 und 4 sind auch korrelative/Längsschnittdesigns.'
+          explanation: 'A korrekt: Alternative Erklärungen ausschliessen stärkt interne Validität. C korrekt: Studie 4 zeigt den Moderator "meaningful time gain". D korrekt: Verschiedene AVs (Präferenz, Einstellung, Adoption) erhöhen externe Validität. B ist falsch: Verschiedene Produkte erhöhen externe, nicht interne Validität. E ist falsch: Studie 1 und 4 sind auch korrelative/Längsschnittdesigns.',
+          topics: ['Interne Validität', 'AV', 'Experiment', 'Forschungsdesign'],
         },
         {
           id: 'esf-hs23-30',
@@ -499,7 +528,8 @@ window.EXAM_DATA_ESF_HS23 = {
             { key: 'E', text: 'Das Selbstgeschenk-Framing führte bei schwacher Einschränkung zu signifikant geringerem Kaufverhalten verglichen mit starker Einschränkung.' }
           ],
           correct: ['C', 'D'],
-          explanation: 'C korrekt: Die Grafik zeigt einen Interaktionseffekt zwischen Einschränkung und Framing. D korrekt: Bei schwachem Zeitdruck + Selbstgeschenk-Framing ist das Kaufverhalten höher. A falsch: Bei Selbstgeschenk-Framing kaufen Personen mit schwacher Einschränkung mehr. B und E sind empirisch nicht korrekt basierend auf der beschriebenen Grafik.'
+          explanation: 'C korrekt: Die Grafik zeigt einen Interaktionseffekt zwischen Einschränkung und Framing. D korrekt: Bei schwachem Zeitdruck + Selbstgeschenk-Framing ist das Kaufverhalten höher. A falsch: Bei Selbstgeschenk-Framing kaufen Personen mit schwacher Einschränkung mehr. B und E sind empirisch nicht korrekt basierend auf der beschriebenen Grafik.',
+          topics: ['Experiment', 'UV', 'AV', 'Kausalität'],
         }
       ]
     }
