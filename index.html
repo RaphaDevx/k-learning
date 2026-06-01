@@ -32,6 +32,8 @@
 
   <!-- ── Screens ── -->
   <script src="js/screens/dashboard.js"></script>
+  <script src="js/screens/courseHub.js"></script>
+  <script src="js/screens/learnPath.js"></script>
   <script src="js/screens/feed.js"></script>
   <script src="js/screens/flashcards.js"></script>
   <script src="js/screens/topics.js"></script>
@@ -252,22 +254,16 @@
     </div>
 
     <button onclick="showView('dashboard')" id="snav-dashboard" class="sidebar-nav-btn active">
-      <span class="nav-icon">🏠</span><span>Dashboard</span>
+      <span class="nav-icon">🏠</span><span>Home</span>
     </button>
     <button onclick="showView('feed')" id="snav-feed" class="sidebar-nav-btn">
       <span class="nav-icon">⚡</span><span>Feed</span>
     </button>
-    <button onclick="showView('topics')" id="snav-topics" class="sidebar-nav-btn">
-      <span class="nav-icon">📚</span><span>Themen</span>
+    <button onclick="showView('learn-path')" id="snav-learn-path" class="sidebar-nav-btn">
+      <span class="nav-icon">🛤️</span><span>Lernpfad</span>
     </button>
     <button onclick="showView('flashcards')" id="snav-flashcards" class="sidebar-nav-btn">
-      <span class="nav-icon">🃏</span><span>Flashcards</span>
-    </button>
-    <button onclick="showView('exam')" id="snav-exam" class="sidebar-nav-btn">
-      <span class="nav-icon">📝</span><span>Probeklausur</span>
-    </button>
-    <button onclick="showView('tutor')" id="snav-tutor" class="sidebar-nav-btn">
-      <span class="nav-icon">🤖</span><span>KI-Tutor</span>
+      <span class="nav-icon">🃏</span><span>Karten</span>
     </button>
     <button onclick="showView('profile')" id="snav-profile" class="sidebar-nav-btn">
       <span class="nav-icon">👤</span><span>Profil</span>
@@ -292,6 +288,13 @@
 
   <!-- ── Main Content ── -->
   <div id="content-area">
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- COURSE HUB                                           -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <div id="view-course-hub" class="hidden min-h-screen">
+      <!-- Rendered dynamically by CourseHubScreen -->
+    </div>
 
     <!-- ══════════════════════════════════════════════════════ -->
     <!-- DASHBOARD                                             -->
@@ -500,24 +503,31 @@
       </div>
     </div>
 
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- LEARN PATH                                            -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <div id="view-learn-path" class="hidden">
+      <!-- Rendered dynamically by LearnPathScreen -->
+    </div>
+
   </div><!-- /content-area -->
 
-  <!-- ── MOBILE: Bottom Navigation ── -->
+  <!-- ── MOBILE: Bottom Navigation (5 Haupt-Screens) ── -->
   <nav id="bottom-nav" class="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700 justify-around py-2 z-50">
-    <button onclick="showView('dashboard')" id="nav-dashboard" class="flex flex-col items-center text-xs gap-0.5 text-white px-2 py-1">
-      <span class="text-lg">🏠</span>Home
+    <button onclick="showView('dashboard')" id="nav-dashboard" class="flex flex-col items-center text-xs gap-0.5 text-white px-2 py-1 transition">
+      <span class="text-xl">🏠</span>Home
     </button>
-    <button onclick="showView('feed')" id="nav-feed" class="flex flex-col items-center text-xs gap-0.5 text-gray-400 hover:text-white px-2 py-1">
-      <span class="text-lg">⚡</span>Feed
+    <button onclick="showView('feed')" id="nav-feed" class="flex flex-col items-center text-xs gap-0.5 text-gray-400 hover:text-white px-2 py-1 transition">
+      <span class="text-xl">⚡</span>Feed
     </button>
-    <button onclick="showView('topics')" id="nav-topics" class="flex flex-col items-center text-xs gap-0.5 text-gray-400 hover:text-white px-2 py-1">
-      <span class="text-lg">📚</span>Themen
+    <button onclick="showView('learn-path')" id="nav-learn-path" class="flex flex-col items-center text-xs gap-0.5 text-gray-400 hover:text-white px-2 py-1 transition">
+      <span class="text-xl">🛤️</span>Lernen
     </button>
-    <button onclick="showView('flashcards')" id="nav-flashcards" class="flex flex-col items-center text-xs gap-0.5 text-gray-400 hover:text-white px-2 py-1">
-      <span class="text-lg">🃏</span>Karten
+    <button onclick="showView('flashcards')" id="nav-flashcards" class="flex flex-col items-center text-xs gap-0.5 text-gray-400 hover:text-white px-2 py-1 transition">
+      <span class="text-xl">🃏</span>Karten
     </button>
-    <button onclick="showView('profile')" id="nav-profile" class="flex flex-col items-center text-xs gap-0.5 text-gray-400 hover:text-white px-2 py-1">
-      <span class="text-lg">👤</span>Profil
+    <button onclick="showView('profile')" id="nav-profile" class="flex flex-col items-center text-xs gap-0.5 text-gray-400 hover:text-white px-2 py-1 transition">
+      <span class="text-xl">👤</span>Profil
     </button>
   </nav>
 

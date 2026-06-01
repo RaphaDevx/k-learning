@@ -2,7 +2,7 @@
 // View management: show/hide screens, update navigation
 
 window.Router = (function() {
-  const VIEWS = ['dashboard', 'feed', 'flashcards', 'topics', 'exam', 'tutor', 'profile'];
+  const VIEWS = ['dashboard', 'course-hub', 'feed', 'flashcards', 'learn-path', 'topics', 'exam', 'tutor', 'profile'];
   let currentView = 'dashboard';
 
   function showView(name) {
@@ -26,13 +26,15 @@ window.Router = (function() {
 
     // Call screen init
     const screens = {
-      dashboard:  window.DashboardScreen,
-      feed:       window.FeedScreen,
-      flashcards: window.FlashcardsScreen,
-      topics:     window.TopicsScreen,
-      exam:       window.ExamScreen,
-      tutor:      window.TutorScreen,
-      profile:    window.ProfileScreen,
+      dashboard:    window.DashboardScreen,
+      'course-hub': window.CourseHubScreen,
+      feed:         window.FeedScreen,
+      flashcards:   window.FlashcardsScreen,
+      'learn-path': window.LearnPathScreen,
+      topics:       window.TopicsScreen,
+      exam:         window.ExamScreen,
+      tutor:        window.TutorScreen,
+      profile:      window.ProfileScreen,
     };
     const screen = screens[name];
     if (screen && screen.init) screen.init();
@@ -41,18 +43,22 @@ window.Router = (function() {
   }
 
   function updateNav(name) {
+    // Sekundäre Views haben keinen eigenen Nav-Button → nächste Hauptseite aktiv lassen
+    const navMap = { 'course-hub': 'dashboard', topics: 'learn-path', exam: 'learn-path', tutor: 'learn-path' };
+    const navName = navMap[name] || name;
+
     // Mobile bottom nav
     VIEWS.forEach(v => {
       const btn = document.getElementById('nav-' + v);
       if (btn) {
-        btn.classList.toggle('text-white', v === name);
-        btn.classList.toggle('text-gray-400', v !== name);
+        btn.classList.toggle('text-white',  v === navName);
+        btn.classList.toggle('text-gray-400', v !== navName);
       }
     });
     // Desktop sidebar
     VIEWS.forEach(v => {
       const btn = document.getElementById('snav-' + v);
-      if (btn) btn.classList.toggle('active', v === name);
+      if (btn) btn.classList.toggle('active', v === navName);
     });
   }
 

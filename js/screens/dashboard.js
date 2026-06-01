@@ -57,7 +57,7 @@ window.DashboardScreen = (function() {
       return `
         <div class="rounded-2xl p-4 cursor-pointer transition hover:opacity-90 hover:scale-[1.02]"
              style="${bgStyle}; border:1px solid rgba(255,255,255,0.1)"
-             onclick="showView('topics'); TopicsScreen && TopicsScreen.selectCourse && TopicsScreen.selectCourse('${key}')">
+             onclick="CourseHubScreen.open('${key}')">
           <div class="text-2xl mb-2">${c.icon}</div>
           <div class="font-bold">${c.label}</div>
           <div class="text-xs text-gray-300 mt-1">${learned} / ${total} Karten</div>

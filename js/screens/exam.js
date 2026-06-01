@@ -741,6 +741,10 @@ window.ExamScreen = (function() {
     }
   }
 
+  function getExamsByCourse(courseKey) {
+    return EXAM_REGISTRY.filter(e => e.course === courseKey);
+  }
+
   return {
     init, renderSelector,
     showSetup, closeSetup, startFromSetup, startExam,
@@ -748,5 +752,6 @@ window.ExamScreen = (function() {
     confirmAbort, cancelAbort, abortExam,
     submitExam, closeResults,
     isExamActive, requestAiFeedback,
+    getExamsByCourse,
   };
 })();

@@ -19,6 +19,8 @@ window.AppState = (function() {
     _state.feedProgress  = _state.feedProgress || {};
     _state.topicProgress = _state.topicProgress || {};
     _state.enrolledCourses = _state.enrolledCourses || null; // null = all courses
+    _state.activeCourse  = _state.activeCourse  || null;     // z.B. 'ESF'
+    _state.activeTab     = _state.activeTab     || 'feed';   // 'feed'|'modules'|'exams'|'summaries'|'flashcards'
   }
 
   function save() {
