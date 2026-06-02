@@ -86,6 +86,14 @@ window.ExamScreen = (function() {
       available: true,
     },
     {
+      id: 'esf-uebung23',
+      label: 'ESF — Übungsklausur HS 2023',
+      course: 'ESF',
+      dataVar: 'EXAM_DATA_ESF_UEBUNG23',
+      file: 'exams/esf-uebung23-data.js',
+      available: true,
+    },
+    {
       id: 'om-hs23',
       label: 'OM — Prüfung HS 2023',
       course: 'OM',
