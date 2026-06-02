@@ -385,6 +385,7 @@ window.ExamScreen = (function() {
               <span class="text-xs text-blue-400">${q.points} ${q.points === 1 ? 'Punkt' : 'Punkte'}</span>
               ${isMulti ? '<span class="text-xs text-gray-500">Mehrere Antworten möglich</span>' : ''}
             </div>
+            ${q.imageHtml ? `<div class="mt-3 overflow-x-auto">${q.imageHtml}</div>` : ''}
           </div>
         </div>
         <div class="space-y-2 ml-10" id="choices-${q.id}">

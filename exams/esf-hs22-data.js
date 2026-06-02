@@ -37,7 +37,9 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Da die Daten in drei Gruppen vorliegen, sind sie nicht dichotom.' }
           ],
           correct: ['C'],
-          explanation: 'In der Grounded Theory werden Rohdaten (nullte Ordnung) durch offenes, axiales und selektives Kodieren schrittweise zu abstrakteren Kategorien (zweite Ordnung) zusammengefasst. Die Tabelle zeigt genau diesen Aggregationsprozess — typisch für induktive qualitative Forschung.'
+          explanation: 'In der Grounded Theory werden Rohdaten (nullte Ordnung) durch offenes, axiales und selektives Kodieren schrittweise zu abstrakteren Kategorien (zweite Ordnung) zusammengefasst. Die Tabelle zeigt genau diesen Aggregationsprozess — typisch für induktive qualitative Forschung.',
+          topics: ['Qualitativ', 'Induktion', 'Methode'],
+          imageHtml: '<div style="margin-top:8px;overflow-x:auto"><table style="width:100%;border-collapse:collapse;background:#1f2937;border-radius:8px;overflow:hidden;font-size:0.7rem"><thead><tr style="background:#111827"><th style="padding:7px 8px;text-align:left;color:#9ca3af;border-bottom:1px solid #374151">Nullte Ordnung</th><th style="padding:7px 8px;text-align:left;color:#9ca3af;border-bottom:1px solid #374151">Erste Ordnung</th><th style="padding:7px 8px;text-align:left;color:#60a5fa;border-bottom:1px solid #374151">Zweite Ordnung</th></tr></thead><tbody><tr style="border-bottom:1px solid #374151"><td style="padding:6px 8px;color:#d1d5db">Beliebt, Themenbezogen, Bekannt, Erkennbar</td><td style="padding:6px 8px;color:#e5e7eb;font-weight:500">Relevanz</td><td rowspan="4" style="padding:6px 8px;color:#60a5fa;font-weight:600;vertical-align:middle;text-align:center">Inhalts-<br>bezogene<br>Faktoren</td></tr><tr style="border-bottom:1px solid #374151"><td style="padding:6px 8px;color:#d1d5db">Ikonisch, Symbolisch, Kulturell verankert</td><td style="padding:6px 8px;color:#e5e7eb;font-weight:500">Ikonizitat</td></tr><tr style="border-bottom:1px solid #374151"><td style="padding:6px 8px;color:#d1d5db">Einfach, Weit verbreitet, Leicht verstandlich</td><td style="padding:6px 8px;color:#e5e7eb;font-weight:500">Zuganglichkeit</td></tr><tr><td style="padding:6px 8px;color:#d1d5db">Humorvoll, Kreativ, Uberraschend, Witzig</td><td style="padding:6px 8px;color:#e5e7eb;font-weight:500">Humorismus</td></tr></tbody></table><p style="color:#6b7280;font-size:0.65rem;margin-top:4px">Tab.: Kodierungsergebnisse Meme-Marketing-Studie (Malodia et al., 2022) — Nullte Ordnung → Erste Ordnung → Zweite Ordnung</p></div>',
         },
         {
           id: 'esf-hs22-02',
@@ -52,7 +54,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Die Vielfalt der befragten Teilnehmenden trägt höchstwahrscheinlich dazu bei, dass die Ergebnisse auf Kosten der Tiefe breiter angelegt sind (d.h. verschiedene Perspektiven und Nutzungsmotivationen erfassen).' }
           ],
           correct: ['E'],
-          explanation: 'In qualitativer Forschung besteht ein klassischer Trade-off: Eine heterogene Stichprobe (verschiedene Rollen: Nutzende, Kreierenden, Influencer, Manager) erfasst ein breiteres Spektrum an Perspektiven, verliert aber Tiefe im Vergleich zu einer homogenen Fokussierung. B ist falsch: Stichprobenfehler ist ein quantitatives Konzept; qualitative Forschung erhebt keinen Anspruch auf Repräsentativität.'
+          explanation: 'In qualitativer Forschung besteht ein klassischer Trade-off: Eine heterogene Stichprobe (verschiedene Rollen: Nutzende, Kreierenden, Influencer, Manager) erfasst ein breiteres Spektrum an Perspektiven, verliert aber Tiefe im Vergleich zu einer homogenen Fokussierung. B ist falsch: Stichprobenfehler ist ein quantitatives Konzept; qualitative Forschung erhebt keinen Anspruch auf Repräsentativität.',
+          topics: ['Qualitativ', 'Datenerhebung', 'Forschungsdesign'],
         },
         {
           id: 'esf-hs22-03',
@@ -67,7 +70,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: '(1) abduktives, (2) Grounded, (3) der Beobachtung, (4) logischen Analysen, (5) nicht erklärbar' }
           ],
           correct: ['C'],
-          explanation: 'Grounded Theory ist induktiv (theoriebauend, nicht -prüfend). Sie beginnt mit den Daten selbst (nicht mit Theorie), baut auf empirischen Daten auf und wird für Phänomene genutzt, die durch bestehende Theorien nicht erklärt werden können. B ist falsch: Grounded Theory beginnt explizit mit den Daten, nicht mit der Theorie.'
+          explanation: 'Grounded Theory ist induktiv (theoriebauend, nicht -prüfend). Sie beginnt mit den Daten selbst (nicht mit Theorie), baut auf empirischen Daten auf und wird für Phänomene genutzt, die durch bestehende Theorien nicht erklärt werden können. B ist falsch: Grounded Theory beginnt explizit mit den Daten, nicht mit der Theorie.',
+          topics: ['Induktion', 'Qualitativ', 'Forschungsdesign'],
         }
       ]
     },
@@ -91,7 +95,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Ein erhöhter Testosteronspiegel (im Gegensatz zu einem erhöhten Östrogenspiegel) führt zu stärkerer Präferenz für Statusgüter.' }
           ],
           correct: ['A'],
-          explanation: 'A ist die präziseste Hypothese, die direkt dem Titel entspricht. D und E fügen Vergleiche (zu Frauen, zu Östrogen) hinzu, die im Abstract nicht genannt werden. Eine gute Hypothese enthält nur das, was die Studie tatsächlich testet.'
+          explanation: 'A ist die präziseste Hypothese, die direkt dem Titel entspricht. D und E fügen Vergleiche (zu Frauen, zu Östrogen) hinzu, die im Abstract nicht genannt werden. Eine gute Hypothese enthält nur das, was die Studie tatsächlich testet.',
+          topics: ['Hypothesen', 'Experiment', 'Forschungsprozess'],
         },
         {
           id: 'esf-hs22-05',
@@ -106,7 +111,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Das doppelblinde Forschungsprotokoll stellt sicher, dass weder die Teilnehmer noch die durchführenden Forschenden wissen, welche Behandlung einem Teilnehmer verabreicht wird.' }
           ],
           correct: ['E'],
-          explanation: 'E ist die exakte Definition des Doppelblindverfahrens: Weder Teilnehmende noch Forschende wissen, wer welche Behandlung erhalten hat — schützt vor Erwartungseffekten auf beiden Seiten. D ist falsch: Ein randomisiertes Experiment erlaubt kausale Schlüsse, keine blossen Korrelationen. A ist falsch: Es ist ein randomisiertes kontrolliertes Experiment, kein quasi-natürliches.'
+          explanation: 'E ist die exakte Definition des Doppelblindverfahrens: Weder Teilnehmende noch Forschende wissen, wer welche Behandlung erhalten hat — schützt vor Erwartungseffekten auf beiden Seiten. D ist falsch: Ein randomisiertes Experiment erlaubt kausale Schlüsse, keine blossen Korrelationen. A ist falsch: Es ist ein randomisiertes kontrolliertes Experiment, kein quasi-natürliches.',
+          topics: ['Experiment', 'Forschungsdesign', 'Interne Validität'],
         },
         {
           id: 'esf-hs22-06',
@@ -121,7 +127,9 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Das Modell kann mit einem t-Test für abhängige Stichproben getestet werden.' }
           ],
           correct: ['C'],
-          explanation: 'Da es sich um ein randomisiertes Doppelblind-Experiment handelt, sind kausale Schlussfolgerungen ("führt zu") gerechtfertigt — das ist gerade der Vorteil des experimentellen Designs gegenüber Beobachtungsstudien. D ("korreliert") wäre für eine Beobachtungsstudie korrekt, schwächt aber die kausal zulässige Aussage unnötig. E ist falsch: Bei einem between-subjects Design mit zwei unabhängigen Gruppen wird ein t-Test für unabhängige Stichproben verwendet.'
+          explanation: 'Da es sich um ein randomisiertes Doppelblind-Experiment handelt, sind kausale Schlussfolgerungen ("führt zu") gerechtfertigt — das ist gerade der Vorteil des experimentellen Designs gegenüber Beobachtungsstudien. D ("korreliert") wäre für eine Beobachtungsstudie korrekt, schwächt aber die kausal zulässige Aussage unnötig. E ist falsch: Bei einem between-subjects Design mit zwei unabhängigen Gruppen wird ein t-Test für unabhängige Stichproben verwendet.',
+          topics: ['Experiment', 'Interne Validität', 'UV'],
+          imageHtml: '<svg width="260" height="155" style="display:block;background:#1f2937;border-radius:8px;margin-top:8px" xmlns="http://www.w3.org/2000/svg"><line x1="65" y1="15" x2="65" y2="130" stroke="#4b5563" stroke-width="1"/><line x1="65" y1="78" x2="240" y2="78" stroke="#6b7280" stroke-width="1" stroke-dasharray="4,3"/><text x="59" y="19" fill="#9ca3af" font-size="8" text-anchor="end">+0.12</text><text x="59" y="50" fill="#9ca3af" font-size="8" text-anchor="end">+0.06</text><text x="59" y="81" fill="#9ca3af" font-size="8" text-anchor="end">0</text><text x="59" y="112" fill="#9ca3af" font-size="8" text-anchor="end">-0.06</text><rect x="85" y="44" width="55" height="34" fill="#3b82f6" rx="3"/><line x1="112" y1="38" x2="112" y2="44" stroke="#93c5fd" stroke-width="2"/><line x1="107" y1="38" x2="117" y2="38" stroke="#93c5fd" stroke-width="2"/><line x1="112" y1="78" x2="112" y2="84" stroke="#93c5fd" stroke-width="2"/><line x1="107" y1="84" x2="117" y2="84" stroke="#93c5fd" stroke-width="2"/><text x="112" y="41" fill="#93c5fd" font-size="8.5" text-anchor="middle">+0.09</text><rect x="165" y="78" width="55" height="19" fill="#6b7280" rx="3"/><line x1="192" y1="71" x2="192" y2="78" stroke="#9ca3af" stroke-width="2"/><line x1="187" y1="71" x2="197" y2="71" stroke="#9ca3af" stroke-width="2"/><line x1="192" y1="97" x2="192" y2="103" stroke="#9ca3af" stroke-width="2"/><line x1="187" y1="103" x2="197" y2="103" stroke="#9ca3af" stroke-width="2"/><text x="192" y="113" fill="#9ca3af" font-size="8.5" text-anchor="middle">-0.05</text><text x="112" y="148" fill="#93c5fd" font-size="10" text-anchor="middle">Testosteron</text><text x="192" y="148" fill="#9ca3af" font-size="10" text-anchor="middle">Placebo</text><text x="12" y="78" fill="#6b7280" font-size="7.5" text-anchor="middle" transform="rotate(-90,12,78)">Prafferenz High-Status-Marke</text></svg>',
         },
         {
           id: 'esf-hs22-07',
@@ -136,7 +144,9 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Ob eine 11- oder 10-Punkte-Likert-Skala verwendet wird, hätte keinen Einfluss auf die Antworten.' }
           ],
           correct: ['C'],
-          explanation: 'Bei einer bipolaren kontinuierlichen Skala (0–100) gibt es keinen klar definierten "indifferenten" Mittelpunkt. Im Gegensatz zu einer 5- oder 7-Punkte-Likert-Skala mit einem expliziten Mittelwert (z.B. "weder noch") ist bei einem Slider der Indifferenzpunkt unklar. Zudem beeinflusst die Startposition des Cursors die Antwort (Anchoring-Effekt), weshalb D falsch ist.'
+          explanation: 'Bei einer bipolaren kontinuierlichen Skala (0–100) gibt es keinen klar definierten "indifferenten" Mittelpunkt. Im Gegensatz zu einer 5- oder 7-Punkte-Likert-Skala mit einem expliziten Mittelwert (z.B. "weder noch") ist bei einem Slider der Indifferenzpunkt unklar. Zudem beeinflusst die Startposition des Cursors die Antwort (Anchoring-Effekt), weshalb D falsch ist.',
+          topics: ['Befragung', 'Operationalisierung', 'Methode'],
+          imageHtml: '<div style="margin-top:8px;background:#1f2937;border-radius:8px;padding:14px"><p style="font-size:0.75rem;color:#d1d5db;text-align:center;margin-bottom:10px;font-style:italic">Welche Marke bevorzugen Sie?</p><div style="display:flex;align-items:center;gap:10px"><span style="font-size:0.7rem;color:#9ca3af;min-width:80px;text-align:right">Stark Marke A</span><div style="flex:1;position:relative;height:24px"><div style="position:absolute;top:50%;width:100%;height:4px;background:#374151;border-radius:2px;transform:translateY(-50%)"></div><div style="position:absolute;top:50%;left:0;width:60%;height:4px;background:#3b82f6;border-radius:2px;transform:translateY(-50%)"></div><div style="position:absolute;top:50%;left:60%;width:16px;height:16px;background:#60a5fa;border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 6px rgba(96,165,250,0.5)"></div></div><span style="font-size:0.7rem;color:#9ca3af;min-width:80px">Stark Marke B</span></div><div style="display:flex;justify-content:space-between;margin-top:6px;padding:0 88px"><span style="font-size:0.65rem;color:#6b7280">0</span><span style="font-size:0.65rem;color:#9ca3af;font-weight:500">Indifferent</span><span style="font-size:0.65rem;color:#6b7280">100</span></div><p style="font-size:0.65rem;color:#6b7280;text-align:center;margin-top:6px">Bipolare Slider-Skala (0-100) — Cursor-Position: ~60</p></div>',
         }
       ]
     },
@@ -160,7 +170,9 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Der absolute Mindestlohn stagnierte zwischen 2017 und 2020.' }
           ],
           correct: ['D'],
-          explanation: 'Wenn die y-Achse nicht bei Null beginnt, werden kleine absolute Unterschiede optisch dramatisch vergrössert. Dies ist eine klassische Technik zur irreführenden Visualisierung: Ein Anstieg von 10.45 auf 12.00 EUR (ca. 15%) sieht in der Grafik wie eine Verdoppelung aus. Diese Verzerrung kann bewusst für politische Kommunikation genutzt werden.'
+          explanation: 'Wenn die y-Achse nicht bei Null beginnt, werden kleine absolute Unterschiede optisch dramatisch vergrössert. Dies ist eine klassische Technik zur irreführenden Visualisierung: Ein Anstieg von 10.45 auf 12.00 EUR (ca. 15%) sieht in der Grafik wie eine Verdoppelung aus. Diese Verzerrung kann bewusst für politische Kommunikation genutzt werden.',
+          topics: ['Empirie', 'Methode', 'Datenerhebung'],
+          imageHtml: '<div style="background:#111827;border-radius:8px;padding:10px;margin-top:8px"><div style="display:flex;align-items:center;gap:6px;margin-bottom:6px"><span style="font-size:0.7rem;color:#4ade80;font-weight:600">@die_gruenen</span><span style="font-size:0.65rem;color:#6b7280">Instagram</span></div><svg width="262" height="120" xmlns="http://www.w3.org/2000/svg"><text x="27" y="17" fill="#9ca3af" font-size="7.5" text-anchor="end">12</text><text x="27" y="55" fill="#9ca3af" font-size="7.5" text-anchor="end">10</text><text x="27" y="95" fill="#9ca3af" font-size="7.5" text-anchor="end">8</text><line x1="30" y1="95" x2="258" y2="95" stroke="#374151" stroke-width="1"/><rect x="33" y="85" width="22" height="10" fill="#22c55e" rx="2"/><text x="44" y="82" fill="#86efac" font-size="6.5" text-anchor="middle">8.50</text><rect x="62" y="85" width="22" height="10" fill="#22c55e" rx="2"/><text x="73" y="82" fill="#86efac" font-size="6.5" text-anchor="middle">8.50</text><rect x="91" y="79" width="22" height="16" fill="#22c55e" rx="2"/><text x="102" y="76" fill="#86efac" font-size="6.5" text-anchor="middle">8.84</text><rect x="120" y="79" width="22" height="16" fill="#22c55e" rx="2"/><text x="131" y="76" fill="#86efac" font-size="6.5" text-anchor="middle">8.84</text><rect x="149" y="72" width="22" height="23" fill="#22c55e" rx="2"/><text x="160" y="69" fill="#86efac" font-size="6.5" text-anchor="middle">9.19</text><rect x="178" y="69" width="22" height="26" fill="#22c55e" rx="2"/><text x="189" y="66" fill="#86efac" font-size="6.5" text-anchor="middle">9.35</text><rect x="207" y="63" width="22" height="32" fill="#22c55e" rx="2"/><text x="218" y="60" fill="#86efac" font-size="6.5" text-anchor="middle">9.60</text><rect x="236" y="15" width="22" height="80" fill="#16a34a" rx="2"/><text x="247" y="12" fill="#86efac" font-size="6.5" text-anchor="middle">12.00</text><text x="44" y="107" fill="#9ca3af" font-size="7" text-anchor="middle">2015</text><text x="73" y="107" fill="#9ca3af" font-size="7" text-anchor="middle">2016</text><text x="102" y="107" fill="#9ca3af" font-size="7" text-anchor="middle">2017</text><text x="131" y="107" fill="#9ca3af" font-size="7" text-anchor="middle">2018</text><text x="160" y="107" fill="#9ca3af" font-size="7" text-anchor="middle">2019</text><text x="189" y="107" fill="#9ca3af" font-size="7" text-anchor="middle">2020</text><text x="218" y="107" fill="#9ca3af" font-size="7" text-anchor="middle">2021</text><text x="247" y="107" fill="#9ca3af" font-size="7" text-anchor="middle">2022</text></svg><p style="font-size:0.65rem;color:#ef4444;text-align:center;margin-top:4px">y-Achse beginnt bei 8 EUR, nicht bei 0 — dadurch wirkt der Anstieg optisch starker als er ist!</p></div>',
         },
         {
           id: 'esf-hs22-09',
@@ -175,7 +187,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Die Skala sollte mindestens 10-mal in anderen Arbeiten zitiert worden sein, da dies ihre Nützlichkeit gewährleistet.' }
           ],
           correct: ['C'],
-          explanation: 'Cronbach\'s Alpha misst die interne Konsistenz einer mehrdimensionalen Skala. Ein Wert > 0.7 gilt als akzeptabel. Für eindimensionale Skalen (single-item) ist Alpha nicht anwendbar — dort sind andere Gütekriterien relevant. D ist ein Trick: Es gibt kein "Cronbach\'s Beta" — nur Alpha. A ist falsch: Eindimensionale Skalen können ein Konstrukt vollständig erfassen; ob ein Konstrukt ein- oder mehrdimensional ist, hängt von der Theorie ab.'
+          explanation: 'Cronbach\'s Alpha misst die interne Konsistenz einer mehrdimensionalen Skala. Ein Wert > 0.7 gilt als akzeptabel. Für eindimensionale Skalen (single-item) ist Alpha nicht anwendbar — dort sind andere Gütekriterien relevant. D ist ein Trick: Es gibt kein "Cronbach\'s Beta" — nur Alpha. A ist falsch: Eindimensionale Skalen können ein Konstrukt vollständig erfassen; ob ein Konstrukt ein- oder mehrdimensional ist, hängt von der Theorie ab.',
+          topics: ['Befragung', 'Operationalisierung', 'Interne Validität'],
         },
         {
           id: 'esf-hs22-10',
@@ -190,7 +203,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Praktische Implikationen sind eine der zentralen Komponenten der empirischen Sozialforschung.' }
           ],
           correct: ['E'],
-          explanation: 'Die drei zentralen Komponenten der empirischen Sozialforschung sind: (1) Theorie (Ordnung des Wissens), (2) Empirie (Datenerhebung), (3) Methode (Forschungsmethodik). Praktische Implikationen sind ein wertvolles Ergebnis von Forschung, aber keine definitorische Kernkomponente — sie gehören zur Anwendung, nicht zur Grundstruktur. E trifft am wenigsten zu.'
+          explanation: 'Die drei zentralen Komponenten der empirischen Sozialforschung sind: (1) Theorie (Ordnung des Wissens), (2) Empirie (Datenerhebung), (3) Methode (Forschungsmethodik). Praktische Implikationen sind ein wertvolles Ergebnis von Forschung, aber keine definitorische Kernkomponente — sie gehören zur Anwendung, nicht zur Grundstruktur. E trifft am wenigsten zu.',
+          topics: ['Empirie', 'Theorie', 'Forschungsprozess'],
         },
         {
           id: 'esf-hs22-11',
@@ -205,7 +219,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Bei ihrer Forschung setzte sie vor allem auf qualitative Arbeit mit Fokusgruppen.' }
           ],
           correct: ['E'],
-          explanation: 'Mears verwendete teilnehmende Beobachtung (participant observation), indem sie sich selbst in den VIP-Partykreislauf integrierte. Fokusgruppen wären für diese ethnographische Forschung völlig unpassend. E ist die falsche Aussage — Fokusgruppen hätten keine Einblicke in die tatsächliche soziale Dynamik dieses exklusiven Kreislaufs ermöglicht.'
+          explanation: 'Mears verwendete teilnehmende Beobachtung (participant observation), indem sie sich selbst in den VIP-Partykreislauf integrierte. Fokusgruppen wären für diese ethnographische Forschung völlig unpassend. E ist die falsche Aussage — Fokusgruppen hätten keine Einblicke in die tatsächliche soziale Dynamik dieses exklusiven Kreislaufs ermöglicht.',
+          topics: ['Qualitativ', 'Datenerhebung', 'Forschungsparadigmen'],
         },
         {
           id: 'esf-hs22-12',
@@ -220,7 +235,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: '(3), (2), (1), (5), (4)' }
           ],
           correct: ['B'],
-          explanation: 'Der typische Forschungsprozess: Forschungsfrage formulieren → Literaturrecherche → Stichprobe ziehen → Daten analysieren → Manuskript überarbeiten. B ist korrekt: (2)→(3)→(5)→(1)→(4). Die Literaturrecherche folgt auf die initiale Forschungsfrage und kann diese schärfen; die Stichprobe wird erst nach der Konzeption gezogen.'
+          explanation: 'Der typische Forschungsprozess: Forschungsfrage formulieren → Literaturrecherche → Stichprobe ziehen → Daten analysieren → Manuskript überarbeiten. B ist korrekt: (2)→(3)→(5)→(1)→(4). Die Literaturrecherche folgt auf die initiale Forschungsfrage und kann diese schärfen; die Stichprobe wird erst nach der Konzeption gezogen.',
+          topics: ['Forschungsprozess', 'Empirie', 'Methode'],
         },
         {
           id: 'esf-hs22-13',
@@ -235,7 +251,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Aus diesen Informationen können wir schliessen, dass die Forschenden zehn Experimente durchgeführt haben.' }
           ],
           correct: ['E'],
-          explanation: 'Der Text sagt "präregistrierte Online-Studien" — Studien sind nicht dasselbe wie Experimente. Online-Studien können Umfragen, Beobachtungsstudien, korrelative Designs etc. sein, nicht nur Experimente. E ist die am wenigsten zutreffende Aussage, da sie zu Unrecht von Studien auf Experimente schliesst.'
+          explanation: 'Der Text sagt "präregistrierte Online-Studien" — Studien sind nicht dasselbe wie Experimente. Online-Studien können Umfragen, Beobachtungsstudien, korrelative Designs etc. sein, nicht nur Experimente. E ist die am wenigsten zutreffende Aussage, da sie zu Unrecht von Studien auf Experimente schliesst.',
+          topics: ['Publikation', 'Empirie', 'Forschungsprozess'],
         },
         {
           id: 'esf-hs22-14',
@@ -250,7 +267,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Qualitative Forschung erklärt auftretende Effekte via Mediation und Moderation.' }
           ],
           correct: ['B'],
-          explanation: 'B ist korrekt: Qualitative Forschung verwendet keine statistischen Analysemethoden. Stattdessen werden Daten durch interpretative Verfahren wie Themenanalyse, Diskursanalyse oder Kodierung ausgewertet. A ist falsch (qualitative Daten = Texte, Bilder, Audio). C ist falsch (qualitativ = induktiv). D ist falsch (qualitativ zielt auf Tiefe, nicht Generalisierbarkeit). E ist falsch (Mediation/Moderation = quantitative Konzepte).'
+          explanation: 'B ist korrekt: Qualitative Forschung verwendet keine statistischen Analysemethoden. Stattdessen werden Daten durch interpretative Verfahren wie Themenanalyse, Diskursanalyse oder Kodierung ausgewertet. A ist falsch (qualitative Daten = Texte, Bilder, Audio). C ist falsch (qualitativ = induktiv). D ist falsch (qualitativ zielt auf Tiefe, nicht Generalisierbarkeit). E ist falsch (Mediation/Moderation = quantitative Konzepte).',
+          topics: ['Qualitativ', 'Forschungsparadigmen', 'Methode'],
         },
         {
           id: 'esf-hs22-15',
@@ -265,7 +283,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Die Ergebnisse dieser Studie sind ohne Einschränkungen auf das Jahr 2022 anwendbar.' }
           ],
           correct: ['D'],
-          explanation: 'D ist korrekt: Wenn zwei kontinuierliche Variablen (Roboterdichte und Arbeitsplatzinteresse) untersucht werden, ist eine Korrelationsstudie die geeignete Methode zur Analyse ihrer Beziehung. E ist falsch: Zeitliche Einschränkungen, technologische Veränderungen und andere Kontextfaktoren schränken die Übertragbarkeit auf andere Zeitpunkte ein.'
+          explanation: 'D ist korrekt: Wenn zwei kontinuierliche Variablen (Roboterdichte und Arbeitsplatzinteresse) untersucht werden, ist eine Korrelationsstudie die geeignete Methode zur Analyse ihrer Beziehung. E ist falsch: Zeitliche Einschränkungen, technologische Veränderungen und andere Kontextfaktoren schränken die Übertragbarkeit auf andere Zeitpunkte ein.',
+          topics: ['Empirie', 'Quantitativ', 'Methode'],
         },
         {
           id: 'esf-hs22-16',
@@ -280,7 +299,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Einführung in einem Testmarkt und Beobachtung der Reaktionen über einen längeren Zeitraum.' }
           ],
           correct: ['A'],
-          explanation: 'Das blosse Kopieren einer Konkurrenzstrategie (ohne eigene Forschung) hilft am wenigsten — die Strategie des Konkurrenten könnte selbst schlecht sein oder auf andere Marktbedingungen ausgerichtet sein. Alle anderen Optionen beinhalten eigene Primärforschung (Fokusgruppen, Interviews, Experimente, Testmärkte), die valide Erkenntnisse für die eigene Entscheidung liefern würden.'
+          explanation: 'Das blosse Kopieren einer Konkurrenzstrategie (ohne eigene Forschung) hilft am wenigsten — die Strategie des Konkurrenten könnte selbst schlecht sein oder auf andere Marktbedingungen ausgerichtet sein. Alle anderen Optionen beinhalten eigene Primärforschung (Fokusgruppen, Interviews, Experimente, Testmärkte), die valide Erkenntnisse für die eigene Entscheidung liefern würden.',
+          topics: ['Qualitativ', 'Datenerhebung', 'Befragung'],
         },
         {
           id: 'esf-hs22-17',
@@ -295,7 +315,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Der langwierige Publikationsprozess in den Sozialwissenschaften kann einer schnellen Verbreitung aktueller Themen im Wege stehen.' }
           ],
           correct: ['E'],
-          explanation: 'E ist korrekt: Peer-Review-Verfahren dauern oft Monate bis Jahre, was die schnelle Dissemination von aktuellen Forschungsergebnissen erschwert. Das erklärt, warum Preprints (z.B. auf arXiv oder SSRN) zunehmend an Bedeutung gewinnen. A ist falsch: Der Zweck des Review-Verfahrens ist Qualitätssicherung, nicht Popularisierung. D ist falsch: Die Zeitschrift beeinflusst Peer-Reviewer-Profil und Akzeptanzraten erheblich.'
+          explanation: 'E ist korrekt: Peer-Review-Verfahren dauern oft Monate bis Jahre, was die schnelle Dissemination von aktuellen Forschungsergebnissen erschwert. Das erklärt, warum Preprints (z.B. auf arXiv oder SSRN) zunehmend an Bedeutung gewinnen. A ist falsch: Der Zweck des Review-Verfahrens ist Qualitätssicherung, nicht Popularisierung. D ist falsch: Die Zeitschrift beeinflusst Peer-Reviewer-Profil und Akzeptanzraten erheblich.',
+          topics: ['Publikation', 'Empirie', 'Forschungsprozess'],
         },
         {
           id: 'esf-hs22-18',
@@ -310,7 +331,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Subjektivität' }
           ],
           correct: ['A'],
-          explanation: 'Theorie-Prüfung (Hypothesentestung) ist ein Merkmal quantitativer Forschung, die deduktiv vorgeht. Qualitative Forschung ist typischerweise induktiv und theoriebauend (Grounded Theory) oder -erkundend — sie entwickelt und verfeinert Theorien, anstatt vorformulierte Hypothesen zu testen. B, C, D, E sind alle Merkmale qualitativer Forschung.'
+          explanation: 'Theorie-Prüfung (Hypothesentestung) ist ein Merkmal quantitativer Forschung, die deduktiv vorgeht. Qualitative Forschung ist typischerweise induktiv und theoriebauend (Grounded Theory) oder -erkundend — sie entwickelt und verfeinert Theorien, anstatt vorformulierte Hypothesen zu testen. B, C, D, E sind alle Merkmale qualitativer Forschung.',
+          topics: ['Qualitativ', 'Deduktion', 'Forschungsparadigmen'],
         },
         {
           id: 'esf-hs22-19',
@@ -325,7 +347,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Verallgemeinerbarkeit über Studien hinweg' }
           ],
           correct: ['E'],
-          explanation: 'Der Kern dieser Diskussion ist Generalisierbarkeit (externe Validität): Können Erkenntnisse aus spezifischen Kontexten (z.B. Bettnetze in Kenia) auf andere Länder, Kulturen und Situationen übertragen werden? Nur wenn Ergebnisse verallgemeinerbar sind, können sie breit für Politikentscheidungen genutzt werden. Metaanalysen und systematische Reviews sind Instrumente zur Erhöhung dieser Verallgemeinerbarkeit.'
+          explanation: 'Der Kern dieser Diskussion ist Generalisierbarkeit (externe Validität): Können Erkenntnisse aus spezifischen Kontexten (z.B. Bettnetze in Kenia) auf andere Länder, Kulturen und Situationen übertragen werden? Nur wenn Ergebnisse verallgemeinerbar sind, können sie breit für Politikentscheidungen genutzt werden. Metaanalysen und systematische Reviews sind Instrumente zur Erhöhung dieser Verallgemeinerbarkeit.',
+          topics: ['Empirie', 'Forschungsprozess', 'Interne Validität'],
         },
         {
           id: 'esf-hs22-20',
@@ -340,7 +363,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Verringerung der Identitätsrelevanz der vom Produkt ausgeführten Tätigkeit' }
           ],
           correct: ['C'],
-          explanation: 'De Bellis et al. (2023) zeigten, dass der Moderator "Meaningful Time Gain" (sinnhafter Zeitgewinn) den negativen Effekt von MML (Meaning of Manual Labor) auf die Adoptionsbereitschaft kompensiert. Wenn Konsumierende sehen, dass die durch das autonome Produkt gewonnene Zeit für sinnvolle Aktivitäten (Familie, Hobbys) genutzt werden kann, sinkt die Adoptionsbarriere.'
+          explanation: 'De Bellis et al. (2023) zeigten, dass der Moderator "Meaningful Time Gain" (sinnhafter Zeitgewinn) den negativen Effekt von MML (Meaning of Manual Labor) auf die Adoptionsbereitschaft kompensiert. Wenn Konsumierende sehen, dass die durch das autonome Produkt gewonnene Zeit für sinnvolle Aktivitäten (Familie, Hobbys) genutzt werden kann, sinkt die Adoptionsbarriere.',
+          topics: ['Empirie', 'Methode', 'Forschungsprozess'],
         }
       ]
     },
@@ -364,7 +388,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Passieren zwei Dinge nacheinander, ist es höchst wahrscheinlich, dass diese voneinander abhängen.' }
           ],
           correct: ['D'],
-          explanation: 'Ockhams Rasiermesser (Prinzip der Sparsamkeit / Parsimonie): Von zwei Theorien, die dasselbe erklären, ist die einfachere (mit weniger Annahmen) vorzuziehen. D beschreibt genau dieses Prinzip. E beschreibt den Post-hoc-ergo-propter-hoc-Fehlschluss (Korrelation ≠ Kausalität). C beschreibt das Falsifikationsprinzip Poppers.'
+          explanation: 'Ockhams Rasiermesser (Prinzip der Sparsamkeit / Parsimonie): Von zwei Theorien, die dasselbe erklären, ist die einfachere (mit weniger Annahmen) vorzuziehen. D beschreibt genau dieses Prinzip. E beschreibt den Post-hoc-ergo-propter-hoc-Fehlschluss (Korrelation ≠ Kausalität). C beschreibt das Falsifikationsprinzip Poppers.',
+          topics: ['Theorie', 'Empirie', 'Forschungslogik'],
         },
         {
           id: 'esf-hs22-22',
@@ -379,7 +404,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Die Kontroverse rund um "Power Posing" ist typisch für die Kritikkultur im akademischen Umfeld.' }
           ],
           correct: ['A', 'B'],
-          explanation: 'A: Der psychologische Effekt (Gefühle der Macht) ist durch replizierbare Studien zumindest teilweise belegt. B: Der physiologische Effekt (Hormonveränderungen wie Testosteronanstieg) konnte in Replikationsstudien nicht zuverlässig bestätigt werden. C ist falsch: Die Kontroverse hatte auch persönliche und gesellschaftliche Dimensionen. D ist zu extrem: Power Posing hat empirische Befunde, auch wenn einige nicht replizieren.'
+          explanation: 'A: Der psychologische Effekt (Gefühle der Macht) ist durch replizierbare Studien zumindest teilweise belegt. B: Der physiologische Effekt (Hormonveränderungen wie Testosteronanstieg) konnte in Replikationsstudien nicht zuverlässig bestätigt werden. C ist falsch: Die Kontroverse hatte auch persönliche und gesellschaftliche Dimensionen. D ist zu extrem: Power Posing hat empirische Befunde, auch wenn einige nicht replizieren.',
+          topics: ['Empirie', 'Forschungsprozess', 'Publikation'],
         },
         {
           id: 'esf-hs22-23',
@@ -394,7 +420,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: '…eine ähnliche Analyse eines ähnlichen Datensatzes.' }
           ],
           correct: ['D'],
-          explanation: 'Reproduzierbarkeit (Reproducibility) bedeutet: Dieselben Daten + dieselbe Analyse = dieselben Ergebnisse. Nur D erfüllt diese Definition exakt. A beschreibt Replizierbarkeit (neue Daten, gleiche Methode). B beschreibt Robustheit (gleiche Daten, verschiedene Methoden). C und E sind Mischformen.'
+          explanation: 'Reproduzierbarkeit (Reproducibility) bedeutet: Dieselben Daten + dieselbe Analyse = dieselben Ergebnisse. Nur D erfüllt diese Definition exakt. A beschreibt Replizierbarkeit (neue Daten, gleiche Methode). B beschreibt Robustheit (gleiche Daten, verschiedene Methoden). C und E sind Mischformen.',
+          topics: ['Empirie', 'Forschungsprozess', 'Methode'],
         },
         {
           id: 'esf-hs22-24',
@@ -409,7 +436,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Fehlende Bezüge zwischen Visualisierung und dem Zweck der Evaluation' }
           ],
           correct: ['A', 'B', 'C', 'E'],
-          explanation: 'A, B, C, E sind Limitationen: Visualisierungen können kausal missverstanden werden (A), Datenfehler sichtbarer/verstärkt machen (B), durch neue/unbekannte Formate täuschen (C), und den eigentlichen Evaluationszweck verfehlen (E). D (Komprimierung) ist eigentlich eine EIGENSCHAFT der Visualisierung — sie vereinfacht Komplexität, was sowohl Stärke als auch Schwäche sein kann, aber nicht primär als Limitation gilt.'
+          explanation: 'A, B, C, E sind Limitationen: Visualisierungen können kausal missverstanden werden (A), Datenfehler sichtbarer/verstärkt machen (B), durch neue/unbekannte Formate täuschen (C), und den eigentlichen Evaluationszweck verfehlen (E). D (Komprimierung) ist eigentlich eine EIGENSCHAFT der Visualisierung — sie vereinfacht Komplexität, was sowohl Stärke als auch Schwäche sein kann, aber nicht primär als Limitation gilt.',
+          topics: ['Empirie', 'Methode', 'Datenerhebung'],
         },
         {
           id: 'esf-hs22-25',
@@ -424,7 +452,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Nur KI-komponierte Musik wird Teilnehmenden vorgespielt und deren Bewertung gemessen.' }
           ],
           correct: ['A', 'B', 'C'],
-          explanation: 'A (between-subjects) und B (within-subjects) sind klassische experimentelle Designs, die den Kausal-Effekt der Urheberschafts-Information testen. C ist methodisch aufwendiger aber valide: Derselbe Stimulus, aber unterschiedliche Kontextinformation (KI vs. Mensch). D ist keine Prüfung des Effekts (Fokusgruppe ohne Vergleichsbedingung). E fehlt eine Vergleichsbedingung (keine menschlich-komponierte Musik).'
+          explanation: 'A (between-subjects) und B (within-subjects) sind klassische experimentelle Designs, die den Kausal-Effekt der Urheberschafts-Information testen. C ist methodisch aufwendiger aber valide: Derselbe Stimulus, aber unterschiedliche Kontextinformation (KI vs. Mensch). D ist keine Prüfung des Effekts (Fokusgruppe ohne Vergleichsbedingung). E fehlt eine Vergleichsbedingung (keine menschlich-komponierte Musik).',
+          topics: ['Experiment', 'Forschungsdesign', 'UV'],
         },
         {
           id: 'esf-hs22-26',
@@ -439,7 +468,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Forschende müssen in der quantitativen vs. qualitativen Debatte Partei ergreifen, da die Ansätze unvereinbar sind.' }
           ],
           correct: ['C', 'D'],
-          explanation: 'C: Beide Ansätze haben ihre Stärken und sind je nach Forschungsfrage gleich wertvoll. D: Mixed-Methods-Forschung (Triangulation) kombiniert beide Ansätze, um Erkenntnisse zu vertiefen. A ist falsch: Positivisten bevorzugen quantitative Methoden. B ist falsch: Es gibt keine Einigkeit über die Überlegenheit einer Methode. E ist falsch: Mixed-Methods zeigen gerade die Vereinbarkeit.'
+          explanation: 'C: Beide Ansätze haben ihre Stärken und sind je nach Forschungsfrage gleich wertvoll. D: Mixed-Methods-Forschung (Triangulation) kombiniert beide Ansätze, um Erkenntnisse zu vertiefen. A ist falsch: Positivisten bevorzugen quantitative Methoden. B ist falsch: Es gibt keine Einigkeit über die Überlegenheit einer Methode. E ist falsch: Mixed-Methods zeigen gerade die Vereinbarkeit.',
+          topics: ['Mixed Methods', 'Forschungsparadigmen', 'Methode'],
         },
         {
           id: 'esf-hs22-27',
@@ -454,7 +484,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Den Ergebnissen zufolge geht erhöhte kognitive Anstrengung mit mehr Sympathie und Interesse einher (korrelativer Zusammenhang).' }
           ],
           correct: ['B', 'D', 'E'],
-          explanation: 'B: Da vergängliche Inhalte zu mehr Interesse führen als dauerhafte, ist der Umkehrschluss korrekt. D: Die Grafiken zeigen konsistente Mittelwertunterschiede über alle drei Variablen. E: Da vergängliche Inhalte sowohl mehr kognitive Anstrengung als AUCH mehr Sympathie/Interesse erzeugen, besteht ein positiver Zusammenhang zwischen Anstrengung und Sympathie. A ist falsch: Vergängliche Inhalte erhöhen (nicht senken) die kognitive Anstrengung.'
+          explanation: 'B: Da vergängliche Inhalte zu mehr Interesse führen als dauerhafte, ist der Umkehrschluss korrekt. D: Die Grafiken zeigen konsistente Mittelwertunterschiede über alle drei Variablen. E: Da vergängliche Inhalte sowohl mehr kognitive Anstrengung als AUCH mehr Sympathie/Interesse erzeugen, besteht ein positiver Zusammenhang zwischen Anstrengung und Sympathie. A ist falsch: Vergängliche Inhalte erhöhen (nicht senken) die kognitive Anstrengung.',
+          topics: ['Quantitativ', 'Induktion', 'Deduktion'],
         },
         {
           id: 'esf-hs22-28',
@@ -469,7 +500,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Preisreduktionen im Bereich von 10–20%.' }
           ],
           correct: ['A', 'B', 'C'],
-          explanation: 'A: MML als Segmentierungsvariable ist direkt aus der Forschung ableitbar (Studie 1 des Artikels). B: Hervorheben von Sinnquellen im Leben (Familienzeit) kompensiert den Verlust manueller Sinnhaftigkeit — Studie 4 zeigt den "meaningful time gain"-Moderator. C: Zeitersparnis als Positionierung adressiert direkt den Mechanismus. D und E sind allgemeine Marketingstrategien, die nicht spezifisch aus dieser Forschung folgen.'
+          explanation: 'A: MML als Segmentierungsvariable ist direkt aus der Forschung ableitbar (Studie 1 des Artikels). B: Hervorheben von Sinnquellen im Leben (Familienzeit) kompensiert den Verlust manueller Sinnhaftigkeit — Studie 4 zeigt den "meaningful time gain"-Moderator. C: Zeitersparnis als Positionierung adressiert direkt den Mechanismus. D und E sind allgemeine Marketingstrategien, die nicht spezifisch aus dieser Forschung folgen.',
+          topics: ['Empirie', 'Forschungsprozess', 'Methode'],
         },
         {
           id: 'esf-hs22-29',
@@ -484,7 +516,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: 'Wissenschaftliche Ergebnisse sind nur aussagekräftig, wenn man weiss, wie diese entstanden sind.' }
           ],
           correct: ['B', 'C', 'D', 'E'],
-          explanation: 'B: Wissenschaft folgt Evidenz, nicht Mehrheitsentscheidungen. C: Methodenkenntnisse ermöglichen kritische Einordnung von Studien. D: Starke Evidenz setzt sich langfristig durch und überzeugt die Mehrheit der Fachgemeinschaft. E: Ohne Kenntnis der Methodik ist eine Einordnung der Ergebnisse unmöglich. A ist falsch (Popper): Nicht-falsifizierbare Theorien sind unwissenschaftlich — ihre Nicht-Widerlegbarkeit bedeutet nicht, dass sie wahr sind.'
+          explanation: 'B: Wissenschaft folgt Evidenz, nicht Mehrheitsentscheidungen. C: Methodenkenntnisse ermöglichen kritische Einordnung von Studien. D: Starke Evidenz setzt sich langfristig durch und überzeugt die Mehrheit der Fachgemeinschaft. E: Ohne Kenntnis der Methodik ist eine Einordnung der Ergebnisse unmöglich. A ist falsch (Popper): Nicht-falsifizierbare Theorien sind unwissenschaftlich — ihre Nicht-Widerlegbarkeit bedeutet nicht, dass sie wahr sind.',
+          topics: ['Theorie', 'Empirie', 'Forschungslogik'],
         },
         {
           id: 'esf-hs22-30',
@@ -499,7 +532,8 @@ window.EXAM_DATA_ESF_HS22 = {
             { key: 'E', text: '(1) Empirie, (2) Theorie, (3) Induktion, (4) Abduktion' }
           ],
           correct: ['A'],
-          explanation: 'Das Kreislaufmodell der empirischen Sozialforschung: (1) Theorie → (4) Deduktion → (2) Empirie → (3) Induktion → zurück zu (1) Theorie. Deduktion = von der Theorie zur Hypothese/Beobachtung. Induktion = von der Beobachtung zur Theorie. A ist die einzig korrekte Zuordnung.'
+          explanation: 'Das Kreislaufmodell der empirischen Sozialforschung: (1) Theorie → (4) Deduktion → (2) Empirie → (3) Induktion → zurück zu (1) Theorie. Deduktion = von der Theorie zur Hypothese/Beobachtung. Induktion = von der Beobachtung zur Theorie. A ist die einzig korrekte Zuordnung.',
+          topics: ['Induktion', 'Deduktion', 'Forschungslogik', 'Theorie'],
         }
       ]
     }
