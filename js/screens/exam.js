@@ -11,7 +11,7 @@ window.ExamScreen = (function() {
       course: 'Statistik',
       dataVar: 'EXAM_DATA_STATISTIK_PK1',
       file: 'exams/statistik-pk1-data.js',
-      available: false,
+      available: true,
     },
     {
       id: 'stat-pk2',
@@ -19,6 +19,54 @@ window.ExamScreen = (function() {
       course: 'Statistik',
       dataVar: 'EXAM_DATA_STATISTIK_PK2',
       file: 'exams/statistik-pk2-data.js',
+      available: true,
+    },
+    {
+      id: 'stat-topic1',
+      label: 'Statistik — Quiz 1: Deskriptive Statistik',
+      course: 'Statistik',
+      dataVar: 'EXAM_DATA_STATISTIK_TOPIC1',
+      file: 'exams/statistik-topic1-data.js',
+      available: true,
+    },
+    {
+      id: 'stat-topic2',
+      label: 'Statistik — Quiz 2: Wahrscheinlichkeitsrechnung',
+      course: 'Statistik',
+      dataVar: 'EXAM_DATA_STATISTIK_TOPIC2',
+      file: 'exams/statistik-topic2-data.js',
+      available: true,
+    },
+    {
+      id: 'stat-topic3',
+      label: 'Statistik — Quiz 3: Wahrscheinlichkeitsverteilungen',
+      course: 'Statistik',
+      dataVar: 'EXAM_DATA_STATISTIK_TOPIC3',
+      file: 'exams/statistik-topic3-data.js',
+      available: true,
+    },
+    {
+      id: 'stat-topic4',
+      label: 'Statistik — Quiz 4: Schätztheorie & KI',
+      course: 'Statistik',
+      dataVar: 'EXAM_DATA_STATISTIK_TOPIC4',
+      file: 'exams/statistik-topic4-data.js',
+      available: true,
+    },
+    {
+      id: 'stat-topic5',
+      label: 'Statistik — Quiz 5: Hypothesentests',
+      course: 'Statistik',
+      dataVar: 'EXAM_DATA_STATISTIK_TOPIC5',
+      file: 'exams/statistik-topic5-data.js',
+      available: true,
+    },
+    {
+      id: 'stat-topic6',
+      label: 'Statistik — Quiz 6: ANOVA & Regression',
+      course: 'Statistik',
+      dataVar: 'EXAM_DATA_STATISTIK_TOPIC6',
+      file: 'exams/statistik-topic6-data.js',
       available: true,
     },
     {
@@ -35,6 +83,14 @@ window.ExamScreen = (function() {
       course: 'ESF',
       dataVar: 'EXAM_DATA_ESF_HS22',
       file: 'exams/esf-hs22-data.js',
+      available: true,
+    },
+    {
+      id: 'om-hs23',
+      label: 'OM — Prüfung HS 2023',
+      course: 'OM',
+      dataVar: 'EXAM_DATA_OM_HS23',
+      file: 'exams/om-hs23-data.js',
       available: true,
     },
     {
@@ -150,6 +206,18 @@ window.ExamScreen = (function() {
       ? `${data.duration_minutes} Minuten` : 'Keine Zeitlimit';
     document.getElementById('exam-setup-points').textContent = `${data.total_points} Punkte`;
     document.getElementById('exam-setup-info').textContent = data.exam_info?.format || '';
+
+    // Excel download button
+    const dlBtn = document.getElementById('exam-setup-excel-download');
+    if (dlBtn) {
+      if (data.excel_download) {
+        dlBtn.href = data.excel_download;
+        dlBtn.download = data.excel_download.split('/').pop();
+        dlBtn.classList.remove('hidden');
+      } else {
+        dlBtn.classList.add('hidden');
+      }
+    }
 
     // Store exam id for start
     modal.dataset.examId = examId;
