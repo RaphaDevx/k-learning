@@ -4,14 +4,13 @@ window.EXAM_DATA_ESF_UEBUNG23 = {
   course: 'Empirische Sozialforschung',
   courseColor: '#7c3aed',
   duration_minutes: 60,
-  total_points: 58,
+  total_points: 60,
   exam_info: {
     date: '23.06.2026',
     duration: '60 Minuten',
     format: 'Single Choice (Teil I–IV) + Multiple Choice (Teil V)',
     allowed_aids: 'Keine',
     grading: 'Note 6.0: ≥85%, Note 5.5: ≥75%, Note 5.0: ≥65%, Note 4.5: ≥55%, Note 4.0: ≥45%',
-    note: 'Frage 18 fehlte in der digitalen Version (Bildbasierte Aufgabe). Max. Punkte = 58.'
   },
   scoring_rules: {
     single_choice: { correct: 2, wrong: 0, blank: 0 },
@@ -207,9 +206,9 @@ window.EXAM_DATA_ESF_UEBUNG23 = {
     },
     {
       id: 'teil4',
-      title: 'Teil IV: Allgemeine Single-Choice-Fragen (18 Punkte)',
-      description: 'Fragen 11–20 (ohne Frage 18, die in der digitalen Version nicht erfasst werden konnte). Single Choice: richtig = 2 Punkte.',
-      points: 18,
+      title: 'Teil IV: Allgemeine Single-Choice-Fragen (20 Punkte)',
+      description: 'Fragen 11–20. Single Choice: richtig = 2 Punkte.',
+      points: 20,
       question_type: 'single_choice',
       questions: [
         {
@@ -323,6 +322,22 @@ window.EXAM_DATA_ESF_UEBUNG23 = {
           correct: ['E'],
           explanation: 'Korrekte Reihenfolge: (1) Daten sammeln → (5) Daten transkribieren → (3) Offene Kodierung (erste Codes vergeben) → (2) Axiale Kodierung (Codes zu Kategorien gruppieren) → (4) Theorie entwickeln (selektive Kodierung, Kernkategorie). A ordnet axiale vor offener Kodierung — das ist falsch.',
           topics: ['Qualitativ', 'Kodierung', 'Forschungsprozess'],
+        },
+        {
+          id: 'esf-uebung23-18',
+          number: 18,
+          points: 2,
+          text: 'Sehen Sie sich die folgende Aussage an: «Blutgruppe ist ___(1)___ skaliert, sozioökonomische Status (niedriger/mittlerer/hoher Status) ist ___(2)___ skaliert.»\n\nWelche Begriffe eignen sich am besten, um die Lücken in der obigen Erklärung zu füllen (siehe 1 und 2)?',
+          choices: [
+            { key: 'A', text: '(1) ordinal, (2) nominal' },
+            { key: 'B', text: '(1) nominal, (2) ordinal' },
+            { key: 'C', text: '(1) nominal, (2) nominal' },
+            { key: 'D', text: '(1) nominal, (2) ratio' },
+            { key: 'E', text: '(1) ordinal, (2) intervall' }
+          ],
+          correct: ['B'],
+          explanation: 'Blutgruppe (A, B, AB, 0) ist nominal skaliert: Es gibt Kategorien ohne natürliche Reihenfolge. Sozioökonomischer Status (niedrig/mittel/hoch) ist ordinal skaliert: Die Kategorien haben eine klare Rangfolge, aber die Abstände sind nicht gleichmässig (nicht metrisch). A ist falsch, weil Blutgruppen keine sinnvolle Ordnung haben. D und E scheiden aus, weil weder Blutgruppe noch sozioökonomischer Status rational/intervall skaliert sind.',
+          topics: ['Skalenniveaus', 'Statistik', 'Befragung'],
         },
         {
           id: 'esf-uebung23-19',
