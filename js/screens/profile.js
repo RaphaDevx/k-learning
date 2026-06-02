@@ -17,48 +17,59 @@ window.ProfileScreen = (function () {
     document.getElementById('profile-content').innerHTML = `
 
       <!-- Avatar + Info -->
-      <div class="flex flex-col items-center pt-2 pb-6 border-b border-gray-700 mb-6">
+      <div class="flex flex-col items-center pt-2 pb-6 mb-6" style="border-bottom:1px solid var(--border)">
         ${avatar
           ? `<img src="${avatar}" class="w-20 h-20 rounded-full mb-3 ring-2 ring-indigo-500" alt="Avatar">`
           : `<div class="w-20 h-20 rounded-full bg-indigo-600 flex items-center justify-center text-3xl font-bold mb-3">${initials}</div>`
         }
-        <div class="font-bold text-xl">${name}</div>
-        <div class="text-gray-400 text-sm mt-0.5">${email}</div>
+        <div class="font-bold text-xl" style="color:var(--txt)">${name}</div>
+        <div class="text-sm mt-0.5" style="color:var(--txt-2)">${email}</div>
       </div>
 
       <!-- Doc Upload -->
-      <div class="bg-gray-800 rounded-2xl p-4 mb-4">
-        <h3 class="font-bold mb-0.5">Dokument hochladen</h3>
-        <p class="text-gray-400 text-xs mb-3">PDF · DOCX · PPTX — wird an OCR-Pipeline übergeben</p>
+      <div class="rounded-[20px] p-4 mb-4" style="background:var(--card);border:1px solid var(--border)">
+        <h3 class="font-semibold mb-0.5" style="color:var(--txt)">Dokument hochladen</h3>
+        <p class="text-xs mb-4" style="color:var(--txt-2)">PDF · DOCX · PPTX — wird an OCR-Pipeline übergeben</p>
         <label id="upload-label"
-          class="flex flex-col items-center justify-center w-full border-2 border-dashed border-gray-600 rounded-xl p-6 cursor-pointer hover:border-indigo-500 transition text-center">
-          <span class="text-4xl mb-2">📄</span>
-          <span class="text-sm text-gray-300 font-medium">Datei auswählen oder hierher ziehen</span>
-          <span class="text-xs text-gray-500 mt-1">Max. 50 MB</span>
+          class="flex flex-col items-center justify-center w-full rounded-2xl py-8 px-6 cursor-pointer transition text-center"
+          style="border:1px dashed var(--border);opacity:0.65">
+          <span class="text-3xl mb-2">📄</span>
+          <span class="text-sm font-medium" style="color:var(--txt)">Datei auswählen oder hierher ziehen</span>
+          <span class="text-xs mt-1" style="color:var(--txt-3)">Max. 50 MB</span>
           <input type="file" id="doc-upload-input" accept=".pdf,.docx,.pptx,.doc,.ppt" class="hidden">
         </label>
         <div id="upload-status" class="hidden mt-3 p-3 rounded-xl text-sm"></div>
       </div>
 
       <!-- Upload History -->
-      <div class="bg-gray-800 rounded-2xl p-4 mb-6">
-        <h3 class="font-bold mb-3">Meine Dokumente</h3>
-        <div id="upload-history"><p class="text-gray-500 text-sm">Lade...</p></div>
+      <div class="rounded-[20px] p-4 mb-6" style="background:var(--card);border:1px solid var(--border)">
+        <h3 class="font-semibold mb-3" style="color:var(--txt)">Meine Dokumente</h3>
+        <div id="upload-history"><p class="text-sm" style="color:var(--txt-2)">Lade...</p></div>
       </div>
 
       <!-- KI-Einstellungen (BYOK) -->
-      <div class="bg-gray-800 rounded-2xl p-4 mb-4">
+      <div class="rounded-[20px] p-4 mb-4" style="background:var(--card);border:1px solid var(--border)">
         <div class="flex items-center justify-between mb-1">
-          <h3 class="font-bold">KI-Einstellungen</h3>
-          <span class="text-xs text-gray-500">BYOK</span>
+          <h3 class="font-semibold" style="color:var(--txt)">KI-Einstellungen</h3>
+          <span class="text-xs" style="color:var(--txt-3)">BYOK</span>
         </div>
-        <p class="text-gray-400 text-xs mb-3">Dein API-Key wird verschlüsselt gespeichert und verlässt den Server nie.</p>
-        <div id="ai-key-section"><p class="text-xs text-gray-500 py-1">Lade…</p></div>
+        <p class="text-xs mb-3" style="color:var(--txt-2)">Dein API-Key wird verschlüsselt gespeichert und verlässt den Server nie.</p>
+        <div id="ai-key-section"><p class="text-xs py-1" style="color:var(--txt-3)">Lade…</p></div>
+      </div>
+
+      <!-- Lernprofil -->
+      <div class="rounded-[20px] p-4 mb-4" style="background:var(--card);border:1px solid var(--border)">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-semibold" style="color:var(--txt)">Lernprofil</h3>
+          <span class="text-xs" style="color:var(--txt-3)">aus Prüfungen</span>
+        </div>
+        <div id="learning-profile-content"><p class="text-sm" style="color:var(--txt-2)">Lade…</p></div>
       </div>
 
       <!-- Sign out -->
       <button onclick="Auth.signOut()"
-        class="w-full bg-gray-700 hover:bg-gray-600 rounded-xl py-3 text-sm font-medium transition">
+        class="tap-card w-full rounded-xl py-3 text-sm font-medium transition"
+        style="background:var(--card);border:1px solid var(--border);color:var(--txt-2)">
         Abmelden
       </button>
     `;
@@ -66,6 +77,7 @@ window.ProfileScreen = (function () {
     document.getElementById('doc-upload-input').addEventListener('change', _handleUpload);
     _loadHistory(user);
     _initAiKeyUI();
+    _loadLearningProfile(user);
   }
 
   async function _handleUpload(e) {
@@ -227,6 +239,90 @@ window.ProfileScreen = (function () {
         _showMsg(section, `Fehler: ${e.message}`, true);
       }
     });
+  }
+
+  async function _loadLearningProfile(user) {
+    const el = document.getElementById('learning-profile-content');
+    if (!el) return;
+
+    // Prüfungs-Historie laden
+    const { data: results } = await _supabase
+      .from('exam_results')
+      .select('exam_id, score_pct, taken_at')
+      .eq('user_id', user.id)
+      .order('taken_at', { ascending: false })
+      .limit(10);
+
+    // Topic-Schwächenprofil laden
+    const { data: weights } = await _supabase
+      .from('topic_weights')
+      .select('topic_tag, wrong_count, correct_count, priority, ema_accuracy, correct_streak')
+      .eq('user_id', user.id)
+      .order('priority', { ascending: false })
+      .limit(20);
+
+    if (!results?.length && !weights?.length) {
+      el.innerHTML = '<p class="text-gray-500 text-sm">Noch keine Prüfung abgeschlossen. Leg los im Prüfungs-Modus!</p>';
+      return;
+    }
+
+    const examHtml = results?.length ? `
+      <div class="mb-4">
+        <p class="text-xs text-gray-400 uppercase tracking-wide mb-2">Letzte Prüfungen</p>
+        ${results.map(r => {
+          const pct = r.score_pct;
+          const color = pct >= 65 ? 'text-green-400' : pct >= 45 ? 'text-yellow-400' : 'text-red-400';
+          const date = new Date(r.taken_at).toLocaleDateString('de-CH');
+          const label = r.exam_id.replace('esf-', 'ESF ').replace('stat-', 'Statistik ').toUpperCase();
+          return `
+            <div class="flex items-center justify-between py-2 border-b border-gray-700 last:border-0">
+              <div class="text-sm text-gray-300">${label}</div>
+              <div class="flex items-center gap-3">
+                <span class="text-xs text-gray-500">${date}</span>
+                <span class="text-sm font-bold ${color}">${pct}%</span>
+              </div>
+            </div>`;
+        }).join('')}
+      </div>` : '';
+
+    const topicHtml = weights?.length ? `
+      <div>
+        <p class="text-xs text-gray-400 uppercase tracking-wide mb-2">Schwächenprofil nach Thema</p>
+        ${weights.map(w => {
+          const total = w.wrong_count + w.correct_count;
+          if (total === 0) return '';
+          // EMA nutzen wenn vorhanden (neuere Antworten stärker gewichtet), sonst Fallback auf Rohquote
+          const pct = w.ema_accuracy != null
+            ? Math.round(w.ema_accuracy * 100)
+            : Math.round((w.correct_count / total) * 100);
+          const streak = w.correct_streak || 0;
+          const barColor = pct >= 70 ? 'bg-green-500' : pct >= 40 ? 'bg-yellow-500' : 'bg-red-500';
+          const badge = streak >= 3 ? 'Verstanden' : pct >= 70 ? 'Stark' : pct >= 40 ? 'Üben' : 'Fokus';
+          const badgeColor = streak >= 3
+            ? 'bg-emerald-900 text-emerald-300'
+            : pct >= 70 ? 'bg-green-900 text-green-300'
+            : pct >= 40 ? 'bg-yellow-900 text-yellow-300'
+            : 'bg-red-900 text-red-300';
+          const streakLabel = streak >= 2
+            ? `<span class="text-xs text-emerald-400">${streak}× ✓</span>` : '';
+          return `
+            <div class="mb-2.5">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs text-gray-300">${w.topic_tag}</span>
+                <div class="flex items-center gap-2">
+                  ${streakLabel}
+                  <span class="text-xs text-gray-500">${w.correct_count}/${total}</span>
+                  <span class="text-xs px-1.5 py-0.5 rounded-full ${badgeColor}">${badge}</span>
+                </div>
+              </div>
+              <div class="h-1.5 bg-gray-700 rounded-full overflow-hidden">
+                <div class="${barColor} h-full rounded-full transition-all" style="width:${pct}%"></div>
+              </div>
+            </div>`;
+        }).filter(Boolean).join('')}
+      </div>` : '';
+
+    el.innerHTML = examHtml + topicHtml;
   }
 
   function _showMsg(section, text, isError) {

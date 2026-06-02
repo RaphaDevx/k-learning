@@ -31,13 +31,13 @@ window.DashboardScreen = (function() {
     const prog = AppState.get('cardProgress') || {};
     const active = enrolledCourses();
 
-    const colorBg = {
-      blue:   'background:linear-gradient(135deg,#1e3a5f,#1d4ed8)',
-      green:  'background:linear-gradient(135deg,#14532d,#15803d)',
-      purple: 'background:linear-gradient(135deg,#3b0764,#7c3aed)',
-      orange: 'background:linear-gradient(135deg,#7c2d12,#ea580c)',
-      red:    'background:linear-gradient(135deg,#7f1d1d,#dc2626)',
-      teal:   'background:linear-gradient(135deg,#134e4a,#0d9488)',
+    const accents = {
+      blue:   { hex: '#2563eb', rgb: '37,99,235'   },
+      green:  { hex: '#059669', rgb: '5,150,105'   },
+      purple: { hex: '#7c3aed', rgb: '124,58,237'  },
+      orange: { hex: '#ea580c', rgb: '234,88,12'   },
+      red:    { hex: '#dc2626', rgb: '220,38,38'   },
+      teal:   { hex: '#0d9488', rgb: '13,148,136'  },
     };
 
     grid.innerHTML = active.map(key => {
@@ -49,29 +49,47 @@ window.DashboardScreen = (function() {
       const learned = courseCards.filter(x => prog[x.id] && prog[x.id].reviews > 0).length;
       const pct = total ? Math.round(learned / total * 100) : 0;
       const days = daysUntil(c.examDate);
-      const daysText = days <= 0 ? '🔴 Heute!' : days === 1 ? '🔥 Morgen!' : `${days}d`;
-      const urgency = days <= 3 ? 'text-red-300' : days <= 7 ? 'text-yellow-300' : 'text-gray-300';
-      const bgStyle = colorBg[c.color] || colorBg.blue;
-      const fillColor = { blue:'#93c5fd', green:'#86efac', purple:'#d8b4fe', orange:'#fdba74', teal:'#5eead4' }[c.color] || '#93c5fd';
+      const daysText = days <= 0 ? 'Heute!' : days === 1 ? 'Morgen!' : `${days}d`;
+      const urgencyColor = days <= 3 ? '#f87171' : days <= 7 ? '#fbbf24' : 'var(--txt-2)';
+      const a = accents[c.color] || accents.blue;
 
       return `
-        <div class="rounded-2xl p-4 cursor-pointer transition hover:opacity-90 hover:scale-[1.02]"
-             style="${bgStyle}; border:1px solid rgba(255,255,255,0.1)"
+        <div class="tap-card rounded-[22px] p-4 cursor-pointer"
+             style="background:var(--card);border:1px solid rgba(${a.rgb},0.35)"
+             onmouseover="this.style.boxShadow='0 4px 20px rgba(${a.rgb},0.2)'"
+             onmouseleave="this.style.boxShadow='none'"
              onclick="CourseHubScreen.open('${key}')">
-          <div class="text-2xl mb-2">${c.icon}</div>
-          <div class="font-bold">${c.label}</div>
-          <div class="text-xs text-gray-300 mt-1">${learned} / ${total} Karten</div>
-          <div class="text-xs ${urgency} mt-0.5">${daysText}</div>
-          <div class="mt-2 rounded-full h-1.5" style="background:rgba(255,255,255,0.15)">
-            <div class="h-1.5 rounded-full transition-all" style="width:${pct}%;background:${fillColor}"></div>
+          <div class="w-10 h-10 rounded-2xl flex items-center justify-center mb-3 text-xl"
+               style="background:rgba(${a.rgb},0.14)">${c.icon}</div>
+          <div class="font-semibold text-sm leading-snug" style="color:var(--txt)">${c.label}</div>
+          <div class="text-xs mt-0.5" style="color:var(--txt-2)">${learned} / ${total} Karten</div>
+          <div class="text-xs mt-0.5 font-medium" style="color:${urgencyColor}">${daysText}</div>
+          <div class="mt-3 rounded-full h-1" style="background:var(--border)">
+            <div class="h-1 rounded-full transition-all" style="width:${pct}%;background:${a.hex}"></div>
           </div>
         </div>`;
     }).join('') + `
-      <div class="rounded-2xl p-4 cursor-pointer transition hover:opacity-80 flex flex-col items-center justify-center border-2 border-dashed border-gray-700 hover:border-gray-500"
+      <div class="tap-card rounded-[22px] p-4 cursor-pointer flex flex-col items-center justify-center"
+           style="background:var(--card);border:1.5px dashed var(--border)"
            onclick="DashboardScreen.showCourseManager()">
-        <div class="text-3xl mb-1 text-gray-600">+</div>
-        <div class="text-xs text-gray-600">Kurs hinzufügen</div>
+        <div class="text-2xl mb-1" style="color:var(--txt-3)">+</div>
+        <div class="text-xs" style="color:var(--txt-3)">Kurs hinzufügen</div>
       </div>`;
+
+    _staggerCards(grid);
+  }
+
+  function _staggerCards(grid) {
+    const cards = grid.querySelectorAll('.tap-card');
+    cards.forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(10px)';
+      setTimeout(() => {
+        el.style.transition = 'opacity 0.3s ease, transform 0.3s ease, box-shadow 0.22s ease, border-color 0.18s ease';
+        el.style.opacity = '1';
+        el.style.transform = 'translateY(0)';
+      }, i * 55);
+    });
   }
 
   function renderDueToday() {
@@ -89,15 +107,19 @@ window.DashboardScreen = (function() {
     if (!list) return;
 
     if (due.length === 0) {
-      list.innerHTML = '<p class="text-green-400 text-sm">✅ Alles erledigt für heute!</p>';
+      list.innerHTML = '<p class="text-green-400 text-sm">Alles erledigt für heute!</p>';
     } else {
-      list.innerHTML = due.map(c => `
-        <div class="flex items-center justify-between bg-gray-700 rounded-xl px-3 py-2 cursor-pointer hover:bg-gray-600 transition"
+      list.innerHTML = due.map(c => {
+        const hex = (window.getCourse && getCourse(c.course)?.hex) || '#6b7280';
+        return `
+        <div class="flex items-center justify-between rounded-xl px-3 py-2.5 cursor-pointer transition tap-card"
+             style="background:var(--card-raised);border:1px solid var(--border)"
              onclick="FlashcardsScreen.openCardDirect && FlashcardsScreen.openCardDirect('${c.id}')">
-          <span class="text-sm truncate flex-1 mr-2">${c.front.substring(0,55)}${c.front.length>55?'…':''}</span>
-          <span class="text-xs px-2 py-0.5 rounded-full text-white flex-shrink-0"
-                style="background:${getCourse(c.course)?.hex || '#6b7280'}">${c.course}</span>
-        </div>`).join('');
+          <span class="text-sm truncate flex-1 mr-2" style="color:var(--txt)">${c.front.substring(0,55)}${c.front.length>55?'…':''}</span>
+          <span class="text-xs px-2 py-0.5 rounded-full text-white flex-shrink-0 font-medium"
+                style="background:${hex}">${c.course}</span>
+        </div>`;
+      }).join('');
     }
   }
 
@@ -110,30 +132,32 @@ window.DashboardScreen = (function() {
     modal.className = 'fixed inset-0 z-[170] flex items-center justify-center';
     modal.style.background = 'rgba(0,0,0,0.85)';
     modal.innerHTML = `
-      <div class="bg-gray-800 rounded-3xl p-6 max-w-sm mx-4 w-full">
-        <h2 class="text-xl font-bold mb-4">📚 Kurse verwalten</h2>
+      <div class="rounded-3xl p-6 max-w-sm mx-4 w-full" style="background:var(--card);border:1px solid var(--border)">
+        <h2 class="text-xl font-bold mb-4" style="color:var(--txt)">Kurse verwalten</h2>
         <div class="space-y-2 mb-5">
           ${all.map(c => {
             const isEnrolled = enrolled.includes(c.key);
             return `
-              <label class="flex items-center gap-3 bg-gray-700 rounded-xl px-4 py-3 cursor-pointer hover:bg-gray-600 transition">
+              <label class="flex items-center gap-3 rounded-xl px-4 py-3 cursor-pointer transition tap-card"
+                     style="background:var(--card-raised);border:1px solid var(--border)">
                 <input type="checkbox" value="${c.key}" ${isEnrolled ? 'checked' : ''}
                   class="course-enroll-check w-4 h-4 rounded accent-blue-500">
                 <span class="text-lg">${c.icon}</span>
                 <div class="flex-1">
-                  <div class="font-bold text-sm">${c.label}</div>
-                  <div class="text-xs text-gray-400">${c.examDate ? 'Prüfung: ' + c.examDate : ''}</div>
+                  <div class="font-semibold text-sm" style="color:var(--txt)">${c.label}</div>
+                  <div class="text-xs" style="color:var(--txt-2)">${c.examDate ? 'Prüfung: ' + c.examDate : ''}</div>
                 </div>
               </label>`;
           }).join('')}
         </div>
         <div class="flex gap-3">
           <button onclick="document.getElementById('course-manager-modal').remove()"
-            class="flex-1 bg-gray-700 hover:bg-gray-600 rounded-xl py-3 font-bold transition text-sm">
+            class="tap-card flex-1 rounded-xl py-3 font-bold transition text-sm"
+            style="background:var(--card-raised);border:1px solid var(--border);color:var(--txt-2)">
             Abbrechen
           </button>
           <button onclick="DashboardScreen.saveCourses()"
-            class="flex-1 bg-blue-600 hover:bg-blue-500 rounded-xl py-3 font-bold transition text-sm">
+            class="tap-card flex-1 bg-blue-600 hover:bg-blue-500 rounded-xl py-3 font-bold transition text-sm text-white">
             Speichern
           </button>
         </div>

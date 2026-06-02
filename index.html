@@ -301,8 +301,8 @@
     <!-- ══════════════════════════════════════════════════════ -->
     <div id="view-dashboard">
       <div class="py-4 md:py-6">
-        <h1 class="text-2xl font-bold" id="greeting">Guten Morgen! 👋</h1>
-        <p class="text-gray-400 mt-1">Prüfungen kommen. Let's go.</p>
+        <h1 class="text-2xl font-bold tracking-tight" id="greeting" style="color:var(--txt)">Guten Morgen!</h1>
+        <p class="mt-1 text-sm" style="color:var(--txt-2)">Prüfungen kommen. Let's go.</p>
       </div>
 
       <div class="grid grid-cols-2 gap-3 mb-6" id="dashboard-course-grid">
@@ -554,21 +554,31 @@
   </div><!-- /content-area -->
 
   <!-- ── MOBILE: Bottom Navigation (5 Haupt-Screens) ── -->
-  <nav id="bottom-nav" class="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-700 justify-around py-2 z-50">
-    <button onclick="showView('dashboard')" id="nav-dashboard" class="flex flex-col items-center text-xs gap-0.5 text-white px-2 py-1 transition">
-      <span class="text-xl">🏠</span>Home
+  <nav id="bottom-nav">
+    <button onclick="showView('dashboard')" id="nav-dashboard"
+      class="flex flex-col items-center gap-1 px-4 py-1 text-white transition-colors min-w-[52px]">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21V12h6v9"/></svg>
+      <span class="text-[10px] font-medium">Home</span>
     </button>
-    <button onclick="showView('feed')" id="nav-feed" class="flex flex-col items-center text-xs gap-0.5 text-gray-400 hover:text-white px-2 py-1 transition">
-      <span class="text-xl">⚡</span>Feed
+    <button onclick="showView('feed')" id="nav-feed"
+      class="flex flex-col items-center gap-1 px-4 py-1 text-gray-400 hover:text-white transition-colors min-w-[52px]">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <span class="text-[10px] font-medium">Feed</span>
     </button>
-    <button onclick="showView('learn-path')" id="nav-learn-path" class="flex flex-col items-center text-xs gap-0.5 text-gray-400 hover:text-white px-2 py-1 transition">
-      <span class="text-xl">🛤️</span>Lernen
+    <button onclick="showView('learn-path')" id="nav-learn-path"
+      class="flex flex-col items-center gap-1 px-4 py-1 text-gray-400 hover:text-white transition-colors min-w-[52px]">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      <span class="text-[10px] font-medium">Lernen</span>
     </button>
-    <button onclick="showView('flashcards')" id="nav-flashcards" class="flex flex-col items-center text-xs gap-0.5 text-gray-400 hover:text-white px-2 py-1 transition">
-      <span class="text-xl">🃏</span>Karten
+    <button onclick="showView('flashcards')" id="nav-flashcards"
+      class="flex flex-col items-center gap-1 px-4 py-1 text-gray-400 hover:text-white transition-colors min-w-[52px]">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
+      <span class="text-[10px] font-medium">Karten</span>
     </button>
-    <button onclick="showView('profile')" id="nav-profile" class="flex flex-col items-center text-xs gap-0.5 text-gray-400 hover:text-white px-2 py-1 transition">
-      <span class="text-xl">👤</span>Profil
+    <button onclick="showView('profile')" id="nav-profile"
+      class="flex flex-col items-center gap-1 px-4 py-1 text-gray-400 hover:text-white transition-colors min-w-[52px]">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <span class="text-[10px] font-medium">Profil</span>
     </button>
   </nav>
 
@@ -578,7 +588,7 @@
 <!-- EXAM SETUP MODAL                                                      -->
 <!-- ══════════════════════════════════════════════════════════════════════ -->
 <div id="exam-setup-modal" class="hidden fixed inset-0 z-[160] flex items-center justify-center" style="background:rgba(0,0,0,0.85)">
-  <div class="bg-gray-800 rounded-3xl p-6 max-w-sm mx-4 w-full">
+  <div class="rounded-3xl p-6 max-w-sm mx-4 w-full" style="background:var(--card);border:1px solid var(--border)">
     <h2 class="text-xl font-bold mb-1" id="exam-setup-title">Prüfung</h2>
     <div class="text-gray-400 text-sm mb-4 space-y-1">
       <div>⏱ Dauer: <span id="exam-setup-duration" class="text-white">—</span></div>
@@ -586,11 +596,11 @@
       <div class="text-xs text-gray-500" id="exam-setup-info"></div>
     </div>
 
-    <div class="bg-gray-900 rounded-2xl p-4 mb-4">
+    <div class="rounded-2xl p-4 mb-4" style="background:var(--card-raised);border:1px solid var(--border)">
       <label class="flex items-center justify-between cursor-pointer">
         <div>
-          <div class="font-bold text-sm">Countdown-Timer</div>
-          <div class="text-xs text-gray-400">Wie bei der echten Prüfung</div>
+          <div class="font-bold text-sm" style="color:var(--txt)">Countdown-Timer</div>
+          <div class="text-xs" style="color:var(--txt-2)">Wie bei der echten Prüfung</div>
         </div>
         <div class="relative">
           <input type="checkbox" id="exam-timer-toggle" class="sr-only" checked>
@@ -615,11 +625,11 @@
     </div>
 
     <div class="flex gap-3">
-      <button onclick="ExamScreen.closeSetup()" class="flex-1 bg-gray-700 hover:bg-gray-600 rounded-xl py-3 font-bold transition text-sm">
+      <button onclick="ExamScreen.closeSetup()" class="tap-card flex-1 rounded-xl py-3 font-bold transition text-sm" style="background:var(--card-raised);border:1px solid var(--border);color:var(--txt-2)">
         Abbrechen
       </button>
-      <button onclick="ExamScreen.startFromSetup()" class="flex-1 bg-red-700 hover:bg-red-600 rounded-xl py-3 font-bold transition text-sm">
-        🎯 Prüfung starten
+      <button onclick="ExamScreen.startFromSetup()" class="tap-card flex-1 bg-red-700 hover:bg-red-600 rounded-xl py-3 font-bold transition text-sm text-white">
+        Prüfung starten
       </button>
     </div>
   </div>
@@ -667,15 +677,15 @@
 <!-- EXAM ABORT CONFIRMATION                                               -->
 <!-- ══════════════════════════════════════════════════════════════════════ -->
 <div id="exam-abort-modal" class="hidden fixed inset-0 z-[200] flex items-center justify-center" style="background:rgba(0,0,0,0.85)">
-  <div class="bg-gray-800 rounded-2xl p-6 max-w-sm mx-4 text-center">
+  <div class="rounded-2xl p-6 max-w-sm mx-4 text-center" style="background:var(--card);border:1px solid var(--border)">
     <div class="text-4xl mb-3">⚠️</div>
-    <h3 class="font-bold text-lg mb-2">Prüfung wirklich abbrechen?</h3>
-    <p class="text-gray-400 text-sm mb-5">Dein gesamter Fortschritt geht verloren. Diese Aktion kann nicht rückgängig gemacht werden.</p>
+    <h3 class="font-bold text-lg mb-2" style="color:var(--txt)">Prüfung wirklich abbrechen?</h3>
+    <p class="text-sm mb-5" style="color:var(--txt-2)">Dein gesamter Fortschritt geht verloren. Diese Aktion kann nicht rückgängig gemacht werden.</p>
     <div class="flex gap-3">
-      <button onclick="ExamScreen.cancelAbort()" class="flex-1 bg-blue-700 hover:bg-blue-600 rounded-xl py-3 font-bold transition">
+      <button onclick="ExamScreen.cancelAbort()" class="tap-card flex-1 bg-blue-700 hover:bg-blue-600 rounded-xl py-3 font-bold transition text-white">
         Weitermachen
       </button>
-      <button onclick="ExamScreen.abortExam()" class="flex-1 bg-gray-700 hover:bg-red-800 rounded-xl py-3 text-gray-400 hover:text-red-300 transition text-sm">
+      <button onclick="ExamScreen.abortExam()" class="tap-card flex-1 rounded-xl py-3 transition text-sm" style="background:var(--card-raised);border:1px solid var(--border);color:var(--txt-3)">
         Ja, abbrechen
       </button>
     </div>
@@ -690,7 +700,7 @@
 </div>
 
 <!-- ── Auth Overlay ── -->
-<div id="auth-overlay" class="hidden fixed inset-0 z-[100] flex items-center justify-center" style="background:var(--primary)">
+<div id="auth-overlay" class="hidden fixed inset-0 z-[100] flex items-center justify-center" style="background:var(--bg)">
   <div class="text-center px-8 max-w-sm w-full">
     <div class="text-6xl mb-4">📚</div>
     <h1 class="text-3xl font-bold mb-1">K-Learning</h1>
