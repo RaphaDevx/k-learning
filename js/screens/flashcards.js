@@ -12,6 +12,9 @@ window.FlashcardsScreen = (function () {
   let activeTopic  = null;  // topic of current deck
   let _skipInitReset = false; // set by startDeck so init() doesn't override external nav
 
+  // Session
+  const SESSION_SIZE = 20;      // max cards per session
+
   // Card load dedup
   let _loadPromise = null;
 
@@ -194,7 +197,7 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
       .filter(c => !activeCourse || c.course === activeCourse)
       .filter(c => !activeTopic  || c.topic  === activeTopic);
 
-    // SM-2: due cards first (sorted by ease asc), then new, then future
+    // SM-2: due cards first (sorted by ease asc = hardest first), then new, then future
     const now = Date.now();
     filteredCards.sort((a, b) => {
       const pa = AppState.getCardProgress(a.id);
@@ -206,6 +209,15 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
       if (aDue && bDue) return (pa.ease ?? 2.5) - (pb.ease ?? 2.5);
       return (pa.nextReview || 0) - (pb.nextReview || 0);
     });
+
+    // Take at most SESSION_SIZE cards per session
+    filteredCards = filteredCards.slice(0, SESSION_SIZE);
+
+    // Hide session done overlay, show card wrap
+    const sessionDone = document.getElementById('fc-session-done');
+    if (sessionDone) sessionDone.classList.add('hidden');
+    const cardWrap = document.getElementById('fc-card-wrap');
+    if (cardWrap) cardWrap.classList.remove('hidden');
 
     currentIndex = 0;
     isFlipped = false;
@@ -245,13 +257,20 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     currentIndex = ((index % filteredCards.length) + filteredCards.length) % filteredCards.length;
     const card = filteredCards[currentIndex];
 
-    // Reset drag/position
+    // Reset drag/position — set transition:none first so any in-flight
+    // opacity/transform transition is immediately cancelled before we reset.
     const wrap = document.getElementById('fc-card-wrap');
-    if (wrap) { wrap.style.transition = ''; wrap.style.transform = ''; wrap.style.opacity = ''; }
+    if (wrap) {
+      wrap.style.transition = 'none';
+      void wrap.offsetWidth;      // force layout flush
+      wrap.style.transform = '';
+      wrap.style.opacity = '';
+    }
+    _resetShadowCards();
 
     // Animate card entrance on fc-card-inner.
-    // fill:backwards (not both) means after the animation the transform returns
-    // to the CSS-class-controlled state — so the rotateY flip still works.
+    // fill:backwards means after animation, transform returns to CSS-class state
+    // so the rotateY flip still works.
     const inner = document.getElementById('fc-card-inner');
     if (inner) {
       inner.classList.remove('fc-card-in');
@@ -428,14 +447,11 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     if (!isDragging) return;
     isDragging = false;
 
-    const inner = document.getElementById('fc-card-inner');
-    if (inner) inner.style.transition = '';
-
     const dx = currentDeltaX;
     if (dragDir !== 'h') return;
 
-    if (dx > 80)  { _animateOut('right'); }
-    else if (dx < -80) { _animateOut('left'); }
+    if (dx > 80)       { handleSwipe('right'); }
+    else if (dx < -80) { handleSwipe('left');  }
     else {
       const wrap = document.getElementById('fc-card-wrap');
       if (wrap) {
@@ -461,10 +477,33 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     if (yes) yes.style.opacity = 0;
     if (no)  no.style.opacity  = 0;
 
+    _animateShadowCards();
+
     wrap.style.transition = 'transform 0.38s ease-in, opacity 0.32s ease';
     wrap.style.transform  = `translateX(${tx}) rotate(${rot})`;
     wrap.style.opacity    = '0';
     setTimeout(callback || (() => {}), 340);
+  }
+
+  function _animateShadowCards() {
+    const s1 = document.getElementById('fc-shadow-1'); // near shadow → moves up to card level
+    const s2 = document.getElementById('fc-shadow-2'); // far shadow  → moves up to near level
+    if (s1) { s1.style.transform = 'translateY(0px) scaleX(1)'; s1.style.opacity = '0.95'; }
+    if (s2) { s2.style.transform = 'translateY(7px) scaleX(0.95)'; s2.style.opacity = '0.65'; }
+  }
+
+  function _resetShadowCards() {
+    const s1 = document.getElementById('fc-shadow-1');
+    const s2 = document.getElementById('fc-shadow-2');
+    // Snap back without animation (transition:none), then restore transition after layout
+    if (s1) { s1.style.transition = 'none'; s1.style.transform = 'translateY(7px) scaleX(0.95)'; s1.style.opacity = '0.65'; }
+    if (s2) { s2.style.transition = 'none'; s2.style.transform = 'translateY(14px) scaleX(0.91)'; s2.style.opacity = '0.4'; }
+    requestAnimationFrame(() => {
+      const r1 = document.getElementById('fc-shadow-1');
+      const r2 = document.getElementById('fc-shadow-2');
+      if (r1) r1.style.transition = '';
+      if (r2) r2.style.transition = '';
+    });
   }
 
   function handleSwipe(direction) {
@@ -491,9 +530,13 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
       playSound('fail');
     }
 
-    const nextIdx = (currentIndex + 1) % filteredCards.length;
-    showCard(nextIdx);
-    _flashBorder(direction === 'right' ? 'green' : 'red');
+    const nextIdx = currentIndex + 1;
+    if (nextIdx >= filteredCards.length) {
+      _showSessionComplete();
+    } else {
+      showCard(nextIdx);
+      _flashBorder(direction === 'right' ? 'green' : 'red');
+    }
   }
 
   function _flashBorder(color) {
@@ -507,6 +550,27 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
       el.classList.add(cls);
       setTimeout(() => el.classList.remove(cls), 800);
     });
+  }
+
+  function _showSessionComplete() {
+    const done = document.getElementById('fc-session-done');
+    const wrap = document.getElementById('fc-card-wrap');
+    const sub  = document.getElementById('fc-session-sub');
+
+    // Count easy/hard in session
+    const easy = filteredCards.filter(c => {
+      const p = AppState.getCardProgress(c.id);
+      return p.reps > 0;
+    }).length;
+
+    if (sub) sub.textContent = `${easy} von ${filteredCards.length} Karten gewusst`;
+    if (wrap) wrap.style.opacity = '0';
+    if (done) done.classList.remove('hidden');
+    swipeInProgress = false;
+  }
+
+  function startNextSession() {
+    startDeck(activeCourse || 'all', activeTopic);
   }
 
   // ══════════════════════════════════════════════════════════
@@ -1211,6 +1275,7 @@ Antworte NUR in diesem JSON-Format (kein weiterer Text):
     setDeckFilter,
     startDeck,
     showDeckSelector,
+    startNextSession,
     // Swipe
     handleSwipe,
     flipCard,

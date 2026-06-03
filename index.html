@@ -279,6 +279,7 @@
       position:absolute; inset:0; border-radius:1.5rem;
       background:var(--card-raised); border:1px solid var(--border);
       pointer-events:none;
+      transition: transform 0.32s ease, opacity 0.32s ease;
     }
 
     /* KaTeX dark-mode overrides */
@@ -534,8 +535,21 @@
 
         <!-- Card Stack -->
         <div id="fc-stack-area" class="relative mb-3" style="height:min(62vh,510px)">
-          <div class="fc-shadow-card" style="transform:translateY(14px) scaleX(0.91);opacity:0.4;"></div>
-          <div class="fc-shadow-card" style="transform:translateY(7px)  scaleX(0.95);opacity:0.65;"></div>
+          <div id="fc-shadow-2" class="fc-shadow-card" style="transform:translateY(14px) scaleX(0.91);opacity:0.4;"></div>
+          <div id="fc-shadow-1" class="fc-shadow-card" style="transform:translateY(7px)  scaleX(0.95);opacity:0.65;"></div>
+
+          <!-- Session complete overlay -->
+          <div id="fc-session-done" class="hidden absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-6 gap-4" style="border-radius:1.5rem;background:var(--bg)">
+            <div style="font-size:3rem">🎉</div>
+            <div class="font-bold text-lg" style="color:var(--txt)">Session abgeschlossen!</div>
+            <div id="fc-session-sub" class="text-sm" style="color:var(--txt-2)"></div>
+            <button onclick="FlashcardsScreen.startNextSession()"
+                    class="tap-card w-full max-w-xs py-3.5 rounded-2xl font-bold text-sm text-white"
+                    style="background:#3b82f6">Nächste Runde →</button>
+            <button onclick="FlashcardsScreen.showDeckSelector()"
+                    class="tap-card w-full max-w-xs py-3.5 rounded-2xl font-bold text-sm"
+                    style="background:var(--card);border:1px solid var(--border);color:var(--txt-2)">← Zur Übersicht</button>
+          </div>
 
           <!-- Draggable card wrap -->
           <div id="fc-card-wrap" class="absolute inset-0" style="touch-action:pan-y;cursor:pointer">
@@ -565,7 +579,7 @@
                   <div class="flex-1 flex items-start justify-center overflow-auto py-1">
                     <div id="fc-back-text" class="text-base leading-relaxed w-full" style="white-space:pre-line"></div>
                   </div>
-                  <div class="text-center text-xs mt-3" style="color:var(--txt-3)">← Nochmal &nbsp;·&nbsp; Kann ich →</div>
+                  <div class="text-center text-xs mt-3" style="color:var(--txt-3)">← wischen zum bewerten →</div>
                 </div>
               </div>
             </div>
@@ -594,8 +608,8 @@
           </div>
         </div>
 
-        <!-- Swipe action buttons -->
-        <div class="grid grid-cols-2 gap-3">
+        <!-- Swipe action buttons — hidden on mobile, shown on desktop -->
+        <div class="hidden md:grid grid-cols-2 gap-3">
           <button onclick="FlashcardsScreen.handleSwipe('left')"
                   class="tap-card flex items-center justify-center gap-2 rounded-2xl py-3.5 font-bold text-sm"
                   style="background:#3d1515;border:1px solid #7f1d1d;color:#fca5a5">✗ Nochmal</button>
