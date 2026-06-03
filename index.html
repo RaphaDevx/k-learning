@@ -264,13 +264,17 @@
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
       <span>Feed</span>
     </button>
-    <button onclick="showView('learn-path')" id="snav-learn-path" class="sidebar-nav-btn">
-      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-      <span>Lernpfad</span>
+    <button onclick="showView('quiz')" id="snav-quiz" class="sidebar-nav-btn">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span>Quizze</span>
     </button>
     <button onclick="showView('flashcards')" id="snav-flashcards" class="sidebar-nav-btn">
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
       <span>Karten</span>
+    </button>
+    <button onclick="showView('exam')" id="snav-exam" class="sidebar-nav-btn">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span>Klausuren</span>
     </button>
     <button onclick="showView('profile')" id="snav-profile" class="sidebar-nav-btn">
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -484,14 +488,24 @@
     </div>
 
     <!-- ══════════════════════════════════════════════════════ -->
+    <!-- QUIZ                                                  -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <div id="view-quiz" class="hidden py-4">
+      <div class="flex items-center gap-3 mb-4 md:hidden">
+        <h2 class="font-bold text-xl">Quizze</h2>
+      </div>
+      <div class="hidden md:block mb-6"><h2 class="text-2xl font-bold">Quizze</h2></div>
+      <div id="quiz-content" class="space-y-3"></div>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════ -->
     <!-- EXAM                                                  -->
     <!-- ══════════════════════════════════════════════════════ -->
     <div id="view-exam" class="hidden py-4">
       <div class="flex items-center gap-3 mb-4 md:hidden">
-        <button onclick="showView('dashboard')" class="text-gray-400 hover:text-white">← Zurück</button>
-        <h2 class="font-bold text-xl">Probeklausur</h2>
+        <h2 class="font-bold text-xl">Klausuren</h2>
       </div>
-      <div class="hidden md:block mb-6"><h2 class="text-2xl font-bold">Probeklausur</h2></div>
+      <div class="hidden md:block mb-6"><h2 class="text-2xl font-bold">Klausuren</h2></div>
       <div id="exam-content" class="space-y-3"></div>
     </div>
 
@@ -567,23 +581,23 @@
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21V12h6v9"/></svg>
       <span class="text-[10px] font-medium">Home</span>
     </button>
-    <button onclick="showView('feed')" id="nav-feed"
-      class="flex flex-col items-center gap-1 px-4 py-1 text-gray-400 hover:text-white transition-colors min-w-[52px]">
-      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-      <span class="text-[10px] font-medium">Feed</span>
-    </button>
-    <button onclick="showView('learn-path')" id="nav-learn-path"
-      class="flex flex-col items-center gap-1 px-4 py-1 text-gray-400 hover:text-white transition-colors min-w-[52px]">
-      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-      <span class="text-[10px] font-medium">Lernen</span>
+    <button onclick="showView('quiz')" id="nav-quiz"
+      class="flex flex-col items-center gap-1 px-3 py-1 text-gray-400 hover:text-white transition-colors min-w-[48px]">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span class="text-[10px] font-medium">Quiz</span>
     </button>
     <button onclick="showView('flashcards')" id="nav-flashcards"
-      class="flex flex-col items-center gap-1 px-4 py-1 text-gray-400 hover:text-white transition-colors min-w-[52px]">
+      class="flex flex-col items-center gap-1 px-3 py-1 text-gray-400 hover:text-white transition-colors min-w-[48px]">
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
       <span class="text-[10px] font-medium">Karten</span>
     </button>
+    <button onclick="showView('exam')" id="nav-exam"
+      class="flex flex-col items-center gap-1 px-3 py-1 text-gray-400 hover:text-white transition-colors min-w-[48px]">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span class="text-[10px] font-medium">Klausur</span>
+    </button>
     <button onclick="showView('profile')" id="nav-profile"
-      class="flex flex-col items-center gap-1 px-4 py-1 text-gray-400 hover:text-white transition-colors min-w-[52px]">
+      class="flex flex-col items-center gap-1 px-3 py-1 text-gray-400 hover:text-white transition-colors min-w-[48px]">
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       <span class="text-[10px] font-medium">Profil</span>
     </button>

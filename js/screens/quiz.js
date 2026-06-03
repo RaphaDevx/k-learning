@@ -55,6 +55,66 @@ window.QuizScreen = (function() {
       tagColor: '#16a34a',
       icon: '📊',
     },
+    {
+      id: 'stat-topic1',
+      label: 'Statistik — Deskriptive Statistik',
+      subtitle: '10 Fragen · Lageparameter, Streuung, Skalenniveaus',
+      course: 'Statistik',
+      dataVar: 'EXAM_DATA_STATISTIK_TOPIC1',
+      tag: 'B1',
+      tagColor: '#2563eb',
+      icon: '📊',
+    },
+    {
+      id: 'stat-topic2',
+      label: 'Statistik — Wahrscheinlichkeitsrechnung',
+      subtitle: '10 Fragen · Kolmogorov, Bayes, Kombinatorik',
+      course: 'Statistik',
+      dataVar: 'EXAM_DATA_STATISTIK_TOPIC2',
+      tag: 'B2',
+      tagColor: '#2563eb',
+      icon: '🎲',
+    },
+    {
+      id: 'stat-topic3',
+      label: 'Statistik — Wahrscheinlichkeitsverteilungen',
+      subtitle: '10 Fragen · Binomial, Poisson, Normal, t/χ²/F',
+      course: 'Statistik',
+      dataVar: 'EXAM_DATA_STATISTIK_TOPIC3',
+      tag: 'B3',
+      tagColor: '#2563eb',
+      icon: '🔔',
+    },
+    {
+      id: 'stat-topic4',
+      label: 'Statistik — Schätztheorie & KI',
+      subtitle: '10 Fragen · ZGS, Konfidenzintervalle, n bestimmen',
+      course: 'Statistik',
+      dataVar: 'EXAM_DATA_STATISTIK_TOPIC4',
+      tag: 'B4',
+      tagColor: '#2563eb',
+      icon: '📐',
+    },
+    {
+      id: 'stat-topic5',
+      label: 'Statistik — Hypothesentests',
+      subtitle: '10 Fragen · z/t/χ²-Test, Pooled vs. Welch, F-Test',
+      course: 'Statistik',
+      dataVar: 'EXAM_DATA_STATISTIK_TOPIC5',
+      tag: 'B5',
+      tagColor: '#2563eb',
+      icon: '🧪',
+    },
+    {
+      id: 'stat-topic6',
+      label: 'Statistik — ANOVA & Regression',
+      subtitle: '10 Fragen · ANOVA-Tabelle, OLS, R², Dummies',
+      course: 'Statistik',
+      dataVar: 'EXAM_DATA_STATISTIK_TOPIC6',
+      tag: 'B6',
+      tagColor: '#2563eb',
+      icon: '📈',
+    },
   ];
 
   let _questions = [];
@@ -64,6 +124,46 @@ window.QuizScreen = (function() {
   let _answered  = false;
   let _dataVar   = null;
   let _quizMeta  = null;
+
+  // ── Init (inline view, called by Router) ────────────────────────────────
+  function init() {
+    const container = document.getElementById('quiz-content');
+    if (!container) return;
+
+    const byCourse = {};
+    QUIZ_REGISTRY.forEach(q => {
+      if (!byCourse[q.course]) byCourse[q.course] = [];
+      byCourse[q.course].push(q);
+    });
+
+    let html = '<div class="space-y-6">';
+    Object.entries(byCourse).forEach(([course, quizzes]) => {
+      html += `
+        <div>
+          <div class="text-xs font-semibold uppercase tracking-widest mb-3 px-1" style="color:var(--txt-3)">${course}</div>
+          <div class="space-y-2">
+            ${quizzes.map(q => `
+              <button onclick="QuizScreen.launch('${q.dataVar}')"
+                class="w-full text-left rounded-2xl p-4 transition tap-card"
+                style="background:var(--card-raised);border:1px solid var(--border)">
+                <div class="flex items-center gap-3">
+                  <span class="text-2xl flex-shrink-0">${q.icon}</span>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-center gap-2 mb-0.5">
+                      <span class="font-semibold text-sm truncate" style="color:var(--txt)">${q.label}</span>
+                      <span class="flex-shrink-0 text-xs px-1.5 py-0.5 rounded-full font-medium text-white" style="background:${q.tagColor}">${q.tag}</span>
+                    </div>
+                    <div class="text-xs truncate" style="color:var(--txt-2)">${q.subtitle}</div>
+                  </div>
+                  <span class="flex-shrink-0 text-xs px-3 py-1.5 rounded-xl font-bold text-white" style="background:#4f46e5">Start ›</span>
+                </div>
+              </button>`).join('')}
+          </div>
+        </div>`;
+    });
+    html += '</div>';
+    container.innerHTML = html;
+  }
 
   // ── Public API ──────────────────────────────────────────────────────────
 
@@ -428,5 +528,5 @@ window.QuizScreen = (function() {
     return AppState.get('quizTopicStats') || {};
   }
 
-  return { showSelector, closeSelector, launch, close, toggleChoice, submitAnswer, getWeakTopics, getTopicStats, QUIZ_REGISTRY };
+  return { init, showSelector, closeSelector, launch, close, toggleChoice, submitAnswer, getWeakTopics, getTopicStats, QUIZ_REGISTRY };
 })();
