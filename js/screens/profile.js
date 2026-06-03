@@ -57,6 +57,16 @@ window.ProfileScreen = (function () {
         <div id="ai-key-section"><p class="text-xs py-1" style="color:var(--txt-3)">Lade…</p></div>
       </div>
 
+      <!-- Voice Chat (Gemini Live) -->
+      <div class="rounded-[20px] p-4 mb-4" style="background:var(--card);border:1px solid var(--border)">
+        <div class="flex items-center justify-between mb-1">
+          <h3 class="font-semibold" style="color:var(--txt)">Voice Chat (Gemini Live)</h3>
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(66,133,244,0.15);color:#4285f4">Google</span>
+        </div>
+        <p class="text-xs mb-3" style="color:var(--txt-2)">Aktiviert den Gemini-2.0-Flash-Live WebSocket-Modus im Audio-Lernen. Schlüssel wird nur lokal gespeichert — verlässt niemals den Browser.</p>
+        <div id="gemini-key-section"></div>
+      </div>
+
       <!-- Quiz-Themenstatistik -->
       <div class="rounded-[20px] p-4 mb-4" style="background:var(--card);border:1px solid var(--border)">
         <div class="flex items-center justify-between mb-3">
@@ -90,6 +100,7 @@ window.ProfileScreen = (function () {
     document.getElementById('doc-upload-input').addEventListener('change', _handleUpload);
     _loadHistory(user);
     _initAiKeyUI();
+    _initGeminiKeyUI();
     _renderQuizStats();
     _loadLearningProfile(user);
   }
@@ -252,6 +263,67 @@ window.ProfileScreen = (function () {
         save.disabled = false; save.textContent = 'Key speichern';
         _showMsg(section, `Fehler: ${e.message}`, true);
       }
+    });
+  }
+
+  function _initGeminiKeyUI() {
+    const section = document.getElementById('gemini-key-section');
+    if (!section) return;
+    const key = GeminiLive.getKey();
+    if (key) {
+      _renderGeminiKeySet(section, key);
+    } else {
+      _renderGeminiKeyInput(section);
+    }
+  }
+
+  function _renderGeminiKeySet(section, key) {
+    const preview = key.slice(0, 8) + '••••••••' + key.slice(-4);
+    section.innerHTML = `
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-xs font-bold px-2.5 py-1 rounded-full" style="background:rgba(66,133,244,0.15);color:#4285f4">🎙 Aktiv</span>
+        <button id="gemini-key-delete" class="text-xs text-red-400 hover:text-red-300 px-2 py-1 rounded-lg hover:bg-red-900/30 transition">Löschen</button>
+      </div>
+      <div class="rounded-xl px-3 py-2 font-mono text-xs mb-2 tracking-wider" style="background:var(--card-raised);color:var(--txt-3)">${preview}</div>
+      <p class="text-xs" style="color:var(--txt-3)">Audio-Modus nutzt Gemini Live statt Browser-Spracherkennung.</p>`;
+
+    document.getElementById('gemini-key-delete').addEventListener('click', () => {
+      GeminiLive.saveKey(null);
+      _renderGeminiKeyInput(section);
+    });
+  }
+
+  function _renderGeminiKeyInput(section) {
+    section.innerHTML = `
+      <p class="text-xs mb-3" style="color:var(--txt-3)">Noch kein Gemini API-Key hinterlegt. Ohne Key wird der Browser-Fallback verwendet.</p>
+      <div class="relative mb-3">
+        <input type="password" id="gemini-key-input" placeholder="AIzaSy…"
+          autocomplete="off" spellcheck="false"
+          class="w-full rounded-xl px-4 py-3 pr-20 text-sm font-mono" style="background:var(--card-raised);color:var(--txt);border:1px solid var(--border)">
+        <button id="gemini-key-toggle" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs transition px-1" style="color:var(--txt-3)">Anzeigen</button>
+      </div>
+      <button id="gemini-key-save" class="w-full rounded-xl py-2.5 text-sm font-bold transition" style="background:#4285f4;color:#fff">Key speichern</button>
+      <p class="text-xs mt-2 text-center" style="color:var(--txt-3)">API-Key unter <a href="https://aistudio.google.com/app/apikey" target="_blank" class="underline" style="color:#4285f4">aistudio.google.com</a> erstellen (kostenlos)</p>`;
+
+    const input  = document.getElementById('gemini-key-input');
+    const toggle = document.getElementById('gemini-key-toggle');
+    const save   = document.getElementById('gemini-key-save');
+
+    toggle.addEventListener('click', () => {
+      const show = input.type === 'password';
+      input.type = show ? 'text' : 'password';
+      toggle.textContent = show ? 'Verbergen' : 'Anzeigen';
+    });
+
+    save.addEventListener('click', () => {
+      const k = input.value.trim();
+      if (!k || !k.startsWith('AIza')) {
+        input.style.borderColor = '#ef4444';
+        setTimeout(() => input.style.borderColor = '', 2000);
+        return;
+      }
+      GeminiLive.saveKey(k);
+      _renderGeminiKeySet(section, k);
     });
   }
 

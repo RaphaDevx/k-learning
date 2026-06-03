@@ -29,6 +29,8 @@ window.FlashcardsScreen = (function () {
   let speechSession = [];          // rolling [{card, userAnswer, verdict, feedback}]
   let currentSpeechCard = null;
   let currentSpeechTranscript = '';
+  let _geminiMode  = false;   // true when Gemini Live session is active
+  let _geminiText  = '';      // accumulates text response for verdict detection
 
   // VAD state (Gemini-style Voice Activity Detection)
   let _vadStream   = null;   // MediaStream from getUserMedia
@@ -39,6 +41,23 @@ window.FlashcardsScreen = (function () {
 
   // AudioContext (lazy)
   let audioCtx = null;
+
+  // ── Gemini Live system prompt ─────────────────────────────
+  const GEMINI_SYSTEM_PROMPT = `Du bist ein präziser Lernassistent im Flashcard-Modus für HSG-Studenten.
+
+Jede Karte erhältst du im Format: "KARTE: [Frage] || [Antwort]"
+
+Ablauf:
+1. Lies die FRAGE klar und prägnant auf Deutsch vor
+2. Warte auf die gesprochene Antwort des Studenten
+3. Beginne dein Feedback IMMER mit genau einem dieser Sätze (damit die App den Ausgang erkennt):
+   - "Richtig!" — wenn die Antwort korrekt ist
+   - "Teilweise richtig." — wenn die Antwort unvollständig ist
+   - "Leider falsch." — wenn die Antwort nicht stimmt
+4. Erkläre kurz (2-3 Sätze) und nenne die korrekte Antwort
+5. Sag am Ende: "Nächste Karte?" — dann warte auf mein Ja oder "weiter"
+
+Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
 
   // ══════════════════════════════════════════════════════════
   // INIT & DECK SELECTOR
@@ -589,9 +608,10 @@ window.FlashcardsScreen = (function () {
 
   async function enterSpeechMode() {
     if (!filteredCards.length) return;
-    speechMode = true;
+    speechMode    = true;
+    _geminiMode   = false;
     speechSession = [];
-    currentSpeechCard = filteredCards[currentIndex];
+    currentSpeechCard    = filteredCards[currentIndex];
     currentSpeechTranscript = '';
 
     document.getElementById('fc-speech-panel')?.classList.remove('hidden');
@@ -600,20 +620,152 @@ window.FlashcardsScreen = (function () {
 
     _updateSpeechPanel();
 
+    if (GeminiLive.isAvailable()) {
+      await _enterGeminiMode();
+    } else {
+      await _enterBrowserSpeechMode();
+    }
+  }
+
+  async function _enterBrowserSpeechMode() {
     const micOk = await _ensureMic();
-    // Hide manual mic button when VAD is available
     const micBtn = document.getElementById('fc-speech-mic-btn');
     if (micBtn && micOk) micBtn.classList.add('hidden');
-
     _speakTextVAD(currentSpeechCard.front);
   }
 
+  async function _enterGeminiMode() {
+    speechMode   = true;
+    _geminiMode  = true;
+    speechSession = [];
+    currentSpeechCard = filteredCards[currentIndex];
+
+    document.getElementById('fc-speech-panel')?.classList.remove('hidden');
+    const btn = document.getElementById('fc-speech-btn');
+    if (btn) btn.style.background = '#4285f4'; // Google blue for Gemini mode
+
+    _updateSpeechPanel();
+    const micBtn = document.getElementById('fc-speech-mic-btn');
+    if (micBtn) micBtn.classList.add('hidden');
+
+    _setStatus('speaking');
+    _setTxt('fc-speech-status-text', '🔵 Verbinde mit Gemini Live…');
+
+    try {
+      await GeminiLive.connect(GEMINI_SYSTEM_PROMPT, {
+        onReady: () => {
+          // Start mic streaming immediately (Gemini's server-side VAD handles detection)
+          GeminiLive.startMic().catch(e => console.warn('Mic error:', e));
+          // Also start local VAD for instant interruption
+          _startInterruptVAD();
+          // Send first card
+          _geminiSendCard();
+        },
+        onAudioStart: () => {
+          _ttsPlaying = true;
+          _setStatus('speaking');
+        },
+        onAudioDone: () => {
+          _ttsPlaying = false;
+          _setStatus('listening');
+          _setTxt('fc-speech-status-text', '🎙 Sprich jetzt — ich höre zu');
+        },
+        onText: (text) => {
+          _geminiText += text;
+          _geminiParseVerdictFromText(_geminiText);
+          // Auto-advance when Gemini signals next card
+          if (_geminiText.toLowerCase().includes('nächste karte') ||
+              _geminiText.toLowerCase().includes('nächste frage')) {
+            // small delay then advance
+            setTimeout(() => { if (_geminiMode && speechMode) _geminiNextCard(); }, 800);
+          }
+        },
+        onTurnComplete: () => {
+          _ttsPlaying = false;
+          _geminiText = '';
+        },
+        onInterrupted: () => {
+          _ttsPlaying = false;
+          _setStatus('listening');
+        },
+        onError: (msg) => {
+          _setTxt('fc-speech-status-text', `❌ ${msg} — falle auf Browser-Modus zurück`);
+          _geminiMode = false;
+          GeminiLive.disconnect();
+          // Fall back to browser speech mode
+          setTimeout(() => { if (speechMode) _enterBrowserSpeechMode(); }, 1500);
+        }
+      });
+    } catch(e) {
+      _geminiMode = false;
+      _setTxt('fc-speech-status-text', `❌ Gemini nicht verfügbar — falle auf Browser-Modus zurück`);
+      setTimeout(() => { if (speechMode) _enterBrowserSpeechMode(); }, 1500);
+    }
+  }
+
+  function _geminiSendCard() {
+    if (!currentSpeechCard || !speechMode) return;
+    _geminiText = '';
+    _updateSpeechPanel();
+    GeminiLive.sendText(`KARTE: ${currentSpeechCard.front} || ${currentSpeechCard.back}`);
+  }
+
+  function _geminiNextCard() {
+    if (!filteredCards.length || !speechMode) return;
+    // Rate card based on accumulated verdict
+    const last = speechSession[speechSession.length - 1];
+    if (last && last.card === currentSpeechCard?.id) {
+      const rMap = { richtig: 'easy', teilweise: 'medium', falsch: 'hard' };
+      _saveRating(currentSpeechCard, rMap[last.verdict] || 'medium');
+    }
+    currentIndex = (currentIndex + 1) % filteredCards.length;
+    currentSpeechCard = filteredCards[currentIndex];
+    showCard(currentIndex);
+    _geminiText = '';
+    document.getElementById('fc-speech-transcript-wrap')?.classList.add('hidden');
+    document.getElementById('fc-speech-feedback-wrap')?.classList.add('hidden');
+    document.getElementById('fc-speech-post-actions')?.classList.add('hidden');
+    _geminiSendCard();
+  }
+
+  function _geminiParseVerdictFromText(text) {
+    const lower = text.toLowerCase();
+    let verdict = null;
+    if (lower.includes('richtig!') || lower.startsWith('richtig')) verdict = 'richtig';
+    else if (lower.includes('teilweise richtig')) verdict = 'teilweise';
+    else if (lower.includes('leider falsch') || lower.includes('falsch')) verdict = 'falsch';
+
+    if (verdict) {
+      const styles = {
+        richtig:   { bg: 'rgba(34,197,94,0.08)', border: '#22c55e', badgeCls: 'bg-green-900 text-green-300', label: '✓ Richtig!' },
+        teilweise: { bg: 'rgba(234,179,8,0.08)',  border: '#eab308', badgeCls: 'bg-yellow-900 text-yellow-300', label: '~ Nicht ganz' },
+        falsch:    { bg: 'rgba(239,68,68,0.08)',   border: '#ef4444', badgeCls: 'bg-red-900 text-red-300', label: '✗ Leider nicht' },
+      };
+      const s = styles[verdict];
+      const fw = document.getElementById('fc-speech-feedback-wrap');
+      if (fw) { fw.classList.remove('hidden'); fw.style.background = s.bg; fw.style.borderColor = s.border; }
+      const badge = document.getElementById('fc-speech-verdict-badge');
+      if (badge) { badge.textContent = s.label; badge.className = `inline-block text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full mb-3 ${s.badgeCls}`; }
+      _setTxt('fc-speech-feedback-text', text);
+
+      speechSession.push({ card: currentSpeechCard?.id, verdict, feedback: text });
+      if (speechSession.length > 3) speechSession.shift();
+
+      document.getElementById('fc-speech-post-actions')?.classList.remove('hidden');
+
+      if (verdict === 'richtig') { playSound('success'); showSuccessAnim('Richtig! 🎯'); }
+      else if (verdict === 'falsch') playSound('fail');
+    }
+  }
+
   function exitSpeechMode() {
-    speechMode = false;
+    speechMode  = false;
+    _geminiMode = false;
     _ttsPlaying = false;
     _stopInterruptVAD();
-    if (recognition) { try { recognition.abort(); } catch (e) {} recognition = null; }
+    if (recognition) { try { recognition.abort(); } catch(e) {} recognition = null; }
     if (window.speechSynthesis) speechSynthesis.cancel();
+    GeminiLive.disconnect();
     document.getElementById('fc-speech-panel')?.classList.add('hidden');
     const btn = document.getElementById('fc-speech-btn');
     if (btn) btn.style.background = '';
@@ -740,10 +892,11 @@ window.FlashcardsScreen = (function () {
       if (lvl > THRESH) {
         // User is speaking → interrupt TTS
         speechSynthesis.cancel();
+        GeminiLive.stopPlayback();  // also stop Gemini audio
         _ttsPlaying = false;
         _stopInterruptVAD();
         _setStatus('listening');
-        setTimeout(() => { if (speechMode) _autoStartRecognition(); }, 120);
+        if (!_geminiMode) setTimeout(() => { if (speechMode) _autoStartRecognition(); }, 120);
         return;
       }
       _vadRafId = requestAnimationFrame(loop);
@@ -979,15 +1132,14 @@ Antworte NUR in diesem JSON-Format (kein weiterer Text):
   }
 
   function speechNextCard() {
+    if (_geminiMode) { _geminiNextCard(); return; }
+    // Browser fallback path (unchanged)
     if (!filteredCards.length) return;
-
-    // Rate card based on last verdict (don't re-navigate the main view)
     const last = speechSession[speechSession.length - 1];
     if (last && last.card === currentSpeechCard?.id) {
       const rMap = { richtig: 'easy', teilweise: 'medium', falsch: 'hard' };
       _saveRating(currentSpeechCard, rMap[last.verdict] || 'medium');
     }
-
     currentIndex = (currentIndex + 1) % filteredCards.length;
     currentSpeechCard = filteredCards[currentIndex];
     currentSpeechTranscript = '';
