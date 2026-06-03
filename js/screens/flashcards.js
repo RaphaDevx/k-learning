@@ -12,6 +12,9 @@ window.FlashcardsScreen = (function () {
   let activeTopic  = null;  // topic of current deck
   let _skipInitReset = false; // set by startDeck so init() doesn't override external nav
 
+  // Card load dedup
+  let _loadPromise = null;
+
   // Drag state
   let dragStartX = 0;
   let dragStartY = 0;
@@ -34,18 +37,44 @@ window.FlashcardsScreen = (function () {
   // INIT & DECK SELECTOR
   // ══════════════════════════════════════════════════════════
 
-  function init() {
-    allCards = window.FLASHCARD_DATA || [];
-    updateAllCount();
+  async function _ensureCardsLoaded() {
+    if (window.FLASHCARD_DATA) return;
+    if (!_loadPromise) {
+      _loadPromise = _supabase.from('deck_cards').select('*')
+        .then(({ data, error }) => {
+          window.FLASHCARD_DATA = error ? [] : (data || []);
+          _loadPromise = null;
+        })
+        .catch(() => { window.FLASHCARD_DATA = []; _loadPromise = null; });
+    }
+    return _loadPromise;
+  }
+
+  async function init() {
     setupDragHandlers();
 
     // When startDeck/filterCards is called before Router.showView (e.g. from courseHub),
     // skip resetting to deck selector so the swipe view is preserved.
-    if (_skipInitReset) { _skipInitReset = false; return; }
+    if (_skipInitReset) {
+      _skipInitReset = false;
+      if (!allCards.length && window.FLASHCARD_DATA?.length) allCards = window.FLASHCARD_DATA;
+      return;
+    }
 
+    // Show deck selector immediately with loading placeholder
+    document.getElementById('fc-swipe-view')?.classList.add('hidden');
+    document.getElementById('fc-deck-selector')?.classList.remove('hidden');
+    if (!window.FLASHCARD_DATA) {
+      const container = document.getElementById('fc-deck-list');
+      if (container) container.innerHTML =
+        '<p class="text-center py-10 text-sm" style="color:var(--txt-3)">Karten werden geladen…</p>';
+    }
+
+    await _ensureCardsLoaded();
+    allCards = window.FLASHCARD_DATA;
+    updateAllCount();
     filteredCards = [...allCards];
     renderDeckList(deckFilter);
-    showDeckSelector();
   }
 
   function updateAllCount() {
@@ -124,6 +153,7 @@ window.FlashcardsScreen = (function () {
 
   function startDeck(course, topic) {
     _skipInitReset = true;
+    if (!allCards.length && window.FLASHCARD_DATA?.length) allCards = window.FLASHCARD_DATA;
     activeCourse = course === 'all' ? null : course;
     activeTopic  = topic || null;
 
