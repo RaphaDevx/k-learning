@@ -72,18 +72,16 @@
       --sidebar-bg:  #111111;
       --sidebar-w:   240px;
     }
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg:          #f5f5f7;
-        --card:        #ffffff;
-        --card-raised: #f2f2f7;
-        --border:      rgba(0,0,0,0.09);
-        --border-h:    rgba(0,0,0,0.18);
-        --txt:         #1d1d1f;
-        --txt-2:       #6e6e73;
-        --txt-3:       #aeaeb2;
-        --sidebar-bg:  #f5f5f7;
-      }
+    html.light {
+      --bg:          #f5f5f7;
+      --card:        #ffffff;
+      --card-raised: #f2f2f7;
+      --border:      rgba(0,0,0,0.09);
+      --border-h:    rgba(0,0,0,0.18);
+      --txt:         #1d1d1f;
+      --txt-2:       #6e6e73;
+      --txt-3:       #aeaeb2;
+      --sidebar-bg:  #f5f5f7;
     }
     body {
       background: var(--bg); color: var(--txt);
@@ -189,9 +187,10 @@
       padding:0.65rem 1rem;
       align-items:center; justify-content:space-between;
     }
-    @media (prefers-color-scheme:light) {
-      #top-bar  { background:rgba(250,250,252,0.88); }
-      #bottom-nav { background:rgba(248,248,250,0.9); border-top:1px solid rgba(0,0,0,0.09); }
+    html.light #top-bar { background:rgba(250,250,252,0.88); }
+    html.light #bottom-nav {
+      background: rgba(245,245,247,0.88);
+      border-top: 1px solid rgba(0,0,0,0.09);
     }
 
     /* ── Feed Fullscreen ── */
@@ -286,7 +285,7 @@
     .katex .mord, .katex .mop, .katex .mbin, .katex .mrel { color: inherit; }
   </style>
 </head>
-<body class="text-white min-h-screen">
+<body class="min-h-screen">
 
 <div id="app-shell">
 
@@ -296,6 +295,7 @@
       <div class="flex items-center gap-2 mb-1">
         <span class="text-base font-bold tracking-tight" style="color:var(--txt)">K-Learning</span>
         <span class="text-xs bg-indigo-600 text-white px-2 py-0.5 rounded-full">FS 26</span>
+        <button class="theme-toggle-btn ml-auto p-1 rounded-lg" onclick="toggleTheme()" title="Dark/Light Mode" style="color:var(--txt-3);background:transparent;border:none;cursor:pointer;font-size:1.1rem">🌙</button>
       </div>
       <div class="flex items-center gap-2 mt-3 rounded-xl px-3 py-2" style="background:var(--card);border:1px solid var(--border)">
         <span class="streak-fire streak-display text-sm"></span>
@@ -338,10 +338,13 @@
   <!-- ── MOBILE: Top Bar ── -->
   <nav id="top-bar">
     <span class="text-base font-bold tracking-tight" style="color:var(--txt)">K-Learning</span>
-    <div class="flex items-center gap-2 rounded-full px-3 py-1.5"
-         style="background:var(--card);border:1px solid var(--border)">
-      <span class="streak-fire streak-display text-sm"></span>
-      <span class="xp-display text-yellow-400 font-semibold text-xs"></span>
+    <div class="flex items-center gap-2">
+      <button class="theme-toggle-btn p-1 rounded-lg" onclick="toggleTheme()" title="Dark/Light Mode" style="color:var(--txt-3);background:transparent;border:none;cursor:pointer;font-size:1.1rem">🌙</button>
+      <div class="flex items-center gap-2 rounded-full px-3 py-1.5"
+           style="background:var(--card);border:1px solid var(--border)">
+        <span class="streak-fire streak-display text-sm"></span>
+        <span class="xp-display text-yellow-400 font-semibold text-xs"></span>
+      </div>
     </div>
   </nav>
 
@@ -939,6 +942,25 @@
 </div>
 
 <script>
+  // ── Theme Toggle ──────────────────────────────────────────
+  function toggleTheme() {
+    const isLight = document.documentElement.classList.toggle('light');
+    localStorage.setItem('k-theme', isLight ? 'light' : 'dark');
+    document.querySelectorAll('.theme-toggle-btn').forEach(el => el.textContent = isLight ? '☀️' : '🌙');
+  }
+
+  // Init theme from localStorage, fallback to system preference
+  (function initTheme() {
+    const saved = localStorage.getItem('k-theme');
+    if (saved === 'light') {
+      document.documentElement.classList.add('light');
+    } else if (!saved && window.matchMedia('(prefers-color-scheme: light)').matches) {
+      document.documentElement.classList.add('light');
+    }
+    const isLight = document.documentElement.classList.contains('light');
+    document.querySelectorAll('.theme-toggle-btn').forEach(el => el.textContent = isLight ? '☀️' : '🌙');
+  })();
+
   // ── App Init ──────────────────────────────────────────────
   Gamification.render();
   showView('dashboard');

@@ -30,6 +30,13 @@ window.FlashcardsScreen = (function () {
   let currentSpeechCard = null;
   let currentSpeechTranscript = '';
 
+  // VAD state (Gemini-style Voice Activity Detection)
+  let _vadStream   = null;   // MediaStream from getUserMedia
+  let _vadActx     = null;   // AudioContext for VAD
+  let _vadAnalyser = null;   // AnalyserNode
+  let _vadRafId    = null;   // rAF handle
+  let _ttsPlaying  = false;  // true while TTS is active
+
   // AudioContext (lazy)
   let audioCtx = null;
 
@@ -248,7 +255,11 @@ window.FlashcardsScreen = (function () {
   function flipCard() {
     if (!filteredCards.length) return;
     isFlipped = !isFlipped;
-    document.getElementById('fc-card-inner')?.classList.toggle('flipped', isFlipped);
+    const inner = document.getElementById('fc-card-inner');
+    if (!inner) return;
+    inner.style.transition = '';          // remove inline override from drag
+    void inner.getBoundingClientRect();   // force reflow so CSS transition takes effect
+    inner.classList.toggle('flipped', isFlipped);
     playSound('flip');
   }
 
@@ -379,8 +390,6 @@ window.FlashcardsScreen = (function () {
     if (Math.abs(endX - dragStartX) < 12 && Math.abs(endY - dragStartY) < 12) {
       isDragging = false;
       dragDir = null;
-      const inner = document.getElementById('fc-card-inner');
-      if (inner) inner.style.transition = '';
       flipCard();
       return;
     }
@@ -578,7 +587,7 @@ window.FlashcardsScreen = (function () {
     speechMode ? exitSpeechMode() : enterSpeechMode();
   }
 
-  function enterSpeechMode() {
+  async function enterSpeechMode() {
     if (!filteredCards.length) return;
     speechMode = true;
     speechSession = [];
@@ -590,11 +599,19 @@ window.FlashcardsScreen = (function () {
     if (btn) btn.style.background = '#4f46e5';
 
     _updateSpeechPanel();
-    _speakText(currentSpeechCard.front);
+
+    const micOk = await _ensureMic();
+    // Hide manual mic button when VAD is available
+    const micBtn = document.getElementById('fc-speech-mic-btn');
+    if (micBtn && micOk) micBtn.classList.add('hidden');
+
+    _speakTextVAD(currentSpeechCard.front);
   }
 
   function exitSpeechMode() {
     speechMode = false;
+    _ttsPlaying = false;
+    _stopInterruptVAD();
     if (recognition) { try { recognition.abort(); } catch (e) {} recognition = null; }
     if (window.speechSynthesis) speechSynthesis.cancel();
     document.getElementById('fc-speech-panel')?.classList.add('hidden');
@@ -607,19 +624,27 @@ window.FlashcardsScreen = (function () {
     _renderContent('fc-speech-question',
       currentSpeechCard.front.replace(/\{\{[^}]+\}\}/g, '______'));
     _setTxt('fc-speech-counter', `${currentIndex + 1} / ${filteredCards.length}`);
-    _setStatus('idle');
+
+    const micBtn = document.getElementById('fc-speech-mic-btn');
+    if (_vadStream) {
+      // VAD mode: hide manual button, status will be updated when speech starts
+      if (micBtn) micBtn.classList.add('hidden');
+      _setStatus('speaking');
+    } else {
+      if (micBtn) { micBtn.classList.remove('hidden'); micBtn.disabled = false; }
+      _setStatus('idle');
+    }
+
     document.getElementById('fc-speech-transcript-wrap')?.classList.add('hidden');
     document.getElementById('fc-speech-feedback-wrap')?.classList.add('hidden');
     document.getElementById('fc-speech-post-actions')?.classList.add('hidden');
-    const micBtn = document.getElementById('fc-speech-mic-btn');
-    if (micBtn) { micBtn.classList.remove('hidden'); micBtn.disabled = false; }
   }
 
   function _setStatus(state) {
     const orb  = document.getElementById('fc-speech-orb');
     const text = document.getElementById('fc-speech-status-text');
     const map  = {
-      idle:      { bg: '#334155', text: 'Tippe das Mikrofon zum Antworten', pulse: false },
+      idle:      { bg: '#334155', text: _vadStream ? '🎙 Sprich jetzt — ich höre zu' : 'Tippe das Mikrofon zum Antworten', pulse: false },
       speaking:  { bg: '#3b82f6', text: '🔊 Karte wird vorgelesen...', pulse: false },
       listening: { bg: '#ef4444', text: '🎤 Ich höre zu — sprich jetzt!', pulse: true },
       thinking:  { bg: '#f59e0b', text: '🤔 Bewerte deine Antwort...', pulse: false },
@@ -671,7 +696,146 @@ window.FlashcardsScreen = (function () {
   }
 
   function rereadQuestion() {
-    if (currentSpeechCard) _speakText(currentSpeechCard.front);
+    if (currentSpeechCard) _speakTextVAD(currentSpeechCard.front);
+  }
+
+  // ── VAD: Gemini-style Voice Activity Detection ──────────
+
+  async function _ensureMic() {
+    if (_vadStream) return true;
+    try {
+      _vadStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+      _vadActx    = new (window.AudioContext || window.webkitAudioContext)();
+      const src   = _vadActx.createMediaStreamSource(_vadStream);
+      _vadAnalyser = _vadActx.createAnalyser();
+      _vadAnalyser.fftSize = 256;
+      _vadAnalyser.smoothingTimeConstant = 0.4;
+      src.connect(_vadAnalyser);
+      return true;
+    } catch (e) {
+      _setTxt('fc-speech-status-text', 'Mikrofon nicht verfügbar — Zugriff erlauben und nochmal versuchen.');
+      return false;
+    }
+  }
+
+  function _getMicLevel() {
+    if (!_vadAnalyser) return 0;
+    const data = new Uint8Array(_vadAnalyser.frequencyBinCount);
+    _vadAnalyser.getByteFrequencyData(data);
+    return data.reduce((a, b) => a + b, 0) / data.length;
+  }
+
+  function _startInterruptVAD() {
+    _stopInterruptVAD();
+    const THRESH = 22;
+
+    function loop() {
+      if (!speechMode || !_ttsPlaying) return;
+      const lvl = _getMicLevel();
+
+      // Update orb size for visual feedback
+      const orb = document.getElementById('fc-speech-orb');
+      if (orb) orb.style.transform = `scale(${(1 + Math.min(lvl / 40, 0.6)).toFixed(2)})`;
+
+      if (lvl > THRESH) {
+        // User is speaking → interrupt TTS
+        speechSynthesis.cancel();
+        _ttsPlaying = false;
+        _stopInterruptVAD();
+        _setStatus('listening');
+        setTimeout(() => { if (speechMode) _autoStartRecognition(); }, 120);
+        return;
+      }
+      _vadRafId = requestAnimationFrame(loop);
+    }
+    _vadRafId = requestAnimationFrame(loop);
+  }
+
+  function _stopInterruptVAD() {
+    if (_vadRafId) { cancelAnimationFrame(_vadRafId); _vadRafId = null; }
+    const orb = document.getElementById('fc-speech-orb');
+    if (orb) orb.style.transform = '';
+  }
+
+  function _autoStartRecognition() {
+    const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRec || !speechMode) return;
+    if (recognition) { try { recognition.stop(); } catch (_) {} }
+
+    recognition = new SpeechRec();
+    recognition.lang = 'de-DE';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    _setStatus('listening');
+
+    recognition.onresult = (e) => {
+      const transcript = e.results[0][0].transcript;
+      currentSpeechTranscript = transcript;
+      document.getElementById('fc-speech-transcript-wrap')?.classList.remove('hidden');
+      _setTxt('fc-speech-transcript', `"${transcript}"`);
+      _evaluateAnswer(transcript, null);
+    };
+
+    recognition.onerror = (e) => {
+      if ((e.error === 'no-speech' || e.error === 'aborted') && speechMode) {
+        setTimeout(() => { if (speechMode) _autoStartRecognition(); }, 400);
+      } else if (e.error !== 'aborted') {
+        _setStatus('idle');
+      }
+    };
+
+    recognition.onend = () => {};
+
+    try { recognition.start(); } catch (_) { _setStatus('idle'); }
+  }
+
+  async function _speakTextVAD(text) {
+    if (!window.speechSynthesis) return;
+    _ttsPlaying = true;
+    _setStatus('speaking');
+
+    const clean = text
+      .replace(/\$\$?[^$]+?\$\$?/g, 'Formel')
+      .replace(/\{\{[^}]+\}\}/g, 'Lücke')
+      .replace(/!\[[^\]]*\]\([^)]+\)/g, 'Abbildung');
+
+    const utter = new SpeechSynthesisUtterance(clean);
+    utter.lang  = 'de-DE';
+    utter.rate  = 0.9;
+    utter.pitch = 1.0;
+
+    const voices   = await _getVoices();
+    const deVoices = voices.filter(v => v.lang.startsWith('de'));
+    utter.voice    = deVoices.find(v => v.name.toLowerCase().includes('google'))
+                  || deVoices.find(v => !v.localService)
+                  || deVoices[0] || null;
+
+    utter.onstart = () => {
+      if (_vadAnalyser) _startInterruptVAD();
+    };
+
+    utter.onend = () => {
+      _ttsPlaying = false;
+      _stopInterruptVAD();
+      if (speechMode) {
+        _setStatus('listening');
+        setTimeout(() => { if (speechMode) _autoStartRecognition(); }, 150);
+      }
+    };
+
+    utter.onerror = (ev) => {
+      _ttsPlaying = false;
+      _stopInterruptVAD();
+      if (speechMode && ev.error === 'interrupted') {
+        // Was interrupted by VAD — recognition already started in _startInterruptVAD
+      } else if (ev.error !== 'interrupted') {
+        _setStatus('idle');
+      }
+    };
+
+    speechSynthesis.cancel();
+    speechSynthesis.speak(utter);
   }
 
   function startListening() {
@@ -828,10 +992,8 @@ Antworte NUR in diesem JSON-Format (kein weiterer Text):
     currentSpeechCard = filteredCards[currentIndex];
     currentSpeechTranscript = '';
     _updateSpeechPanel();
-    _speakText(currentSpeechCard.front);
-
-    // Also update main card so it's in sync when speech mode exits
     showCard(currentIndex);
+    _speakTextVAD(currentSpeechCard.front);
   }
 
   // ══════════════════════════════════════════════════════════
