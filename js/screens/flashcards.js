@@ -370,6 +370,21 @@ window.FlashcardsScreen = (function () {
   }
 
   function _onDragEnd(e) {
+    const endX = e.clientX ?? dragStartX;
+    const endY = e.clientY ?? dragStartY;
+
+    // Tap detection comes FIRST — before the isDragging guard.
+    // Reason: _onDragMove sets isDragging=false on vertical micro-jitter,
+    // so a plain click would otherwise never reach flipCard().
+    if (Math.abs(endX - dragStartX) < 12 && Math.abs(endY - dragStartY) < 12) {
+      isDragging = false;
+      dragDir = null;
+      const inner = document.getElementById('fc-card-inner');
+      if (inner) inner.style.transition = '';
+      flipCard();
+      return;
+    }
+
     if (!isDragging) return;
     isDragging = false;
 
@@ -377,13 +392,6 @@ window.FlashcardsScreen = (function () {
     if (inner) inner.style.transition = '';
 
     const dx = currentDeltaX;
-    const dy = (e.clientY || 0) - dragStartY;
-
-    // Tap: flip
-    if (Math.abs(dx) < 8 && Math.abs(dy) < 8) {
-      flipCard();
-      return;
-    }
     if (dragDir !== 'h') return;
 
     if (dx > 80)  { _animateOut('right'); }
@@ -621,7 +629,19 @@ window.FlashcardsScreen = (function () {
     if (text) text.textContent = s.text;
   }
 
-  function _speakText(text) {
+  // Returns a promise that resolves to the loaded voice list.
+  // Necessary because getVoices() often returns [] on first call until voiceschanged fires.
+  function _getVoices() {
+    return new Promise(resolve => {
+      const v = speechSynthesis.getVoices();
+      if (v.length) { resolve(v); return; }
+      const onReady = () => resolve(speechSynthesis.getVoices());
+      speechSynthesis.addEventListener('voiceschanged', onReady, { once: true });
+      setTimeout(() => { speechSynthesis.removeEventListener('voiceschanged', onReady); resolve(speechSynthesis.getVoices()); }, 1500);
+    });
+  }
+
+  async function _speakText(text) {
     if (!window.speechSynthesis) return;
     speechSynthesis.cancel();
     _setStatus('speaking');
@@ -633,15 +653,20 @@ window.FlashcardsScreen = (function () {
 
     const utter = new SpeechSynthesisUtterance(clean);
     utter.lang  = 'de-DE';
-    utter.rate  = 0.93;
+    utter.rate  = 0.9;
+    utter.pitch = 1.0;
 
-    // Prefer German voice
-    const voices = speechSynthesis.getVoices();
-    const deVoice = voices.find(v => v.lang.startsWith('de'));
-    if (deVoice) utter.voice = deVoice;
+    // Wait for voice list, then pick best German voice:
+    // priority: Google online DE > any online DE > any local DE
+    const voices  = await _getVoices();
+    const deVoices = voices.filter(v => v.lang.startsWith('de'));
+    utter.voice = deVoices.find(v => v.name.toLowerCase().includes('google'))
+               || deVoices.find(v => !v.localService)
+               || deVoices[0]
+               || null;
 
     utter.onend   = () => _setStatus('idle');
-    utter.onerror = () => _setStatus('idle');
+    utter.onerror = (ev) => { if (ev.error !== 'interrupted') _setStatus('idle'); };
     speechSynthesis.speak(utter);
   }
 
@@ -655,40 +680,51 @@ window.FlashcardsScreen = (function () {
       alert('Speech Recognition nicht verfügbar. Bitte Chrome oder Edge verwenden.');
       return;
     }
-    if (recognition) { try { recognition.abort(); } catch (e) {} }
 
-    recognition = new SpeechRec();
-    recognition.lang = 'de-DE';
-    recognition.interimResults = false;
-    recognition.maxAlternatives = 1;
+    // Stop any ongoing TTS first — browsers can't do TTS and STT simultaneously,
+    // which causes recognition to immediately abort.
+    if (window.speechSynthesis?.speaking) {
+      speechSynthesis.cancel();
+    }
+    if (recognition) { try { recognition.stop(); } catch (_) {} recognition = null; }
 
-    _setStatus('listening');
     const micBtn = document.getElementById('fc-speech-mic-btn');
     if (micBtn) micBtn.disabled = true;
+    _setStatus('listening');
 
-    recognition.onresult = (e) => {
-      const transcript = e.results[0][0].transcript;
-      currentSpeechTranscript = transcript;
+    // Small delay lets the audio subsystem release the output device before
+    // opening the mic — prevents the "aborted" error on some Chrome versions.
+    setTimeout(() => {
+      recognition = new SpeechRec();
+      recognition.lang = 'de-DE';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
 
-      document.getElementById('fc-speech-transcript-wrap')?.classList.remove('hidden');
-      _setTxt('fc-speech-transcript', `"${transcript}"`);
+      recognition.onresult = (e) => {
+        const transcript = e.results[0][0].transcript;
+        currentSpeechTranscript = transcript;
+        document.getElementById('fc-speech-transcript-wrap')?.classList.remove('hidden');
+        _setTxt('fc-speech-transcript', `"${transcript}"`);
+        _evaluateAnswer(transcript, null);
+      };
 
-      _evaluateAnswer(transcript, null);
-    };
+      recognition.onerror = (e) => {
+        _setStatus('idle');
+        if (micBtn) micBtn.disabled = false;
+        if (e.error !== 'no-speech' && e.error !== 'aborted') {
+          _setTxt('fc-speech-status-text', `Fehler: ${e.error}. Nochmal versuchen.`);
+        }
+      };
 
-    recognition.onerror = (e) => {
-      _setStatus('idle');
-      if (micBtn) micBtn.disabled = false;
-      if (e.error !== 'no-speech') {
-        _setTxt('fc-speech-status-text', `Fehler: ${e.error}. Nochmal versuchen.`);
+      recognition.onend = () => {
+        if (micBtn) micBtn.disabled = false;
+      };
+
+      try { recognition.start(); } catch (err) {
+        _setStatus('idle');
+        if (micBtn) micBtn.disabled = false;
       }
-    };
-
-    recognition.onend = () => {
-      if (micBtn) micBtn.disabled = false;
-    };
-
-    recognition.start();
+    }, 150);
   }
 
   async function _evaluateAnswer(userAnswer, previousFeedback) {
