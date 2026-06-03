@@ -22,54 +22,6 @@ window.ExamScreen = (function() {
       available: true,
     },
     {
-      id: 'stat-topic1',
-      label: 'Statistik — Quiz 1: Deskriptive Statistik',
-      course: 'Statistik',
-      dataVar: 'EXAM_DATA_STATISTIK_TOPIC1',
-      file: 'exams/statistik-topic1-data.js',
-      available: true,
-    },
-    {
-      id: 'stat-topic2',
-      label: 'Statistik — Quiz 2: Wahrscheinlichkeitsrechnung',
-      course: 'Statistik',
-      dataVar: 'EXAM_DATA_STATISTIK_TOPIC2',
-      file: 'exams/statistik-topic2-data.js',
-      available: true,
-    },
-    {
-      id: 'stat-topic3',
-      label: 'Statistik — Quiz 3: Wahrscheinlichkeitsverteilungen',
-      course: 'Statistik',
-      dataVar: 'EXAM_DATA_STATISTIK_TOPIC3',
-      file: 'exams/statistik-topic3-data.js',
-      available: true,
-    },
-    {
-      id: 'stat-topic4',
-      label: 'Statistik — Quiz 4: Schätztheorie & KI',
-      course: 'Statistik',
-      dataVar: 'EXAM_DATA_STATISTIK_TOPIC4',
-      file: 'exams/statistik-topic4-data.js',
-      available: true,
-    },
-    {
-      id: 'stat-topic5',
-      label: 'Statistik — Quiz 5: Hypothesentests',
-      course: 'Statistik',
-      dataVar: 'EXAM_DATA_STATISTIK_TOPIC5',
-      file: 'exams/statistik-topic5-data.js',
-      available: true,
-    },
-    {
-      id: 'stat-topic6',
-      label: 'Statistik — Quiz 6: ANOVA & Regression',
-      course: 'Statistik',
-      dataVar: 'EXAM_DATA_STATISTIK_TOPIC6',
-      file: 'exams/statistik-topic6-data.js',
-      available: true,
-    },
-    {
       id: 'esf-eigenklausur',
       label: 'ESF — Eigenklausur (Konzeptprüfung)',
       course: 'ESF',
@@ -158,43 +110,6 @@ window.ExamScreen = (function() {
     const courseColor = key => getCourse(key)?.hex || '#6b7280';
 
     let html = '<div class="space-y-6">';
-
-    // ── Quiz-Modus section ─────────────────────────────────────────────────
-    if (window.QuizScreen) {
-      html += `
-        <div>
-          <div class="flex items-center justify-between mb-3">
-            <h3 class="font-bold text-lg">🧩 Quizzes</h3>
-            <button onclick="QuizScreen.showSelector()"
-              class="text-xs px-3 py-1.5 rounded-full font-semibold transition"
-              style="background:rgba(99,102,241,0.15);color:#a5b4fc;border:1px solid rgba(99,102,241,0.3)">
-              Alle Quizzes
-            </button>
-          </div>
-          <div class="space-y-2">`;
-      QuizScreen.QUIZ_REGISTRY.forEach(q => {
-        html += `
-          <div class="rounded-2xl p-4 transition tap-card"
-               style="background:var(--card-raised);border:1px solid var(--border)">
-            <div class="flex items-center gap-3">
-              <span class="text-2xl flex-shrink-0">${q.icon}</span>
-              <div class="flex-1 min-w-0">
-                <div class="flex items-center gap-2 mb-0.5">
-                  <span class="font-semibold text-sm truncate" style="color:var(--txt)">${q.label}</span>
-                  <span class="flex-shrink-0 text-xs px-1.5 py-0.5 rounded-full text-white font-medium" style="background:${q.tagColor}">${q.tag}</span>
-                </div>
-                <div class="text-xs truncate" style="color:var(--txt-2)">${q.subtitle}</div>
-              </div>
-              <button onclick="QuizScreen.launch('${q.dataVar}')"
-                class="flex-shrink-0 text-xs px-3 py-1.5 rounded-xl font-bold transition text-white"
-                style="background:#4f46e5">
-                Quiz ›
-              </button>
-            </div>
-          </div>`;
-      });
-      html += '</div></div>';
-    }
 
     // ── Exam sections per course ───────────────────────────────────────────
     Object.entries(grouped).forEach(([course, exams]) => {

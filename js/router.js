@@ -2,7 +2,7 @@
 // View management: show/hide screens, update navigation
 
 window.Router = (function() {
-  const VIEWS = ['dashboard', 'course-hub', 'feed', 'flashcards', 'learn-path', 'topics', 'exam', 'tutor', 'profile'];
+  const VIEWS = ['dashboard', 'course-hub', 'feed', 'flashcards', 'learn-path', 'topics', 'quiz', 'exam', 'tutor', 'profile'];
   let currentView = 'dashboard';
 
   function showView(name) {
@@ -32,6 +32,7 @@ window.Router = (function() {
       flashcards:   window.FlashcardsScreen,
       'learn-path': window.LearnPathScreen,
       topics:       window.TopicsScreen,
+      quiz:         window.QuizScreen,
       exam:         window.ExamScreen,
       tutor:        window.TutorScreen,
       profile:      window.ProfileScreen,
@@ -44,7 +45,7 @@ window.Router = (function() {
 
   function updateNav(name) {
     // Sekundäre Views haben keinen eigenen Nav-Button → nächste Hauptseite aktiv lassen
-    const navMap = { 'course-hub': 'dashboard', topics: 'learn-path', exam: 'learn-path', tutor: 'learn-path' };
+    const navMap = { 'course-hub': 'dashboard', topics: 'flashcards', 'learn-path': 'flashcards', tutor: 'dashboard' };
     const navName = navMap[name] || name;
 
     // Mobile bottom nav
