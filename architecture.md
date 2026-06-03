@@ -3,6 +3,8 @@
 > Stand: Juni 2026 | Supabase: `ifmwcgwfvunjbnfwwbtr` | Cloudflare: `k-learning.pages.dev`  
 > Dieses Dokument ist der Masterplan für die Umstellung auf die professionelle 3-Schichten-Architektur.  
 > **Keine Code-Änderungen ohne Freigabe dieses Plans.**
+>
+> **Phase 3 abgeschlossen (Juni 2026):** EMA + Streak-Gewichtung in `save_exam_result()`, `get_user_feed()` mit Deduplication, `topic_weights` um `ema_accuracy` + `correct_streak` erweitert.
 
 ---
 
@@ -144,26 +146,46 @@ CREATE TABLE public.exam_results (
 
 ---
 
-### 2.4 Tabelle: `topic_weights` — Themen-Schwächen-Profil (geplant)
+### 2.4 Tabelle: `topic_weights` — Themen-Schwächen-Profil ✅
 
 ```sql
 CREATE TABLE public.topic_weights (
-  id            UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id       UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
-  course        TEXT NOT NULL,
-  topic_tag     TEXT NOT NULL,     -- Schlagwort, z.B. 'Normalverteilung'
+  id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id        UUID NOT NULL REFERENCES auth.users(id) ON DELETE CASCADE,
+  course         TEXT NOT NULL,
+  topic_tag      TEXT NOT NULL,     -- Schlagwort, z.B. 'Normalverteilung'
   UNIQUE(user_id, course, topic_tag),
 
-  wrong_count   INT DEFAULT 0,     -- Prüfungsfragen falsch beantwortet
-  correct_count INT DEFAULT 0,
-  priority      FLOAT DEFAULT 1.0, -- Multiplikator für Feed-Algorithmus
-  last_updated  TIMESTAMPTZ DEFAULT NOW()
+  wrong_count    INT   DEFAULT 0,   -- kumulativ, für Anzeige im Profil
+  correct_count  INT   DEFAULT 0,
+  ema_accuracy   FLOAT DEFAULT 0.5, -- EMA-gewichtete Genauigkeit (α=0.35), 0.0–1.0
+  correct_streak INT   DEFAULT 0,   -- aufeinanderfolgende richtige Antworten
+  priority       FLOAT DEFAULT 1.0, -- Feed-Multiplikator 1.0–4.0
+  last_updated   TIMESTAMPTZ DEFAULT NOW()
 );
 ```
 
-**Logik:** `priority = 1.0 + (wrong_count / (wrong_count + correct_count + 1)) × 3.0`  
-→ Thema vollständig falsch: priority ≈ 4.0 (sehr hoch)  
-→ Thema vollständig richtig: priority ≈ 1.0 (normal)
+**Algorithmus (EMA + Streak):**
+```
+ema_accuracy = ema_accuracy × 0.65 + new_result × 0.35   (new_result: 1.0 richtig, 0.0 falsch)
+correct_streak: +1 bei richtig, reset auf 0 bei falsch
+
+streak_factor = 0.15  wenn streak ≥ 3   (Thema gilt als verstanden)
+              = 0.50  wenn streak = 2
+              = 0.75  wenn streak = 1
+              = 1.00  wenn streak = 0
+
+priority = 1.0 + (1.0 − ema_accuracy) × 3.0 × streak_factor
+```
+
+**Beispiel:** Thema oft falsch (EMA ≈ 0.1), dann 3× richtig:
+
+| Schritt | EMA | Streak | Priority |
+|---------|-----|--------|---------|
+| Ausgangslage | 0.10 | 0 | 3.70 |
+| 1× richtig | 0.42 | 1 | 2.30 |
+| 2× richtig | 0.62 | 2 | 1.57 |
+| 3× richtig | 0.75 | 3 | **1.11** → unter Feed-Threshold |
 
 ---
 
@@ -209,73 +231,21 @@ Eingabe: user_id, video_id, rating ('knew' | 'didnt')
 
 ---
 
-### 3.2 `get_user_feed(p_user_id, p_course, p_limit)` — Feed-Priorisierung
+### 3.2 `get_user_feed(p_user_id, p_course, p_limit)` — Feed-Priorisierung ✅
 
 Bestimmt, welche Videos in welcher Reihenfolge im Feed erscheinen. Läuft als PostgreSQL-Funktion, nie im Browser.
 
-```sql
--- Aktuelle Implementierung (vereinfacht):
-SELECT v.*, 0 AS _priority, vp.next_review_at AS _sort
-FROM videos v
-JOIN video_progress vp ON vp.video_id = v.id AND vp.user_id = p_user_id
-WHERE (status = 'new' OR (status IN ('learning','review') AND next_review_at <= NOW()))
-  AND (p_course IS NULL OR v.course = p_course)
-
-UNION ALL
-
-SELECT v.*, 1 AS _priority, v.created_at AS _sort
-FROM videos v
-WHERE NOT EXISTS (SELECT 1 FROM video_progress vp WHERE vp.video_id = v.id AND vp.user_id = p_user_id)
-  AND (p_course IS NULL OR v.course = p_course)
-
-ORDER BY _priority ASC, _sort ASC
-LIMIT p_limit;
-```
-
-**Prioritätsstufen (aktuell):**
+**Prioritätsstufen:**
 
 | Priorität | Bedingung | Sortierung |
 |-----------|-----------|------------|
-| 0 — Fällig | `status IN ('new','learning','review')` und Review überfällig | Ältestes Review zuerst |
-| 1 — Neu | Noch kein `video_progress`-Eintrag | `sort_order` aufsteigend |
+| 0.0 — Fällig | SM-2: `status IN ('new','learning','review')` und `next_review_at <= NOW()` | Ältestes Review zuerst |
+| 0.5 — Schwäche | `topic_weights.priority > 1.5` und nicht mastered | `MAX(priority)` × 1h — stärkstes Thema zuerst |
+| 1.0 — Neu | Noch kein `video_progress`-Eintrag | `created_at` aufsteigend |
 
----
+**Deduplication:** Ein Video, das in mehreren Buckets matcht (z.B. SM-2 fällig UND schwaches Thema), erscheint nur einmal — in der niedrigsten Prioritätsstufe. Bei Priority 0.5 gewinnt das stärkste passende Topic-Signal via `MAX(tw.priority)`.
 
-### 3.3 `get_user_feed()` — Erweiterung mit Prüfungs-Priorität (geplant)
-
-Nach Implementierung der `topic_weights`-Tabelle wird der Algorithmus um eine dritte Prioritätsstufe erweitert:
-
-```sql
--- Erweiterter Algorithmus (Entwurf):
-SELECT v.*, 0 AS _priority, vp.next_review_at AS _sort, 1.0 AS _boost
-FROM videos v
-JOIN video_progress vp ON ...
-WHERE (vp.status = 'new' OR (vp.status IN ('learning','review') AND vp.next_review_at <= NOW()))
--- ... (wie bisher)
-
-UNION ALL
-
--- NEU: Videos zu schwachen Themen aus Prüfungen (Priorität 0.5 — zwischen fällig und neu)
-SELECT v.*, 0.5 AS _priority, NOW() - (tw.priority * INTERVAL '1 day') AS _sort, tw.priority AS _boost
-FROM videos v
-JOIN topic_weights tw ON tw.user_id = p_user_id
-  AND tw.course = v.course
-  AND tw.topic_tag = ANY(v.topics)
-  AND tw.priority > 1.5                       -- nur wenn Thema deutlich schwach
-LEFT JOIN video_progress vp ON vp.video_id = v.id AND vp.user_id = p_user_id
-WHERE (vp IS NULL OR vp.status NOT IN ('mastered'))
-  AND (p_course IS NULL OR v.course = p_course)
-
-UNION ALL
-
-SELECT v.*, 1 AS _priority, v.created_at AS _sort, 1.0 AS _boost
-FROM videos v
-WHERE NOT EXISTS (...)
--- ... (wie bisher)
-
-ORDER BY _priority ASC, _sort ASC
-LIMIT p_limit;
-```
+**Threshold:** `priority > 1.5` entspricht EMA-Genauigkeit < 83% ohne aktiven Streak — Videos verschwinden aus dem Fokus-Bucket, sobald ein Thema als "Verstanden" gilt.
 
 ---
 
@@ -346,49 +316,23 @@ Damit das System funktioniert, müssen Prüfungsfragen ein `topics`-Feld haben, 
 
 **Wichtig:** Die Schlagworte in `exam questions[].topics` und `videos.topics` müssen identisch sein (Case-sensitive). Empfehlung: Kanonische Tag-Liste als `data/topics-tags.js` anlegen.
 
-### 4.4 Neue RPC-Funktion: `save_exam_result()`
+### 4.4 RPC-Funktion: `save_exam_result()` ✅
+
+Kernlogik der EMA + Streak-Aktualisierung (vereinfacht):
 
 ```sql
-CREATE OR REPLACE FUNCTION public.save_exam_result(
-  p_user_id  UUID,
-  p_exam_id  TEXT,
-  p_course   TEXT,
-  p_score    INT,
-  p_answers  JSONB         -- [{question_id, topics[], is_correct}]
-) RETURNS VOID
-LANGUAGE plpgsql SECURITY DEFINER AS $$
-DECLARE
-  answer JSONB;
-  tag    TEXT;
-BEGIN
-  -- 1. Gesamtergebnis speichern
-  INSERT INTO public.exam_results (user_id, exam_id, course, score_pct, answers)
-  VALUES (p_user_id, p_exam_id, p_course, p_score, p_answers);
+-- Bei richtiger Antwort:
+ema_accuracy   = ema_accuracy * 0.65 + 0.35
+correct_streak = correct_streak + 1
+priority       = 1.0 + (1.0 - new_ema) * 3.0 * streak_factor
 
-  -- 2. topic_weights aktualisieren
-  FOR answer IN SELECT * FROM jsonb_array_elements(p_answers) LOOP
-    FOR tag IN SELECT * FROM jsonb_array_elements_text(answer->'topics') LOOP
-      INSERT INTO public.topic_weights (user_id, course, topic_tag)
-      VALUES (p_user_id, p_course, tag)
-      ON CONFLICT (user_id, course, topic_tag) DO NOTHING;
+-- Bei falscher Antwort:
+ema_accuracy   = ema_accuracy * 0.65      -- × 0.0 entfällt
+correct_streak = 0
+priority       = 1.0 + (1.0 - new_ema) * 3.0
 
-      IF (answer->>'is_correct')::BOOLEAN THEN
-        UPDATE public.topic_weights
-        SET correct_count = correct_count + 1,
-            priority = 1.0 + ((wrong_count::FLOAT / (wrong_count + correct_count + 2)) * 3.0),
-            last_updated = NOW()
-        WHERE user_id = p_user_id AND course = p_course AND topic_tag = tag;
-      ELSE
-        UPDATE public.topic_weights
-        SET wrong_count = wrong_count + 1,
-            priority = 1.0 + (((wrong_count + 1)::FLOAT / (wrong_count + correct_count + 2)) * 3.0),
-            last_updated = NOW()
-        WHERE user_id = p_user_id AND course = p_course AND topic_tag = tag;
-      END IF;
-    END LOOP;
-  END LOOP;
-END;
-$$;
+-- Hinweis: PostgreSQL evaluiert alle SET-RHS gegen den alten Row-State,
+-- daher ist new_ema = ema_accuracy * 0.65 + 0.35 konsistent inline verwendbar.
 ```
 
 ---
@@ -404,10 +348,10 @@ $$;
 | **Phase 2** | BYOK AI-Key via Supabase Vault | ✅ Live |
 | **Phase 2** | Prüfungs-Modus (exam.js) | ✅ Live |
 | **Phase 2** | Alle Videos in Supabase DB (ESF + Statistik) | ✅ Live |
-| **Phase 3** | `exam_results` Tabelle + `save_exam_result()` RPC | ⏳ Geplant |
-| **Phase 3** | `topic_weights` Tabelle + Algorithmus | ⏳ Geplant |
-| **Phase 3** | `get_user_feed()` Erweiterung mit topic_weights | ⏳ Geplant |
-| **Phase 3** | Kanonische topics-Tag-Liste für Fragen + Videos | ⏳ Geplant |
+| **Phase 3** | `exam_results` Tabelle + `save_exam_result()` RPC | ✅ Live |
+| **Phase 3** | `topic_weights` Tabelle + EMA/Streak-Algorithmus | ✅ Live |
+| **Phase 3** | `get_user_feed()` Erweiterung mit topic_weights + Dedup | ✅ Live |
+| **Phase 3** | Kanonische topics-Tag-Liste für Fragen + Videos | ⏳ Offen |
 | **Phase 4** | HLS-Transcoding + Cloudflare R2 Streaming | ⏳ Geplant |
 | **Phase 4** | Flashcards aus Supabase statt statische JS-Datei | ⏳ Geplant |
 

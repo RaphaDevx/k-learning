@@ -483,4 +483,632 @@ window.FEED_CARDS = [
     thumbnail_emoji: "📐",
     block: "M06 — ANOVA & Regression"
   },
+
+  // ── Statistik Concept Cards ──────────────────────────────────────────────
+
+  // Block 1 — Deskriptive Statistik
+  {
+    id: "stat-t1-001",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 1 — Deskriptive Statistik",
+    title: "Skalenniveaus",
+    tldr: "Das Skalenniveau entscheidet, welche Rechenoperationen und Tests überhaupt erlaubt sind.",
+    key_points: [
+      "Nominal: Kategorien ohne Rangfolge (z.B. Geschlecht, Nationalität) — nur Häufigkeiten zählen",
+      "Ordinal: Rangfolge vorhanden, Abstände nicht interpretierbar (z.B. Schulnoten, Likert-Skala)",
+      "Intervall: Gleiche Abstände, aber kein natürlicher Nullpunkt (z.B. Temperatur in °C)",
+      "Verhältnis (Ratio): Natürlicher Nullpunkt → Verhältnisse sinnvoll (z.B. Einkommen, Gewicht)"
+    ],
+    analogy: "Stell dir eine Treppe vor: Jede Stufe fügt eine neue Fähigkeit hinzu. Nominal = Türschild (nur Name). Ordinal = Stockwerknummer (Rang). Intervall = Thermometer (Abstand, aber 0°C heißt nicht 'kein Temperatur'). Verhältnis = Körpergröße (doppelt so groß = wirklich doppelt).",
+    exam_trap: "Schulnoten sind ORDINAL, nicht Intervall! Der Abstand von Note 1 zu 2 ist nicht gleich dem Abstand von 5 zu 6. Wer trotzdem einen Mittelwert von 'Ø 2.3' bildet, arbeitet auf Intervallniveau — in der Praxis toleriert, aber streng genommen falsch.",
+    recall_q: "Warum ist die Durchschnittstemperatur in Kelvin aussagekräftiger als in Celsius, wenn man Verhältnisse vergleicht?",
+    recall_a: "Kelvin hat einen absoluten Nullpunkt (0 K = keine Wärmebewegung), ist also Verhältnisskala. 200 K ist wirklich doppelt so warm wie 100 K. Celsius-Null ist willkürlich gesetzt, daher gilt 20°C NICHT als 'doppelt so warm' wie 10°C.",
+    emoji: "📏"
+  },
+  {
+    id: "stat-t1-002",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 1 — Deskriptive Statistik",
+    title: "Lageparameter: Mittelwert, Median, Modus",
+    tldr: "Drei Maße für die 'Mitte' — und welches du wählst, ändert die Geschichte komplett.",
+    key_points: [
+      "Arithmetisches Mittel: Summe aller Werte / n — sensitiv gegenüber Ausreißern",
+      "Median: Mittlerer Wert der sortierten Reihe — robust bei Ausreißern (immer erst sortieren!)",
+      "Modus (Modalwert): Häufigster Wert — einziges Lagemaß für Nominalniveau",
+      "Bei Rechtsschiefe gilt: Modus < Median < Mittelwert (z.B. Einkommensverteilung)"
+    ],
+    analogy: "Stell dir 9 Mitarbeiter vor, die je 50.000 CHF verdienen, plus CEO mit 5 Mio. Mittelwert springt auf ~540.000 — kein normaler Mitarbeiter liegt da. Median bleibt bei 50.000. Die Zeitung schreibt 'Durchschnittslohn 540.000' — technisch korrekt, aber irreführend.",
+    exam_trap: "Bei gerader Anzahl von Werten ist der Median das arithmetische Mittel der beiden mittleren Werte. Datensatz {2, 4, 7, 9}: Median = (4+7)/2 = 5.5 — NICHT 4 oder 7. Wer nicht sortiert, liegt falsch.",
+    recall_q: "Ein Datensatz lautet: {3, 7, 7, 8, 10, 12, 100}. Berechne Mittelwert, Median und Modus.",
+    recall_a: "Mittelwert = (3+7+7+8+10+12+100)/7 = 147/7 = 21. Median = 8 (4. Wert von 7). Modus = 7 (kommt 2× vor). Der Ausreißer 100 verzerrt den Mittelwert stark nach oben.",
+    emoji: "📊"
+  },
+  {
+    id: "stat-t1-003",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 1 — Deskriptive Statistik",
+    title: "Streuungsmaße: Varianz, SD und IQR",
+    tldr: "Streuung misst, wie weit Werte von der Mitte abweichen — und die Wahl des Maßes hängt von Ausreißern ab.",
+    key_points: [
+      "Varianz s² = Σ(xᵢ − x̄)² / (n−1) — durch n−1 (Bessel-Korrektur) für erwartungstreue Schätzung",
+      "Standardabweichung s = √s² — in derselben Einheit wie die Daten, deshalb bevorzugt",
+      "IQR = Q3 − Q1 — der mittlere 50%-Bereich, robust gegen Ausreißer",
+      "Faustregel: Bei Ausreißern → IQR+Median; ohne Ausreißer → SD+Mittelwert"
+    ],
+    analogy: "Zwei Fußballteams erzielen beide im Schnitt 2 Tore. Team A spielt immer 2:1, Team B mal 0:5 und mal 4:0. Gleicher Mittelwert, riesiger Unterschied in der Varianz. Die Standardabweichung zeigt dir, ob ein Team berechenbar ist.",
+    exam_trap: "Durch n oder n−1? Für die Stichprobenvarianz immer n−1 (Freiheitsgrade). Durch n wäre es die Populationsvarianz — nur wenn du ALLE Einheiten hast. Prüfungsaufgaben spezifizieren das fast nie explizit → Standardannahme: n−1.",
+    recall_q: "Datensatz {2, 4, 4, 4, 5, 5, 7, 9}: Berechne die Varianz mit der Bessel-Korrektur.",
+    recall_a: "x̄ = 40/8 = 5. Abweichungen²: 9, 1, 1, 1, 0, 0, 4, 16. Summe = 32. s² = 32/(8−1) = 32/7 ≈ 4.57. s ≈ 2.14.",
+    emoji: "📐"
+  },
+  {
+    id: "stat-t1-004",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 1 — Deskriptive Statistik",
+    title: "Boxplot lesen",
+    tldr: "Ein Boxplot packt fünf Kennzahlen in ein Bild — und verrät sofort Schiefe und Ausreißer.",
+    key_points: [
+      "Five-Number-Summary: Min, Q1 (25%), Median (50%), Q3 (75%), Max",
+      "Box = IQR (Q1 bis Q3); Whiskers reichen bis max. 1.5×IQR über Q3/unter Q1",
+      "Punkte außerhalb der Whiskers = Ausreißer (mild: 1.5–3×IQR, extrem: >3×IQR)",
+      "Schiefer Boxplot: Median näher an Q1 → Rechtsschiefe; näher an Q3 → Linksschiefe"
+    ],
+    analogy: "Der Boxplot ist wie ein Immobilienmarkt-Report: Die Box zeigt das mittlere Segment (Q1–Q3, wo 50% der Preise liegen), der Strich in der Box ist der typische Preis (Median), und die einzelnen Punkte rechts außen sind die Luxusvillen (Ausreißer), die den Markt verzerren.",
+    exam_trap: "Whisker ≠ Min/Max! Die Whiskers gehen nur bis zum letzten Datenpunkt INNERHALB von Q3+1.5×IQR bzw. Q1−1.5×IQR. Wenn der Maximalwert ein Ausreißer ist, zeigt der Whisker trotzdem nur bis zum nächsten 'normalen' Wert.",
+    recall_q: "Q1=20, Median=30, Q3=50, Min=5, Max=90. Berechne den IQR und bestimme die Ausreißergrenze.",
+    recall_a: "IQR = 50−20 = 30. Obere Ausreißergrenze = 50 + 1.5×30 = 95. Untere = 20 − 45 = −25. Da Max=90 < 95, ist 90 kein Ausreißer. Whisker oben reicht bis 90.",
+    emoji: "📦"
+  },
+  {
+    id: "stat-t1-005",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 1 — Deskriptive Statistik",
+    title: "Schiefe & Ausreißer",
+    tldr: "Schiefe zeigt die Asymmetrie einer Verteilung — Ausreißer verzerren Mittelwert und Varianz systematisch.",
+    key_points: [
+      "Rechtsschiefe (positive Schiefe): langer rechter Schwanz, Modus < Median < Mittelwert",
+      "Linksschiefe (negative Schiefe): langer linker Schwanz, Mittelwert < Median < Modus",
+      "Ausreißer-Diagnose: Z-Score >|3| oder außerhalb Q3+1.5×IQR",
+      "Ausreißer entfernen nur mit fachlicher Begründung — nie einfach weil sie 'stören'"
+    ],
+    analogy: "Einkommensverteilung in der Schweiz: Die meisten verdienen 80.000–120.000 CHF (Modus/Median), aber Milliardäre ziehen den Mittelwert auf 150.000+ hoch. Das ist klassische Rechtsschiefe — der lange Schwanz geht nach rechts zu den hohen Werten.",
+    exam_trap: "Schiefe und Ausreißer sind nicht dasselbe! Eine Verteilung kann schief OHNE extreme Ausreißer sein (z.B. Exponentialverteilung). Und Ausreißer können auch in symmetrischen Verteilungen auftreten. Verwechslung kostet Punkte.",
+    recall_q: "Wie erkennt man im Boxplot, dass eine Verteilung rechtsschief ist?",
+    recall_a: "Der Median liegt im unteren Teil der Box (näher an Q1), der obere Whisker ist länger als der untere, und es gibt oft Ausreißer auf der rechten Seite. Die Box ist unten 'gestaucht' und nach oben hin 'gestreckt'.",
+    emoji: "↗️"
+  },
+
+  // Block 2 — Wahrscheinlichkeitsrechnung
+  {
+    id: "stat-t2-001",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 2 — Wahrscheinlichkeitsrechnung",
+    title: "Kolmogorov-Axiome & Laplace",
+    tldr: "Drei Axiome definieren Wahrscheinlichkeit präzise — und Laplace gilt nur bei gleichwahrscheinlichen Ergebnissen.",
+    key_points: [
+      "Axiom 1: P(A) ≥ 0 — Wahrscheinlichkeiten sind nie negativ",
+      "Axiom 2: P(Ω) = 1 — das sichere Ereignis hat Wahrscheinlichkeit 1",
+      "Axiom 3: P(A∪B) = P(A) + P(B) für disjunkte Ereignisse (σ-Additivität)",
+      "Laplace-Modell: P(A) = |A| / |Ω| — nur bei gleichwahrscheinlichen Elementarereignissen!"
+    ],
+    analogy: "Die drei Axiome sind wie Spielregeln eines fairen Spiels: Kein Ereignis kann negative Chancen haben (1), irgendetwas passiert immer (2), und wenn zwei Dinge nicht gleichzeitig eintreten können, addieren sich ihre Chancen (3). Laplace ist nur das faire Münzwurf-Szenario.",
+    exam_trap: "Laplace gilt NICHT beim Würfeln mit gezinktem Würfel oder beim Ziehen ohne gleiche Proportionen. Die Frage 'P(Augenzahl > 4)' beim fairen Würfel: P = 2/6 = 1/3. Mit gezinktem Würfel? Kein Laplace mehr — dann brauchst du empirische Wahrscheinlichkeiten.",
+    recall_q: "Aus einer Urne mit 3 roten und 5 blauen Kugeln wird eine gezogen. Darf man Laplace anwenden? Wie groß ist P(rot)?",
+    recall_a: "Ja, Laplace ist anwendbar: alle 8 Kugeln sind gleichwahrscheinlich. P(rot) = 3/8 = 0.375. Das setzt voraus, dass die Kugeln ununterscheidbar sind bis auf die Farbe.",
+    emoji: "🎲"
+  },
+  {
+    id: "stat-t2-002",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 2 — Wahrscheinlichkeitsrechnung",
+    title: "Additions- & Multiplikationssatz",
+    tldr: "Vereinigung oder Schnittmenge — die Wahl der Formel hängt davon ab, ob Ereignisse sich ausschließen oder nicht.",
+    key_points: [
+      "Additionssatz allgemein: P(A∪B) = P(A) + P(B) − P(A∩B)",
+      "Für disjunkte Ereignisse (A∩B = ∅): P(A∪B) = P(A) + P(B)",
+      "Multiplikationssatz allgemein: P(A∩B) = P(A) · P(B|A)",
+      "Für unabhängige Ereignisse: P(A∩B) = P(A) · P(B) — kein bedingter Faktor nötig"
+    ],
+    analogy: "Du fragst: 'Wie viele Studenten studieren BWL ODER sprechen Deutsch?' Wenn du einfach BWLer + Deutschsprecher addierst, zählst du die deutsch sprechenden BWLer zweimal — daher minus P(A∩B). Disjunkt bedeutet: niemand kann in beiden Gruppen sein (z.B. 'Kopf' und 'Zahl' beim Münzwurf).",
+    exam_trap: "P(A∪B) = P(A)+P(B) ist NUR für disjunkte Ereignisse korrekt. Bei überlappenden Ereignissen ohne den Abzug von P(A∩B) überschätzt man die Wahrscheinlichkeit. Klassischer Prüfungsfehler: P(mindestens einmal Kopf in 2 Würfen) ≠ 0.5+0.5 = 1.",
+    recall_q: "P(A)=0.4, P(B)=0.3, P(A∩B)=0.1. Berechne P(A∪B) und prüfe, ob A und B unabhängig sind.",
+    recall_a: "P(A∪B) = 0.4+0.3−0.1 = 0.6. Unabhängigkeit: P(A)·P(B) = 0.4·0.3 = 0.12 ≠ 0.1 = P(A∩B). Also sind A und B NICHT unabhängig.",
+    emoji: "∪"
+  },
+  {
+    id: "stat-t2-003",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 2 — Wahrscheinlichkeitsrechnung",
+    title: "Bedingte Wahrscheinlichkeit & Vierfeldertafel",
+    tldr: "P(B|A) ist die Wahrscheinlichkeit von B, wenn man weiß dass A eingetreten ist — die Vierfeldertafel macht es sichtbar.",
+    key_points: [
+      "P(B|A) = P(A∩B) / P(A) — der Grundraum schrumpft auf A",
+      "Vierfeldertafel: 2×2-Matrix mit A/Ā in Spalten und B/B̄ in Zeilen",
+      "Randwahrscheinlichkeiten = Zeilensummen / Spaltensummen geteilt durch n",
+      "Unabhängigkeit: P(B|A) = P(B) — Wissen über A ändert nichts an B"
+    ],
+    analogy: "Du weißt, dass jemand ein Raucher ist. Wie hoch ist jetzt die Wahrscheinlichkeit für Lungenkrebs? Das ist P(Krebs|Raucher). Du schränkst deinen Blick auf die Untergruppe der Raucher ein — der Nenner ist nicht mehr die Gesamtpopulation, sondern nur noch die Raucher.",
+    exam_trap: "P(A|B) ≠ P(B|A)! P(Raucher|Lungenkrebs) ≈ 90% ist nicht dasselbe wie P(Lungenkrebs|Raucher) ≈ 15%. Diese Verwechslung heißt 'Transposed Conditional' und ist der häufigste Denk fehler bei Bayes-Aufgaben.",
+    recall_q: "100 Personen: 40 sind krank, 60 gesund. 30 kranke testen positiv, 10 gesunde testen positiv. Erstelle die Vierfeldertafel und berechne P(krank|positiv).",
+    recall_a: "Tafel: Positiv: 30 krank, 10 gesund = 40 total. Negativ: 10 krank, 50 gesund = 60 total. P(krank|positiv) = 30/40 = 0.75 = 75%.",
+    emoji: "🔢"
+  },
+  {
+    id: "stat-t2-004",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 2 — Wahrscheinlichkeitsrechnung",
+    title: "Satz von Bayes",
+    tldr: "Bayes dreht die Konditionierung um: Aus P(Test+|krank) wird P(krank|Test+) — und das Ergebnis überrascht immer.",
+    key_points: [
+      "Bayes-Formel: P(A|B) = P(B|A)·P(A) / P(B)",
+      "Totale Wahrscheinlichkeit im Nenner: P(B) = P(B|A)·P(A) + P(B|Ā)·P(Ā)",
+      "Prior P(A) = Vorabwahrscheinlichkeit, Posterior P(A|B) = nach Beobachtung B",
+      "Seltene Ereignisse: Hohe Sensitivität reicht nicht — die Basisrate dominiert"
+    ],
+    analogy: "Test auf seltene Krankheit (1% Prävalenz), Sensitivität 95%, Spezifität 95%. P(krank|positiv) = (0.95·0.01)/(0.95·0.01 + 0.05·0.99) = 0.0095/0.0590 ≈ 16%. Nur 16% der positiv Getesteten sind wirklich krank — weil die Krankheit so selten ist. Die Basisrate schlägt die Testgüte.",
+    exam_trap: "Den Nenner P(B) falsch berechnen ist die häufigste Fehlerquelle. P(B) muss über alle Hypothesen summiert werden: P(B) = Σ P(B|Aᵢ)·P(Aᵢ). Wer nur P(B|A)·P(A) in den Nenner schreibt, vergisst die komplementäre Hypothese.",
+    recall_q: "P(krank)=0.02, P(positiv|krank)=0.90, P(positiv|gesund)=0.05. Berechne P(krank|positiv).",
+    recall_a: "P(positiv) = 0.90·0.02 + 0.05·0.98 = 0.018 + 0.049 = 0.067. P(krank|positiv) = 0.018/0.067 ≈ 0.269 = 26.9%.",
+    emoji: "🔬"
+  },
+  {
+    id: "stat-t2-005",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 2 — Wahrscheinlichkeitsrechnung",
+    title: "Kombinatorik: Permutation & Kombination",
+    tldr: "Reihenfolge zählt → Permutation; Reihenfolge egal → Kombination — und der Unterschied ist ein Faktor k!.",
+    key_points: [
+      "Permutation (geordnet, ohne Wiederholung): P(n,k) = n! / (n−k)!",
+      "Kombination (ungeordnet, ohne Wiederholung): C(n,k) = n! / (k! · (n−k)!)",
+      "Mit Wiederholung: Permutation = nᵏ, Kombination = C(n+k−1, k)",
+      "Binomialkoeffizient C(n,k) ist symmetrisch: C(n,k) = C(n,n−k)"
+    ],
+    analogy: "Lotto 6 aus 49: Reihenfolge egal → Kombination. C(49,6) = 13.983.816 mögliche Tipps. Wäre die Reihenfolge wichtig (wie eine PIN), wären es 49·48·47·46·45·44 ≈ 10 Milliarden. Der Unterschied: bei Kombination dividieren wir durch 6! = 720, weil alle Anordnungen der gleichen 6 Zahlen identisch sind.",
+    exam_trap: "3 Personen auf 3 Plätzen anordnen = 3! = 6 Möglichkeiten. 3 Personen aus 10 auswählen (Reihenfolge egal) = C(10,3) = 120. 3 Personen aus 10 für 3 verschiedene Rollen = P(10,3) = 720. Wer Kombi und Permutation verwechselt, liegt um Faktor 6 daneben.",
+    recall_q: "Wie viele Möglichkeiten gibt es, aus 8 Kandidaten einen Vorstand mit Präsident, Vize und Kassier zu wählen?",
+    recall_a: "Reihenfolge zählt (verschiedene Rollen) → Permutation: P(8,3) = 8!/(8−3)! = 8·7·6 = 336 Möglichkeiten.",
+    emoji: "🔢"
+  },
+
+  // Block 3 — Wahrscheinlichkeitsverteilungen
+  {
+    id: "stat-t3-001",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 3 — Wahrscheinlichkeitsverteilungen",
+    title: "Diskrete vs. stetige Verteilungen",
+    tldr: "Diskret = abzählbare Werte mit P(X=x)>0; stetig = P(X=x)=0 für jeden Einzelwert, nur Intervalle haben Wahrscheinlichkeit.",
+    key_points: [
+      "Diskret: Zähldaten (0,1,2,...) — Wahrscheinlichkeitsfunktion P(X=x), Summe = 1",
+      "Stetig: Messdaten — Dichtefunktion f(x), Fläche unter f(x) = 1, P(X=x) = 0",
+      "E(X) = Σ x·P(X=x) diskret | E(X) = ∫ x·f(x)dx stetig",
+      "Var(X) = E(X²) − [E(X)]² — gilt für beide Typen (Verschiebungssatz)"
+    ],
+    analogy: "Würfelaugen sind diskret: Du kannst 1, 2, ..., 6 werfen — jeder Wert hat 1/6. Körpergröße ist stetig: Niemand ist exakt 175.000000... cm groß — aber die Wahrscheinlichkeit für 170–180 cm ist messbar als Fläche unter der Dichtefunktion.",
+    exam_trap: "Bei stetigen Verteilungen gilt P(X ≤ a) = P(X < a), weil P(X=a)=0. Bei diskreten Verteilungen ist P(X ≤ 3) ≠ P(X < 3)! P(X < 3) = P(X ≤ 2). Dieser Unterschied ist bei Binomialaufgaben prüfungsrelevant.",
+    recall_q: "E(X)=3, E(X²)=13. Berechne Var(X) und interpretiere das Ergebnis.",
+    recall_a: "Var(X) = E(X²) − [E(X)]² = 13 − 9 = 4. Standardabweichung σ = 2. Die Werte streuen im Schnitt um 2 Einheiten um den Erwartungswert 3.",
+    emoji: "📊"
+  },
+  {
+    id: "stat-t3-002",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 3 — Wahrscheinlichkeitsverteilungen",
+    title: "Binomial- & Poissonverteilung",
+    tldr: "Binomial zählt Erfolge in n unabhängigen Versuchen; Poisson zählt seltene Ereignisse pro Zeiteinheit.",
+    key_points: [
+      "Binomial: X ~ B(n,π) → P(X=k) = C(n,k)·πᵏ·(1−π)ⁿ⁻ᵏ, E=nπ, Var=nπ(1−π)",
+      "Poisson: X ~ P(μ) → P(X=k) = e⁻μ·μᵏ/k!, E(X)=Var(X)=μ",
+      "Poisson als Grenzfall: B(n,π) → P(μ=nπ) wenn n→∞ und π→0",
+      "Daumenregel: Poisson nutzen wenn n>50 und π<0.05 (seltene Ereignisse)"
+    ],
+    analogy: "Binomial: 10 Münzwürfe, wie oft Kopf? (n=10, π=0.5). Poisson: Wie viele Unfälle pro Tag auf einer Autobahn? (μ=3 pro Tag, seltenes Ereignis, viele 'Versuche' = alle Fahrzeuge, kleines π). Der Unterschied liegt in der Struktur des Experiments.",
+    exam_trap: "Poisson hat E(X) = Var(X) = μ — das ist einzigartig! Wenn Erwartungswert und Varianz im Datensatz stark abweichen, passt Poisson nicht gut. Zudem: Poissonverteilung gilt nur für unabhängige, gedächtnislose Ereignisse — Nachfolgeunfälle sind nicht unabhängig.",
+    recall_q: "X ~ B(5, 0.3). Berechne P(X=2).",
+    recall_a: "P(X=2) = C(5,2)·0.3²·0.7³ = 10·0.09·0.343 = 0.3087 ≈ 30.9%.",
+    emoji: "📈"
+  },
+  {
+    id: "stat-t3-003",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 3 — Wahrscheinlichkeitsverteilungen",
+    title: "Normalverteilung & Z-Transformation",
+    tldr: "Die Glockenkurve ist symmetrisch um μ — durch Z-Transformation vergleichst du alles auf einer Skala.",
+    key_points: [
+      "X ~ N(μ, σ²) → Standardisierung: Z = (X−μ)/σ ~ N(0,1)",
+      "68-95-99.7-Regel: μ±1σ (68%), μ±2σ (95%), μ±3σ (99.7%)",
+      "Φ(z) = P(Z ≤ z) aus der Tabelle ablesen; P(Z > z) = 1 − Φ(z)",
+      "Für P(a < X < b): P = Φ((b−μ)/σ) − Φ((a−μ)/σ)"
+    ],
+    analogy: "IQ-Tests: μ=100, σ=15. Wie viele Menschen haben IQ > 130? Z = (130−100)/15 = 2. P(Z>2) = 1−Φ(2) = 1−0.9772 = 2.28%. Das bedeutet: 2.28% der Menschen liegen mehr als 2 Standardabweichungen über dem Schnitt — hochbegabt per Definition.",
+    exam_trap: "Negative Z-Werte in der Tabelle: Φ(−z) = 1 − Φ(z). Wenn du P(X < 85) bei μ=100, σ=15 suchst: Z = (85−100)/15 = −1. P = Φ(−1) = 1 − Φ(1) = 1 − 0.8413 = 0.1587. Tabellen zeigen oft nur positive Z-Werte — Symmetrie nutzen!",
+    recall_q: "Prüfungsergebnisse: μ=65, σ=10. Wie viel Prozent der Studenten haben mehr als 75 Punkte?",
+    recall_a: "Z = (75−65)/10 = 1.0. P(X>75) = P(Z>1) = 1−Φ(1) = 1−0.8413 = 0.1587 ≈ 15.87%.",
+    emoji: "🔔"
+  },
+  {
+    id: "stat-t3-004",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 3 — Wahrscheinlichkeitsverteilungen",
+    title: "t-, χ²- und F-Verteilung: wann welche?",
+    tldr: "Drei Verwandte der Normalverteilung — t für Mittelwerte, χ² für Varianzen, F für Varianzverhältnisse.",
+    key_points: [
+      "t-Verteilung: σ² unbekannt, Stichprobenmittelwert testen → df = n−1, dicker als Normalverteilung",
+      "χ²-Verteilung: Testen ob σ²=σ₀² → χ² = (n−1)·s²/σ₀², df = n−1, immer rechtssteil",
+      "F-Verteilung: Zwei Varianzen vergleichen → F = s₁²/s₂², df₁=n₁−1, df₂=n₂−1",
+      "Je größer df, desto näher an der Normalverteilung (t→Z für df→∞)"
+    ],
+    analogy: "t ist Normalverteilung mit Unsicherheit über σ — breitere Schultern, damit man seltene Werte nicht zu schnell verwirft. χ² ist das Quadrat von Z-Werten — immer positiv, rechtssteil. F ist das Verhältnis zweier χ²-Werte — misst, wer von zwei Gruppen stärker streut.",
+    exam_trap: "Für den χ²-Test auf Varianz lautet die Prüfgröße χ² = (n−1)·s²/σ₀² — NICHT s²/σ₀². Den Faktor (n−1) vergessen heißt komplett falsches Ergebnis. Außerdem ist χ² immer positiv — kritische Werte gibt es für beide Schwänze (zweiseitiger Test: χ²_{α/2} und χ²_{1−α/2}).",
+    recall_q: "Wann verwendet man die t-Verteilung statt der Normalverteilung beim Test für μ?",
+    recall_a: "Wenn die Populationsvarianz σ² unbekannt ist und durch die Stichprobenvarianz s² geschätzt werden muss. Bei n < 30 ist der Unterschied zur Normalverteilung relevant; für n ≥ 30 konvergiert t praktisch gegen Z.",
+    emoji: "📉"
+  },
+  {
+    id: "stat-t3-005",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 3 — Wahrscheinlichkeitsverteilungen",
+    title: "Kovarianz & Korrelation",
+    tldr: "Kovarianz misst die gemeinsame Varianz zweier Variablen — Korrelation normiert das auf [−1, +1].",
+    key_points: [
+      "Cov(X,Y) = E[(X−μₓ)(Y−μᵧ)] = E(XY) − μₓ·μᵧ (Verschiebungssatz)",
+      "Pearson-Korrelation: r = Cov(X,Y) / (sₓ·sᵧ) ∈ [−1, +1]",
+      "r = +1: perfekt positive lineare Beziehung; r = 0: keine lineare Korrelation",
+      "Korrelation ≠ Kausalität — Storch-Geburtenrate-Beispiel gilt hier"
+    ],
+    analogy: "Kovarianz ist wie Geld — der absolute Betrag hängt von den Einheiten ab (CHF vs. Rappen). Korrelation ist wie Prozent — immer skaliert zwischen −1 und +1, unabhängig von Einheiten. Deswegen vergleicht man nie Kovarianzen aus verschiedenen Kontexten direkt.",
+    exam_trap: "r = 0 bedeutet KEINE LINEARE Korrelation, nicht 'keine Beziehung'. Zwei Variablen können perfekt nichtlinear zusammenhängen (z.B. Y = X²) und trotzdem r = 0 haben. In Prüfungen wird oft impliziert, dass r=0 Unabhängigkeit bedeutet — das ist nur bei Normalverteilung korrekt.",
+    recall_q: "Cov(X,Y)=12, sₓ=4, sᵧ=6. Berechne r und interpretiere den Zusammenhang.",
+    recall_a: "r = 12/(4·6) = 12/24 = 0.5. Mittlere positive lineare Korrelation: Wenn X steigt, tendiert Y ebenfalls zu steigen, aber der Zusammenhang ist nicht sehr stark.",
+    emoji: "🔗"
+  },
+
+  // Block 4 — Schätztheorie
+  {
+    id: "stat-t4-001",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 4 — Schätztheorie",
+    title: "Zentraler Grenzwertsatz (ZGS)",
+    tldr: "Egal wie die Grundgesamtheit verteilt ist — für n≥30 ist der Stichprobenmittelwert annähernd normalverteilt.",
+    key_points: [
+      "X̄ ~ N(μ, σ²/n) für große n, unabhängig von der Verteilung der Grundgesamtheit",
+      "Standardfehler: σ_{X̄} = σ/√n — wächst mit Stichprobengröße, schrumpft die Unsicherheit",
+      "Daumenregel: n ≥ 30 für ZGS-Approximation (bei stark schiefen Verteilungen: n > 50)",
+      "ZGS erklärt, warum die Normalverteilung so universell in der Inferenzstatistik ist"
+    ],
+    analogy: "Stell dir vor, du würfelst 1000-mal und notierst jedes Mal den Durchschnitt von 30 Würfen. Obwohl jeder einzelne Wurf gleichverteilt ist (1–6), sind deine 1000 Durchschnitte perfekt glockenförmig um 3.5 verteilt. Das ist der ZGS — Magie durch Wiederholung.",
+    exam_trap: "Der ZGS sagt nichts über einzelne Beobachtungen — nur über den MITTELWERT. Wenn n=30 Personen je ein Einkommen haben, sind die Einzelwerte NICHT normalverteilt (typisch rechtsschief). Nur der Stichprobenmittelwert vieler solcher Stichproben ist normalverteilt.",
+    recall_q: "σ=20, n=100. Wie groß ist der Standardfehler von X̄? Und bei n=400?",
+    recall_a: "σ_{X̄} = 20/√100 = 20/10 = 2.0. Bei n=400: 20/√400 = 20/20 = 1.0. Viermal mehr Beobachtungen halbiert den Standardfehler — Quadratwurzelgesetz.",
+    emoji: "🎯"
+  },
+  {
+    id: "stat-t4-002",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 4 — Schätztheorie",
+    title: "Konfidenzintervall für μ",
+    tldr: "Ein 95%-KI bedeutet: In 95% aller möglichen Stichproben würde das berechnete Intervall μ enthalten.",
+    key_points: [
+      "σ bekannt: KI = x̄ ± z_{α/2} · σ/√n (z_{0.025} = 1.96 für 95%)",
+      "σ unbekannt: KI = x̄ ± t_{α/2, n-1} · s/√n (t-Verteilung mit df=n−1)",
+      "Breite des KI ∝ 1/√n — mehr Daten, schmäleres Intervall",
+      "Ein KI von 95% enthält μ mit 95% Wahrscheinlichkeit — NICHT '95% der Daten'"
+    ],
+    analogy: "Stell dir Angeln mit einem Netz vor. Ein 95%-KI ist wie ein Netz, das so groß ist, dass es in 95% der Würfe den Fisch (μ) fängt. Bei einem spezifischen Fischzug (Stichprobe) ist der Fisch entweder drin oder nicht — das Netz 'enthält μ' oder nicht, mit 95% Langzeitfrequenz.",
+    exam_trap: "95%-KI bedeutet NICHT: 'μ liegt mit 95% Wahrscheinlichkeit im Intervall [a,b]'. μ ist eine feste Konstante — entweder drin oder nicht. Korrekte Interpretation: 'Bei wiederholter Stichprobenziehung würden 95% der konstruierten Intervalle μ enthalten.'",
+    recall_q: "x̄=50, s=10, n=25, Konfidenzniveau 95%. Berechne das KI (σ unbekannt).",
+    recall_a: "df=24, t_{0.025,24} ≈ 2.064. KI = 50 ± 2.064·(10/√25) = 50 ± 2.064·2 = 50 ± 4.13. KI: [45.87 ; 54.13].",
+    emoji: "📐"
+  },
+  {
+    id: "stat-t4-003",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 4 — Schätztheorie",
+    title: "Konfidenzintervall für Anteilswert p",
+    tldr: "Für Anteile (0/1-Daten) gibt es ein eigenes KI mit p̂(1−p̂)/n als Varianzschätzer.",
+    key_points: [
+      "Stichprobenanteil: p̂ = x/n (Anzahl Erfolge / Stichprobengröße)",
+      "KI: p̂ ± z_{α/2} · √(p̂(1−p̂)/n)",
+      "Voraussetzung: n·p̂ ≥ 5 und n·(1−p̂) ≥ 5 (Normalapproximation gültig)",
+      "Konservative Schätzung: p̂ = 0.5 maximiert die Varianz → größtes (sicherstes) KI"
+    ],
+    analogy: "Wahlumfrage: 600 Befragte, 54% für Partei A. KI für den wahren Anteil: 0.54 ± 1.96·√(0.54·0.46/600) = 0.54 ± 1.96·0.0203 = 0.54 ± 0.04. Also [50%, 58%]. Das ist der 'Fehlerbalken', den Medien manchmal unterschlagen.",
+    exam_trap: "Das KI für p nutzt NICHT σ/√n wie beim Mittelwert-KI. Die Standardabweichung einer Binärverteilung ist √(p(1−p)), also ist der Standardfehler √(p̂(1−p̂)/n). Wer die Formel vom Mittelwert-KI anwendet, hat keine Grundlage für p.",
+    recall_q: "200 Personen befragt, 80 bevorzugen Produkt X. Berechne das 95%-KI für p.",
+    recall_a: "p̂ = 80/200 = 0.4. SE = √(0.4·0.6/200) = √0.0012 ≈ 0.0346. KI = 0.4 ± 1.96·0.0346 = 0.4 ± 0.068. KI: [0.332 ; 0.468].",
+    emoji: "🔭"
+  },
+  {
+    id: "stat-t4-004",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 4 — Schätztheorie",
+    title: "Stichprobenumfang bestimmen",
+    tldr: "Bevor du Daten sammelst, bestimmst du n aus gewünschter Fehlertoleranz e und Konfidenzniveau — nicht umgekehrt.",
+    key_points: [
+      "Für Mittelwert: n = (z_{α/2} · σ / e)² — e ist die maximale Abweichung von μ",
+      "Für Anteilswert: n = z_{α/2}² · p(1−p) / e² — konservativ: p=0.5",
+      "Ergebnis immer AUFRUNDEN — nie abrunden, sonst ist Fehlertoleranz nicht garantiert",
+      "n vervierfachen halbiert die Fehlertoleranz (Quadratwurzelgesetz)"
+    ],
+    analogy: "Du willst Wahlumfragen mit maximal ±3% Fehler bei 95% Konfidenz. Mit p=0.5 (konservativ): n = 1.96²·0.25/0.03² = 3.8416·0.25/0.0009 = 1067.1 → aufrunden auf 1068. Das ist der Grund, warum seriöse Umfragen oft ~1000 Personen befragen.",
+    exam_trap: "σ kennt man selten vor der Erhebung. Lösung: Vorpilot, Literaturwerte oder konservative Schätzung σ ≈ (Range/4). Für den Anteilswert nimmt man p=0.5 als konservative Obergrenze. Wer mit einem günstigeren p schätzt, riskiert zu kleine Stichproben.",
+    recall_q: "Gesucht: n für μ-Schätzung mit e=5, σ=25, 95% Konfidenz.",
+    recall_a: "n = (1.96·25/5)² = (9.8)² = 96.04 → aufrunden auf 97. Mit n=97 ist die Fehlertoleranz ±5 garantiert.",
+    emoji: "🔭"
+  },
+  {
+    id: "stat-t4-005",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 4 — Schätztheorie",
+    title: "Punktschätzung: Erwartungstreue & Effizienz",
+    tldr: "Ein guter Schätzer trifft im Durchschnitt genau (Erwartungstreue) und streut möglichst wenig (Effizienz).",
+    key_points: [
+      "Erwartungstreue (Unbiasedness): E(θ̂) = θ — der Schätzer überschätzt/unterschätzt nicht systematisch",
+      "x̄ ist erwartungstreu für μ; s² (durch n−1) ist erwartungstreu für σ²",
+      "Effizienz: Unter allen erwartungstreuen Schätzern hat der effiziente den kleinsten MSE",
+      "MSE = Varianz + Bias² — auch leicht verzerrte Schätzer können bei kleinerem MSE besser sein"
+    ],
+    analogy: "Schütze A schießt immer links am Ziel vorbei (verzerrt, ineffizient). Schütze B trifft im Schnitt die Mitte, aber streut stark (erwartungstreu, ineffizient). Schütze C trifft immer dicht ans Zentrum (erwartungstreu, effizient). In der Statistik suchen wir Schütze C.",
+    exam_trap: "Stichprobenvarianz durch n (statt n−1) ist NICHT erwartungstreu: E(s²_biased) = (n−1)/n · σ² < σ². Für große n spielt das kaum eine Rolle, aber für kleine Stichproben (n=5) ist der Bias 20%! Die Bessel-Korrektur (n−1) korrigiert genau das.",
+    recall_q: "Warum ist s² = Σ(xᵢ−x̄)²/(n−1) und nicht /(n) der erwartungstreue Schätzer?",
+    recall_a: "Der Stichprobenmittelwert x̄ liegt 'in der Mitte' der Daten und minimiert die Summe der quadratischen Abweichungen. Dadurch wird σ² systematisch unterschätzt wenn man durch n dividiert. Der Freiheitsgrad-Verlust (ein df für x̄) wird durch Division durch n−1 korrigiert.",
+    emoji: "🎯"
+  },
+
+  // Block 5 — Hypothesentests
+  {
+    id: "stat-t5-001",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 5 — Hypothesentests",
+    title: "Testlogik: H0/H1, α/β-Fehler, p-Wert",
+    tldr: "Der Hypothesentest entscheidet nie ob H0 wahr ist — er entscheidet ob die Daten kompatibel mit H0 sind.",
+    key_points: [
+      "H0 = Nullhypothese (Status quo, enthält immer das Gleichheitszeichen), H1 = Alternativhypothese",
+      "Fehler 1. Art (α): H0 ablehnen obwohl sie wahr ist — Niveau fest auf 5% oder 1%",
+      "Fehler 2. Art (β): H0 nicht ablehnen obwohl sie falsch ist — Power = 1−β",
+      "p-Wert: Wahrscheinlichkeit, Daten mindestens so extrem zu sehen, wenn H0 wahr wäre"
+    ],
+    analogy: "Gerichtsprozess: H0 = unschuldig bis Beweis des Gegenteils. Fehler 1. Art = Unschuldigen verurteilen (schlimm → α klein). Fehler 2. Art = Schuldigen freilassen (auch schlimm → β minimieren). p-Wert = 'Wie unwahrscheinlich wären diese Beweise, wenn der Angeklagte unschuldig wäre?'",
+    exam_trap: "p < 0.05 bedeutet NICHT, dass H0 mit 95% Wahrscheinlichkeit falsch ist. Es bedeutet: Bei Annahme von H0 wäre das Beobachtete in weniger als 5% der Fälle zu sehen. Die H0 könnte trotzdem wahr sein — wir machen Fehler 1. Art in genau α der Entscheidungen.",
+    recall_q: "Welcher Fehlertyp ist gravierender: ein Medikament zulassen, das nicht wirkt, oder ein wirksames Medikament ablehnen?",
+    recall_a: "Das hängt vom Kontext ab. Ein unwirksames Medikament zulassen = Fehler 1. Art (H0: unwirksam wird abgelehnt). Ein wirksames ablehnen = Fehler 2. Art. Bei gefährlichen Nebenwirkungen ist Fehler 1. Art gravierender; bei seltenen Krankheiten ohne Alternative Fehler 2. Art.",
+    emoji: "⚠️"
+  },
+  {
+    id: "stat-t5-002",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 5 — Hypothesentests",
+    title: "z-Test und t-Test (Einstichproben)",
+    tldr: "z bei σ bekannt, t bei σ unbekannt — die Formeln sind fast gleich, aber der kritische Wert unterscheidet sich.",
+    key_points: [
+      "z-Test: z = (x̄ − μ₀) / (σ/√n), kritischer Wert aus Normalverteilungstabelle",
+      "t-Test: t = (x̄ − μ₀) / (s/√n), kritischer Wert aus t-Tabelle mit df = n−1",
+      "Einseitiger Test: Ablehnbereich nur in einem Schwanz (H1: μ>μ₀ oder μ<μ₀)",
+      "Zweiseitiger Test: |Prüfgröße| > t_{α/2, df} → H0 ablehnen"
+    ],
+    analogy: "Qualitätskontrolle: Abfüllmaschine soll μ=500ml füllen. Du misst 25 Flaschen: x̄=496ml, s=8ml. t = (496−500)/(8/√25) = −4/1.6 = −2.5. Bei df=24 und α=5% zweiseitig: t_{krit}=±2.064. |−2.5| > 2.064 → H0 ablehnen. Die Maschine füllt systematisch zu wenig.",
+    exam_trap: "Einseitiger vs. zweiseitiger Test: Die Frage 'Ist der Mittelwert ≠ 500?' ist zweiseitig (α/2 in jedem Schwanz). Die Frage 'Ist er kleiner als 500?' ist einseitig (α komplett im linken Schwanz). Falscher Testtyp verdoppelt oder halbiert den effektiven α-Fehler.",
+    recall_q: "x̄=105, μ₀=100, s=15, n=36. Berechne die t-Statistik und teste bei α=5% zweiseitig.",
+    recall_a: "t = (105−100)/(15/√36) = 5/2.5 = 2.0. df=35, t_{0.025,35} ≈ 2.030. Da |2.0| < 2.030 → H0 nicht ablehnen. Kein signifikanter Unterschied zum Niveau 5%.",
+    emoji: "🔍"
+  },
+  {
+    id: "stat-t5-003",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 5 — Hypothesentests",
+    title: "χ²-Test für Varianz",
+    tldr: "Der χ²-Test prüft, ob die Populationsvarianz einem Sollwert entspricht — und die Prüfgröße ist immer positiv.",
+    key_points: [
+      "Prüfgröße: χ² = (n−1)·s²/σ₀² — unter H0: σ²=σ₀² chi²-verteilt mit df=n−1",
+      "χ²-Verteilung ist rechtsschief und nie negativ — zwei kritische Werte bei zweiseitigem Test",
+      "Zweiseitig: H0 ablehnen wenn χ² < χ²_{α/2,df} oder χ² > χ²_{1−α/2,df}",
+      "Linksseitiger Test (H1: σ² < σ₀²): Nur unterer kritischer Wert relevant"
+    ],
+    analogy: "Präzisionsmaschine produziert Teile mit σ₀=2mm Toleranz. Du misst n=20 Teile, s=2.8mm. χ² = 19·(2.8²)/(2²) = 19·7.84/4 = 37.2. Bei df=19, α=5% zweiseitig: χ²_{0.975}=32.85, χ²_{0.025}=8.91. Da 37.2 > 32.85 → H0 ablehnen. Varianz ist zu groß.",
+    exam_trap: "χ² = (n−1)·s²/σ₀² — niemals das (n−1) vergessen! Und anders als beim t-Test hat die χ²-Verteilung keine Symmetrie um 0, also kann man kritische Werte nicht einfach mit ± angeben. Beide Schwänze sind asymmetrisch aus der Tabelle abzulesen.",
+    recall_q: "H0: σ²=9, n=16, s²=16. Berechne die χ²-Prüfgröße.",
+    recall_a: "χ² = (16−1)·16/9 = 15·16/9 = 240/9 ≈ 26.67. Mit df=15 und α=5% zweiseitig: χ²_{0.975,15}=27.49. Da 26.67 < 27.49 → H0 knapp nicht ablehnen.",
+    emoji: "📊"
+  },
+  {
+    id: "stat-t5-004",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 5 — Hypothesentests",
+    title: "Zweistichproben-Tests: Welch vs. Pooled, F-Test",
+    tldr: "Vor dem Zweistichproben-t-Test kommt der F-Test auf Varianzhomogenität — das Ergebnis entscheidet die Testform.",
+    key_points: [
+      "F-Test auf Varianzgleichheit: F = s₁²/s₂², df₁=n₁−1, df₂=n₂−1",
+      "Pooled t-Test (gleiche Varianzen): s_p² = ((n₁−1)s₁² + (n₂−1)s₂²)/(n₁+n₂−2)",
+      "Welch t-Test (ungleiche Varianzen): t = (x̄₁−x̄₂)/√(s₁²/n₁ + s₂²/n₂), df nach Welch-Satterthwaite",
+      "Welch ist konservativer (mehr Sicherheit), Pooled ist effizienter bei gleichen Varianzen"
+    ],
+    analogy: "Zwei Gruppen: Kontrollgruppe (n=20, x̄=45, s=5) und Behandlungsgruppe (n=25, x̄=50, s=8). F = 64/25 = 2.56. F-krit bei df=(24,19), α=5%: ≈2.11. Da 2.56 > 2.11 → ungleiche Varianzen → Welch-Test. Hätte F < F-krit gegolten, wäre Pooled die richtige Wahl.",
+    exam_trap: "Immer zuerst F-Test, dann t-Test! Viele springen direkt zum t-Test und wählen die falsche Variante. Außerdem: F = s₁²/s₂² — setze die größere Varianz in den Zähler, damit F ≥ 1. Das vereinfacht das Ablesen aus der rechtsseitigen F-Tabelle.",
+    recall_q: "n₁=10, s₁=6; n₂=12, s₂=3. Berechne F und erkläre welcher t-Test verwendet wird.",
+    recall_a: "F = 36/9 = 4.0 (s₁ größer in Zähler). df₁=9, df₂=11. F-krit ≈ 2.90 bei α=5%. Da 4.0 > 2.90 → H0(σ₁²=σ₂²) ablehnen → Welch-t-Test anwenden.",
+    emoji: "⚖️"
+  },
+  {
+    id: "stat-t5-005",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 5 — Hypothesentests",
+    title: "Das Testschema in 6 Schritten",
+    tldr: "Jeder Hypothesentest folgt demselben 6-Schritte-Schema — wer es blind beherrscht, verliert keine Strukturpunkte.",
+    key_points: [
+      "Schritt 1: Hypothesen formulieren (H0 mit =, H1 ein- oder zweiseitig)",
+      "Schritt 2: Signifikanzniveau α festlegen (meist 0.05 oder 0.01)",
+      "Schritt 3: Passende Prüfgröße und Verteilung wählen (z, t, χ², F)",
+      "Schritte 4–6: Prüfgröße berechnen → Kritischen Wert bestimmen → Entscheidung + Interpretation"
+    ],
+    analogy: "Testschema ist wie eine Checkliste im Cockpit vor dem Abflug. Pilot A folgt ihr blind — null Fehler. Pilot B macht es aus dem Gedächtnis — übersieht Schritt 3 (falsche Verteilung). In der Prüfung geben Schritte 1, 2 und 6 einfache Punkte — auch wenn die Rechnung schiefläuft.",
+    exam_trap: "Schritt 6 ist nicht 'H0 wird abgelehnt'. Vollständige Interpretation: 'Bei einem Signifikanzniveau von 5% wird H0 abgelehnt. Es gibt statistisch signifikante Evidenz dafür, dass [inhaltliche Aussage].' Ohne inhaltliche Aussage gibt es halbe Punkte.",
+    recall_q: "Formuliere H0 und H1 für den Test: 'Hat eine neue Diät den Blutdruck unter 130 mmHg gesenkt?' (Vorher war μ=140).",
+    recall_a: "H0: μ ≥ 130 mmHg (kein Effekt oder keine ausreichende Senkung). H1: μ < 130 mmHg (Diät hat Blutdruck unter 130 gesenkt). Einseitiger linksseitiger Test.",
+    emoji: "✅"
+  },
+
+  // Block 6 — ANOVA & Regression
+  {
+    id: "stat-t6-001",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 6 — ANOVA & Regression",
+    title: "Einfaktorielle ANOVA",
+    tldr: "ANOVA testet gleichzeitig ob k Gruppen denselben Mittelwert haben — durch Vergleich von Zwischen- und Innergruppenvarianz.",
+    key_points: [
+      "SST = SSB + SSW (Gesamtstreuung = Zwischen-Gruppen + Innerhalb-Gruppen)",
+      "F = MSB/MSW = (SSB/(k−1)) / (SSW/(n−k)) — je größer F, desto stärker der Gruppeneffekt",
+      "df₁ = k−1 (Zähler), df₂ = n−k (Nenner) für F-Verteilung",
+      "ANOVA sagt nur 'irgendwo gibt es Unterschiede' — Post-hoc-Tests für paarweise Vergleiche"
+    ],
+    analogy: "3 Düngemittel (k=3), je 10 Pflanzen (n=30). SSB misst: Unterscheiden sich die Gruppenmittel vom Gesamtmittel? SSW misst: Wie stark streuen die Pflanzen innerhalb jeder Düngegruppe? F = Zwischen/Innerhalb. Großes F = die Unterschiede zwischen Düngemitteln erklären viel mehr Streuung als der Zufall innerhalb.",
+    exam_trap: "ANOVA setzt Varianzhomogenität voraus (σ₁²=σ₂²=...=σ_k²) — Levene-Test prüft das. Außerdem: Ein signifikantes F sagt nur 'mindestens eine Gruppe ist anders' — NICHT welche. Ohne Post-hoc-Test (Bonferroni, Tukey) ist die ANOVA inhaltlich leer.",
+    recall_q: "k=3 Gruppen, n=15 gesamt, SSB=40, SSW=60. Berechne F.",
+    recall_a: "df₁=3−1=2, df₂=15−3=12. MSB=40/2=20, MSW=60/12=5. F=20/5=4.0. Bei F_{krit}(2,12,5%)≈3.89: Da 4.0 > 3.89 → H0 ablehnen. Mindestens eine Gruppe hat einen anderen Mittelwert.",
+    emoji: "📊"
+  },
+  {
+    id: "stat-t6-002",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 6 — ANOVA & Regression",
+    title: "Einfache lineare Regression",
+    tldr: "Die OLS-Gerade minimiert die Summe der quadrierten Residuen — β₁ ist die Steigung, R² misst die Erklärungskraft.",
+    key_points: [
+      "Modell: ŷ = β̂₀ + β̂₁·x — Achsenabschnitt β̂₀, Steigung β̂₁",
+      "β̂₁ = Cov(X,Y)/Var(X) = Σ(xᵢ−x̄)(yᵢ−ȳ) / Σ(xᵢ−x̄)²",
+      "β̂₀ = ȳ − β̂₁·x̄ (die OLS-Gerade geht immer durch (x̄, ȳ))",
+      "R² = SSR/SST = 1 − SSE/SST ∈ [0,1] — Anteil der erklärten Varianz"
+    ],
+    analogy: "Werbungsausgaben X und Umsatz Y. β̂₁ = 2.5 bedeutet: Jeder zusätzliche CHF Werbung bringt im Schnitt 2.50 CHF Umsatz — ceteris paribus. R²=0.72 bedeutet: 72% der Umsatzschwankungen werden durch Werbung erklärt. Die restlichen 28% sind andere Faktoren (Saisonalität, Konkurrenz etc.).",
+    exam_trap: "R² = 0 bedeutet nicht 'keine Beziehung', nur 'keine lineare Beziehung'. R² = 1 bedeutet perfekte Anpassung, aber nicht zwingend Kausalität. Außerdem: Bei einfacher Regression gilt r² = R² (Quadrat des Pearson-Korrelationskoeffizienten) — nur bei einfacher, nicht multipler Regression.",
+    recall_q: "x̄=5, ȳ=20, Σ(xᵢ−x̄)(yᵢ−ȳ)=30, Σ(xᵢ−x̄)²=10. Berechne β̂₁ und β̂₀.",
+    recall_a: "β̂₁ = 30/10 = 3.0. β̂₀ = 20 − 3·5 = 20 − 15 = 5. Regressionsgerade: ŷ = 5 + 3x.",
+    emoji: "📉"
+  },
+  {
+    id: "stat-t6-003",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 6 — ANOVA & Regression",
+    title: "OLS-Schätzer & Gauss-Markov-Theorem",
+    tldr: "Unter 5 Annahmen (BLUE) ist OLS der beste lineare erwartungstreue Schätzer — kein anderer linearer Schätzer streut weniger.",
+    key_points: [
+      "BLUE = Best Linear Unbiased Estimator (Gauss-Markov-Theorem)",
+      "5 Gauss-Markov-Annahmen: Linearität, Zufallsstichprobe, keine perfekte Multikollinearität, Exogenität (E(ε|X)=0), Homoskedastizität",
+      "Verletzung von Exogenität → OLS verzerrt (Omitted Variable Bias)",
+      "Verletzung von Homoskedastizität → OLS uneffizient (aber noch erwartungstreu)"
+    ],
+    analogy: "OLS ist wie ein fairer Schiedsrichter: Unter fairen Bedingungen (Gauss-Markov) ist sein Urteil das genaueste aller möglichen linearen Urteile. Aber wenn die Regeln verletzt werden (Omitted Variable = versteckter Spieler beeinflusst das Ergebnis), ist auch OLS überfordert.",
+    exam_trap: "Gauss-Markov garantiert nur BLUE unter den 5 Annahmen. Normalverteilung der Residuen ist KEINE Gauss-Markov-Annahme — sie wird zusätzlich für Inferenz (t-Tests auf Koeffizienten) benötigt. Ohne Normalverteilung gilt BLUE, aber keine exakten Konfidenzintervalle.",
+    recall_q: "Was ist Omitted Variable Bias und welche Gauss-Markov-Annahme verletzt er?",
+    recall_a: "OVB entsteht wenn eine Variable, die sowohl X als auch Y beeinflusst, aus dem Modell weggelassen wird. Das verletzt die Exogenitätsannahme E(ε|X)=0: Der Fehler ε enthält dann die ausgelassene Variable und ist mit X korreliert. OLS-Schätzer sind dann verzerrt.",
+    emoji: "🔬"
+  },
+  {
+    id: "stat-t6-004",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 6 — ANOVA & Regression",
+    title: "Multiple Regression & Dummy-Variablen",
+    tldr: "Multiple Regression kontrolliert für mehrere Faktoren gleichzeitig — Dummies kodieren Kategorien als 0/1.",
+    key_points: [
+      "Modell: ŷ = β̂₀ + β̂₁x₁ + β̂₂x₂ + ... + β̂ₖxₖ",
+      "β̂ᵢ = ceteris-paribus-Effekt von xᵢ auf y bei Konstanthaltung aller anderen xⱼ",
+      "Dummy-Variable: D=1 wenn Kategorie zutrifft, D=0 sonst — Referenzkategorie ist D=0",
+      "Dummy-Falle: Bei k Kategorien nur k−1 Dummies — sonst perfekte Multikollinearität"
+    ],
+    analogy: "Lohnregression: Lohn = β₀ + β₁·Bildungsjahre + β₂·Erfahrung + β₃·Frau. β₃ ist der Lohnunterschied zwischen Frauen (D=1) und Männern (D=0) nach Kontrolle für Bildung und Erfahrung. Das ist der 'bereinigte Gender Pay Gap' — nicht der rohe Unterschied in den Mittelwerten.",
+    exam_trap: "Dummy-Falle: Wenn du 'männlich' UND 'weiblich' als Dummies einfügst, ist immer D_männlich = 1−D_weiblich. Das ist perfekte Multikollinearität — OLS kann nicht schätzen. Lösung: Eine Kategorie weglassen (Referenzkategorie). Der Intercept β₀ repräsentiert dann die Referenzgruppe.",
+    recall_q: "Regression mit Dummy für 3 Regionen (Nord, Mitte, Süd). Wie viele Dummy-Variablen brauchst du und welche?",
+    recall_a: "Nur k−1 = 2 Dummies. Zum Beispiel D_Nord und D_Mitte, mit Süd als Referenzkategorie (D_Nord=0, D_Mitte=0). β̂ für D_Nord gibt dann an, um wieviel Nord im Schnitt von Süd abweicht.",
+    emoji: "📐"
+  },
+  {
+    id: "stat-t6-005",
+    course: "Statistik", courseColor: "#2563eb",
+    block: "Block 6 — ANOVA & Regression",
+    title: "Regressions-Diagnostik: R², adj. R², F-Test gesamt",
+    tldr: "R² misst Erklärungskraft, adj. R² bestraft für nutzlose Variablen, F-Test prüft ob das Modell überhaupt etwas erklärt.",
+    key_points: [
+      "R² = SSR/SST = 1 − SSE/SST — steigt immer wenn Variable hinzugefügt wird (auch nutzlose)",
+      "Adj. R² = 1 − (SSE/(n−k−1))/(SST/(n−1)) — sinkt wenn Variable keinen echten Beitrag leistet",
+      "F-Gesamt-Test: H0: β₁=β₂=...=βₖ=0, F = (SSR/k)/(SSE/(n−k−1))",
+      "Residualplot: Keine Muster → Homoskedastizität; Trichterform → Heteroskedastizität"
+    ],
+    analogy: "R² ist wie eine Prüfungsnote ohne Bestrafung für Schummeln: Jede zusätzliche Variable 'verbessert' R² trivial. Adj. R² ist wie eine bereinigte Note: Nutzlose Variablen bestrafen das Modell. Modellvergleiche immer mit adj. R² — R² allein führt zu Overfit.",
+    exam_trap: "R² kann nicht sinken wenn man Variablen hinzufügt — es kann nur gleich bleiben oder steigen. Adj. R² kann sinken. Wenn in der Prüfung gefragt wird 'welches Modell ist besser', und nur R² gegeben ist, muss das sparsamere Modell explizit über adj. R² oder F-Test beurteilt werden.",
+    recall_q: "Modell A: R²=0.72, k=2, n=50. Modell B: R²=0.74, k=5, n=50. Welches Modell ist besser und warum?",
+    recall_a: "Adj. R² A = 1−(1−0.72)·(49/47) ≈ 0.707. Adj. R² B = 1−(1−0.74)·(49/44) ≈ 0.711. Modell B ist knapp besser nach adj. R², aber der Zugewinn von 3 Variablen für 0.004 adj. R² ist minimal — Modell A ist sparsamer und bei praktisch gleicher Anpassung oft vorzuziehen.",
+    emoji: "📈"
+  },
+
+
+  // ── Statistik Reel: Deskriptive Statistik in 90 Sekunden ──
+  {
+    id: "stat-reel-t1",
+    type: "localvideo",
+    course: "Statistik",
+    courseColor: "#2563eb",
+    block: "Block 1 — Deskriptive Statistik",
+    title: "Deskriptive Statistik in 90 Sekunden",
+    tldr: "Skalenniveaus, Lageparameter, Varianz (n-1!) und Boxplot — alles was du für Teil I brauchst.",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_t1_deskriptiv.mp4",
+    emoji: "🎬"
+  },
+  // ── Statistik Reel: Wahrscheinlichkeit in 90 Sekunden ──
+  {
+    id: "stat-reel-t2",
+    type: "localvideo",
+    course: "Statistik",
+    courseColor: "#2563eb",
+    block: "Block 2 — Wahrscheinlichkeitsrechnung",
+    title: "Wahrscheinlichkeit in 90 Sekunden",
+    tldr: "Kolmogorov-Axiome, Additionssatz, Bayes und Kombinatorik — die 4 Kernkonzepte.",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_t2_wahrscheinlichkeit.mp4",
+    emoji: "🎬"
+  },
+  // ── Statistik Reel: Verteilungen in 90 Sekunden ──
+  {
+    id: "stat-reel-t3",
+    type: "localvideo",
+    course: "Statistik",
+    courseColor: "#2563eb",
+    block: "Block 3 — Wahrscheinlichkeitsverteilungen",
+    title: "Verteilungen in 90 Sekunden",
+    tldr: "Binomial, Poisson, Normalverteilung, Z-Transformation — und wann welche Verteilung.",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_t3_verteilungen.mp4",
+    emoji: "🎬"
+  },
+  // ── Statistik Reel: Schätztheorie in 90 Sekunden ──
+  {
+    id: "stat-reel-t4",
+    type: "localvideo",
+    course: "Statistik",
+    courseColor: "#2563eb",
+    block: "Block 4 — Schätztheorie & Konfidenzintervalle",
+    title: "Schätztheorie in 90 Sekunden",
+    tldr: "Zentraler Grenzwertsatz, Konfidenzintervalle für μ und p, Stichprobenumfang.",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_t4_schaetztheorie.mp4",
+    emoji: "🎬"
+  },
+  // ── Statistik Reel: Hypothesentests in 90 Sekunden ──
+  {
+    id: "stat-reel-t5",
+    type: "localvideo",
+    course: "Statistik",
+    courseColor: "#2563eb",
+    block: "Block 5 — Hypothesentests",
+    title: "Hypothesentests in 90 Sekunden",
+    tldr: "Das 6-Schritte-Testschema, α/β-Fehler, z/t-Test und Welch vs. Pooled.",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_t5_hypothesentests.mp4",
+    emoji: "🎬"
+  },
+  // ── Statistik Reel: ANOVA & Regression in 90 Sekunden ──
+  {
+    id: "stat-reel-t6",
+    type: "localvideo",
+    course: "Statistik",
+    courseColor: "#2563eb",
+    block: "Block 6 — ANOVA & Regression",
+    title: "ANOVA & Regression in 90 Sekunden",
+    tldr: "SST=SSB+SSW, F-Test, β-Koeffizienten per OLS, R² und Dummy-Variablen.",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_t6_anova_regression.mp4",
+    emoji: "🎬"
+  },
 ];

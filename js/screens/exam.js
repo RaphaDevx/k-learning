@@ -70,6 +70,14 @@ window.ExamScreen = (function() {
       available: true,
     },
     {
+      id: 'esf-eigenklausur',
+      label: 'ESF — Eigenklausur (Konzeptprüfung)',
+      course: 'ESF',
+      dataVar: 'EXAM_DATA_ESF_EIGENKLAUSUR',
+      file: 'exams/esf-eigenklausur-data.js',
+      available: true,
+    },
+    {
       id: 'esf-hs23',
       label: 'ESF — HS 2023',
       course: 'ESF',
@@ -150,6 +158,45 @@ window.ExamScreen = (function() {
     const courseColor = key => getCourse(key)?.hex || '#6b7280';
 
     let html = '<div class="space-y-6">';
+
+    // ── Quiz-Modus section ─────────────────────────────────────────────────
+    if (window.QuizScreen) {
+      html += `
+        <div>
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="font-bold text-lg">🧩 Quizzes</h3>
+            <button onclick="QuizScreen.showSelector()"
+              class="text-xs px-3 py-1.5 rounded-full font-semibold transition"
+              style="background:rgba(99,102,241,0.15);color:#a5b4fc;border:1px solid rgba(99,102,241,0.3)">
+              Alle Quizzes
+            </button>
+          </div>
+          <div class="space-y-2">`;
+      QuizScreen.QUIZ_REGISTRY.forEach(q => {
+        html += `
+          <div class="rounded-2xl p-4 transition tap-card"
+               style="background:var(--card-raised);border:1px solid var(--border)">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl flex-shrink-0">${q.icon}</span>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-0.5">
+                  <span class="font-semibold text-sm truncate" style="color:var(--txt)">${q.label}</span>
+                  <span class="flex-shrink-0 text-xs px-1.5 py-0.5 rounded-full text-white font-medium" style="background:${q.tagColor}">${q.tag}</span>
+                </div>
+                <div class="text-xs truncate" style="color:var(--txt-2)">${q.subtitle}</div>
+              </div>
+              <button onclick="QuizScreen.launch('${q.dataVar}')"
+                class="flex-shrink-0 text-xs px-3 py-1.5 rounded-xl font-bold transition text-white"
+                style="background:#4f46e5">
+                Quiz ›
+              </button>
+            </div>
+          </div>`;
+      });
+      html += '</div></div>';
+    }
+
+    // ── Exam sections per course ───────────────────────────────────────────
     Object.entries(grouped).forEach(([course, exams]) => {
       const c = getCourse(course);
       if (!c) return;
@@ -157,37 +204,45 @@ window.ExamScreen = (function() {
         <div>
           <div class="flex items-center gap-2 mb-3">
             <span class="text-xl">${c.icon}</span>
-            <h3 class="font-bold text-lg">${c.label}</h3>
+            <h3 class="font-bold text-lg">${c.label} — Prüfungen</h3>
           </div>
           <div class="space-y-2">`;
       exams.forEach(exam => {
         if (exam.available) {
+          const isQuiz = exam.id === 'esf-eigenklausur';
           html += `
-            <div class="bg-gray-800 rounded-2xl p-4 cursor-pointer hover:bg-gray-700 transition"
-                 onclick="ExamScreen.showSetup('${exam.id}')">
-              <div class="flex items-center justify-between">
-                <div>
-                  <div class="font-bold">${exam.label}</div>
-                  <div class="text-xs text-gray-400 mt-0.5">${exam.course}</div>
+            <div class="rounded-2xl p-4 transition tap-card"
+                 style="background:var(--card-raised);border:1px solid var(--border)">
+              <div class="flex items-center justify-between gap-3">
+                <div class="min-w-0">
+                  <div class="font-bold text-sm truncate" style="color:var(--txt)">${exam.label}</div>
+                  <div class="text-xs mt-0.5" style="color:var(--txt-2)">${exam.course}</div>
                 </div>
-                <span class="text-green-400 text-sm font-bold">▶ Starten</span>
+                <div class="flex gap-2 flex-shrink-0">
+                  ${isQuiz ? `<button onclick="QuizScreen.launch('${exam.dataVar}')"
+                    class="text-xs px-3 py-1.5 rounded-xl font-semibold text-white transition"
+                    style="background:#4f46e5">Quiz</button>` : ''}
+                  <button onclick="ExamScreen.showSetup('${exam.id}')"
+                    class="text-xs px-3 py-1.5 rounded-xl font-bold text-white transition"
+                    style="background:#15803d">Prüfung</button>
+                </div>
               </div>
             </div>`;
         } else {
           html += `
-            <div class="bg-gray-800 rounded-2xl p-4 opacity-40">
+            <div class="rounded-2xl p-4 opacity-40" style="background:var(--card-raised);border:1px solid var(--border)">
               <div class="flex items-center justify-between">
                 <div>
-                  <div class="font-bold">${exam.label}</div>
-                  <div class="text-xs text-gray-400 mt-0.5">${exam.course}</div>
+                  <div class="font-bold text-sm" style="color:var(--txt)">${exam.label}</div>
+                  <div class="text-xs mt-0.5" style="color:var(--txt-2)">${exam.course}</div>
                 </div>
-                <span class="text-gray-500 text-xs">Kommt bald</span>
+                <span class="text-xs" style="color:var(--txt-3)">Kommt bald</span>
               </div>
             </div>`;
         }
       });
       if (exams.length === 0) {
-        html += `<div class="text-gray-500 text-sm px-1">Noch keine Prüfungen verfügbar.</div>`;
+        html += `<div class="text-sm px-1" style="color:var(--txt-3)">Noch keine Prüfungen verfügbar.</div>`;
       }
       html += '</div></div>';
     });

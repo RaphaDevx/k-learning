@@ -18,9 +18,11 @@ window.AppState = (function() {
     _state.cardProgress  = _state.cardProgress || {};
     _state.feedProgress  = _state.feedProgress || {};
     _state.topicProgress = _state.topicProgress || {};
-    _state.enrolledCourses = _state.enrolledCourses || null; // null = all courses
-    _state.activeCourse  = _state.activeCourse  || null;     // z.B. 'ESF'
-    _state.activeTab     = _state.activeTab     || 'feed';   // 'feed'|'modules'|'exams'|'summaries'|'flashcards'
+    _state.enrolledCourses  = _state.enrolledCourses  || null;
+    _state.activeCourse     = _state.activeCourse     || null;
+    _state.activeTab        = _state.activeTab        || 'feed';
+    _state.quizResults      = _state.quizResults      || {};  // { dataVar: { qId: { correct, topic, ts } } }
+    _state.quizTopicStats   = _state.quizTopicStats   || {};  // { topic: { correct, total } }
   }
 
   function save() {

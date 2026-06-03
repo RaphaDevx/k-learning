@@ -23,6 +23,11 @@
   <script src="exams/esf-hs23-data.js"></script>
   <script src="exams/esf-hs22-data.js"></script>
   <script src="exams/esf-uebung23-data.js"></script>
+  <script src="exams/esf-eigenklausur-data.js"></script>
+  <script src="exams/esf-quiz-s1-data.js"></script>
+  <script src="exams/esf-quiz-s2-data.js"></script>
+  <script src="exams/esf-quiz-s3-data.js"></script>
+  <script src="exams/esf-quiz-s4-data.js"></script>
   <script src="exams/statistik-pk2-data.js"></script>
   <script src="exams/statistik-pk1-data.js"></script>
   <script src="exams/statistik-topic1-data.js"></script>
@@ -47,6 +52,7 @@
   <script src="js/screens/flashcards.js"></script>
   <script src="js/screens/topics.js"></script>
   <script src="js/screens/exam.js"></script>
+  <script src="js/screens/quiz.js"></script>
   <script src="js/screens/tutor.js"></script>
   <script src="js/screens/profile.js"></script>
 
@@ -698,6 +704,25 @@
 <!-- ══════════════════════════════════════════════════════════════════════ -->
 <div id="exam-results-overlay" class="hidden fixed inset-0 z-[150] overflow-y-auto" style="background:#080b14">
   <!-- content rendered by ExamScreen._renderResults() -->
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- QUIZ FULLSCREEN OVERLAY                                               -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div id="quiz-overlay" class="hidden fixed inset-0 z-[170] flex flex-col" style="background:#080b14">
+  <!-- Content rendered dynamically by QuizScreen -->
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- QUIZ SELECTOR MODAL                                                   -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div id="quiz-selector-modal"
+  class="hidden fixed inset-0 z-[165] flex items-end justify-center"
+  style="background:rgba(0,0,0,0.85)"
+  onclick="if(event.target===this)QuizScreen.closeSelector()">
+  <div class="w-full max-w-lg rounded-t-3xl overflow-hidden" style="background:var(--card);border-top:1px solid var(--border)">
+    <!-- Content rendered dynamically by QuizScreen.showSelector() -->
+  </div>
 </div>
 
 <!-- ── Auth Overlay ── -->

@@ -57,6 +57,19 @@ window.ProfileScreen = (function () {
         <div id="ai-key-section"><p class="text-xs py-1" style="color:var(--txt-3)">Lade…</p></div>
       </div>
 
+      <!-- Quiz-Themenstatistik -->
+      <div class="rounded-[20px] p-4 mb-4" style="background:var(--card);border:1px solid var(--border)">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-semibold" style="color:var(--txt)">Quiz-Ergebnisse</h3>
+          <button onclick="QuizScreen.showSelector()"
+            class="text-xs px-2.5 py-1 rounded-full font-medium transition"
+            style="background:rgba(99,102,241,0.15);color:#a5b4fc;border:1px solid rgba(99,102,241,0.25)">
+            Quiz starten
+          </button>
+        </div>
+        <div id="quiz-stats-content"><p class="text-sm" style="color:var(--txt-2)">Noch kein Quiz absolviert.</p></div>
+      </div>
+
       <!-- Lernprofil -->
       <div class="rounded-[20px] p-4 mb-4" style="background:var(--card);border:1px solid var(--border)">
         <div class="flex items-center justify-between mb-3">
@@ -77,6 +90,7 @@ window.ProfileScreen = (function () {
     document.getElementById('doc-upload-input').addEventListener('change', _handleUpload);
     _loadHistory(user);
     _initAiKeyUI();
+    _renderQuizStats();
     _loadLearningProfile(user);
   }
 
@@ -323,6 +337,54 @@ window.ProfileScreen = (function () {
       </div>` : '';
 
     el.innerHTML = examHtml + topicHtml;
+  }
+
+  function _renderQuizStats() {
+    const el = document.getElementById('quiz-stats-content');
+    if (!el) return;
+
+    const stats = AppState.get('quizTopicStats') || {};
+    const entries = Object.entries(stats).filter(([, s]) => s.total > 0);
+    if (!entries.length) return;
+
+    const sorted = entries.sort((a, b) => {
+      const ra = a[1].correct / a[1].total;
+      const rb = b[1].correct / b[1].total;
+      return ra - rb;
+    });
+
+    const totalQ = entries.reduce((s, [, v]) => s + v.total, 0);
+    const totalC = entries.reduce((s, [, v]) => s + v.correct, 0);
+    const overallPct = Math.round((totalC / totalQ) * 100);
+
+    el.innerHTML = `
+      <div class="flex items-center gap-3 mb-4 p-3 rounded-xl" style="background:var(--card-raised)">
+        <div class="text-2xl font-black" style="color:${overallPct >= 70 ? '#4ade80' : overallPct >= 50 ? '#fbbf24' : '#f87171'}">${overallPct}%</div>
+        <div>
+          <div class="text-xs font-semibold" style="color:var(--txt)">Gesamt-Trefferquote</div>
+          <div class="text-xs" style="color:var(--txt-2)">${totalC} / ${totalQ} Fragen richtig</div>
+        </div>
+      </div>
+      ${sorted.map(([topic, s]) => {
+        const pct = Math.round((s.correct / s.total) * 100);
+        const col = pct >= 70 ? '#4ade80' : pct >= 50 ? '#fbbf24' : '#f87171';
+        const badge = pct >= 70 ? 'Stark' : pct >= 50 ? 'Üben' : 'Fokus';
+        const badgeBg = pct >= 70 ? 'rgba(22,163,74,0.15)' : pct >= 50 ? 'rgba(202,138,4,0.15)' : 'rgba(220,38,38,0.15)';
+        return `
+          <div class="mb-3">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs" style="color:var(--txt)">${topic}</span>
+              <div class="flex items-center gap-2">
+                <span class="text-xs" style="color:var(--txt-2)">${s.correct}/${s.total}</span>
+                <span class="text-xs px-1.5 py-0.5 rounded-full font-medium" style="background:${badgeBg};color:${col}">${badge}</span>
+              </div>
+            </div>
+            <div class="h-1.5 rounded-full" style="background:rgba(255,255,255,0.06)">
+              <div class="h-1.5 rounded-full transition-all" style="width:${pct}%;background:${col}"></div>
+            </div>
+          </div>`;
+      }).join('')}
+    `;
   }
 
   function _showMsg(section, text, isError) {
