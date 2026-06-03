@@ -235,12 +235,15 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     const wrap = document.getElementById('fc-card-wrap');
     if (wrap) { wrap.style.transition = ''; wrap.style.transform = ''; wrap.style.opacity = ''; }
 
-    // Animate card entrance
-    const inner = document.getElementById('fc-card-inner');
-    if (inner) {
-      inner.classList.remove('fc-card-in');
-      void inner.offsetWidth;
-      inner.classList.add('fc-card-in');
+    // Animate card entrance on the FRONT face only — never on fc-card-inner.
+    // Applying fc-card-in (fill:both + transform) to fc-card-inner would lock
+    // the transform property via animation precedence, permanently blocking the
+    // rotateY flip. Animating only the front face avoids this conflict entirely.
+    const front = document.getElementById('fc-card-front');
+    if (front) {
+      front.classList.remove('fc-card-in');
+      void front.offsetWidth;
+      front.classList.add('fc-card-in');
     }
 
     // Content
@@ -276,8 +279,6 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     isFlipped = !isFlipped;
     const inner = document.getElementById('fc-card-inner');
     if (!inner) return;
-    inner.style.transition = '';          // remove inline override from drag
-    void inner.getBoundingClientRect();   // force reflow so CSS transition takes effect
     inner.classList.toggle('flipped', isFlipped);
     playSound('flip');
   }
@@ -357,8 +358,8 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     isDragging = true;
     dragDir = null;
     currentDeltaX = 0;
-    const inner = document.getElementById('fc-card-inner');
-    if (inner) inner.style.transition = 'none';
+    // Do NOT touch fc-card-inner's transition here — drag moves fc-card-wrap,
+    // and setting transition:none on fc-card-inner would break the flip animation.
   }
 
   function _onDragMove(e) {
@@ -371,8 +372,6 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
       else if (Math.abs(dy) > 8) {
         dragDir = 'v';
         isDragging = false;
-        const inner = document.getElementById('fc-card-inner');
-        if (inner) inner.style.transition = '';
         return;
       } else return;
     }
