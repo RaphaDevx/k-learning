@@ -69,11 +69,10 @@ window.Router = (function() {
   document.addEventListener('keydown', e => {
     if (currentView === 'flashcards' && window.FlashcardsScreen) {
       if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); FlashcardsScreen.flipCard(); }
-      if (e.key === 'ArrowRight') FlashcardsScreen.nextCard();
-      if (e.key === 'ArrowLeft')  FlashcardsScreen.prevCard();
-      if (e.key === '1') FlashcardsScreen.rateCard('hard');
-      if (e.key === '2') FlashcardsScreen.rateCard('medium');
-      if (e.key === '3') FlashcardsScreen.rateCard('easy');
+      if (e.key === 'ArrowRight') { e.preventDefault(); FlashcardsScreen.handleSwipe('right'); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); FlashcardsScreen.handleSwipe('left'); }
+      if (e.key === '1') FlashcardsScreen.handleSwipe('left');
+      if (e.key === '3') FlashcardsScreen.handleSwipe('right');
     }
   });
 

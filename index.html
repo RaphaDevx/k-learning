@@ -10,6 +10,9 @@
   <link  href="https://vjs.zencdn.net/8.10.0/video-js.css" rel="stylesheet">
   <script src="https://vjs.zencdn.net/8.10.0/video.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/videojs-contrib-hls@5.15.0/dist/videojs-contrib-hls.min.js"></script>
+  <!-- KaTeX for LaTeX math rendering -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 
   <!-- ── Data Layer ── -->
   <script src="data/courses-config.js"></script>
@@ -236,6 +239,52 @@
     .feed-card-concept .feed-card-inner { min-height:100%; border-radius:0 !important; padding:1rem; }
 
     .nav-icon { width:22px; height:22px; flex-shrink:0; }
+
+    /* ── Flashcards Reels Edition ── */
+    @keyframes fc-card-in {
+      from { opacity:0; transform:translateY(22px) scale(0.96); }
+      to   { opacity:1; transform:translateY(0)    scale(1); }
+    }
+    @keyframes fc-success-pop {
+      0%   { opacity:0; transform:translate(-50%,-50%) scale(0.3); }
+      65%  { opacity:1; transform:translate(-50%,-50%) scale(1.15); }
+      100% { opacity:1; transform:translate(-50%,-50%) scale(1); }
+    }
+    @keyframes fc-success-fade {
+      0%, 55% { opacity:1; }
+      100%    { opacity:0; }
+    }
+    @keyframes fc-orb-pulse {
+      0%,100% { transform:scale(1); box-shadow:0 0 0 0 rgba(239,68,68,0.5); }
+      50%     { transform:scale(1.2); box-shadow:0 0 0 8px rgba(239,68,68,0); }
+    }
+    @keyframes fc-border-flash-green {
+      0%   { box-shadow:none; }
+      40%  { box-shadow:0 0 0 3px #22c55e, 0 0 28px rgba(34,197,94,0.4); }
+      100% { box-shadow:none; }
+    }
+    @keyframes fc-border-flash-red {
+      0%   { box-shadow:none; }
+      40%  { box-shadow:0 0 0 3px #ef4444, 0 0 28px rgba(239,68,68,0.4); }
+      100% { box-shadow:none; }
+    }
+    .fc-card-in          { animation: fc-card-in 0.38s cubic-bezier(0.34,1.4,0.64,1) both; }
+    .fc-success-anim     { animation: fc-success-pop 0.4s cubic-bezier(0.34,1.56,0.64,1) both,
+                                      fc-success-fade 1.3s ease 0.25s both; }
+    .fc-orb-listening    { animation: fc-orb-pulse 1.1s ease infinite; }
+    .fc-flash-green      { animation: fc-border-flash-green 0.7s ease forwards; }
+    .fc-flash-red        { animation: fc-border-flash-red   0.7s ease forwards; }
+
+    /* Stack shadow cards */
+    .fc-shadow-card {
+      position:absolute; inset:0; border-radius:1.5rem;
+      background:var(--card-raised); border:1px solid var(--border);
+      pointer-events:none;
+    }
+
+    /* KaTeX dark-mode overrides */
+    .katex { color: inherit !important; }
+    .katex .mord, .katex .mop, .katex .mbin, .katex .mrel { color: inherit; }
   </style>
 </head>
 <body class="text-white min-h-screen">
@@ -428,63 +477,195 @@
     <!-- ══════════════════════════════════════════════════════ -->
     <!-- FLASHCARDS                                            -->
     <!-- ══════════════════════════════════════════════════════ -->
-    <div id="view-flashcards" class="hidden py-4">
-      <div class="flex items-center gap-3 mb-4 md:hidden">
-        <button onclick="showView('dashboard')" class="text-gray-400 hover:text-white">← Zurück</button>
-        <h2 class="font-bold text-xl">Flashcards</h2>
-      </div>
-      <div class="hidden md:block mb-6">
-        <h2 class="text-2xl font-bold">Flashcards</h2>
-        <p class="text-gray-400 text-sm mt-1">Leertaste umdrehen · 1=Nochmal · 2=Okay · 3=Easy</p>
-      </div>
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- FLASHCARDS — Reels Edition                          -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <div id="view-flashcards" class="hidden">
 
-      <!-- Course filter -->
-      <div class="flex gap-2 mb-4 overflow-x-auto pb-1">
-        <button data-filter="all"       onclick="FlashcardsScreen.filterCards('all')"       class="filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-blue-600 text-white">Alle</button>
-        <button data-filter="Statistik" onclick="FlashcardsScreen.filterCards('Statistik')" class="filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">Statistik</button>
-        <button data-filter="MakroII"   onclick="FlashcardsScreen.filterCards('MakroII')"   class="filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">MakroII</button>
-        <button data-filter="ESF"       onclick="FlashcardsScreen.filterCards('ESF')"       class="filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">ESF</button>
-        <button data-filter="OM"        onclick="FlashcardsScreen.filterCards('OM')"         class="filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">OM</button>
-      </div>
-
-      <div id="flashcard-area">
-        <div class="flex justify-between text-sm text-gray-400 mb-3">
-          <span id="card-counter">Karte 1 / 1</span>
-          <span id="card-topic" class="text-blue-400 text-xs truncate ml-2"></span>
+      <!-- ─── Deck Selector ─────────────────────────────── -->
+      <div id="fc-deck-selector">
+        <div class="flex items-center justify-between py-3 mb-1">
+          <button onclick="showView('dashboard')" class="flex items-center gap-1 text-sm" style="color:var(--txt-2)">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>Zurück
+          </button>
+          <h2 class="font-bold text-lg">Karten</h2>
+          <div class="w-16"></div>
         </div>
 
-        <div class="card-flip w-full mb-5" style="height:300px;" onclick="FlashcardsScreen.flipCard()">
-          <div class="card-inner w-full h-full relative" id="card-inner">
-            <div class="card-front absolute w-full h-full rounded-3xl p-6 flex flex-col justify-between"
-                 style="background:var(--card);border:1px solid var(--border)">
-              <div class="text-xs uppercase tracking-widest" style="color:var(--txt-3)" id="card-type-label">Frage</div>
-              <div class="text-lg font-medium text-center leading-relaxed" style="color:var(--txt)" id="card-front-text">Karte laden...</div>
-              <div class="text-center text-sm" style="color:var(--txt-3)">Tippen / Leertaste zum Umdrehen</div>
+        <!-- Course filter pills -->
+        <div class="flex gap-2 mb-4 overflow-x-auto pb-1">
+          <button data-df="all"       onclick="FlashcardsScreen.setDeckFilter('all')"       class="fc-df-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-blue-600 text-white">Alle</button>
+          <button data-df="Statistik" onclick="FlashcardsScreen.setDeckFilter('Statistik')" class="fc-df-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">📊 Statistik</button>
+          <button data-df="MakroII"   onclick="FlashcardsScreen.setDeckFilter('MakroII')"   class="fc-df-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">📈 MakroII</button>
+          <button data-df="ESF"       onclick="FlashcardsScreen.setDeckFilter('ESF')"       class="fc-df-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">🔬 ESF</button>
+          <button data-df="OM"        onclick="FlashcardsScreen.setDeckFilter('OM')"        class="fc-df-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">⚙️ OM</button>
+        </div>
+
+        <!-- All-cards quick-start -->
+        <button onclick="FlashcardsScreen.startDeck('all', null)"
+                class="tap-card w-full rounded-2xl p-4 mb-3 flex items-center justify-between"
+                style="background:linear-gradient(135deg,#4f46e5,#7c3aed);color:white">
+          <div class="text-left">
+            <div class="font-bold">🃏 Alle Karten mischen</div>
+            <div id="fc-all-count" class="text-xs opacity-70 mt-0.5">wird geladen...</div>
+          </div>
+          <svg class="w-5 h-5 opacity-70 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
+
+        <!-- Chapter list (generated by JS) -->
+        <div id="fc-deck-list" class="space-y-2 pb-8"></div>
+      </div>
+
+      <!-- ─── Swipe View ─────────────────────────────────── -->
+      <div id="fc-swipe-view" class="hidden">
+        <!-- Header -->
+        <div class="flex items-center justify-between py-3 mb-1">
+          <button onclick="FlashcardsScreen.showDeckSelector()" class="flex items-center gap-1 text-sm" style="color:var(--txt-2)">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>Kapitel
+          </button>
+          <div id="fc-deck-title" class="font-semibold text-sm truncate max-w-[160px]"></div>
+          <button id="fc-speech-btn" onclick="FlashcardsScreen.toggleSpeechMode()"
+                  class="text-xs px-2.5 py-1.5 rounded-full flex items-center gap-1 transition"
+                  style="background:var(--card);border:1px solid var(--border);color:var(--txt-2)">🎤</button>
+        </div>
+
+        <!-- Card Stack -->
+        <div id="fc-stack-area" class="relative mb-3" style="height:min(62vh,510px)">
+          <div class="fc-shadow-card" style="transform:translateY(14px) scaleX(0.91);opacity:0.4;"></div>
+          <div class="fc-shadow-card" style="transform:translateY(7px)  scaleX(0.95);opacity:0.65;"></div>
+
+          <!-- Draggable card wrap -->
+          <div id="fc-card-wrap" class="absolute inset-0" style="touch-action:pan-y;cursor:pointer">
+            <div style="perspective:1200px;width:100%;height:100%">
+              <div id="fc-card-inner" class="card-inner w-full h-full">
+                <!-- Front -->
+                <div id="fc-card-front" class="card-front absolute inset-0 rounded-3xl flex flex-col p-5"
+                     style="background:var(--card);border:2px solid var(--border)">
+                  <div class="flex items-center justify-between gap-2 mb-3">
+                    <span id="fc-type-label" class="text-xs uppercase tracking-widest font-semibold flex-shrink-0" style="color:var(--txt-3)">Frage</span>
+                    <span id="fc-chapter-label" class="text-xs px-2 py-0.5 rounded-full truncate"
+                          style="background:rgba(99,102,241,0.15);color:#a5b4fc;max-width:170px"></span>
+                  </div>
+                  <div class="flex-1 flex items-center justify-center overflow-auto">
+                    <div id="fc-front-text" class="text-xl font-semibold text-center leading-relaxed w-full"></div>
+                  </div>
+                  <div class="text-center text-xs mt-3" style="color:var(--txt-3)">Tippen umdrehen · Wischen bewerten</div>
+                </div>
+                <!-- Back -->
+                <div id="fc-card-back" class="card-back absolute inset-0 rounded-3xl flex flex-col p-5"
+                     style="background:var(--card-raised);border:2px solid var(--border)">
+                  <div class="flex items-center justify-between gap-2 mb-3">
+                    <span class="text-xs uppercase tracking-widest font-semibold text-green-400 flex-shrink-0">Antwort</span>
+                    <span id="fc-chapter-label-back" class="text-xs px-2 py-0.5 rounded-full truncate"
+                          style="background:rgba(99,102,241,0.15);color:#a5b4fc;max-width:170px"></span>
+                  </div>
+                  <div class="flex-1 flex items-start justify-center overflow-auto py-1">
+                    <div id="fc-back-text" class="text-base leading-relaxed w-full" style="white-space:pre-line"></div>
+                  </div>
+                  <div class="text-center text-xs mt-3" style="color:var(--txt-3)">← Nochmal &nbsp;·&nbsp; Kann ich →</div>
+                </div>
+              </div>
             </div>
-            <div class="card-back absolute w-full h-full rounded-3xl p-6 flex flex-col justify-between overflow-y-auto"
-                 style="background:var(--card-raised);border:1px solid var(--border)">
-              <div class="text-xs text-green-400 uppercase tracking-widest mb-2">Antwort</div>
-              <div class="text-sm leading-relaxed flex-1" style="color:var(--txt);white-space:pre-line;" id="card-back-text"></div>
-              <div class="text-center text-xs mt-2" style="color:var(--txt-3)">Bewerte dein Wissen</div>
+            <!-- Swipe stamps -->
+            <div id="fc-swipe-yes" class="absolute top-5 right-4 opacity-0 pointer-events-none" style="transition:opacity 0.08s">
+              <div style="border:3px solid #22c55e;border-radius:10px;padding:3px 12px;transform:rotate(-14deg)">
+                <span style="color:#22c55e;font-weight:900;font-size:0.95rem;letter-spacing:0.06em">KANN ICH ✓</span>
+              </div>
+            </div>
+            <div id="fc-swipe-no" class="absolute top-5 left-4 opacity-0 pointer-events-none" style="transition:opacity 0.08s">
+              <div style="border:3px solid #ef4444;border-radius:10px;padding:3px 12px;transform:rotate(14deg)">
+                <span style="color:#ef4444;font-weight:900;font-size:0.95rem;letter-spacing:0.06em">✗ NOCHMAL</span>
+              </div>
             </div>
           </div>
         </div>
 
-        <div id="rating-buttons" class="hidden grid grid-cols-3 gap-3">
-          <button onclick="FlashcardsScreen.rateCard('hard')"   class="tap-card bg-red-700 hover:bg-red-600 rounded-2xl py-3 font-bold transition text-white text-sm">Nochmal</button>
-          <button onclick="FlashcardsScreen.rateCard('medium')" class="tap-card bg-yellow-600 hover:bg-yellow-500 rounded-2xl py-3 font-bold transition text-white text-sm">Okay</button>
-          <button onclick="FlashcardsScreen.rateCard('easy')"   class="tap-card bg-green-700 hover:bg-green-600 rounded-2xl py-3 font-bold transition text-white text-sm">Easy</button>
-        </div>
-        <div class="flex gap-2 mt-3">
-          <button onclick="FlashcardsScreen.prevCard()" class="tap-card flex-1 rounded-xl py-2 text-sm transition" style="background:var(--card);border:1px solid var(--border);color:var(--txt-2)">← Zurück</button>
-          <button onclick="FlashcardsScreen.nextCard()" class="tap-card flex-1 rounded-xl py-2 text-sm transition" style="background:var(--card);border:1px solid var(--border);color:var(--txt-2)">Weiter →</button>
+        <!-- Progress bar -->
+        <div class="mb-3">
+          <div class="h-1.5 rounded-full overflow-hidden" style="background:var(--card-raised)">
+            <div id="fc-progress-bar" class="h-full rounded-full bg-blue-500 transition-all duration-500" style="width:0%"></div>
+          </div>
+          <div class="flex justify-between text-xs mt-1.5" style="color:var(--txt-3)">
+            <span id="fc-counter">0 / 0</span>
+            <span id="fc-topic-label" class="truncate ml-2 text-right" style="max-width:200px"></span>
+          </div>
         </div>
 
-        <div id="no-cards-msg" class="text-center text-gray-400 py-12 hidden">
-          <div class="text-4xl mb-4">🃏</div>
-          <p>Noch keine Flashcards für dieses Thema.</p>
+        <!-- Swipe action buttons -->
+        <div class="grid grid-cols-2 gap-3">
+          <button onclick="FlashcardsScreen.handleSwipe('left')"
+                  class="tap-card flex items-center justify-center gap-2 rounded-2xl py-3.5 font-bold text-sm"
+                  style="background:#3d1515;border:1px solid #7f1d1d;color:#fca5a5">✗ Nochmal</button>
+          <button onclick="FlashcardsScreen.handleSwipe('right')"
+                  class="tap-card flex items-center justify-center gap-2 rounded-2xl py-3.5 font-bold text-sm"
+                  style="background:#15301c;border:1px solid #14532d;color:#86efac">✓ Kann ich</button>
+        </div>
+
+        <!-- No cards -->
+        <div id="fc-no-cards" class="hidden text-center py-16">
+          <div class="text-5xl mb-4">🃏</div>
+          <p style="color:var(--txt-2)">Keine Karten für diese Auswahl.</p>
+          <button onclick="FlashcardsScreen.showDeckSelector()" class="mt-4 text-blue-400 text-sm">← Zurück zur Auswahl</button>
         </div>
       </div>
+
+      <!-- ─── Speech Mode Panel (fixed fullscreen) ──────── -->
+      <div id="fc-speech-panel" class="hidden fixed inset-0 z-50 flex flex-col" style="background:#050505">
+        <div class="flex items-center justify-between px-4 py-4" style="border-bottom:1px solid #1f1f1f">
+          <button onclick="FlashcardsScreen.exitSpeechMode()" class="text-sm" style="color:var(--txt-2)">✕ Beenden</button>
+          <span class="font-bold text-sm">Sprach-Modus 🎤</span>
+          <span id="fc-speech-counter" class="text-xs" style="color:var(--txt-3)">1 / 20</span>
+        </div>
+        <div class="flex-1 overflow-auto p-4 flex flex-col gap-3">
+          <!-- Question -->
+          <div class="rounded-2xl p-4" style="background:var(--card);border:1px solid var(--border)">
+            <div class="text-xs uppercase tracking-widest mb-2" style="color:var(--txt-3)">Frage</div>
+            <div id="fc-speech-question" class="text-base font-semibold leading-relaxed"></div>
+            <button onclick="FlashcardsScreen.rereadQuestion()" class="mt-3 text-xs text-blue-400 flex items-center gap-1">🔊 Nochmal vorlesen</button>
+          </div>
+          <!-- Status orb -->
+          <div class="flex items-center gap-3 px-1 py-2">
+            <div id="fc-speech-orb" class="w-3.5 h-3.5 rounded-full flex-shrink-0" style="background:#334155;transition:background 0.3s"></div>
+            <span id="fc-speech-status-text" class="text-sm" style="color:var(--txt-2)">Tippe das Mikrofon zum Antworten</span>
+          </div>
+          <!-- Transcript -->
+          <div id="fc-speech-transcript-wrap" class="hidden rounded-2xl p-4" style="background:var(--card-raised);border:1px solid var(--border)">
+            <div class="text-xs uppercase tracking-widest mb-1.5" style="color:var(--txt-3)">Deine Antwort</div>
+            <div id="fc-speech-transcript" class="text-sm italic" style="color:var(--txt-2)"></div>
+          </div>
+          <!-- AI Feedback -->
+          <div id="fc-speech-feedback-wrap" class="hidden rounded-2xl p-4" style="border:2px solid #1f2937">
+            <div id="fc-speech-verdict-badge" class="inline-block text-xs font-bold uppercase tracking-wide px-3 py-1 rounded-full mb-3"></div>
+            <div id="fc-speech-feedback-text" class="text-sm leading-relaxed mb-3" style="color:var(--txt)"></div>
+            <div style="border-top:1px solid #1f2937;padding-top:0.75rem">
+              <div class="text-xs uppercase tracking-widest mb-1" style="color:var(--txt-3)">Korrekte Antwort</div>
+              <div id="fc-speech-answer-text" class="text-sm" style="color:var(--txt-2)"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Bottom actions -->
+        <div class="px-4 pb-6 pt-3 flex flex-col gap-2" style="border-top:1px solid #1f1f1f">
+          <button id="fc-speech-mic-btn" onclick="FlashcardsScreen.startListening()"
+                  class="tap-card w-full py-4 rounded-2xl font-bold text-base flex items-center justify-center gap-2"
+                  style="background:#1e293b;border:2px solid #334155;color:#94a3b8">🎤 Antwort aufnehmen</button>
+          <div id="fc-speech-post-actions" class="hidden grid grid-cols-2 gap-3">
+            <button onclick="FlashcardsScreen.speechExplainAgain()"
+                    class="tap-card py-3 rounded-2xl text-sm font-medium"
+                    style="background:var(--card);border:1px solid var(--border);color:var(--txt-2)">🔄 Nochmals erklären</button>
+            <button onclick="FlashcardsScreen.speechNextCard()"
+                    class="tap-card py-3 rounded-2xl text-sm font-bold bg-blue-600 text-white">Weiter →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ─── Success Overlay ────────────────────────────── -->
+      <div id="fc-success-overlay" class="hidden fixed inset-0 z-[60] pointer-events-none">
+        <div id="fc-success-inner" class="absolute top-1/2 left-1/2 text-center">
+          <div id="fc-success-emoji" class="text-7xl"></div>
+          <div id="fc-success-text" class="text-2xl font-black text-white mt-2 drop-shadow-xl"></div>
+        </div>
+      </div>
+
     </div>
 
     <!-- ══════════════════════════════════════════════════════ -->
