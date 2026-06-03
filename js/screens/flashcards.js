@@ -143,17 +143,21 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     const courseColors = { Statistik: '#3b82f6', MakroII: '#10b981', ESF: '#f59e0b', OM: '#8b5cf6' };
     const courseEmoji  = { Statistik: '📊', MakroII: '📈', ESF: '🔬', OM: '⚙️' };
 
+    const now = Date.now();
     container.innerHTML = sorted.map(g => {
       const totalCards = g.cards.length;
-      const doneCards = g.cards.filter(c => {
+      const doneCards  = g.cards.filter(c => (AppState.getCardProgress(c.id).reviews || 0) > 0).length;
+      const dueCards   = g.cards.filter(c => {
         const p = AppState.getCardProgress(c.id);
-        return p && p.reviews > 0;
+        return !p.nextReview || p.nextReview <= now;
       }).length;
-      const pct = totalCards > 0 ? Math.round((doneCards / totalCards) * 100) : 0;
+      const pct   = totalCards > 0 ? Math.round((doneCards / totalCards) * 100) : 0;
       const color = courseColors[g.course] || '#6366f1';
       const emoji = courseEmoji[g.course] || '📚';
-
       const topicShort = g.topic.replace(/^M\d+ — /, '').replace(/^Modul \d+: /, '');
+      const dueBadge = dueCards > 0
+        ? `<span class="text-xs font-bold px-2 py-0.5 rounded-full flex-shrink-0" style="background:rgba(251,146,60,0.18);color:#fb923c">${dueCards} fällig</span>`
+        : '';
 
       return `
         <button onclick="FlashcardsScreen.startDeck('${g.course}', '${g.topic.replace(/'/g, '\\\'')}')"
@@ -163,8 +167,11 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
                style="background:${color}22">${emoji}</div>
           <div class="flex-1 min-w-0">
             ${course === 'all' ? `<div class="text-xs font-medium mb-0.5" style="color:${color}">${g.course}</div>` : ''}
-            <div class="font-semibold text-sm truncate" style="color:var(--txt)">${topicShort}</div>
-            <div class="flex items-center gap-2 mt-1.5">
+            <div class="flex items-center gap-2 mb-1">
+              <div class="font-semibold text-sm truncate" style="color:var(--txt)">${topicShort}</div>
+              ${dueBadge}
+            </div>
+            <div class="flex items-center gap-2">
               <div class="flex-1 h-1.5 rounded-full overflow-hidden" style="background:var(--card-raised)">
                 <div class="h-full rounded-full transition-all" style="width:${pct}%;background:${color}"></div>
               </div>
@@ -187,11 +194,18 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
       .filter(c => !activeCourse || c.course === activeCourse)
       .filter(c => !activeTopic  || c.topic  === activeTopic);
 
-    // Shuffle
-    for (let i = filteredCards.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [filteredCards[i], filteredCards[j]] = [filteredCards[j], filteredCards[i]];
-    }
+    // SM-2: due cards first (sorted by ease asc), then new, then future
+    const now = Date.now();
+    filteredCards.sort((a, b) => {
+      const pa = AppState.getCardProgress(a.id);
+      const pb = AppState.getCardProgress(b.id);
+      const aDue = !pa.nextReview || pa.nextReview <= now;
+      const bDue = !pb.nextReview || pb.nextReview <= now;
+      if (aDue && !bDue) return -1;
+      if (!aDue && bDue) return 1;
+      if (aDue && bDue) return (pa.ease ?? 2.5) - (pb.ease ?? 2.5);
+      return (pa.nextReview || 0) - (pb.nextReview || 0);
+    });
 
     currentIndex = 0;
     isFlipped = false;
@@ -235,15 +249,14 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     const wrap = document.getElementById('fc-card-wrap');
     if (wrap) { wrap.style.transition = ''; wrap.style.transform = ''; wrap.style.opacity = ''; }
 
-    // Animate card entrance on the FRONT face only — never on fc-card-inner.
-    // Applying fc-card-in (fill:both + transform) to fc-card-inner would lock
-    // the transform property via animation precedence, permanently blocking the
-    // rotateY flip. Animating only the front face avoids this conflict entirely.
-    const front = document.getElementById('fc-card-front');
-    if (front) {
-      front.classList.remove('fc-card-in');
-      void front.offsetWidth;
-      front.classList.add('fc-card-in');
+    // Animate card entrance on fc-card-inner.
+    // fill:backwards (not both) means after the animation the transform returns
+    // to the CSS-class-controlled state — so the rotateY flip still works.
+    const inner = document.getElementById('fc-card-inner');
+    if (inner) {
+      inner.classList.remove('fc-card-in');
+      void inner.offsetWidth;
+      inner.classList.add('fc-card-in');
     }
 
     // Content
@@ -500,20 +513,35 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
   // RATING / SM-2
   // ══════════════════════════════════════════════════════════
 
+  // SM-2 spaced repetition algorithm (ANKI-compatible)
+  // prog fields: interval (days), ease (EF 1.3–3.0), reps (consecutive ok), reviews (total), nextReview
   function _saveRating(card, rating) {
     const prog = AppState.getCardProgress(card.id);
+    prog.ease    = prog.ease    ?? 2.5;
+    prog.reps    = prog.reps    ?? 0;
+    prog.interval = prog.interval ?? 1;
+
     if (rating === 'easy') {
-      prog.interval = Math.round(prog.interval * prog.ease);
-      prog.ease     = Math.min(prog.ease + 0.15, 3.0);
+      // Correct — advance interval using SM-2 schedule
+      if (prog.reps === 0)      { prog.interval = 1; }
+      else if (prog.reps === 1) { prog.interval = 4; }
+      else                       { prog.interval = Math.round(prog.interval * prog.ease); }
+      prog.reps++;
+      prog.ease = Math.min(3.0, prog.ease + 0.1);
       Gamification.addXP(Gamification.XP.cardEasy);
     } else if (rating === 'medium') {
+      // Partially correct — small interval boost, ease unchanged
       prog.interval = Math.max(1, Math.round(prog.interval * 1.2));
-      Gamification.addXP(Gamification.XP.cardMedium);
+      prog.reps     = Math.max(0, prog.reps - 1); // partial credit: don't fully reset
+      Gamification.addXP(Gamification.XP.cardHard);
     } else {
+      // Failed (Again) — reset to day 1, penalise ease
       prog.interval = 1;
-      prog.ease     = Math.max(prog.ease - 0.2, 1.3);
+      prog.reps     = 0;
+      prog.ease     = Math.max(1.3, prog.ease - 0.2);
       Gamification.addXP(Gamification.XP.cardHard);
     }
+
     prog.nextReview = Date.now() + prog.interval * 24 * 60 * 60 * 1000;
     prog.reviews    = (prog.reviews || 0) + 1;
     AppState.setCardProgress(card.id, prog);
