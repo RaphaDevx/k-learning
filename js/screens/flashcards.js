@@ -13,7 +13,15 @@ window.FlashcardsScreen = (function () {
   let _skipInitReset = false; // set by startDeck so init() doesn't override external nav
 
   // Session
-  const SESSION_SIZE = 20;      // max cards per session
+  const SESSION_CHUNK = 16;    // target chunk size when set > 30 cards
+  function _calcSessionSize(total) {
+    if (total <= 30) return total;
+    const chunks = Math.ceil(total / SESSION_CHUNK);
+    return Math.ceil(total / chunks); // ~15-16 per chunk
+  }
+
+  // Two-slot state
+  let _currSlot = 'a';   // 'a' or 'b' — which DOM slot is currently on top
 
   // Card load dedup
   let _loadPromise = null;
@@ -210,14 +218,14 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
       return (pa.nextReview || 0) - (pb.nextReview || 0);
     });
 
-    // Take at most SESSION_SIZE cards per session
-    filteredCards = filteredCards.slice(0, SESSION_SIZE);
+    // Dynamic session size: full set if ≤30, else ~15-16 chunks
+    filteredCards = filteredCards.slice(0, _calcSessionSize(filteredCards.length));
 
-    // Hide session done overlay, show card wrap
-    const sessionDone = document.getElementById('fc-session-done');
-    if (sessionDone) sessionDone.classList.add('hidden');
-    const cardWrap = document.getElementById('fc-card-wrap');
-    if (cardWrap) cardWrap.classList.remove('hidden');
+    // Reset slot state
+    _currSlot = 'a';
+
+    // Hide session done overlay
+    document.getElementById('fc-session-done')?.classList.add('hidden');
 
     currentIndex = 0;
     isFlipped = false;
@@ -249,67 +257,106 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
   }
 
   // ══════════════════════════════════════════════════════════
-  // CARD DISPLAY
+  // CARD DISPLAY — Two-slot system
   // ══════════════════════════════════════════════════════════
+
+  // Slot accessors
+  function _currEl()  { return document.getElementById('fc-slot-' + _currSlot); }
+  function _nextEl()  { return document.getElementById('fc-slot-' + (_currSlot === 'a' ? 'b' : 'a')); }
+
+  // Load card content into a slot element using class selectors (no IDs inside slots)
+  function _loadSlot(slotEl, card) {
+    if (!slotEl || !card) return;
+    const typeMap = { cloze: 'Lückentext', why: 'Warum / Wie?', qa: 'Frage' };
+    const typeEl = slotEl.querySelector('.fc-type-label');
+    if (typeEl) typeEl.textContent = typeMap[card.type] || 'Frage';
+    slotEl.querySelectorAll('.fc-chapter-label').forEach(el => el.textContent = card.topic || '');
+
+    const frontTxt = slotEl.querySelector('.fc-front-text');
+    const backTxt  = slotEl.querySelector('.fc-back-text');
+    if (frontTxt) _renderContentInEl(frontTxt, (card.front || '').replace(/\{\{[^}]+\}\}/g, '______'));
+    if (backTxt)  _renderContentInEl(backTxt,  card.back || '');
+
+    // Ensure slot is unflipped
+    const inner = slotEl.querySelector('.card-inner');
+    if (inner) inner.classList.remove('flipped');
+  }
+
+  // Version of _renderContent that takes a DOM element directly (avoids ID lookup)
+  function _renderContentInEl(el, text) {
+    if (!text) { el.innerHTML = ''; return; }
+    const hasKatex = typeof katex !== 'undefined';
+    const hasMath  = text.includes('$');
+    const hasImg   = text.includes('![');
+    if (!hasMath && !hasImg) { el.textContent = text; return; }
+    let html = _escHtml(text);
+    if (hasMath && hasKatex) {
+      html = html.replace(/\$\$([^$]+?)\$\$/g, (_, m) => { try { return katex.renderToString(_unescHtml(m), { displayMode: true,  throwOnError: false }); } catch(e) { return `<code>${m}</code>`; } });
+      html = html.replace(/\$([^$\n]+?)\$/g,   (_, m) => { try { return katex.renderToString(_unescHtml(m), { displayMode: false, throwOnError: false }); } catch(e) { return `<code>${m}</code>`; } });
+    }
+    if (hasImg) html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, url) => `<img src="${url}" alt="${alt}" class="max-w-full rounded-xl mt-2 mx-auto block" style="max-height:160px;object-fit:contain">`);
+    el.innerHTML = html;
+  }
 
   function showCard(index) {
     if (!filteredCards.length) return;
-    currentIndex = ((index % filteredCards.length) + filteredCards.length) % filteredCards.length;
-    const card = filteredCards[currentIndex];
+    currentIndex = Math.max(0, Math.min(index, filteredCards.length - 1));
 
-    // Reset drag/position — set transition:none first so any in-flight
-    // opacity/transform transition is immediately cancelled before we reset.
-    const wrap = document.getElementById('fc-card-wrap');
-    if (wrap) {
-      wrap.style.transition = 'none';
-      void wrap.offsetWidth;      // force layout flush
-      wrap.style.transform = '';
-      wrap.style.opacity = '';
-    }
-    _resetShadowCards();
-
-    // Animate card entrance on fc-card-inner.
-    // fill:backwards means after animation, transform returns to CSS-class state
-    // so the rotateY flip still works.
-    const inner = document.getElementById('fc-card-inner');
-    if (inner) {
-      inner.classList.remove('fc-card-in');
-      void inner.offsetWidth;
-      inner.classList.add('fc-card-in');
+    // ── Current slot: reset any in-flight transition, then load + animate ──
+    const curr = _currEl();
+    if (curr) {
+      curr.style.transition = 'none';
+      curr.style.transform  = '';
+      curr.style.opacity    = '1';
+      curr.style.zIndex     = '5';
+      void curr.offsetWidth;        // flush to cancel in-flight transitions
+      _loadSlot(curr, filteredCards[currentIndex]);
+      // Entrance animation: on .card-inner so fill:backwards doesn't block flip
+      const inner = curr.querySelector('.card-inner');
+      if (inner) {
+        inner.classList.remove('fc-card-in');
+        void inner.offsetWidth;
+        inner.classList.add('fc-card-in');
+      }
     }
 
-    // Content
-    const typeMap = { cloze: 'Lückentext', why: 'Warum / Wie?', qa: 'Frage' };
-    _setTxt('fc-type-label', typeMap[card.type] || 'Frage');
-    _setTxt('fc-chapter-label', card.topic || '');
-    _setTxt('fc-chapter-label-back', card.topic || '');
-    _setTxt('fc-topic-label', card.topic || '');
+    // ── Next slot: load next card silently behind current ──
+    const nextCard = filteredCards[currentIndex + 1];
+    const nextEl   = _nextEl();
+    if (nextEl) {
+      nextEl.style.transition = 'none';
+      nextEl.style.transform  = '';
+      nextEl.style.opacity    = '1';
+      nextEl.style.zIndex     = '4';
+      if (nextCard) {
+        _loadSlot(nextEl, nextCard);
+        nextEl.style.display = '';
+      } else {
+        nextEl.style.display = 'none';
+      }
+    }
 
-    _renderContent('fc-front-text', (card.front || '').replace(/\{\{[^}]+\}\}/g, '______'));
-    _renderContent('fc-back-text', card.back || '');
-
-    // Progress
+    // ── UI updates ──
+    isFlipped = false;
     const pct = filteredCards.length > 1
       ? Math.round((currentIndex / (filteredCards.length - 1)) * 100) : 100;
     const pb = document.getElementById('fc-progress-bar');
     if (pb) pb.style.width = pct + '%';
     _setTxt('fc-counter', `${currentIndex + 1} / ${filteredCards.length}`);
+    _setTxt('fc-topic-label', filteredCards[currentIndex]?.topic || '');
 
-    // Reset flip
-    isFlipped = false;
-    if (inner) inner.classList.remove('flipped');
-
-    // Reset swipe stamps
     const yes = document.getElementById('fc-swipe-yes');
     const no  = document.getElementById('fc-swipe-no');
-    if (yes) yes.style.opacity = 0;
-    if (no)  no.style.opacity  = 0;
+    if (yes) yes.style.opacity = '0';
+    if (no)  no.style.opacity  = '0';
+
+    _updateShadows(filteredCards.length - currentIndex);
   }
 
   function flipCard() {
     if (!filteredCards.length) return;
     isFlipped = !isFlipped;
-    const inner = document.getElementById('fc-card-inner');
+    const inner = _currEl()?.querySelector('.card-inner');
     if (!inner) return;
     inner.classList.toggle('flipped', isFlipped);
     playSound('flip');
@@ -374,24 +421,24 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
   // ══════════════════════════════════════════════════════════
 
   function setupDragHandlers() {
-    const wrap = document.getElementById('fc-card-wrap');
-    if (!wrap || wrap._fcBound) return;
-    wrap._fcBound = true;
-    wrap.addEventListener('pointerdown',  _onDragStart, { passive: true });
-    wrap.addEventListener('pointermove',  _onDragMove,  { passive: false });
-    wrap.addEventListener('pointerup',    _onDragEnd);
-    wrap.addEventListener('pointercancel',_onDragEnd);
+    // Bind to the stack area container — events bubble from both slots.
+    // This avoids re-binding when slots swap.
+    const area = document.getElementById('fc-stack-area');
+    if (!area || area._fcBound) return;
+    area._fcBound = true;
+    area.addEventListener('pointerdown',   _onDragStart, { passive: true });
+    area.addEventListener('pointermove',   _onDragMove,  { passive: false });
+    area.addEventListener('pointerup',     _onDragEnd);
+    area.addEventListener('pointercancel', _onDragEnd);
   }
 
   function _onDragStart(e) {
-    if (swipeInProgress) return;
-    dragStartX = e.clientX;
-    dragStartY = e.clientY;
-    isDragging = true;
-    dragDir = null;
+    if (swipeInProgress || !filteredCards.length) return;
+    dragStartX    = e.clientX;
+    dragStartY    = e.clientY;
+    isDragging    = true;
+    dragDir       = null;
     currentDeltaX = 0;
-    // Do NOT touch fc-card-inner's transition here — drag moves fc-card-wrap,
-    // and setting transition:none on fc-card-inner would break the flip animation.
   }
 
   function _onDragMove(e) {
@@ -400,33 +447,29 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     const dy = e.clientY - dragStartY;
 
     if (!dragDir) {
-      if (Math.abs(dx) > 8) { dragDir = 'h'; }
-      else if (Math.abs(dy) > 8) {
-        dragDir = 'v';
-        isDragging = false;
-        return;
-      } else return;
+      if (Math.abs(dx) > 8)      { dragDir = 'h'; }
+      else if (Math.abs(dy) > 8) { dragDir = 'v'; isDragging = false; return; }
+      else return;
     }
     if (dragDir !== 'h') return;
-
     e.preventDefault();
     currentDeltaX = dx;
 
-    const wrap = document.getElementById('fc-card-wrap');
-    if (wrap) wrap.style.transform = `translateX(${dx}px) rotate(${dx * 0.07}deg)`;
+    const curr = _currEl();
+    if (curr) curr.style.transform = `translateX(${dx}px) rotate(${dx * 0.05}deg)`;
 
     const THRESH = 50;
     const yes = document.getElementById('fc-swipe-yes');
     const no  = document.getElementById('fc-swipe-no');
     if (dx > THRESH) {
-      if (yes) yes.style.opacity = Math.min((dx - THRESH) / 70, 1);
-      if (no)  no.style.opacity  = 0;
+      if (yes) yes.style.opacity = String(Math.min((dx - THRESH) / 70, 1));
+      if (no)  no.style.opacity  = '0';
     } else if (dx < -THRESH) {
-      if (no)  no.style.opacity  = Math.min((-dx - THRESH) / 70, 1);
-      if (yes) yes.style.opacity = 0;
+      if (no)  no.style.opacity  = String(Math.min((-dx - THRESH) / 70, 1));
+      if (yes) yes.style.opacity = '0';
     } else {
-      if (yes) yes.style.opacity = 0;
-      if (no)  no.style.opacity  = 0;
+      if (yes) yes.style.opacity = '0';
+      if (no)  no.style.opacity  = '0';
     }
   }
 
@@ -434,12 +477,10 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     const endX = e.clientX ?? dragStartX;
     const endY = e.clientY ?? dragStartY;
 
-    // Tap detection comes FIRST — before the isDragging guard.
-    // Reason: _onDragMove sets isDragging=false on vertical micro-jitter,
-    // so a plain click would otherwise never reach flipCard().
-    if (Math.abs(endX - dragStartX) < 12 && Math.abs(endY - dragStartY) < 12) {
+    // Tap detection: small movement = flip, not swipe
+    if (Math.abs(endX - dragStartX) < 6 && Math.abs(endY - dragStartY) < 6) {
       isDragging = false;
-      dragDir = null;
+      dragDir    = null;
       flipCard();
       return;
     }
@@ -450,69 +491,46 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     const dx = currentDeltaX;
     if (dragDir !== 'h') return;
 
-    if (dx > 80)       { handleSwipe('right'); }
+    if      (dx >  80) { handleSwipe('right'); }
     else if (dx < -80) { handleSwipe('left');  }
     else {
-      const wrap = document.getElementById('fc-card-wrap');
-      if (wrap) {
-        wrap.style.transition = 'transform 0.38s cubic-bezier(0.34,1.56,0.64,1)';
-        wrap.style.transform  = '';
-        setTimeout(() => { if (wrap) wrap.style.transition = ''; }, 450);
+      // Snap back
+      const curr = _currEl();
+      if (curr) {
+        curr.style.transition = 'transform 0.35s cubic-bezier(0.34,1.56,0.64,1)';
+        curr.style.transform  = '';
+        setTimeout(() => { const c = _currEl(); if (c) c.style.transition = ''; }, 400);
       }
       const yes = document.getElementById('fc-swipe-yes');
       const no  = document.getElementById('fc-swipe-no');
-      if (yes) yes.style.opacity = 0;
-      if (no)  no.style.opacity  = 0;
+      if (yes) yes.style.opacity = '0';
+      if (no)  no.style.opacity  = '0';
     }
   }
 
   function _animateOut(direction, callback) {
-    const wrap = document.getElementById('fc-card-wrap');
-    if (!wrap) { callback?.(); return; }
-    const tx  = direction === 'right' ? '140%' : '-140%';
-    const rot = direction === 'right' ? '22deg' : '-22deg';
+    const curr = _currEl();
+    if (!curr) { callback?.(); return; }
+    const tx  = direction === 'right' ? '130vw' : '-130vw';
+    const rot = direction === 'right' ? '25deg'  : '-25deg';
 
     const yes = document.getElementById('fc-swipe-yes');
     const no  = document.getElementById('fc-swipe-no');
-    if (yes) yes.style.opacity = 0;
-    if (no)  no.style.opacity  = 0;
+    if (yes) yes.style.opacity = '0';
+    if (no)  no.style.opacity  = '0';
 
-    _animateShadowCards();
+    curr.style.transition = 'transform 0.35s ease-in, opacity 0.28s ease';
+    curr.style.transform  = `translateX(${tx}) rotate(${rot})`;
+    curr.style.opacity    = '0';
 
-    wrap.style.transition = 'transform 0.38s ease-in, opacity 0.32s ease';
-    wrap.style.transform  = `translateX(${tx}) rotate(${rot})`;
-    wrap.style.opacity    = '0';
-    setTimeout(callback || (() => {}), 340);
-  }
-
-  function _animateShadowCards() {
-    const s1 = document.getElementById('fc-shadow-1'); // near shadow → moves up to card level
-    const s2 = document.getElementById('fc-shadow-2'); // far shadow  → moves up to near level
-    if (s1) { s1.style.transform = 'translateY(0px) scaleX(1)'; s1.style.opacity = '0.95'; }
-    if (s2) { s2.style.transform = 'translateY(7px) scaleX(0.95)'; s2.style.opacity = '0.65'; }
-  }
-
-  function _resetShadowCards() {
-    const s1 = document.getElementById('fc-shadow-1');
-    const s2 = document.getElementById('fc-shadow-2');
-    // Snap back without animation (transition:none), then restore transition after layout
-    if (s1) { s1.style.transition = 'none'; s1.style.transform = 'translateY(7px) scaleX(0.95)'; s1.style.opacity = '0.65'; }
-    if (s2) { s2.style.transition = 'none'; s2.style.transform = 'translateY(14px) scaleX(0.91)'; s2.style.opacity = '0.4'; }
-    requestAnimationFrame(() => {
-      const r1 = document.getElementById('fc-shadow-1');
-      const r2 = document.getElementById('fc-shadow-2');
-      if (r1) r1.style.transition = '';
-      if (r2) r2.style.transition = '';
-    });
+    setTimeout(callback || (() => {}), 320);
   }
 
   function handleSwipe(direction) {
     if (!filteredCards.length || swipeInProgress) return;
     swipeInProgress = true;
-
     _animateOut(direction, () => {
       _commitSwipe(direction);
-      setTimeout(() => { swipeInProgress = false; }, 80);
     });
   }
 
@@ -533,15 +551,67 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     const nextIdx = currentIndex + 1;
     if (nextIdx >= filteredCards.length) {
       _showSessionComplete();
-    } else {
-      showCard(nextIdx);
-      _flashBorder(direction === 'right' ? 'green' : 'red');
+      return;
     }
+
+    // ── Slot swap: back slot is already rendered, bring it forward ──
+    const oldCurrEl = _currEl();
+    const oldNextEl = _nextEl();
+
+    // Flip slot role
+    _currSlot = (_currSlot === 'a' ? 'b' : 'a');
+    currentIndex = nextIdx;
+    isFlipped = false;
+
+    // Bring new-current to front (it's the old next slot)
+    if (oldNextEl) {
+      oldNextEl.style.zIndex    = '5';
+      oldNextEl.style.transform = '';
+      oldNextEl.style.opacity   = '1';
+      // Entrance animation on its card-inner
+      const inner = oldNextEl.querySelector('.card-inner');
+      if (inner) {
+        inner.classList.remove('fc-card-in');
+        void inner.offsetWidth;
+        inner.classList.add('fc-card-in');
+      }
+    }
+
+    // Reset old-current slot → load next-next card into it (goes to back, z-index 4)
+    if (oldCurrEl) {
+      oldCurrEl.style.transition = 'none';
+      void oldCurrEl.offsetWidth;
+      oldCurrEl.style.transform  = '';
+      oldCurrEl.style.opacity    = '1';
+      oldCurrEl.style.zIndex     = '4';
+      const nextNextCard = filteredCards[currentIndex + 1];
+      if (nextNextCard) {
+        _loadSlot(oldCurrEl, nextNextCard);
+        oldCurrEl.style.display = '';
+      } else {
+        oldCurrEl.style.display = 'none';
+      }
+    }
+
+    // UI
+    const pct = filteredCards.length > 1
+      ? Math.round((currentIndex / (filteredCards.length - 1)) * 100) : 100;
+    const pb = document.getElementById('fc-progress-bar');
+    if (pb) pb.style.width = pct + '%';
+    _setTxt('fc-counter', `${currentIndex + 1} / ${filteredCards.length}`);
+    _setTxt('fc-topic-label', filteredCards[currentIndex]?.topic || '');
+    _updateShadows(filteredCards.length - currentIndex);
+    _flashBorder(direction === 'right' ? 'green' : 'red');
+
+    // Release swipe lock after a short guard
+    setTimeout(() => { swipeInProgress = false; }, 80);
   }
 
   function _flashBorder(color) {
-    const front = document.getElementById('fc-card-front');
-    const back  = document.getElementById('fc-card-back');
+    const curr = _currEl();
+    if (!curr) return;
+    const front = curr.querySelector('.card-front');
+    const back  = curr.querySelector('.card-back');
     const cls   = color === 'green' ? 'fc-flash-green' : 'fc-flash-red';
     [front, back].forEach(el => {
       if (!el) return;
@@ -554,23 +624,37 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
 
   function _showSessionComplete() {
     const done = document.getElementById('fc-session-done');
-    const wrap = document.getElementById('fc-card-wrap');
     const sub  = document.getElementById('fc-session-sub');
-
-    // Count easy/hard in session
-    const easy = filteredCards.filter(c => {
-      const p = AppState.getCardProgress(c.id);
-      return p.reps > 0;
-    }).length;
-
+    const easy = filteredCards.filter(c => (AppState.getCardProgress(c.id).reps || 0) > 0).length;
     if (sub) sub.textContent = `${easy} von ${filteredCards.length} Karten gewusst`;
-    if (wrap) wrap.style.opacity = '0';
+    // Hide both slots
+    const a = document.getElementById('fc-slot-a');
+    const b = document.getElementById('fc-slot-b');
+    if (a) a.style.opacity = '0';
+    if (b) b.style.opacity = '0';
     if (done) done.classList.remove('hidden');
     swipeInProgress = false;
   }
 
   function startNextSession() {
     startDeck(activeCourse || 'all', activeTopic);
+  }
+
+  function _updateShadows(remaining) {
+    // remaining = cards left including current card
+    // afterCurrent = cards sitting behind the current card
+    const after = remaining - 1;
+
+    const cfg = [
+      { id: 'fc-shadow-1', threshold: 1 },
+      { id: 'fc-shadow-2', threshold: 2 },
+      { id: 'fc-shadow-3', threshold: 5 },
+    ];
+    cfg.forEach(({ id, threshold }) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.style.display = after >= threshold ? '' : 'none';
+    });
   }
 
   // ══════════════════════════════════════════════════════════
@@ -620,7 +704,7 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
   }
 
   function nextCard() { if (filteredCards.length) handleSwipe('right'); }
-  function prevCard() { if (filteredCards.length) showCard(currentIndex - 1); }
+  function prevCard() { /* not supported in two-slot mode */ }
 
   // ══════════════════════════════════════════════════════════
   // SOUNDS

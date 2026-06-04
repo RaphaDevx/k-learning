@@ -534,12 +534,15 @@
         </div>
 
         <!-- Card Stack -->
-        <div id="fc-stack-area" class="relative mb-3" style="height:min(62vh,510px)">
-          <div id="fc-shadow-2" class="fc-shadow-card" style="transform:translateY(14px) scaleX(0.91);opacity:0.4;"></div>
-          <div id="fc-shadow-1" class="fc-shadow-card" style="transform:translateY(7px)  scaleX(0.95);opacity:0.65;"></div>
+        <div id="fc-stack-area" class="relative mb-3" style="height:min(62vh,510px);touch-action:pan-y">
+
+          <!-- Dynamic shadow cards (visibility controlled by JS) -->
+          <div id="fc-shadow-3" class="fc-shadow-card" style="display:none;transform:translateY(20px) scaleX(0.87);opacity:0.28;z-index:1"></div>
+          <div id="fc-shadow-2" class="fc-shadow-card" style="display:none;transform:translateY(13px) scaleX(0.92);opacity:0.45;z-index:2"></div>
+          <div id="fc-shadow-1" class="fc-shadow-card" style="display:none;transform:translateY(6px)  scaleX(0.96);opacity:0.65;z-index:3"></div>
 
           <!-- Session complete overlay -->
-          <div id="fc-session-done" class="hidden absolute inset-0 z-20 flex flex-col items-center justify-center text-center px-6 gap-4" style="border-radius:1.5rem;background:var(--bg)">
+          <div id="fc-session-done" class="hidden absolute inset-0 flex flex-col items-center justify-center text-center px-6 gap-4" style="border-radius:1.5rem;background:var(--bg);z-index:30">
             <div style="font-size:3rem">🎉</div>
             <div class="font-bold text-lg" style="color:var(--txt)">Session abgeschlossen!</div>
             <div id="fc-session-sub" class="text-sm" style="color:var(--txt-2)"></div>
@@ -551,50 +554,72 @@
                     style="background:var(--card);border:1px solid var(--border);color:var(--txt-2)">← Zur Übersicht</button>
           </div>
 
-          <!-- Draggable card wrap -->
-          <div id="fc-card-wrap" class="absolute inset-0" style="touch-action:pan-y;cursor:pointer">
+          <!-- Swipe stamps (shared overlay, above both card slots) -->
+          <div id="fc-swipe-yes" class="absolute top-5 right-4 pointer-events-none" style="opacity:0;transition:opacity 0.08s;z-index:20">
+            <div style="border:3px solid #22c55e;border-radius:10px;padding:3px 12px;transform:rotate(-14deg)">
+              <span style="color:#22c55e;font-weight:900;font-size:0.95rem;letter-spacing:0.06em">KANN ICH ✓</span>
+            </div>
+          </div>
+          <div id="fc-swipe-no" class="absolute top-5 left-4 pointer-events-none" style="opacity:0;transition:opacity 0.08s;z-index:20">
+            <div style="border:3px solid #ef4444;border-radius:10px;padding:3px 12px;transform:rotate(14deg)">
+              <span style="color:#ef4444;font-weight:900;font-size:0.95rem;letter-spacing:0.06em">✗ NOCHMAL</span>
+            </div>
+          </div>
+
+          <!-- Card slot B (back / next card) -->
+          <div id="fc-slot-b" class="absolute inset-0" style="z-index:4">
             <div style="perspective:1200px;width:100%;height:100%">
-              <div id="fc-card-inner" class="card-inner w-full h-full">
-                <!-- Front -->
-                <div id="fc-card-front" class="card-front absolute inset-0 rounded-3xl flex flex-col p-5"
-                     style="background:var(--card);border:2px solid var(--border)">
+              <div class="card-inner w-full h-full">
+                <div class="card-front absolute inset-0 rounded-3xl flex flex-col p-5" style="background:var(--card);border:2px solid var(--border)">
                   <div class="flex items-center justify-between gap-2 mb-3">
-                    <span id="fc-type-label" class="text-xs uppercase tracking-widest font-semibold flex-shrink-0" style="color:var(--txt-3)">Frage</span>
-                    <span id="fc-chapter-label" class="text-xs px-2 py-0.5 rounded-full truncate"
-                          style="background:rgba(99,102,241,0.15);color:#a5b4fc;max-width:170px"></span>
+                    <span class="fc-type-label text-xs uppercase tracking-widest font-semibold flex-shrink-0" style="color:var(--txt-3)">Frage</span>
+                    <span class="fc-chapter-label text-xs px-2 py-0.5 rounded-full truncate" style="background:rgba(99,102,241,0.15);color:#a5b4fc;max-width:170px"></span>
                   </div>
                   <div class="flex-1 flex items-center justify-center overflow-auto">
-                    <div id="fc-front-text" class="text-xl font-semibold text-center leading-relaxed w-full"></div>
+                    <div class="fc-front-text text-xl font-semibold text-center leading-relaxed w-full"></div>
                   </div>
-                  <div class="text-center text-xs mt-3" style="color:var(--txt-3)">Tippen umdrehen · Wischen bewerten</div>
+                  <div class="text-center text-xs mt-3" style="color:var(--txt-3)">Tippen · Wischen</div>
                 </div>
-                <!-- Back -->
-                <div id="fc-card-back" class="card-back absolute inset-0 rounded-3xl flex flex-col p-5"
-                     style="background:var(--card-raised);border:2px solid var(--border)">
+                <div class="card-back absolute inset-0 rounded-3xl flex flex-col p-5" style="background:var(--card-raised);border:2px solid var(--border)">
                   <div class="flex items-center justify-between gap-2 mb-3">
                     <span class="text-xs uppercase tracking-widest font-semibold text-green-400 flex-shrink-0">Antwort</span>
-                    <span id="fc-chapter-label-back" class="text-xs px-2 py-0.5 rounded-full truncate"
-                          style="background:rgba(99,102,241,0.15);color:#a5b4fc;max-width:170px"></span>
+                    <span class="fc-chapter-label text-xs px-2 py-0.5 rounded-full truncate" style="background:rgba(99,102,241,0.15);color:#a5b4fc;max-width:170px"></span>
                   </div>
                   <div class="flex-1 flex items-start justify-center overflow-auto py-1">
-                    <div id="fc-back-text" class="text-base leading-relaxed w-full" style="white-space:pre-line"></div>
+                    <div class="fc-back-text text-base leading-relaxed w-full" style="white-space:pre-line"></div>
                   </div>
-                  <div class="text-center text-xs mt-3" style="color:var(--txt-3)">← wischen zum bewerten →</div>
                 </div>
-              </div>
-            </div>
-            <!-- Swipe stamps -->
-            <div id="fc-swipe-yes" class="absolute top-5 right-4 opacity-0 pointer-events-none" style="transition:opacity 0.08s">
-              <div style="border:3px solid #22c55e;border-radius:10px;padding:3px 12px;transform:rotate(-14deg)">
-                <span style="color:#22c55e;font-weight:900;font-size:0.95rem;letter-spacing:0.06em">KANN ICH ✓</span>
-              </div>
-            </div>
-            <div id="fc-swipe-no" class="absolute top-5 left-4 opacity-0 pointer-events-none" style="transition:opacity 0.08s">
-              <div style="border:3px solid #ef4444;border-radius:10px;padding:3px 12px;transform:rotate(14deg)">
-                <span style="color:#ef4444;font-weight:900;font-size:0.95rem;letter-spacing:0.06em">✗ NOCHMAL</span>
               </div>
             </div>
           </div>
+
+          <!-- Card slot A (top / current card) -->
+          <div id="fc-slot-a" class="absolute inset-0" style="z-index:5">
+            <div style="perspective:1200px;width:100%;height:100%">
+              <div class="card-inner w-full h-full">
+                <div class="card-front absolute inset-0 rounded-3xl flex flex-col p-5" style="background:var(--card);border:2px solid var(--border)">
+                  <div class="flex items-center justify-between gap-2 mb-3">
+                    <span class="fc-type-label text-xs uppercase tracking-widest font-semibold flex-shrink-0" style="color:var(--txt-3)">Frage</span>
+                    <span class="fc-chapter-label text-xs px-2 py-0.5 rounded-full truncate" style="background:rgba(99,102,241,0.15);color:#a5b4fc;max-width:170px"></span>
+                  </div>
+                  <div class="flex-1 flex items-center justify-center overflow-auto">
+                    <div class="fc-front-text text-xl font-semibold text-center leading-relaxed w-full"></div>
+                  </div>
+                  <div class="text-center text-xs mt-3" style="color:var(--txt-3)">Tippen · Wischen</div>
+                </div>
+                <div class="card-back absolute inset-0 rounded-3xl flex flex-col p-5" style="background:var(--card-raised);border:2px solid var(--border)">
+                  <div class="flex items-center justify-between gap-2 mb-3">
+                    <span class="text-xs uppercase tracking-widest font-semibold text-green-400 flex-shrink-0">Antwort</span>
+                    <span class="fc-chapter-label text-xs px-2 py-0.5 rounded-full truncate" style="background:rgba(99,102,241,0.15);color:#a5b4fc;max-width:170px"></span>
+                  </div>
+                  <div class="flex-1 flex items-start justify-center overflow-auto py-1">
+                    <div class="fc-back-text text-base leading-relaxed w-full" style="white-space:pre-line"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         <!-- Progress bar -->
