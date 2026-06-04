@@ -421,12 +421,10 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
   // ══════════════════════════════════════════════════════════
 
   function setupDragHandlers() {
-    // Bind to the stack area container — events bubble from both slots.
-    // This avoids re-binding when slots swap.
     const area = document.getElementById('fc-stack-area');
     if (!area || area._fcBound) return;
     area._fcBound = true;
-    area.addEventListener('pointerdown',   _onDragStart, { passive: true });
+    area.addEventListener('pointerdown',   _onDragStart, { passive: false });
     area.addEventListener('pointermove',   _onDragMove,  { passive: false });
     area.addEventListener('pointerup',     _onDragEnd);
     area.addEventListener('pointercancel', _onDragEnd);
@@ -448,8 +446,8 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     const dy = e.clientY - dragStartY;
 
     if (!dragDir) {
-      if (Math.abs(dx) > 8)      { dragDir = 'h'; }
-      else if (Math.abs(dy) > 8) { dragDir = 'v'; isDragging = false; return; }
+      if (Math.abs(dx) > 6)      { dragDir = 'h'; }
+      else if (Math.abs(dy) > 6) { dragDir = 'v'; isDragging = false; return; }
       else return;
     }
     if (dragDir !== 'h') return;
@@ -457,16 +455,16 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     currentDeltaX = dx;
 
     const curr = _currEl();
-    if (curr) curr.style.transform = `translateX(${dx}px) rotate(${dx * 0.05}deg)`;
+    if (curr) curr.style.transform = `translateX(${dx}px) rotate(${dx * 0.04}deg)`;
 
-    const THRESH = 50;
-    const yes = document.getElementById('fc-swipe-yes');
-    const no  = document.getElementById('fc-swipe-no');
+    const THRESH = 40;
+    const yes = document.getElementById('fc-swipe-yes') || document.getElementById('fc-swipe-yes-btn');
+    const no  = document.getElementById('fc-swipe-no')  || document.getElementById('fc-swipe-no-btn');
     if (dx > THRESH) {
-      if (yes) yes.style.opacity = String(Math.min((dx - THRESH) / 70, 1));
+      if (yes) yes.style.opacity = String(Math.min((dx - THRESH) / 60, 1));
       if (no)  no.style.opacity  = '0';
     } else if (dx < -THRESH) {
-      if (no)  no.style.opacity  = String(Math.min((-dx - THRESH) / 70, 1));
+      if (no)  no.style.opacity  = String(Math.min((-dx - THRESH) / 60, 1));
       if (yes) yes.style.opacity = '0';
     } else {
       if (yes) yes.style.opacity = '0';
@@ -475,64 +473,53 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
   }
 
   function _onDragEnd(e) {
+    if (!isDragging) return;
+    isDragging = false;
+    try { e.target.releasePointerCapture(e.pointerId); } catch(_) {}
+
     const endX = e.clientX ?? dragStartX;
     const endY = e.clientY ?? dragStartY;
 
-    // Tap detection: small movement = flip, not swipe
-    if (Math.abs(endX - dragStartX) < 6 && Math.abs(endY - dragStartY) < 6) {
-      isDragging = false;
-      dragDir    = null;
+    if (Math.abs(endX - dragStartX) < 5 && Math.abs(endY - dragStartY) < 5) {
+      dragDir = null;
       flipCard();
       return;
     }
 
-    if (!isDragging) return;
-    isDragging = false;
-
-    const dx = currentDeltaX;
     if (dragDir !== 'h') return;
 
-    if      (dx >  80) { handleSwipe('right'); }
-    else if (dx < -80) { handleSwipe('left');  }
+    if      (currentDeltaX >  80) { handleSwipe('right'); }
+    else if (currentDeltaX < -80) { handleSwipe('left');  }
     else {
-      // Snap back
       const curr = _currEl();
       if (curr) {
-        curr.style.transition = 'transform 0.35s cubic-bezier(0.34,1.56,0.64,1)';
+        curr.style.transition = 'transform 0.3s cubic-bezier(0.34,1.56,0.64,1)';
         curr.style.transform  = '';
-        setTimeout(() => { const c = _currEl(); if (c) c.style.transition = ''; }, 400);
+        setTimeout(() => { if (curr) curr.style.transition = ''; }, 300);
       }
-      const yes = document.getElementById('fc-swipe-yes');
-      const no  = document.getElementById('fc-swipe-no');
-      if (yes) yes.style.opacity = '0';
-      if (no)  no.style.opacity  = '0';
+      _resetOverlayOpacities();
     }
   }
 
-  function _animateOut(direction, callback) {
-    const curr = _currEl();
-    if (!curr) { callback?.(); return; }
-    const tx  = direction === 'right' ? '130vw' : '-130vw';
-    const rot = direction === 'right' ? '25deg'  : '-25deg';
-
-    const yes = document.getElementById('fc-swipe-yes');
-    const no  = document.getElementById('fc-swipe-no');
+  function _resetOverlayOpacities() {
+    const yes = document.getElementById('fc-swipe-yes') || document.getElementById('fc-swipe-yes-btn');
+    const no  = document.getElementById('fc-swipe-no')  || document.getElementById('fc-swipe-no-btn');
     if (yes) yes.style.opacity = '0';
     if (no)  no.style.opacity  = '0';
-
-    curr.style.transition = 'transform 0.35s ease-in, opacity 0.28s ease';
-    curr.style.transform  = `translateX(${tx}) rotate(${rot})`;
-    curr.style.opacity    = '0';
-
-    setTimeout(callback || (() => {}), 320);
   }
 
   function handleSwipe(direction) {
     if (!filteredCards.length || swipeInProgress) return;
     swipeInProgress = true;
-    _animateOut(direction, () => {
-      _commitSwipe(direction);
-    });
+    const curr = _currEl();
+    if (!curr) { _commitSwipe(direction); return; }
+    const tx  = direction === 'right' ? '140vw' : '-140vw';
+    const rot = direction === 'right' ? '20deg'  : '-20deg';
+    _resetOverlayOpacities();
+    curr.style.transition = 'transform 0.3s ease-in, opacity 0.25s ease';
+    curr.style.transform  = `translateX(${tx}) rotate(${rot})`;
+    curr.style.opacity    = '0';
+    setTimeout(() => { _commitSwipe(direction); }, 280);
   }
 
   function _commitSwipe(direction) {
@@ -599,8 +586,7 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     _updateShadows(filteredCards.length - currentIndex);
     _flashBorder(direction === 'right' ? 'green' : 'red');
 
-    // Release swipe lock after a short guard
-    setTimeout(() => { swipeInProgress = false; }, 80);
+    setTimeout(() => { swipeInProgress = false; }, 50);
   }
 
   function _flashBorder(color) {
@@ -692,10 +678,9 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     return prog;
   }
 
-  // Legacy compatibility (keyboard shortcuts, etc.)
   function rateCard(rating) {
-    if (!filteredCards.length) return;
-    const direction = rating === 'easy' ? 'right' : 'left';
+    if (swipeInProgress || !filteredCards.length) return;
+    const direction = (rating === 'easy' || rating === 'right') ? 'right' : 'left';
     handleSwipe(direction);
   }
 

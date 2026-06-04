@@ -635,10 +635,10 @@
 
         <!-- Swipe action buttons — hidden on mobile, shown on desktop -->
         <div class="hidden md:grid grid-cols-2 gap-3">
-          <button onclick="FlashcardsScreen.handleSwipe('left')"
+          <button onclick="FlashcardsScreen.rateCard('hard')"
                   class="tap-card flex items-center justify-center gap-2 rounded-2xl py-3.5 font-bold text-sm"
                   style="background:#3d1515;border:1px solid #7f1d1d;color:#fca5a5">✗ Nochmal</button>
-          <button onclick="FlashcardsScreen.handleSwipe('right')"
+          <button onclick="FlashcardsScreen.rateCard('easy')"
                   class="tap-card flex items-center justify-center gap-2 rounded-2xl py-3.5 font-bold text-sm"
                   style="background:#15301c;border:1px solid #14532d;color:#86efac">✓ Kann ich</button>
         </div>
