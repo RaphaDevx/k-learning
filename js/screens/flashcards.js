@@ -439,6 +439,7 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     isDragging    = true;
     dragDir       = null;
     currentDeltaX = 0;
+    try { e.target.setPointerCapture(e.pointerId); } catch(_) {}
   }
 
   function _onDragMove(e) {
@@ -563,18 +564,13 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     currentIndex = nextIdx;
     isFlipped = false;
 
-    // Bring new-current to front (it's the old next slot)
+    // Bring new-current to front (it's the old next slot, already rendered at opacity:1)
     if (oldNextEl) {
+      oldNextEl.style.transition = 'none';
+      void oldNextEl.offsetWidth;
       oldNextEl.style.zIndex    = '5';
       oldNextEl.style.transform = '';
       oldNextEl.style.opacity   = '1';
-      // Entrance animation on its card-inner
-      const inner = oldNextEl.querySelector('.card-inner');
-      if (inner) {
-        inner.classList.remove('fc-card-in');
-        void inner.offsetWidth;
-        inner.classList.add('fc-card-in');
-      }
     }
 
     // Reset old-current slot → load next-next card into it (goes to back, z-index 4)
