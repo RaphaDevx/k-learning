@@ -1,10 +1,11 @@
 # K-Learning — Architektur-Masterplan (3-Schichten)
 
-> Stand: Juni 2026 | Supabase: `ifmwcgwfvunjbnfwwbtr` | Cloudflare: `k-learning.pages.dev`  
+> Stand: Juni 2026 · **v3.0** | Supabase: `ifmwcgwfvunjbnfwwbtr` | Cloudflare: `k-learning.pages.dev`  
 > Dieses Dokument ist der Masterplan für die Umstellung auf die professionelle 3-Schichten-Architektur.  
 > **Keine Code-Änderungen ohne Freigabe dieses Plans.**
 >
-> **Phase 3 abgeschlossen (Juni 2026):** EMA + Streak-Gewichtung in `save_exam_result()`, `get_user_feed()` mit Deduplication, `topic_weights` um `ema_accuracy` + `correct_streak` erweitert.
+> **v3.0 (Juni 2026):** Two-Slot-Swipe-Engine (deadlock-frei), SM-2 Flashcards live, Codebase-Aufräumung (Daten-Monolithen archiviert), architecture.md um Sektionen 7–10 erweitert.  
+> **Phase 3 abgeschlossen:** EMA + Streak-Gewichtung in `save_exam_result()`, `get_user_feed()` mit Deduplication, `topic_weights` um `ema_accuracy` + `correct_streak` erweitert.
 
 ---
 
@@ -352,8 +353,12 @@ priority       = 1.0 + (1.0 - new_ema) * 3.0
 | **Phase 3** | `topic_weights` Tabelle + EMA/Streak-Algorithmus | ✅ Live |
 | **Phase 3** | `get_user_feed()` Erweiterung mit topic_weights + Dedup | ✅ Live |
 | **Phase 3** | Kanonische topics-Tag-Liste für Fragen + Videos | ⏳ Offen |
+| **Phase 3** | Two-Slot-Swipe-Engine + SM-2 in Flashcards | ✅ Live (v3.0) |
+| **Phase 3** | Codebase-Aufräumung: Archivierung Daten-Monolithen | ✅ Live (v3.0) |
 | **Phase 4** | HLS-Transcoding + Cloudflare R2 Streaming | ⏳ Geplant |
-| **Phase 4** | Flashcards aus Supabase statt statische JS-Datei | ⏳ Geplant |
+| **Phase 4** | `courses`-Tabelle in Supabase (Kurs-Erweiterbarkeit) | ⏳ Geplant |
+| **Phase 4** | Edge Function `get-flashcard-chunk` (25-Karten-Chunks) | ⏳ Geplant |
+| **Phase 4** | Anki-Algorithmus ins Backend verlagern | ⏳ Geplant |
 
 ---
 
@@ -364,3 +369,212 @@ priority       = 1.0 + (1.0 - new_ema) * 3.0
 - **RLS überall:** Jede Tabelle mit User-Daten hat Row Level Security. Kein Bypass via Frontend möglich.
 - **Key-Sicherheit:** API-Keys verlassen den Supabase Vault nie. Der Browser sendet nur JWT-Token, nie den Key.
 - **topics-Tags:** Müssen zwischen `videos.topics` und `exam questions[].topics` exakt übereinstimmen — sonst greift der Prüfungs-Algorithmus nicht.
+
+---
+
+## 7. Admin- & Kurs-Erweiterbarkeit (Zielzustand: 100% dynamisch)
+
+### Problem (Ist-Zustand)
+Kursmetadaten (Name, Farbe, Emoji, Prüfungsdatum, Raum, NotebookLM-ID) sind hartcodiert in `data/courses-config.js` als `window.COURSES_CONFIG`-Array. Neue Kurse erfordern manuelles Editieren der JS-Datei und einen neuen Deployment-Zyklus.
+
+### Ziel-Zustand: Supabase-Tabelle `courses`
+
+```sql
+CREATE TABLE public.courses (
+  key          TEXT PRIMARY KEY,             -- 'ESF' | 'Statistik' | 'MakroII' | 'OM'
+  label        TEXT NOT NULL,
+  icon         TEXT NOT NULL DEFAULT '📚',   -- Emoji
+  hex_color    TEXT NOT NULL DEFAULT '#6366f1',
+  tailwind_bg  TEXT,                         -- 'bg-purple-900' (für UI-Klassen)
+  exam_date    DATE,
+  exam_room    TEXT,
+  exam_format  TEXT,
+  notebook_id  TEXT,                         -- NotebookLM Notebook-ID
+  sort_order   INT DEFAULT 0,
+  active       BOOLEAN DEFAULT true,         -- false = Kurs ausgeblendet
+  created_at   TIMESTAMPTZ DEFAULT NOW()
+);
+```
+
+**RLS:** Öffentliches Lesen. Schreiben nur `service_role`.
+
+### Migration (Frontend)
+
+```js
+// dashboard.js, courseHub.js, learnPath.js:
+// Vorher: const all = window.COURSES_CONFIG || [];
+// Nachher:
+const { data: courses } = await supabase.from('courses').select('*').eq('active', true).order('sort_order');
+```
+
+Bis zur Migration bleibt `data/courses-config.js` als `window.COURSES_CONFIG` der Source of Truth. Die Felder sind so gewählt, dass ein 1:1-Mapping zur DB-Tabelle möglich ist.
+
+---
+
+## 8. Video-Infrastruktur (Datenstrom & Speicher)
+
+### Aktueller Datenstrom (Ist-Zustand)
+
+```
+Browser (feed.js)
+  │
+  ├── [Eingeloggt]  supabase.rpc('get_user_feed', { p_user_id, p_course, p_limit: 30 })
+  │     └── PostgreSQL liest aus `videos`-Tabelle → gibt video_src-URLs zurück
+  │           └── URL-Format: https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/<slug>.mp4
+  │
+  └── [Anonym]  window.FEED_CARDS (data/feed-data.js, statischer Fallback)
+        └── Gleiche URL-Struktur: Supabase Storage Bucket "videos"
+```
+
+### Zuordnung im Content-Katalog (`videos`-Tabelle)
+
+Jedes Video ist ein Datensatz mit:
+- `slug` — stabile, sprechende ID (z.B. `esf-sv-01-v2`), entspricht dem Dateinamen ohne `.mp4`
+- `video_src` — vollständige Supabase-Storage-URL (aktuell aktiv)
+- `hls_src` — zukünftig: Cloudflare R2 `.m3u8`-URL für adaptives Streaming
+
+```sql
+-- Neues Video hinzufügen:
+INSERT INTO videos (slug, title, course, block, video_src, sort_order)
+VALUES (
+  'statistik-08-korrelation',
+  'Korrelation & Kausalität',
+  'Statistik',
+  'M03 — Zusammenhänge',
+  'https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_08_korrelation.mp4',
+  80
+);
+```
+
+### Ziel-Infrastruktur: Cloudflare R2 + HLS
+
+```
+MP4-Rohvideo (lokal, /videos/)
+  │
+  ├── tools/transcode_hls.sh   → FFmpeg → HLS-Segmente (.ts) + master.m3u8
+  │
+  └── tools/upload_r2.sh       → wrangler r2 object put k-learning-videos/<slug>/ …
+        └── R2-URL: https://videos.k-learning.pages.dev/<slug>/master.m3u8
+              └── In videos.hls_src eintragen
+```
+
+feed.js nutzt `hls_src` prioritär (Hls.js), fällt auf `video_src` zurück:
+```js
+const src = card.hls_src || card.video_src;
+const isHLS = src?.endsWith('.m3u8');
+```
+
+---
+
+## 9. Rolling Feed & Skalierung (Pagination)
+
+### Aktueller Zustand
+`get_user_feed()` lädt fix 30 Videos in einem Batch (`p_limit: 30`). Kein Nachladen, kein Offset.
+
+### Ziel: Unendlicher Nachlade-Mechanismus
+
+**Schritt 1 — RPC erweitern:**
+
+```sql
+-- Neues Parameter in get_user_feed():
+CREATE OR REPLACE FUNCTION get_user_feed(
+  p_user_id UUID,
+  p_course  TEXT DEFAULT NULL,
+  p_limit   INT  DEFAULT 20,
+  p_offset  INT  DEFAULT 0      -- ← neu
+) RETURNS TABLE (...)
+LANGUAGE plpgsql AS $$
+BEGIN
+  RETURN QUERY
+    -- ... (bestehende Logik) ...
+    OFFSET p_offset
+    LIMIT  p_limit;
+END;
+$$;
+```
+
+**Schritt 2 — Frontend (feed.js):**
+
+```js
+let feedOffset = 0;
+const FEED_PAGE = 20;
+
+async function loadMore() {
+  const { data } = await supabase.rpc('get_user_feed', {
+    p_user_id: userId,
+    p_course:  activeFilter,
+    p_limit:   FEED_PAGE,
+    p_offset:  feedOffset,
+  });
+  feedOffset += data.length;
+  _appendCards(data);
+  if (data.length < FEED_PAGE) _hideLoadMoreTrigger(); // Ende erreicht
+}
+```
+
+**Schritt 3 — IntersectionObserver:**
+Wenn das letzte sichtbare Video zu 80% in den Viewport scrollt → `loadMore()` aufrufen. Das bestehende `observer`-Objekt in `feed.js` lässt sich dafür erweitern.
+
+---
+
+## 10. Flashcard-Streaming-Architektur (Zielzustand)
+
+### Problem (Ist-Zustand)
+`flashcards.js` lädt **alle** Karten des Users via `supabase.from('deck_cards').select('*')` in einem einzigen Query. Bei einem grossen Deck (500+ Karten) bedeutet das:
+- Hohe Latenz beim ersten Laden
+- Grosse Payload (alle Karten, auch bereits gemeisterte)
+- Keine Priorisierung durch SM-2 vor dem Transfer
+
+### Ziel: Chunk-basiertes Laden via Edge Function
+
+**Architektur:**
+
+```
+flashcards.js (Frontend)
+  │
+  └── POST /functions/v1/get-flashcard-chunk
+        { user_id, course, deck_id, chunk_size: 25 }
+        │
+        └── Edge Function (Deno):
+              1. Liest card_progress für user_id aus DB
+              2. Berechnet SM-2-Fälligkeiten serverseitig
+              3. Gibt die 25 höchst-priorisierten Karten zurück
+              4. Sortierung: fällig → schwach → neu
+```
+
+**Edge Function Pseudocode:**
+
+```ts
+// supabase/functions/get-flashcard-chunk/index.ts
+Deno.serve(async (req) => {
+  const { user_id, course, chunk_size = 25 } = await req.json();
+  const supabase = createClient(SUPABASE_URL, SERVICE_KEY);
+
+  // 1. Alle fälligen Karten (next_review <= now)
+  const { data: due } = await supabase
+    .from('deck_cards')
+    .select('*, card_progress!inner(*)')
+    .eq('card_progress.user_id', user_id)
+    .lte('card_progress.next_review', new Date().toISOString())
+    .eq('course', course)
+    .limit(chunk_size);
+
+  // 2. Auffüllen mit neuen Karten falls < chunk_size
+  // 3. Rückgabe: 25 Karten, sortiert nach Priorität
+  return new Response(JSON.stringify(due));
+});
+```
+
+**Vorteil:** Frontend erhält immer genau 25 Karten, Anki-Algorithmus läuft serverseitig, keine 265KB-Monolith-JS-Datei mehr nötig.
+
+---
+
+# ToDo
+
+## Flashcard-Skalierung (Phase 4)
+
+- [ ] **1. Daten-Monolith auflösen:** `data/flashcard-data.js` (265KB) vollständig abschalten. Alle Karten ausschliesslich aus Supabase `deck_cards`-Tabelle laden. `window.FLASHCARD_DATA`-Fallback entfernen.
+
+- [ ] **2. Anki-Algorithmus ins Backend verlagern:** Neue Edge Function `get-flashcard-chunk` implementieren (siehe Sektion 10). Die SM-2-Berechnung (`interval`, `ease`, `next_review`) aus `flashcards.js` in eine PostgreSQL-Funktion oder Edge Function auslagern. Frontend ist nur noch Renderer, kein Algorithmus-Träger.
+
+- [ ] **3. Hartcodierte UI-Daten entfernen:** `data/courses-config.js` durch Supabase `courses`-Tabelle ersetzen (siehe Sektion 7). `data/topics-data.js` und `data/topics-tags.js` durch DB-Abfragen oder statische Supabase-Config ersetzen.
