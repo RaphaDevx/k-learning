@@ -481,7 +481,7 @@
         <p class="text-gray-400 text-sm mt-1">Sub-Kapitel pro Kurs — klicke ein Thema um direkt zu den Flashcards zu springen.</p>
       </div>
       <div class="flex items-center gap-3 mb-4 md:hidden">
-        <button onclick="showView('dashboard')" class="text-gray-400 hover:text-white">← Zurück</button>
+        <button onclick="TabRouter.back()" class="text-gray-400 hover:text-white">← Zurück</button>
         <h2 class="font-bold text-xl">Themen</h2>
       </div>
       <div id="topics-content"></div>
@@ -498,7 +498,7 @@
       <!-- ─── Deck Selector ─────────────────────────────── -->
       <div id="fc-deck-selector">
         <div class="flex items-center justify-between py-3 mb-1">
-          <button onclick="showView('dashboard')" class="flex items-center gap-1 text-sm" style="color:var(--txt-2)">
+          <button onclick="TabRouter.back()" class="flex items-center gap-1 text-sm" style="color:var(--txt-2)">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>Zurück
           </button>
           <h2 class="font-bold text-lg">Karten</h2>
