@@ -98,7 +98,7 @@ window.LernenScreen = (function() {
     const prog       = AppState.get('cardProgress') || {};
 
     const courseCards = allCards.filter(c => c.course === _activeCourse);
-    if (!courseCards.length && !courseData) return _empty(`Noch keine Karten für ${_activeCourse}.`);
+    if (!courseCards.length && !courseData) return _empty(`Noch keine Karten fur ${_activeCourse}.`);
 
     const allDone  = courseCards.filter(c => prog[c.id]?.reviews > 0).length;
     const allTotal = courseCards.length;
@@ -107,15 +107,17 @@ window.LernenScreen = (function() {
     const bgGrad  = courseData?.bgGradient || 'linear-gradient(135deg,#1e3a8a,#1e40af)';
     const emoji   = courseData?.emoji || '📚';
     const color   = courseData?.color || '#6366f1';
+    const course  = _activeCourse;
 
+    // filterCards first, then showView — avoids init() async overwrite race
     const allDeck = `
-      <button onclick="FlashcardsScreen.openForTopic('${_activeCourse}', null)"
+      <button onclick="FlashcardsScreen.filterCards('${course}', null); showView('flashcards');"
         class="tap-card w-full flex items-center justify-between rounded-2xl p-4 mb-3"
         style="background:${bgGrad};border:1px solid rgba(255,255,255,0.1)">
         <div class="flex items-center gap-3">
           <span class="text-2xl">${emoji}</span>
           <div>
-            <div class="font-bold text-sm text-white">Alle Karten — ${_activeCourse}</div>
+            <div class="font-bold text-sm text-white">Alle Karten — ${course}</div>
             <div class="text-xs text-white/60 mt-0.5">${allTotal} Karten · ${allPct}% gelernt</div>
           </div>
         </div>
@@ -135,11 +137,13 @@ window.LernenScreen = (function() {
       }).length;
 
       const dueBadge = due > 0
-        ? `<span class="flex-shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/20">${due} fällig</span>`
+        ? `<span class="flex-shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/20">${due} fallig</span>`
         : '';
 
+      const safeTitle = topic.title.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+
       return `
-        <button onclick="FlashcardsScreen.openForTopic('${_activeCourse}', '${topic.title.replace(/'/g, "\\'")}')"
+        <button onclick="FlashcardsScreen.filterCards('${course}', '${safeTitle}'); showView('flashcards');"
           class="tap-card w-full flex items-start gap-3 rounded-2xl p-4"
           style="background:var(--card);border:1px solid var(--border)">
           <span class="text-xl mt-0.5 flex-shrink-0">${topic.emoji}</span>
@@ -162,7 +166,7 @@ window.LernenScreen = (function() {
 
   // ── Quiz: registry filtered by course ──
   function _renderQuiz() {
-    if (!_activeCourse) return _empty('Wähle oben ein Fach aus.');
+    if (!_activeCourse) return _empty('Wahle oben ein Fach aus.');
 
     const registry = (window.QuizScreen?.QUIZ_REGISTRY || []).filter(q => q.course === _activeCourse);
 
@@ -170,8 +174,8 @@ window.LernenScreen = (function() {
       return `
         <div class="rounded-2xl p-6 text-center" style="background:var(--card);border:1px solid var(--border)">
           <div class="text-3xl mb-2">🚧</div>
-          <div class="font-semibold text-sm" style="color:var(--txt)">Noch keine Quizze für ${_activeCourse}</div>
-          <div class="text-xs mt-1" style="color:var(--txt-2)">Bald verfügbar</div>
+          <div class="font-semibold text-sm" style="color:var(--txt)">Noch keine Quizze fur ${_activeCourse}</div>
+          <div class="text-xs mt-1" style="color:var(--txt-2)">Bald verfugbar</div>
         </div>`;
     }
 
