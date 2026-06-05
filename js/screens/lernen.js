@@ -8,7 +8,13 @@ window.LernenScreen = (function() {
 
   function init() {
     _activeCourse = AppState.get('activeCourse') || _firstEnrolled();
-    _render();
+    if (!window.FLASHCARD_DATA && window.FlashcardsScreen) {
+      // Show skeleton while cards load from Supabase, then re-render with counts
+      _render();
+      FlashcardsScreen.ensureLoaded().then(() => _render());
+    } else {
+      _render();
+    }
   }
 
   function _firstEnrolled() {
@@ -97,8 +103,9 @@ window.LernenScreen = (function() {
     const allCards   = window.FLASHCARD_DATA || [];
     const prog       = AppState.get('cardProgress') || {};
 
+    const loading = !window.FLASHCARD_DATA;
     const courseCards = allCards.filter(c => c.course === _activeCourse);
-    if (!courseCards.length && !courseData) return _empty(`Noch keine Karten fur ${_activeCourse}.`);
+    if (!loading && !courseCards.length && !courseData) return _empty(`Noch keine Karten für ${_activeCourse}.`);
 
     const allDone  = courseCards.filter(c => prog[c.id]?.reviews > 0).length;
     const allTotal = courseCards.length;
@@ -118,7 +125,7 @@ window.LernenScreen = (function() {
           <span class="text-2xl">${emoji}</span>
           <div>
             <div class="font-bold text-sm text-white">Alle Karten — ${course}</div>
-            <div class="text-xs text-white/60 mt-0.5">${allTotal} Karten · ${allPct}% gelernt</div>
+            <div class="text-xs text-white/60 mt-0.5">${loading ? 'Lädt…' : `${allTotal} Karten · ${allPct}% gelernt`}</div>
           </div>
         </div>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -154,7 +161,7 @@ window.LernenScreen = (function() {
               <div class="flex-1 h-1.5 rounded-full" style="background:var(--card-raised)">
                 <div class="h-full rounded-full transition-all" style="width:${pct}%;background:${color}"></div>
               </div>
-              <span class="text-[10px] font-mono flex-shrink-0" style="color:var(--txt-3)">${done}/${total}</span>
+              <span class="text-[10px] font-mono flex-shrink-0" style="color:var(--txt-3)">${loading ? '…' : `${done}/${total}`}</span>
             </div>
           </div>
           ${dueBadge}

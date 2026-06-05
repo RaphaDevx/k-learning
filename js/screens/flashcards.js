@@ -1359,5 +1359,7 @@ Antworte NUR in diesem JSON-Format (kein weiterer Text):
     openCardDirect,
     openForTopic,
     showCard,
+    // Data preloading (used by LernenScreen)
+    ensureLoaded: _ensureCardsLoaded,
   };
 })();
