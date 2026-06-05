@@ -44,6 +44,7 @@
   <script src="js/ai-service.js"></script>
   <script src="js/state.js"></script>
   <script src="js/gamification.js"></script>
+  <script src="js/tab-router.js"></script>
   <script src="js/router.js"></script>
   <script src="js/auth.js"></script>
 
@@ -57,6 +58,7 @@
   <script src="js/screens/exam.js"></script>
   <script src="js/screens/quiz.js"></script>
   <script src="js/screens/tutor.js"></script>
+  <script src="js/screens/lernen.js"></script>
   <script src="js/screens/profile.js"></script>
 
   <style>
@@ -306,27 +308,23 @@
       </div>
     </div>
 
-    <button onclick="showView('dashboard')" id="snav-dashboard" class="sidebar-nav-btn active">
+    <button onclick="TabRouter.tapTab('home')" id="snav-tab-home" class="sidebar-nav-btn active">
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21V12h6v9"/></svg>
       <span>Home</span>
     </button>
-    <button onclick="showView('feed')" id="snav-feed" class="sidebar-nav-btn">
+    <button onclick="TabRouter.tapTab('feed')" id="snav-tab-feed" class="sidebar-nav-btn">
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
       <span>Feed</span>
     </button>
-    <button onclick="showView('quiz')" id="snav-quiz" class="sidebar-nav-btn">
-      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-      <span>Quizze</span>
+    <button onclick="TabRouter.tapTab('lernen')" id="snav-tab-lernen" class="sidebar-nav-btn">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      <span>Lernen</span>
     </button>
-    <button onclick="showView('flashcards')" id="snav-flashcards" class="sidebar-nav-btn">
-      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-      <span>Karten</span>
-    </button>
-    <button onclick="showView('exam')" id="snav-exam" class="sidebar-nav-btn">
+    <button onclick="TabRouter.tapTab('pruefungen')" id="snav-tab-pruefungen" class="sidebar-nav-btn">
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-      <span>Klausuren</span>
+      <span>Prüfungen</span>
     </button>
-    <button onclick="showView('profile')" id="snav-profile" class="sidebar-nav-btn">
+    <button onclick="TabRouter.tapTab('profil')" id="snav-tab-profil" class="sidebar-nav-btn">
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       <span>Profil</span>
     </button>
@@ -358,6 +356,17 @@
     <!-- ══════════════════════════════════════════════════════ -->
     <div id="view-course-hub" class="hidden min-h-screen">
       <!-- Rendered dynamically by CourseHubScreen -->
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- LERNEN HUB                                            -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <div id="view-lernen" class="hidden min-h-screen">
+      <div class="py-4 md:py-6">
+        <h1 class="text-2xl font-bold tracking-tight" style="color:var(--txt)">Lernen</h1>
+        <p class="mt-1 text-sm" style="color:var(--txt-2)">Karten & Quiz für deine Fächer</p>
+      </div>
+      <div id="lernen-content"></div>
     </div>
 
     <!-- ══════════════════════════════════════════════════════ -->
@@ -797,33 +806,51 @@
 
   </div><!-- /content-area -->
 
-  <!-- ── MOBILE: Bottom Navigation (5 Haupt-Screens) ── -->
-  <nav id="bottom-nav">
-    <button onclick="showView('dashboard')" id="nav-dashboard"
-      class="flex flex-col items-center gap-1 px-4 py-1 text-white transition-colors min-w-[52px]">
+  <!-- ── MOBILE: Bottom Navigation (5 Tabs, Apple Music Style) ── -->
+  <nav id="bottom-nav" style="padding-bottom:max(0.6rem,env(safe-area-inset-bottom))">
+
+    <!-- Home -->
+    <button onclick="TabRouter.tapTab('home')" id="nav-tab-home"
+      class="flex flex-col items-center gap-0.5 px-3 py-1.5 text-white transition-colors min-w-[52px]">
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/><path d="M9 21V12h6v9"/></svg>
       <span class="text-[10px] font-medium">Home</span>
     </button>
-    <button onclick="showView('quiz')" id="nav-quiz"
-      class="flex flex-col items-center gap-1 px-3 py-1 text-gray-400 hover:text-white transition-colors min-w-[48px]">
-      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-      <span class="text-[10px] font-medium">Quiz</span>
+
+    <!-- Feed -->
+    <button onclick="TabRouter.tapTab('feed')" id="nav-tab-feed"
+      class="flex flex-col items-center gap-0.5 px-3 py-1.5 text-gray-400 transition-colors min-w-[52px]">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      <span class="text-[10px] font-medium">Feed</span>
     </button>
-    <button onclick="showView('flashcards')" id="nav-flashcards"
-      class="flex flex-col items-center gap-1 px-3 py-1 text-gray-400 hover:text-white transition-colors min-w-[48px]">
-      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>
-      <span class="text-[10px] font-medium">Karten</span>
+
+    <!-- Lernen (center hero button) -->
+    <button onclick="TabRouter.tapTab('lernen')" id="nav-tab-lernen"
+      class="flex flex-col items-center gap-0.5 px-3 pb-1.5 text-gray-400 transition-colors min-w-[60px]"
+      style="padding-top:0;margin-top:-14px">
+      <div class="w-12 h-12 rounded-[18px] flex items-center justify-center transition-all"
+           style="background:linear-gradient(135deg,#6366f1,#7c3aed);box-shadow:0 4px 18px rgba(99,102,241,0.45)">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
+          <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
+        </svg>
+      </div>
+      <span class="text-[10px] font-medium">Lernen</span>
     </button>
-    <button onclick="showView('exam')" id="nav-exam"
-      class="flex flex-col items-center gap-1 px-3 py-1 text-gray-400 hover:text-white transition-colors min-w-[48px]">
+
+    <!-- Prüfungen -->
+    <button onclick="TabRouter.tapTab('pruefungen')" id="nav-tab-pruefungen"
+      class="flex flex-col items-center gap-0.5 px-3 py-1.5 text-gray-400 transition-colors min-w-[52px]">
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-      <span class="text-[10px] font-medium">Klausur</span>
+      <span class="text-[10px] font-medium">Prüfungen</span>
     </button>
-    <button onclick="showView('profile')" id="nav-profile"
-      class="flex flex-col items-center gap-1 px-3 py-1 text-gray-400 hover:text-white transition-colors min-w-[48px]">
+
+    <!-- Profil -->
+    <button onclick="TabRouter.tapTab('profil')" id="nav-tab-profil"
+      class="flex flex-col items-center gap-0.5 px-3 py-1.5 text-gray-400 transition-colors min-w-[52px]">
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       <span class="text-[10px] font-medium">Profil</span>
     </button>
+
   </nav>
 
 </div><!-- /app-shell -->
