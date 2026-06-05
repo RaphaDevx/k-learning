@@ -126,7 +126,7 @@ window.LernenScreen = (function() {
 
     if (!courseData || !courseData.topics?.length) return allDeck;
 
-    const topicRows = courseData.topics.map(topic => {
+    const _topicCard = (topic) => {
       const cards = courseCards.filter(c => c.topic === topic.title);
       const total = cards.length;
       const done  = cards.filter(c => prog[c.id]?.reviews > 0).length;
@@ -137,7 +137,7 @@ window.LernenScreen = (function() {
       }).length;
 
       const dueBadge = due > 0
-        ? `<span class="flex-shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/20">${due} fallig</span>`
+        ? `<span class="flex-shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/20">${due} fällig</span>`
         : '';
 
       const safeTitle = topic.title.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
@@ -159,9 +159,37 @@ window.LernenScreen = (function() {
           </div>
           ${dueBadge}
         </button>`;
-    }).join('');
+    };
 
-    return allDeck + `<div class="space-y-2">${topicRows}</div>`;
+    // Group by session if sessions map exists and topics have session field
+    const hasSessions = courseData.sessions && courseData.topics.some(t => t.session);
+
+    let topicRows;
+    if (hasSessions) {
+      const grouped = {};
+      courseData.topics.forEach(t => {
+        const s = t.session || 0;
+        if (!grouped[s]) grouped[s] = [];
+        grouped[s].push(t);
+      });
+
+      topicRows = Object.keys(grouped).sort((a, b) => a - b).map(s => {
+        const label = courseData.sessions[s] || `Sitzung ${s}`;
+        const cards = grouped[s].map(_topicCard).join('');
+        return `
+          <div class="mb-4">
+            <div class="flex items-center gap-2 mb-2 px-1">
+              <span class="text-[10px] font-bold uppercase tracking-widest" style="color:var(--txt-3)">S${s}</span>
+              <span class="text-xs font-semibold" style="color:var(--txt-2)">${label}</span>
+            </div>
+            <div class="space-y-2">${cards}</div>
+          </div>`;
+      }).join('');
+    } else {
+      topicRows = `<div class="space-y-2">${courseData.topics.map(_topicCard).join('')}</div>`;
+    }
+
+    return allDeck + topicRows;
   }
 
   // ── Quiz: registry filtered by course ──

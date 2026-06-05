@@ -123,12 +123,21 @@ window.TOPICS_DATA = {
     emoji: "🔬",
     color: "#7c3aed",
     bgGradient: "linear-gradient(135deg,#4c1d95 0%,#5b21b6 100%)",
+    sessions: {
+      1: "Forschungsprozess & Grundlagen",
+      2: "Forschungsfrage & Hypothesen",
+      3: "Quantitative Methoden",
+      4: "Qualitative Methoden",
+      5: "Gütekriterien & Open Science",
+      6: "Akademisches Schreiben",
+    },
     topics: [
       {
         id: "esf-wiss",
         title: "Wissenschaftstheorie & Forschungslogik",
         short: "Wiss.theorie",
         emoji: "🧠",
+        session: 1,
         tags: ["Forschungsprozess","Hypothesen","Theorie","Deduktion","Induktion"],
         desc: "Forschungsprozess, Forschungsdesigns, Hypothesenbildung",
         priority: "medium"
@@ -138,17 +147,9 @@ window.TOPICS_DATA = {
         title: "Quantitative Methoden",
         short: "Quantitativ",
         emoji: "🧪",
+        session: 3,
         tags: ["Experiment","Randomisierung","Umfrage","Survey","Kausalität"],
         desc: "Experiment, Survey, Kausalität vs. Korrelation",
-        priority: "high"
-      },
-      {
-        id: "esf-qual",
-        title: "Qualitative Methoden",
-        short: "Qualitativ",
-        emoji: "🎤",
-        tags: ["Interview","Grounded-Theory","Ethnographie","Inhaltsanalyse","Fallstudie"],
-        desc: "Interview-Typen, Sampling-Strategien, Grounded Theory",
         priority: "high"
       },
       {
@@ -156,8 +157,19 @@ window.TOPICS_DATA = {
         title: "Skalierung & Messung",
         short: "Messung",
         emoji: "📏",
+        session: 3,
         tags: ["Skalenniveau","Nominal","Ordinal","Intervall","Ratio","Likert","Cronbach"],
         desc: "Skalenniveaus, Likert-Skalen, Cronbach's Alpha",
+        priority: "high"
+      },
+      {
+        id: "esf-qual",
+        title: "Qualitative Methoden",
+        short: "Qualitativ",
+        emoji: "🎤",
+        session: 4,
+        tags: ["Interview","Grounded-Theory","Ethnographie","Inhaltsanalyse","Fallstudie"],
+        desc: "Interview-Typen, Sampling-Strategien, Grounded Theory",
         priority: "high"
       },
       {
@@ -165,6 +177,7 @@ window.TOPICS_DATA = {
         title: "Gütekriterien & Forschungsethik",
         short: "Gütekriterien",
         emoji: "🎯",
+        session: 5,
         tags: ["Reliabilität","Validität","Objektivität","Replikation","Open-Science"],
         desc: "Reliabilität, Validität, Objektivität, Replikationskrise",
         priority: "high"
