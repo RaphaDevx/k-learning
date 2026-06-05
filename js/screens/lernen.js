@@ -109,7 +109,7 @@ window.LernenScreen = (function() {
     const color   = courseData?.color || '#6366f1';
 
     const allDeck = `
-      <button onclick="FlashcardsScreen.openForTopic('${_activeCourse}', null)"
+      <button onclick="FlashcardsScreen.filterCards('${_activeCourse}', null); showView('flashcards');"
         class="tap-card w-full flex items-center justify-between rounded-2xl p-4 mb-3"
         style="background:${bgGrad};border:1px solid rgba(255,255,255,0.1)">
         <div class="flex items-center gap-3">
@@ -139,7 +139,7 @@ window.LernenScreen = (function() {
         : '';
 
       return `
-        <button onclick="FlashcardsScreen.openForTopic('${_activeCourse}', '${topic.title.replace(/'/g, "\\'")}')"
+        <button onclick="FlashcardsScreen.filterCards('${_activeCourse}', '${topic.title.replace(/'/g, "\\'")}'); showView('flashcards');"
           class="tap-card w-full flex items-start gap-3 rounded-2xl p-4"
           style="background:var(--card);border:1px solid var(--border)">
           <span class="text-xl mt-0.5 flex-shrink-0">${topic.emoji}</span>
