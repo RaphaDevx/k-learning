@@ -18,8 +18,7 @@ window.DashboardScreen = (function() {
 
   function enrolledCourses() {
     const enrolled = AppState.get('enrolledCourses');
-    const all = (window.COURSES_CONFIG || []).map(c => c.key);
-    if (!enrolled || enrolled.length === 0) return all;
+    if (!enrolled) return [];
     return enrolled;
   }
 
@@ -39,6 +38,20 @@ window.DashboardScreen = (function() {
       red:    { hex: '#dc2626', rgb: '220,38,38'   },
       teal:   { hex: '#0d9488', rgb: '13,148,136'  },
     };
+
+    if (active.length === 0) {
+      grid.innerHTML = `
+        <div class="col-span-2 flex flex-col items-center justify-center py-12 text-center">
+          <div class="text-4xl mb-3">📚</div>
+          <div class="font-semibold mb-1" style="color:var(--txt)">Noch kein Kurs eingeschrieben</div>
+          <div class="text-sm mb-5" style="color:var(--txt-2)">Wähle deine Kurse, um loszulegen.</div>
+          <button onclick="DashboardScreen.showCourseManager()"
+            class="tap-card px-5 py-2.5 rounded-xl text-sm font-bold bg-indigo-600 text-white hover:bg-indigo-500 transition">
+            Kurse auswählen
+          </button>
+        </div>`;
+      return;
+    }
 
     grid.innerHTML = active.map(key => {
       const c = (window.COURSES_CONFIG || []).find(x => x.key === key);
@@ -106,7 +119,9 @@ window.DashboardScreen = (function() {
     const list = document.getElementById('due-today-list');
     if (!list) return;
 
-    if (due.length === 0) {
+    if (active.length === 0) {
+      list.innerHTML = '<p class="text-sm" style="color:var(--txt-3)">Kurs einschreiben, um Lernkarten zu sehen.</p>';
+    } else if (due.length === 0) {
       list.innerHTML = '<p class="text-green-400 text-sm">Alles erledigt für heute!</p>';
     } else {
       list.innerHTML = due.map(c => {
@@ -168,7 +183,7 @@ window.DashboardScreen = (function() {
   function saveCourses() {
     const checks = document.querySelectorAll('.course-enroll-check:checked');
     const selected = Array.from(checks).map(c => c.value);
-    AppState.set('enrolledCourses', selected.length > 0 ? selected : null);
+    AppState.set('enrolledCourses', selected);
     document.getElementById('course-manager-modal')?.remove();
     init();
   }
