@@ -107,11 +107,40 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
         '<p class="text-center py-10 text-sm" style="color:var(--txt-3)">Karten werden geladen…</p>';
     }
 
-    await _ensureCardsLoaded();
-    allCards = window.FLASHCARD_DATA;
+    const [, enrolledKeys] = await Promise.all([
+      _ensureCardsLoaded(),
+      CoursesDB.getEnrolledKeys(),
+    ]);
+
+    // Only show cards from enrolled courses
+    const enrolled = enrolledKeys.length > 0 ? enrolledKeys : null;
+    allCards = enrolled
+      ? (window.FLASHCARD_DATA || []).filter(c => enrolled.includes(c.course))
+      : (window.FLASHCARD_DATA || []);
+
+    _renderFilterButtons(enrolled || []);
     updateAllCount();
     filteredCards = [...allCards];
     renderDeckList(deckFilter);
+  }
+
+  function _renderFilterButtons(enrolledKeys) {
+    const bar = document.getElementById('fc-filter-bar');
+    if (!bar) return;
+    const catalog = window.COURSES_CONFIG || [];
+
+    const courseButtons = enrolledKeys.map(key => {
+      const c = catalog.find(x => x.key === key);
+      if (!c) return '';
+      return `<button data-df="${key}" onclick="FlashcardsScreen.setDeckFilter('${key}')"
+        class="fc-df-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">
+        ${c.icon} ${c.label}</button>`;
+    }).join('');
+
+    bar.innerHTML = `
+      <button data-df="all" onclick="FlashcardsScreen.setDeckFilter('all')"
+        class="fc-df-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-blue-600 text-white">Alle</button>
+      ${courseButtons}`;
   }
 
   function updateAllCount() {
@@ -151,8 +180,9 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
       return a.topic.localeCompare(b.topic);
     });
 
-    const courseColors = { Statistik: '#3b82f6', MakroII: '#10b981', ESF: '#f59e0b', OM: '#8b5cf6' };
-    const courseEmoji  = { Statistik: '📊', MakroII: '📈', ESF: '🔬', OM: '⚙️' };
+    const catalog = window.COURSES_CONFIG || [];
+    const courseColors = Object.fromEntries(catalog.map(c => [c.key, c.hex]));
+    const courseEmoji  = Object.fromEntries(catalog.map(c => [c.key, c.icon]));
 
     const now = Date.now();
     container.innerHTML = sorted.map(g => {

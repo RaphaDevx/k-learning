@@ -463,15 +463,8 @@
     <!-- ══════════════════════════════════════════════════════ -->
     <div id="view-feed" class="hidden">
       <!-- Filter bar: floats over videos -->
-      <div id="feed-filter-bar" class="flex gap-2 overflow-x-auto">
-        <button data-filter="all"        onclick="FeedScreen.render('all')"        class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-blue-600 text-white">Alle</button>
-        <button data-filter="localvideo" onclick="FeedScreen.render('localvideo')" class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">📹 Videos</button>
-        <button data-filter="ESF"        onclick="FeedScreen.render('ESF')"        class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">ESF</button>
-        <button data-filter="OM"         onclick="FeedScreen.render('OM')"         class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">OM</button>
-        <button data-filter="Statistik"  onclick="FeedScreen.render('Statistik')"  class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">Statistik</button>
-        <button data-filter="MakroII"    onclick="FeedScreen.render('MakroII')"    class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">MakroII</button>
-        <button data-filter="video"      onclick="FeedScreen.render('video')"      class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">▶ YouTube</button>
-      </div>
+      <!-- Filter bar rendered dynamically from enrolled courses (FeedScreen.init) -->
+      <div id="feed-filter-bar" class="flex gap-2 overflow-x-auto"></div>
       <div id="feed-cards-container"></div>
     </div>
 
@@ -508,14 +501,8 @@
           <div class="w-16"></div>
         </div>
 
-        <!-- Course filter pills -->
-        <div class="flex gap-2 mb-4 overflow-x-auto pb-1">
-          <button data-df="all"       onclick="FlashcardsScreen.setDeckFilter('all')"       class="fc-df-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-blue-600 text-white">Alle</button>
-          <button data-df="Statistik" onclick="FlashcardsScreen.setDeckFilter('Statistik')" class="fc-df-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">📊 Statistik</button>
-          <button data-df="MakroII"   onclick="FlashcardsScreen.setDeckFilter('MakroII')"   class="fc-df-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">📈 MakroII</button>
-          <button data-df="ESF"       onclick="FlashcardsScreen.setDeckFilter('ESF')"       class="fc-df-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">🔬 ESF</button>
-          <button data-df="OM"        onclick="FlashcardsScreen.setDeckFilter('OM')"        class="fc-df-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">⚙️ OM</button>
-        </div>
+        <!-- Course filter pills — rendered dynamically from enrolled courses (FlashcardsScreen.init) -->
+        <div id="fc-filter-bar" class="flex gap-2 mb-4 overflow-x-auto pb-1"></div>
 
         <!-- All-cards quick-start -->
         <button onclick="FlashcardsScreen.startDeck('all', null)"

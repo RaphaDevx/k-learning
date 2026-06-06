@@ -6,9 +6,34 @@ window.FeedScreen = (function() {
   let isLoading    = false;
   let observer     = null;  // IntersectionObserver for autoplay
   let isMuted      = true;  // Start muted (browser autoplay policy)
+  let _enrolledKeys = [];
 
-  function init() {
+  async function init() {
+    _enrolledKeys = await CoursesDB.getEnrolledKeys();
+    _renderFilterBar();
     load();
+  }
+
+  // ── Filter bar (dynamic, from enrolled courses) ───────────────────────────
+
+  function _renderFilterBar() {
+    const bar = document.getElementById('feed-filter-bar');
+    if (!bar) return;
+    const catalog = window.COURSES_CONFIG || [];
+    const enrolled = _enrolledKeys;
+
+    const courseButtons = enrolled.map(key => {
+      const c = catalog.find(x => x.key === key);
+      if (!c) return '';
+      return `<button data-filter="${key}" onclick="FeedScreen.render('${key}')"
+        class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-gray-700 text-gray-300">
+        ${c.icon} ${c.label}</button>`;
+    }).join('');
+
+    bar.innerHTML = `
+      <button data-filter="all" onclick="FeedScreen.render('all')"
+        class="feed-filter-btn flex-shrink-0 text-xs px-3 py-1.5 rounded-full bg-blue-600 text-white">Alle</button>
+      ${courseButtons}`;
   }
 
   // ── Data loading ──────────────────────────────────────────────────────────
@@ -38,6 +63,10 @@ window.FeedScreen = (function() {
       }
 
       cachedCards = cards || [];
+      // Filter to enrolled courses only (when showing 'all')
+      if (!course || course === 'all') {
+        cachedCards = cachedCards.filter(c => !c.course || _enrolledKeys.includes(c.course));
+      }
       _render(cachedCards);
 
     } catch (err) {
@@ -50,7 +79,11 @@ window.FeedScreen = (function() {
 
   function _staticFallback(course) {
     let cards = window.FEED_CARDS || [];
-    if (course) cards = cards.filter(c => c.course === course);
+    if (course && course !== 'all') {
+      cards = cards.filter(c => c.course === course);
+    } else {
+      cards = cards.filter(c => !c.course || _enrolledKeys.includes(c.course));
+    }
     return cards.filter(c => c.type === 'localvideo');
   }
 
