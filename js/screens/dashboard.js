@@ -2,8 +2,16 @@
 
 window.DashboardScreen = (function() {
 
-  function init() {
+  // Cached data for current render cycle
+  let _catalog = [];
+  let _enrolled = [];
+
+  async function init() {
     updateGreeting();
+    _catalog  = await CoursesDB.getAvailableCourses();
+    _enrolled = await CoursesDB.getEnrolledKeys();
+    // Expose merged catalog globally so other screens can use it
+    window.COURSES_CONFIG = _catalog;
     renderCourseGrid();
     renderDueToday();
     Gamification.render();
@@ -16,28 +24,13 @@ window.DashboardScreen = (function() {
     if (el) el.textContent = g + '! 👋';
   }
 
-  function enrolledCourses() {
-    const enrolled = AppState.get('enrolledCourses');
-    if (!enrolled) return [];
-    return enrolled;
-  }
-
   function renderCourseGrid() {
     const grid = document.getElementById('dashboard-course-grid');
     if (!grid) return;
 
     const allCards = window.FLASHCARD_DATA || [];
     const prog = AppState.get('cardProgress') || {};
-    const active = enrolledCourses();
-
-    const accents = {
-      blue:   { hex: '#2563eb', rgb: '37,99,235'   },
-      green:  { hex: '#059669', rgb: '5,150,105'   },
-      purple: { hex: '#7c3aed', rgb: '124,58,237'  },
-      orange: { hex: '#ea580c', rgb: '234,88,12'   },
-      red:    { hex: '#dc2626', rgb: '220,38,38'   },
-      teal:   { hex: '#0d9488', rgb: '13,148,136'  },
-    };
+    const active = _enrolled;
 
     if (active.length === 0) {
       grid.innerHTML = `
@@ -54,7 +47,7 @@ window.DashboardScreen = (function() {
     }
 
     grid.innerHTML = active.map(key => {
-      const c = (window.COURSES_CONFIG || []).find(x => x.key === key);
+      const c = _catalog.find(x => x.key === key);
       if (!c) return '';
 
       const courseCards = allCards.filter(x => x.course === key);
@@ -62,23 +55,23 @@ window.DashboardScreen = (function() {
       const learned = courseCards.filter(x => prog[x.id] && prog[x.id].reviews > 0).length;
       const pct = total ? Math.round(learned / total * 100) : 0;
       const days = daysUntil(c.examDate);
-      const daysText = days <= 0 ? 'Heute!' : days === 1 ? 'Morgen!' : `${days}d`;
+      const daysText = days >= 999 ? '—' : days <= 0 ? 'Heute!' : days === 1 ? 'Morgen!' : `${days}d`;
       const urgencyColor = days <= 3 ? '#f87171' : days <= 7 ? '#fbbf24' : 'var(--txt-2)';
-      const a = accents[c.color] || accents.blue;
+      const rgb = c.rgb || '37,99,235';
 
       return `
         <div class="tap-card rounded-[22px] p-4 cursor-pointer"
-             style="background:var(--card);border:1px solid rgba(${a.rgb},0.35)"
-             onmouseover="this.style.boxShadow='0 4px 20px rgba(${a.rgb},0.2)'"
+             style="background:var(--card);border:1px solid rgba(${rgb},0.35)"
+             onmouseover="this.style.boxShadow='0 4px 20px rgba(${rgb},0.2)'"
              onmouseleave="this.style.boxShadow='none'"
              onclick="CourseHubScreen.open('${key}')">
           <div class="w-10 h-10 rounded-2xl flex items-center justify-center mb-3 text-xl"
-               style="background:rgba(${a.rgb},0.14)">${c.icon}</div>
+               style="background:rgba(${rgb},0.14)">${c.icon}</div>
           <div class="font-semibold text-sm leading-snug" style="color:var(--txt)">${c.label}</div>
           <div class="text-xs mt-0.5" style="color:var(--txt-2)">${learned} / ${total} Karten</div>
           <div class="text-xs mt-0.5 font-medium" style="color:${urgencyColor}">${daysText}</div>
           <div class="mt-3 rounded-full h-1" style="background:var(--border)">
-            <div class="h-1 rounded-full transition-all" style="width:${pct}%;background:${a.hex}"></div>
+            <div class="h-1 rounded-full transition-all" style="width:${pct}%;background:${c.hex}"></div>
           </div>
         </div>`;
     }).join('') + `
@@ -109,7 +102,7 @@ window.DashboardScreen = (function() {
     const allCards = window.FLASHCARD_DATA || [];
     const prog = AppState.get('cardProgress') || {};
     const now = Date.now();
-    const active = enrolledCourses();
+    const active = _enrolled;
 
     const due = allCards
       .filter(c => active.includes(c.course))
@@ -125,7 +118,8 @@ window.DashboardScreen = (function() {
       list.innerHTML = '<p class="text-green-400 text-sm">Alles erledigt für heute!</p>';
     } else {
       list.innerHTML = due.map(c => {
-        const hex = (window.getCourse && getCourse(c.course)?.hex) || '#6b7280';
+        const course = _catalog.find(x => x.key === c.course);
+        const hex = course?.hex || '#6b7280';
         return `
         <div class="flex items-center justify-between rounded-xl px-3 py-2.5 cursor-pointer transition tap-card"
              style="background:var(--card-raised);border:1px solid var(--border)"
@@ -138,9 +132,13 @@ window.DashboardScreen = (function() {
     }
   }
 
-  function showCourseManager() {
-    const all = window.COURSES_CONFIG || [];
-    const enrolled = enrolledCourses();
+  async function showCourseManager() {
+    // Always fetch fresh catalog from Supabase
+    const all = await CoursesDB.getAvailableCourses();
+    const enrolled = await CoursesDB.getEnrolledKeys();
+
+    // Remove existing modal if open
+    document.getElementById('course-manager-modal')?.remove();
 
     const modal = document.createElement('div');
     modal.id = 'course-manager-modal';
@@ -160,7 +158,7 @@ window.DashboardScreen = (function() {
                 <span class="text-lg">${c.icon}</span>
                 <div class="flex-1">
                   <div class="font-semibold text-sm" style="color:var(--txt)">${c.label}</div>
-                  <div class="text-xs" style="color:var(--txt-2)">${c.examDate ? 'Prüfung: ' + c.examDate : ''}</div>
+                  <div class="text-xs" style="color:var(--txt-2)">${c.examDate ? 'Prüfung: ' + c.examDate : 'Kein Prüfungsdatum'}</div>
                 </div>
               </label>`;
           }).join('')}
@@ -180,12 +178,15 @@ window.DashboardScreen = (function() {
     document.body.appendChild(modal);
   }
 
-  function saveCourses() {
+  async function saveCourses() {
     const checks = document.querySelectorAll('.course-enroll-check:checked');
     const selected = Array.from(checks).map(c => c.value);
-    AppState.set('enrolledCourses', selected);
+    await CoursesDB.saveEnrollment(selected);
     document.getElementById('course-manager-modal')?.remove();
-    init();
+    _enrolled = selected;
+    window.COURSES_CONFIG = _catalog;
+    renderCourseGrid();
+    renderDueToday();
   }
 
   function daysUntil(dateStr) {
