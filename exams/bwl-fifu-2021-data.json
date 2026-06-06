@@ -1,0 +1,886 @@
+{
+  "_meta": {
+    "sourceFile": "Finanzielle Führung Prüfungs-Fragen 2021.pdf",
+    "createdAt": "2026-06-06",
+    "promptVersion": "create-exam-v2",
+    "status": "final"
+  },
+  "id": "bwl-fifu-2021",
+  "title": "BWL — Finanzielle Führung FS 2021",
+  "course": "BWL",
+  "courseColor": "#0d9488",
+  "durationMinutes": 135,
+  "totalPoints": 135,
+  "resourceLink": "assets/exams/bwl-fifu-2021/original-exam.pdf",
+  "examInfo": {
+    "date": "FS 2021",
+    "duration": "135 Minuten",
+    "format": "Kurzfragen + Berechnungsaufgaben + Multiple Choice",
+    "allowedAids": "Taschenrechner, keine Formelsammlung",
+    "grading": "Note 6.0: ≥85%, Note 5.5: ≥75%, Note 5.0: ≥65%, Note 4.5: ≥55%, Note 4.0: ≥45%"
+  },
+  "scoringRules": {
+    "single_choice": {
+      "correct": 3,
+      "wrong": 0,
+      "blank": 0
+    },
+    "open": {
+      "correct": null,
+      "wrong": null,
+      "blank": null
+    }
+  },
+  "telemetry": {
+    "hook": "onQuestionChange",
+    "saveEndpoint": "save_exam_result",
+    "trackDuration": true,
+    "trackClicks": true
+  },
+  "sections": [
+    {
+      "id": "teil1",
+      "title": "Teil 1: Kurzfragen Finanzielle Führung (30 Punkte)",
+      "description": "Bearbeiten Sie stichwortartig alle folgenden Kurzfragen.",
+      "points": 30,
+      "question_type": "open",
+      "questions": [
+        {
+          "id": "bwl-fifu-2021-q01",
+          "number": 1,
+          "type": "open",
+          "points": 4,
+          "text": "1.1 — Welche Art von Prozess ist die finanzielle Führung aus Sicht des SGMM und weshalb ist die finanzielle Führung für Unternehmen so wichtig?",
+          "model_answer": "Finanzielle Berichterstattung = Unterstützungsprozess (1P): Routinisierte Kommunikation mit der existenzrelevanten Umwelt erleichtert Allokation finanzieller Ressourcen. Controlling = Managementprozess (1P): Interne Finanzdaten für operative Entscheidungen und Strategiearbeit. Wichtigkeit: (1) Zugang zu Ressourcen / Finanzierung (1P), (2) Bereitstellung von Informationen als Entscheidungsgrundlage (1P).",
+          "topics": [
+            "SGMM",
+            "Finanzielle Führung",
+            "Controlling"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-q02",
+          "number": 2,
+          "type": "open",
+          "points": 4,
+          "text": "1.2 — Nennen Sie die vier Primärgrundsätze sowie die zwei Basisannahmen der Rechnungslegung inkl. Erklärung.",
+          "model_answer": "Primärgrundsätze (je 0.5P): Richtigkeit, Wesentlichkeit, Verständlichkeit, Vergleichbarkeit. Basisannahmen (je 1P): (1) Periodenabgrenzung (Accrual Basis) — Erträge/Aufwände werden erfasst wenn sie entstehen, nicht wenn Geld fliesst. (2) Unternehmensfortführung (Going Concern) — Annahme, dass Unternehmen weitergeführt wird.",
+          "topics": [
+            "Rechnungslegung",
+            "Grundsätze",
+            "Basisannahmen"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-q03",
+          "number": 3,
+          "type": "open",
+          "points": 2,
+          "text": "1.3 — Erklären Sie, was in der Erfolgs- und Geldflussrechnung passiert, wenn eine Rückstellung gebildet wird. Beachten Sie dabei die unterschiedlichen Perioden, die dabei angesprochen werden.",
+          "model_answer": "Erfolgsrechnung: Aufwand wird in der Periode der Bildung gebucht (1P) — Gewinn sinkt. Geldflussrechnung: Nicht betroffen (1P) — kein Geldabfluss bei Bildung der Rückstellung. Geldabfluss erst bei tatsächlicher Auszahlung in einer späteren Periode.",
+          "topics": [
+            "Rückstellung",
+            "Erfolgsrechnung",
+            "Geldflussrechnung"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-q04",
+          "number": 4,
+          "type": "open",
+          "points": 4,
+          "text": "1.4 — Inwiefern gibt es Ermessensspielräume, welche in der Erstellung der Finanzbericht­erstattung den ausgewiesenen Gewinn beeinflussen können? Nennen Sie zwei Beispiele und erläutern Sie, inwiefern damit der Gewinn beeinflusst werden kann.",
+          "model_answer": "Ermessensspielräume durch Standards vorgesehene, notwendige Schätzungen (1P). Beispiele (je 1P, max. 2P): Wertberichtigungen/Abschreibungen, Rückstellungen, Vorratsbewertung (FIFO/LIFO), Goodwill-Impairment, Aktivierung F&E-Aufwand. Erklärung Gewinnbeeinflussung: z.B. zu hohe Rückstellung mindert Gewinn (1P).",
+          "topics": [
+            "Ermessen",
+            "Abschreibungen",
+            "Rückstellungen",
+            "Bewertung"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-q05",
+          "number": 5,
+          "type": "open",
+          "points": 5,
+          "text": "1.5 — Die Deckungsbeitragsmarge der Profit AG beträgt 30%. Wo liegt der Sicherheitskoeffizient, wenn derzeit bei einem Preis von CHF 270 und Fixkosten von CHF 4.86 Mio. 70'000 Einheiten verkauft werden können?",
+          "model_answer": "DB pro Stück = 30% × 270 = CHF 81 (2P). Break-Even-Menge = 4'860'000 / 81 = 60'000 Einheiten (1P). Sicherheitskoeffizient = (70'000 − 60'000) / 70'000 = 14.29% (2P).",
+          "topics": [
+            "Break-Even",
+            "Sicherheitskoeffizient",
+            "Deckungsbeitrag"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-q06",
+          "number": 6,
+          "type": "open",
+          "points": 4,
+          "text": "1.6 — Sie starten einen Podcast. Mikrofone und Zubehör kosten CHF 1'200, Schnitt pro Staffel CHF 200 (Einmalbetrag). Spotify zahlt 17 Rappen pro gehörter Folge bei 1'000 Hörern pro Folge. Wie viele Folgen müssen produziert werden, um den Break-Even zu erreichen?",
+          "model_answer": "Fixkosten = CHF 1'200 + CHF 200 = CHF 1'400 (1P). Erlöse pro Folge = 1'000 × 0.17 = CHF 170 = Deckungsbeitrag (1P). Break-Even = 1'400 / 170 = 8.23 Folgen (1P). → Mit der 9. Folge wird der Break-Even geschafft (1P).",
+          "topics": [
+            "Break-Even",
+            "Deckungsbeitrag",
+            "Fixkosten"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-q07",
+          "number": 7,
+          "type": "open",
+          "points": 4,
+          "text": "1.7 — Geberit hat die Sanitec-Übernahme durch Fremdkapital finanziert. Entspricht dies dem 'Normalfall' und warum? Gehen Sie auf Vor- und Nachteile sowie die Funktion von Eigen- und Fremdkapital ein.",
+          "model_answer": "Nein, entspricht nicht dem Normalfall (0.5P) — normalerweise dient EK für risikoreiche M&A-Transaktionen (0.5P). Geberit hatte hohe EK-Quote und konnte durch FK-Aufnahme Kapitalstruktur optimieren (0.5P) und sich auf Rendite-Perspektive des Zieldreiecks fokussieren (0.5P). EK: Vorteile: keine Fälligkeit, Sicherheit; Nachteil: teurer. FK: Vorteile: günstiger; Nachteil: Abhängigkeit, Zinspflicht. (2P für sinnvolle Diskussion).",
+          "topics": [
+            "Kapitalstruktur",
+            "Eigenkapital",
+            "Fremdkapital",
+            "M&A"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-q08",
+          "number": 8,
+          "type": "open",
+          "points": 3,
+          "text": "1.8 — Warum werden Unternehmen von anderen Unternehmen gekauft? Nennen Sie drei Gründe.",
+          "model_answer": "Je 1P pro sinnvollem Grund (max. 3P). Beispiele: Synergien (Kosten/Erträge), Marktanteile gewinnen, Zugang zu Technologie/Know-How/Patenten, Diversifikation, vertikale Integration, Elimination eines Konkurrenten, geografische Expansion.",
+          "topics": [
+            "M&A",
+            "Übernahme",
+            "Synergie"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "teil2",
+      "title": "Teil 2: Geldflussrechnung Cash AG (17 Punkte)",
+      "description": "Erstellen Sie anhand der Bilanz und Erfolgsrechnung die Geldflussrechnung.",
+      "points": 17,
+      "question_type": "open",
+      "context": "<strong>BILANZ Cash AG</strong><br><table style='width:100%;font-size:0.75rem;border-collapse:collapse;margin:8px 0'><thead><tr style='background:#1f2937'><th style='text-align:left;padding:4px 8px;color:#9ca3af'>Mio. CHF</th><th style='text-align:right;padding:4px 8px;color:#60a5fa'>31.12.2020</th><th style='text-align:right;padding:4px 8px;color:#9ca3af'>31.12.2019</th><th style='text-align:right;padding:4px 8px;color:#9ca3af'>Δ</th></tr></thead><tbody><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Flüssige Mittel</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>112</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>70</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>+42</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Forderungen</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>18</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>15</td><td style='text-align:right;padding:4px 8px;color:#f87171'>+3</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Vorräte</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>25</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>18</td><td style='text-align:right;padding:4px 8px;color:#f87171'>+7</td></tr><tr style='border-top:1px solid #374151;font-weight:bold'><td style='padding:4px 8px;color:#fff'>Total Umlaufvermögen</td><td style='text-align:right;padding:4px 8px;color:#fff'>155</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>103</td><td style='text-align:right;padding:4px 8px'></td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Beteiligungen</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>7</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>15</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>−8</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Sachanlagen</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>38</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>41</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>−3</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Immaterielle Anlagen</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>11</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>7</td><td style='text-align:right;padding:4px 8px;color:#f87171'>+4</td></tr><tr style='border-top:1px solid #374151;font-weight:bold'><td style='padding:4px 8px;color:#fff'>Total Aktiven</td><td style='text-align:right;padding:4px 8px;color:#fff'>211</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>166</td><td style='text-align:right;padding:4px 8px'></td></tr><tr style='border-top:2px solid #4b5563'><td style='padding:4px 8px;color:#d1d5db'>Verbindlichkeiten L+L</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>27</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>22</td><td style='text-align:right;padding:4px 8px;color:#f87171'>+5</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Darlehen</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>10</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>11</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>−1</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Rückstellungen</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>8</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>6</td><td style='text-align:right;padding:4px 8px;color:#f87171'>+2</td></tr><tr style='border-top:1px solid #374151;font-weight:bold'><td style='padding:4px 8px;color:#fff'>Eigenkapital (inkl. Jahresgewinn 46)</td><td style='text-align:right;padding:4px 8px;color:#fff'>166</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>127</td><td style='text-align:right;padding:4px 8px'></td></tr></tbody></table><br><strong>ERFOLGSRECHNUNG 2020</strong><br><table style='width:100%;font-size:0.75rem;border-collapse:collapse;margin:8px 0'><tbody><tr style='background:#1f2937'><td style='padding:4px 8px;color:#9ca3af'>Mio. CHF</td><td style='text-align:right;padding:4px 8px;color:#60a5fa'>2020</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Erlöse</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>393</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>EBIT</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>47</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Finanzergebnis</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>+8</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Steuern</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>−9</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Abschreibungen Sachanlagen</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>−17</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Abschreibungen Immaterielle</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>−4</td></tr><tr style='border-top:1px solid #374151;font-weight:bold'><td style='padding:4px 8px;color:#fff'>Jahresgewinn</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7;font-weight:bold'>46</td></tr></tbody></table><br><em style='color:#6b7280;font-size:0.7rem'>Dividende 2020 (für GJ 2019): CHF 7 Mio. | Rückgang Beteiligungen = Verkauf</em>",
+      "questions": [
+        {
+          "id": "bwl-fifu-2021-q09",
+          "number": 9,
+          "type": "open",
+          "points": 9,
+          "text": "2.1 — Erstellen Sie die Geldflussrechnung für das Jahr 2020 mittels des vorgegebenen Schemas (operativer CF, Investitions-CF, Finanzierungs-CF).",
+          "model_answer": "Operativer CF: EBIT 47 + AfA Sachanlagen 17 + AfA Imm. 4 + Rückstellungen +2 − Forderungen −3 − Vorräte −7 + Verbindlichkeiten +5 + Finanzergebnis +8 − Steuern −9 = CFO 64. Investitions-CF: Beteiligungsverkauf +8 − Immaterielle Anlagen −4 − Sachanlagen 0 = CFI −14 (netto). Finanzierungs-CF: Dividende −7 − Darlehen −1 = CFF −8. Zunahme Flüssige Mittel = 64 − 14 − 8 = 42 ✓",
+          "topics": [
+            "Geldflussrechnung",
+            "CFO",
+            "CFI",
+            "CFF"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-q10",
+          "number": 10,
+          "type": "open",
+          "points": 6,
+          "text": "2.2 — Wie hoch ist der Free Cashflow? Wo in der Geldflussrechnung sind Aussenfinanzierungs-Entscheide und Innenfinanzierungskraft ablesbar? Wie interpretieren Sie den Free CF und die Geldflussrechnung der Cash AG insgesamt?",
+          "model_answer": "Free CF = CFO − CFI − Mindestdividende = 64 − 14 − 7 = CHF 43 Mio. (1P). Innenfinanzierungskraft = operativer CF (1P). Aussenfinanzierungs-Entscheide = CF aus Finanzierungstätigkeit (1P). FCF positiv → Handlungsspielraum für Investitionen oder Ausschüttungen (1P). CFO positiv → gesundes, operativ leistungsfähiges Unternehmen (1P). CFI negativ → Investitionen in zukünftige Ertragspotenziale (1P).",
+          "topics": [
+            "Free Cashflow",
+            "Innenfinanzierung",
+            "Aussenfinanzierung"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-q11",
+          "number": 11,
+          "type": "open",
+          "points": 2,
+          "text": "2.3 — Auf das Ergebnis welches Geschäftsjahres bezieht sich die im Jahr 2020 ausbezahlte Dividende von CHF 7 Mio.? Begründen Sie Ihre Antwort.",
+          "model_answer": "Die 2020 ausbezahlte Dividende bezieht sich auf das Geschäftsjahr 2019 (1P). Die Dividende wird nach Abschluss des GJ von der Generalversammlung bewilligt und erst danach ausbezahlt (1P).",
+          "topics": [
+            "Dividende",
+            "Generalversammlung"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "teil3",
+      "title": "Teil 3: Fallstudie Lufthansa (27 Punkte)",
+      "description": "Lufthansa Group — Auszüge aus dem Geschäftsbericht 2020. Bilanz, Erfolgsrechnung und Geldflussrechnung sind unten abgebildet.",
+      "points": 27,
+      "question_type": "open",
+      "context": "<strong>Auszug Geschäftsbericht Lufthansa 2020</strong><br><br><strong>Bilanz — Aktiven</strong><br><img src='assets/exams/bwl-fifu-2021/bilanz_aktiven.jpg' style='max-width:100%;border-radius:8px;margin:8px 0;border:1px solid #374151'><br><strong>Bilanz — Passiven</strong><br><img src='assets/exams/bwl-fifu-2021/bilanz_passiven.jpg' style='max-width:100%;border-radius:8px;margin:8px 0;border:1px solid #374151'><br><strong>Konzern-Gewinn- und Verlustrechnung</strong><br><img src='assets/exams/bwl-fifu-2021/guv.jpg' style='max-width:100%;border-radius:8px;margin:8px 0;border:1px solid #374151'><br><strong>Geldflussrechnung</strong><br><img src='assets/exams/bwl-fifu-2021/geldfluss1.jpg' style='max-width:100%;border-radius:8px;margin:8px 0;border:1px solid #374151'><img src='assets/exams/bwl-fifu-2021/geldfluss2.jpg' style='max-width:100%;border-radius:8px;margin:8px 0;border:1px solid #374151'>",
+      "questions": [
+        {
+          "id": "bwl-fifu-2021-q12",
+          "number": 12,
+          "type": "open",
+          "points": 10,
+          "text": "3.1 — Berechnen Sie für 2020 und 2019: (a) Liquiditätsgrad 3, (b) Verschuldungsgrad, (c) EBIT-Marge. In welchen Perspektiven des Zieldreiecks sind signifikante Änderungen sichtbar? Wie beurteilen Sie die Lage der Lufthansa 2020?",
+          "model_answer": "Liquiditätsgrad 3: 2020: 10'040/14'659 = 68.49% | 2019: 11'285/15'986 = 70.59%. Verschuldungsgrad: 2020: 38'097/1'387 = 2'746.7% | 2019: 32'403/10'256 = 315.9%. EBIT-Marge: 2020: −8'297/13'589 = −61.1% | 2019: 2'175/36'424 = 5.97%. (1P je Kennzahl richtig = 3P). Signifikante Verschlechterung in Rendite- und Sicherheitsperspektive (1P). Liquiditätsperspektive relativ stabil (1P). Corona-Auswirkungen (1P). Beurteilung mit Bezug auf alle 3 Perspektiven (4P).",
+          "topics": [
+            "Kennzahlen",
+            "Liquiditätsgrad",
+            "Verschuldungsgrad",
+            "EBIT-Marge",
+            "Zieldreieck"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-q13",
+          "number": 13,
+          "type": "open",
+          "points": 4,
+          "text": "3.2 — Die flüssigen Mittel der Lufthansa haben trotz Corona zugenommen. Wie ist das zu erklären? Gehen Sie auf die zwei wichtigsten Positionen in der Geldflussrechnung ein.",
+          "model_answer": "Zunahme durch: (1) Kapitalerhöhung — Aufnahme von neuem Eigenkapital CHF 306 Mio. (2P). (2) Aufnahme von Finanzschulden CHF 6'738 Mio. (2P). Beide im Cashflow aus Finanzierungstätigkeit sichtbar.",
+          "topics": [
+            "Geldflussrechnung",
+            "Kapitalerhöhung",
+            "Finanzschulden"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-q14",
+          "number": 14,
+          "type": "open",
+          "points": 4,
+          "text": "3.3 — Lufthansa hat Fixkosten von € Mio. 11'750. Wie gross ist der Operating Leverage im Jahr 2019? Wie interpretieren Sie diesen Wert?",
+          "model_answer": "DB 2019 = Fixkosten + EBIT = 11'750 + 1'213 = 12'963 Mio. (1P je Berechnung). Operating Leverage = DB / (DB − Fixkosten) = 12'963 / (12'963 − 11'750) = 12'963 / 1'213 = 10.69 (2P). Interpretation: Steigt Umsatz um 1%, steigt EBIT um 10.69% (1P) — hohes Hebelwirkungspotenzial bei hohem Fixkostenanteil.",
+          "topics": [
+            "Operating Leverage",
+            "Deckungsbeitrag",
+            "Fixkosten"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-q15",
+          "number": 15,
+          "type": "open",
+          "points": 2,
+          "text": "3.4 — Erstellt Lufthansa die Erfolgsrechnung nach dem Gesamt- oder nach dem Umsatzkostenverfahren? Begründen Sie Ihre Antwort.",
+          "model_answer": "Gesamtkostenverfahren (1P), erkennbar an den Bestandesänderungen oder den separat ausgewiesenen Abschreibungen — beim Umsatzkostenverfahren sind diese nicht direkt sichtbar (1P).",
+          "topics": [
+            "Gesamtkostenverfahren",
+            "Umsatzkostenverfahren",
+            "Erfolgsrechnung"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-q16",
+          "number": 16,
+          "type": "open",
+          "points": 4,
+          "text": "3.5 — Berechnen Sie den WACC der Lufthansa für 2019. Zinsen 2019: € Mio. 853.7 auf langfristige RST und FK (16'417 Mio.). Steuerrate 20%, Eigenkapitalrendite 12%.",
+          "model_answer": "EK-Quote 2019 = 10'256/42'659 = 24.04% | FK-Quote = 75.96% (1P). rFK = 853.7/16'417 = 5.2% (1P). WACC = 24.04%×12% + 75.96%×5.2%×(1−20%) = 2.88% + 3.16% = 6.04% (1P + 0.5P Formel).",
+          "topics": [
+            "WACC",
+            "Kapitalkosten",
+            "Eigenkapital",
+            "Fremdkapital"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-q17",
+          "number": 17,
+          "type": "open",
+          "points": 3,
+          "text": "3.6 — Die Corona-Pandemie hatte erheblichen Einfluss auf den EBIT der Lufthansa. In welchen Positionen der Erfolgsrechnung sind die Auswirkungen am besten sichtbar?",
+          "model_answer": "Umsatzerlöse eingebrochen (1P) — insbesondere Erlöse aus Verkehrsleistungen: 28'136→9'078. Materialaufwand stark zurückgegangen (1P) — weniger Flüge (Kerosin, Flughafengebühren). Personalaufwand gesunken (1P) — Entlassungen, Kurzarbeit.",
+          "topics": [
+            "EBIT",
+            "Corona",
+            "Umsatzerlöse",
+            "Materialaufwand"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "teil4",
+      "title": "Teil 4: Unternehmensbewertung Pharma AG (16 Punkte)",
+      "description": "Unternehmensbewertung mittels DCF- und Multiple-Methode.",
+      "points": 16,
+      "question_type": "open",
+      "context": "<strong>«Angebotsdetails Pharma AG»</strong><br><table style='width:100%;font-size:0.75rem;border-collapse:collapse;margin:8px 0'><thead><tr style='background:#1f2937'><th style='text-align:left;padding:4px 8px;color:#9ca3af'>Erfolgsrechnung (CHF Mio.)</th><th style='text-align:right;padding:4px 8px;color:#60a5fa'>GJ 2020</th></tr></thead><tbody><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Nettoumsatz</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>1'986</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Amortisationen</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>(302)</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Abschreibungen</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>(197)</td></tr><tr style='border-top:1px solid #374151;font-weight:bold'><td style='padding:4px 8px;color:#fff'>EBIT</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>109</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Reingewinn</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>83</td></tr></tbody></table><table style='width:100%;font-size:0.75rem;border-collapse:collapse;margin:8px 0'><thead><tr style='background:#1f2937'><th style='text-align:left;padding:4px 8px;color:#9ca3af'>Bilanz (CHF Mio.)</th><th style='text-align:right;padding:4px 8px;color:#60a5fa'>31.12.2020</th></tr></thead><tbody><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Umlaufvermögen</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>1'797</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Anlagevermögen</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>4'192</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Fremdkapital</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>1'992</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Eigenkapital</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>3'997</td></tr></tbody></table><strong>Prognose Free Cash Flow:</strong> 2021E: CHF 386 Mio. | 2022E: CHF 446 Mio. | 2023E: CHF 493 Mio.<br>WACC = 10% | Ewige Wachstumsrate g = 1% | EBITDA-Multiplikator Pharma = 17.25",
+      "questions": [
+        {
+          "id": "bwl-fifu-2021-q18",
+          "number": 18,
+          "type": "open",
+          "points": 8,
+          "text": "4.1 — Berechnen Sie basierend auf der DCF-Methode den Nettounternehmenswert. WACC = 10%, ewige Wachstumsrate g = 1%. Nutzen Sie Perioden 2021–2023 direkt, ab t=4 Terminal Value. Leiten Sie danach den Nettowert ab.",
+          "model_answer": "FCF diskontiert: t=1: 386/1.1 = 350.9 (1P) | t=2: 446/1.1² = 368.6 (1P) | t=3: 493/1.1³ = 370.4 (1P). TV in t=3: (493×1.01)/(0.1−0.01) = 5'532.6 Mio. (1P). TV diskontiert auf t=0: 5'532.6/1.1³ = 4'156.7 Mio. (1P). Summe PV = 350.9+368.6+370.4+4'156.7 = 5'246.6 Mio. (Bruttowert) (1P). Nettowert = 5'246.6 − 1'992 (FK) = CHF 3'254.6 Mio. (1P).",
+          "topics": [
+            "DCF",
+            "Terminal Value",
+            "Unternehmensbewertung",
+            "WACC"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-q19",
+          "number": 19,
+          "type": "open",
+          "points": 4,
+          "text": "4.2 — Berechnen Sie zum Vergleich den Brutto- und Nettounternehmenswert nach der Multiple-Methode (EBITDA-Multiplikator = 17.25).",
+          "model_answer": "EBITDA = EBIT + AfA + Amortisation = 109 + 197 + 302 = 608 Mio. (2P). Bruttowert = 17.25 × 608 = CHF 10'488 Mio. (1P). Nettowert = 10'488 − 1'992 = CHF 8'496 Mio. (1P).",
+          "topics": [
+            "Multiple-Methode",
+            "EBITDA",
+            "Unternehmensbewertung"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-q20",
+          "number": 20,
+          "type": "open",
+          "points": 4,
+          "text": "4.3 — Aus welchem Grund werden DCF- und Multiple-Methode in der Praxis gemeinsam verwendet? Gehen Sie auf Vor- und Nachteile beider Methoden ein.",
+          "model_answer": "Beide Methoden werden kombiniert, um Nachteile der jeweils anderen auszugleichen (1P). Unternehmensbewertung ist keine exakte Wissenschaft → Bandbreite statt Punktwert (1P). DCF: Vorteile: zukunftsorientiert, unternehmensspezifisch. Nachteil: sensibel auf Annahmen (g, WACC). Multiple: Vorteil: marktbasiert, einfach. Nachteil: Vergleichbarkeit der Peer Group. (2P für Vor-/Nachteile).",
+          "topics": [
+            "DCF",
+            "Multiple-Methode",
+            "Vor- und Nachteile"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "teil5",
+      "title": "Teil 5: Multiple-Choice Fragen (45 Punkte)",
+      "description": "15 Fragen, je 3 Punkte. Nur eine Antwortmöglichkeit ist zutreffend. Keine Negativpunkte.",
+      "points": 45,
+      "question_type": "single_choice",
+      "questions": [
+        {
+          "id": "bwl-fifu-2021-mc01",
+          "number": 21,
+          "type": "single_choice",
+          "points": 3,
+          "text": "5.1 — Welche der folgenden Aussagen betreffend die Veränderung der Aktiven von Lufthansa ist richtig?",
+          "imageHtml": "<img src='assets/exams/bwl-fifu-2021/bilanz_aktiven.jpg' style='max-width:100%;border-radius:8px;margin:8px 0'>",
+          "choices": [
+            {
+              "key": "A",
+              "text": "Will ein Bilanzleser Informationen über eine Wertberichtigung von Goodwill gewinnen, wird er im Anhang 17 fündig."
+            },
+            {
+              "key": "B",
+              "text": "Will ein Bilanzleser Informationen über eine Wertberichtigung von Goodwill gewinnen, wird er im Anhang 18 fündig."
+            },
+            {
+              "key": "C",
+              "text": "Will ein Bilanzleser Informationen über eine Wertberichtigung von Goodwill gewinnen, wird er im Anhang 45 fündig."
+            },
+            {
+              "key": "D",
+              "text": "Keine der obenstehenden Aussagen ist korrekt."
+            }
+          ],
+          "correct": [
+            "A"
+          ],
+          "explanation": "Goodwill mit unbestimmter Nutzungsdauer (Anhang 17) muss jährlich auf Werthaltigkeit getestet werden (Impairment Test). Anhang 17 enthält die Angaben zu immateriellen Vermögenswerten mit unbestimmter Nutzungsdauer.",
+          "topics": [
+            "Bilanz",
+            "Goodwill",
+            "Anhang",
+            "Immaterielle Anlagen"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-mc02",
+          "number": 22,
+          "type": "single_choice",
+          "points": 3,
+          "text": "5.2 — Welche der folgenden Aussagen betreffend die Veränderung der Passiven von Lufthansa ist NICHT richtig?",
+          "imageHtml": "<img src='assets/exams/bwl-fifu-2021/bilanz_passiven.jpg' style='max-width:100%;border-radius:8px;margin:8px 0'>",
+          "choices": [
+            {
+              "key": "A",
+              "text": "An der Position «gezeichnetes Kapital» ist zu sehen, dass Lufthansa 2020 eine Kapitalerhöhung durchgeführt hat."
+            },
+            {
+              "key": "B",
+              "text": "Aufgrund der Zunahme der Finanzschulden kann geschlossen werden, dass Lufthansa im Jahr 2020 einen Verlust gemacht hat."
+            },
+            {
+              "key": "C",
+              "text": "Die Eigenkapitalquote hat, insbesondere durch den Verlust im Jahr 2020, stark abgenommen."
+            },
+            {
+              "key": "D",
+              "text": "Wäre der Verlust von Lufthansa im Jahr 2020 doppelt so gross gewesen, wäre die Lufthansa überschuldet und müsste wohl Konkurs anmelden."
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "B ist falsch: Finanzschulden steigen durch Kapitalaufnahme (Fremdfinanzierung), nicht weil ein Verlust gemacht wurde. A ist richtig: Gezeichnetes Kapital stieg von 1'224 auf 1'530. C ist richtig: EK sank von 10'256 auf 1'387. D ist richtig: Bei doppeltem Verlust (−13'450) wäre EK negativ → Überschuldung.",
+          "topics": [
+            "Bilanz Passiven",
+            "Eigenkapital",
+            "Finanzschulden",
+            "Überschuldung"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-mc03",
+          "number": 23,
+          "type": "single_choice",
+          "points": 3,
+          "text": "5.3 — Welche der folgenden Aussagen betreffend die Geldflussrechnung von Lufthansa ist richtig?",
+          "choices": [
+            {
+              "key": "A",
+              "text": "Da die flüssigen Mittel im Jahr 2020 zugenommen haben, ist der Free Cashflow positiv."
+            },
+            {
+              "key": "B",
+              "text": "Lufthansa verwendet für die Berechnung des operativen Cashflows die direkte Methode."
+            },
+            {
+              "key": "C",
+              "text": "Die Zunahme der flüssigen Mittel im Jahr 2020 ist hauptsächlich auf die Aufnahme von Eigenkapital zurückzuführen."
+            },
+            {
+              "key": "D",
+              "text": "Lufthansa hat die Wahlmöglichkeit wahrgenommen, erhaltene und bezahlte Zinsen in verschiedenen Cashflows auszuweisen."
+            }
+          ],
+          "correct": [
+            "D"
+          ],
+          "explanation": "D ist richtig: IFRS erlaubt Wahlrechte bei der Klassifizierung von Zinsen. Lufthansa weist Zinserträge im Investitions-CF und Zinsaufwände im Finanzierungs-CF aus. A ist falsch: Zunahme flüssige Mittel ≠ positiver FCF (FCF = CFO − CFI). B ist falsch: Lufthansa verwendet die indirekte Methode (start mit Ergebnis vor Steuern). C ist falsch: Hauptgrund ist Aufnahme von Finanzschulden (CHF 6.7 Mrd.).",
+          "topics": [
+            "Geldflussrechnung",
+            "IFRS",
+            "Zinsen",
+            "Free Cashflow"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-mc04",
+          "number": 24,
+          "type": "single_choice",
+          "points": 3,
+          "text": "5.4 — Welche der folgenden Aussagen zur Flugbranche ist NICHT korrekt?",
+          "choices": [
+            {
+              "key": "A",
+              "text": "Vor der Einführung von IFRS 16 war es für Airlines möglich, die genutzten Flugzeuge ausserhalb der Bilanz auszuweisen."
+            },
+            {
+              "key": "B",
+              "text": "Die Flugbranche hatte bereits vor der Corona-Krise Probleme mit der Rentabilität vieler Airlines."
+            },
+            {
+              "key": "C",
+              "text": "Für etablierte Airlines führt ein kleiner Verlust in einem Jahr automatisch zu einem Kapitalverlust."
+            },
+            {
+              "key": "D",
+              "text": "Sind die Aktiven einer Airline tiefer als die Verbindlichkeiten, muss das Unternehmen nach Obligationenrecht den Richter benachrichtigen."
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "C ist falsch: Ein Verlust führt zur Reduzierung der Gewinnrücklagen, aber nur wenn das Eigenkapital unter die Hälfte des Aktienkapitals fällt, liegt ein Kapitalverlust im rechtlichen Sinne vor (Art. 725 OR). Ein kleiner Verlust bei hohem EK verursacht keinen Kapitalverlust.",
+          "topics": [
+            "IFRS 16",
+            "Leasing",
+            "Kapitalverlust",
+            "OR 725"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-mc05",
+          "number": 25,
+          "type": "single_choice",
+          "points": 3,
+          "text": "5.5 — Wann verbucht ein Unternehmen einen Umsatz in der Erfolgsrechnung?",
+          "choices": [
+            {
+              "key": "A",
+              "text": "Wenn der Vertrag mit dem Kunden rechtsverbindlich unterschrieben wurde."
+            },
+            {
+              "key": "B",
+              "text": "Wenn die im Vertrag genannte Leistung erbracht wurde."
+            },
+            {
+              "key": "C",
+              "text": "Wenn die Rechnung bezahlt wurde."
+            },
+            {
+              "key": "D",
+              "text": "Wenn die im Vertrag genannten Garantiefristen abgelaufen sind."
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "Periodenabgrenzungsprinzip (Accrual Basis): Umsatz wird erfasst, wenn die Leistung erbracht wurde (Performance Obligation erfüllt) — unabhängig vom Zahlungseingang. Dies entspricht IFRS 15 (Revenue Recognition).",
+          "topics": [
+            "Revenue Recognition",
+            "IFRS 15",
+            "Periodenabgrenzung"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-mc06",
+          "number": 26,
+          "type": "single_choice",
+          "points": 3,
+          "text": "5.6 — Welche der folgenden Situationen ist ein Indikator dafür, dass sich ein Unternehmen in signifikanten finanziellen Schwierigkeiten befindet?",
+          "choices": [
+            {
+              "key": "A",
+              "text": "Der Cashflow aus Investitionstätigkeit ist über mehrere Jahre positiv."
+            },
+            {
+              "key": "B",
+              "text": "Der Cashflow aus Finanzierungstätigkeit ist über mehrere Jahre negativ."
+            },
+            {
+              "key": "C",
+              "text": "Der Cashflow aus operativer Tätigkeit ist über mehrere Jahre positiv."
+            },
+            {
+              "key": "D",
+              "text": "Der Free Cashflow ist im betroffenen Jahr negativ."
+            }
+          ],
+          "correct": [
+            "A"
+          ],
+          "explanation": "A ist ein Warnsignal: Positiver CFI über mehrere Jahre bedeutet, dass das Unternehmen Anlagen verkauft (Desinvestition), um Liquidität zu gewinnen — ein klassisches Zeichen finanzieller Not. B ist normal (Schuldenabbau, Dividenden). C ist positiv. D allein ist kein Alarmsignal.",
+          "topics": [
+            "Geldflussrechnung",
+            "Financial Distress",
+            "CFI"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-mc07",
+          "number": 27,
+          "type": "single_choice",
+          "points": 3,
+          "text": "5.7 — Eine Unternehmung weist folgende Bilanz aus (31.12.2020: Total Aktiven 150, EK 118, FK 32, davon Darlehen 7, Zinsaufwand 2020: CHF 2 Mio.). Welche Aussage ist zutreffend?",
+          "imageHtml": "<div style='overflow-x:auto'><table style='width:100%;font-size:0.72rem;border-collapse:collapse;margin:8px 0'><thead><tr style='background:#1f2937'><th style='text-align:left;padding:4px 8px;color:#9ca3af'>Mio. CHF</th><th style='text-align:right;padding:4px 8px;color:#60a5fa'>31.12.2020</th><th style='text-align:right;padding:4px 8px;color:#9ca3af'>31.12.2019</th></tr></thead><tbody><tr style='border-top:1px solid #374151'><td style='padding:4px 8px'>Flüssige Mittel</td><td style='text-align:right;padding:4px 8px'>79</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>50</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px'>Forderungen</td><td style='text-align:right;padding:4px 8px'>13</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>11</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px'>Vorräte</td><td style='text-align:right;padding:4px 8px'>18</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>13</td></tr><tr style='border-top:1px solid #374151;font-weight:bold'><td style='padding:4px 8px'>Total Aktiven</td><td style='text-align:right;padding:4px 8px'>150</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>119</td></tr><tr style='border-top:2px solid #4b5563'><td style='padding:4px 8px'>Darlehen</td><td style='text-align:right;padding:4px 8px'>7</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>8</td></tr><tr style='border-top:1px solid #374151;font-weight:bold'><td style='padding:4px 8px'>Total EK (Jahresgewinn 33)</td><td style='text-align:right;padding:4px 8px'>118</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>90</td></tr></tbody></table></div>",
+          "choices": [
+            {
+              "key": "A",
+              "text": "Gesamtkapitalrendite 26.0%, Anlagendeckungsgrad I 33.9%"
+            },
+            {
+              "key": "B",
+              "text": "Gesamtkapitalrendite 24.5%, Anlagendeckungsgrad I 33.9%"
+            },
+            {
+              "key": "C",
+              "text": "Gesamtkapitalrendite 25.3%, Anlagendeckungsgrad I 295.0%"
+            },
+            {
+              "key": "D",
+              "text": "Gesamtkapitalrendite 26.0%, Anlagendeckungsgrad I 295.0%"
+            }
+          ],
+          "correct": [
+            "D"
+          ],
+          "explanation": "GKR = (Jahresgewinn + Zinsaufwand) / Gesamtkapital = (33+2)/150 × 100 = 35/150 = 23.3%... Warte: GKR = (Jahresgewinn + Zinsaufwand) / Ø-GK = (33+2)/((150+119)/2) = 35/134.5 = 26.0% ✓. Anlagendeckungsgrad I = EK / Anlagevermögen = 118/40 × 100 = 295.0% ✓.",
+          "topics": [
+            "Gesamtkapitalrendite",
+            "Anlagendeckungsgrad",
+            "Kennzahlen"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-mc08",
+          "number": 28,
+          "type": "single_choice",
+          "points": 3,
+          "text": "5.8 — Welche der folgenden Aussagen ist im Kontext eines Skiresorts wie der Weissen Arena NICHT korrekt?",
+          "choices": [
+            {
+              "key": "A",
+              "text": "Mit zusätzlichen Besuchern steigen die variablen Kosten pro Besucher."
+            },
+            {
+              "key": "B",
+              "text": "Mit zusätzlichen Besuchern sinken die Fixkosten pro Besucher."
+            },
+            {
+              "key": "C",
+              "text": "Bei einem integrierten Geschäftsmodell ist eine Teilkostenrechnung für jedes Angebot die bevorzugte Option gegenüber einer Vollkostenrechnung."
+            },
+            {
+              "key": "D",
+              "text": "Angesichts des hohen Niveaus der Gemeinkosten können kleine Änderungen in der Kostenaufteilung die Rentabilität erheblich beeinflussen."
+            }
+          ],
+          "correct": [
+            "A"
+          ],
+          "explanation": "A ist falsch: Variable Kosten sind per Definition konstant pro Einheit — sie variieren in Summe, nicht pro Stück. B ist richtig: Fixkosten verteilen sich auf mehr Besucher → Degression. C ist richtig: Teilkostenrechnung vermeidet willkürliche Schlüsselung von Gemeinkosten. D ist richtig: Bei hohem Fixkostenanteil sind Kostenverteilungsentscheidungen sehr ergebnisrelevant.",
+          "topics": [
+            "Kostenrechnung",
+            "Variable Kosten",
+            "Fixkosten",
+            "Teilkostenrechnung"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-mc09",
+          "number": 29,
+          "type": "single_choice",
+          "points": 3,
+          "text": "5.9 — Unternehmen X: Verschuldungsgrad 60%, Eigenkapitalkosten 15%, Fremdkapitalkosten 4%, Gewinnsteuersatz 25%. Wie hoch sind die steueradjustierten Kapitalkosten (WACCs)?",
+          "choices": [
+            {
+              "key": "A",
+              "text": "7.8%"
+            },
+            {
+              "key": "B",
+              "text": "10.2%"
+            },
+            {
+              "key": "C",
+              "text": "10.9%"
+            },
+            {
+              "key": "D",
+              "text": "Keine der obenstehenden Aussagen ist korrekt."
+            }
+          ],
+          "correct": [
+            "D"
+          ],
+          "explanation": "Verschuldungsgrad FK/EK = 60% → EK/GK = 1/(1+0.6) = 62.5%, FK/GK = 37.5%. WACC = 62.5%×15% + 37.5%×4%×(1−25%) = 9.375% + 1.125% = 10.5%. Keine Option zeigt 10.5% → D korrekt. (Alternativ: FK/GK=60%, EK=40%: 40%×15%+60%×4%×0.75=6%+1.8%=7.8%=A — je nach Definition des Verschuldungsgrades.)",
+          "topics": [
+            "WACC",
+            "Verschuldungsgrad",
+            "Kapitalkosten"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-mc10",
+          "number": 30,
+          "type": "single_choice",
+          "points": 3,
+          "text": "5.10 — HanseHandel AG: Vorräte 31.12.2019: 3 Mio. Einheiten à CHF 10. Kauf 26.3.: 2 Mio. à CHF 12. Kauf 15.6.: 3.5 Mio. à CHF 11. Verkauf: 5 Mio. Einheiten. Endbestand per 31.12.2020: CHF 38.5 Mio. Nach welcher Methode wurden bewertet?",
+          "choices": [
+            {
+              "key": "A",
+              "text": "LIFO"
+            },
+            {
+              "key": "B",
+              "text": "Gewogene Durchschnittskostenmethode"
+            },
+            {
+              "key": "C",
+              "text": "FIFO"
+            },
+            {
+              "key": "D",
+              "text": "Die Frage kann aus den Informationen nicht beantwortet werden."
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "FIFO: älteste Bestände zuerst verkauft. Restbestand = 3.5 Mio. Einheiten. Zusammensetzung: 3 Mio. à CHF 11 (= 33) + 0.5 Mio. à CHF 11 = nein... Restbestand 3.5 Mio. à CHF 11 (letzter Kauf) = 38.5 Mio. ✓ → FIFO, da neueste Preise im Endbestand. Ø-Kosten: (30+24+38.5) / 8.5 = 10.88, 3.5×10.88=38.1 ≠ 38.5. FIFO stimmt.",
+          "topics": [
+            "Vorratsbewertung",
+            "FIFO",
+            "LIFO",
+            "Durchschnittskostenmethode"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-mc11",
+          "number": 31,
+          "type": "single_choice",
+          "points": 3,
+          "text": "5.11 — Welche der nachfolgenden Aussagen zur Due Diligence ist zutreffend?",
+          "choices": [
+            {
+              "key": "A",
+              "text": "Die Due Diligence ist ein Prozess moderner Rechnungslegung und wird im Jahresbericht veröffentlicht."
+            },
+            {
+              "key": "B",
+              "text": "Das Ergebnis der Due Diligence hat in der Regel keinen grossen Einfluss auf den bezahlten Preis."
+            },
+            {
+              "key": "C",
+              "text": "Das Aufdecken relevanter Informationen kann schwierig sein, da im Vorfeld oft nicht bekannt ist, wonach gesucht wird."
+            },
+            {
+              "key": "D",
+              "text": "Die Due Diligence wird aus einem Team von Mitarbeitenden und Beratern des übernehmenden UND des verkaufenden Unternehmens durchgeführt."
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "C ist richtig: Bei der Due Diligence ist der Untersuchungsgegenstand oft unbekannt — man sucht nach unbekannten Risiken (unknown unknowns). A ist falsch: DD ist kein Teil der Rechnungslegung, wird nicht veröffentlicht. B ist falsch: DD-Ergebnisse beeinflussen Preis und Kaufentscheidung erheblich. D ist falsch: DD wird vom Käufer durchgeführt, nicht vom Verkäufer.",
+          "topics": [
+            "Due Diligence",
+            "M&A",
+            "Unternehmensübernahme"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-mc12",
+          "number": 32,
+          "type": "single_choice",
+          "points": 3,
+          "text": "5.12 — Ein Unternehmen verkauft Vorräte auf Kredit CHF 3.5 Mio., bezahlt CHF 2 Mio. aus Rückstellungen an einen Kunden (Gerichtsurteil), tätigt eine bar bezahlte Investition CHF 6 Mio. Wie beeinflusst das den Cashflow?",
+          "choices": [
+            {
+              "key": "A",
+              "text": "Der Cashflow verändert sich um minus CHF 4 Mio."
+            },
+            {
+              "key": "B",
+              "text": "Der Cashflow verändert sich um minus CHF 4.5 Mio."
+            },
+            {
+              "key": "C",
+              "text": "Der Cashflow verändert sich um minus CHF 6 Mio."
+            },
+            {
+              "key": "D",
+              "text": "Der Cashflow verändert sich um minus CHF 8 Mio."
+            }
+          ],
+          "correct": [
+            "D"
+          ],
+          "explanation": "Verkauf Vorräte auf Kredit: kein Cash-Effekt (0). Zahlung aus Rückstellungen: −2 Mio. (CFO). Investition bar: −6 Mio. (CFI). Total Cashflow = 0 − 2 − 6 = −CHF 8 Mio. → D.",
+          "topics": [
+            "Cashflow",
+            "Rückstellungen",
+            "Investition",
+            "Kreditverkauf"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-mc13",
+          "number": 33,
+          "type": "single_choice",
+          "points": 3,
+          "text": "5.13 — Nestlé verkauft Nestlé Skin Care für CHF 9.2 Mia. Aktiven CHF 6.1 Mia., FK CHF 2.8 Mia. Käufer ADIA kann Neubewertungen von +CHF 1.8 Mia. vornehmen. Wie hoch ist der Goodwill bei ADIA?",
+          "choices": [
+            {
+              "key": "A",
+              "text": "CHF 1.3 Mia."
+            },
+            {
+              "key": "B",
+              "text": "CHF 3.1 Mia."
+            },
+            {
+              "key": "C",
+              "text": "CHF 4.1 Mia."
+            },
+            {
+              "key": "D",
+              "text": "Mit den vorliegenden Informationen kann der Goodwill nicht berechnet werden."
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "Goodwill = Kaufpreis − (identifizierbare Nettovermögen nach Neubewertung). Nettovermögen = Aktiven − FK = 6.1 − 2.8 = 3.3 Mia. + Neubewertung 1.8 = 5.1 Mia. Goodwill = 9.2 − 5.1 = CHF 4.1 Mia. → C.",
+          "topics": [
+            "Goodwill",
+            "Unternehmensbewertung",
+            "M&A",
+            "Neubewertung"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-mc14",
+          "number": 34,
+          "type": "single_choice",
+          "points": 3,
+          "text": "5.14 — Welche Aussage hinsichtlich der EVA-Methode zur Unternehmensbewertung ist zutreffend?",
+          "choices": [
+            {
+              "key": "A",
+              "text": "Der Terminal Value ist bei der EVA-Methode typischerweise deutlich höher als bei der DCF-Methode."
+            },
+            {
+              "key": "B",
+              "text": "Das Lücke-Theorem besagt, dass die EVA-Methode theoretisch zum gleichen Ergebnis wie die DCF-Methode führt."
+            },
+            {
+              "key": "C",
+              "text": "Bei der EVA-Methode müssen kaum Annahmen getroffen werden, weshalb sie als objektiver gilt."
+            },
+            {
+              "key": "D",
+              "text": "Die EVA-Methode ist deutlich einfacher und in der Praxis beliebter als die DCF-Methode."
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "B ist richtig: Das Lücke-Theorem (Preinreich-Lücke) besagt, dass bei konsistenten Annahmen DCF und EVA zum identischen Unternehmenswert führen. A ist falsch: EVA hat typischerweise einen niedrigeren Terminal Value. C und D sind falsch: EVA erfordert ähnlich viele Annahmen und ist in der Praxis weniger verbreitet als DCF.",
+          "topics": [
+            "EVA",
+            "DCF",
+            "Lücke-Theorem",
+            "Unternehmensbewertung"
+          ]
+        },
+        {
+          "id": "bwl-fifu-2021-mc15",
+          "number": 35,
+          "type": "single_choice",
+          "points": 3,
+          "text": "5.15 — HighGro Ltd.: EK zu Beginn 2020: CHF 6.8 Mio. UV +0.7, AV +1.2, kurzfristige Verbindlichkeiten +0.3, langfristige Verbindlichkeiten +0.6. AK unverändert. Jahresgewinn CHF 1.8 Mio. 60'000 dividendenberechtigte Aktien. Wie viel wurde ausgeschüttet?",
+          "choices": [
+            {
+              "key": "A",
+              "text": "CHF 80'000"
+            },
+            {
+              "key": "B",
+              "text": "CHF 800'000"
+            },
+            {
+              "key": "C",
+              "text": "CHF 1'800'000"
+            },
+            {
+              "key": "D",
+              "text": "Die Frage kann aus den angegebenen Informationen nicht beantwortet werden."
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "EK-Endbestand = 6.8 + 1.8 (Gewinn) − Dividende. Bilanzgleichung: Δ Aktiven = Δ Passiven. ΔA = 0.7+1.2 = 1.9. ΔP = 0.3+0.6+Dividende (−) + Gewinn 1.8 = 0.9 + 1.8 − Div. ΔA=ΔP: 1.9 = 2.7 − Div. → Div. = 0.8 Mio. = CHF 800'000 → B.",
+          "topics": [
+            "Eigenkapital",
+            "Dividende",
+            "Bilanzgleichung"
+          ]
+        }
+      ]
+    }
+  ],
+  "_validation": [
+    "5.1 Antwort A bestätigt durch Musterlösung.",
+    "5.9 Antwort D: Abhängig von Definition Verschuldungsgrad — bei FK/GK=60% wäre A korrekt (7.8%). Musterlösung sagt D.",
+    "5.7 Anlagendeckungsgrad: Anlagevermögen 2020 = 40 Mio. (Beteiligungen 5 + Sachanlagen 27 + Imm. 8). EK 118/40 = 295% ✓",
+    "Bilanzen Lufthansa als JPG in assets/exams/bwl-fifu-2021/ — URL-basiert (nicht base64)",
+    "Wirtschaftsethik-Prüfung 2021 ist ein separater Teil der BWL-Prüfung — noch nicht erfasst."
+  ]
+}

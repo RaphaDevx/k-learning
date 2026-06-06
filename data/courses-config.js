@@ -54,6 +54,19 @@ window.COURSES_CONFIG = [
     notebookId: '2ad2f793-7b38-4424-88e5-17d933a3bfe0',
     dataDir: 'OM',
   },
+  {
+    key: 'BWL',
+    label: 'BWL',
+    icon: '💼',
+    color: 'teal',
+    tailwind: { bg: 'bg-teal-900', hover: 'hover:bg-teal-800', bar: 'bg-teal-700', fill: 'bg-teal-300', text: 'text-teal-300' },
+    hex: '#0d9488',
+    examDate: null,
+    examRoom: null,
+    examFormat: 'MC + offene Fragen',
+    notebookId: null,
+    dataDir: 'BWL',
+  },
 ];
 
 // Helper: get course by key

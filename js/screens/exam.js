@@ -46,6 +46,14 @@ window.ExamScreen = (function() {
       available: true,
     },
     {
+      id: 'esf-hs22-new',
+      label: 'ESF HS22 (new)',
+      course: 'ESF',
+      dataVar: 'EXAM_DATA_ESF_HS22_NEW',
+      file: 'exams/esf-hs22-new-data.js',
+      available: true,
+    },
+    {
       id: 'esf-uebung23',
       label: 'ESF — Übungsklausur HS 2023',
       course: 'ESF',
@@ -76,6 +84,23 @@ window.ExamScreen = (function() {
       dataVar: 'EXAM_DATA_MAKRO_PK1',
       file: 'exams/makro-pk1-data.js',
       available: false,
+    },
+    {
+      id: 'bwl-hs22',
+      label: 'BWL — HS 2022',
+      course: 'BWL',
+      dataVar: 'EXAM_DATA_BWL_HS22',
+      file: 'exams/bwl-hs22-data.js',
+      available: true,
+    },
+    {
+      id: 'bwl-fifu-2021',
+      label: 'BWL — Finanzielle Führung FS 2021',
+      course: 'BWL',
+      dataVar: null,
+      file: 'exams/bwl-fifu-2021-data.json',
+      format: 'json',
+      available: true,
     },
   ];
 
@@ -166,14 +191,19 @@ window.ExamScreen = (function() {
   }
 
   // ── Setup Modal ───────────────────────────────────────────────────────────
-  function showSetup(examId) {
+  async function showSetup(examId) {
     const entry = EXAM_REGISTRY.find(e => e.id === examId);
     if (!entry) return;
 
-    const data = window[entry.dataVar];
-    if (!data) {
-      alert('Prüfungsdaten konnten nicht geladen werden. Stelle sicher dass die Datei eingebunden ist.');
-      return;
+    let data;
+    if (entry.format === 'json') {
+      try { data = await _loadExamJSON(entry); } catch(e) { alert('JSON-Prüfung konnte nicht geladen werden: ' + e.message); return; }
+      if (data.durationMinutes && !data.duration_minutes) data.duration_minutes = data.durationMinutes;
+      if (data.totalPoints    && !data.total_points)    data.total_points    = data.totalPoints;
+      if (data.examInfo       && !data.exam_info)       data.exam_info       = data.examInfo;
+    } else {
+      data = window[entry.dataVar];
+      if (!data) { alert('Prüfungsdaten konnten nicht geladen werden.'); return; }
     }
 
     const modal = document.getElementById('exam-setup-modal');
@@ -185,12 +215,14 @@ window.ExamScreen = (function() {
     document.getElementById('exam-setup-points').textContent = `${data.total_points} Punkte`;
     document.getElementById('exam-setup-info').textContent = data.exam_info?.format || '';
 
-    // Excel download button
+    // Download button (Excel or original PDF)
     const dlBtn = document.getElementById('exam-setup-excel-download');
     if (dlBtn) {
-      if (data.excel_download) {
-        dlBtn.href = data.excel_download;
-        dlBtn.download = data.excel_download.split('/').pop();
+      const dlSrc = data.excel_download || data.resourceLink;
+      if (dlSrc) {
+        dlBtn.href = dlSrc;
+        dlBtn.download = dlSrc.split('/').pop();
+        dlBtn.textContent = data.excel_download ? '📊 Excel-Vorlage' : '📄 Original-PDF';
         dlBtn.classList.remove('hidden');
       } else {
         dlBtn.classList.add('hidden');
@@ -207,21 +239,40 @@ window.ExamScreen = (function() {
     if (modal) modal.classList.add('hidden');
   }
 
-  function startFromSetup() {
+  async function startFromSetup() {
     const modal = document.getElementById('exam-setup-modal');
     if (!modal) return;
     const examId = modal.dataset.examId;
     const timerEnabled = document.getElementById('exam-timer-toggle')?.checked ?? true;
     modal.classList.add('hidden');
-    startExam(examId, timerEnabled);
+    await startExam(examId, timerEnabled);
+  }
+
+  // ── JSON Lazy Loader ──────────────────────────────────────────────────────
+  async function _loadExamJSON(entry) {
+    const r = await fetch(entry.file + '?v=' + Date.now());
+    if (!r.ok) throw new Error('Exam JSON not found: ' + entry.file);
+    return r.json();
   }
 
   // ── Start Exam ────────────────────────────────────────────────────────────
-  function startExam(examId, useTimer) {
+  async function startExam(examId, useTimer) {
     const entry = EXAM_REGISTRY.find(e => e.id === examId);
     if (!entry) return;
-    const data = window[entry.dataVar];
-    if (!data) return;
+
+    let data;
+    if (entry.format === 'json') {
+      try { data = await _loadExamJSON(entry); } catch(e) { console.error(e); return; }
+    } else {
+      data = window[entry.dataVar];
+      if (!data) return;
+    }
+
+    // Normalize field names (JSON uses camelCase, legacy JS uses snake_case)
+    if (data.durationMinutes && !data.duration_minutes) data.duration_minutes = data.durationMinutes;
+    if (data.totalPoints    && !data.total_points)    data.total_points    = data.totalPoints;
+    if (data.examInfo       && !data.exam_info)       data.exam_info       = data.examInfo;
+    if (data.scoringRules   && !data.scoring_rules)   data.scoring_rules   = data.scoringRules;
 
     _examData = data;
     _currentEntry = entry;
@@ -377,6 +428,7 @@ window.ExamScreen = (function() {
           <span class="flex-shrink-0 w-7 h-7 rounded-full bg-gray-700 flex items-center justify-center text-xs font-bold text-gray-400">${num}</span>
           <div class="flex-1">
             <p class="text-sm leading-relaxed font-medium">${q.text.replace(/\n/g, '<br>')}</p>
+            ${q.imageHtml ? `<div class="mt-3 overflow-x-auto">${q.imageHtml}</div>` : ''}
             <span class="text-xs text-blue-400">${q.points} ${q.points === 1 ? 'Punkt' : 'Punkte'}</span>
           </div>
         </div>
