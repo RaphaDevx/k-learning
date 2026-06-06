@@ -46,6 +46,14 @@ window.ExamScreen = (function() {
       available: true,
     },
     {
+      id: 'esf-hs22-new',
+      label: 'ESF HS22 (new)',
+      course: 'ESF',
+      dataVar: 'EXAM_DATA_ESF_HS22_NEW',
+      file: 'exams/esf-hs22-new-data.js',
+      available: true,
+    },
+    {
       id: 'esf-uebung23',
       label: 'ESF — Übungsklausur HS 2023',
       course: 'ESF',
