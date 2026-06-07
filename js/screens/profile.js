@@ -122,16 +122,48 @@ window.ProfileScreen = (function () {
     const user = await Auth.getUser();
     const path = `${user.id}/${Date.now()}_${file.name}`;
 
-    const { error } = await _supabase.storage.from('documents').upload(path, file);
-
-    if (error) {
+    // 1. Upload to Storage
+    const { error: uploadError } = await _supabase.storage.from('documents').upload(path, file);
+    if (uploadError) {
       status.className = 'mt-3 p-3 rounded-xl text-sm bg-red-900 text-red-300';
-      status.textContent = `Fehler: ${error.message}`;
-    } else {
-      status.className = 'mt-3 p-3 rounded-xl text-sm bg-green-900 text-green-300';
-      status.textContent = `✓ ${file.name} hochgeladen · OCR in Warteschlange`;
-      _loadHistory(user);
+      status.textContent = `Upload-Fehler: ${uploadError.message}`;
+      e.target.value = '';
+      return;
     }
+
+    status.textContent = `✓ Hochgeladen — wird in die Warteschlange eingereiht…`;
+
+    // 2. Queue for processing via Edge Function
+    try {
+      const { data: { session } } = await _supabase.auth.getSession();
+      const resp = await fetch(
+        'https://ifmwcgwfvunjbnfwwbtr.supabase.co/functions/v1/queue-document',
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${session.access_token}`,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            file_path:     path,
+            original_name: file.name,
+            file_size:     file.size,
+            mime_type:     file.type || 'application/pdf',
+          }),
+        }
+      );
+      const result = await resp.json();
+      if (!resp.ok) throw new Error(result.error || 'Queue-Fehler');
+
+      status.className = 'mt-3 p-3 rounded-xl text-sm bg-green-900 text-green-300';
+      status.textContent = `✓ ${file.name} — OCR läuft (Job ${result.queue_id?.slice(0,8)}…)`;
+    } catch (qErr) {
+      // Upload succeeded but queueing failed — show warning, not error
+      status.className = 'mt-3 p-3 rounded-xl text-sm bg-yellow-900 text-yellow-300';
+      status.textContent = `✓ Hochgeladen, aber Queue-Fehler: ${qErr.message}`;
+    }
+
+    _loadHistory(user);
     e.target.value = '';
   }
 
@@ -139,25 +171,47 @@ window.ProfileScreen = (function () {
     const el = document.getElementById('upload-history');
     if (!el) return;
 
-    const { data, error } = await _supabase.storage
-      .from('documents')
-      .list(user.id, { limit: 20, sortBy: { column: 'created_at', order: 'desc' } });
+    // Load from processing_queue (real status) instead of storage listing
+    const { data, error } = await _supabase
+      .from('processing_queue')
+      .select('id, original_name, status, doc_type, course, created_at, error_message, document_id')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false })
+      .limit(20);
 
     if (error || !data?.length) {
-      el.innerHTML = '<p class="text-gray-500 text-sm">Noch keine Dokumente hochgeladen.</p>';
+      el.innerHTML = '<p class="text-sm" style="color:var(--txt-3)">Noch keine Dokumente hochgeladen.</p>';
       return;
     }
 
-    el.innerHTML = data.map(f => {
-      const displayName = f.name.replace(/^\d+_/, '');
-      const date = f.created_at ? new Date(f.created_at).toLocaleDateString('de-CH') : '';
+    const statusBadge = {
+      pending:    { cls: 'bg-yellow-900 text-yellow-300', label: '⏳ Wartet' },
+      processing: { cls: 'bg-blue-900 text-blue-300',    label: '⚙️ OCR läuft' },
+      completed:  { cls: 'bg-green-900 text-green-300',  label: '✓ Fertig' },
+      error:      { cls: 'bg-red-900 text-red-300',      label: '✗ Fehler' },
+    };
+    const typeIcon = { exam: '📝', lecture: '📖', exercise: '✏️', solution: '✅', other: '📄' };
+
+    el.innerHTML = data.map(item => {
+      const badge = statusBadge[item.status] || statusBadge.pending;
+      const date  = item.created_at ? new Date(item.created_at).toLocaleDateString('de-CH') : '';
+      const icon  = typeIcon[item.doc_type] || '📄';
+      const courseTag = item.course ? `<span class="text-xs text-gray-400">${item.course}</span>` : '';
+      const examBtn = item.status === 'completed' && item.doc_type === 'exam' && item.document_id
+        ? `<button onclick="ProfileScreen.reviewExamDraft('${item.document_id}')"
+             class="text-xs px-2 py-0.5 rounded-full bg-purple-900 text-purple-300 ml-2 hover:bg-purple-800">
+             Prüfung prüfen →</button>`
+        : '';
+      const errTip = item.error_message
+        ? `title="${item.error_message.replace(/"/g, "'")}"` : '';
+
       return `
-        <div class="flex items-center justify-between py-2.5 border-b border-gray-700 last:border-0">
-          <div>
-            <div class="text-sm font-medium text-white">${displayName}</div>
-            ${date ? `<div class="text-xs text-gray-500">${date}</div>` : ''}
+        <div class="flex items-center justify-between py-2.5 border-b border-gray-700 last:border-0" ${errTip}>
+          <div class="flex-1 min-w-0 mr-3">
+            <div class="text-sm font-medium text-white truncate">${icon} ${item.original_name}</div>
+            <div class="flex items-center gap-2 mt-0.5">${courseTag}${date ? `<span class="text-xs text-gray-500">${date}</span>` : ''}${examBtn}</div>
           </div>
-          <span class="text-xs bg-indigo-900 text-indigo-300 px-2 py-1 rounded-full flex-shrink-0 ml-3">OCR</span>
+          <span class="text-xs px-2 py-1 rounded-full flex-shrink-0 ${badge.cls}">${badge.label}</span>
         </div>`;
     }).join('');
   }
@@ -472,5 +526,70 @@ window.ProfileScreen = (function () {
     setTimeout(() => msg.classList.add('hidden'), 4000);
   }
 
-  return { init, refresh };
+  async function reviewExamDraft(documentId) {
+    const { data, error } = await _supabase
+      .from('documents')
+      .select('id, original_name, content_meta, course, doc_type')
+      .eq('id', documentId)
+      .single();
+
+    if (error || !data?.content_meta) {
+      alert('Dokument nicht gefunden.');
+      return;
+    }
+    const draft = data.content_meta;
+    const questions = (draft.sections || []).flatMap(s => s.questions || []);
+    const validation = draft._validation || [];
+
+    const modal = document.createElement('div');
+    modal.id = 'exam-draft-modal';
+    modal.className = 'fixed inset-0 z-[200] flex items-end justify-center';
+    modal.style.background = 'rgba(0,0,0,0.85)';
+    modal.innerHTML = `
+      <div class="rounded-t-3xl w-full max-w-lg max-h-[85vh] overflow-y-auto p-6"
+           style="background:var(--card);border-top:1px solid var(--border)">
+        <div class="flex justify-between items-start mb-4">
+          <div>
+            <h2 class="text-lg font-bold" style="color:var(--txt)">📝 Prüfungs-Draft</h2>
+            <p class="text-xs mt-0.5" style="color:var(--txt-2)">${data.original_name}</p>
+          </div>
+          <button onclick="document.getElementById('exam-draft-modal').remove()"
+            class="text-gray-400 hover:text-white text-xl leading-none">✕</button>
+        </div>
+
+        <div class="rounded-xl p-3 mb-4" style="background:var(--card-raised);border:1px solid var(--border)">
+          <div class="grid grid-cols-2 gap-2 text-sm">
+            <div><span style="color:var(--txt-2)">Titel:</span> <span style="color:var(--txt)">${draft.title || '—'}</span></div>
+            <div><span style="color:var(--txt-2)">Kurs:</span> <span style="color:var(--txt)">${draft.course || data.course || '—'}</span></div>
+            <div><span style="color:var(--txt-2)">Fragen:</span> <span style="color:var(--txt)">${questions.length}</span></div>
+            <div><span style="color:var(--txt-2)">Punkte:</span> <span style="color:var(--txt)">${draft.totalPoints || '—'}</span></div>
+          </div>
+        </div>
+
+        ${validation.length ? `
+          <div class="rounded-xl p-3 mb-4" style="background:rgba(234,88,12,0.12);border:1px solid rgba(234,88,12,0.3)">
+            <div class="text-xs font-bold text-orange-400 mb-1">⚠ ${validation.length} Punkte zum Prüfen</div>
+            ${validation.map(v => `<div class="text-xs text-orange-300">${v}</div>`).join('')}
+          </div>` : ''}
+
+        <div class="text-xs font-semibold mb-2" style="color:var(--txt-2)">ERSTE 3 FRAGEN</div>
+        ${questions.slice(0,3).map(q => `
+          <div class="rounded-xl p-3 mb-2" style="background:var(--card-raised);border:1px solid var(--border)">
+            <div class="text-sm font-medium mb-1" style="color:var(--txt)">${q.number}. ${q.text?.substring(0,120)}${(q.text?.length||0)>120?'…':''}</div>
+            ${q.correct ? `<div class="text-xs text-green-400">Antwort: ${(q.correct||[]).join(', ')}</div>` : '<div class="text-xs text-orange-400">⚠ Antwort fehlt</div>'}
+          </div>`).join('')}
+
+        <p class="text-xs text-center mt-3 mb-4" style="color:var(--txt-3)">
+          Vollständige Bearbeitung mit <code>/create-exam</code> in Claude Code
+        </p>
+        <button onclick="document.getElementById('exam-draft-modal').remove()"
+          class="w-full py-3 rounded-xl font-bold text-sm"
+          style="background:var(--card-raised);border:1px solid var(--border);color:var(--txt-2)">
+          Schliessen
+        </button>
+      </div>`;
+    document.body.appendChild(modal);
+  }
+
+  return { init, refresh, reviewExamDraft };
 })();
