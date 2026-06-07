@@ -102,6 +102,14 @@ window.ExamScreen = (function() {
       format: 'json',
       available: true,
     },
+    {
+      id: 'englischc1-hs22',
+      label: 'Englisch C1 — Sample Exam HS22',
+      course: 'EnglischC1',
+      dataVar: 'EXAM_DATA_ENGLISCHC1_HS22',
+      file: 'exams/englischc1-hs22-data.js',
+      available: true,
+    },
   ];
 
   // ── Internal state ────────────────────────────────────────────────────────
