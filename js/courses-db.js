@@ -20,6 +20,7 @@ window.CoursesDB = (function () {
     orange: { bg:'bg-orange-900', hover:'hover:bg-orange-800', bar:'bg-orange-700', fill:'bg-orange-300', text:'text-orange-300', rgb:'234,88,12'   },
     teal:   { bg:'bg-teal-900',   hover:'hover:bg-teal-800',   bar:'bg-teal-700',   fill:'bg-teal-300',   text:'text-teal-300',   rgb:'13,148,136'  },
     red:    { bg:'bg-red-900',    hover:'hover:bg-red-800',    bar:'bg-red-700',    fill:'bg-red-300',    text:'text-red-300',    rgb:'220,38,38'   },
+    rose:   { bg:'bg-rose-900',   hover:'hover:bg-rose-800',   bar:'bg-rose-700',   fill:'bg-rose-300',   text:'text-rose-300',   rgb:'225,29,72'   },
   };
 
   // ── Public: get available courses (catalog) ────────────────────────────
