@@ -67,6 +67,19 @@ window.COURSES_CONFIG = [
     notebookId: null,
     dataDir: 'BWL',
   },
+  {
+    key: 'EnglischC1',
+    label: 'Englisch C1',
+    icon: '🇬🇧',
+    color: 'rose',
+    tailwind: { bg: 'bg-rose-900', hover: 'hover:bg-rose-800', bar: 'bg-rose-700', fill: 'bg-rose-300', text: 'text-rose-300' },
+    hex: '#e11d48',
+    examDate: null,
+    examRoom: null,
+    examFormat: 'Schriftlich BYOD (50%, 120 Min.) + Mündlich Zoom (50%)',
+    notebookId: null,
+    dataDir: 'EnglischC1',
+  },
 ];
 
 // Helper: get course by key
