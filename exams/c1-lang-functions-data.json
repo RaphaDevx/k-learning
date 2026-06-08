@@ -1,0 +1,489 @@
+{
+  "_meta": {
+    "schemaVersion": "1",
+    "sourceFile": "C1_Language_Guides",
+    "createdAt": "2026-06-08",
+    "promptVersion": "create-exam-v3",
+    "status": "final"
+  },
+  "id": "c1-lang-functions",
+  "title": "C1 English — Language Functions Practice",
+  "course": "EnglischC1",
+  "courseColor": "#10b981",
+  "durationMinutes": 20,
+  "totalPoints": 20,
+  "resourceLink": null,
+  "examInfo": {
+    "date": "Practice",
+    "duration": "20 Minuten",
+    "format": "20 Single Choice",
+    "allowedAids": "None",
+    "grading": "Note 6.0: ≥90%, Note 5.5: ≥80%, Note 5.0: ≥70%, Note 4.5: ≥60%, Note 4.0: ≥50%"
+  },
+  "scoringRules": {
+    "single_choice": {
+      "correct": 1,
+      "wrong": 0,
+      "blank": 0
+    }
+  },
+  "telemetry": {
+    "hook": "onQuestionChange",
+    "saveEndpoint": "save_exam_result",
+    "trackDuration": true,
+    "trackClicks": true
+  },
+  "sections": [
+    {
+      "id": "sec-meetings",
+      "title": "Section 1: Language of Meetings",
+      "description": "Choose the most appropriate phrase for each situation in a formal meeting.",
+      "context": null,
+      "points": 5,
+      "question_type": "single_choice",
+      "questions": [
+        {
+          "id": "c1-lang-functions-q01",
+          "number": 1,
+          "text": "You are chairing a meeting and want to explain why the group has been brought together. Which phrase is most appropriate to open the meeting?",
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Let's get started with the first item." },
+            { "key": "B", "text": "The purpose of this meeting is to review Q3 performance and agree on next steps." },
+            { "key": "C", "text": "I'd like to point out that we are running late." },
+            { "key": "D", "text": "Can I just summarize what we've agreed so far?" }
+          ],
+          "correct": ["B"],
+          "modelAnswer": null,
+          "explanation": "B is correct because 'The purpose of this meeting is to...' is the standard opening phrase used to state the objective of a formal meeting. It directly signals to all participants what the gathering is about.",
+          "topics": ["Meetings", "Opening"],
+          "metadata": { "difficulty": "easy", "category": "Meetings", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-lang-functions-q02",
+          "number": 2,
+          "text": "A colleague has been speaking for a long time. You need to contribute before the meeting moves on. Which phrase allows you to interrupt politely?",
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Please, let me finish." },
+            { "key": "B", "text": "I couldn't agree more." },
+            { "key": "C", "text": "Can I interrupt you there because I think this point affects our timeline?" },
+            { "key": "D", "text": "I have reservations about what you're saying." }
+          ],
+          "correct": ["C"],
+          "modelAnswer": null,
+          "explanation": "C is correct because 'Can I interrupt you there because...' is the appropriate phrase for politely cutting in during a meeting when you have something relevant to add. A ('Please, let me finish.') is used to prevent others from interrupting you, not to interrupt them.",
+          "topics": ["Meetings", "Interrupting"],
+          "metadata": { "difficulty": "easy", "category": "Meetings", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-lang-functions-q03",
+          "number": 3,
+          "text": "You want to propose a new approach to a problem during a meeting. Which phrase is most suitable?",
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "So, what you're saying is…" },
+            { "key": "B", "text": "I see your point, however I disagree." },
+            { "key": "C", "text": "Perhaps we could trial the new system for one month before committing." },
+            { "key": "D", "text": "Could you elaborate on the budget implications?" }
+          ],
+          "correct": ["C"],
+          "modelAnswer": null,
+          "explanation": "C is correct because 'Perhaps we could...' is a standard suggesting phrase in meetings. It introduces a proposal tentatively, which is appropriate in a collaborative meeting context. A is for seeking clarification, B is for disagreeing, and D is for asking for more detail.",
+          "topics": ["Meetings", "Suggesting"],
+          "metadata": { "difficulty": "easy", "category": "Meetings", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-lang-functions-q04",
+          "number": 4,
+          "text": "At the end of a productive meeting, you want to consolidate what has been decided. Which phrase is most appropriate?",
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Just one more thing, and then you can speak." },
+            { "key": "B", "text": "Before you continue, I'd like to say that the figures are wrong." },
+            { "key": "C", "text": "I propose that we move to the next agenda item." },
+            { "key": "D", "text": "So, let's sum up what we've covered and agreed." }
+          ],
+          "correct": ["D"],
+          "modelAnswer": null,
+          "explanation": "D is correct because 'So, let's sum up what we've covered/agreed.' is the standard summarising phrase used at the close of a meeting to consolidate outcomes. A and B are phrases for preventing or making interruptions; C is a suggesting phrase.",
+          "topics": ["Meetings", "Summarising"],
+          "metadata": { "difficulty": "easy", "category": "Meetings", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-lang-functions-q05",
+          "number": 5,
+          "text": "A speaker has used a technical term you did not fully understand. Which phrase is most suitable for seeking clarification in a meeting?",
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "I couldn't agree more with that point." },
+            { "key": "B", "text": "Could you elaborate on what you mean by 'synergy capture'?" },
+            { "key": "C", "text": "The aim of this discussion is to clarify the schedule." },
+            { "key": "D", "text": "I agree with you on the general direction." }
+          ],
+          "correct": ["B"],
+          "modelAnswer": null,
+          "explanation": "B is correct because 'Could you elaborate on...' is the standard seeking-clarification phrase from the meetings language guide. It directly asks the speaker to expand on a specific term or idea. A and D express agreement; C is an opening phrase.",
+          "topics": ["Meetings", "Seeking Clarification"],
+          "metadata": { "difficulty": "easy", "category": "Meetings", "latex": false, "_generated": false }
+        }
+      ]
+    },
+    {
+      "id": "sec-discussions",
+      "title": "Section 2: Language of Discussions and Debates",
+      "description": "Choose the most appropriate phrase for each situation in a discussion or debate.",
+      "context": null,
+      "points": 5,
+      "question_type": "single_choice",
+      "questions": [
+        {
+          "id": "c1-lang-functions-q06",
+          "number": 6,
+          "text": "You strongly disagree with a speaker's claim during a heated informal debate. Which response is most appropriate for expressing strong informal disagreement?",
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "I see what you mean, but I'm not entirely convinced." },
+            { "key": "B", "text": "You can't be serious!" },
+            { "key": "C", "text": "The impression I get is that this approach has merit." },
+            { "key": "D", "text": "As I was saying, the data supports my view." }
+          ],
+          "correct": ["B"],
+          "modelAnswer": null,
+          "explanation": "B is correct because 'You can't be serious!' is listed as an informal disagreement phrase for discussions and debates. A is polite disagreement; C is a tentative opinion; D is a phrase for returning to a topic.",
+          "topics": ["Discussions", "Disagreeing Informally"],
+          "metadata": { "difficulty": "easy", "category": "Discussions", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-lang-functions-q07",
+          "number": 7,
+          "text": "You want to share your view but are not entirely certain. Which phrase best expresses a tentative opinion?",
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "You're absolutely right there." },
+            { "key": "B", "text": "I don't quite follow what you mean by that." },
+            { "key": "C", "text": "The impression I get is that remote work increases productivity." },
+            { "key": "D", "text": "Let me put it another way." }
+          ],
+          "correct": ["C"],
+          "modelAnswer": null,
+          "explanation": "C is correct because 'The impression I get is that...' is explicitly listed under tentative opinions in the discussions language guide. It signals that the speaker is not fully certain. A is agreement; B is asking for clarification; D is clarifying.",
+          "topics": ["Discussions", "Tentative Opinions"],
+          "metadata": { "difficulty": "easy", "category": "Discussions", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-lang-functions-q08",
+          "number": 8,
+          "text": "You want to ask another participant for their view on a topic during a group discussion. Which phrase is most appropriate?",
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "What's your opinion of the proposed restructuring?" },
+            { "key": "B", "text": "Could I interrupt for a moment?" },
+            { "key": "C", "text": "I'd say that the proposal has clear advantages." },
+            { "key": "D", "text": "That's a good point." }
+          ],
+          "correct": ["A"],
+          "modelAnswer": null,
+          "explanation": "A is correct because 'What's your opinion of...?' is a standard asking-for-opinions phrase from the discussions guide. B is for interrupting; C is giving an opinion; D is agreeing.",
+          "topics": ["Discussions", "Asking for Opinions"],
+          "metadata": { "difficulty": "easy", "category": "Discussions", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-lang-functions-q09",
+          "number": 9,
+          "text": "After a digression, you want to bring the discussion back to the original subject. Which phrase is most suitable?",
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Sorry, let me explain what I meant." },
+            { "key": "B", "text": "I don't quite see what you mean." },
+            { "key": "C", "text": "To get back to what I was saying — the core issue is funding." },
+            { "key": "D", "text": "If I could just add something here, I think the approach is flawed." }
+          ],
+          "correct": ["C"],
+          "modelAnswer": null,
+          "explanation": "C is correct because 'To get back to what I was saying...' is the standard phrase for returning to topic in the discussions guide. A is for clarifying; B is asking for clarification; D is an interrupting phrase.",
+          "topics": ["Discussions", "Returning to Topic"],
+          "metadata": { "difficulty": "easy", "category": "Discussions", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-lang-functions-q10",
+          "number": 10,
+          "text": "A speaker makes a point you largely agree with but wish to qualify. Which phrase expresses polite, partial disagreement?",
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Rubbish! That's completely wrong." },
+            { "key": "B", "text": "Well, you may have a point there, but the implementation costs are a real concern." },
+            { "key": "C", "text": "I'd like to point out that the data is outdated." },
+            { "key": "D", "text": "What I mean is that the timeline is unrealistic." }
+          ],
+          "correct": ["B"],
+          "modelAnswer": null,
+          "explanation": "B is correct because 'Well, you may have a point there, but...' is listed as polite disagreement in the discussions guide. It acknowledges the other person's view before introducing a counter-argument. A is informal, blunt disagreement; C gives an opinion; D clarifies.",
+          "topics": ["Discussions", "Disagreeing Politely"],
+          "metadata": { "difficulty": "medium", "category": "Discussions", "latex": false, "_generated": false }
+        }
+      ]
+    },
+    {
+      "id": "sec-networking",
+      "title": "Section 3: Language of Networking",
+      "description": "Choose the most appropriate phrase for each networking situation.",
+      "context": null,
+      "points": 4,
+      "question_type": "single_choice",
+      "questions": [
+        {
+          "id": "c1-lang-functions-q11",
+          "number": 11,
+          "text": "You are at a professional conference and want to approach a group of people you do not know. Which phrase is most appropriate to initiate contact?",
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Thank you for sharing your thoughts." },
+            { "key": "B", "text": "That sounds fascinating — tell me more." },
+            { "key": "C", "text": "May I join you?" },
+            { "key": "D", "text": "I won't keep you any longer." }
+          ],
+          "correct": ["C"],
+          "modelAnswer": null,
+          "explanation": "C is correct because 'May I join you?' is listed as a starting phrase in the networking guide. It is a polite, direct way to enter a group conversation. D is a closing phrase; A and B are used later in the conversation to show interest or close.",
+          "topics": ["Networking", "Starting"],
+          "metadata": { "difficulty": "easy", "category": "Networking", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-lang-functions-q12",
+          "number": 12,
+          "text": "You have had a valuable conversation at a networking event and want to ensure you stay in touch. Which phrase is most appropriate?",
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "What's been your biggest challenge this year?" },
+            { "key": "B", "text": "Speaking of digital tools, have you experienced any issues with remote collaboration?" },
+            { "key": "C", "text": "I'd love to continue this conversation. Can we exchange contact information?" },
+            { "key": "D", "text": "Mind if I introduce myself?" }
+          ],
+          "correct": ["C"],
+          "modelAnswer": null,
+          "explanation": "C is correct because 'I'd love to continue this conversation. Can we exchange contact information?' is explicitly listed under future contact in the networking guide. A shows interest; B is a transitioning phrase; D is a starting phrase.",
+          "topics": ["Networking", "Future Contact"],
+          "metadata": { "difficulty": "easy", "category": "Networking", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-lang-functions-q13",
+          "number": 13,
+          "text": "Your conversation partner mentions a challenge with supply chain logistics. You want to smoothly bridge to a related topic. Which phrase is most suitable?",
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "I won't keep you any longer. It was great chatting with you." },
+            { "key": "B", "text": "Speaking of supply chains, have you experienced similar delays in your sector?" },
+            { "key": "C", "text": "What do you think of the event so far?" },
+            { "key": "D", "text": "That sounds fascinating." }
+          ],
+          "correct": ["B"],
+          "modelAnswer": null,
+          "explanation": "B is correct because 'Speaking of [topic], have you experienced…?' is the standard transitioning phrase from the networking guide. It picks up on something just mentioned to move the conversation naturally. A is a closing phrase; C is a starting phrase; D shows interest but does not transition topics.",
+          "topics": ["Networking", "Transitioning"],
+          "metadata": { "difficulty": "medium", "category": "Networking", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-lang-functions-q14",
+          "number": 14,
+          "text": "You want to wrap up a networking conversation professionally without being abrupt. Which phrase is most appropriate?",
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "What's been your biggest challenge this year?" },
+            { "key": "B", "text": "Mind if I introduce myself? I'm Raphael from consulting." },
+            { "key": "C", "text": "That reminds me of a project we worked on last year." },
+            { "key": "D", "text": "I won't keep you any longer. It was great chatting with you." }
+          ],
+          "correct": ["D"],
+          "modelAnswer": null,
+          "explanation": "D is correct because 'I won't keep you any longer. It was great chatting with you.' is the standard closing phrase from the networking guide. It signals the end of the conversation politely and warmly. A and B are opening/interest phrases; C is a transitioning phrase.",
+          "topics": ["Networking", "Closing"],
+          "metadata": { "difficulty": "easy", "category": "Networking", "latex": false, "_generated": false }
+        }
+      ]
+    },
+    {
+      "id": "sec-reformulating",
+      "title": "Section 4: Reformulating and Clarifying",
+      "description": "Choose the most appropriate phrase for each reformulating or clarifying situation.",
+      "context": null,
+      "points": 3,
+      "question_type": "single_choice",
+      "questions": [
+        {
+          "id": "c1-lang-functions-q15",
+          "number": 15,
+          "text": "A colleague has made a complex point. You want to check that you have understood it correctly by paraphrasing it back. Which phrase is most suitable?",
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Am I right in thinking that you're suggesting we delay the launch?" },
+            { "key": "B", "text": "Another way of looking at this might be X. Does that resonate?" },
+            { "key": "C", "text": "To summarize, your key point is X, correct?" },
+            { "key": "D", "text": "If I'm hearing you correctly, you're saying we should cut the budget?" }
+          ],
+          "correct": ["D"],
+          "modelAnswer": null,
+          "explanation": "D is correct because 'If I'm hearing you correctly, you're saying...?' is explicitly listed as a paraphrasing phrase in the reformulating guide. A checks understanding; B offers an alternative framing; C summarises rather than paraphrases. All are valid reformulating tools, but D specifically signals paraphrase.",
+          "topics": ["Reformulating", "Paraphrasing"],
+          "metadata": { "difficulty": "medium", "category": "Reformulating", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-lang-functions-q16",
+          "number": 16,
+          "text": "You want to ask a colleague to explain a term they used in more detail. Which phrase is most appropriate?",
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Let me see if I've got this right — you're proposing a merger?" },
+            { "key": "B", "text": "Could you please elaborate on what you meant by 'legacy systems'?" },
+            { "key": "C", "text": "Another way of looking at this might be to focus on cost reduction." },
+            { "key": "D", "text": "To summarize, your key point is that we need more resources, correct?" }
+          ],
+          "correct": ["B"],
+          "modelAnswer": null,
+          "explanation": "B is correct because 'Could you please elaborate on what you meant by X?' is listed as an asking-for-clarification phrase in the reformulating guide. A is paraphrasing; C offers an alternative view; D summarises.",
+          "topics": ["Reformulating", "Asking for Clarification"],
+          "metadata": { "difficulty": "easy", "category": "Reformulating", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-lang-functions-q17",
+          "number": 17,
+          "text": "After a lengthy explanation, you want to confirm your understanding of the speaker's main suggestion. Which phrase is most appropriate?",
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Can you give me an example of what you mean?" },
+            { "key": "B", "text": "What I mean is that the timelines are unrealistic." },
+            { "key": "C", "text": "Am I right in thinking that you're suggesting we outsource the project?" },
+            { "key": "D", "text": "If I'm hearing you correctly, you're saying the budget needs to be revised?" }
+          ],
+          "correct": ["C"],
+          "modelAnswer": null,
+          "explanation": "C is correct because 'Am I right in thinking that you're suggesting X?' is the checking-understanding phrase from the reformulating guide. It invites confirmation of one's interpretation. A asks for an example; B clarifies one's own position; D paraphrases rather than explicitly checking a suggestion.",
+          "topics": ["Reformulating", "Checking Understanding"],
+          "metadata": { "difficulty": "medium", "category": "Reformulating", "latex": false, "_generated": false }
+        }
+      ]
+    },
+    {
+      "id": "sec-diplomatic",
+      "title": "Section 5: Diplomatic Language",
+      "description": "Choose the most appropriate phrase for each situation requiring tact or diplomacy.",
+      "context": null,
+      "points": 3,
+      "question_type": "single_choice",
+      "questions": [
+        {
+          "id": "c1-lang-functions-q18",
+          "number": 18,
+          "text": "A colleague proposes an idea that has clear advantages but also some significant risks. You want to acknowledge both sides diplomatically. Which phrase is most appropriate?",
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "I propose that we reject this idea immediately." },
+            { "key": "B", "text": "While I see the benefits, it's also important to consider the regulatory risk." },
+            { "key": "C", "text": "I agree with you up to a point, but the costs are prohibitive." },
+            { "key": "D", "text": "My suggestion is to adopt a strategy that prioritises innovation." }
+          ],
+          "correct": ["B"],
+          "modelAnswer": null,
+          "explanation": "B is correct because 'While I see the benefits, it's also important to consider...' is explicitly listed as the phrase for being diplomatic in the diplomatic language guide. It validates the proposal before raising a concern. C is partial agreement; D is a formal proposal.",
+          "topics": ["Diplomatic Language", "Being Diplomatic"],
+          "metadata": { "difficulty": "medium", "category": "Diplomatic Language", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-lang-functions-q19",
+          "number": 19,
+          "text": "You agree with a colleague's general position but cannot fully commit to it. Which phrase best expresses partial agreement?",
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "That's an interesting perspective, let's also consider the customer impact." },
+            { "key": "B", "text": "I couldn't agree more — this is the right approach." },
+            { "key": "C", "text": "A lot of what you're saying is true, but the timeline is too ambitious." },
+            { "key": "D", "text": "I'd love to continue this conversation." }
+          ],
+          "correct": ["C"],
+          "modelAnswer": null,
+          "explanation": "C is correct because 'A lot of what you're saying is true, but…' is listed as a partial agreement phrase in the diplomatic language guide. It validates the other view to a significant degree before expressing a reservation. A shows tact; B is full agreement; D is a networking phrase.",
+          "topics": ["Diplomatic Language", "Partial Agreement"],
+          "metadata": { "difficulty": "medium", "category": "Diplomatic Language", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-lang-functions-q20",
+          "number": 20,
+          "text": "You want to formally put forward a course of action in a business proposal. Which phrase is most appropriate?",
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "I agree with you on the general direction." },
+            { "key": "B", "text": "That's an interesting perspective, let's also consider the financial side." },
+            { "key": "C", "text": "While I see the benefits, it's also important to consider the risks." },
+            { "key": "D", "text": "My suggestion is to adopt a strategy that combines cost reduction with market expansion." }
+          ],
+          "correct": ["D"],
+          "modelAnswer": null,
+          "explanation": "D is correct because 'My suggestion is to adopt a strategy that...' is listed as a formal proposing phrase in the diplomatic language guide. It introduces a concrete recommendation in appropriate formal register. A is agreement; B shows tact; C is diplomatic balance rather than a proposal.",
+          "topics": ["Diplomatic Language", "Proposing Formally"],
+          "metadata": { "difficulty": "easy", "category": "Diplomatic Language", "latex": false, "_generated": false }
+        }
+      ]
+    }
+  ],
+  "_validation": []
+}
