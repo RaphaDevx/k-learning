@@ -68,7 +68,10 @@ window.Gamification = (function() {
     cardHard: 2,
     feedKnew: 8,
     feedDidnt: 3,
-    topicCompleted: 25
+    topicCompleted: 25,
+    lernCorrect: 12,
+    lernPartial: 5,
+    lernWrong: 1
   };
 
   return { addXP, updateStreak, render, getLevel, LEVEL_NAMES, XP_LEVELS, XP };

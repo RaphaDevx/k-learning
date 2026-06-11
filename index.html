@@ -19,6 +19,7 @@
   <script src="data/topics-data.js"></script>
   <script src="data/topics-tags.js"></script>
   <script src="data/feed-data.js"></script>
+  <script src="data/lernset-data.js"></script>
 
   <!-- ── Exam Data ── -->
   <script src="exams/bwl-hs22-data.js"></script>
@@ -50,6 +51,7 @@
   <script src="js/ai-service.js"></script>
   <script src="js/state.js"></script>
   <script src="js/gamification.js"></script>
+  <script src="js/lernset-engine.js"></script>
   <script src="js/tab-router.js"></script>
   <script src="js/router.js"></script>
   <script src="js/auth.js"></script>
@@ -65,6 +67,7 @@
   <script src="js/screens/exam.js"></script>
   <script src="js/screens/quiz.js"></script>
   <script src="js/screens/tutor.js"></script>
+  <script src="js/screens/lernset.js"></script>
   <script src="js/screens/lernen.js"></script>
   <script src="js/screens/profile.js"></script>
 
@@ -290,6 +293,77 @@
       pointer-events:none;
       transition: transform 0.32s ease, opacity 0.32s ease;
     }
+
+    /* ── Lernset-Modus ── */
+    #lns-action-btn { background:#4f46e5; }
+    #lns-action-btn.lns-btn-next { background:#16a34a; }
+
+    /* Reihenfolge */
+    .lns-order-item {
+      display:flex; align-items:center; gap:0.6rem;
+      padding:0.8rem 0.9rem; border-radius:1rem;
+      background:var(--card-raised); border:2px solid var(--border);
+      transition:border-color 0.25s ease, background 0.25s ease, opacity 0.15s ease;
+    }
+    .lns-order-handle { cursor:grab; font-size:1.1rem; color:var(--txt-3); touch-action:none; user-select:none; }
+    .lns-order-handle.lns-disabled { cursor:default; opacity:0.3; }
+    .lns-order-text { flex:1; font-size:0.9rem; line-height:1.4; }
+    .lns-order-arrows { display:flex; flex-direction:column; gap:2px; }
+    .lns-order-arrow {
+      width:1.6rem; height:1.3rem; font-size:0.65rem; line-height:1;
+      border-radius:0.4rem; background:var(--card); border:1px solid var(--border);
+      color:var(--txt-2); cursor:pointer;
+    }
+    .lns-order-arrow:disabled { opacity:0.25; cursor:default; }
+    .lns-order-item.lns-dragging { opacity:0.45; }
+    .lns-order-item.lns-correct   { border-color:#22c55e; background:rgba(34,197,94,0.08); }
+    .lns-order-item.lns-incorrect { border-color:#ef4444; background:rgba(239,68,68,0.08); }
+    .lns-correct-order { font-size:0.85rem; line-height:1.7; padding-left:1.2rem; list-style:decimal; color:var(--txt); }
+
+    /* Wahr/Falsch */
+    .lns-tf-item {
+      padding:0.9rem; border-radius:1rem;
+      background:var(--card-raised); border:2px solid var(--border);
+      transition:border-color 0.25s ease, background 0.25s ease;
+    }
+    .lns-tf-item.lns-correct   { border-color:#22c55e; background:rgba(34,197,94,0.06); }
+    .lns-tf-item.lns-incorrect { border-color:#ef4444; background:rgba(239,68,68,0.06); }
+    .lns-tf-btn {
+      padding:0.5rem 0; border-radius:0.75rem; font-size:0.875rem; font-weight:600;
+      background:var(--card); border:1px solid var(--border); color:var(--txt-2);
+      transition:background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+    .lns-tf-btn.lns-tf-active  { background:#4f46e5; border-color:#4f46e5; color:#fff; }
+    .lns-tf-btn.lns-tf-correct { background:#22c55e; border-color:#22c55e; color:#fff; }
+    .lns-tf-btn.lns-tf-wrong   { background:#ef4444; border-color:#ef4444; color:#fff; }
+    .lns-tf-btn.lns-disabled   { opacity:0.35; }
+    .lns-tf-explain { font-size:0.78rem; margin-top:0.6rem; line-height:1.5; color:var(--txt-2); }
+
+    /* Single / Multiple Choice */
+    .lns-option {
+      display:block; width:100%; text-align:left; font-size:0.9rem; line-height:1.5;
+      padding:0.75rem 1rem; border-radius:0.9rem;
+      background:var(--card-raised); border:2px solid var(--border); color:var(--txt);
+      transition:border-color 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+    }
+    .lns-option-selected { border-color:#4f46e5; background:rgba(79,70,229,0.12); }
+    .lns-option-correct  { border-color:#22c55e; background:rgba(34,197,94,0.15); color:#86efac; }
+    .lns-option-wrong    { border-color:#ef4444; background:rgba(239,68,68,0.15); color:#fca5a5; }
+    .lns-option-missed   { border-color:#eab308; background:rgba(234,179,8,0.12); color:#fde68a; }
+    .lns-option.lns-disabled { opacity:0.45; }
+
+    /* Feedback box */
+    .lns-feedback-box { margin-top:1rem; padding:1rem; border-radius:1rem; border:2px solid; }
+    .lns-feedback-box.lns-fb-richtig   { background:rgba(34,197,94,0.08);  border-color:#22c55e; }
+    .lns-feedback-box.lns-fb-teilweise { background:rgba(234,179,8,0.08);  border-color:#eab308; }
+    .lns-feedback-box.lns-fb-falsch    { background:rgba(239,68,68,0.08); border-color:#ef4444; }
+    .lns-fb-badge {
+      display:inline-block; font-size:0.7rem; font-weight:800; text-transform:uppercase;
+      letter-spacing:0.05em; padding:0.25rem 0.75rem; border-radius:9999px; margin-bottom:0.5rem;
+    }
+    .lns-feedback-box.lns-fb-richtig   .lns-fb-badge { background:rgba(34,197,94,0.2);  color:#86efac; }
+    .lns-feedback-box.lns-fb-teilweise .lns-fb-badge { background:rgba(234,179,8,0.2);  color:#fde68a; }
+    .lns-feedback-box.lns-fb-falsch    .lns-fb-badge { background:rgba(239,68,68,0.2); color:#fca5a5; }
 
     /* KaTeX dark-mode overrides */
     .katex { color: inherit !important; }
@@ -969,6 +1043,13 @@
 <!-- ══════════════════════════════════════════════════════════════════════ -->
 <div id="quiz-overlay" class="hidden fixed inset-0 z-[170] flex flex-col" style="background:#080b14">
   <!-- Content rendered dynamically by QuizScreen -->
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<!-- LERNSET FULLSCREEN OVERLAY                                            -->
+<!-- ══════════════════════════════════════════════════════════════════════ -->
+<div id="lernset-overlay" class="hidden fixed inset-0 z-[171] flex flex-col" style="background:var(--bg)">
+  <!-- Content rendered dynamically by LernsetScreen -->
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════ -->
