@@ -127,11 +127,21 @@ window.ExamScreen = (function() {
       available: true,
     },
     {
-      id: 'englischc1-hs22',
-      label: 'Englisch C1 — Sample Exam HS22',
+      id: 'c1-lang-functions',
+      label: 'Englisch C1 — Language Functions Practice',
       course: 'EnglischC1',
-      dataVar: 'EXAM_DATA_ENGLISCHC1_HS22',
-      file: 'exams/englischc1-hs22-data.js',
+      dataVar: null,
+      file: 'exams/c1-lang-functions-data.json',
+      format: 'json',
+      available: true,
+    },
+    {
+      id: 'c1-written-hs24',
+      label: 'Englisch C1 — Written Exam Practice HS24',
+      course: 'EnglischC1',
+      dataVar: null,
+      file: 'exams/c1-written-hs24-data.json',
+      format: 'json',
       available: true,
     },
   ];
@@ -404,16 +414,32 @@ window.ExamScreen = (function() {
             ${section.description ? `<p class="text-gray-400 text-sm mt-1">${section.description}</p>` : ''}
             ${section.points ? `<p class="text-blue-400 text-xs mt-1">${section.points} Punkte</p>` : ''}
           </div>
+          ${section.sectionAttachment ? `
+            <div class="bg-blue-950 border border-blue-700 rounded-xl p-3 mb-4 flex items-center gap-3">
+              <span class="text-2xl flex-shrink-0">📎</span>
+              <div class="flex-1 min-w-0">
+                <div class="font-semibold text-sm text-blue-200">${section.sectionAttachment.label}</div>
+                <div class="text-xs text-blue-400">Reading text — download for offline use</div>
+              </div>
+              <a href="${section.sectionAttachment.file}" target="_blank"
+                class="flex-shrink-0 bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-3 py-2 rounded-xl transition">
+                📥 PDF
+              </a>
+            </div>` : ''}
           ${section.context ? `
             <div class="bg-gray-900 border border-gray-700 rounded-xl p-4 mb-4 text-sm text-gray-300 leading-relaxed">
-              <div class="text-xs text-gray-500 uppercase tracking-widest mb-2">Sachverhalt</div>
+              <div class="text-xs text-gray-500 uppercase tracking-widest mb-2">Lesetext</div>
               ${section.context.replace(/\n/g, '<br>')}
             </div>` : ''}`;
 
       section.questions.forEach((q, qi) => {
         globalQNum++;
         const qtype = q.type || section.question_type || 'single_choice';
-        if (qtype === 'text' || qtype === 'open') {
+        if (qtype === 'gapped_text_dropdown') {
+          html += _renderGappedDropdown(q);
+        } else if (qtype === 'gapped_text_input') {
+          html += _renderGappedInput(q);
+        } else if (qtype === 'text' || qtype === 'open') {
           html += _renderTextQ(q, globalQNum);
         } else {
           html += _renderMCQ(q, globalQNum, qtype);
@@ -474,6 +500,50 @@ window.ExamScreen = (function() {
       </div>`;
   }
 
+  function _renderGappedDropdown(q) {
+    let text = q.gappedText || '';
+    (q.gaps || []).forEach((gap, i) => {
+      const opts = gap.choices.map(c => `<option value="${c}">${c}</option>`).join('');
+      const sel = `<select id="gap-${q.id}-${gap.gapId}"
+        onchange="ExamScreen.setGapAnswer('${q.id}','${gap.gapId}',this.value)"
+        class="inline-block bg-gray-900 border border-blue-500 rounded-lg px-2 py-0.5 text-sm mx-0.5 cursor-pointer text-white align-middle">
+        <option value="">[${i + 1}]</option>${opts}
+      </select>`;
+      text = text.replace(new RegExp('\\{\\{' + gap.gapId + '\\}\\}', 'g'), sel);
+    });
+    return `
+      <div class="bg-gray-800 rounded-2xl p-4 mb-4" id="q-card-${q.id}">
+        <div class="flex items-center gap-2 mb-3 text-xs">
+          <span class="text-blue-400 font-bold">${q.points} Punkte</span>
+          <span class="text-gray-500">— Wähle für jede Lücke das passende Wort aus dem Dropdown</span>
+        </div>
+        <div class="text-sm leading-9 text-gray-200 bg-gray-900 rounded-xl p-4">${text}</div>
+      </div>`;
+  }
+
+  function _renderGappedInput(q) {
+    let text = q.gappedText || '';
+    (q.gaps || []).forEach((gap, i) => {
+      const bracket = gap.wordInBrackets
+        ? `<span class="text-xs text-yellow-400 ml-0.5 align-middle font-mono">(${gap.wordInBrackets})</span>` : '';
+      const inp = `<span class="inline-flex items-baseline mx-0.5 align-middle">` +
+        `<input type="text" id="gap-${q.id}-${gap.gapId}"` +
+        ` oninput="ExamScreen.setGapAnswer('${q.id}','${gap.gapId}',this.value)"` +
+        ` class="inline-block bg-gray-900 border-b-2 border-blue-400 w-28 text-center text-sm px-1 text-white focus:outline-none focus:border-blue-300"` +
+        ` placeholder="${i + 1}. ……" autocomplete="off" autocorrect="off" spellcheck="false">` +
+        bracket + `</span>`;
+      text = text.replace(new RegExp('\\{\\{' + gap.gapId + '\\}\\}', 'g'), inp);
+    });
+    return `
+      <div class="bg-gray-800 rounded-2xl p-4 mb-4" id="q-card-${q.id}">
+        <div class="flex items-center gap-2 mb-3 text-xs">
+          <span class="text-blue-400 font-bold">${q.points} Punkte</span>
+          <span class="text-gray-500">— Schreibe die richtige Wortform in jede Lücke</span>
+        </div>
+        <div class="text-sm leading-9 text-gray-200 bg-gray-900 rounded-xl p-4">${text}</div>
+      </div>`;
+  }
+
   // ── Answer Handling ───────────────────────────────────────────────────────
   function selectChoice(questionId, choiceKey, qtype) {
     const isMulti = qtype === 'multiple_choice';
@@ -511,6 +581,14 @@ window.ExamScreen = (function() {
 
   function setTextAnswer(questionId, value) {
     _answers[questionId] = value;
+    _updateProgress();
+  }
+
+  function setGapAnswer(questionId, gapId, value) {
+    if (!_answers[questionId] || typeof _answers[questionId] !== 'object' || Array.isArray(_answers[questionId])) {
+      _answers[questionId] = {};
+    }
+    _answers[questionId][gapId] = value;
     _updateProgress();
   }
 
@@ -586,6 +664,22 @@ window.ExamScreen = (function() {
           // Text: manual / AI evaluation — we defer to results screen
           earned = null; // unknown until reviewed
           isCorrect = null;
+        } else if (qtype === 'gapped_text_dropdown' || qtype === 'gapped_text_input') {
+          const gaps = q.gaps || [];
+          const ptsPerGap = gaps.length > 0 ? maxPts / gaps.length : 0;
+          let correctCount = 0;
+          gaps.forEach(gap => {
+            const userVal = ((userAnswer && typeof userAnswer === 'object') ? (userAnswer[gap.gapId] || '') : '').trim();
+            if (qtype === 'gapped_text_dropdown') {
+              if (userVal === gap.correct) correctCount++;
+            } else {
+              const acceptable = (Array.isArray(gap.correct) ? gap.correct : [gap.correct])
+                .map(a => String(a).trim().toLowerCase());
+              if (userVal.length > 0 && acceptable.includes(userVal.toLowerCase())) correctCount++;
+            }
+          });
+          earned = Math.round(correctCount * ptsPerGap * 10) / 10;
+          isCorrect = correctCount === gaps.length;
         } else {
           const correct = q.correct || [];
           if (!userAnswer || (Array.isArray(userAnswer) && userAnswer.length === 0)) {
@@ -671,19 +765,45 @@ window.ExamScreen = (function() {
       questions.forEach(({ q, userAnswer, earned, maxPts, isCorrect, correct, explanation, modelAnswer }) => {
         const userArr = Array.isArray(userAnswer) ? userAnswer : (userAnswer ? [userAnswer] : []);
         const isText = q.type === 'text' || q.type === 'open';
+        const isGapped = q.type === 'gapped_text_dropdown' || q.type === 'gapped_text_input';
 
-        const statusIcon = isText ? '📝' : isCorrect ? '✅' : '❌';
-        const bgClass = isText ? '' : isCorrect ? 'border-l-4 border-green-600' : 'border-l-4 border-red-700';
+        const statusIcon = isText ? '📝' : isGapped ? (isCorrect ? '✅' : '📝') : isCorrect ? '✅' : '❌';
+        const bgClass = (isText || isGapped) ? (isCorrect ? 'border-l-4 border-green-600' : 'border-l-4 border-yellow-700') : isCorrect ? 'border-l-4 border-green-600' : 'border-l-4 border-red-700';
+
+        const displayLabel = isGapped
+          ? (q.type === 'gapped_text_dropdown' ? 'Gapped Text (Dropdown)' : 'Word Building / Collocations')
+          : (q.text || '').substring(0, 120) + ((q.text || '').length > 120 ? '…' : '');
 
         html += `
               <div class="px-4 py-4 ${bgClass}">
                 <div class="flex gap-2 items-start mb-2">
                   <span class="text-base flex-shrink-0">${statusIcon}</span>
-                  <p class="text-sm font-medium flex-1">${q.text.substring(0, 120)}${q.text.length > 120 ? '…' : ''}</p>
+                  <p class="text-sm font-medium flex-1">${displayLabel}</p>
                   <span class="text-xs text-gray-500 flex-shrink-0">${earned !== null ? earned : '?'}/${maxPts}P</span>
                 </div>`;
 
-        if (isText) {
+        if (isGapped) {
+          const userGaps = (userAnswer && typeof userAnswer === 'object' && !Array.isArray(userAnswer)) ? userAnswer : {};
+          html += `<div class="ml-7 mt-1 space-y-1">`;
+          (q.gaps || []).forEach((gap, i) => {
+            const userVal = (userGaps[gap.gapId] || '').trim();
+            let gapOk;
+            if (q.type === 'gapped_text_dropdown') {
+              gapOk = userVal === gap.correct;
+            } else {
+              const acc = (Array.isArray(gap.correct) ? gap.correct : [gap.correct]).map(a => String(a).trim().toLowerCase());
+              gapOk = userVal.length > 0 && acc.includes(userVal.toLowerCase());
+            }
+            const correctVal = Array.isArray(gap.correct) ? gap.correct[0] : gap.correct;
+            const bracketLabel = gap.wordInBrackets ? ` (${gap.wordInBrackets})` : '';
+            html += `<div class="text-xs ${gapOk ? 'text-green-400' : 'text-red-400'}">
+              ${gapOk ? '✓' : '✗'} Gap ${i + 1}${bracketLabel}: <strong>"${userVal || '—'}"</strong>
+              ${!gapOk ? `<span class="text-gray-400"> → "${correctVal}"</span>` : ''}
+            </div>`;
+          });
+          html += `</div>`;
+          if (explanation) html += `<div class="ml-7 mt-2 text-xs text-gray-500 italic">${explanation}</div>`;
+        } else if (isText) {
           html += `
                 <div class="ml-7 space-y-2">
                   <div class="bg-gray-900 rounded-lg p-3 text-xs">
@@ -879,7 +999,7 @@ window.ExamScreen = (function() {
   return {
     init, renderSelector,
     showSetup, closeSetup, startFromSetup, startExam,
-    selectChoice, setTextAnswer,
+    selectChoice, setTextAnswer, setGapAnswer,
     confirmAbort, cancelAbort, abortExam,
     submitExam, closeResults,
     isExamActive, requestAiFeedback,

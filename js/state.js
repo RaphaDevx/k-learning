@@ -23,6 +23,7 @@ window.AppState = (function() {
     _state.activeTab        = _state.activeTab        || 'feed';
     _state.quizResults      = _state.quizResults      || {};  // { dataVar: { qId: { correct, topic, ts } } }
     _state.quizTopicStats   = _state.quizTopicStats   || {};  // { topic: { correct, total } }
+    _state.lernsetProgress  = _state.lernsetProgress  || {};  // { itemId: { attempts, bestScore, lastScore } }
   }
 
   function save() {
@@ -66,6 +67,33 @@ window.AppState = (function() {
     return topics;
   }
 
+  // Lernset (interactive exercises) progress helpers
+  function getLernsetProgress(itemId) {
+    return _state.lernsetProgress[itemId] || { attempts: 0, bestScore: 0, lastScore: 0 };
+  }
+
+  function setLernsetProgress(itemId, prog) {
+    _state.lernsetProgress[itemId] = prog;
+    save();
+  }
+
+  function getLernsetTopicProgress(course) {
+    const data = window.LERNSET_DATA || [];
+    const topics = {};
+    const prog = _state.lernsetProgress || {};
+    data.filter(c => c.course === course).forEach(c => {
+      const t = c.topic || 'Allgemein';
+      if (!topics[t]) topics[t] = { total: 0, done: 0 };
+      topics[t].total++;
+      if (prog[c.id] && prog[c.id].attempts > 0) topics[t].done++;
+    });
+    return topics;
+  }
+
   load();
-  return { get, set, update, save, getCardProgress, setCardProgress, getTopicProgress };
+  return {
+    get, set, update, save,
+    getCardProgress, setCardProgress, getTopicProgress,
+    getLernsetProgress, setLernsetProgress, getLernsetTopicProgress
+  };
 })();

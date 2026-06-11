@@ -4,10 +4,11 @@
 window.LernenScreen = (function() {
 
   let _activeCourse = null;
-  let _activeMode   = 'karten'; // 'karten' | 'quiz'
+  let _activeMode   = 'karten'; // 'karten' | 'lernset' | 'quiz'
 
   function init() {
     _activeCourse = AppState.get('activeCourse') || _firstEnrolled();
+    window.LernsetScreen?.init();
     if (!window.FLASHCARD_DATA && window.FlashcardsScreen) {
       // Show skeleton while cards load from Supabase, then re-render with counts
       _render();
@@ -32,6 +33,10 @@ window.LernenScreen = (function() {
   function setMode(mode) {
     _activeMode = mode;
     _render();
+  }
+
+  function getActiveMode() {
+    return _activeMode;
   }
 
   // ── Top-level render ──
@@ -68,8 +73,9 @@ window.LernenScreen = (function() {
 
   // ── Mode toggle ──
   function _modeToggle() {
-    const kartenActive = _activeMode === 'karten';
-    const quizActive   = _activeMode === 'quiz';
+    const kartenActive  = _activeMode === 'karten';
+    const lernsetActive = _activeMode === 'lernset';
+    const quizActive    = _activeMode === 'quiz';
 
     const btn = (mode, icon, label, isActive) => `
       <button onclick="LernenScreen.setMode('${mode}')"
@@ -80,19 +86,23 @@ window.LernenScreen = (function() {
         ${icon} ${label}
       </button>`;
 
-    const kartenIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`;
-    const quizIcon   = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
+    const kartenIcon  = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`;
+    const lernsetIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`;
+    const quizIcon    = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
 
     return `
       <div class="flex gap-2 mt-4 mb-4">
-        ${btn('karten', kartenIcon, 'Lernkarten', kartenActive)}
-        ${btn('quiz',   quizIcon,   'Quiz',        quizActive)}
+        ${btn('karten',  kartenIcon,  'Lernkarten', kartenActive)}
+        ${btn('lernset', lernsetIcon, 'Lernset',    lernsetActive)}
+        ${btn('quiz',    quizIcon,    'Quiz',       quizActive)}
       </div>`;
   }
 
   // ── Dynamic content area ──
   function _contentArea() {
-    return _activeMode === 'karten' ? _renderKarten() : _renderQuiz();
+    if (_activeMode === 'karten')  return _renderKarten();
+    if (_activeMode === 'lernset') return _renderLernset();
+    return _renderQuiz();
   }
 
   // ── Lernkarten: all-deck + topics ──
@@ -199,6 +209,77 @@ window.LernenScreen = (function() {
     return allDeck + topicRows;
   }
 
+  // ── Lernset: interactive exercises (order/truefalse/single/multiple) ──
+  function _renderLernset() {
+    if (!_activeCourse) return _empty('Wähle oben ein Fach aus.');
+
+    const items = (window.LERNSET_DATA || []).filter(c => c.course === _activeCourse);
+    if (!items.length) {
+      return `
+        <div class="rounded-2xl p-6 text-center" style="background:var(--card);border:1px solid var(--border)">
+          <div class="text-3xl mb-2">🎯</div>
+          <div class="font-semibold text-sm" style="color:var(--txt)">Noch keine Lernset-Übungen für ${_activeCourse}</div>
+          <div class="text-xs mt-1" style="color:var(--txt-2)">Bald verfügbar</div>
+        </div>`;
+    }
+
+    const prog       = AppState.get('lernsetProgress') || {};
+    const courseData = (window.TOPICS_DATA || {})[_activeCourse];
+    const color      = courseData?.color || '#6366f1';
+    const course     = _activeCourse;
+
+    const groups = {};
+    items.forEach(c => {
+      const key = c.topic || 'Allgemein';
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(c);
+    });
+
+    const allDone  = items.filter(c => prog[c.id]?.attempts > 0).length;
+    const allTotal = items.length;
+    const allPct   = allTotal ? Math.round(allDone / allTotal * 100) : 0;
+
+    const allDeck = `
+      <button onclick="LernsetScreen.startDeck('${course}', null)"
+        class="tap-card w-full flex items-center justify-between rounded-2xl p-4 mb-3"
+        style="background:linear-gradient(135deg,#4f46e5,#7c3aed);border:1px solid rgba(255,255,255,0.1)">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl">🎯</span>
+          <div>
+            <div class="font-bold text-sm text-white">Alle Übungen — ${course}</div>
+            <div class="text-xs text-white/60 mt-0.5">${allTotal} Übungen · ${allPct}% bearbeitet</div>
+          </div>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>`;
+
+    const topicRows = Object.entries(groups).map(([topic, cards]) => {
+      const total = cards.length;
+      const done  = cards.filter(c => prog[c.id]?.attempts > 0).length;
+      const pct   = total ? Math.round(done / total * 100) : 0;
+      const topicShort = topic.replace(/^M\d+ — /, '').replace(/^Modul \d+: /, '');
+      const safeTopic  = topic.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+
+      return `
+        <button onclick="LernsetScreen.startDeck('${course}', '${safeTopic}')"
+          class="tap-card w-full flex items-center gap-3 rounded-2xl p-4"
+          style="background:var(--card);border:1px solid var(--border)">
+          <span class="text-xl flex-shrink-0">🎯</span>
+          <div class="flex-1 min-w-0 text-left">
+            <div class="font-semibold text-sm leading-snug" style="color:var(--txt)">${topicShort}</div>
+            <div class="flex items-center gap-2 mt-1.5">
+              <div class="flex-1 h-1.5 rounded-full" style="background:var(--card-raised)">
+                <div class="h-full rounded-full transition-all" style="width:${pct}%;background:${color}"></div>
+              </div>
+              <span class="text-[10px] font-mono flex-shrink-0" style="color:var(--txt-3)">${done}/${total}</span>
+            </div>
+          </div>
+        </button>`;
+    }).join('');
+
+    return allDeck + `<div class="space-y-2">${topicRows}</div>`;
+  }
+
   // ── Quiz: registry filtered by course ──
   function _renderQuiz() {
     if (!_activeCourse) return _empty('Wahle oben ein Fach aus.');
@@ -237,5 +318,5 @@ window.LernenScreen = (function() {
     return `<p class="text-sm text-center py-6" style="color:var(--txt-2)">${msg}</p>`;
   }
 
-  return { init, selectCourse, setMode };
+  return { init, selectCourse, setMode, getActiveMode };
 })();

@@ -1,0 +1,481 @@
+{
+  "_meta": {
+    "schemaVersion": "1",
+    "sourceFile": "C1_Written_Exam_HS24",
+    "createdAt": "2026-06-08",
+    "promptVersion": "create-exam-v3",
+    "status": "final"
+  },
+  "id": "c1-written-hs24",
+  "title": "C1 English — Written Exam Practice (HS 2024)",
+  "course": "EnglischC1",
+  "courseColor": "#10b981",
+  "durationMinutes": 88,
+  "totalPoints": 88,
+  "resourceLink": "assets/exams/c1-written-hs24/original-exam.pdf",
+  "examInfo": {
+    "date": "HS 2024 (Practice)",
+    "duration": "120 Minuten (ohne Listening)",
+    "format": "Section B: Vocab/Grammar Dropdown · Section C: Reading MC · Section D: Wordbuilding · Section E: Collocations · Part 2: Writing",
+    "allowedAids": "None (BYOD, LockDown Browser)",
+    "grading": "Note 6.0: ≥85%, Note 5.5: ≥75%, Note 5.0: ≥65%, Note 4.5: ≥55%, Note 4.0: ≥45%, Note 3.5: ≥35%"
+  },
+  "scoringRules": {
+    "single_choice": {
+      "correct": 2,
+      "wrong": 0,
+      "blank": 0
+    },
+    "gapped_text_dropdown": {
+      "correct": 1,
+      "wrong": 0,
+      "blank": 0
+    },
+    "gapped_text_input": {
+      "correct": 1,
+      "wrong": 0,
+      "blank": 0
+    },
+    "open": {
+      "correct": null,
+      "wrong": null,
+      "blank": null
+    }
+  },
+  "telemetry": {
+    "hook": "onQuestionChange",
+    "saveEndpoint": "save_exam_result",
+    "trackDuration": true,
+    "trackClicks": true
+  },
+  "sections": [
+    {
+      "id": "sec-b",
+      "title": "Section B: Vocabulary and Grammar — Gapped Text",
+      "description": "Select the correct word from each dropdown to complete the text. Each correct answer is worth 1 point.",
+      "context": null,
+      "points": 8,
+      "question_type": "gapped_text_dropdown",
+      "questions": [
+        {
+          "id": "c1-written-hs24-secB",
+          "number": 1,
+          "type": "gapped_text_dropdown",
+          "points": 8,
+          "imageHtml": null,
+          "imageAsset": null,
+          "gappedText": "Establishing a successful business partnership requires careful planning and clear communication from the outset. Before entering into any formal agreement, both parties should {{gap_1}} out exactly what they hope to achieve from the collaboration. It is equally important to {{gap_2}} any potential risks and address them proactively. A well-{{gap_3}} contract will protect both sides and ensure that responsibilities are clearly defined. Partners must also be prepared to {{gap_4}} challenges as they arise, rather than hoping they will resolve themselves. Regular meetings can help to {{gap_5}} that both parties remain aligned with shared objectives. Transparency {{gap_6}} a crucial role in maintaining trust throughout the partnership. When disagreements occur, a diplomatic and {{gap_7}} approach is far more productive than confrontation. Ultimately, a strong partnership is built on {{gap_8}} respect and a genuine commitment to shared success.",
+          "gaps": [
+            {
+              "id": "gap_1",
+              "points": 1,
+              "choices": ["set", "lay", "take", "put"],
+              "correct": "set",
+              "explanation": "'Set out' means to state or describe something clearly. 'Lay out' is also possible in some contexts, but 'set out' is the standard collocation here."
+            },
+            {
+              "id": "gap_2",
+              "points": 1,
+              "choices": ["identify", "ignore", "isolate", "increase"],
+              "correct": "identify",
+              "explanation": "'Identify risks' is the correct collocation — to recognise and name specific risks so they can be addressed."
+            },
+            {
+              "id": "gap_3",
+              "points": 1,
+              "choices": ["drafted", "drawn", "made", "written"],
+              "correct": "drafted",
+              "explanation": "'Well-drafted' is the fixed adjective used to describe a carefully prepared legal document. 'Drawn up' is also valid for contracts but 'well-drawn' is not standard."
+            },
+            {
+              "id": "gap_4",
+              "points": 1,
+              "choices": ["address", "avoid", "adopt", "access"],
+              "correct": "address",
+              "explanation": "'Address challenges' means to deal with or tackle them directly. The context ('rather than hoping they will resolve themselves') makes clear that active engagement is required."
+            },
+            {
+              "id": "gap_5",
+              "points": 1,
+              "choices": ["ensure", "assure", "confirm", "secure"],
+              "correct": "ensure",
+              "explanation": "'Ensure that' is the correct collocation for making certain that something happens. 'Assure' takes a person as object ('assure someone that'), not a clause about alignment."
+            },
+            {
+              "id": "gap_6",
+              "points": 1,
+              "choices": ["plays", "makes", "takes", "gives"],
+              "correct": "plays",
+              "explanation": "'Plays a crucial role' is the fixed collocation. 'Makes a role' and 'takes a role' are not standard English expressions in this context."
+            },
+            {
+              "id": "gap_7",
+              "points": 1,
+              "choices": ["constructive", "concrete", "conclusive", "conservative"],
+              "correct": "constructive",
+              "explanation": "'Constructive approach' means one that is helpful and focused on building solutions. In the context of handling disagreements, 'constructive' is the standard and appropriate choice."
+            },
+            {
+              "id": "gap_8",
+              "points": 1,
+              "choices": ["mutual", "multiple", "minimal", "maximum"],
+              "correct": "mutual",
+              "explanation": "'Mutual respect' is the fixed collocation meaning respect that is shared equally between both parties. It is the cornerstone phrase for describing healthy partnerships."
+            }
+          ],
+          "topics": ["Vocabulary", "Collocations", "Business Language"],
+          "metadata": { "difficulty": "medium", "category": "Vocabulary and Grammar", "latex": false, "_generated": false }
+        }
+      ]
+    },
+    {
+      "id": "sec-c",
+      "title": "Section C: Reading Comprehension",
+      "description": "Read the text and answer the questions. Each correct answer is worth 2 points.",
+      "context": "The rise of digital technology has given birth to a new breed of corporate behemoth: the internet giant. Companies such as Alphabet (Google), Amazon, Apple, Meta, and Microsoft — collectively known as 'Big Tech' or 'GAFAM' — have grown from modest start-ups into some of the most powerful businesses in human history. Their dominance spans search engines, social media, e-commerce, cloud computing, and consumer electronics, touching nearly every aspect of daily life.\n\nThe economic impact of these corporations is staggering. Together, GAFAM companies have at various points exceeded the total GDP of most nations, with combined market capitalisations surpassing several trillion dollars. Their business models, often built around data collection, targeted advertising, and platform ecosystems, have proven extraordinarily lucrative.\n\nHowever, this extraordinary success has also sparked growing unease. Critics argue that these companies exercise a form of monopoly power that stifles competition and innovation. Small businesses are often forced to operate within the ecosystems these giants control — paying fees, following their rules, and competing directly against them. Regulators in the United States, European Union, and elsewhere have launched antitrust investigations and imposed substantial fines.\n\nA further concern is these companies' relationship with personal data. Internet giants harvest vast quantities of information about their users — their preferences, movements, communications, and behaviours — which they use to sell highly targeted advertising. Privacy advocates warn that this creates an asymmetric relationship in which consumers surrender enormous amounts of personal data, often without fully understanding what they are consenting to.\n\nDespite these tensions, the economic contribution of internet giants to innovation should not be understated. These firms have driven breakthroughs in artificial intelligence, cloud infrastructure, renewable energy, and logistics. Their investment in research and development dwarfs that of many governments, and the technologies they develop filter down into other industries and raise productivity across the economy.\n\nThe central question for policymakers is how to ensure that the benefits of these platforms remain broadly shared while their more damaging tendencies are checked. Whether through taxation, regulation, or structural reform, governing internet giants will be one of the defining economic and political challenges of the coming decade.",
+      "sectionAttachment": {
+        "label": "Reading Text: Internet Giants of the 21st Century Economy",
+        "file": "assets/exams/c1-written-hs24/internet-giants-reading-text.pdf"
+      },
+      "points": 12,
+      "question_type": "single_choice",
+      "questions": [
+        {
+          "id": "c1-written-hs24-secC-q1",
+          "number": 2,
+          "type": "single_choice",
+          "points": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "What is the PRIMARY purpose of this text?",
+          "choices": [
+            { "key": "A", "text": "To argue for the immediate break-up of large technology companies." },
+            { "key": "B", "text": "To examine the power and concerns surrounding large technology companies." },
+            { "key": "C", "text": "To explain how investors can profit from Big Tech stocks." },
+            { "key": "D", "text": "To describe the history of the internet from its origins to the present day." }
+          ],
+          "correct": ["B"],
+          "modelAnswer": null,
+          "explanation": "B is correct. The text is balanced — it covers both the power and economic significance of internet giants and the concerns they raise (monopoly, data, regulation), as well as their positive contributions. It does not argue for a single policy position (A), discuss investment (C), or trace internet history (D).",
+          "topics": ["Reading Comprehension", "Main Purpose"],
+          "metadata": { "difficulty": "easy", "category": "Reading Comprehension", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-written-hs24-secC-q2",
+          "number": 3,
+          "type": "single_choice",
+          "points": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "According to paragraph 2, what makes GAFAM business models so profitable?",
+          "choices": [
+            { "key": "A", "text": "Heavy investment in physical retail infrastructure." },
+            { "key": "B", "text": "Data collection, targeted advertising, and platform ecosystems." },
+            { "key": "C", "text": "Substantial government subsidies and tax incentives." },
+            { "key": "D", "text": "Revenue from hardware manufacturing and device sales." }
+          ],
+          "correct": ["B"],
+          "modelAnswer": null,
+          "explanation": "B is correct. Paragraph 2 states explicitly: 'Their business models, often built around data collection, targeted advertising, and platform ecosystems, have proven extraordinarily lucrative.' The other options are not mentioned in this paragraph.",
+          "topics": ["Reading Comprehension", "Detail"],
+          "metadata": { "difficulty": "easy", "category": "Reading Comprehension", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-written-hs24-secC-q3",
+          "number": 4,
+          "type": "single_choice",
+          "points": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "The word 'stifles' in paragraph 3 is closest in meaning to:",
+          "choices": [
+            { "key": "A", "text": "encourages" },
+            { "key": "B", "text": "reveals" },
+            { "key": "C", "text": "suppresses" },
+            { "key": "D", "text": "supports" }
+          ],
+          "correct": ["C"],
+          "modelAnswer": null,
+          "explanation": "C is correct. 'Stifles' means to prevent something from developing or flourishing — to suppress or hold back. In context, critics argue that monopoly power 'stifles competition and innovation', meaning it holds back or suppresses competitive activity.",
+          "topics": ["Reading Comprehension", "Vocabulary in Context"],
+          "metadata": { "difficulty": "medium", "category": "Reading Comprehension", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-written-hs24-secC-q4",
+          "number": 5,
+          "type": "single_choice",
+          "points": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "Which of the following concerns about internet giants is NOT mentioned in the text?",
+          "choices": [
+            { "key": "A", "text": "Monopoly power stifling competition." },
+            { "key": "B", "text": "The collection and use of personal data." },
+            { "key": "C", "text": "The negative impact on traditional employment." },
+            { "key": "D", "text": "Antitrust investigations by regulators." }
+          ],
+          "correct": ["C"],
+          "modelAnswer": null,
+          "explanation": "C is correct — the impact on traditional employment is never mentioned in the text. The text discusses monopoly power (A, paragraph 3), personal data collection (B, paragraph 4), and regulatory investigations (D, paragraph 3), but says nothing about job losses in traditional industries.",
+          "topics": ["Reading Comprehension", "Detail", "NOT mentioned"],
+          "metadata": { "difficulty": "medium", "category": "Reading Comprehension", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-written-hs24-secC-q5",
+          "number": 6,
+          "type": "single_choice",
+          "points": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "What positive contribution have internet giants made, according to the text?",
+          "choices": [
+            { "key": "A", "text": "Helping governments reduce national debt." },
+            { "key": "B", "text": "Driving breakthroughs in AI, cloud infrastructure, and logistics." },
+            { "key": "C", "text": "Improving the efficiency of traditional manufacturing industries." },
+            { "key": "D", "text": "Providing free digital services for low-income users worldwide." }
+          ],
+          "correct": ["B"],
+          "modelAnswer": null,
+          "explanation": "B is correct. Paragraph 5 states: 'These firms have driven breakthroughs in artificial intelligence, cloud infrastructure, renewable energy, and logistics.' None of the other options are mentioned in the text.",
+          "topics": ["Reading Comprehension", "Detail", "Positive Contributions"],
+          "metadata": { "difficulty": "easy", "category": "Reading Comprehension", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-written-hs24-secC-q6",
+          "number": 7,
+          "type": "single_choice",
+          "points": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "What is the central challenge for policymakers, according to the final paragraph?",
+          "choices": [
+            { "key": "A", "text": "Raising sufficient tax revenue from internet giants to fund public services." },
+            { "key": "B", "text": "Ensuring the benefits of these platforms are broadly shared while limiting their harmful tendencies." },
+            { "key": "C", "text": "Breaking up all large technology companies to restore competition." },
+            { "key": "D", "text": "Forcing technology companies to share their proprietary technologies with competitors." }
+          ],
+          "correct": ["B"],
+          "modelAnswer": null,
+          "explanation": "B is correct. The final paragraph states: 'The central question for policymakers is how to ensure that the benefits of these platforms remain broadly shared while their more damaging tendencies are checked.' A, C, and D represent specific measures mentioned briefly but not identified as the central challenge.",
+          "topics": ["Reading Comprehension", "Main Idea", "Policy"],
+          "metadata": { "difficulty": "easy", "category": "Reading Comprehension", "latex": false, "_generated": false }
+        }
+      ]
+    },
+    {
+      "id": "sec-d",
+      "title": "Section D: Word Building",
+      "description": "Fill in the correct form of the word in brackets. Spelling must be correct. Capital letters are not required.",
+      "context": null,
+      "points": 10,
+      "question_type": "gapped_text_input",
+      "questions": [
+        {
+          "id": "c1-written-hs24-secD",
+          "number": 8,
+          "type": "gapped_text_input",
+          "points": 10,
+          "imageHtml": null,
+          "imageAsset": null,
+          "gappedText": "The technology industry has seen remarkable {{gap_1}} (GROW) over the past two decades, driven by the rise of internet companies. These firms have demonstrated extraordinary {{gap_2}} (INNOVATE) in developing new digital products and services. The intense {{gap_3}} (COMPETE) between major platforms has led to rapid technological advances. However, concerns about the {{gap_4}} (DOMINATE) of a small number of powerful companies have prompted calls for stricter {{gap_5}} (REGULATE). Privacy advocates argue that the {{gap_6}} (COLLECT) of personal data by these companies lacks {{gap_7}} (TRANSPARENT) and undermines individual rights. These firms also have a {{gap_8}} (TEND) to expand aggressively into new markets. Their {{gap_9}} (ABLE) to leverage vast amounts of data gives them a considerable competitive advantage. Many economists argue that improving the {{gap_10}} (COMPETE) of the digital economy requires coordinated international action.",
+          "gaps": [
+            {
+              "id": "gap_1",
+              "points": 1,
+              "correct": ["growth"],
+              "wordInBrackets": "GROW",
+              "explanation": "GROW → growth (noun form). The sentence requires a noun after 'remarkable'."
+            },
+            {
+              "id": "gap_2",
+              "points": 1,
+              "correct": ["innovation"],
+              "wordInBrackets": "INNOVATE",
+              "explanation": "INNOVATE → innovation (noun form). 'Demonstrated extraordinary innovation' requires a noun."
+            },
+            {
+              "id": "gap_3",
+              "points": 1,
+              "correct": ["competition"],
+              "wordInBrackets": "COMPETE",
+              "explanation": "COMPETE → competition (noun form). 'The intense competition' requires a noun. Note: gap_10 also derives from COMPETE but produces 'competitiveness'."
+            },
+            {
+              "id": "gap_4",
+              "points": 1,
+              "correct": ["dominance"],
+              "wordInBrackets": "DOMINATE",
+              "explanation": "DOMINATE → dominance (noun form). 'Concerns about the dominance of...' requires a noun."
+            },
+            {
+              "id": "gap_5",
+              "points": 1,
+              "correct": ["regulation"],
+              "wordInBrackets": "REGULATE",
+              "explanation": "REGULATE → regulation (noun form). 'Stricter regulation' requires a noun."
+            },
+            {
+              "id": "gap_6",
+              "points": 1,
+              "correct": ["collection"],
+              "wordInBrackets": "COLLECT",
+              "explanation": "COLLECT → collection (noun form). 'The collection of personal data' requires a noun."
+            },
+            {
+              "id": "gap_7",
+              "points": 1,
+              "correct": ["transparency"],
+              "wordInBrackets": "TRANSPARENT",
+              "explanation": "TRANSPARENT → transparency (noun form). 'Lacks transparency' requires a noun."
+            },
+            {
+              "id": "gap_8",
+              "points": 1,
+              "correct": ["tendency"],
+              "wordInBrackets": "TEND",
+              "explanation": "TEND → tendency (noun form). 'Have a tendency to expand' requires a noun."
+            },
+            {
+              "id": "gap_9",
+              "points": 1,
+              "correct": ["ability"],
+              "wordInBrackets": "ABLE",
+              "explanation": "ABLE → ability (noun form). 'Their ability to leverage...' requires a noun."
+            },
+            {
+              "id": "gap_10",
+              "points": 1,
+              "correct": ["competitiveness"],
+              "wordInBrackets": "COMPETE",
+              "explanation": "COMPETE → competitiveness (noun form meaning the quality of being competitive). 'Improving the competitiveness of the digital economy' requires this specific noun. Note: 'competition' (gap_3) and 'competitiveness' (gap_10) are both derived from COMPETE but have different meanings."
+            }
+          ],
+          "topics": ["Word Building", "Vocabulary", "Noun Forms"],
+          "metadata": { "difficulty": "medium", "category": "Word Building", "latex": false, "_generated": false }
+        }
+      ]
+    },
+    {
+      "id": "sec-e",
+      "title": "Section E: Vocabulary and Grammar — Open Gap Fill",
+      "description": "Fill in each gap with ONE word only. Focus on collocations and grammatical patterns.",
+      "context": null,
+      "points": 8,
+      "question_type": "gapped_text_input",
+      "questions": [
+        {
+          "id": "c1-written-hs24-secE",
+          "number": 9,
+          "type": "gapped_text_input",
+          "points": 8,
+          "imageHtml": null,
+          "imageAsset": null,
+          "gappedText": "Internet companies have come {{gap_1}} considerable criticism in recent years over their handling of personal data. Regulators in the European Union have taken {{gap_2}} to address these concerns through legislation. Critics argue that such companies should be {{gap_3}} to account for their business practices. Many users are not fully {{gap_4}} of what information they share when using these platforms. This raises concerns about whether consent is truly given {{gap_5}} a fully informed basis. Advocacy groups continue to {{gap_6}} pressure on governments to strengthen privacy laws. At the same time, the industry argues that excessive regulation could {{gap_7}} innovation. Finding the right balance between oversight and freedom remains a {{gap_8}} issue for governments worldwide.",
+          "gaps": [
+            {
+              "id": "gap_1",
+              "points": 1,
+              "correct": ["under"],
+              "explanation": "'Come under criticism' is the fixed collocation. 'Under pressure', 'under scrutiny', 'under fire' follow the same pattern."
+            },
+            {
+              "id": "gap_2",
+              "points": 1,
+              "correct": ["steps"],
+              "explanation": "'Take steps to' is the standard collocation meaning to take action towards a goal."
+            },
+            {
+              "id": "gap_3",
+              "points": 1,
+              "correct": ["held"],
+              "explanation": "'Held to account' is the passive form of the idiom 'hold someone to account', meaning to make someone answer for their actions."
+            },
+            {
+              "id": "gap_4",
+              "points": 1,
+              "correct": ["aware"],
+              "explanation": "'Aware of' is the correct adjective + preposition collocation. 'Not fully aware of what information they share' is natural C1-level phrasing."
+            },
+            {
+              "id": "gap_5",
+              "points": 1,
+              "correct": ["on"],
+              "explanation": "'On a fully informed basis' — the preposition 'on' is required for the pattern 'on a [adjective] basis'."
+            },
+            {
+              "id": "gap_6",
+              "points": 1,
+              "correct": ["put"],
+              "explanation": "'Put pressure on' is the correct collocation. 'Continue to put pressure on governments' means to persistently lobby or push for action."
+            },
+            {
+              "id": "gap_7",
+              "points": 1,
+              "correct": ["stifle", "hinder", "restrict", "limit", "hamper", "curb"],
+              "explanation": "Several verbs are acceptable here: 'stifle', 'hinder', 'restrict', 'limit', 'hamper', or 'curb' innovation. All mean to hold back or reduce the pace of innovation. 'Stifle' mirrors the vocabulary from the reading text."
+            },
+            {
+              "id": "gap_8",
+              "points": 1,
+              "correct": ["key", "pressing", "critical", "major", "significant", "crucial", "important", "contentious"],
+              "explanation": "Several adjectives are acceptable: 'key', 'pressing', 'critical', 'major', 'significant', 'crucial', 'important', or 'contentious'. All collocate with 'issue' to convey that the balance between oversight and freedom is a matter of serious ongoing concern."
+            }
+          ],
+          "topics": ["Collocations", "Grammar Patterns", "Prepositions"],
+          "metadata": { "difficulty": "hard", "category": "Vocabulary and Grammar", "latex": false, "_generated": false }
+        }
+      ]
+    },
+    {
+      "id": "sec-writing",
+      "title": "Part 2: Writing — Proofreading, Sentence Transformation & Extended Writing",
+      "description": "Complete all three writing tasks below. Read each task carefully before beginning.",
+      "context": null,
+      "points": 50,
+      "question_type": "open",
+      "questions": [
+        {
+          "id": "c1-written-hs24-writing-q1",
+          "number": 10,
+          "type": "open",
+          "points": 10,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "PART 2A — PROOFREADING (10 marks)\n\nSome of the lines in the email below contain ONE extra word that does not belong in the text. Some lines are correct. Read the text carefully and write the extra word for each incorrect line, or write CORRECT if the line contains no error.\n\n(1) Dear Mr Chen,\n(2) Thank you for taking the time to meet with us last Wednesday to discuss about\n(3) the proposed partnership. I am writing to confirm the key points that we\n(4) agreed on during our meeting. First, both companies will be each contributing\n(5) equally to the initial project costs. Second, a steering committee will be formed\n(6) to oversee the project and ensure that the work is completed on time and\n(7) within budget. Third, a formal contract will need to be drawn up by our\n(8) respective legal teams. Please do not hesitate to contact me if you have any\n(9) further questions or concerns about this arrangement. I look very forward to\n(10) working with you and your team.\n\nBest regards,\nSophie Müller",
+          "model_answer": "(1) CORRECT (2) about (3) CORRECT (4) be (5) CORRECT (6) CORRECT (7) CORRECT (8) CORRECT (9) very (10) CORRECT",
+          "topics": ["Writing", "Proofreading", "Error Correction"],
+          "metadata": { "difficulty": "medium", "category": "Writing", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-written-hs24-writing-q2",
+          "number": 11,
+          "type": "open",
+          "points": 10,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "PART 2B — SENTENCE TRANSFORMATION (10 marks)\n\nComplete the second sentence so that it has a similar meaning to the first. Use the word given in CAPITALS. Do not change the word given. Use between two and five words.\n\n1. The meeting was cancelled because of bad weather.\nRESULT\nBad weather _____________ the meeting being cancelled.\n\n2. It's possible that prices will rise next quarter.\nMIGHT\nPrices _____________ next quarter.\n\n3. We hadn't expected such a positive response from customers.\nSURPRISED\nWe were _____________ the positive response from customers.\n\n4. The CEO suggested that the team should work overtime.\nPROPOSED\nThe CEO _____________ work overtime.\n\n5. In spite of the challenges, the project was completed on time.\nDESPITE\nThe project was completed on time _____________ challenges.",
+          "model_answer": "1. resulted in / led to (Bad weather resulted in / led to the meeting being cancelled.) 2. might rise (Prices might rise next quarter.) 3. surprised by (We were surprised by the positive response.) 4. proposed that the team (The CEO proposed that the team work overtime.) 5. despite the (The project was completed on time despite the challenges.)",
+          "topics": ["Writing", "Sentence Transformation", "Grammar"],
+          "metadata": { "difficulty": "hard", "category": "Writing", "latex": false, "_generated": false }
+        },
+        {
+          "id": "c1-written-hs24-writing-q3",
+          "number": 12,
+          "type": "open",
+          "points": 30,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "PART 2C — WRITING TASK (30 marks)\n\nWrite EITHER a report OR a proposal embedded in an email. Choose ONE of the following tasks:\n\nOPTION A — PROPOSAL\nYou work for a consulting company. A local company has asked you to propose strategies for reducing employee turnover. Write a proposal for their HR Director (Sofia Hartmann), suggesting at least THREE specific initiatives with expected benefits.\n\nOPTION B — REPORT\nYou have been asked to report on the effectiveness of a recent digital transformation initiative in your company. Write a report for your line manager (Thomas Reiter), including a brief executive summary, findings on what went well and what needs improvement, and at least THREE recommendations.\n\nYour writing should:\n• Be embedded in an appropriate email\n• Use the conventions taught in the C1 course\n• Be 200-250 words\n• Use appropriate register and tone",
+          "model_answer": "See model proposal (EcoVantage/Circular Economy) and model report (Conflict Management) for reference format and conventions. Key criteria: Subject line and Dear [Name] opening, clear structure with headings (Executive Summary/Introduction/Findings/Recommendations or Benefits/Initiatives/Expected Outcomes), professional register, correct use of report/proposal conventions, appropriate closing.",
+          "topics": ["Writing", "Report", "Proposal", "Email Conventions"],
+          "metadata": { "difficulty": "hard", "category": "Writing", "latex": false, "_generated": false }
+        }
+      ]
+    }
+  ],
+  "_validation": [
+    "⚠ Section A (Listening, 10 pts) not included — audio not available in digital practice.",
+    "⚠ Internet Giants reading text (Section C) is practice material — replace with official text when available.",
+    "⚠ resourceLink points to placeholder PDF — copy actual exam PDF here when available."
+  ]
+}
