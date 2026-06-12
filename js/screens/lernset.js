@@ -184,6 +184,7 @@ window.LernsetScreen = (function () {
         case 'multiple':   _renderMultiple(item, body);  break;
         default:           body.innerHTML = '';
       }
+      E.renderMathIn(body);
     }
 
     _setActionBtn('Prüfen', false);
@@ -301,6 +302,7 @@ window.LernsetScreen = (function () {
       ${explanationText ? `<div class="text-sm leading-relaxed" style="color:var(--txt)">${E.escHtml(explanationText)}</div>` : ''}
       ${extra}`;
     fb.classList.remove('hidden');
+    E.renderMathIn(fb);
 
     if (fraction === 1) _showSuccessAnim();
   }

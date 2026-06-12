@@ -1,0 +1,1599 @@
+{
+  "_meta": {
+    "schemaVersion": "1",
+    "sourceFile": "BEC_Higher_Sample_Test_1",
+    "createdAt": "2026-06-10",
+    "promptVersion": "create-exam-v3",
+    "status": "final"
+  },
+  "id": "c1-bec-higher-1",
+  "title": "Englisch C1 — BEC Higher Sample Test 1 (Reading & Listening)",
+  "subtitle": "Cambridge English Business Higher (BEC Higher / B2 Business Vantage), Sample Paper 1",
+  "course": "EnglischC1",
+  "courseColor": "#e11d48",
+  "durationMinutes": 82,
+  "totalPoints": 82,
+  "resourceLink": null,
+  "examInfo": {
+    "date": "Cambridge English Business Higher — Sample Paper 1 (Practice)",
+    "duration": "Reading: 1 hour · Listening: ~40 minutes",
+    "format": "Reading: 6 parts (multiple matching, gapped text, multiple choice, multiple-choice cloze, open cloze, error correction) · Listening: 3 parts (note completion, multiple matching, multiple choice)",
+    "allowedAids": "None",
+    "grading": "Original Cambridge mark scheme: each question = 1 mark. This practice version scores Reading + Listening only (Writing & Speaking papers not included)."
+  },
+  "scoringRules": {
+    "single_choice": {
+      "correct": 1,
+      "wrong": 0,
+      "blank": 0
+    },
+    "gapped_text_dropdown": {
+      "correct": 1,
+      "wrong": 0,
+      "blank": 0
+    },
+    "gapped_text_input": {
+      "correct": 1,
+      "wrong": 0,
+      "blank": 0
+    }
+  },
+  "telemetry": {
+    "hook": "onQuestionChange",
+    "saveEndpoint": "save_exam_result",
+    "trackDuration": true,
+    "trackClicks": true
+  },
+  "sections": [
+    {
+      "id": "sec-reading-p1",
+      "title": "Reading Part One: Multiple Matching",
+      "description": "Look at the statements below and at the five extracts (A–E) from an article about outsourcing. Which extract does each statement refer to? You will need to use some letters more than once.",
+      "context": "<strong>A</strong>\nBasic activities such as catering, cleaning and security were often the first to be contracted-out as both the private and public sectors yielded to the 1990s philosophy of concentrating on core activities. As a result of outsourcing, many canteens have lost their institutional atmosphere and resemble high-street retail outlets, boosting both the range of products and facilities for workers and the MSSs' turnover. Profits from the growing UK outsourcing market are helping the biggest catering MSSs to expand overseas as the industry develops a global dimension.\n\n<strong>B</strong>\nEstimates of the scope and value of managed service supplying vary according to the definitions used of what activities are included or excluded in calculations. Although some MSSs are large – for example, the Alfis Group is, with 200,000 employees, one of the ten biggest private sector employers in Europe – they enjoy little of the public name-recognition of the OWOs for whom they work. At the same time, in fields such as IT and research, OWOs now outsource not only non-core activities but also those where they believe specialist MSSs can bring additional expertise.\n\n<strong>C</strong>\nThe growth of outsourcing means that a number of MSSs are finding themselves drawn into the established managerial thinking of their OWOs to a point where their reputation becomes dependent on the OWOs performance – in both positive and negative ways. This and other consequences of growth are generating calls from MSSs for both the private sector and governments to think more strategically about their relationships with MSSs, rather than on a disjointed contract-by-contract basis.\n\n<strong>D</strong>\nThere are signs that the spread of contracting out to MSSs is impacting on the way OWOs are run, generating a need for high-level staff who will be skilled at negotiating and handling relationships with partner organisations rather than simply giving internal directions. Meanwhile, MSSs face unique employment and recruitment issues – the workforces of large OWOs contracted services consist of staff inherited from dozens of organisations in both the public and private sectors.\n\n<strong>E</strong>\nThe growth in outsourcing has coincided – and may continue to coincide – with increasing interest in the concept of the virtual organisation – one which chooses to outsource almost everything so that it can concentrate on handling relationships with its clients. However, a recent report warns that the notion of virtual organisations must be balanced against the negative possibility of 'hollow' organisations, left with only a 'fragile shell remaining'. The report also expresses concern that some large MSSs have 'gradually taken control of significant parts of public sector activities', changing the basis on which the success or otherwise of those activities is assessed.",
+      "points": 8,
+      "question_type": "gapped_text_dropdown",
+      "questions": [
+        {
+          "id": "c1-bec-higher-1-r-p1",
+          "number": 1,
+          "type": "gapped_text_dropdown",
+          "points": 8,
+          "imageHtml": null,
+          "imageAsset": null,
+          "gappedText": "<strong>1.</strong> There is a risk that outsourcing too many operations could weaken an OWO. {{gap_1}}<br><br><strong>2.</strong> OWOs are finding that they need to adapt their management methods as a result of the increased outsourcing they commission. {{gap_2}}<br><br><strong>3.</strong> There are different ways of assessing the total financial worth of outsourced business. {{gap_3}}<br><br><strong>4.</strong> There may be improvements for an OWO's staff when it outsources services. {{gap_4}}<br><br><strong>5.</strong> Despite their success in business terms, MSSs may not be high profile. {{gap_5}}<br><br><strong>6.</strong> OWOs may not have consistent policies with regard to MSSs. {{gap_6}}<br><br><strong>7.</strong> It's possible for the majority of an OWO's activities to be contracted to MSSs. {{gap_7}}<br><br><strong>8.</strong> Outsourcing is affecting the way performance is measured in some areas of business. {{gap_8}}",
+          "topics": [
+            "Reading",
+            "Multiple Matching",
+            "Detail"
+          ],
+          "gaps": [
+            {
+              "id": "gap_1",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E"
+              ],
+              "correct": "E",
+              "explanation": "Statement 1 corresponds to extract E."
+            },
+            {
+              "id": "gap_2",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E"
+              ],
+              "correct": "D",
+              "explanation": "Statement 2 corresponds to extract D."
+            },
+            {
+              "id": "gap_3",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E"
+              ],
+              "correct": "B",
+              "explanation": "Statement 3 corresponds to extract B."
+            },
+            {
+              "id": "gap_4",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E"
+              ],
+              "correct": "A",
+              "explanation": "Statement 4 corresponds to extract A."
+            },
+            {
+              "id": "gap_5",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E"
+              ],
+              "correct": "B",
+              "explanation": "Statement 5 corresponds to extract B."
+            },
+            {
+              "id": "gap_6",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E"
+              ],
+              "correct": "C",
+              "explanation": "Statement 6 corresponds to extract C."
+            },
+            {
+              "id": "gap_7",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E"
+              ],
+              "correct": "E",
+              "explanation": "Statement 7 corresponds to extract E."
+            },
+            {
+              "id": "gap_8",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E"
+              ],
+              "correct": "E",
+              "explanation": "Statement 8 corresponds to extract E."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sec-reading-p2",
+      "title": "Reading Part Two: Gapped Text",
+      "description": "Read the text about how companies' decision-making can go wrong. Choose the best sentence (A–H) from the list to fill each gap. Do not use any letter more than once.",
+      "context": "<strong>A</strong> It would be far better, though, if dissidents in the organisation raised their doubts beforehand, and were listened to.\n\n<strong>B</strong> They want to be recognised as having changed the company in a way that history will remember.\n\n<strong>C</strong> This is not to argue that companies should never attempt anything brave or risky.\n\n<strong>D</strong> Too much money has been spent and too many reputations are at stake to think about stopping at this stage.\n\n<strong>E</strong> One solution is to set targets for a project and to agree in advance to abandon it if these are not met.\n\n<strong>F</strong> After all, people who persistently point to potential pitfalls are seen as negative and disloyal.\n\n<strong>G</strong> But they often rely only on those parts of it that support their case.\n\n<strong>H</strong> Coupled with this, they insist that the failure was someone else's fault.",
+      "points": 6,
+      "question_type": "gapped_text_dropdown",
+      "questions": [
+        {
+          "id": "c1-bec-higher-1-r-p2",
+          "number": 2,
+          "type": "gapped_text_dropdown",
+          "points": 6,
+          "imageHtml": null,
+          "imageAsset": null,
+          "gappedText": "<h3>Bad business decisions are easy to make</h3>Those who make disastrous business decisions generally exhibit two characteristic types of behaviour. First they make a selective interpretation of the evidence when deciding to go ahead with a project. <em>(0) … H …</em>\n\nHow do such bad decisions come about? One reason is that the people in control are determined to make their mark by doing something dramatic. {{gap_9}} Once the leader has decided to put his or her name to a project, many in the organisation believe it politic to support it too, whatever their private doubts. {{gap_10}} These doubters know that such a perception will cloud their future careers. The desire to agree with the boss is typical of committees, with group members often taking collective decisions that they would not have taken individually. They look around the table, see their colleagues nodding in agreement and suppress their own doubts. If all these intelligent people believe this is the right thing to do, they think to themselves, perhaps it is. It rarely occurs to committee members that all their colleagues have made the same dubious calculation.\n\nResponsible managers usually ask to see the evidence before reaching a decision. {{gap_11}} Even those who consider all the evidence, good and bad, fail to take account of the fact that expert predictions are often wrong. The reason for this is that feedback is only effective if it is received quickly and often; and senior executives rarely become the experts they claim to be, because they make too few big decisions to learn much from them. So when it becomes clear that disaster looms, many executives insist on pressing ahead regardless. {{gap_12}} The repercussions of doing so can be daunting.\n\nSo what can be done to prevent companies making bad decisions? {{gap_13}} Another is to delegate the decision on whether or not to continue to people who are not in the thick of the decision-making, such as the non-executive directors. {{gap_14}} But they shouldn't expect any gratitude: people who have made huge mistakes are not going to say 'Thank you, we should have paid attention to you in the first place.'",
+          "topics": [
+            "Reading",
+            "Gapped Text",
+            "Text Structure",
+            "Cohesion"
+          ],
+          "gaps": [
+            {
+              "id": "gap_9",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H"
+              ],
+              "correct": "B",
+              "explanation": "Sentence B explains the leader's wish to be remembered for a dramatic change."
+            },
+            {
+              "id": "gap_10",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H"
+              ],
+              "correct": "F",
+              "explanation": "Sentence F explains why people who doubt the project stay quiet."
+            },
+            {
+              "id": "gap_11",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H"
+              ],
+              "correct": "G",
+              "explanation": "Sentence G follows on from 'ask to see the evidence' — but they only use selective evidence."
+            },
+            {
+              "id": "gap_12",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H"
+              ],
+              "correct": "D",
+              "explanation": "Sentence D explains why executives keep pressing ahead despite looming failure."
+            },
+            {
+              "id": "gap_13",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H"
+              ],
+              "correct": "E",
+              "explanation": "Sentence E gives a first solution (setting targets to abandon a project)."
+            },
+            {
+              "id": "gap_14",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H"
+              ],
+              "correct": "A",
+              "explanation": "Sentence A explains what non-executive directors should do — raise doubts and be listened to."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sec-reading-p3",
+      "title": "Reading Part Three: Multiple Choice Reading Comprehension",
+      "description": "Read the article about incompetent employees and choose the best answer (A, B, C or D) for each question.",
+      "context": "Every organisation has its share of employees-from-hell: the lazy, deluded, hypochondriac under-performers. They are difficult to manage and miserable to work with. Their productivity is low and their ability to poison staff morale high. They are, alas, always well-entrenched and management-resistant. Interestingly, their numbers in any organisation have more to do with management's refusal to deal with the situation rather than with poor selection. That is, their existence in the organisation is nearly always due to a long line of weak managers who have declined to tackle the problem.\n\nTraditionally, there are three classic ineffective ways of dealing with the incompetent. The first is to ignore the problem, hoping that it will go away. Rather than confront laziness or serious absenteeism, the manager gives the employee less work to do. This inevitably leads to frustration on the part of the good hardworking staff who see the problem employee getting away with it.\n\nThe second approach, which has traditionally been the most favoured, is to pass them on. There is usually a part of any business where people believe the poor performer can do no damage. Alternatively, poor performers can be moved to another branch in the dreariest part of town, or to another town, or even to another country. A clever variant of this tactic is to herd all the incompetent employees into one part of the company that is then sold off or privatised.\n\nThere is a third approach which is to promote the incompetent. This sounds bizarre and exceedingly stupid but is not infrequently adopted. The idea is that, although these posts are quite senior and well-paid, the actual jobs are fairly pointless ones in which incompetent people can hide without doing any serious damage. The employee is thus confirmed in his or her delusions of competence.\n\nAll three of these strategies are the result of not dealing with the problem early on. Many managers find dealing with incompetence very difficult. The scenario that all managers hate is as follows: show a subordinate a low mark on their appraisal form. The employee first wants the behaviour defined; then wants an example of when this behaviour occurred; then argues about how this incident occurred and how typical it was. The net result is a row about the past and frustration on the part of both.\n\nA different and more successful method is the problem-solving approach. This insists that one still shows the low score but, rather than attempting to explain it, one describes what needs to be done differently to achieve a higher score. The emphasis is on the future not the past; on a clear description of the desirable behaviour, not the incompetent behaviour. The touchy or sensitive employee normally responds to this reasonably well. Nevertheless, there are those who cannot, or will not, respond to good management. They may be unable to do the job due to not having the ability to learn ever-changing tasks fast enough. They may be distracted by problems at home or more likely they have been managed very poorly in the past.\n\nThere is really only a very limited number of things that can be done with the really incompetent. Buy them out, which may be the best solution for all concerned; raise the game by making sure they are given ever higher but reachable targets. A final strategy is to insist that they have an annual psychological test where a disinterested outside consultant does a motivation analysis and has the power to recommend that they be let go – not encouraged to go to another part of the organisation, but into the bracing waters of the job market.",
+      "points": 6,
+      "question_type": "single_choice",
+      "questions": [
+        {
+          "id": "c1-bec-higher-1-r-p3-q1",
+          "number": 3,
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "What criticism does the writer make of managers in the first paragraph?",
+          "choices": [
+            {
+              "key": "A",
+              "text": "They lose interest in the issue of incompetent employees."
+            },
+            {
+              "key": "B",
+              "text": "They fail to take a firm line with inefficient employees."
+            },
+            {
+              "key": "C",
+              "text": "They have little idea of what is really required of their staff."
+            },
+            {
+              "key": "D",
+              "text": "They often make bad decisions when choosing new staff."
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "modelAnswer": null,
+          "explanation": "The writer says the existence of incompetent staff is 'nearly always due to a long line of weak managers who have declined to tackle the problem' — i.e. they fail to take a firm line.",
+          "topics": [
+            "Reading Comprehension",
+            "Inference",
+            "Detail"
+          ],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Reading Comprehension",
+            "latex": false,
+            "_generated": false
+          }
+        },
+        {
+          "id": "c1-bec-higher-1-r-p3-q2",
+          "number": 4,
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "What is the effect of the first of the methods suggested for dealing with incompetent staff?",
+          "choices": [
+            {
+              "key": "A",
+              "text": "It has only a short term effect on the problem."
+            },
+            {
+              "key": "B",
+              "text": "It means that better workers will not have to work so hard."
+            },
+            {
+              "key": "C",
+              "text": "It makes good workers aware that problems are being dealt with."
+            },
+            {
+              "key": "D",
+              "text": "It sends a negative message to those who do their job well."
+            }
+          ],
+          "correct": [
+            "D"
+          ],
+          "modelAnswer": null,
+          "explanation": "Giving the underperformer less work 'leads to frustration on the part of the good hardworking staff who see the problem employee getting away with it' — a negative message to good workers.",
+          "topics": [
+            "Reading Comprehension",
+            "Inference",
+            "Detail"
+          ],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Reading Comprehension",
+            "latex": false,
+            "_generated": false
+          }
+        },
+        {
+          "id": "c1-bec-higher-1-r-p3-q3",
+          "number": 5,
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "In both the second and third ineffective methods of dealing with incompetent employees, the managers' aim is to",
+          "choices": [
+            {
+              "key": "A",
+              "text": "have all of the incompetent staff working in the same part of the company."
+            },
+            {
+              "key": "B",
+              "text": "improve the attitude of the incompetent staff to work by giving them promotion."
+            },
+            {
+              "key": "C",
+              "text": "put the incompetent staff in a situation where they can do as little harm as possible."
+            },
+            {
+              "key": "D",
+              "text": "make the work so unattractive that the incompetent staff want to leave."
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "modelAnswer": null,
+          "explanation": "Both 'passing them on' and 'promoting' aim to place incompetent staff somewhere they 'can do no damage' / 'can hide without doing any serious damage'.",
+          "topics": [
+            "Reading Comprehension",
+            "Inference",
+            "Detail"
+          ],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Reading Comprehension",
+            "latex": false,
+            "_generated": false
+          }
+        },
+        {
+          "id": "c1-bec-higher-1-r-p3-q4",
+          "number": 6,
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "The writer says in the fifth paragraph that employees who are given a low mark on their appraisal form will",
+          "choices": [
+            {
+              "key": "A",
+              "text": "demand a detailed explanation of what they have done wrong."
+            },
+            {
+              "key": "B",
+              "text": "claim that special circumstances have had an effect on their work."
+            },
+            {
+              "key": "C",
+              "text": "deny that their work has been in any way unsatisfactory."
+            },
+            {
+              "key": "D",
+              "text": "argue that they find the work they have had to do frustrating."
+            }
+          ],
+          "correct": [
+            "A"
+          ],
+          "modelAnswer": null,
+          "explanation": "The employee 'first wants the behaviour defined; then wants an example of when this behaviour occurred; then argues about how this incident occurred' — a demand for detailed explanation.",
+          "topics": [
+            "Reading Comprehension",
+            "Inference",
+            "Detail"
+          ],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Reading Comprehension",
+            "latex": false,
+            "_generated": false
+          }
+        },
+        {
+          "id": "c1-bec-higher-1-r-p3-q5",
+          "number": 7,
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "In the sixth paragraph the writer says that when talking to an incompetent employee a manager should",
+          "choices": [
+            {
+              "key": "A",
+              "text": "make no reference to the most recent appraisal mark."
+            },
+            {
+              "key": "B",
+              "text": "compare the work of the employee with that of more efficient workers."
+            },
+            {
+              "key": "C",
+              "text": "make clear what will happen if performance does not improve."
+            },
+            {
+              "key": "D",
+              "text": "explain to the employee how he or she can gain a better appraisal mark."
+            }
+          ],
+          "correct": [
+            "D"
+          ],
+          "modelAnswer": null,
+          "explanation": "The problem-solving approach 'describes what needs to be done differently to achieve a higher score' — i.e. how to gain a better appraisal mark.",
+          "topics": [
+            "Reading Comprehension",
+            "Inference",
+            "Detail"
+          ],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Reading Comprehension",
+            "latex": false,
+            "_generated": false
+          }
+        },
+        {
+          "id": "c1-bec-higher-1-r-p3-q6",
+          "number": 8,
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "What does the writer suggest as a way to deal with incompetent employees who fail to respond even to a problem-solving approach?",
+          "choices": [
+            {
+              "key": "A",
+              "text": "Set them targets which it would be impossible to attain."
+            },
+            {
+              "key": "B",
+              "text": "Give them a test designed to identify their strengths."
+            },
+            {
+              "key": "C",
+              "text": "Pay them a sum of money to leave the company."
+            },
+            {
+              "key": "D",
+              "text": "Get an outside consultant to find them another job."
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "modelAnswer": null,
+          "explanation": "The writer suggests 'buy them out, which may be the best solution for all concerned' — i.e. pay them to leave.",
+          "topics": [
+            "Reading Comprehension",
+            "Inference",
+            "Detail"
+          ],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Reading Comprehension",
+            "latex": false,
+            "_generated": false
+          }
+        }
+      ]
+    },
+    {
+      "id": "sec-reading-p4",
+      "title": "Reading Part Four: Multiple-Choice Cloze",
+      "description": "Read the article about life coaching. Choose the correct word to fill each gap from the four options.",
+      "context": null,
+      "points": 10,
+      "question_type": "gapped_text_dropdown",
+      "questions": [
+        {
+          "id": "c1-bec-higher-1-r-p4",
+          "number": 9,
+          "type": "gapped_text_dropdown",
+          "points": 10,
+          "imageHtml": null,
+          "imageAsset": null,
+          "gappedText": "<h3>Why I found a life coach</h3>Anyone who has ever looked into a self-improvement book has probably learned that such books do not hold the {{gap_21}} of personal happiness. Having read too many of them without success, I was {{gap_22}} to staying vaguely dissatisfied for the rest of my life. But when I {{gap_23}} a newspaper article about a new kind of consultant, called a life coach, I became curious, and decided to learn more.\n\nI was looking for a more personal way to {{gap_24}} my life: I'd achieved my material goals before {{gap_25}} the support of a coach, but professional challenges, long hours and not having someone neutral to talk to were putting my work and relationships at {{gap_26}}. I realised I needed to learn how to deal with problems before they occurred.\n\nMy life coach is very good at asking me {{gap_27}} questions which help me to discover what I'm dissatisfied with in my life, and to understand who I am. It's good to have someone you can trust and respect to {{gap_28}} things over with.\n\nI sometimes pick topics in {{gap_29}} of our discussions, such as situations at work, or conflicts between me and colleagues, though I don't always {{gap_30}} an agenda. And I know that everything I say to my coach is in the strictest confidence. I'm far better at tackling difficult situations now, and best of all, I feel much more at ease with my life.",
+          "topics": [
+            "Vocabulary",
+            "Multiple Choice Cloze",
+            "Collocations"
+          ],
+          "gaps": [
+            {
+              "id": "gap_21",
+              "points": 1,
+              "choices": [
+                "solution",
+                "answer",
+                "key",
+                "secret"
+              ],
+              "correct": "secret",
+              "explanation": "'secret' is the correct word/collocation in this context."
+            },
+            {
+              "id": "gap_22",
+              "points": 1,
+              "choices": [
+                "patient",
+                "resigned",
+                "tolerant",
+                "contented"
+              ],
+              "correct": "resigned",
+              "explanation": "'resigned' is the correct word/collocation in this context."
+            },
+            {
+              "id": "gap_23",
+              "points": 1,
+              "choices": [
+                "found out",
+                "came across",
+                "ran into",
+                "met with"
+              ],
+              "correct": "came across",
+              "explanation": "'came across' is the correct word/collocation in this context."
+            },
+            {
+              "id": "gap_24",
+              "points": 1,
+              "choices": [
+                "evaluate",
+                "account",
+                "estimate",
+                "reckon"
+              ],
+              "correct": "evaluate",
+              "explanation": "'evaluate' is the correct word/collocation in this context."
+            },
+            {
+              "id": "gap_25",
+              "points": 1,
+              "choices": [
+                "appointing",
+                "signing",
+                "registering",
+                "enlisting"
+              ],
+              "correct": "enlisting",
+              "explanation": "'enlisting' is the correct word/collocation in this context."
+            },
+            {
+              "id": "gap_26",
+              "points": 1,
+              "choices": [
+                "danger",
+                "hazard",
+                "risk",
+                "peril"
+              ],
+              "correct": "risk",
+              "explanation": "'risk' is the correct word/collocation in this context."
+            },
+            {
+              "id": "gap_27",
+              "points": 1,
+              "choices": [
+                "examining",
+                "probing",
+                "exploring",
+                "investigating"
+              ],
+              "correct": "probing",
+              "explanation": "'probing' is the correct word/collocation in this context."
+            },
+            {
+              "id": "gap_28",
+              "points": 1,
+              "choices": [
+                "talk",
+                "discuss",
+                "say",
+                "tell"
+              ],
+              "correct": "talk",
+              "explanation": "'talk' is the correct word/collocation in this context."
+            },
+            {
+              "id": "gap_29",
+              "points": 1,
+              "choices": [
+                "preparation",
+                "readiness",
+                "precaution",
+                "anticipation"
+              ],
+              "correct": "anticipation",
+              "explanation": "'anticipation' is the correct word/collocation in this context."
+            },
+            {
+              "id": "gap_30",
+              "points": 1,
+              "choices": [
+                "set",
+                "put",
+                "place",
+                "hold"
+              ],
+              "correct": "set",
+              "explanation": "'set' is the correct word/collocation in this context."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sec-reading-p5",
+      "title": "Reading Part Five: Open Cloze",
+      "description": "Read the article about working abroad. Type ONE word for each gap. (Spelling and accents will be checked but capitalisation does not matter.)",
+      "context": null,
+      "points": 10,
+      "question_type": "gapped_text_input",
+      "questions": [
+        {
+          "id": "c1-bec-higher-1-r-p5",
+          "number": 10,
+          "type": "gapped_text_input",
+          "points": 10,
+          "imageHtml": null,
+          "imageAsset": null,
+          "gappedText": "<h3>Working abroad</h3>An increasing number of people are finding it necessary to spend at least part of their working life abroad. An international career used to be something people opted into from choice, but {{gap_31}} many it has now become a requirement of staying in work. You do not have to be working in a huge multi-national corporation to find {{gap_32}} being asked to work abroad. Companies that not so {{gap_33}} years ago reserved foreign travel for directors, are now sending middle managers and even new recruits on projects overseas.\n\nThe characteristics of international travel will vary widely. For some people it will mean that they will occasionally have to spend a {{gap_34}} days in a foreign city, while for others it will mean that they will constantly be moving from {{gap_35}} country to another until they eventually lose touch with {{gap_36}} original national identity.\n\nThe growing demand for people with the skills and experience to work in cross-national contexts places a premium on those who have developed the skills to enable them to rise to that challenge. {{gap_37}} is needed is flexibility and adaptability, both of {{gap_38}} arise from a state of mind rather than from innate ability. Teamworking skills are also important and {{gap_39}} is the ability to communicate effectively, especially {{gap_40}} long distances, via new communications technologies, such as videoconferencing and teleconferencing.\n\nAn international career requires a variety of skills. The time to begin preparing for such a career is now.",
+          "topics": [
+            "Grammar",
+            "Open Cloze",
+            "Prepositions",
+            "Pronouns"
+          ],
+          "gaps": [
+            {
+              "id": "gap_31",
+              "points": 1,
+              "correct": [
+                "for",
+                "with"
+              ],
+              "explanation": "Both 'for' and 'with' are accepted ('for many' / 'with many')."
+            },
+            {
+              "id": "gap_32",
+              "points": 1,
+              "correct": [
+                "yourself"
+              ],
+              "explanation": "'find yourself being asked' — reflexive pronoun."
+            },
+            {
+              "id": "gap_33",
+              "points": 1,
+              "correct": [
+                "many"
+              ],
+              "explanation": "'not so many years ago'."
+            },
+            {
+              "id": "gap_34",
+              "points": 1,
+              "correct": [
+                "few"
+              ],
+              "explanation": "'a few days'."
+            },
+            {
+              "id": "gap_35",
+              "points": 1,
+              "correct": [
+                "one"
+              ],
+              "explanation": "'from one country to another'."
+            },
+            {
+              "id": "gap_36",
+              "points": 1,
+              "correct": [
+                "their"
+              ],
+              "explanation": "'lose touch with their original national identity'."
+            },
+            {
+              "id": "gap_37",
+              "points": 1,
+              "correct": [
+                "what"
+              ],
+              "explanation": "'What is needed is flexibility...'."
+            },
+            {
+              "id": "gap_38",
+              "points": 1,
+              "correct": [
+                "which"
+              ],
+              "explanation": "'both of which arise from...'."
+            },
+            {
+              "id": "gap_39",
+              "points": 1,
+              "correct": [
+                "so"
+              ],
+              "explanation": "'and so is the ability to...'."
+            },
+            {
+              "id": "gap_40",
+              "points": 1,
+              "correct": [
+                "over",
+                "across"
+              ],
+              "explanation": "'especially over/across long distances'."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sec-reading-p6",
+      "title": "Reading Part Six: Error Correction",
+      "description": "Most lines of the text below contain one extra word which is grammatically incorrect or does not fit the sense of the text. For each numbered line, type that extra word. Some lines are correct — for these, type CORRECT.",
+      "context": null,
+      "points": 12,
+      "question_type": "gapped_text_input",
+      "questions": [
+        {
+          "id": "c1-bec-higher-1-r-p6",
+          "number": 11,
+          "type": "gapped_text_input",
+          "points": 12,
+          "imageHtml": null,
+          "imageAsset": null,
+          "gappedText": "<h3>Don't get “filed in the bin”</h3><em>In most of the lines there is one extra word which is grammatically incorrect or does not fit the sense of the text. Some lines are correct. If a line is correct, type CORRECT. If there is an extra word, type that word.</em><br><br><strong>0</strong> When you're applying for a job, what can you do to ensure that your &mdash; <em>(example: CORRECT)</em><br><strong>00</strong> covering letter doesn't just get 'filed' in the rubbish bin? Firstly, you &mdash; <em>(example: YOU)</em><br><br><strong>41</strong> I always remember that the purpose of a covering letter is there to {{gap_41}}<br><strong>42</strong> complement for your CV. This means it should flesh out and explain {{gap_42}}<br><strong>43</strong> clearly through any points that the CV alone doesn't deal with and that {{gap_43}}<br><strong>44</strong> therefore might otherwise be missed out by prospective employers. {{gap_44}}<br><strong>45</strong> For example, if you're looking to change in industries, then your letter {{gap_45}}<br><strong>46</strong> ought to explain them why you want to make the move, what your {{gap_46}}<br><strong>47</strong> motivation is, and what you hope to achieve. If your CV shows that you {{gap_47}}<br><strong>48</strong> don't hold a relevant qualification that the job ad has specified it (say, {{gap_48}}<br><strong>49</strong> a university degree or a vocational diploma), so you'll need to explain {{gap_49}}<br><strong>50</strong> why you should still be considered. It's not easy, and often writing the {{gap_50}}<br><strong>51</strong> letter can take twice as long as writing your CV. But because to some {{gap_51}}<br><strong>52</strong> extent that is how it should be: a CV is a formal, with structured document {{gap_52}}",
+          "topics": [
+            "Grammar",
+            "Error Correction"
+          ],
+          "gaps": [
+            {
+              "id": "gap_41",
+              "points": 1,
+              "correct": [
+                "there"
+              ],
+              "explanation": "The extra word is 'there'."
+            },
+            {
+              "id": "gap_42",
+              "points": 1,
+              "correct": [
+                "for"
+              ],
+              "explanation": "The extra word is 'for'."
+            },
+            {
+              "id": "gap_43",
+              "points": 1,
+              "correct": [
+                "through"
+              ],
+              "explanation": "The extra word is 'through'."
+            },
+            {
+              "id": "gap_44",
+              "points": 1,
+              "correct": [
+                "out"
+              ],
+              "explanation": "The extra word is 'out'."
+            },
+            {
+              "id": "gap_45",
+              "points": 1,
+              "correct": [
+                "in"
+              ],
+              "explanation": "The extra word is 'in'."
+            },
+            {
+              "id": "gap_46",
+              "points": 1,
+              "correct": [
+                "them"
+              ],
+              "explanation": "The extra word is 'them'."
+            },
+            {
+              "id": "gap_47",
+              "points": 1,
+              "correct": [
+                "correct"
+              ],
+              "explanation": "This line is correct as written."
+            },
+            {
+              "id": "gap_48",
+              "points": 1,
+              "correct": [
+                "it"
+              ],
+              "explanation": "The extra word is 'it'."
+            },
+            {
+              "id": "gap_49",
+              "points": 1,
+              "correct": [
+                "so"
+              ],
+              "explanation": "The extra word is 'so'."
+            },
+            {
+              "id": "gap_50",
+              "points": 1,
+              "correct": [
+                "correct"
+              ],
+              "explanation": "This line is correct as written."
+            },
+            {
+              "id": "gap_51",
+              "points": 1,
+              "correct": [
+                "because"
+              ],
+              "explanation": "The extra word is 'because'."
+            },
+            {
+              "id": "gap_52",
+              "points": 1,
+              "correct": [
+                "with"
+              ],
+              "explanation": "The extra word is 'with'."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sec-listening-p1",
+      "title": "Listening Part One: Note Completion",
+      "description": "You will hear the introduction to a seminar called the Business Master Class. As you listen, complete the notes using up to three words or a number. You can play the recording as many times as you like.",
+      "context": null,
+      "audio": {
+        "type": "mp3",
+        "src": "assets/exams/c1-bec-higher-1/part1.mp3"
+      },
+      "points": 12,
+      "question_type": "gapped_text_input",
+      "questions": [
+        {
+          "id": "c1-bec-higher-1-l-p1",
+          "number": 12,
+          "type": "gapped_text_input",
+          "points": 12,
+          "imageHtml": null,
+          "imageAsset": null,
+          "gappedText": "<strong>THE BUSINESS MASTER CLASS — Seminar notes</strong><br><br><u>Arrangements for participants</u><br>1&nbsp;&nbsp;&nbsp;The event will take place over {{gap_1}}<br>2&nbsp;&nbsp;&nbsp;Seminar organised by {{gap_2}}<br>3&nbsp;&nbsp;&nbsp;The title of the last session will be {{gap_3}}<br>4&nbsp;&nbsp;&nbsp;To use the New City Hotel car park, delegates must obtain a {{gap_4}}<br><br><u>Dr Sangalli</u><br>5&nbsp;&nbsp;&nbsp;Dr Sangalli has advised many {{gap_5}}<br>6&nbsp;&nbsp;&nbsp;The name of his consultancy is {{gap_6}}<br>7&nbsp;&nbsp;&nbsp;He is the author of {{gap_7}}<br>8&nbsp;&nbsp;&nbsp;In Europe, he is the best-known {{gap_8}}<br><br><u>The Business Master Class — Two problems for companies:</u><br>9&nbsp;&nbsp;&nbsp;to become more {{gap_9}}<br>10&nbsp;&nbsp;&nbsp;to establish new {{gap_10}}<br><br><u>Two outcomes of the session:</u><br>11&nbsp;&nbsp;&nbsp;design your own {{gap_11}}<br>12&nbsp;&nbsp;&nbsp;take away documents containing actual {{gap_12}}",
+          "topics": [
+            "Listening",
+            "Note Completion",
+            "Listening Detail"
+          ],
+          "gaps": [
+            {
+              "id": "gap_1",
+              "points": 1,
+              "correct": [
+                "three days"
+              ],
+              "explanation": "The speaker says some attendees 'will be attending for all three days'."
+            },
+            {
+              "id": "gap_2",
+              "points": 1,
+              "correct": [
+                "global conferences plc",
+                "global conferences"
+              ],
+              "explanation": "'organised this event, Global Conferences plc'."
+            },
+            {
+              "id": "gap_3",
+              "points": 1,
+              "correct": [
+                "tomorrow's software",
+                "tomorrows software"
+              ],
+              "explanation": "'the last session on Tomorrow's Software'."
+            },
+            {
+              "id": "gap_4",
+              "points": 1,
+              "correct": [
+                "permit"
+              ],
+              "explanation": "'if you wish to drive there you will need a permit'."
+            },
+            {
+              "id": "gap_5",
+              "points": 1,
+              "correct": [
+                "large corporations"
+              ],
+              "explanation": "'He has been asked to advise many large corporations.'"
+            },
+            {
+              "id": "gap_6",
+              "points": 1,
+              "correct": [
+                "logic solutions"
+              ],
+              "explanation": "'He has his own company called Logic Solutions'."
+            },
+            {
+              "id": "gap_7",
+              "points": 1,
+              "correct": [
+                "intelligent change"
+              ],
+              "explanation": "'his best-selling book, Intelligent Change'."
+            },
+            {
+              "id": "gap_8",
+              "points": 1,
+              "correct": [
+                "it analyst"
+              ],
+              "explanation": "'He is Europe's most famous IT Analyst.'"
+            },
+            {
+              "id": "gap_9",
+              "points": 1,
+              "correct": [
+                "customer-driven",
+                "customer driven"
+              ],
+              "explanation": "'how to make themselves more customer-driven'."
+            },
+            {
+              "id": "gap_10",
+              "points": 1,
+              "correct": [
+                "organisational structures",
+                "organizational structures"
+              ],
+              "explanation": "'developing and implementing new organisational structures'."
+            },
+            {
+              "id": "gap_11",
+              "points": 1,
+              "correct": [
+                "framework for action"
+              ],
+              "explanation": "'you will be equipped to design your own framework for action'."
+            },
+            {
+              "id": "gap_12",
+              "points": 1,
+              "correct": [
+                "case studies",
+                "real-life case studies",
+                "real life case studies"
+              ],
+              "explanation": "'take away documentation of real-life case studies'."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sec-listening-p2",
+      "title": "Listening Part Two: Multiple Matching",
+      "description": "You will hear five different business people talking about trips they have recently been on. For Task One, choose the purpose stated (A–H). For Task Two, choose the problem described (A–H). Each option pool is used once or not at all per task.",
+      "context": "<strong>TASK ONE — PURPOSE</strong> (for gaps marked 'Purpose')\nA  to supervise staff training\nB  to hold job interviews\nC  to introduce new policy\nD  to visit possible new premises\nE  to observe working practices\nF  to meet a new manager\nG  to sign a new contract\nH  to deal with a complaint\n\n<strong>TASK TWO — PROBLEM</strong> (for gaps marked 'Problem')\nA  I forgot a document.\nB  My hotel was noisy.\nC  I was late for a meeting.\nD  I didn't understand some figures.\nE  The service at my hotel was bad.\nF  I had some wrong information.\nG  I didn't have an interpreter.\nH  I experienced computer problems.",
+      "audio": {
+        "type": "mp3",
+        "src": "assets/exams/c1-bec-higher-1/part2.mp3"
+      },
+      "points": 10,
+      "question_type": "gapped_text_dropdown",
+      "questions": [
+        {
+          "id": "c1-bec-higher-1-l-p2",
+          "number": 13,
+          "type": "gapped_text_dropdown",
+          "points": 10,
+          "imageHtml": null,
+          "imageAsset": null,
+          "gappedText": "Speaker 1: Purpose {{gap_13}} &nbsp;&nbsp;|&nbsp;&nbsp; Problem {{gap_18}}<br>Speaker 2: Purpose {{gap_14}} &nbsp;&nbsp;|&nbsp;&nbsp; Problem {{gap_19}}<br>Speaker 3: Purpose {{gap_15}} &nbsp;&nbsp;|&nbsp;&nbsp; Problem {{gap_20}}<br>Speaker 4: Purpose {{gap_16}} &nbsp;&nbsp;|&nbsp;&nbsp; Problem {{gap_21}}<br>Speaker 5: Purpose {{gap_17}} &nbsp;&nbsp;|&nbsp;&nbsp; Problem {{gap_22}}",
+          "topics": [
+            "Listening",
+            "Multiple Matching",
+            "Listening Detail"
+          ],
+          "gaps": [
+            {
+              "id": "gap_13",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H"
+              ],
+              "correct": "F",
+              "explanation": "Speaker 3's purpose corresponds to option F."
+            },
+            {
+              "id": "gap_14",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H"
+              ],
+              "correct": "C",
+              "explanation": "Speaker 4's purpose corresponds to option C."
+            },
+            {
+              "id": "gap_15",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H"
+              ],
+              "correct": "D",
+              "explanation": "Speaker 5's purpose corresponds to option D."
+            },
+            {
+              "id": "gap_16",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H"
+              ],
+              "correct": "B",
+              "explanation": "Speaker 6's purpose corresponds to option B."
+            },
+            {
+              "id": "gap_17",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H"
+              ],
+              "correct": "E",
+              "explanation": "Speaker 7's purpose corresponds to option E."
+            },
+            {
+              "id": "gap_18",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H"
+              ],
+              "correct": "A",
+              "explanation": "Speaker 1's problem corresponds to option A."
+            },
+            {
+              "id": "gap_19",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H"
+              ],
+              "correct": "B",
+              "explanation": "Speaker 2's problem corresponds to option B."
+            },
+            {
+              "id": "gap_20",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H"
+              ],
+              "correct": "F",
+              "explanation": "Speaker 3's problem corresponds to option F."
+            },
+            {
+              "id": "gap_21",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H"
+              ],
+              "correct": "C",
+              "explanation": "Speaker 4's problem corresponds to option C."
+            },
+            {
+              "id": "gap_22",
+              "points": 1,
+              "choices": [
+                "A",
+                "B",
+                "C",
+                "D",
+                "E",
+                "F",
+                "G",
+                "H"
+              ],
+              "correct": "D",
+              "explanation": "Speaker 5's problem corresponds to option D."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "sec-listening-p3",
+      "title": "Listening Part Three: Multiple Choice",
+      "description": "You will hear part of a conversation between a management consultant and the Human Resources Manager of Jenkins, a company which manufactures children's clothing. For each question, choose the best answer A, B or C.",
+      "context": null,
+      "audio": {
+        "type": "mp3",
+        "src": "assets/exams/c1-bec-higher-1/part3.mp3"
+      },
+      "points": 8,
+      "question_type": "single_choice",
+      "questions": [
+        {
+          "id": "c1-bec-higher-1-l-p3-q1",
+          "number": 14,
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "What is said about the ownership of Jenkins?",
+          "choices": [
+            {
+              "key": "A",
+              "text": "The founder has sold the company to someone else."
+            },
+            {
+              "key": "B",
+              "text": "Jenkins has merged with another company."
+            },
+            {
+              "key": "C",
+              "text": "There has been no change of ownership."
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "modelAnswer": null,
+          "explanation": "Stephen Jenkins founded the company and still retains full control, having handed over day-to-day running to his daughter — ownership has not changed.",
+          "topics": [
+            "Listening",
+            "Listening Detail",
+            "Multiple Choice"
+          ],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Listening Comprehension",
+            "latex": false,
+            "_generated": false
+          }
+        },
+        {
+          "id": "c1-bec-higher-1-l-p3-q2",
+          "number": 15,
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "What does the Human Resources Manager see as the main external threat to Jenkins?",
+          "choices": [
+            {
+              "key": "A",
+              "text": "Their retailers are becoming less willing to pay their prices."
+            },
+            {
+              "key": "B",
+              "text": "Consumers are buying more top-of-the-range children's clothes."
+            },
+            {
+              "key": "C",
+              "text": "More and more companies are producing children's clothes."
+            }
+          ],
+          "correct": [
+            "A"
+          ],
+          "modelAnswer": null,
+          "explanation": "'We're under increasing pressure to cut our profit margins... because of growing competition between high street retailers.'",
+          "topics": [
+            "Listening",
+            "Listening Detail",
+            "Multiple Choice"
+          ],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Listening Comprehension",
+            "latex": false,
+            "_generated": false
+          }
+        },
+        {
+          "id": "c1-bec-higher-1-l-p3-q3",
+          "number": 16,
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "The Human Resources Manager sees the company's main strength as the fact that",
+          "choices": [
+            {
+              "key": "A",
+              "text": "it has several long-term contracts."
+            },
+            {
+              "key": "B",
+              "text": "it makes products of high quality."
+            },
+            {
+              "key": "C",
+              "text": "its distribution system is efficient."
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "modelAnswer": null,
+          "explanation": "'we don't send anything out unless it meets very exacting standards' — high quality.",
+          "topics": [
+            "Listening",
+            "Listening Detail",
+            "Multiple Choice"
+          ],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Listening Comprehension",
+            "latex": false,
+            "_generated": false
+          }
+        },
+        {
+          "id": "c1-bec-higher-1-l-p3-q4",
+          "number": 17,
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "The Human Resources Manager believes that Jenkins's main weakness at present is that",
+          "choices": [
+            {
+              "key": "A",
+              "text": "the machinery is inadequate for current requirements."
+            },
+            {
+              "key": "B",
+              "text": "the management style is out of line with modern demands."
+            },
+            {
+              "key": "C",
+              "text": "the relations between management and workers are poor."
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "modelAnswer": null,
+          "explanation": "'Stephen used to run the company in a very old-fashioned, autocratic way, which alienated a lot of the workers... it's an uphill struggle to try to change attitudes and improve co-operation.'",
+          "topics": [
+            "Listening",
+            "Listening Detail",
+            "Multiple Choice"
+          ],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Listening Comprehension",
+            "latex": false,
+            "_generated": false
+          }
+        },
+        {
+          "id": "c1-bec-higher-1-l-p3-q5",
+          "number": 18,
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "According to the Human Resources Manager, why do many machinists choose to leave?",
+          "choices": [
+            {
+              "key": "A",
+              "text": "They think that they can get better paid work elsewhere."
+            },
+            {
+              "key": "B",
+              "text": "They feel that too much is expected of them."
+            },
+            {
+              "key": "C",
+              "text": "They lack confidence in the company's future."
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "modelAnswer": null,
+          "explanation": "'They say they're faced with unreasonable demands all the time, like having to learn to operate several machines instead of just one or two.'",
+          "topics": [
+            "Listening",
+            "Listening Detail",
+            "Multiple Choice"
+          ],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Listening Comprehension",
+            "latex": false,
+            "_generated": false
+          }
+        },
+        {
+          "id": "c1-bec-higher-1-l-p3-q6",
+          "number": 19,
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "When working to produce a batch of clothes,",
+          "choices": [
+            {
+              "key": "A",
+              "text": "each team is responsible for a particular operation."
+            },
+            {
+              "key": "B",
+              "text": "each member of the team produces a complete item."
+            },
+            {
+              "key": "C",
+              "text": "each person carries out one part of the production process."
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "modelAnswer": null,
+          "explanation": "'the work is divided into batches involving various operations, each of them undertaken by one machinist' — i.e. each person does one part of the process.",
+          "topics": [
+            "Listening",
+            "Listening Detail",
+            "Multiple Choice"
+          ],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Listening Comprehension",
+            "latex": false,
+            "_generated": false
+          }
+        },
+        {
+          "id": "c1-bec-higher-1-l-p3-q7",
+          "number": 20,
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "What change has been made to the range of goods?",
+          "choices": [
+            {
+              "key": "A",
+              "text": "A smaller number of different items is produced."
+            },
+            {
+              "key": "B",
+              "text": "Each item is now made in smaller quantities."
+            },
+            {
+              "key": "C",
+              "text": "Fewer new styles are introduced each year."
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "modelAnswer": null,
+          "explanation": "'the number of itemised clothes has leapt... that's reduced batch sizes: long runs on an item are a thing of the past.'",
+          "topics": [
+            "Listening",
+            "Listening Detail",
+            "Multiple Choice"
+          ],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Listening Comprehension",
+            "latex": false,
+            "_generated": false
+          }
+        },
+        {
+          "id": "c1-bec-higher-1-l-p3-q8",
+          "number": 21,
+          "type": "single_choice",
+          "points": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "text": "What is said about the machinists?",
+          "choices": [
+            {
+              "key": "A",
+              "text": "More of their work is falling below the required standard."
+            },
+            {
+              "key": "B",
+              "text": "Some of them are earning less than they used to."
+            },
+            {
+              "key": "C",
+              "text": "They have to spend longer learning to operate new machines."
+            }
+          ],
+          "correct": [
+            "A"
+          ],
+          "modelAnswer": null,
+          "explanation": "'far more batches of work fail quality inspections and have to be redone.'",
+          "topics": [
+            "Listening",
+            "Listening Detail",
+            "Multiple Choice"
+          ],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Listening Comprehension",
+            "latex": false,
+            "_generated": false
+          }
+        }
+      ]
+    }
+  ],
+  "_validation": [
+    "Listening audio: original BEC Higher Sample Paper 1 recordings (mp3) included under assets/exams/c1-bec-higher-1/.",
+    "Writing and Speaking papers are not part of this practice exam.",
+    "Open cloze (Part 5) and error correction (Part 6) answers are checked case-insensitively; common alternative spellings are accepted where the official answer key lists them."
+  ]
+}

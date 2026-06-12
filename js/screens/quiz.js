@@ -335,6 +335,7 @@ window.QuizScreen = (function() {
           </div>
         </div>
       `;
+      window.LernsetEngine?.renderMathIn(fb);
     }
 
     // Swap button
@@ -411,6 +412,7 @@ window.QuizScreen = (function() {
         </button>
       </div>
     `;
+    window.LernsetEngine?.renderMathIn(overlay);
   }
 
   function _showResults(overlay) {
