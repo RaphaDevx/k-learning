@@ -6,6 +6,16 @@ window.QuizScreen = (function() {
 
   const QUIZ_REGISTRY = [
     {
+      id: 'makro-tb1-teil1',
+      label: 'Makro II TB1 — Teil 1: Zinsstrukturkurve & Aktienmarkt',
+      subtitle: '12 Fragen · Zinsstrukturkurve, Anleihen, Aktienbewertung, QE',
+      course: 'MakroII',
+      dataVar: 'EXAM_DATA_MAKRO_TB1_TEIL1',
+      tag: 'TB1.1',
+      tagColor: '#059669',
+      icon: '🏦',
+    },
+    {
       id: 'esf-eigenklausur',
       label: 'ESF Eigenklausur',
       subtitle: '30 Fragen · Konzeptprüfung mit neuen Szenarien',
