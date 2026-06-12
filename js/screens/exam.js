@@ -144,6 +144,24 @@ window.ExamScreen = (function() {
       format: 'json',
       available: true,
     },
+    {
+      id: 'c1-bec-higher-1',
+      label: 'Englisch C1 — BEC Higher Sample Test 1 (Reading & Listening)',
+      course: 'EnglischC1',
+      dataVar: null,
+      file: 'exams/c1-bec-higher-1-data.json',
+      format: 'json',
+      available: true,
+    },
+    {
+      id: 'c1-bec-higher-2',
+      label: 'Englisch C1 — BEC Higher Sample Test 2 (Reading & Listening)',
+      course: 'EnglischC1',
+      dataVar: null,
+      file: 'exams/c1-bec-higher-2-data.json',
+      format: 'json',
+      available: true,
+    },
   ];
 
   // ── Internal state ────────────────────────────────────────────────────────
@@ -430,7 +448,8 @@ window.ExamScreen = (function() {
             <div class="bg-gray-900 border border-gray-700 rounded-xl p-4 mb-4 text-sm text-gray-300 leading-relaxed">
               <div class="text-xs text-gray-500 uppercase tracking-widest mb-2">Lesetext</div>
               ${section.context.replace(/\n/g, '<br>')}
-            </div>` : ''}`;
+            </div>` : ''}
+          ${section.audio ? _renderSectionAudio(section) : ''}`;
 
       section.questions.forEach((q, qi) => {
         globalQNum++;
@@ -450,6 +469,7 @@ window.ExamScreen = (function() {
     });
 
     container.innerHTML = html;
+    window.LernsetEngine?.renderMathIn(container);
   }
 
   function _renderMCQ(q, num, qtype) {
@@ -500,16 +520,75 @@ window.ExamScreen = (function() {
       </div>`;
   }
 
+  function _renderSectionAudio(section) {
+    const a = section.audio;
+    if (!a) return '';
+    if (a.type === 'mp3') {
+      return `
+          <div class="bg-indigo-950 border border-indigo-700 rounded-xl p-3 mb-4">
+            <div class="text-xs text-indigo-300 font-semibold mb-2">🎧 Hörtext</div>
+            <audio controls preload="none" class="w-full" src="${a.src}"></audio>
+          </div>`;
+    }
+    if (a.type === 'tts') {
+      return `
+          <div class="bg-indigo-950 border border-indigo-700 rounded-xl p-3 mb-4">
+            <div class="text-xs text-indigo-300 font-semibold mb-1">🎧 Hörtext (Computerstimme)</div>
+            <div class="text-xs text-gray-400 mb-2">Für diese ältere Prüfung existiert keine Original-Aufnahme — der Text wird von der Sprachausgabe deines Geräts vorgelesen. Du kannst ihn beliebig oft abspielen.</div>
+            <div class="flex gap-2 flex-wrap">
+              <button onclick="ExamScreen.playSectionAudio('${section.id}')" class="bg-indigo-600 hover:bg-indigo-500 rounded-lg px-3 py-1.5 text-xs font-bold transition">▶ Abspielen</button>
+              <button onclick="ExamScreen.stopSectionAudio()" class="bg-gray-700 hover:bg-gray-600 rounded-lg px-3 py-1.5 text-xs font-bold transition">⏹ Stopp</button>
+              <button onclick="ExamScreen.toggleTranscript('${section.id}')" id="tts-transcript-btn-${section.id}" class="bg-gray-700 hover:bg-gray-600 rounded-lg px-3 py-1.5 text-xs font-bold transition hidden">Transkript anzeigen</button>
+            </div>
+            <div id="tts-transcript-${section.id}" class="hidden mt-2 text-xs text-gray-300 bg-gray-900 rounded-lg p-3 leading-relaxed"></div>
+          </div>`;
+    }
+    return '';
+  }
+
+  function playSectionAudio(sectionId) {
+    const section = (_examData?.sections || []).find(s => s.id === sectionId);
+    if (!section || !section.audio || section.audio.type !== 'tts') return;
+    if (!('speechSynthesis' in window)) { alert('Sprachausgabe wird von diesem Browser nicht unterstützt.'); return; }
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(section.audio.voiceText);
+    utter.lang = 'en-GB';
+    utter.rate = 0.95;
+    window.speechSynthesis.speak(utter);
+    const btn = document.getElementById(`tts-transcript-btn-${sectionId}`);
+    if (btn) btn.classList.remove('hidden');
+  }
+
+  function stopSectionAudio() {
+    if ('speechSynthesis' in window) window.speechSynthesis.cancel();
+  }
+
+  function toggleTranscript(sectionId) {
+    const section = (_examData?.sections || []).find(s => s.id === sectionId);
+    const box = document.getElementById(`tts-transcript-${sectionId}`);
+    const btn = document.getElementById(`tts-transcript-btn-${sectionId}`);
+    if (!section || !box) return;
+    if (box.classList.contains('hidden')) {
+      box.textContent = section.audio.voiceText;
+      box.classList.remove('hidden');
+      if (btn) btn.textContent = 'Transkript verbergen';
+    } else {
+      box.classList.add('hidden');
+      if (btn) btn.textContent = 'Transkript anzeigen';
+    }
+  }
+
   function _renderGappedDropdown(q) {
     let text = q.gappedText || '';
     (q.gaps || []).forEach((gap, i) => {
+      const gid = gap.gapId || gap.id;
       const opts = gap.choices.map(c => `<option value="${c}">${c}</option>`).join('');
-      const sel = `<select id="gap-${q.id}-${gap.gapId}"
-        onchange="ExamScreen.setGapAnswer('${q.id}','${gap.gapId}',this.value)"
+      const sel = `<select id="gap-${q.id}-${gid}"
+        onchange="ExamScreen.setGapAnswer('${q.id}','${gid}',this.value)"
         class="inline-block bg-gray-900 border border-blue-500 rounded-lg px-2 py-0.5 text-sm mx-0.5 cursor-pointer text-white align-middle">
         <option value="">[${i + 1}]</option>${opts}
       </select>`;
-      text = text.replace(new RegExp('\\{\\{' + gap.gapId + '\\}\\}', 'g'), sel);
+      text = text.replace(new RegExp('\\{\\{' + gid + '\\}\\}', 'g'), sel);
     });
     return `
       <div class="bg-gray-800 rounded-2xl p-4 mb-4" id="q-card-${q.id}">
@@ -524,15 +603,16 @@ window.ExamScreen = (function() {
   function _renderGappedInput(q) {
     let text = q.gappedText || '';
     (q.gaps || []).forEach((gap, i) => {
+      const gid = gap.gapId || gap.id;
       const bracket = gap.wordInBrackets
         ? `<span class="text-xs text-yellow-400 ml-0.5 align-middle font-mono">(${gap.wordInBrackets})</span>` : '';
       const inp = `<span class="inline-flex items-baseline mx-0.5 align-middle">` +
-        `<input type="text" id="gap-${q.id}-${gap.gapId}"` +
-        ` oninput="ExamScreen.setGapAnswer('${q.id}','${gap.gapId}',this.value)"` +
+        `<input type="text" id="gap-${q.id}-${gid}"` +
+        ` oninput="ExamScreen.setGapAnswer('${q.id}','${gid}',this.value)"` +
         ` class="inline-block bg-gray-900 border-b-2 border-blue-400 w-28 text-center text-sm px-1 text-white focus:outline-none focus:border-blue-300"` +
         ` placeholder="${i + 1}. ……" autocomplete="off" autocorrect="off" spellcheck="false">` +
         bracket + `</span>`;
-      text = text.replace(new RegExp('\\{\\{' + gap.gapId + '\\}\\}', 'g'), inp);
+      text = text.replace(new RegExp('\\{\\{' + gid + '\\}\\}', 'g'), inp);
     });
     return `
       <div class="bg-gray-800 rounded-2xl p-4 mb-4" id="q-card-${q.id}">
@@ -669,7 +749,8 @@ window.ExamScreen = (function() {
           const ptsPerGap = gaps.length > 0 ? maxPts / gaps.length : 0;
           let correctCount = 0;
           gaps.forEach(gap => {
-            const userVal = ((userAnswer && typeof userAnswer === 'object') ? (userAnswer[gap.gapId] || '') : '').trim();
+            const gid = gap.gapId || gap.id;
+            const userVal = ((userAnswer && typeof userAnswer === 'object') ? (userAnswer[gid] || '') : '').trim();
             if (qtype === 'gapped_text_dropdown') {
               if (userVal === gap.correct) correctCount++;
             } else {
@@ -786,7 +867,8 @@ window.ExamScreen = (function() {
           const userGaps = (userAnswer && typeof userAnswer === 'object' && !Array.isArray(userAnswer)) ? userAnswer : {};
           html += `<div class="ml-7 mt-1 space-y-1">`;
           (q.gaps || []).forEach((gap, i) => {
-            const userVal = (userGaps[gap.gapId] || '').trim();
+            const gid = gap.gapId || gap.id;
+            const userVal = (userGaps[gid] || '').trim();
             let gapOk;
             if (q.type === 'gapped_text_dropdown') {
               gapOk = userVal === gap.correct;
@@ -873,6 +955,7 @@ window.ExamScreen = (function() {
       </div>`;
 
     overlay.innerHTML = html;
+    window.LernsetEngine?.renderMathIn(overlay);
     overlay.scrollTop = 0;
 
     // Clean up
@@ -1004,5 +1087,6 @@ window.ExamScreen = (function() {
     submitExam, closeResults,
     isExamActive, requestAiFeedback,
     getExamsByCourse,
+    playSectionAudio, stopSectionAudio, toggleTranscript,
   };
 })();

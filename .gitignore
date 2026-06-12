@@ -2,6 +2,7 @@
 .DS_Store
 Thumbs.db
 videos/
+sources/
 *.mp4
 *.mov
 # tools/  # unignored: transcode + upload scripts are safe to commit

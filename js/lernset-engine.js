@@ -61,6 +61,22 @@ window.LernsetEngine = (function () {
     el.innerHTML = html;
   }
 
+  // KaTeX delimiters used by auto-render across the whole app.
+  const MATH_DELIMITERS = [
+    { left: '$$', right: '$$', display: true },
+    { left: '$',  right: '$',  display: false },
+  ];
+
+  // Scans `el` for $...$ / $$...$$ math (e.g. in choice/option/explanation
+  // text that was inserted via innerHTML without going through
+  // renderContent) and renders it in place with KaTeX.
+  function renderMathIn(el) {
+    if (!el || typeof renderMathInElement === 'undefined') return;
+    try {
+      renderMathInElement(el, { delimiters: MATH_DELIMITERS, throwOnError: false });
+    } catch (e) { /* ignore malformed LaTeX */ }
+  }
+
   // ══════════════════════════════════════════════════════════
   // VERDICT / FEEDBACK
   // ══════════════════════════════════════════════════════════
@@ -337,6 +353,7 @@ window.LernsetEngine = (function () {
     escHtml,
     unescHtml,
     renderContent,
+    renderMathIn,
     verdict,
     feedbackBadge,
     shuffledIndices,
