@@ -254,6 +254,20 @@ window.FEED_CARDS = [
     block: "Grundlagen & Forschungsprozess"
   },
   {
+    id: "esf-sv-15",
+    type: "localvideo",
+    course: "ESF", courseColor: "#7c3aed",
+    title: "IPA — Interpretative Phänomenologische Analyse",
+    subtitle: "IPA vs. Grounded Theory — die Prüfungsfalle",
+    description: "IPA untersucht das subjektive Erleben eines Phänomens (Phänomenologie, Hermeneutik, Idiographie), arbeitet mit der double hermeneutic und beginnt immer beim Einzelfall — im Gegensatz zur Grounded Theory.",
+    topics: ["IPA", "Phänomenologie", "Hermeneutik", "Double Hermeneutic", "Grounded Theory", "Qualitative Forschung"],
+    duration: "1:26",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf-s4-ipa.mp4",
+    thumbnail_emoji: "🔍",
+    block: "Qualitative Forschung"
+  },
+  {
     id: "stat-sv-01",
     type: "localvideo",
     course: "Statistik", courseColor: "#0ea5e9",

@@ -188,12 +188,13 @@ window.QuizScreen = (function() {
   ];
 
   let _questions = [];
-  let _current   = 0;
+  let _current   = 0;   // index of the next unanswered question
+  let _viewIndex = 0;   // index of the question currently displayed (<= _current)
   let _results   = [];
   let _selected  = [];
-  let _answered  = false;
   let _dataVar   = null;
   let _quizMeta  = null;
+  let _pendingSaved = null;
 
   // ── Init (inline view, called by Router) ────────────────────────────────
   function init() {
@@ -290,7 +291,7 @@ window.QuizScreen = (function() {
     if (el) el.classList.add('hidden');
   }
 
-  function launch(dataVarName) {
+  async function launch(dataVarName) {
     closeSelector();
     const data = window[dataVarName];
     if (!data) {
@@ -307,24 +308,67 @@ window.QuizScreen = (function() {
       });
     });
 
-    _current  = 0;
-    _results  = [];
-    _selected = [];
-    _answered = false;
+    _current   = 0;
+    _viewIndex = 0;
+    _results   = [];
+    _selected  = [];
 
     const overlay = document.getElementById('quiz-overlay');
     if (overlay) overlay.classList.remove('hidden');
+    _bindSwipe(overlay);
+
+    const itemIds = _questions.map(q => q.id);
+    const saved = await SessionSync.load('quiz', dataVarName);
+    const savedValid = saved
+      && Array.isArray(saved.item_ids)
+      && saved.item_ids.length === itemIds.length
+      && saved.item_ids.every((id, i) => id === itemIds[i])
+      && saved.current_index > 0
+      && saved.current_index < _questions.length;
+
+    if (savedValid) {
+      _pendingSaved = saved;
+      overlay.innerHTML = SessionSync.resumePromptHtml({
+        position: saved.current_index + 1,
+        total: _questions.length,
+        resumeOnClick: 'QuizScreen._resumeSaved()',
+        restartOnClick: 'QuizScreen._restartSaved()',
+      });
+      return;
+    }
+
+    if (saved) SessionSync.clear('quiz', dataVarName);
+    _renderQuestion();
+  }
+
+  function _resumeSaved() {
+    _current   = _pendingSaved.current_index;
+    _viewIndex = _current;
+    _results   = _pendingSaved.results || [];
+    _pendingSaved = null;
+    _renderQuestion();
+  }
+
+  function _restartSaved() {
+    _current   = 0;
+    _viewIndex = 0;
+    _results   = [];
+    _pendingSaved = null;
+    SessionSync.clear('quiz', _dataVar);
     _renderQuestion();
   }
 
   function close() {
     const overlay = document.getElementById('quiz-overlay');
     if (overlay) overlay.classList.add('hidden');
+    if (_dataVar && _current < _questions.length) {
+      SessionSync.save('quiz', _dataVar, { itemIds: _questions.map(q => q.id), currentIndex: _current, results: _results });
+    }
   }
 
   function toggleChoice(key) {
-    if (_answered) return;
-    const q = _questions[_current];
+    if (_viewIndex < _results.length) return; // already answered, read-only
+    const q = _questions[_viewIndex];
     const btn = document.getElementById('qc-' + key);
 
     if (q.question_type === 'single_choice') {
@@ -346,65 +390,85 @@ window.QuizScreen = (function() {
   }
 
   function submitAnswer() {
-    if (_answered) {
-      _current++;
-      _renderQuestion();
-      return;
-    }
     if (_selected.length === 0) return;
-    _answered = true;
 
-    const q = _questions[_current];
+    const q = _questions[_viewIndex];
+    const topic = q.topics?.[0] || 'Allgemein';
     const correct = q.correct.slice().sort().join(',') === _selected.slice().sort().join(',');
 
-    _results.push({ correct, topic: q.topics?.[0] || 'Allgemein', questionId: q.id });
-    _updateState(q.id, correct, q.topics?.[0] || 'Allgemein');
+    _results.push({ correct, topic, questionId: q.id, selected: _selected.slice() });
+    _updateState(q.id, correct, topic);
+    SessionSync.save('quiz', _dataVar, { itemIds: _questions.map(qq => qq.id), currentIndex: _current, results: _results });
 
     // Colour choices
     q.choices.forEach(c => {
       const btn = document.getElementById('qc-' + c.key);
-      if (!btn) return;
-      const isCorrect  = q.correct.includes(c.key);
-      const isSelected = _selected.includes(c.key);
-      if (isCorrect) {
-        btn.style.background   = 'rgba(22,163,74,0.2)';
-        btn.style.borderColor  = '#16a34a';
-        btn.style.color        = '#86efac';
-      } else if (isSelected) {
-        btn.style.background   = 'rgba(220,38,38,0.15)';
-        btn.style.borderColor  = '#dc2626';
-        btn.style.color        = '#fca5a5';
-      }
+      if (btn) _applyChoiceColor(btn, q, _selected, c.key);
     });
 
     // Feedback
     const fb = document.getElementById('quiz-feedback');
     if (fb) {
       fb.classList.remove('hidden');
-      const resultIcon  = correct ? '✅' : '❌';
-      const resultClass = correct ? 'text-green-400' : 'text-red-400';
-      const resultLabel = correct
-        ? 'Richtig!'
-        : ('Falsch' + (q.correct.length ? ' — Richtig: <strong>' + q.correct.join(', ') + '</strong>' : ''));
-      fb.innerHTML = `
-        <div class="flex items-start gap-2 mb-2">
-          <span class="text-xl flex-shrink-0 mt-0.5">${resultIcon}</span>
-          <div>
-            <div class="font-bold text-sm ${resultClass}">${resultLabel}</div>
-            <p class="text-sm mt-1 leading-relaxed" style="color:var(--txt-2)">${q.explanation}</p>
-          </div>
-        </div>
-      `;
+      fb.innerHTML = _feedbackHtml(q, correct);
       window.LernsetEngine?.renderMathIn(fb);
     }
 
-    // Swap button
+    // Swap button → advances via nextQuestion()
     const ansBtn = document.getElementById('quiz-ans-btn');
     if (ansBtn) {
-      const last = _current >= _questions.length - 1;
-      ansBtn.textContent  = last ? 'Ergebnis ansehen ›' : 'Weiter ›';
-      ansBtn.style.background = last ? '#7c3aed' : '#374151';
+      const isLast = _viewIndex >= _questions.length - 1;
+      ansBtn.textContent  = isLast ? 'Ergebnis ansehen ›' : 'Weiter ›';
+      ansBtn.style.background = isLast ? '#7c3aed' : '#374151';
+      ansBtn.setAttribute('onclick', 'QuizScreen.nextQuestion()');
     }
+  }
+
+  function previousQuestion() {
+    if (_viewIndex === 0) return;
+    _viewIndex--;
+    _renderQuestion();
+  }
+
+  function nextQuestion() {
+    if (_viewIndex < _current) {
+      _viewIndex++;
+      _renderQuestion();
+      return;
+    }
+    if (_viewIndex >= _results.length) return; // current question not yet answered
+
+    _current++;
+    _viewIndex = _current;
+    if (_current >= _questions.length) {
+      SessionSync.clear('quiz', _dataVar);
+    } else {
+      SessionSync.save('quiz', _dataVar, { itemIds: _questions.map(q => q.id), currentIndex: _current, results: _results });
+    }
+    _renderQuestion();
+  }
+
+  // ── Swipe navigation (left = weiter, right = zurück) ────────────────────
+
+  function _bindSwipe(overlay) {
+    if (!overlay || overlay._swipeBound) return;
+    overlay._swipeBound = true;
+    let startX = 0, startY = 0, tracking = false;
+    overlay.addEventListener('touchstart', e => {
+      if (e.touches.length !== 1) return;
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      tracking = true;
+    }, { passive: true });
+    overlay.addEventListener('touchend', e => {
+      if (!tracking) return;
+      tracking = false;
+      const dx = e.changedTouches[0].clientX - startX;
+      const dy = e.changedTouches[0].clientY - startY;
+      if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+      if (dx > 0) previousQuestion();
+      else nextQuestion();
+    }, { passive: true });
   }
 
   // ── Internal ────────────────────────────────────────────────────────────
@@ -413,27 +477,29 @@ window.QuizScreen = (function() {
     const overlay = document.getElementById('quiz-overlay');
     if (!overlay) return;
 
-    if (_current >= _questions.length) {
+    if (_viewIndex >= _questions.length) {
       _showResults(overlay);
       return;
     }
 
-    const q   = _questions[_current];
-    const pct = Math.round((_current / _questions.length) * 100);
-    _selected = [];
-    _answered = false;
+    const q   = _questions[_viewIndex];
+    const pct = Math.round((_viewIndex / _questions.length) * 100);
+    const answered = _viewIndex < _results.length;
+    const result   = answered ? _results[_viewIndex] : null;
+    _selected = answered ? (result.selected || []) : [];
 
-    const isMC = q.question_type === 'multiple_choice';
-    const topic = q.topics?.[0] || '';
+    const isMC   = q.question_type === 'multiple_choice';
+    const topic  = q.topics?.[0] || '';
+    const isLast = _viewIndex === _questions.length - 1;
 
     overlay.innerHTML = `
       <!-- Header -->
       <div class="flex-shrink-0">
         <div class="flex items-center justify-between px-4 py-3" style="border-bottom:1px solid rgba(255,255,255,0.08);background:#0f1623">
-          <button onclick="QuizScreen.close()"
-            class="text-sm px-3 py-1.5 rounded-xl transition"
-            style="color:var(--txt-2);background:rgba(255,255,255,0.06)">Beenden</button>
-          <div class="text-sm font-mono" style="color:var(--txt-2)">${_current + 1} / ${_questions.length}</div>
+          <button onclick="QuizScreen.close()" class="flex items-center gap-1 text-sm" style="color:var(--txt-2)">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>Zurück
+          </button>
+          <div class="text-sm font-mono" style="color:var(--txt-2)">${_viewIndex + 1} / ${_questions.length}</div>
           <div class="text-xs px-2 py-1 rounded-lg font-medium" style="color:#a5b4fc;background:rgba(99,102,241,0.15)">${topic}</div>
         </div>
         <div class="h-1" style="background:rgba(255,255,255,0.06)">
@@ -453,26 +519,77 @@ window.QuizScreen = (function() {
               <button onclick="QuizScreen.toggleChoice('${c.key}')"
                 id="qc-${c.key}"
                 class="w-full text-left px-4 py-3 rounded-2xl border text-sm transition-all duration-150"
-                style="background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.10);color:var(--txt)">
+                style="${_choiceStyle(q, answered, _selected, c.key)}">
                 <span class="font-bold mr-2 text-indigo-400">${c.key}.</span>${c.text}
               </button>
             `).join('')}
           </div>
 
-          <div id="quiz-feedback" class="hidden mt-4 rounded-2xl p-4" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08)"></div>
+          <div id="quiz-feedback" class="${answered ? '' : 'hidden'} mt-4 rounded-2xl p-4" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08)">
+            ${answered ? _feedbackHtml(q, result.correct) : ''}
+          </div>
         </div>
       </div>
 
       <!-- Footer -->
-      <div class="flex-shrink-0 px-4 py-4" style="border-top:1px solid rgba(255,255,255,0.08)">
-        <button id="quiz-ans-btn" onclick="QuizScreen.submitAnswer()"
-          class="w-full py-3.5 rounded-2xl font-bold text-sm transition-all"
-          style="background:#4f46e5;color:#fff">
-          Antworten
+      <div class="flex-shrink-0 px-4 py-4 flex gap-3" style="border-top:1px solid rgba(255,255,255,0.08)">
+        ${_viewIndex > 0 ? `
+          <button onclick="QuizScreen.previousQuestion()"
+            class="flex-shrink-0 px-5 py-3.5 rounded-2xl font-bold text-sm transition-all"
+            style="background:rgba(255,255,255,0.06);color:var(--txt-2)">‹ Zurück</button>
+        ` : ''}
+        <button id="quiz-ans-btn" onclick="${answered ? 'QuizScreen.nextQuestion()' : 'QuizScreen.submitAnswer()'}"
+          class="flex-1 py-3.5 rounded-2xl font-bold text-sm transition-all"
+          style="background:${answered ? (isLast ? '#7c3aed' : '#374151') : '#4f46e5'};color:#fff">
+          ${answered ? (isLast ? 'Ergebnis ansehen ›' : 'Weiter ›') : 'Antworten'}
         </button>
       </div>
     `;
     window.LernsetEngine?.renderMathIn(overlay);
+  }
+
+  function _choiceStyle(q, answered, selected, key) {
+    if (!answered) {
+      return selected.includes(key)
+        ? 'background:rgba(99,102,241,0.2);border-color:#6366f1;color:#c7d2fe'
+        : 'background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.10);color:var(--txt)';
+    }
+    const isCorrect  = q.correct.includes(key);
+    const isSelected = selected.includes(key);
+    if (isCorrect)  return 'background:rgba(22,163,74,0.2);border-color:#16a34a;color:#86efac';
+    if (isSelected) return 'background:rgba(220,38,38,0.15);border-color:#dc2626;color:#fca5a5';
+    return 'background:rgba(255,255,255,0.04);border-color:rgba(255,255,255,0.10);color:var(--txt)';
+  }
+
+  function _applyChoiceColor(btn, q, selected, key) {
+    const isCorrect  = q.correct.includes(key);
+    const isSelected = selected.includes(key);
+    if (isCorrect) {
+      btn.style.background  = 'rgba(22,163,74,0.2)';
+      btn.style.borderColor = '#16a34a';
+      btn.style.color       = '#86efac';
+    } else if (isSelected) {
+      btn.style.background  = 'rgba(220,38,38,0.15)';
+      btn.style.borderColor = '#dc2626';
+      btn.style.color       = '#fca5a5';
+    }
+  }
+
+  function _feedbackHtml(q, correct) {
+    const resultIcon  = correct ? '✅' : '❌';
+    const resultClass = correct ? 'text-green-400' : 'text-red-400';
+    const resultLabel = correct
+      ? 'Richtig!'
+      : ('Falsch' + (q.correct.length ? ' — Richtig: <strong>' + q.correct.join(', ') + '</strong>' : ''));
+    return `
+      <div class="flex items-start gap-2 mb-2">
+        <span class="text-xl flex-shrink-0 mt-0.5">${resultIcon}</span>
+        <div>
+          <div class="font-bold text-sm ${resultClass}">${resultLabel}</div>
+          <p class="text-sm mt-1 leading-relaxed" style="color:var(--txt-2)">${q.explanation}</p>
+        </div>
+      </div>
+    `;
   }
 
   function _showResults(overlay) {
@@ -600,5 +717,5 @@ window.QuizScreen = (function() {
     return AppState.get('quizTopicStats') || {};
   }
 
-  return { init, showSelector, closeSelector, launch, close, toggleChoice, submitAnswer, getWeakTopics, getTopicStats, QUIZ_REGISTRY };
+  return { init, showSelector, closeSelector, launch, close, toggleChoice, submitAnswer, previousQuestion, nextQuestion, getWeakTopics, getTopicStats, _resumeSaved, _restartSaved, QUIZ_REGISTRY };
 })();

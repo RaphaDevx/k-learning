@@ -63,6 +63,7 @@
   <script src="js/tab-router.js"></script>
   <script src="js/router.js"></script>
   <script src="js/auth.js"></script>
+  <script src="js/session-sync.js"></script>
   <script src="js/courses-db.js"></script>
 
   <!-- ── Screens ── -->
@@ -625,6 +626,9 @@
           <div id="fc-shadow-3" class="fc-shadow-card" style="display:none;transform:translateY(20px) scaleX(0.87);opacity:0.28;z-index:1"></div>
           <div id="fc-shadow-2" class="fc-shadow-card" style="display:none;transform:translateY(13px) scaleX(0.92);opacity:0.45;z-index:2"></div>
           <div id="fc-shadow-1" class="fc-shadow-card" style="display:none;transform:translateY(6px)  scaleX(0.96);opacity:0.65;z-index:3"></div>
+
+          <!-- Resume prompt overlay -->
+          <div id="fc-resume-prompt" class="hidden absolute inset-0 flex flex-col" style="border-radius:1.5rem;background:var(--bg);z-index:30"></div>
 
           <!-- Session complete overlay -->
           <div id="fc-session-done" class="hidden absolute inset-0 flex flex-col items-center justify-center text-center px-6 gap-4" style="border-radius:1.5rem;background:var(--bg);z-index:30">
