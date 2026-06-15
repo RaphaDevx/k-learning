@@ -13,12 +13,9 @@ window.FlashcardsScreen = (function () {
   let _skipInitReset = false; // set by startDeck so init() doesn't override external nav
 
   // Session
-  const SESSION_CHUNK = 16;    // target chunk size when set > 30 cards
-  function _calcSessionSize(total) {
-    if (total <= 30) return total;
-    const chunks = Math.ceil(total / SESSION_CHUNK);
-    return Math.ceil(total / chunks); // ~15-16 per chunk
-  }
+  let _sessionKey   = null;   // `${course}::${topic}` for cross-device sync
+  let _pendingResume = null;  // { savedSet, savedIndex, freshSet } while resume prompt is shown
+  let _sessionDone   = false; // true once the current set has been fully swiped
 
   // Two-slot state
   let _currSlot = 'a';   // 'a' or 'b' — which DOM slot is currently on top
@@ -225,11 +222,12 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     }).join('');
   }
 
-  function startDeck(course, topic) {
+  async function startDeck(course, topic) {
     _skipInitReset = true;
     if (!allCards.length && window.FLASHCARD_DATA?.length) allCards = window.FLASHCARD_DATA;
     activeCourse = course === 'all' ? null : course;
     activeTopic  = topic || null;
+    _sessionKey  = `${activeCourse || 'all'}::${activeTopic || '_all'}`;
 
     filteredCards = allCards
       .filter(c => !activeCourse || c.course === activeCourse)
@@ -249,16 +247,15 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     });
 
     // Dynamic session size: full set if ≤30, else ~15-16 chunks
-    filteredCards = filteredCards.slice(0, _calcSessionSize(filteredCards.length));
+    const freshSet = filteredCards.slice(0, SessionSync.sessionSize(filteredCards.length));
 
     // Reset slot state
     _currSlot = 'a';
+    _sessionDone = false;
 
-    // Hide session done overlay
+    // Hide overlays
     document.getElementById('fc-session-done')?.classList.add('hidden');
-
-    currentIndex = 0;
-    isFlipped = false;
+    document.getElementById('fc-resume-prompt')?.classList.add('hidden');
 
     const titleEl = document.getElementById('fc-deck-title');
     if (titleEl) {
@@ -270,17 +267,70 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     document.getElementById('fc-deck-selector')?.classList.add('hidden');
     document.getElementById('fc-swipe-view')?.classList.remove('hidden');
 
-    if (filteredCards.length) {
-      document.getElementById('fc-no-cards')?.classList.add('hidden');
-      showCard(0);
-    } else {
+    if (!freshSet.length) {
       document.getElementById('fc-no-cards')?.classList.remove('hidden');
       document.getElementById('fc-stack-area')?.classList.add('hidden');
+      filteredCards = freshSet;
+      return;
     }
+    document.getElementById('fc-no-cards')?.classList.add('hidden');
+    document.getElementById('fc-stack-area')?.classList.remove('hidden');
+
+    // Check for a saved set from another device
+    const saved = await SessionSync.load('flashcards', _sessionKey);
+    let savedSet = null;
+    if (saved && Array.isArray(saved.item_ids) && saved.current_index < saved.item_ids.length) {
+      const mapped = saved.item_ids.map(id => allCards.find(c => c.id === id)).filter(Boolean);
+      if (mapped.length === saved.item_ids.length) savedSet = mapped;
+    }
+
+    if (savedSet) {
+      _pendingResume = { savedSet, savedIndex: saved.current_index, freshSet };
+      const prompt = document.getElementById('fc-resume-prompt');
+      if (prompt) {
+        prompt.innerHTML = SessionSync.resumePromptHtml({
+          position: saved.current_index + 1,
+          total: savedSet.length,
+          resumeOnClick: 'FlashcardsScreen._resumeSaved()',
+          restartOnClick: 'FlashcardsScreen._restartSaved()',
+        });
+        prompt.classList.remove('hidden');
+      }
+      return;
+    }
+
+    if (saved) SessionSync.clear('flashcards', _sessionKey);
+    _startSet(freshSet, 0);
+  }
+
+  function _startSet(set, index) {
+    filteredCards = set;
+    currentIndex = 0;
+    isFlipped = false;
+    showCard(index);
+    SessionSync.save('flashcards', _sessionKey, { itemIds: filteredCards.map(c => c.id), currentIndex: index });
+  }
+
+  function _resumeSaved() {
+    document.getElementById('fc-resume-prompt')?.classList.add('hidden');
+    const { savedSet, savedIndex } = _pendingResume;
+    _pendingResume = null;
+    _startSet(savedSet, savedIndex);
+  }
+
+  function _restartSaved() {
+    document.getElementById('fc-resume-prompt')?.classList.add('hidden');
+    SessionSync.clear('flashcards', _sessionKey);
+    const { freshSet } = _pendingResume;
+    _pendingResume = null;
+    _startSet(freshSet, 0);
   }
 
   function showDeckSelector() {
     if (speechMode) exitSpeechMode();
+    if (!_sessionDone && filteredCards.length && currentIndex < filteredCards.length) {
+      SessionSync.save('flashcards', _sessionKey, { itemIds: filteredCards.map(c => c.id), currentIndex });
+    }
     document.getElementById('fc-swipe-view')?.classList.add('hidden');
     document.getElementById('fc-deck-selector')?.classList.remove('hidden');
     renderDeckList(deckFilter);
@@ -568,9 +618,11 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
 
     const nextIdx = currentIndex + 1;
     if (nextIdx >= filteredCards.length) {
+      SessionSync.clear('flashcards', _sessionKey);
       _showSessionComplete();
       return;
     }
+    SessionSync.save('flashcards', _sessionKey, { itemIds: filteredCards.map(c => c.id), currentIndex: nextIdx });
 
     // ── Slot swap: back slot is already rendered, bring it forward ──
     const oldCurrEl = _currEl();
@@ -646,6 +698,7 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     if (b) b.style.opacity = '0';
     if (done) done.classList.remove('hidden');
     swipeInProgress = false;
+    _sessionDone = true;
   }
 
   function startNextSession() {
@@ -1391,5 +1444,8 @@ Antworte NUR in diesem JSON-Format (kein weiterer Text):
     showCard,
     // Data preloading (used by LernenScreen)
     ensureLoaded: _ensureCardsLoaded,
+    // Session resume
+    _resumeSaved,
+    _restartSaved,
   };
 })();

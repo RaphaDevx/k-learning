@@ -25,6 +25,10 @@ window.LernsetScreen = (function () {
   let selectedSingle = null; // 'single'
   let selectedMulti  = [];   // 'multiple'
 
+  // Session
+  let _sessionKey    = null; // `${course}::${topic}` for cross-device sync
+  let _pendingResume = null; // { savedSet, savedIndex, pool } while resume prompt is shown
+
   // ══════════════════════════════════════════════════════════
   // INIT
   // ══════════════════════════════════════════════════════════
@@ -37,38 +41,93 @@ window.LernsetScreen = (function () {
   // OPEN / CLOSE
   // ══════════════════════════════════════════════════════════
 
-  function startDeck(course, topic) {
+  async function startDeck(course, topic) {
     activeCourse = course || null;
     activeTopic  = topic  || null;
+    _sessionKey  = `${activeCourse || 'all'}::${activeTopic || '_all'}`;
 
-    filteredItems = allItems
+    const pool = allItems
       .filter(c => !activeCourse || c.course === activeCourse)
       .filter(c => !activeTopic  || c.topic  === activeTopic);
 
-    // Shuffle
-    for (let i = filteredItems.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [filteredItems[i], filteredItems[j]] = [filteredItems[j], filteredItems[i]];
+    document.getElementById('lernset-overlay')?.classList.remove('hidden');
+    document.body.style.overflow = 'hidden';
+
+    const saved = await SessionSync.load('lernset', _sessionKey);
+    let savedSet = null;
+    if (saved && Array.isArray(saved.item_ids) && saved.current_index < saved.item_ids.length) {
+      const mapped = saved.item_ids.map(id => pool.find(i => i.id === id)).filter(Boolean);
+      if (mapped.length === saved.item_ids.length) savedSet = mapped;
     }
 
-    currentIndex = 0;
-    _render();
+    if (savedSet) {
+      _pendingResume = { savedSet, savedIndex: saved.current_index, pool };
+      const overlay = document.getElementById('lernset-overlay');
+      if (overlay) {
+        overlay.innerHTML = SessionSync.resumePromptHtml({
+          position: saved.current_index + 1,
+          total: savedSet.length,
+          resumeOnClick: 'LernsetScreen._resumeSaved()',
+          restartOnClick: 'LernsetScreen._restartSaved()',
+        });
+      }
+      return;
+    }
 
+    if (saved) SessionSync.clear('lernset', _sessionKey);
+    _startNewSet(pool);
+  }
+
+  // Wählt das Set für diese Session: unbearbeitete/schwache Items zuerst
+  // (Anpassung durch den Lernalgorithmus), begrenzt auf SessionSync.sessionSize.
+  function _selectSet(pool) {
+    const groups = { neu: [], schwach: [], mittel: [], gemeistert: [] };
+    pool.forEach(item => {
+      const prog = AppState.getLernsetProgress(item.id);
+      if (!prog.attempts)                     groups.neu.push(item);
+      else if ((prog.bestScore || 0) < 0.6)   groups.schwach.push(item);
+      else if ((prog.bestScore || 0) < 1)     groups.mittel.push(item);
+      else                                    groups.gemeistert.push(item);
+    });
+
+    const shuffle = arr => {
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    };
+
+    const ordered = [
+      ...shuffle(groups.neu),
+      ...shuffle(groups.schwach),
+      ...shuffle(groups.mittel),
+      ...shuffle(groups.gemeistert),
+    ];
+    return ordered.slice(0, SessionSync.sessionSize(pool.length));
+  }
+
+  function _setTitle() {
     const titleEl = document.getElementById('lns-deck-title');
     if (titleEl) {
       titleEl.textContent = activeTopic
         ? activeTopic.replace(/^M\d+ — /, '').replace(/^Modul \d+: /, '')
         : (activeCourse || 'Alle Übungen');
     }
+  }
 
-    document.getElementById('lernset-overlay')?.classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
+  function _startNewSet(pool) {
+    filteredItems = _selectSet(pool);
+    currentIndex = 0;
+    _render();
+    _setTitle();
 
     if (filteredItems.length) {
       document.getElementById('lns-no-items')?.classList.add('hidden');
       document.getElementById('lns-exercise-card')?.classList.remove('hidden');
       document.getElementById('lns-action-btn')?.classList.remove('hidden');
       showExercise(0);
+      SessionSync.save('lernset', _sessionKey, { itemIds: filteredItems.map(i => i.id), currentIndex: 0 });
     } else {
       document.getElementById('lns-no-items')?.classList.remove('hidden');
       document.getElementById('lns-exercise-card')?.classList.add('hidden');
@@ -76,7 +135,30 @@ window.LernsetScreen = (function () {
     }
   }
 
+  function _resumeSaved() {
+    const { savedSet, savedIndex } = _pendingResume;
+    _pendingResume = null;
+    filteredItems = savedSet;
+    currentIndex = savedIndex;
+    _render();
+    _setTitle();
+    document.getElementById('lns-no-items')?.classList.add('hidden');
+    document.getElementById('lns-exercise-card')?.classList.remove('hidden');
+    document.getElementById('lns-action-btn')?.classList.remove('hidden');
+    showExercise(currentIndex);
+  }
+
+  function _restartSaved() {
+    SessionSync.clear('lernset', _sessionKey);
+    const { pool } = _pendingResume;
+    _pendingResume = null;
+    _startNewSet(pool);
+  }
+
   function close() {
+    if (filteredItems.length && (currentIndex < filteredItems.length - 1 || !checked)) {
+      SessionSync.save('lernset', _sessionKey, { itemIds: filteredItems.map(i => i.id), currentIndex });
+    }
     document.getElementById('lernset-overlay')?.classList.add('hidden');
     document.body.style.overflow = '';
     // Refresh the Lernset tab in the Lernen hub so progress bars update
@@ -273,7 +355,9 @@ window.LernsetScreen = (function () {
       _setActionBtn(currentIndex < filteredItems.length - 1 ? 'Weiter' : 'Fertig 🎉', true);
     } else if (currentIndex < filteredItems.length - 1) {
       showExercise(currentIndex + 1);
+      SessionSync.save('lernset', _sessionKey, { itemIds: filteredItems.map(i => i.id), currentIndex });
     } else {
+      SessionSync.clear('lernset', _sessionKey);
       close();
     }
   }
@@ -364,5 +448,7 @@ window.LernsetScreen = (function () {
     startDeck,
     close,
     handleAction,
+    _resumeSaved,
+    _restartSaved,
   };
 })();
