@@ -1195,7 +1195,7 @@ window.FEED_CARDS = [
     topics: ["Supply Chain", "Postponement", "Newsvendor", "Lead Time", "Coefficient of Variance", "Excel"],
     duration: "2:25",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/om_sc_without_postponement.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/om_sc_without_postponement_latex.mp4",
     thumbnail_emoji: "🔗",
     block: "Block 4 — Supply Chain Management"
   },
