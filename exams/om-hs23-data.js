@@ -12,7 +12,7 @@ window.EXAM_DATA_OM_HS23 = {
     duration: '90 Minuten (BYOD)',
     format: '30 Fragen — Single & Multiple Choice + Excel-Berechnungen',
     allowed_aids: 'Excel (min. Office 2016/365) · Kein WLAN/Bluetooth',
-    grading: 'Note 6.0: ≥85%, Note 5.75: ≥79%, Note 5.5: ≥73%, Note 5.25: ≥67%, Note 5.0: ≥60%, Note 4.75: ≥54%, Note 4.5: ≥48%, Note 4.25: ≥42%, Note 4.0: ≥35%',
+    grading: 'Note 6.0: ≥76 Pts (85%) · Note 5.75: ≥70 Pts (79%) · Note 5.5: ≥65 Pts (72%) · Note 5.25: ≥59 Pts (66%) · Note 5.0: ≥54 Pts (60%) · Note 4.75: ≥48 Pts (54%) · Note 4.5: ≥42 Pts (47%) · Note 4.25: ≥37 Pts (41%) · Note 4.0: ≥31 Pts (35%)',
   },
   scoring_rules: {
     single_choice:   { correct: 1, wrong: 0, blank: 0 },
