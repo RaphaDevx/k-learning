@@ -1199,4 +1199,22 @@ window.FEED_CARDS = [
     thumbnail_emoji: "🔗",
     block: "Block 4 — Supply Chain Management"
   },
+
+  // ── OM Reel: The Bullwhip Effect ──
+  {
+    id: "om-reel-bullwhip-effect",
+    type: "localvideo",
+    course: "OM",
+    courseColor: "#ea580c",
+    emoji: "🌪️",
+    title: "The Bullwhip Effect",
+    subtitle: "Why flat retail demand causes supply chain chaos upstream",
+    description: "Demand fluctuations amplify as you go upstream in uncoordinated supply chains: Retailer → Wholesaler → Manufacturer → Supplier. Consequences: stockouts, overstock, low utilization, unstable cycle times. Source: OMHSG 4.3.a.",
+    topics: ["Bullwhip Effect", "Supply Chain", "Demand Fluctuation", "Utilization", "Stockout", "Overstock"],
+    duration: "1:58",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/om_bullwhip_effect.mp4",
+    thumbnail_emoji: "🌪️",
+    block: "Block 4 — Supply Chain Management"
+  },
 ];
