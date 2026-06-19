@@ -1181,4 +1181,40 @@ window.FEED_CARDS = [
     video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_t6_anova_regression.mp4",
     emoji: "🎬"
   },
+
+  // ── OM Reel: Supply Chain without Postponement ──
+  {
+    id: "om-reel-sc-without-postponement",
+    type: "localvideo",
+    course: "OM",
+    courseColor: "#ea580c",
+    emoji: "🔗",
+    title: "Supply Chain without Postponement",
+    subtitle: "4 Country Configs, Newsvendor + Lead Time — Excel Step by Step",
+    description: "Without postponement each variant (CH/DE/GB/IT) = separate product. Q* = (LT+1)·μ + Z·σ·√(LT+1). CV = σ/μ reveals which markets are riskiest. This is the cost baseline — next video shows how postponement reduces it.",
+    topics: ["Supply Chain", "Postponement", "Newsvendor", "Lead Time", "Coefficient of Variance", "Excel"],
+    duration: "2:25",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/om_sc_without_postponement_latex.mp4",
+    thumbnail_emoji: "🔗",
+    block: "Block 4 — Supply Chain Management"
+  },
+
+  // ── OM Reel: The Bullwhip Effect ──
+  {
+    id: "om-reel-bullwhip-effect",
+    type: "localvideo",
+    course: "OM",
+    courseColor: "#ea580c",
+    emoji: "🌪️",
+    title: "The Bullwhip Effect",
+    subtitle: "Why flat retail demand causes supply chain chaos upstream",
+    description: "Demand fluctuations amplify as you go upstream in uncoordinated supply chains: Retailer → Wholesaler → Manufacturer → Supplier. Consequences: stockouts, overstock, low utilization, unstable cycle times. Source: OMHSG 4.3.a.",
+    topics: ["Bullwhip Effect", "Supply Chain", "Demand Fluctuation", "Utilization", "Stockout", "Overstock"],
+    duration: "1:58",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/om_bullwhip_effect.mp4",
+    thumbnail_emoji: "🌪️",
+    block: "Block 4 — Supply Chain Management"
+  },
 ];

@@ -234,6 +234,15 @@ window.TOPICS_DATA = {
         tags: ["TQM","Six-Sigma","Control-Chart","Cpk","Defects","Lean"],
         desc: "TQM, Six Sigma (DMAIC), Control Charts, Cpk",
         priority: "medium"
+      },
+      {
+        id: "om-sc",
+        title: "Supply Chain Management",
+        short: "SCM",
+        emoji: "🔗",
+        tags: ["Supply-Chain","Postponement","Newsvendor","Lead-Time","CV","Coefficient-of-Variance","Pooling","Critical-Ratio"],
+        desc: "Postponement, Q* mit Lead Time, CV-Analyse, Cost-Formel",
+        priority: "high"
       }
     ]
   }

@@ -251,5 +251,146 @@ window.LERNSET_DATA = [
   "explanation": "Die Reaktion ist generell unklar/kontextabhängig: Unerwartete Zinssenkungen erhöhen typischerweise den Kurs (niedrigere Diskontierung), aber auch Zinserhöhungen können über Signalwirkung zu steigenden Kursen führen. 'Immer eindeutig' ist daher falsch."
 }
 
+
+// ════════════════════════════════════════════════════════════════
+// OM — Block 3/4: Bootstrapping & Supply Chain Management
+// ════════════════════════════════════════════════════════════════
+
+// ── Bootstrapping in der Produktion ──────────────────────────────
+{
+  "id": "om-bs-multi-01", "type": "multiple", "course": "OM",
+  "topic": "Block 3 — Production & Quality Management", "difficulty": 2,
+  "tags": ["Bootstrapping", "Statistik", "Prüfungsfalle", "Konfidenzintervall"],
+  "question": "Ein Produktionsleiter testet einen Roboter seines Hauptlieferanten in China. Er hat eine kleine Stichprobe von Messwerten und möchte Bootstrapping anwenden. Welche der folgenden Aussagen über Bootstrapping treffen zu? (Mehrfachauswahl)",
+  "options": [
+    "Bootstrapping kann angewendet werden, selbst wenn keine Annahmen zur Verteilung der Stichproben bekannt sind.",
+    "Bootstrapping kann angewendet werden — dass die Datenmenge klein ist, ist kein grundlegendes Hindernis.",
+    "Umso grösser das angenommene Konfidenzniveau (z.B. 95% statt 90%), desto präziser kann eine Hypothese abgesichert werden.",
+    "In diesem Fall empfiehlt sich ein Hypothesentest für eine abhängige Stichprobe (Dependent Sample Hypothesis Testing).",
+    "Erstellt man 25 Bootstrap-Stichproben, erhält man ein verlässliches Resultat."
+  ],
+  "correctIndices": [0, 1, 2],
+  "explanation": "A ✓: Bootstrapping ist verteilungsfrei — keine parametrischen Annahmen nötig. B ✓: Kleine Stichproben sind kein Ausschlusskriterium. C ✓: Höheres Konfidenzniveau → breiteres Intervall → stärkere (konservativere) Absicherung. D ✗: Es liegt keine abhängige Stichprobe vor (kein Vorher-Nachher-Design). E ✗: 25 Bootstraps sind nicht ausreichend — in der Praxis mindestens 500–1000."
+},
+
+{
+  "id": "om-bs-tf-01", "type": "truefalse", "course": "OM",
+  "topic": "Block 3 — Production & Quality Management", "difficulty": 2,
+  "tags": ["Bootstrapping", "Statistik", "Prüfungsfalle"],
+  "prompt": "Bootstrapping — wahr oder falsch?",
+  "statements": [
+    {
+      "text": "Bootstrapping setzt voraus, dass die Daten normalverteilt sind.",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: Bootstrapping ist gerade dann wertvoll, wenn die Verteilung unbekannt ist. Es zieht mit Zurücklegen aus der vorhandenen Stichprobe — keine Verteilungsannahme nötig."
+    },
+    {
+      "text": "Eine sehr kleine Stichprobe (z.B. n = 10) macht Bootstrapping grundsätzlich unzulässig.",
+      "isTrue": false,
+      "explanation": "Kleine Stichproben sind kein grundlegendes Hindernis. Bootstrapping kann auch bei kleinem n angewendet werden — die Qualität der Schätzung leidet zwar, aber die Methode ist anwendbar."
+    },
+    {
+      "text": "Ein höheres Konfidenzniveau (95% statt 90%) führt zu einem breiteren Konfidenzintervall.",
+      "isTrue": true,
+      "explanation": "Höheres Konfidenzniveau → man muss mehr Bereich des Bootstrap-Verteilung abdecken → das Intervall wird breiter (präzisere Absicherung, aber weniger informativ)."
+    },
+    {
+      "text": "25 Bootstrap-Stichproben genügen für ein verlässliches Resultat.",
+      "isTrue": false,
+      "explanation": "25 Bootstraps sind viel zu wenig. In der Praxis werden mindestens 500, besser 1000–10000 Bootstrap-Ziehungen empfohlen, damit die Bootstrap-Verteilung stabil ist."
+    },
+    {
+      "text": "Bootstrapping zieht wiederholt Stichproben mit Zurücklegen aus der vorhandenen Stichprobe.",
+      "isTrue": true,
+      "explanation": "Das ist das Kernprinzip: Aus der Originalstichprobe (n Beobachtungen) werden viele neue Stichproben gleicher Grösse mit Zurücklegen gezogen — jede kann dieselbe Beobachtung mehrfach enthalten."
+    }
+  ]
+},
+
+{
+  "id": "om-bs-single-01", "type": "single", "course": "OM",
+  "topic": "Block 3 — Production & Quality Management", "difficulty": 1,
+  "tags": ["Bootstrapping", "Statistik"],
+  "question": "Wie viele Bootstrap-Stichproben werden in der Praxis mindestens empfohlen, um ein verlässliches Resultat zu erhalten?",
+  "options": ["25", "100", "500–1000", "Exakt 50"],
+  "correctIndex": 2,
+  "explanation": "In der Praxis gelten 500–1000 Bootstrap-Wiederholungen als Mindeststandard für stabile Ergebnisse. 25 oder 100 Wiederholungen sind zu wenig — die geschätzte Bootstrap-Verteilung wäre zu stark vom Zufall abhängig."
+},
+
+// ── Bullwhip Effect ───────────────────────────────────────────────
+{
+  "id": "om-sc-order-01", "type": "order", "course": "OM",
+  "topic": "Block 4 — Supply Chain Management", "difficulty": 1,
+  "tags": ["Bullwhip-Effect", "Supply-Chain", "Wirkungskette"],
+  "prompt": "Bringe die Parteien einer typischen Supply Chain in der Reihenfolge des Güterflusses (upstream → downstream) an:",
+  "items": ["Supplier", "Manufacturer", "Wholesaler", "Retailer"],
+  "explanation": "Güter fliessen von Supplier → Manufacturer → Wholesaler → Retailer (downstream). Bestellinformationen fliessen in umgekehrter Richtung (upstream). Der Bullwhip-Effekt beschreibt, wie Nachfrageschwankungen beim Retailer sich upstream verstärken."
+},
+
+{
+  "id": "om-sc-tf-01", "type": "truefalse", "course": "OM",
+  "topic": "Block 4 — Supply Chain Management", "difficulty": 2,
+  "tags": ["Bullwhip-Effect", "Prüfungsfalle", "Supply-Chain"],
+  "prompt": "Bullwhip-Effekt — wahr oder falsch?",
+  "statements": [
+    {
+      "text": "Der Bullwhip-Effekt tritt nur auf, wenn die Endkundennachfrage stark schwankt.",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: Der Bullwhip-Effekt tritt auch bei konstanter, flacher Endkundennachfrage auf. Die Nachfrageschwankungen entstehen durch das Bestellverhalten der verschiedenen Supply-Chain-Stufen selbst."
+    },
+    {
+      "text": "Der Bullwhip-Effekt führt gleichzeitig zu Stockouts UND Overstock in der Supply Chain.",
+      "isTrue": true,
+      "explanation": "Genau: Hohe Schwankungen bedeuten Phasen mit zu wenig Bestand (Stockout) und Phasen mit zu viel (Overstock). Diese treten in verschiedenen Perioden oder bei verschiedenen Parteien gleichzeitig auf."
+    },
+    {
+      "text": "Je weiter upstream in der Supply Chain, desto kleiner die Nachfrageschwankungen.",
+      "isTrue": false,
+      "explanation": "Das Gegenteil: Schwankungen verstärken sich upstream. Beim Supplier sind die Ausschläge am grössten — daher 'Bullwhip' (Peitsche: kleiner Ruck am Griff = grosser Ausschlag am Ende)."
+    },
+    {
+      "text": "Niedrige Maschinenauslastung (Utilization) ist eine direkte Konsequenz des Bullwhip-Effekts.",
+      "isTrue": true,
+      "explanation": "Schwankende Nachfrage führt zu Phasen von Überauslastung und Unterauslastung. Niedrige durchschnittliche Utilization senkt die Profitabilität der Maschinen und Anlagen."
+    },
+    {
+      "text": "Der Bullwhip-Effekt kann durch bessere Informationsweitergabe in der Supply Chain reduziert werden.",
+      "isTrue": true,
+      "explanation": "Einer der Hauptgründe für den Bullwhip-Effekt ist fehlende Transparenz über die tatsächliche Endkundennachfrage. Wenn alle Parteien Echtzeit-Verkaufsdaten des Retailers sehen (z.B. VMI), werden Überreaktionen im Bestellverhalten reduziert."
+    }
+  ]
+},
+
+{
+  "id": "om-sc-multi-01", "type": "multiple", "course": "OM",
+  "topic": "Block 4 — Supply Chain Management", "difficulty": 2,
+  "tags": ["Bullwhip-Effect", "Konsequenzen", "Supply-Chain"],
+  "question": "Welche der folgenden Konsequenzen werden direkt durch den Bullwhip-Effekt verursacht? (Mehrfachauswahl)",
+  "options": [
+    "Stockouts (Fehlmengen) bei Nachfragespitzen",
+    "Overstock (Überbestand) in Niedrigphasen",
+    "Niedrige Maschinenauslastung in bestimmten Perioden",
+    "Stabile, vorhersagbare Cycle Times",
+    "Höhere Gesamtkosten in der Supply Chain"
+  ],
+  "correctIndices": [0, 1, 2, 4],
+  "explanation": "Alle ausser D sind direkte Folgen. D ist falsch: Der Bullwhip-Effekt erhöht und destabilisiert Cycle Times — er macht sie gerade NICHT stabil und vorhersagbar. Stockouts, Overstock, niedrige Auslastung und höhere Gesamtkosten sind die vier Kernkonsequenzen aus dem Lecture-Video."
+},
+
+{
+  "id": "om-sc-single-01", "type": "single", "course": "OM",
+  "topic": "Block 4 — Supply Chain Management", "difficulty": 1,
+  "tags": ["Bullwhip-Effect", "Definition"],
+  "question": "Was beschreibt der Begriff 'Cycle Time' im Kontext des Bullwhip-Effekts?",
+  "options": [
+    "Die Zeit zwischen zwei aufeinanderfolgenden Bestellungen eines Retailers",
+    "Die Gesamtzeit zur Produktion und Lieferung einer Einheit Output",
+    "Die Dauer eines vollständigen Demand-Forecasting-Zyklus",
+    "Die Zeit zwischen Bullwhip-Ausschlägen in der Supply Chain"
+  ],
+  "correctIndex": 1,
+  "explanation": "Cycle Time = Gesamtzeit zur Produktion UND Lieferung einer Einheit Output (Durchlaufzeit). Der Bullwhip-Effekt erhöht und destabilisiert diese Zeit, weil schwankende Auslastung zu unplanbaren Wartezeiten führt."
+}
+
 ];
 })();
