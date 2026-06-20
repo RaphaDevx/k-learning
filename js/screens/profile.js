@@ -470,19 +470,74 @@ window.ProfileScreen = (function () {
     return quizPct * 0.65 + lernsetPct * 0.35;
   }
 
-  // Gesamt-% mit dynamischer Gewichts-Umverteilung, falls eine Quelle fehlt
-  function _coursePct({ examAvg, etappenAvg, flashcardPct }) {
-    const components = [];
-    if (examAvg != null)     components.push({ val: examAvg, w: 0.45 });
-    if (etappenAvg != null)  components.push({ val: etappenAvg, w: 0.35 });
-    if (flashcardPct != null) components.push({ val: flashcardPct, w: 0.20 });
-    if (!components.length) return 0;
-    const totalW = components.reduce((s, c) => s + c.w, 0);
-    return Math.round(components.reduce((s, c) => s + c.val * c.w, 0) / totalW * 100);
+  // Bereitschafts-Score: Lernen gibt Punkte, Prüfung korrigiert nach oben/unten.
+  // fcSeenPct: % gesehener Karten (0..1)  — niedrig gewichtet (kann ohne Wissen geklickt werden)
+  // fcAccPct:  EMA-Accuracy der topic_weights (0..1) — sehr niedrig (leicht zu faken)
+  // lernsetAvg: Ø bestScore der Lernset-Übungen (0..1) — mittel
+  // quizAvg:   Ø Quiz-Trefferquote (0..1) — hoch
+  // examAvg:   Ø Prüfungs-Score (0..1)    — dominiert, zieht hoch oder runter
+  function _readinessScore({ fcSeenPct, fcAccPct, lernsetAvg, quizAvg, examAvg }) {
+    const comps = [];
+    if (fcSeenPct  != null) comps.push({ val: fcSeenPct,  w: 0.15 });
+    if (fcAccPct   != null) comps.push({ val: fcAccPct,   w: 0.05 });
+    if (lernsetAvg != null) comps.push({ val: lernsetAvg, w: 0.30 });
+    if (quizAvg    != null) comps.push({ val: quizAvg,    w: 0.50 });
+    const totalW   = comps.reduce((s, c) => s + c.w, 0);
+    const studyRaw = totalW > 0 ? comps.reduce((s, c) => s + c.val * c.w, 0) / totalW : null;
+    if (examAvg == null) return studyRaw != null ? Math.round(studyRaw * 100) : 0;
+    const base = studyRaw != null ? studyRaw * 0.45 + examAvg * 0.55 : examAvg;
+    return Math.round(base * 100);
+  }
+
+  // Schweizer Note (1–6, halbe Schritte) aus score_pct (0–100)
+  function _gradeFromPct(pct) {
+    const raw = 1 + 5 * (pct / 100);
+    return (Math.round(Math.max(1, Math.min(6, raw)) * 2) / 2).toFixed(1);
   }
 
   function _overallColor(pct) {
     return pct >= 70 ? '#4ade80' : pct >= 40 ? '#fbbf24' : '#f87171';
+  }
+
+  // Banner: zeigt letzte Prüfung (Score + Note), oder "Keine Daten"
+  function _examBannerHtml(results) {
+    if (!results?.length) {
+      return `
+        <div class="flex items-center justify-between px-3 py-2 rounded-xl mb-3"
+             style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07)">
+          <span class="text-xs" style="color:var(--txt-3)">Letzte Prüfung</span>
+          <span class="text-xs italic" style="color:var(--txt-3)">Keine Daten</span>
+        </div>`;
+    }
+    const sorted  = [...results].sort((a, b) => new Date(b.taken_at) - new Date(a.taken_at));
+    const latest  = sorted[0];
+    const lPct    = latest.score_pct;
+    const lGrade  = _gradeFromPct(lPct);
+    const lColor  = _overallColor(lPct);
+    const avgPct  = Math.round(results.reduce((s, r) => s + r.score_pct, 0) / results.length);
+    const aGrade  = _gradeFromPct(avgPct);
+    const aColor  = _overallColor(avgPct);
+    return `
+      <div class="flex items-center justify-between px-3 py-2.5 rounded-xl mb-3"
+           style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07)">
+        <div>
+          <div class="text-xs mb-1" style="color:var(--txt-3)">Letzte Prüfung</div>
+          <div class="flex items-center gap-2">
+            <span class="text-sm font-bold" style="color:${lColor}">${lPct}%</span>
+            <span class="text-xs px-1.5 py-0.5 rounded-full font-medium"
+                  style="background:${lColor}22;color:${lColor}">Note ${lGrade}</span>
+          </div>
+        </div>
+        ${results.length > 1 ? `
+          <div class="text-right">
+            <div class="text-xs mb-1" style="color:var(--txt-3)">Ø ${results.length} Prüfungen</div>
+            <div class="flex items-center gap-2 justify-end">
+              <span class="text-sm font-bold" style="color:${aColor}">${avgPct}%</span>
+              <span class="text-xs px-1.5 py-0.5 rounded-full font-medium"
+                    style="background:${aColor}22;color:${aColor}">Ø Note ${aGrade}</span>
+            </div>
+          </div>` : ''}
+      </div>`;
   }
 
   function _etappeBarHtml(et) {
@@ -531,19 +586,24 @@ window.ProfileScreen = (function () {
     const started = etappen.map(e => e.pct).filter(p => p != null);
     const etappenAvg = started.length ? started.reduce((a, b) => a + b, 0) / started.length : null;
 
+    const etappenTitles = new Set(topicsData.topics.map(t => t.title));
+    const courseQuizStats = Object.fromEntries(Object.entries(quizStats).filter(([topic]) => etappenTitles.has(topic)));
+    const quizEntries = Object.values(courseQuizStats).filter(s => s.total > 0);
+    const quizAvg = quizEntries.length ? quizEntries.reduce((s, e) => s + e.correct / e.total, 0) / quizEntries.length : null;
+
     const courseExamResults = examResults.filter(r => _examIdToCourse(r.exam_id) === courseKey);
     const examAvg = courseExamResults.length
       ? courseExamResults.reduce((s, r) => s + r.score_pct, 0) / courseExamResults.length / 100
       : null;
 
     const fcPct = flashcardCoverage[courseKey] ?? null;
-    const overallPct = _coursePct({ examAvg, etappenAvg, flashcardPct: fcPct });
 
     const allTags = new Set(topicsData.topics.flatMap(t => t.tags || []));
     const courseWeights = [...weightsByTag.values()].filter(w => allTags.has(w.topic_tag));
+    const accVals = courseWeights.map(_topicWeightAccuracy).filter(v => v != null);
+    const fcAccAvg = accVals.length ? accVals.reduce((a, b) => a + b, 0) / accVals.length : null;
 
-    const etappenTitles = new Set(topicsData.topics.map(t => t.title));
-    const courseQuizStats = Object.fromEntries(Object.entries(quizStats).filter(([topic]) => etappenTitles.has(topic)));
+    const readiness = _readinessScore({ fcSeenPct: fcPct, fcAccPct: fcAccAvg, lernsetAvg: etappenAvg, quizAvg, examAvg });
 
     const detailsHtml = _examHistoryHtml(courseExamResults) + _weaknessProfileHtml(courseWeights) + _quizTopicBarsHtml(courseQuizStats);
 
@@ -554,8 +614,12 @@ window.ProfileScreen = (function () {
             <span class="text-xl">${topicsData.emoji}</span>
             <h3 class="font-semibold" style="color:var(--txt)">${label}</h3>
           </div>
-          <div class="text-2xl font-black" style="color:${_overallColor(overallPct)}">${overallPct}%</div>
+          <div class="text-right">
+            <div class="text-xs mb-0.5" style="color:var(--txt-3)">Bereitschaft</div>
+            <div class="text-2xl font-black" style="color:${_overallColor(readiness)}">${readiness}%</div>
+          </div>
         </div>
+        ${_examBannerHtml(courseExamResults)}
         <div class="space-y-2 mb-3">
           ${etappen.map(_etappeBarHtml).join('')}
         </div>
@@ -577,7 +641,7 @@ window.ProfileScreen = (function () {
       ? courseExamResults.reduce((s, r) => s + r.score_pct, 0) / courseExamResults.length / 100
       : null;
     const fcPct = flashcardCoverage[courseKey] ?? null;
-    const overallPct = _coursePct({ examAvg, etappenAvg: null, flashcardPct: fcPct });
+    const readiness = _readinessScore({ fcSeenPct: fcPct, examAvg });
 
     const detailsHtml = _examHistoryHtml(courseExamResults);
 
@@ -588,9 +652,12 @@ window.ProfileScreen = (function () {
             <span class="text-xl">${emoji}</span>
             <h3 class="font-semibold" style="color:var(--txt)">${label}</h3>
           </div>
-          <div class="text-2xl font-black" style="color:${_overallColor(overallPct)}">${overallPct}%</div>
+          <div class="text-right">
+            <div class="text-xs mb-0.5" style="color:var(--txt-3)">Bereitschaft</div>
+            <div class="text-2xl font-black" style="color:${_overallColor(readiness)}">${readiness}%</div>
+          </div>
         </div>
-        <p class="text-xs mb-3" style="color:var(--txt-3)">Etappen für diesen Kurs folgen bald.</p>
+        ${_examBannerHtml(courseExamResults)}
         ${detailsHtml ? `
           ${_detailsToggleHtml()}
           <div class="hidden mt-3 pt-3" style="border-top:1px solid var(--border)">${detailsHtml}</div>
@@ -605,16 +672,21 @@ window.ProfileScreen = (function () {
       <div class="mb-4">
         <p class="text-xs text-gray-400 uppercase tracking-wide mb-2">Letzte Prüfungen</p>
         ${sorted.map(r => {
-          const pct = r.score_pct;
-          const color = pct >= 65 ? 'text-green-400' : pct >= 45 ? 'text-yellow-400' : 'text-red-400';
-          const date = new Date(r.taken_at).toLocaleDateString('de-CH');
-          const label = r.exam_id.replace('esf-', 'ESF ').replace('stat-', 'Statistik ').toUpperCase();
+          const pct   = r.score_pct;
+          const grade = _gradeFromPct(pct);
+          const col   = _overallColor(pct);
+          const date  = new Date(r.taken_at).toLocaleDateString('de-CH');
+          const lbl   = r.exam_id.replace('esf-', 'ESF ').replace('stat-', 'Statistik ').toUpperCase();
           return `
             <div class="flex items-center justify-between py-2 border-b border-gray-700 last:border-0">
-              <div class="text-sm text-gray-300">${label}</div>
-              <div class="flex items-center gap-3">
-                <span class="text-xs text-gray-500">${date}</span>
-                <span class="text-sm font-bold ${color}">${pct}%</span>
+              <div>
+                <div class="text-sm text-gray-300">${lbl}</div>
+                <div class="text-xs text-gray-500 mt-0.5">${date}</div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm font-bold" style="color:${col}">${pct}%</span>
+                <span class="text-xs px-1.5 py-0.5 rounded-full font-medium"
+                      style="background:${col}22;color:${col}">Note ${grade}</span>
               </div>
             </div>`;
         }).join('')}
