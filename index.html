@@ -955,9 +955,9 @@
         </div>
         <div class="relative">
           <input type="checkbox" id="exam-timer-toggle" class="sr-only" checked>
-          <div class="w-11 h-6 bg-blue-600 rounded-full cursor-pointer transition peer-checked:bg-blue-600"
-               onclick="const c=document.getElementById('exam-timer-toggle'); c.checked=!c.checked; this.style.background=c.checked?'#2563eb':'#374151'"></div>
-          <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition" id="timer-toggle-knob"></div>
+          <div class="w-11 h-6 rounded-full cursor-pointer transition-colors" id="timer-toggle-bg" style="background:#2563eb"
+               onclick="const c=document.getElementById('exam-timer-toggle');c.checked=!c.checked;document.getElementById('timer-toggle-bg').style.background=c.checked?'#2563eb':'#374151';document.getElementById('timer-toggle-knob').style.transform=c.checked?'translateX(20px)':''"></div>
+          <div class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform pointer-events-none" id="timer-toggle-knob" style="transform:translateX(20px)"></div>
         </div>
       </label>
     </div>
@@ -971,8 +971,8 @@
       </div>
     </a>
 
-    <div class="bg-yellow-950 border border-yellow-800 rounded-xl p-3 mb-4 text-xs text-yellow-300">
-      ⚠️ Einmal gestartet läuft die Prüfung durch. Kein Pausieren — wie die echte Prüfung.
+    <div class="bg-gray-800 border border-gray-700 rounded-xl p-3 mb-4 text-xs text-gray-400">
+      ⏸ Pause jederzeit möglich — Inhalt wird ausgeblendet, Timer gestoppt.
     </div>
 
     <div class="flex gap-3">
@@ -998,6 +998,9 @@
       <div class="text-xs text-gray-400 mt-0.5" id="exam-progress-text"></div>
     </div>
     <div class="font-mono text-xl font-bold flex-shrink-0" id="exam-timer"></div>
+    <button id="exam-pause-btn" onclick="ExamScreen.togglePause()"
+      class="flex-shrink-0 w-9 h-9 flex items-center justify-center rounded-xl border border-gray-600 hover:border-blue-500 hover:bg-blue-900 transition text-base"
+      title="Pause">⏸</button>
     <button onclick="ExamScreen.confirmAbort()"
       class="flex-shrink-0 text-xs text-gray-600 hover:text-red-400 transition px-2 py-1 rounded border border-gray-700 hover:border-red-700">
       Abbrechen
@@ -1007,6 +1010,17 @@
   <!-- Progress bar -->
   <div class="h-0.5 bg-gray-800 flex-shrink-0">
     <div id="exam-progress-bar" class="h-0.5 bg-blue-500 transition-all duration-300" style="width:0%"></div>
+  </div>
+
+  <!-- Pause overlay (replaces scroll area while paused) -->
+  <div id="exam-pause-overlay" style="display:none;flex:1;flex-direction:column;align-items:center;justify-content:center;background:#080b14">
+    <div style="font-size:3.5rem;margin-bottom:1rem">⏸</div>
+    <div class="text-xl font-bold text-white mb-2">Pausiert</div>
+    <div class="text-sm text-gray-400 mb-8">Inhalt ausgeblendet</div>
+    <button onclick="ExamScreen.togglePause()"
+      class="bg-blue-600 hover:bg-blue-500 rounded-2xl px-10 py-4 font-bold text-lg transition">
+      ▶ Weiter
+    </button>
   </div>
 
   <!-- Scrollable questions -->

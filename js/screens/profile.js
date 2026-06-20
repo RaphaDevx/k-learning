@@ -81,12 +81,11 @@ window.ProfileScreen = (function () {
       </div>
 
       <!-- Lernprofil -->
-      <div class="rounded-[20px] p-4 mb-4" style="background:var(--card);border:1px solid var(--border)">
-        <div class="flex items-center justify-between mb-3">
-          <h3 class="font-semibold" style="color:var(--txt)">Lernprofil</h3>
-          <span class="text-xs" style="color:var(--txt-3)">aus Prüfungen</span>
+      <div class="mb-4">
+        <h3 class="font-semibold mb-3 px-1" style="color:var(--txt)">Lernprofil</h3>
+        <div id="learning-profile-cards" class="space-y-3">
+          <p class="text-sm px-1" style="color:var(--txt-2)">Lade…</p>
         </div>
-        <div id="learning-profile-content"><p class="text-sm" style="color:var(--txt-2)">Lade…</p></div>
       </div>
 
       <!-- Sign out -->
@@ -386,35 +385,226 @@ window.ProfileScreen = (function () {
     });
   }
 
+  // ── Lernprofil: pro Kurs eine Karte mit Etappen + Gesamt-Fortschritt ─────
+
   async function _loadLearningProfile(user) {
-    const el = document.getElementById('learning-profile-content');
+    const el = document.getElementById('learning-profile-cards');
     if (!el) return;
 
-    // Prüfungs-Historie laden
-    const { data: results } = await _supabase
-      .from('exam_results')
-      .select('exam_id, score_pct, taken_at')
-      .eq('user_id', user.id)
-      .order('taken_at', { ascending: false })
-      .limit(10);
+    const [{ data: examResults }, { data: weights }, { data: deckCards }, enrolled] = await Promise.all([
+      _supabase.from('exam_results').select('exam_id, score_pct, taken_at').eq('user_id', user.id),
+      _supabase.from('topic_weights')
+        .select('topic_tag, wrong_count, correct_count, priority, ema_accuracy, correct_streak')
+        .eq('user_id', user.id).limit(200),
+      _supabase.from('deck_cards').select('id, course, topic'),
+      CoursesDB.getEnrolledKeys(),
+    ]);
 
-    // Topic-Schwächenprofil laden
-    const { data: weights } = await _supabase
-      .from('topic_weights')
-      .select('topic_tag, wrong_count, correct_count, priority, ema_accuracy, correct_streak')
-      .eq('user_id', user.id)
-      .order('priority', { ascending: false })
-      .limit(20);
-
-    if (!results?.length && !weights?.length) {
-      el.innerHTML = '<p class="text-gray-500 text-sm">Noch keine Prüfung abgeschlossen. Leg los im Prüfungs-Modus!</p>';
+    if (!enrolled?.length) {
+      el.innerHTML = '<p class="text-sm px-1" style="color:var(--txt-2)">Noch keine Kurse ausgewählt.</p>';
       return;
     }
 
-    const examHtml = results?.length ? `
+    const weightsByTag = new Map((weights || []).map(w => [w.topic_tag, w]));
+    const quizStats = AppState.get('quizTopicStats') || {};
+
+    // Flashcard-Abdeckung pro Kurs (unabhängig von window.FLASHCARD_DATA)
+    const flashcardCoverage = {};
+    (deckCards || []).forEach(c => {
+      if (!flashcardCoverage[c.course]) flashcardCoverage[c.course] = { total: 0, done: 0 };
+      flashcardCoverage[c.course].total++;
+      if (AppState.getCardProgress(c.id).reviews > 0) flashcardCoverage[c.course].done++;
+    });
+    Object.keys(flashcardCoverage).forEach(k => {
+      const c = flashcardCoverage[k];
+      flashcardCoverage[k] = c.total ? c.done / c.total : null;
+    });
+
+    const ctx = { examResults: examResults || [], weightsByTag, quizStats, flashcardCoverage };
+
+    el.innerHTML = enrolled.map(courseKey =>
+      window.TOPICS_DATA?.[courseKey]
+        ? _renderCourseCard(courseKey, ctx)
+        : _renderSimpleCourseCard(courseKey, ctx)
+    ).join('');
+  }
+
+  // exam_id → Kurs-Zuordnung (QUIZ_REGISTRY-Lookup mit Präfix-Fallback)
+  function _examIdToCourse(examId) {
+    const entry = window.QuizScreen?.QUIZ_REGISTRY?.find(q => q.id === examId);
+    if (entry) return entry.course;
+    if (examId.startsWith('stat'))  return 'Statistik';
+    if (examId.startsWith('makro')) return 'MakroII';
+    if (examId.startsWith('esf'))   return 'ESF';
+    if (examId.startsWith('om'))    return 'OM';
+    if (examId.startsWith('bwl'))   return 'BWL';
+    if (examId.startsWith('eng'))   return 'EnglischC1';
+    return null;
+  }
+
+  function _topicWeightAccuracy(w) {
+    const total = w.wrong_count + w.correct_count;
+    if (total === 0) return null;
+    return w.ema_accuracy != null ? w.ema_accuracy : w.correct_count / total;
+  }
+
+  // Pro-Etappe-Fortschritt: Mix aus Quiz/Exam-Signal + Lernset-Signal, 0..1 oder null ("nicht begonnen")
+  function _etappePct(courseKey, etappe, quizStats, weightsByTag) {
+    const scores = [];
+    const local = quizStats[etappe.title];
+    if (local && local.total > 0) scores.push(local.correct / local.total);
+    (etappe.tags || []).forEach(tag => {
+      const w = weightsByTag.get(tag);
+      const acc = w ? _topicWeightAccuracy(w) : null;
+      if (acc != null) scores.push(acc);
+    });
+    const quizPct = scores.length ? scores.reduce((a, b) => a + b, 0) / scores.length : null;
+
+    const items = (window.LERNSET_DATA || []).filter(i => i.course === courseKey && i.topic === etappe.title);
+    const attempted = items.map(i => AppState.getLernsetProgress(i.id)).filter(p => p.attempts > 0);
+    const lernsetPct = attempted.length ? attempted.reduce((a, p) => a + p.bestScore, 0) / attempted.length : null;
+
+    if (quizPct == null && lernsetPct == null) return null;
+    if (quizPct == null) return lernsetPct;
+    if (lernsetPct == null) return quizPct;
+    return quizPct * 0.65 + lernsetPct * 0.35;
+  }
+
+  // Gesamt-% mit dynamischer Gewichts-Umverteilung, falls eine Quelle fehlt
+  function _coursePct({ examAvg, etappenAvg, flashcardPct }) {
+    const components = [];
+    if (examAvg != null)     components.push({ val: examAvg, w: 0.45 });
+    if (etappenAvg != null)  components.push({ val: etappenAvg, w: 0.35 });
+    if (flashcardPct != null) components.push({ val: flashcardPct, w: 0.20 });
+    if (!components.length) return 0;
+    const totalW = components.reduce((s, c) => s + c.w, 0);
+    return Math.round(components.reduce((s, c) => s + c.val * c.w, 0) / totalW * 100);
+  }
+
+  function _overallColor(pct) {
+    return pct >= 70 ? '#4ade80' : pct >= 40 ? '#fbbf24' : '#f87171';
+  }
+
+  function _etappeBarHtml(et) {
+    const pct = et.pct;
+    const display = pct == null ? 0 : Math.round(pct * 100);
+    const label = pct == null ? 'Neu' : `${display}%`;
+    const color = pct == null ? 'rgba(255,255,255,0.15)' : _overallColor(display);
+    return `
+      <div>
+        <div class="flex items-center justify-between mb-1">
+          <span class="text-xs" style="color:var(--txt)">${et.emoji} ${et.short}</span>
+          <span class="text-xs" style="color:var(--txt-2)">${label}</span>
+        </div>
+        <div class="h-1.5 rounded-full" style="background:rgba(255,255,255,0.06)">
+          <div class="h-1.5 rounded-full transition-all" style="width:${display}%;background:${color}"></div>
+        </div>
+      </div>`;
+  }
+
+  function _detailsToggleHtml() {
+    return `
+      <button onclick="ProfileScreen._toggleDetails(this)" aria-expanded="false"
+        class="w-full flex items-center justify-center gap-1.5 py-2 rounded-xl text-xs font-medium transition"
+        style="background:var(--card-raised);color:var(--txt-2)">
+        <span>Details</span>
+        <span class="details-arrow transition-transform inline-block" style="font-size:0.7rem">▶</span>
+      </button>`;
+  }
+
+  function _toggleDetails(btn) {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+    const panel = btn.nextElementSibling;
+    panel.classList.toggle('hidden', expanded);
+    const arrow = btn.querySelector('.details-arrow');
+    if (arrow) arrow.style.transform = expanded ? '' : 'rotate(90deg)';
+  }
+
+  function _renderCourseCard(courseKey, ctx) {
+    const { examResults, weightsByTag, quizStats, flashcardCoverage } = ctx;
+    const topicsData = window.TOPICS_DATA[courseKey];
+    const course = window.getCourse?.(courseKey);
+    const label = course?.label || courseKey;
+
+    const etappen = topicsData.topics.map(et => ({ ...et, pct: _etappePct(courseKey, et, quizStats, weightsByTag) }));
+    const started = etappen.map(e => e.pct).filter(p => p != null);
+    const etappenAvg = started.length ? started.reduce((a, b) => a + b, 0) / started.length : null;
+
+    const courseExamResults = examResults.filter(r => _examIdToCourse(r.exam_id) === courseKey);
+    const examAvg = courseExamResults.length
+      ? courseExamResults.reduce((s, r) => s + r.score_pct, 0) / courseExamResults.length / 100
+      : null;
+
+    const fcPct = flashcardCoverage[courseKey] ?? null;
+    const overallPct = _coursePct({ examAvg, etappenAvg, flashcardPct: fcPct });
+
+    const allTags = new Set(topicsData.topics.flatMap(t => t.tags || []));
+    const courseWeights = [...weightsByTag.values()].filter(w => allTags.has(w.topic_tag));
+
+    const etappenTitles = new Set(topicsData.topics.map(t => t.title));
+    const courseQuizStats = Object.fromEntries(Object.entries(quizStats).filter(([topic]) => etappenTitles.has(topic)));
+
+    const detailsHtml = _examHistoryHtml(courseExamResults) + _weaknessProfileHtml(courseWeights) + _quizTopicBarsHtml(courseQuizStats);
+
+    return `
+      <div class="rounded-[20px] p-4" style="background:var(--card);border:1px solid var(--border)">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">${topicsData.emoji}</span>
+            <h3 class="font-semibold" style="color:var(--txt)">${label}</h3>
+          </div>
+          <div class="text-2xl font-black" style="color:${_overallColor(overallPct)}">${overallPct}%</div>
+        </div>
+        <div class="space-y-2 mb-3">
+          ${etappen.map(_etappeBarHtml).join('')}
+        </div>
+        ${_detailsToggleHtml()}
+        <div class="hidden mt-3 pt-3" style="border-top:1px solid var(--border)">
+          ${detailsHtml || `<p class="text-sm" style="color:var(--txt-2)">Noch keine Details verfügbar.</p>`}
+        </div>
+      </div>`;
+  }
+
+  function _renderSimpleCourseCard(courseKey, ctx) {
+    const { examResults, flashcardCoverage } = ctx;
+    const course = window.getCourse?.(courseKey);
+    const label = course?.label || courseKey;
+    const emoji = course?.icon || '📘';
+
+    const courseExamResults = examResults.filter(r => _examIdToCourse(r.exam_id) === courseKey);
+    const examAvg = courseExamResults.length
+      ? courseExamResults.reduce((s, r) => s + r.score_pct, 0) / courseExamResults.length / 100
+      : null;
+    const fcPct = flashcardCoverage[courseKey] ?? null;
+    const overallPct = _coursePct({ examAvg, etappenAvg: null, flashcardPct: fcPct });
+
+    const detailsHtml = _examHistoryHtml(courseExamResults);
+
+    return `
+      <div class="rounded-[20px] p-4" style="background:var(--card);border:1px solid var(--border)">
+        <div class="flex items-center justify-between mb-3">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">${emoji}</span>
+            <h3 class="font-semibold" style="color:var(--txt)">${label}</h3>
+          </div>
+          <div class="text-2xl font-black" style="color:${_overallColor(overallPct)}">${overallPct}%</div>
+        </div>
+        <p class="text-xs mb-3" style="color:var(--txt-3)">Etappen für diesen Kurs folgen bald.</p>
+        ${detailsHtml ? `
+          ${_detailsToggleHtml()}
+          <div class="hidden mt-3 pt-3" style="border-top:1px solid var(--border)">${detailsHtml}</div>
+        ` : ''}
+      </div>`;
+  }
+
+  function _examHistoryHtml(results) {
+    if (!results?.length) return '';
+    const sorted = [...results].sort((a, b) => new Date(b.taken_at) - new Date(a.taken_at)).slice(0, 10);
+    return `
       <div class="mb-4">
         <p class="text-xs text-gray-400 uppercase tracking-wide mb-2">Letzte Prüfungen</p>
-        ${results.map(r => {
+        ${sorted.map(r => {
           const pct = r.score_pct;
           const color = pct >= 65 ? 'text-green-400' : pct >= 45 ? 'text-yellow-400' : 'text-red-400';
           const date = new Date(r.taken_at).toLocaleDateString('de-CH');
@@ -428,15 +618,17 @@ window.ProfileScreen = (function () {
               </div>
             </div>`;
         }).join('')}
-      </div>` : '';
+      </div>`;
+  }
 
-    const topicHtml = weights?.length ? `
-      <div>
+  function _weaknessProfileHtml(weights) {
+    const rows = (weights || []).filter(w => (w.wrong_count + w.correct_count) > 0);
+    if (!rows.length) return '';
+    return `
+      <div class="mb-4">
         <p class="text-xs text-gray-400 uppercase tracking-wide mb-2">Schwächenprofil nach Thema</p>
-        ${weights.map(w => {
+        ${rows.map(w => {
           const total = w.wrong_count + w.correct_count;
-          if (total === 0) return '';
-          // EMA nutzen wenn vorhanden (neuere Antworten stärker gewichtet), sonst Fallback auf Rohquote
           const pct = w.ema_accuracy != null
             ? Math.round(w.ema_accuracy * 100)
             : Math.round((w.correct_count / total) * 100);
@@ -464,10 +656,37 @@ window.ProfileScreen = (function () {
                 <div class="${barColor} h-full rounded-full transition-all" style="width:${pct}%"></div>
               </div>
             </div>`;
-        }).filter(Boolean).join('')}
-      </div>` : '';
+        }).join('')}
+      </div>`;
+  }
 
-    el.innerHTML = examHtml + topicHtml;
+  function _quizTopicBarsHtml(stats) {
+    const entries = Object.entries(stats).filter(([, s]) => s.total > 0);
+    if (!entries.length) return '';
+    const sorted = entries.sort((a, b) => (a[1].correct / a[1].total) - (b[1].correct / b[1].total));
+    return `
+      <div>
+        <p class="text-xs text-gray-400 uppercase tracking-wide mb-2">Quiz-Themen</p>
+        ${sorted.map(([topic, s]) => {
+          const pct = Math.round((s.correct / s.total) * 100);
+          const col = pct >= 70 ? '#4ade80' : pct >= 50 ? '#fbbf24' : '#f87171';
+          const badge = pct >= 70 ? 'Stark' : pct >= 50 ? 'Üben' : 'Fokus';
+          const badgeBg = pct >= 70 ? 'rgba(22,163,74,0.15)' : pct >= 50 ? 'rgba(202,138,4,0.15)' : 'rgba(220,38,38,0.15)';
+          return `
+            <div class="mb-3">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs" style="color:var(--txt)">${topic}</span>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs" style="color:var(--txt-2)">${s.correct}/${s.total}</span>
+                  <span class="text-xs px-1.5 py-0.5 rounded-full font-medium" style="background:${badgeBg};color:${col}">${badge}</span>
+                </div>
+              </div>
+              <div class="h-1.5 rounded-full" style="background:rgba(255,255,255,0.06)">
+                <div class="h-1.5 rounded-full transition-all" style="width:${pct}%;background:${col}"></div>
+              </div>
+            </div>`;
+        }).join('')}
+      </div>`;
   }
 
   function _renderQuizStats() {
@@ -591,5 +810,5 @@ window.ProfileScreen = (function () {
     document.body.appendChild(modal);
   }
 
-  return { init, refresh, reviewExamDraft };
+  return { init, refresh, reviewExamDraft, _toggleDetails };
 })();

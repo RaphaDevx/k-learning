@@ -55,9 +55,13 @@ window.SessionSync = (function () {
   }
 
   // Generischer Resume-Prompt, wird ins jeweilige Overlay injiziert
-  function resumePromptHtml({ position, total, resumeOnClick, restartOnClick }) {
+  function resumePromptHtml({ position, total, resumeOnClick, restartOnClick, closeOnClick }) {
     return `
-      <div class="flex-1 flex flex-col items-center justify-center px-6 text-center gap-4">
+      <div class="flex-1 flex flex-col items-center justify-center px-6 text-center gap-4 relative">
+        ${closeOnClick ? `
+        <button onclick="${closeOnClick}" class="absolute top-3 left-3 flex items-center gap-1 text-sm" style="color:var(--txt-2)">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>Zurück
+        </button>` : ''}
         <div class="text-4xl">📍</div>
         <div class="font-bold text-lg" style="color:var(--txt)">Weitermachen?</div>
         <div class="text-sm" style="color:var(--txt-2)">Du warst bei ${position} / ${total}.</div>

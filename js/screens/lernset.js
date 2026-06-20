@@ -69,6 +69,7 @@ window.LernsetScreen = (function () {
           total: savedSet.length,
           resumeOnClick: 'LernsetScreen._resumeSaved()',
           restartOnClick: 'LernsetScreen._restartSaved()',
+          closeOnClick: 'LernsetScreen._closeResumePrompt()',
         });
       }
       return;
@@ -153,6 +154,16 @@ window.LernsetScreen = (function () {
     const { pool } = _pendingResume;
     _pendingResume = null;
     _startNewSet(pool);
+  }
+
+  // Verlässt den Resume-Prompt ohne den gespeicherten Fortschritt zu verändern
+  function _closeResumePrompt() {
+    _pendingResume = null;
+    document.getElementById('lernset-overlay')?.classList.add('hidden');
+    document.body.style.overflow = '';
+    if (window.LernenScreen?.getActiveMode?.() === 'lernset') {
+      window.LernenScreen.setMode('lernset');
+    }
   }
 
   function close() {
@@ -450,5 +461,6 @@ window.LernsetScreen = (function () {
     handleAction,
     _resumeSaved,
     _restartSaved,
+    _closeResumePrompt,
   };
 })();

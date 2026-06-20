@@ -41,24 +41,16 @@ window.LernsetEngine = (function () {
   function renderContent(el, text) {
     if (!el) return;
     if (!text) { el.innerHTML = ''; return; }
-
-    const hasKatex = typeof katex !== 'undefined';
-    const hasMath  = text.includes('$');
-
-    if (!hasMath) { el.textContent = text; return; }
-
-    let html = escHtml(text);
-    if (hasKatex) {
-      html = html.replace(/\$\$([^$]+?)\$\$/g, (_, math) => {
-        try { return katex.renderToString(unescHtml(math), { displayMode: true, throwOnError: false }); }
-        catch (e) { return `<code>${math}</code>`; }
-      });
-      html = html.replace(/\$([^$\n]+?)\$/g, (_, math) => {
-        try { return katex.renderToString(unescHtml(math), { displayMode: false, throwOnError: false }); }
-        catch (e) { return `<code>${math}</code>`; }
+    el.textContent = text;
+    if (typeof renderMathInElement !== 'undefined') {
+      renderMathInElement(el, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$',  right: '$',  display: false },
+        ],
+        throwOnError: false,
       });
     }
-    el.innerHTML = html;
   }
 
   // KaTeX delimiters used by auto-render across the whole app.
@@ -129,6 +121,7 @@ window.LernsetEngine = (function () {
             <button class="lns-order-arrow" data-pos="${pos}" data-dir="1"  ${pos === order.length - 1 ? 'disabled' : ''}>▼</button>
           </div>
         </div>`).join('');
+      renderMathIn(listEl);
     }
     paint();
 
@@ -220,6 +213,7 @@ window.LernsetEngine = (function () {
         </div>
         <div class="lns-tf-explain hidden"></div>
       </div>`).join('');
+    renderMathIn(listEl);
 
     listEl.querySelectorAll('.lns-tf-btn').forEach(btn => {
       btn.addEventListener('click', () => {
@@ -268,6 +262,7 @@ window.LernsetEngine = (function () {
       if (ex && s.explanation) {
         ex.textContent = s.explanation;
         ex.classList.remove('hidden');
+        renderMathIn(ex);
       }
     });
     return correctCount / statements.length;
@@ -283,6 +278,7 @@ window.LernsetEngine = (function () {
   function renderOptionsList(listEl, options, onClick) {
     listEl.innerHTML = options.map((opt, idx) => `
       <button class="lns-option" data-idx="${idx}">${escHtml(opt)}</button>`).join('');
+    renderMathIn(listEl);
 
     listEl.querySelectorAll('.lns-option').forEach(btn => {
       btn.addEventListener('click', () => onClick(parseInt(btn.dataset.idx, 10)));

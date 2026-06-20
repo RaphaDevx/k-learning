@@ -333,6 +333,7 @@ window.QuizScreen = (function() {
         total: _questions.length,
         resumeOnClick: 'QuizScreen._resumeSaved()',
         restartOnClick: 'QuizScreen._restartSaved()',
+        closeOnClick: 'QuizScreen._closeResumePrompt()',
       });
       return;
     }
@@ -356,6 +357,13 @@ window.QuizScreen = (function() {
     _pendingSaved = null;
     SessionSync.clear('quiz', _dataVar);
     _renderQuestion();
+  }
+
+  // Verlässt den Resume-Prompt ohne den gespeicherten Fortschritt zu verändern
+  function _closeResumePrompt() {
+    _pendingSaved = null;
+    const overlay = document.getElementById('quiz-overlay');
+    if (overlay) overlay.classList.add('hidden');
   }
 
   function close() {
@@ -717,5 +725,5 @@ window.QuizScreen = (function() {
     return AppState.get('quizTopicStats') || {};
   }
 
-  return { init, showSelector, closeSelector, launch, close, toggleChoice, submitAnswer, previousQuestion, nextQuestion, getWeakTopics, getTopicStats, _resumeSaved, _restartSaved, QUIZ_REGISTRY };
+  return { init, showSelector, closeSelector, launch, close, toggleChoice, submitAnswer, previousQuestion, nextQuestion, getWeakTopics, getTopicStats, _resumeSaved, _restartSaved, _closeResumePrompt, QUIZ_REGISTRY };
 })();

@@ -249,7 +249,7 @@ window.LERNSET_DATA = [
   ],
   "correctIndices": [0, 2, 3],
   "explanation": "Die Reaktion ist generell unklar/kontextabhängig: Unerwartete Zinssenkungen erhöhen typischerweise den Kurs (niedrigere Diskontierung), aber auch Zinserhöhungen können über Signalwirkung zu steigenden Kursen führen. 'Immer eindeutig' ist daher falsch."
-}
+},
 
 
 // ════════════════════════════════════════════════════════════════

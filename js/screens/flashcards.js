@@ -293,6 +293,7 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
           total: savedSet.length,
           resumeOnClick: 'FlashcardsScreen._resumeSaved()',
           restartOnClick: 'FlashcardsScreen._restartSaved()',
+          closeOnClick: 'FlashcardsScreen._closeResumePrompt()',
         });
         prompt.classList.remove('hidden');
       }
@@ -326,6 +327,12 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     _startSet(freshSet, 0);
   }
 
+  // Verlässt den Resume-Prompt ohne den gespeicherten Fortschritt zu verändern
+  function _closeResumePrompt() {
+    _pendingResume = null;
+    document.getElementById('fc-resume-prompt')?.classList.add('hidden');
+  }
+
   function showDeckSelector() {
     if (speechMode) exitSpeechMode();
     if (!_sessionDone && filteredCards.length && currentIndex < filteredCards.length) {
@@ -344,6 +351,29 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
   function _currEl()  { return document.getElementById('fc-slot-' + _currSlot); }
   function _nextEl()  { return document.getElementById('fc-slot-' + (_currSlot === 'a' ? 'b' : 'a')); }
 
+  // Replaces cloze {{...}} markers with a KaTeX-safe blank.
+  // Inside $...$ / $$...$$: use \underline{\quad} (renders as blank line in math).
+  // Outside math: use ______ (plain text).
+  function _clozeFront(text) {
+    let out = '', i = 0, inMath = false, inDisplay = false;
+    while (i < text.length) {
+      if (text[i] === '{' && text[i + 1] === '{') {
+        const end = text.indexOf('}}', i + 2);
+        if (end !== -1) {
+          out += (inMath || inDisplay) ? '\\underline{\\quad}' : '______';
+          i = end + 2;
+          continue;
+        }
+      }
+      if (text[i] === '$') {
+        if (text[i + 1] === '$') { inDisplay = !inDisplay; out += '$$'; i += 2; continue; }
+        else                      { inMath    = !inMath;    out += '$';  i += 1; continue; }
+      }
+      out += text[i++];
+    }
+    return out;
+  }
+
   // Load card content into a slot element using class selectors (no IDs inside slots)
   function _loadSlot(slotEl, card) {
     if (!slotEl || !card) return;
@@ -354,7 +384,7 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
 
     const frontTxt = slotEl.querySelector('.fc-front-text');
     const backTxt  = slotEl.querySelector('.fc-back-text');
-    if (frontTxt) _renderContentInEl(frontTxt, (card.front || '').replace(/\{\{[^}]+\}\}/g, '______'));
+    if (frontTxt) _renderContentInEl(frontTxt, _clozeFront(card.front || ''));
     if (backTxt)  _renderContentInEl(backTxt,  card.back || '');
 
     // Ensure slot is unflipped
@@ -365,17 +395,24 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
   // Version of _renderContent that takes a DOM element directly (avoids ID lookup)
   function _renderContentInEl(el, text) {
     if (!text) { el.innerHTML = ''; return; }
-    const hasKatex = typeof katex !== 'undefined';
-    const hasMath  = text.includes('$');
-    const hasImg   = text.includes('![');
-    if (!hasMath && !hasImg) { el.textContent = text; return; }
-    let html = _escHtml(text);
-    if (hasMath && hasKatex) {
-      html = html.replace(/\$\$([^$]+?)\$\$/g, (_, m) => { try { return katex.renderToString(_unescHtml(m), { displayMode: true,  throwOnError: false }); } catch(e) { return `<code>${m}</code>`; } });
-      html = html.replace(/\$([^$\n]+?)\$/g,   (_, m) => { try { return katex.renderToString(_unescHtml(m), { displayMode: false, throwOnError: false }); } catch(e) { return `<code>${m}</code>`; } });
+    const hasImg = text.includes('![');
+    if (hasImg) {
+      let html = _escHtml(text);
+      html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g,
+        (_, alt, url) => `<img src="${url}" alt="${alt}" class="max-w-full rounded-xl mt-2 mx-auto block" style="max-height:160px;object-fit:contain">`);
+      el.innerHTML = html;
+    } else {
+      el.textContent = text;
     }
-    if (hasImg) html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_, alt, url) => `<img src="${url}" alt="${alt}" class="max-w-full rounded-xl mt-2 mx-auto block" style="max-height:160px;object-fit:contain">`);
-    el.innerHTML = html;
+    if (typeof renderMathInElement !== 'undefined') {
+      renderMathInElement(el, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$',  right: '$',  display: false },
+        ],
+        throwOnError: false,
+      });
+    }
   }
 
   function showCard(index) {
@@ -449,40 +486,7 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
   function _renderContent(id, text) {
     const el = document.getElementById(id);
     if (!el) return;
-    if (!text) { el.innerHTML = ''; return; }
-
-    const hasKatex = typeof katex !== 'undefined';
-    const hasMath  = text.includes('$');
-    const hasImg   = text.includes('![');
-
-    if (!hasMath && !hasImg) {
-      el.textContent = text;
-      return;
-    }
-
-    // Build HTML safely: escape first, then render math, then images
-    let html = _escHtml(text);
-
-    if (hasMath && hasKatex) {
-      // Display math $$...$$
-      html = html.replace(/\$\$([^$]+?)\$\$/g, (_, math) => {
-        try { return katex.renderToString(_unescHtml(math), { displayMode: true, throwOnError: false }); }
-        catch (e) { return `<code>${math}</code>`; }
-      });
-      // Inline math $...$
-      html = html.replace(/\$([^$\n]+?)\$/g, (_, math) => {
-        try { return katex.renderToString(_unescHtml(math), { displayMode: false, throwOnError: false }); }
-        catch (e) { return `<code>${math}</code>`; }
-      });
-    }
-
-    if (hasImg) {
-      // ![alt](url) → <img>
-      html = html.replace(/!\[([^\]]*)\]\(([^)]+)\)/g,
-        (_, alt, url) => `<img src="${url}" alt="${alt}" class="max-w-full rounded-xl mt-2 mx-auto block" style="max-height:160px;object-fit:contain">`);
-    }
-
-    el.innerHTML = html;
+    _renderContentInEl(el, text);
   }
 
   function _escHtml(t) {
@@ -1447,5 +1451,6 @@ Antworte NUR in diesem JSON-Format (kein weiterer Text):
     // Session resume
     _resumeSaved,
     _restartSaved,
+    _closeResumePrompt,
   };
 })();

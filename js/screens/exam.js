@@ -172,6 +172,7 @@ window.ExamScreen = (function() {
   let _secondsLeft = 0;
   let _useTimer = true;
   let _examActive = false;
+  let _isPaused = false;
   let _inited = false;
 
   // ── Init ──────────────────────────────────────────────────────────────────
@@ -414,6 +415,44 @@ window.ExamScreen = (function() {
     } else {
       el.className = el.className.replace(/text-\w+-400/, '') + ' text-green-400';
     }
+  }
+
+  // ── Pause / Resume ────────────────────────────────────────────────────────
+  function togglePause() {
+    if (!_examActive) return;
+    _isPaused = !_isPaused;
+
+    const overlay = document.getElementById('exam-pause-overlay');
+    const scroll  = document.getElementById('exam-scroll');
+    const btn     = document.getElementById('exam-pause-btn');
+
+    if (_isPaused) {
+      if (overlay) overlay.style.display = 'flex';
+      if (scroll)  scroll.style.display  = 'none';
+      if (btn)     btn.textContent = '▶';
+      if (_timerInterval) { clearInterval(_timerInterval); _timerInterval = null; }
+    } else {
+      if (overlay) overlay.style.display = 'none';
+      if (scroll)  scroll.style.display  = '';
+      if (btn)     btn.textContent = '⏸';
+      if (_useTimer && _secondsLeft > 0) {
+        _timerInterval = setInterval(() => {
+          _secondsLeft--;
+          _updateTimerDisplay();
+          if (_secondsLeft <= 0) { clearInterval(_timerInterval); submitExam(true); }
+        }, 1000);
+      }
+    }
+  }
+
+  function _resetPause() {
+    _isPaused = false;
+    const overlay = document.getElementById('exam-pause-overlay');
+    const scroll  = document.getElementById('exam-scroll');
+    const btn     = document.getElementById('exam-pause-btn');
+    if (overlay) overlay.style.display = 'none';
+    if (scroll)  scroll.style.display  = '';
+    if (btn)     btn.textContent = '⏸';
   }
 
   // ── Render Questions ──────────────────────────────────────────────────────
@@ -686,6 +725,7 @@ window.ExamScreen = (function() {
   function abortExam() {
     _stopTimer();
     _examActive = false;
+    _resetPause();
     if (window._examBeforeUnload) window.removeEventListener('beforeunload', window._examBeforeUnload);
 
     document.getElementById('exam-abort-modal')?.classList.add('hidden');
@@ -802,6 +842,7 @@ window.ExamScreen = (function() {
     if (!overlay) return;
 
     // Hide exam overlay, show results
+    _resetPause();
     document.getElementById('exam-overlay').classList.add('hidden');
     overlay.classList.remove('hidden');
 
@@ -1084,7 +1125,7 @@ window.ExamScreen = (function() {
     showSetup, closeSetup, startFromSetup, startExam,
     selectChoice, setTextAnswer, setGapAnswer,
     confirmAbort, cancelAbort, abortExam,
-    submitExam, closeResults,
+    submitExam, closeResults, togglePause,
     isExamActive, requestAiFeedback,
     getExamsByCourse,
     playSectionAudio, stopSectionAudio, toggleTranscript,
