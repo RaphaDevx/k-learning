@@ -97,7 +97,7 @@ window.ProfileScreen = (function () {
 
       <!-- App Version -->
       <div class="text-center mt-6 pb-2">
-        <span class="text-xs font-mono px-2.5 py-1 rounded-full" style="background:rgba(99,102,241,0.12);color:var(--txt-3);border:1px solid rgba(99,102,241,0.2)">K-Learning v3.1</span>
+        <span class="text-xs font-mono px-2.5 py-1 rounded-full" style="background:rgba(99,102,241,0.12);color:var(--txt-3);border:1px solid rgba(99,102,241,0.2)">K-Learning v3.12.1</span>
       </div>
     `;
 
