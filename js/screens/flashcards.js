@@ -172,8 +172,14 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
       groups[key].cards.push(c);
     });
 
+    function _moduleNum(topic) {
+      const m = topic.match(/^(?:Block|Modul|M)\s*(\d+)/i);
+      return m ? parseInt(m[1], 10) : Infinity;
+    }
     const sorted = Object.values(groups).sort((a, b) => {
       if (a.course !== b.course) return a.course.localeCompare(b.course);
+      const ka = _moduleNum(a.topic), kb = _moduleNum(b.topic);
+      if (ka !== kb) return ka - kb;
       return a.topic.localeCompare(b.topic);
     });
 
