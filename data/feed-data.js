@@ -1218,6 +1218,23 @@ window.FEED_CARDS = [
     block: "Block 4 — Supply Chain Management"
   },
 
+  // ── ESF S4 Reel: Inhaltsanalyse & Prüfungsfallen ──
+  {
+    id: "esf-s4-v3-inhaltsanalyse-pruefungsfallen",
+    type: "localvideo",
+    course: "ESF", courseColor: "#7c3aed",
+    emoji: "📁",
+    title: "Inhaltsanalyse (Mayring) & alle Prüfungsfallen",
+    subtitle: "Mayring, Entscheidungsgrundlage qual./quant. & 9 Prüfungsfallen — Sitzung 4",
+    description: "Mayring: Zusammenfassung, Explikation, Strukturierung. Entscheidungsgrundlage qual. vs. quant. (3 Kriterien). Alle 9 Prüfungsfallen: Fallstudien können allgemeingültig sein, unterbewusste Fragen ungeeignet, Ethnographie ≠ Hypothesentest.",
+    topics: ["Mayring", "Inhaltsanalyse", "Qualitativ vs. Quantitativ", "Fallstudien", "Prüfungsfallen"],
+    duration: "2:38",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "videos/ESF_S4_V3_Inhaltsanalyse_Pruefungsfallen.mp4",
+    thumbnail_emoji: "📁",
+    block: "Sitzung 4 — Qualitative Forschung"
+  },
+
   // ── ESF S4 Reel: Sampling, Kodierung & Grounded Theory ──
   {
     id: "esf-s4-v2-sampling-kodierung-groundedtheory",
