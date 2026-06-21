@@ -62,6 +62,14 @@ window.ExamScreen = (function() {
       available: true,
     },
     {
+      id: 'om-fs26',
+      label: 'OM — Probeprüfung FS 2026 ⭐',
+      course: 'OM',
+      dataVar: 'EXAM_DATA_OM_FS26',
+      file: 'exams/om-fs26-data.js',
+      available: true,
+    },
+    {
       id: 'om-hs23',
       label: 'OM — Prüfung HS 2023',
       course: 'OM',
