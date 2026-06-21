@@ -1218,6 +1218,23 @@ window.FEED_CARDS = [
     block: "Block 4 — Supply Chain Management"
   },
 
+  // ── ESF S6 Reel: Datenvisualisierung ──
+  {
+    id: "esf-s6-v3-datenvisualisierung",
+    type: "localvideo",
+    course: "ESF", courseColor: "#7c3aed",
+    emoji: "📊",
+    title: "Datenvisualisierung",
+    subtitle: "10 Prinzipien, Less is More & Limitationen — Sitzung 6",
+    description: "Definition Datenvisualisierung (qual. + quant.), 10 Prinzipien (inkl. Daten ≠ Modelle, Simple Viz + detaillierte Beschriftung), Less is More, 3 Limitationen (falsche Kausalität, Garbage in/out, Fehlinterpretation).",
+    topics: ["Datenvisualisierung", "10 Prinzipien", "Less is More", "ggplot", "Limitationen", "Prüfungsfallen"],
+    duration: "2:02",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "videos/ESF_S6_V3_Datenvisualisierung.mp4",
+    thumbnail_emoji: "📊",
+    block: "Sitzung 6 — Schreiben, Visualisierung & Publikation"
+  },
+
   // ── ESF S6 Reel: APA-Zitation & Plagiate ──
   {
     id: "esf-s6-v2-apa-plagiate",
