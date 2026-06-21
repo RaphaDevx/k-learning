@@ -1218,6 +1218,23 @@ window.FEED_CARDS = [
     block: "Block 4 — Supply Chain Management"
   },
 
+  // ── ESF S5 Reel: Neue Technologien & Prüfungsfallen ──
+  {
+    id: "esf-s5-v3-neue-technologien-pruefungsfallen",
+    type: "localvideo",
+    course: "ESF", courseColor: "#7c3aed",
+    emoji: "🤖",
+    title: "Neue Technologien & alle Prüfungsfallen",
+    subtitle: "VR, Eye-Tracking, Emotion Recognition, GSR & 10 Prüfungsfallen — Sitzung 5",
+    description: "VR (Verhalten), Eye-Tracking (Aufmerksamkeit: Fixationen, Sakkaden, Pupille), Emotion Recognition (Gesichtsausdrücke), GSR (Intensität, nicht Art der Emotion). Face Recognition ≠ Emotion Recognition! Alle 10 Prüfungsfallen.",
+    topics: ["Virtual Reality", "Eye-Tracking", "Emotion Recognition", "Galvanic Skin Response", "Face Recognition", "Prüfungsfallen"],
+    duration: "2:22",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "videos/ESF_S5_V3_NeueTechnologien_Pruefungsfallen.mp4",
+    thumbnail_emoji: "🤖",
+    block: "Sitzung 5 — Gütekriterien, Open Science & neue Technologien"
+  },
+
   // ── ESF S5 Reel: Replikationskrise & Open Science ──
   {
     id: "esf-s5-v2-replikationskrise-openscience",
