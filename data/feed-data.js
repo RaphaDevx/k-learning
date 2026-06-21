@@ -1217,4 +1217,21 @@ window.FEED_CARDS = [
     thumbnail_emoji: "🌪️",
     block: "Block 4 — Supply Chain Management"
   },
+
+  // ── ESF S6 Reel: Akademisches Schreiben ──
+  {
+    id: "esf-s6-v1-akademisches-schreiben",
+    type: "localvideo",
+    course: "ESF", courseColor: "#7c3aed",
+    emoji: "✍️",
+    title: "Akademisches Schreiben",
+    subtitle: "5 Phasen, Writing Framework & häufige Fehler — Sitzung 6",
+    description: "5 Phasen des Schreibprozesses, Struktur quant. vs. qual. Artikel, Writing Framework (max. 25 Wörter/Satz), häufige Fehler und warum Wiederholungen GUT sind.",
+    topics: ["Akademisches Schreiben", "5 Phasen", "Writing Framework", "Quantitativ", "Qualitativ", "Prüfungsfallen"],
+    duration: "2:24",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "videos/ESF_S6_V1_Akademisches_Schreiben.mp4",
+    thumbnail_emoji: "✍️",
+    block: "Sitzung 6 — Schreiben, Visualisierung & Publikation"
+  },
 ];
