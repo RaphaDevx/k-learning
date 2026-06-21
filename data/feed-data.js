@@ -1218,6 +1218,23 @@ window.FEED_CARDS = [
     block: "Block 4 — Supply Chain Management"
   },
 
+  // ── ESF S6 Reel: APA-Zitation & Plagiate ──
+  {
+    id: "esf-s6-v2-apa-plagiate",
+    type: "localvideo",
+    course: "ESF", courseColor: "#7c3aed",
+    emoji: "📝",
+    title: "APA-Zitation & Plagiate",
+    subtitle: "APA 7th Edition Regeln, Muster-Beispiel & Plagiat-Definition — Sitzung 6",
+    description: "6 APA-Kernregeln (Initialen, &, Semikolon, et al. ab 3 Autoren, kursiv, Jahresangabe), Musterbeispiel Franke et al. 2010, mehrere Quellen in einer Klammer, Plagiat vs. kein Plagiat.",
+    topics: ["APA 7th Edition", "Zitation", "et al.", "Plagiat", "Referenzierung", "Prüfungsfallen"],
+    duration: "2:18",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "videos/ESF_S6_V2_APA_Plagiate.mp4",
+    thumbnail_emoji: "📝",
+    block: "Sitzung 6 — Schreiben, Visualisierung & Publikation"
+  },
+
   // ── ESF S6 Reel: Akademisches Schreiben ──
   {
     id: "esf-s6-v1-akademisches-schreiben",
