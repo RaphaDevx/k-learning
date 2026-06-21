@@ -1218,6 +1218,23 @@ window.FEED_CARDS = [
     block: "Block 4 — Supply Chain Management"
   },
 
+  // ── ESF S5 Reel: Replikationskrise & Open Science ──
+  {
+    id: "esf-s5-v2-replikationskrise-openscience",
+    type: "localvideo",
+    course: "ESF", courseColor: "#7c3aed",
+    emoji: "💥",
+    title: "Replikationskrise & Open Science",
+    subtitle: "4 Ursachen, p-Hacking, HARKing & OSF-Elemente — Sitzung 5",
+    description: "Nur 36% repliziert (OSC 2015). 4 Ursachen: fragwürdige Methoden (p-Hacking, HARKing, Optional Stopping, Outcome Switching), Publikations-Bias, Low Power, Fehlanreize. Open Science: Präregistrierung, Registered Report, OSF, Open Data.",
+    topics: ["Replikationskrise", "p-Hacking", "HARKing", "Open Science", "Präregistrierung", "OSF", "Publikations-Bias"],
+    duration: "2:32",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "videos/ESF_S5_V2_Replikationskrise_OpenScience.mp4",
+    thumbnail_emoji: "💥",
+    block: "Sitzung 5 — Gütekriterien, Open Science & neue Technologien"
+  },
+
   // ── ESF S5 Reel: Gütekriterien ──
   {
     id: "esf-s5-v1-guetekriterien",
