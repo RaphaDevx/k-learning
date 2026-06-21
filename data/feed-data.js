@@ -1218,6 +1218,23 @@ window.FEED_CARDS = [
     block: "Block 4 — Supply Chain Management"
   },
 
+  // ── ESF S4 Reel: Sampling, Kodierung & Grounded Theory ──
+  {
+    id: "esf-s4-v2-sampling-kodierung-groundedtheory",
+    type: "localvideo",
+    course: "ESF", courseColor: "#7c3aed",
+    emoji: "🗂️",
+    title: "Sampling, Kodierung & Grounded Theory",
+    subtitle: "3 Sampling-Arten, 6 Kodierungsschritte, Grounded Theory — Sitzung 4",
+    description: "Theoretisches (Sättigung, keine Vorab-Grösse), selektives & purposive Sampling. Transkription = Verschriftlichen. 6 Kodierungsschritte (offen→axial→selektiv). Grounded Theory: induktiv, Wie/Warum, endet bei Sättigung.",
+    topics: ["Theoretisches Sampling", "Grounded Theory", "Kodierung", "Transkription", "Purposive Sampling", "Theoretische Sättigung"],
+    duration: "2:38",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "videos/ESF_S4_V2_Sampling_Kodierung_GroundedTheory.mp4",
+    thumbnail_emoji: "🗂️",
+    block: "Sitzung 4 — Qualitative Forschung"
+  },
+
   // ── ESF S4 Reel: Grundlagen & Datenerhebung ──
   {
     id: "esf-s4-v1-grundlagen-datenerhebung",
