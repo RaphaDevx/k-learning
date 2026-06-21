@@ -1218,6 +1218,23 @@ window.FEED_CARDS = [
     block: "Block 4 — Supply Chain Management"
   },
 
+  // ── ESF S6 Reel: Publikationsprozess & Prüfungsfallen ──
+  {
+    id: "esf-s6-v4-publikation-pruefungsfallen",
+    type: "localvideo",
+    course: "ESF", courseColor: "#7c3aed",
+    emoji: "🏆",
+    title: "Publikationsprozess & alle Prüfungsfallen",
+    subtitle: "VHB-Jourqual, Reviewer-Empfehlungen & 12 Prüfungsfallen — Sitzung 6",
+    description: "VHB-Jourqual Skala (A+ = bestes Ranking), 5 Reviewer-Empfehlungen (inkl. Desk Reject), Akzeptanzquote 10%, alle 12 Prüfungsfallen aus S6 im Überblick.",
+    topics: ["Publikation", "VHB-Jourqual", "Desk Reject", "Reviewer", "Prüfungsfallen", "A+"],
+    duration: "2:42",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "videos/ESF_S6_V4_Publikation_Pruefungsfallen.mp4",
+    thumbnail_emoji: "🏆",
+    block: "Sitzung 6 — Schreiben, Visualisierung & Publikation"
+  },
+
   // ── ESF S6 Reel: Datenvisualisierung ──
   {
     id: "esf-s6-v3-datenvisualisierung",
