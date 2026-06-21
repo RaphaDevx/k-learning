@@ -1218,6 +1218,23 @@ window.FEED_CARDS = [
     block: "Block 4 — Supply Chain Management"
   },
 
+  // ── ESF S5 Reel: Gütekriterien ──
+  {
+    id: "esf-s5-v1-guetekriterien",
+    type: "localvideo",
+    course: "ESF", courseColor: "#7c3aed",
+    emoji: "🎯",
+    title: "Gütekriterien: Reliabilität, Validität & Objektivität",
+    subtitle: "Die 3 Gütekriterien der ESF + Prüfungsfallen — Sitzung 5",
+    description: "Reliabilität (Test-Retest, Split-Half, Cronbachs Alpha), Validität (Kriteriums-, Konstrukt-, Inhalts-, externe Validität), Objektivität (Durchführung minimieren, Auswertung parallel). Reliabilität ≠ Validität!",
+    topics: ["Reliabilität", "Validität", "Objektivität", "Cronbachs Alpha", "Externe Validität", "Gütekriterien"],
+    duration: "2:22",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "videos/ESF_S5_V1_Guetekriterien.mp4",
+    thumbnail_emoji: "🎯",
+    block: "Sitzung 5 — Gütekriterien, Open Science & neue Technologien"
+  },
+
   // ── ESF S6 Reel: Publikationsprozess & Prüfungsfallen ──
   {
     id: "esf-s6-v4-publikation-pruefungsfallen",
