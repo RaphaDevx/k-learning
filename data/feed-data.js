@@ -1218,6 +1218,23 @@ window.FEED_CARDS = [
     block: "Block 4 — Supply Chain Management"
   },
 
+  // ── ESF S4 Reel: Grundlagen & Datenerhebung ──
+  {
+    id: "esf-s4-v1-grundlagen-datenerhebung",
+    type: "localvideo",
+    course: "ESF", courseColor: "#7c3aed",
+    emoji: "🔍",
+    title: "Qualitative Forschung: Grundlagen & Datenerhebung",
+    subtitle: "Positivismus vs. Interpretivismus, Interview-Typen, Fokusgruppen — Sitzung 4",
+    description: "Positivismus vs. Interpretivismus, Qualitativ vs. Quantitativ (5 Unterschiede), 3 Interview-Typen (unstrukturiert/semi/strukturiert), Fokusgruppen (nicht für intime Themen!), Ethnographie, Fallstudie, Beobachtung.",
+    topics: ["Qualitative Forschung", "Positivismus", "Interpretivismus", "Interview-Typen", "Fokusgruppen", "Ethnographie"],
+    duration: "2:32",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "videos/ESF_S4_V1_Grundlagen_Datenerhebung.mp4",
+    thumbnail_emoji: "🔍",
+    block: "Sitzung 4 — Qualitative Forschung"
+  },
+
   // ── ESF S5 Reel: Neue Technologien & Prüfungsfallen ──
   {
     id: "esf-s5-v3-neue-technologien-pruefungsfallen",
