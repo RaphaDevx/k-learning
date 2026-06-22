@@ -149,7 +149,7 @@
     #content-area { flex:1; padding:0 1rem 6rem; max-width:480px; margin:0 auto; width:100%; }
 
     /* ── DESKTOP layout (≥768px) ── */
-    @media (min-width:768px) {
+    @media (min-width:1024px) and (orientation:landscape) {
       #top-bar    { display:none; }
       #bottom-nav { display:none; }
       #sidebar {
@@ -223,7 +223,7 @@
       position:fixed !important; top:0; left:0; right:0; bottom:56px;
       z-index:40; background:#000; overflow:hidden;
     }
-    @media (min-width:768px) { body.feed-active #view-feed { left:var(--sidebar-w); bottom:0; } }
+    @media (min-width:1024px) and (orientation:landscape) { body.feed-active #view-feed { left:var(--sidebar-w); bottom:0; } }
 
     #feed-filter-bar {
       position:absolute; top:0; left:0; right:0; z-index:10;
@@ -240,7 +240,7 @@
       scroll-snap-align:start; height:calc(100dvh - 56px);
       position:relative; overflow:hidden; padding:0 !important; margin:0 !important;
     }
-    @media (min-width:768px) { .feed-card { height:100dvh; } }
+    @media (min-width:1024px) and (orientation:landscape) { .feed-card { height:100dvh; } }
     .feed-card-video .feed-card-inner { position:absolute; inset:0; border-radius:0 !important; }
     .feed-card-video video { position:absolute; inset:0; z-index:1; width:100%; height:100%; object-fit:cover; }
     .feed-tap-indicator {
@@ -250,7 +250,7 @@
       display:flex; align-items:center; justify-content:center;
       font-size:1.8rem; opacity:0; transition:opacity 0.2s ease;
     }
-    @media (min-width:768px) {
+    @media (min-width:1024px) and (orientation:landscape) {
       body.feed-active #view-feed { display:flex !important; justify-content:center; }
       body.feed-active #feed-cards-container { width:min(calc(100dvh * 9 / 16),100%); flex-shrink:0; height:100dvh; }
       body.feed-active #feed-filter-bar { width:min(calc(100dvh * 9 / 16),100%); left:50%; right:auto; transform:translateX(-50%); }
@@ -453,7 +453,7 @@
     <!-- LERNEN HUB                                            -->
     <!-- ══════════════════════════════════════════════════════ -->
     <div id="view-lernen" class="hidden min-h-screen">
-      <div class="py-4 md:py-6">
+      <div class="py-4 lg:py-6">
         <h1 class="text-2xl font-bold tracking-tight" style="color:var(--txt)">Lernen</h1>
         <p class="mt-1 text-sm" style="color:var(--txt-2)">Karten & Quiz für deine Fächer</p>
       </div>
@@ -464,7 +464,7 @@
     <!-- DASHBOARD                                             -->
     <!-- ══════════════════════════════════════════════════════ -->
     <div id="view-dashboard">
-      <div class="py-4 md:py-6">
+      <div class="py-4 lg:py-6">
         <h1 class="text-2xl font-bold tracking-tight" id="greeting" style="color:var(--txt)">Guten Morgen!</h1>
         <p class="mt-1 text-sm" style="color:var(--txt-2)">Prüfungen kommen. Let's go.</p>
       </div>
@@ -560,11 +560,11 @@
     <!-- TOPICS — Sub-chapter browser                         -->
     <!-- ══════════════════════════════════════════════════════ -->
     <div id="view-topics" class="hidden py-4">
-      <div class="hidden md:block mb-6">
+      <div class="hidden lg:block mb-6">
         <h2 class="text-2xl font-bold">📚 Themen-Browser</h2>
         <p class="text-gray-400 text-sm mt-1">Sub-Kapitel pro Kurs — klicke ein Thema um direkt zu den Flashcards zu springen.</p>
       </div>
-      <div class="flex items-center gap-3 mb-4 md:hidden">
+      <div class="flex items-center gap-3 mb-4 lg:hidden">
         <button onclick="TabRouter.back()" class="text-gray-400 hover:text-white">← Zurück</button>
         <h2 class="font-bold text-xl">Themen</h2>
       </div>
@@ -734,7 +734,7 @@
         </div>
 
         <!-- Swipe action buttons — hidden on mobile, shown on desktop -->
-        <div class="hidden md:grid grid-cols-2 gap-3">
+        <div class="hidden lg:grid grid-cols-2 gap-3">
           <button onclick="FlashcardsScreen.rateCard('hard')"
                   class="tap-card flex items-center justify-center gap-2 rounded-2xl py-3.5 font-bold text-sm"
                   style="background:#3d1515;border:1px solid #7f1d1d;color:#fca5a5">✗ Nochmal</button>
@@ -814,10 +814,10 @@
     <!-- QUIZ                                                  -->
     <!-- ══════════════════════════════════════════════════════ -->
     <div id="view-quiz" class="hidden py-4">
-      <div class="flex items-center gap-3 mb-4 md:hidden">
+      <div class="flex items-center gap-3 mb-4 lg:hidden">
         <h2 class="font-bold text-xl">Quizze</h2>
       </div>
-      <div class="hidden md:block mb-6"><h2 class="text-2xl font-bold">Quizze</h2></div>
+      <div class="hidden lg:block mb-6"><h2 class="text-2xl font-bold">Quizze</h2></div>
       <div id="quiz-content" class="space-y-3"></div>
     </div>
 
@@ -825,10 +825,10 @@
     <!-- EXAM                                                  -->
     <!-- ══════════════════════════════════════════════════════ -->
     <div id="view-exam" class="hidden py-4">
-      <div class="flex items-center gap-3 mb-4 md:hidden">
+      <div class="flex items-center gap-3 mb-4 lg:hidden">
         <h2 class="font-bold text-xl">Klausuren</h2>
       </div>
-      <div class="hidden md:block mb-6"><h2 class="text-2xl font-bold">Klausuren</h2></div>
+      <div class="hidden lg:block mb-6"><h2 class="text-2xl font-bold">Klausuren</h2></div>
       <div id="exam-content" class="space-y-3"></div>
     </div>
 
@@ -836,11 +836,11 @@
     <!-- PROFIL                                               -->
     <!-- ══════════════════════════════════════════════════════ -->
     <div id="view-profile" class="hidden py-4">
-      <div class="flex items-center gap-3 mb-4 md:hidden">
+      <div class="flex items-center gap-3 mb-4 lg:hidden">
         <button onclick="showView('dashboard')" class="text-gray-400 hover:text-white">← Zurück</button>
         <h2 class="font-bold text-xl">Profil</h2>
       </div>
-      <div class="hidden md:block mb-6">
+      <div class="hidden lg:block mb-6">
         <h2 class="text-2xl font-bold">Profil</h2>
       </div>
       <div id="profile-content"></div>
@@ -850,11 +850,11 @@
     <!-- KI TUTOR                                              -->
     <!-- ══════════════════════════════════════════════════════ -->
     <div id="view-tutor" class="hidden py-4">
-      <div class="flex items-center gap-3 mb-4 md:hidden">
+      <div class="flex items-center gap-3 mb-4 lg:hidden">
         <button onclick="showView('dashboard')" class="text-gray-400 hover:text-white">← Zurück</button>
         <h2 class="font-bold text-xl">KI-Tutor</h2>
       </div>
-      <div class="hidden md:block mb-6"><h2 class="text-2xl font-bold">KI-Tutor</h2></div>
+      <div class="hidden lg:block mb-6"><h2 class="text-2xl font-bold">KI-Tutor</h2></div>
       <div class="rounded-[20px] p-4 mb-4" style="background:var(--card);border:1px solid var(--border)">
         <p class="text-sm" style="color:var(--txt-2)">Erkläre dem KI ein Konzept in eigenen Worten. Du bekommst Feedback: Was war gut, was fehlt, Verständnis-Score.</p>
       </div>
