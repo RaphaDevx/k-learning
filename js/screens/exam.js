@@ -190,9 +190,39 @@ window.ExamScreen = (function() {
   }
 
   // ── Selector ──────────────────────────────────────────────────────────────
-  function renderSelector() {
+  function _gradeFromPct(pct) {
+    return (Math.round(Math.max(1, Math.min(6, 1 + 5 * (pct / 100))) * 2) / 2).toFixed(1);
+  }
+
+  function _resultBadge(res) {
+    if (!res) return `<span class="text-xs" style="color:var(--txt-3)">Noch nicht gemacht</span>`;
+    const grade = _gradeFromPct(res.score_pct);
+    const color = res.score_pct >= 60 ? '#4ade80' : res.score_pct >= 50 ? '#facc15' : '#f87171';
+    return `<div class="text-right flex-shrink-0">
+      <div class="text-sm font-bold" style="color:${color}">Note ${grade}</div>
+      <div class="text-xs" style="color:var(--txt-3)">${res.score_pct}%</div>
+    </div>`;
+  }
+
+  async function renderSelector() {
     const container = document.getElementById('exam-content');
     if (!container) return;
+
+    // Fetch user's exam results
+    let resultMap = {};
+    try {
+      const userId = await _getUserId();
+      if (userId) {
+        const { data } = await window.supabaseClient
+          .from('exam_results')
+          .select('exam_id, score_pct, taken_at')
+          .eq('user_id', userId)
+          .order('taken_at', { ascending: false });
+        if (data) data.forEach(r => {
+          if (!resultMap[r.exam_id]) resultMap[r.exam_id] = r; // keep latest per exam
+        });
+      }
+    } catch(_) {}
 
     const enrolled = _enrolledCourses();
     const grouped = {};
@@ -201,11 +231,8 @@ window.ExamScreen = (function() {
       if (grouped[e.course] !== undefined) grouped[e.course].push(e);
     });
 
-    const courseColor = key => getCourse(key)?.hex || '#6b7280';
-
     let html = '<div class="space-y-6">';
 
-    // ── Exam sections per course ───────────────────────────────────────────
     Object.entries(grouped).forEach(([course, exams]) => {
       const c = getCourse(course);
       if (!c) return;
@@ -217,24 +244,26 @@ window.ExamScreen = (function() {
           </div>
           <div class="space-y-2">`;
       exams.forEach(exam => {
+        const res = resultMap[exam.id] || null;
         if (exam.available) {
           const isQuiz = exam.id === 'esf-eigenklausur';
           html += `
             <div class="rounded-2xl p-4 transition tap-card"
-                 style="background:var(--card-raised);border:1px solid var(--border)">
+                 style="background:var(--card-raised);border:1px solid ${res ? 'rgba(99,102,241,0.25)' : 'var(--border)'}">
               <div class="flex items-center justify-between gap-3">
-                <div class="min-w-0">
+                <div class="min-w-0 flex-1">
                   <div class="font-bold text-sm truncate" style="color:var(--txt)">${exam.label}</div>
                   <div class="text-xs mt-0.5" style="color:var(--txt-2)">${exam.course}</div>
                 </div>
-                <div class="flex gap-2 flex-shrink-0">
-                  ${isQuiz ? `<button onclick="QuizScreen.launch('${exam.dataVar}')"
-                    class="text-xs px-3 py-1.5 rounded-xl font-semibold text-white transition"
-                    style="background:#4f46e5">Quiz</button>` : ''}
-                  <button onclick="ExamScreen.showSetup('${exam.id}')"
-                    class="text-xs px-3 py-1.5 rounded-xl font-bold text-white transition"
-                    style="background:#15803d">Prüfung</button>
-                </div>
+                ${_resultBadge(res)}
+              </div>
+              <div class="flex gap-2 mt-3 justify-end">
+                ${isQuiz ? `<button onclick="QuizScreen.launch('${exam.dataVar}')"
+                  class="text-xs px-3 py-1.5 rounded-xl font-semibold text-white transition"
+                  style="background:#4f46e5">Quiz</button>` : ''}
+                <button onclick="ExamScreen.showSetup('${exam.id}')"
+                  class="text-xs px-3 py-1.5 rounded-xl font-bold text-white transition"
+                  style="background:#15803d">${res ? 'Wiederholen' : 'Starten'}</button>
               </div>
             </div>`;
         } else {
