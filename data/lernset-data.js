@@ -964,6 +964,769 @@ window.LERNSET_DATA = [
   ],
   "correctIndex": 1,
   "explanation": "B is incorrect: Thompson et al. (2006) use a phenomenological, interpretive approach — not positivism. They conduct qualitative interviews to understand how consumers construct brand images. Positivism would use quantitative methods, hypothesis testing, and assume an objective reality. The study is a classic example of interpretive consumer research."
+},
+
+
+// ── ESF HS2022 ──────────────────────────────────────────────────────────────
+{
+  id: "esf-22-sc-01",
+  type: "single",
+  course: "ESF",
+  topic: "Qualitative Forschung: Kodierung",
+  difficulty: 2,
+  tags: ["ESF", "Kodierung", "Grounded Theory", "qualitative Forschung"],
+  question: "Ein Artikel untersucht virale Memes im Marketing (Malodia et al., 2022). Im Abschnitt «Ergebnisse» findet sich eine Tabelle mit drei Spalten: «Nullte Ordnung» (z. B. Beliebt, Themenbezogen, Bekannt), «Erste Ordnung» (z. B. Relevanz, Ikonizität) und «Zweite Ordnung» (z. B. Inhaltsbezogene Faktoren). Welche Aussage ist am zutreffendsten?",
+  options: [
+    "A. Die Tabelle stammt höchstwahrscheinlich aus einem Experiment mit drei Konditionen (nullte, erste, zweite Ordnung).",
+    "B. Die Tabelle spiegelt eine positivistische Forschungsmethodologie wider.",
+    "C. Die Tabelle beschreibt höchstwahrscheinlich das Ergebnis eines Kodierungsprozesses, bei dem Codes «nullter Ordnung» zu Codes «zweiter Ordnung» zusammengefasst werden.",
+    "D. Die Tabelle ist das Ergebnis eines Stichprobenverfahrens mit offenem, axialem und selektivem Sampling.",
+    "E. Da die Daten in drei Gruppen vorliegen, sind sie nicht dichotom."
+  ],
+  correctIndex: 2,
+  explanation: "Die Hierarchie von nullter zu zweiter Ordnung ist charakteristisch für den qualitativen Kodierungsprozess (z. B. Grounded Theory): Codes niedrigerer Ordnung werden zu abstrakteren Kategorien höherer Ordnung aggregiert. Die Tabelle zeigt kein Experiment, sondern das Ergebnis einer induktiven Inhaltsanalyse."
+},
+{
+  id: "esf-22-sc-02",
+  type: "single",
+  course: "ESF",
+  topic: "Qualitative Forschung: Sampling",
+  difficulty: 2,
+  tags: ["ESF", "Theoretisches Sampling", "Tiefeninterviews", "qualitative Forschung"],
+  question: "Malodia et al. (2022) führten 35 Tiefeninterviews mit 20 Meme-Nutzenden, 6 Meme-Kreierenden, 4 Influencer*innen und 5 Markenmanager*innen über 8 Wochen durch und wählten die Teilnehmenden mittels theoretischem Sampling aus. Welche Aussage ist am zutreffendsten?",
+  options: [
+    "A. Die Methode der Datenerhebung lässt sich am besten als teilnehmende Beobachtung beschreiben.",
+    "B. Der Stichprobenfehler ist hier ein grosses Problem.",
+    "C. Anstelle des theoretischen Samplings hätten die Forschenden auch heimliches Sampling verwenden können.",
+    "D. Die Dauer der Datenerhebung (8 Wochen) ist zu kurz für 35 Tiefeninterviews.",
+    "E. Die Vielfalt der befragten Teilnehmenden trägt dazu bei, dass die Ergebnisse breiter angelegt sind (verschiedene Perspektiven und Motivationen erfassen)."
+  ],
+  correctIndex: 4,
+  explanation: "E ist korrekt: Die Einbeziehung verschiedener Stakeholder-Gruppen (Nutzende, Kreative, Influencer, Manager) erhöht die Breite und Perspektivenvielfalt der Studie, was in der qualitativen Forschung oft bewusst angestrebt wird. Stichprobenfehler ist primär ein Problem der quantitativen Forschung; die Methode sind Tiefeninterviews, keine Beobachtung."
+},
+{
+  id: "esf-22-sc-03",
+  type: "single",
+  course: "ESF",
+  topic: "Grounded Theory",
+  difficulty: 2,
+  tags: ["ESF", "Grounded Theory", "induktiv", "qualitative Forschung"],
+  question: "Vervollständigen Sie den Auszug aus Malodia et al. (2022): «Da die Literatur zu Memes begrenzt ist, war ein (1)__ Forschungsdesign erforderlich, das auf der (2)__ Theory basiert. Gemäss dem (2)__ Theory-Ansatz muss die Forschung mit (3)__ selbst beginnen. Die daraus resultierende Theorie basiert auf (4)__ und ist hilfreich, um ein Phänomen zu verstehen, das durch bestehende Theorien (5)__ ist.»",
+  options: [
+    "A. (1) deduktives, (2) Grounded, (3) den Daten, (4) empirischen Daten, (5) nicht erklärbar",
+    "B. (1) induktives, (2) Grounded, (3) der Theorie, (4) empirischen Daten, (5) nicht erklärbar",
+    "C. (1) induktives, (2) Grounded, (3) den Daten, (4) empirischen Daten, (5) nicht erklärbar",
+    "D. (1) induktives, (2) Mere Measurement, (3) den Daten, (4) qualitativen Daten, (5) gut etabliert",
+    "E. (1) abduktives, (2) Grounded, (3) der Beobachtung, (4) logischen Analysen, (5) nicht erklärbar"
+  ],
+  correctIndex: 2,
+  explanation: "Grounded Theory ist induktiv (beginnt bei Daten, nicht Theorie), basiert auf empirischen Daten und eignet sich für Phänomene, die nicht durch bestehende Theorien erklärt werden können. Die Forschung beginnt mit den Daten selbst (nicht mit Theorie oder reiner Beobachtung)."
+},
+{
+  id: "esf-22-sc-04",
+  type: "single",
+  course: "ESF",
+  topic: "Experimentelle Forschung: Hypothesen",
+  difficulty: 1,
+  tags: ["ESF", "Hypothese", "Testosteron", "Experiment"],
+  question: "Nave et al. (2018) untersuchen den Einfluss von Testosteron auf Markenpräferenzen. Der Titel lautet: «Einmalige Verabreichung von Testosteron erhöht die Präferenz von Männern für Statusgüter». Welche Hypothese haben die Forschenden höchstwahrscheinlich untersucht?",
+  options: [
+    "A. Ein erhöhter Testosteronspiegel führt dazu, dass Männer eine stärkere Präferenz für Güter zeigen, die ihren sozialen Rang fördern.",
+    "B. Ein erhöhter Testosteronspiegel führt dazu, dass Männer eine stärkere Präferenz für Güter zeigen, die ihren sozialen Rang schmälern.",
+    "C. Ein gleichbleibender Testosteronspiegel führt dazu, dass Männer eine stärkere Präferenz für statusfördernde Güter zeigen.",
+    "D. Ein erhöhter Testosteronspiegel führt dazu, dass Männer (im Gegensatz zu Frauen) eine stärkere Präferenz für statusfördernde Güter zeigen.",
+    "E. Ein erhöhter Testosteronspiegel (im Gegensatz zu einem erhöhten Östrogenspiegel) führt zu einer stärkeren Präferenz für statusfördernde Güter."
+  ],
+  correctIndex: 0,
+  explanation: "A entspricht direkt dem Titel und dem Studiendesign (Testosteron vs. Placebo, Messung der Präferenz für Statusgüter). D und E fügen Vergleiche ein (Männer vs. Frauen; Testosteron vs. Östrogen), die im Artikel nicht untersucht werden. C geht von gleichbleibendem Spiegel aus — das widerspricht dem experimentellen Design."
+},
+{
+  id: "esf-22-sc-05",
+  type: "single",
+  course: "ESF",
+  topic: "Experimentelle Forschung: Doppelblinddesign",
+  difficulty: 2,
+  tags: ["ESF", "Doppelblind", "Experiment", "Kontrollgruppe"],
+  question: "In Nave et al. (2018) wurden 243 Männern in einer Doppelblindstudie entweder Testosteron (N=125) oder Placebo (N=118) als topisches Gel verabreicht. Welche Aussage ist am zutreffendsten?",
+  options: [
+    "A. Es handelt sich um ein quasi-natürliches Experiment.",
+    "B. Das Design folgte einem 2 (Testosteron vs. Placebo) × 2 (Doppelblind vs. Nicht-Doppelblind) Design.",
+    "C. Die Stichprobengrösse von weniger als 150 Teilnehmern pro Kondition ist nicht ausreichend.",
+    "D. Das Doppelblindverfahren erbringt Korrelationsnachweise für die Wirkung von Testosteron.",
+    "E. Das doppelblinde Protokoll stellt sicher, dass weder die Teilnehmer noch die durchführenden Forschenden wissen, welche Behandlung verabreicht wird."
+  ],
+  correctIndex: 4,
+  explanation: "E ist die korrekte Definition des Doppelblindverfahrens: Weder Teilnehmende noch Forschende wissen, wer Testosteron und wer Placebo erhält. Dies eliminiert Erwartungseffekte auf beiden Seiten. Es handelt sich um ein echtes Experiment (nicht quasi-natürlich), und das Design hat nur eine UV mit zwei Stufen (kein 2×2)."
+},
+{
+  id: "esf-22-sc-06",
+  type: "single",
+  course: "ESF",
+  topic: "Experimentelle Forschung: Kausalität vs. Korrelation",
+  difficulty: 2,
+  tags: ["ESF", "Kausalität", "Korrelation", "Experiment", "Ergebnisinterpretation"],
+  question: "Im Experiment von Nave et al. (2018) zeigen die Ergebnisse, dass Teilnehmende in der Testosterongruppe im Durchschnitt eine höhere Präferenz für Marken mit hohem sozialem Rang hatten. Welche Aussage ist — in Anbetracht des Doppelblinddesigns — am zutreffendsten?",
+  options: [
+    "A. Alle Teilnehmer in der Testosterongruppe hatten eine höhere Präferenz für Hochrang-Marken als alle Teilnehmer in der Placebogruppe.",
+    "B. Der durchschnittliche Teilnehmer in der Placebogruppe hat eine geringere Präferenz für die Marke mit niedrigem Rang.",
+    "C. Ein höherer Testosteronspiegel führt kausal zu einer höheren Präferenz für Marken mit hohem sozialem Rang.",
+    "D. Ein höherer Testosteronspiegel korreliert mit einer höheren Präferenz für Marken mit hohem sozialem Rang.",
+    "E. Das Modell kann mit einem t-Test für abhängige Stichproben getestet werden."
+  ],
+  correctIndex: 2,
+  explanation: "C ist korrekt: Da es sich um ein randomisiertes Doppelblindexperiment handelt, sind kausale Schlüsse zulässig. D (Korrelation) wäre die korrekte Aussage bei einer Beobachtungsstudie — hier jedoch wurde Testosteron aktiv manipuliert, weshalb Kausalität behauptet werden kann. A trifft für Gruppenvergleiche nicht zu (es geht um Mittelwerte)."
+},
+{
+  id: "esf-22-sc-07",
+  type: "single",
+  course: "ESF",
+  topic: "Messung: Skalendesign",
+  difficulty: 2,
+  tags: ["ESF", "Skala", "Messung", "Likert", "Ausgangspunkt"],
+  question: "In Nave et al. (2018) wird eine visuelle Analogskala zur Messung der Markenpräferenz verwendet. Welche Aussage über die Skala ist am zutreffendsten?",
+  options: [
+    "A. Als eindimensionale Skala kann sie nicht das gesamte Konzept der Markenpräferenz erfassen.",
+    "B. Die Skala ist ratioskaliert.",
+    "C. Bei dieser Skala ist nicht eindeutig, welche Antwort als «indifferent» gilt.",
+    "D. Es spielt keine Rolle, wo der Cursor zu Beginn platziert ist.",
+    "E. Ob man eine 11- oder 10-Punkte-Skala verwendet, hätte keinen Einfluss auf die Antworten."
+  ],
+  correctIndex: 2,
+  explanation: "C ist korrekt: Bei einer visuellen Analogskala zwischen zwei Marken ist nicht immer klar, welcher Punkt genau «Indifferenz» (keine Präferenz) entspricht, insbesondere wenn die Skala keine explizite Mittelpunktmarkierung hat. Die Startposition des Cursors beeinflusst Antworten (Ankereffekt), weshalb D falsch ist."
+},
+{
+  id: "esf-22-sc-08",
+  type: "single",
+  course: "ESF",
+  topic: "Datenvisualisierung",
+  difficulty: 2,
+  tags: ["ESF", "Datenvisualisierung", "y-Achse", "Täuschung", "Skalierung"],
+  question: "Eine Grafik des Instagram-Accounts der deutschen Grünen Partei zeigt die Erhöhung des deutschen Mindestlohns. Der Nullpunkt der y-Achse liegt nicht bei null, sondern höher. Welche Aussage ist am zutreffendsten?",
+  options: [
+    "A. Die x-Achse (Jahre) ist verkürzt, was eine sinnvolle Interpretation verhindert.",
+    "B. Es gibt keinen erkennbaren Zusammenhang zwischen Zeit und Mindestlohn.",
+    "C. Der Mindestlohn hat sich von 2021 bis 2022 absolut mehr als verdoppelt.",
+    "D. Da der Nullpunkt der y-Achse höher als der natürliche Nullpunkt liegt, wird der relative Anstieg des Mindestlohns verzerrt dargestellt.",
+    "E. Der absolute Mindestlohn stagnierte zwischen 2017 und 2020."
+  ],
+  correctIndex: 3,
+  explanation: "D ist korrekt: Wenn die y-Achse nicht bei null beginnt, wirken selbst kleine absolute Veränderungen dramatisch gross. Dies ist ein klassisches Mittel der irreführenden Datenvisualisierung — der relative Anstieg erscheint grösser als er ist."
+},
+{
+  id: "esf-22-sc-09",
+  type: "single",
+  course: "ESF",
+  topic: "Gütekriterien: Reliabilität und Validität",
+  difficulty: 2,
+  tags: ["ESF", "Cronbach's Alpha", "Reliabilität", "Skala", "Gütekriterien"],
+  question: "Sie wollen eine Skala zur Messung von «Offenheit gegenüber Augmented und Mixed Reality» aus dem Marketing Scales Handbook bewerten. Welche Aussage ist am zutreffendsten?",
+  options: [
+    "A. Die Skala sollte nicht eindimensional sein, um alle Dimensionen zu erfassen.",
+    "B. Die Skala sollte nach 2015 veröffentlicht worden sein, um neueste Technologien zu berücksichtigen.",
+    "C. Eine mehrdimensionale Skala sollte bestenfalls ein Cronbach's Alpha von mehr als 0.7 aufweisen; ist die Skala eindimensional, benötigen wir andere Kriterien.",
+    "D. Das Cronbach's Beta sollte grösser als 0.8 sein.",
+    "E. Die Skala sollte mindestens 10-mal zitiert worden sein, da dies ihre Nützlichkeit gewährleistet."
+  ],
+  correctIndex: 2,
+  explanation: "C ist korrekt: Cronbach's Alpha > 0.7 ist ein Standardkriterium für interne Konsistenz bei mehrdimensionalen Skalen. Bei eindimensionalen Konstrukten sind andere Kriterien (z. B. Faktorladungen, konvergente Validität) relevanter. «Cronbach's Beta» existiert nicht als Standardmasszahl."
+},
+{
+  id: "esf-22-sc-10",
+  type: "single",
+  course: "ESF",
+  topic: "Empirische Sozialforschung: Grundkomponenten",
+  difficulty: 1,
+  tags: ["ESF", "Empirie", "Theorie", "Methode", "Grundkomponenten"],
+  question: "Welche Aussage zu den zentralen Komponenten der empirischen Sozialforschung trifft am wenigsten zu?",
+  options: [
+    "A. Es gibt drei zentrale Komponenten.",
+    "B. Mindestens eine der zentralen Komponenten befasst sich mit der Sammlung von Daten.",
+    "C. Empirie und Forschungsmethode sind zentrale Komponenten.",
+    "D. Eine Komponente befasst sich mit widerspruchsfreien Aussagen zur Ordnung des Wissens.",
+    "E. Praktische Implikationen sind eine der zentralen Komponenten der empirischen Sozialforschung."
+  ],
+  correctIndex: 4,
+  explanation: "E trifft am wenigsten zu: Die drei zentralen Komponenten der empirischen Sozialforschung sind Empirie (Daten), Theorie und Methode. Praktische Implikationen können eine wichtige Rolle spielen, sind aber keine der drei Kernkomponenten."
+},
+{
+  id: "esf-22-sc-11",
+  type: "single",
+  course: "ESF",
+  topic: "Qualitative Forschung: Feldforschung",
+  difficulty: 2,
+  tags: ["ESF", "Mears", "ethnographisch", "teilnehmende Beobachtung", "qualitative Forschung"],
+  question: "Ashley Mears beschreibt in «Very Important People» (2020) ihre Forschung über den globalen Partykreislauf. Welche Aussage über ihre Forschung ist am wenigsten zutreffend?",
+  options: [
+    "A. Sie vertritt eine interpretivistische Perspektive.",
+    "B. «Männer mit Geld und Frauen mit Schönheit» ist die zentrale soziale Gleichung, die sie gefunden hat.",
+    "C. Der wirtschaftliche Austausch ist asymmetrisch, aber nicht völlig einseitig, da die «Mädchen» von sozialen Ressourcen profitieren.",
+    "D. Mears reflektiert kritisch den teilnehmenden Charakter ihrer Forschung.",
+    "E. Bei ihrer Forschung setzte sie vor allem auf qualitative Arbeit mit Fokusgruppen."
+  ],
+  correctIndex: 4,
+  explanation: "E trifft am wenigsten zu: Mears verwendete teilnehmende Beobachtung und Tiefeninterviews — keine Fokusgruppen. Sie hat sich aktiv in das Partymilieu eingebettet (ethnographischer Ansatz), was Fokusgruppen methodisch grundlegend unterscheidet."
+},
+{
+  id: "esf-22-sc-12",
+  type: "single",
+  course: "ESF",
+  topic: "Forschungsprozess: Reihenfolge",
+  difficulty: 1,
+  tags: ["ESF", "Forschungsprozess", "Reihenfolge", "Schritte"],
+  question: "Bringen Sie die folgenden Schritte des Forschungsprozesses in die typische Reihenfolge: (1) Daten analysieren, (2) Forschungsfrage formulieren, (3) Literaturrecherche durchführen, (4) Manuskript überarbeiten, (5) Stichprobe ziehen.",
+  options: [
+    "A. (1), (3), (5), (2), (4)",
+    "B. (2), (3), (5), (1), (4)",
+    "C. (2), (3), (5), (4), (1)",
+    "D. (5), (3), (2), (1), (4)",
+    "E. (3), (2), (1), (5), (4)"
+  ],
+  correctIndex: 1,
+  explanation: "B ist korrekt: Zuerst Forschungsfrage formulieren (2), dann Literaturrecherche (3), dann Stichprobe ziehen (5), dann Daten analysieren (1), schliesslich Manuskript überarbeiten (4). Die Literaturrecherche folgt auf die Forschungsfrage, um die Frage zu präzisieren und den Stand der Forschung zu kennen."
+},
+{
+  id: "esf-22-sc-13",
+  type: "single",
+  course: "ESF",
+  topic: "Open Science: Präregistrierung",
+  difficulty: 2,
+  tags: ["ESF", "Präregistrierung", "Open Science", "p-hacking", "Transparenz"],
+  question: "Barnea et al. (2022) betonen, dass sie «ihre Hypothese in zehn präregistrierten Online-Studien (insgesamt N=17.620) testen». Welche Aussage ist am wenigsten zutreffend?",
+  options: [
+    "A. Wir könnten die Präregistrierung lesen und prüfen, ob die präregistrierte Hypothese mit der tatsächlich geprüften übereinstimmt.",
+    "B. Die Forschenden schaffen Transparenz bezüglich ihrer Forschung.",
+    "C. Wir haben mehr Gewissheit, dass p-Hacking ausgeschlossen ist.",
+    "D. Die Präregistrierung beschreibt die Veröffentlichung von Hypothesen und Analyseplänen vor der eigentlichen Analyse.",
+    "E. Aus diesen Informationen können wir schliessen, dass die Forschenden zehn Experimente durchgeführt haben."
+  ],
+  correctIndex: 4,
+  explanation: "E trifft am wenigsten zu: «Zehn präregistrierte Studien» bedeutet nicht zwingend zehn Experimente — es könnten auch andere Studiendesigns (Korrelationsstudien, Surveys) sein. Die Anzahl der Studien sagt nichts über den Typ aus. Präregistrierung und Transparenz sind korrekt beschrieben in A, B, C und D."
+},
+{
+  id: "esf-22-sc-14",
+  type: "single",
+  course: "ESF",
+  topic: "Qualitative Forschung: Merkmale",
+  difficulty: 1,
+  tags: ["ESF", "qualitative Forschung", "Merkmale", "statistische Analyse"],
+  question: "Welche Aussage zur qualitativen Forschung trifft am ehesten zu?",
+  options: [
+    "A. In der qualitativen Forschung gibt es keine Daten.",
+    "B. In der qualitativen Forschung gibt es keine statistische Datenanalyse.",
+    "C. Qualitative Forschung folgt typischerweise der Deduktion.",
+    "D. Qualitative Forschung wird eingesetzt, um verallgemeinerbare Erkenntnisse zu gewinnen.",
+    "E. Qualitative Forschung erklärt Effekte via Mediation und Moderation."
+  ],
+  correctIndex: 1,
+  explanation: "B ist korrekt: Qualitative Forschung arbeitet mit nicht-numerischen Daten (Text, Bilder, Beobachtungen) und nutzt interpretative statt statistische Analysemethoden. Es gibt zwar Daten (A ist falsch), aber keine Inferenzstatistik. Qualitative Forschung ist typischerweise induktiv (C falsch) und zielt auf Tiefenverstehen, nicht Generalisierbarkeit (D falsch)."
+},
+{
+  id: "esf-22-sc-15",
+  type: "single",
+  course: "ESF",
+  topic: "Datenvisualisierung: Interpretation",
+  difficulty: 2,
+  tags: ["ESF", "Datenvisualisierung", "Korrelation", "Blasendiagramm"],
+  question: "In Yam et al. (2022) zeigt eine Visualisierung US-Bundesstaaten als Kreise; die Kreisgrösse repräsentiert die Anzahl Roboter pro 1000 Arbeitende, die Schattierung das Ausmass an Arbeitsplatzunsicherheit. Welche Aussage ist am zutreffendsten?",
+  options: [
+    "A. Je dunkler der Kreis, desto mehr «Arbeitsplatzinteresse» ist dokumentiert.",
+    "B. Die Kreisgrösse nimmt mit zunehmender Anzahl Roboter pro 1000 Arbeitende ab.",
+    "C. Es gibt ein klares Muster: mehr Roboter an der US-Westküste als an der Ostküste.",
+    "D. Die Beziehung zwischen «Arbeitsplatzinteresse» und «Roboter pro 1000 Arbeitende» liesse sich mithilfe einer Korrelationsstudie analysieren.",
+    "E. Die Ergebnisse dieser Studie sind ohne Einschränkungen auf das Jahr 2022 anwendbar."
+  ],
+  correctIndex: 3,
+  explanation: "D ist korrekt: Eine Korrelationsstudie wäre geeignet, den Zusammenhang zwischen zwei kontinuierlichen Variablen (Roboterdichte und Arbeitsplatzinteresse) zu analysieren. E ist falsch, da externe Validität zeitliche Grenzen hat. B widerspricht der Visualisierungslogik (grössere Kreise = mehr Roboter)."
+},
+
+// ── ESF HS2023 Offizielle Prüfung ──────────────────────────────────────────
+{
+  id: "esf-23p-sc-01",
+  type: "single",
+  course: "ESF",
+  topic: "Qualitative Forschung: Studiendesign",
+  difficulty: 2,
+  tags: ["ESF", "longitudinal", "qualitative Forschung", "Studiendesign"],
+  question: "Mardon et al. (2023) führten 25 Tiefeninterviews mit britischen Konsumierenden über ihre digitalen Besitztümer durch; Interviews wurden wiederholt über mehrere Monate bis zu zwei Jahren durchgeführt. Welche Aussage ist am zutreffendsten?",
+  options: [
+    "A. Es handelt sich um eine longitudinale Studie.",
+    "B. Es handelt sich um eine persönliche Umfrage mit Fragebogen.",
+    "C. Die Forschenden folgen einem positivistischen Ansatz.",
+    "D. Teil der Studie war eine Dokumentenauswertung bereits bestehender Dokumente.",
+    "E. Ziel ist es, Erwartungen an digitale Objekte durch demographische Variablen vorherzusagen."
+  ],
+  correctIndex: 0,
+  explanation: "A ist korrekt: Da dieselben Teilnehmenden über einen längeren Zeitraum (mehrere Monate bis zwei Jahre) wiederholt befragt wurden, handelt es sich um eine longitudinale Studie. Die Methode ist qualitativ-interpretativ (kein positivistischer Ansatz, kein Fragebogen)."
+},
+{
+  id: "esf-23p-sc-02",
+  type: "single",
+  course: "ESF",
+  topic: "Qualitative Forschung: Sampling und Stichprobe",
+  difficulty: 2,
+  tags: ["ESF", "qualitative Stichprobe", "Repräsentativität", "theoretische Sättigung"],
+  question: "In der Studie von Mardon et al. (2023) wurde die Stichprobengrösse nicht im Voraus festgelegt; die Datenerhebung lief bis zur theoretischen Sättigung. Welche Aussage zur Stichprobe und Datenerhebung ist am zutreffendsten?",
+  options: [
+    "A. Es gibt in dieser Studie keine organisatorischen oder sozialen Barrieren beim Zugang zur Stichprobe.",
+    "B. Die Dateninterpretation sollte unter Berücksichtigung der betrachteten Stichprobe erfolgen.",
+    "C. Der iterative Wechsel zwischen Datenerhebung und -analyse ist in der qualitativen Forschung unüblich.",
+    "D. Die exakte Stichprobengrösse wird im Vorhinein festgelegt, ähnlich wie bei einem Experiment.",
+    "E. Die Stichprobe bei qualitativer Forschung sollte immer repräsentativ sein."
+  ],
+  correctIndex: 1,
+  explanation: "B ist korrekt: In qualitativer Forschung ist die Stichprobe bewusst klein und nicht repräsentativ — Ergebnisse müssen stets im Kontext der untersuchten Gruppe interpretiert werden. Der iterative Wechsel zwischen Erhebung und Analyse (C) ist typisch, nicht unüblich. Stichprobengrösse wird nicht vorab festgelegt (D falsch)."
+},
+{
+  id: "esf-23p-sc-03",
+  type: "single",
+  course: "ESF",
+  topic: "Qualitative Methoden: Grounded Theory",
+  difficulty: 2,
+  tags: ["ESF", "Grounded Theory", "Analysemethoden", "qualitative Forschung"],
+  question: "Welche Analysemethode ist für die Studie von Mardon et al. (2023) zu digitalen Besitztümern am ehesten geeignet?",
+  options: [
+    "A. Grounded Theory: deduktiv von bestehender Theorie auf das Phänomen schliessen.",
+    "B. Binomialtest: testen, ob die Nutzung digitaler Objekte einer vermuteten Verteilung entspricht.",
+    "C. Grounded Theory: durch systematische Prozessschritte tieferes Verständnis der Teilnehmendenerfahrungen gewinnen.",
+    "D. Qualitative Inhaltsanalyse: zahlenmässige Muster aufdecken und allgemeingültige Gesetzmässigkeiten festlegen.",
+    "E. Faktoranalyse: die Beziehung von Faktoren untersuchen und auf einen Faktor reduzieren."
+  ],
+  correctIndex: 2,
+  explanation: "C ist korrekt: Grounded Theory ist geeignet, weil sie induktiv vorgeht und aus den Daten heraus Theorien entwickelt — ideal für ein wenig erforschtes Phänomen. A ist falsch: Grounded Theory ist induktiv, nicht deduktiv. Binomialtest und Faktoranalyse sind quantitative Methoden und passen nicht zu qualitativen Tiefeninterviews."
+},
+{
+  id: "esf-23p-sc-04",
+  type: "single",
+  course: "ESF",
+  topic: "Experimentelle Forschung: Studiendesign",
+  difficulty: 2,
+  tags: ["ESF", "between-subjects", "ANOVA", "multifaktoriell", "Experiment"],
+  question: "In Zhu et al. (2022) nehmen 162 Teilnehmende an einem 2 (Standard vs. erweitert) × 2 (Büro vs. Schule) between-subjects Design teil. Welche Aussage ist am zutreffendsten?",
+  options: [
+    "A. Es handelt sich um ein Experiment mit vier Konditionen, bei dem alle Teilnehmenden alle vier Konditionen durchlaufen.",
+    "B. Eine multifaktorielle ANOVA ist eine angemessene Methode der Datenanalyse.",
+    "C. Unkontrollierte Variablen können durch zufällige Zuteilung nicht minimiert werden.",
+    "D. Eine einfaktorielle ANOVA ist angemessen für dieses Design.",
+    "E. Die Teilnehmenden werden zufällig einer von zwei Konditionen zugeteilt."
+  ],
+  correctIndex: 1,
+  explanation: "B ist korrekt: Ein 2×2 between-subjects Design mit zwei unabhängigen Variablen erfordert eine multifaktorielle (zweifaktorielle) ANOVA, um Haupt- und Interaktionseffekte zu analysieren. A ist falsch (between-subjects: jede Person nur in einer Kondition). E ist falsch (vier Konditionen, nicht zwei)."
+},
+{
+  id: "esf-23p-sc-05",
+  type: "single",
+  course: "ESF",
+  topic: "Experimentelle Forschung: Externe Validität",
+  difficulty: 2,
+  tags: ["ESF", "externe Validität", "Generalisierbarkeit", "virtuelles Experiment"],
+  question: "In der Studie von Zhu et al. (2022) wurden Lehrende und Bürokräfte in einer virtuellen Simulation einem Amoklauf ausgesetzt. Welche Aussage ist am zutreffendsten?",
+  options: [
+    "A. Zur besseren Generalisierbarkeit könnte die Studie in mehreren Ländern durchgeführt werden.",
+    "B. Die hypothetische Natur des Szenarios ist kein Problem.",
+    "C. Die externe Validität ist als sehr hoch einzuschätzen.",
+    "D. Das Design erlaubt keine kausalen Rückschlüsse hinsichtlich der Effekte der Gegenmassnahmen.",
+    "E. Die Ungleichheit im Geschlechterverhältnis ist ein gravierendes Problem."
+  ],
+  correctIndex: 0,
+  explanation: "A ist korrekt: Eine internationale Replikation würde die Generalisierbarkeit erhöhen, da es grosse Länderunterschiede bei der Häufigkeit von Amokläufen und Sicherheitskulturen gibt. C ist falsch: Virtuelle Experimente haben tendenziell eingeschränkte externe Validität. D ist falsch: Das between-subjects Experiment erlaubt kausale Schlüsse."
+},
+{
+  id: "esf-23p-sc-06",
+  type: "single",
+  course: "ESF",
+  topic: "Experimentelle Forschung: Limitationen",
+  difficulty: 2,
+  tags: ["ESF", "Limitationen", "Generalisierbarkeit", "Stichprobe"],
+  question: "Welche Aussage zu möglichen Limitationen der Studie von Zhu et al. (2022) ist am zutreffendsten?",
+  options: [
+    "A. Da es sich bei den Teilnehmenden um Bürokräfte und Lehrende handelte, sind die Resultate nicht auf Kinder übertragbar.",
+    "B. Teilnehmende sind bei Online-Simulationen generell unaufmerksam, was die Aussagekraft stark limitiert.",
+    "C. Die abhängigen Variablen (Reaktionszeit, Entscheidungen) sind in einem reellen Kontext nicht entscheidend.",
+    "D. Alle abhängigen Variablen basieren auf selbstberichteten Daten mit möglichen Verzerrungen.",
+    "E. Die Stichprobengrösse ist eindeutig zu klein."
+  ],
+  correctIndex: 0,
+  explanation: "A ist korrekt: Die Stichprobe aus Bürokräften und Lehrenden schränkt die Generalisierbarkeit der Ergebnisse auf andere Personengruppen (z. B. Kinder in Schulen) ein. Dies ist eine valide Limitation. B ist eine pauschale Aussage ohne Evidenz. D ist teilweise falsch: Reaktionszeit ist keine selbstberichtete Variable."
+},
+{
+  id: "esf-23p-sc-07",
+  type: "single",
+  course: "ESF",
+  topic: "Forschungsethik",
+  difficulty: 2,
+  tags: ["ESF", "Forschungsethik", "ethische Genehmigung", "IRB"],
+  question: "Welche Aussage über die Methodik der Studie von Zhu et al. (2022) ist am zutreffendsten?",
+  options: [
+    "A. Im between-subjects Design bedarf es keiner randomisierten Zuteilung.",
+    "B. Bei der Messung der Reaktionszeit spielt soziale Erwünschtheit eine wichtige Rolle.",
+    "C. Für eine solche Studie mit psychisch belastenden Szenarien ist die Zustimmung der ethischen Beratungsstelle der Universität vorab einzuholen.",
+    "D. Da schnelle intuitive Entscheidungen abgefragt werden, sollten Teilnehmende zu Beginn nicht über den Studieninhalt informiert werden.",
+    "E. Immersive Technologien (z. B. VR) könnten die externe Validität nicht weiter erhöhen."
+  ],
+  correctIndex: 2,
+  explanation: "C ist korrekt: Studien mit potenziell traumatisierenden Szenarien (Amoklauf-Simulation) müssen von einer Ethikkommission genehmigt werden, um den Schutz der Teilnehmenden sicherzustellen. A ist falsch (Randomisierung ist auch im between-subjects Design wichtig). E ist falsch (VR würde die externe Validität durch realistischere Szenarien erhöhen)."
+},
+{
+  id: "esf-23p-sc-08",
+  type: "single",
+  course: "ESF",
+  topic: "Primär- und Sekundärdaten",
+  difficulty: 1,
+  tags: ["ESF", "Primärdaten", "Sekundärdaten", "Datenerhebung"],
+  question: "Welche Aussage über Primär- und Sekundärdaten ist am zutreffendsten?",
+  options: [
+    "A. Sekundärdaten sind immer qualitativer Natur, Primärdaten immer quantitativer Natur.",
+    "B. Führen Forschende ein Interview, eine Beobachtung oder ein Experiment durch, erheben sie Primärdaten.",
+    "C. Fan-Communities, Social Media, Blogs und Foren gehören nicht zu möglichen Quellen für Sekundärdaten.",
+    "D. Sekundärdaten zeichnen sich durch hohe Aktualität, gute Passung zur Forschungsfrage und grösseren Zeitbedarf aus.",
+    "E. Primärdaten zeichnen sich durch schnelle Verfügbarkeit und niedrige Kosten aus."
+  ],
+  correctIndex: 1,
+  explanation: "B ist korrekt: Primärdaten werden direkt vom Forschenden für die eigene Studie erhoben (Interviews, Beobachtungen, Experimente). Sekundärdaten sind bereits vorhandene Daten, die für eine andere Studie erhoben wurden. C ist falsch (Social Media ist eine typische Sekundärdatenquelle)."
+},
+{
+  id: "esf-23p-sc-09",
+  type: "single",
+  course: "ESF",
+  topic: "Experimentelle Konzepte: Begriffsdefinitionen",
+  difficulty: 2,
+  tags: ["ESF", "Mediator", "Moderator", "Störvariable", "Pretest", "interne Validität"],
+  question: "Ordnen Sie die Begriffe den Definitionen zu: (1) Miniaturversion der Hauptstudie, (2) Variable, die den Zusammenhang zwischen UV und AV erklärt, (3) Variable, die die UV-AV-Beziehung verzerren kann, (4) Variable, die den Effekt einer Variable auf eine andere verändert, (5) Gütekriterium, das zeigt, dass nur getestete Variablen das Ergebnis beeinflussen.",
+  options: [
+    "A. 1. Interne Validität, 2. Mediator, 3. Moderator, 4. Störvariable, 5. Externe Validität",
+    "B. 1. Pretest, 2. Moderator, 3. Störvariable, 4. Mediator, 5. Interne Validität",
+    "C. 1. Pretest, 2. Mediator, 3. Störvariable, 4. Moderator, 5. Externe Validität",
+    "D. 1. Pretest, 2. Störvariable, 3. Mediator, 4. Moderator, 5. Interne Validität",
+    "E. 1. Pretest, 2. Mediator, 3. Störvariable, 4. Moderator, 5. Interne Validität"
+  ],
+  correctIndex: 4,
+  explanation: "E ist korrekt: (1) Pretest = Miniaturversion/Pilottest, (2) Mediator = erklärt den Mechanismus zwischen UV und AV, (3) Störvariable = nicht kontrollierte Variable, die die UV-AV-Beziehung verzerrt, (4) Moderator = verändert die Stärke/Richtung des Effekts, (5) Interne Validität = Gütekriterium für kausale Schlüsse."
+},
+{
+  id: "esf-23p-sc-10",
+  type: "single",
+  course: "ESF",
+  topic: "Qualitative Forschung: Grundlagen",
+  difficulty: 1,
+  tags: ["ESF", "Stichprobengrösse", "theoretische Sättigung", "qualitative Forschung"],
+  question: "Welche Aussage zur qualitativen Forschung ist am zutreffendsten?",
+  options: [
+    "A. Die Transkription beschreibt das Erfassen von reflektierenden Gedanken, um ein Thema mit Relevanz für die Forschungsfrage zu identifizieren.",
+    "B. Bei qualitativer Forschung kann die genaue Stichprobengrösse im Vorhinein meist nicht festgelegt werden, da die Erreichung einer theoretischen Sättigung angestrebt wird.",
+    "C. Qualitative Fallstudien haben zum Ziel, ein Forschungssubjekt in einer künstlichen, kontrollierten Umgebung detailliert zu untersuchen.",
+    "D. Die qualitative Datenerhebung beschreibt die systematische Erhebung nichtstandardisierter Daten aus einer kleinen, aber repräsentativen Stichprobe.",
+    "E. Die Schritte der Datenkodierung bestehen in der Abfolge: (1) selektives Kodieren, (2) axiales Kodieren, (3) offenes Kodieren."
+  ],
+  correctIndex: 1,
+  explanation: "B ist korrekt: In qualitativer Forschung (insbesondere Grounded Theory) wird so lange erhoben, bis theoretische Sättigung erreicht ist — d. h., bis keine neuen Erkenntnisse mehr aus neuen Daten entstehen. Die Stichprobengrösse ist damit nicht vorab fixierbar. E ist falsch: Korrekte Reihenfolge ist offenes → axiales → selektives Kodieren."
+},
+{
+  id: "esf-23p-sc-11",
+  type: "single",
+  course: "ESF",
+  topic: "Literaturrecherche",
+  difficulty: 1,
+  tags: ["ESF", "Literaturrecherche", "Primärdaten", "Forschungsprozess"],
+  question: "Welche Aussage über die Literaturrecherche trifft am wenigsten zu?",
+  options: [
+    "A. Die Literaturrecherche ermöglicht die Feststellung der wichtigsten Methoden und Theorien in einem Forschungsbereich.",
+    "B. Mit der Literaturrecherche kann ermittelt werden, welche Konstrukte bereits untersucht wurden.",
+    "C. Die Literaturrecherche ermöglicht das Erheben von Primärdaten.",
+    "D. Ein Ziel der Literaturrecherche ist die Identifizierung von Lücken in der Literatur.",
+    "E. Die Literaturrecherche ist keine eigenständige Forschungsmethode."
+  ],
+  correctIndex: 2,
+  explanation: "C trifft am wenigsten zu: Literaturrecherche analysiert bereits vorhandene (Sekundär-)Quellen — sie erhebt keine neuen Primärdaten. Primärdaten werden durch eigene Beobachtungen, Interviews oder Experimente erhoben."
+},
+{
+  id: "esf-23p-sc-12",
+  type: "single",
+  course: "ESF",
+  topic: "Grundbegriffe: Deduktion, Induktion, Theorie",
+  difficulty: 2,
+  tags: ["ESF", "Deduktion", "Induktion", "Theorie", "Konzeptionelles Modell", "Randomisierung"],
+  question: "Ordnen Sie die Definitionen den Begriffen zu: (1) Schlussfolgern vom Allgemeinen zum Spezifischen, (2) Verallgemeinerte Aussage über Zusammenhänge, (3) Wiedergabe der kausalen Wechselbeziehung zwischen Variablen, (4) Verallgemeinerung vom Spezifischen zum Allgemeinen, (5) Fragt nach der Ursache einer Kausalbeziehung, (6) Zufällige Zuordnung zu experimentellen Konditionen.",
+  options: [
+    "A. 1. Deduktion, 2. Theorie, 3. Konzeptionelles Modell, 4. Induktion, 5. Kausalfrage, 6. Randomisierung",
+    "B. 1. Induktion, 2. Theorie, 3. Konzeptionelles Modell, 4. Deduktion, 5. Kausalfrage, 6. Randomisierung",
+    "C. 1. Deduktion, 2. Theorie, 3. Konzeptionelles Modell, 4. Induktion, 5. Kausalfrage, 6. Manipulation",
+    "D. 1. Deduktion, 2. Theorie, 3. Konzeptionelles Modell, 4. Induktion, 5. Vergleichsfrage, 6. Randomisierung",
+    "E. 1. Induktion, 2. konzeptionelles Modell, 3. Theorie, 4. Deduktion, 5. Kausalfrage, 6. Randomisierung"
+  ],
+  correctIndex: 0,
+  explanation: "A ist korrekt: Deduktion = allgemein zu spezifisch (aus Theorie Hypothesen ableiten); Theorie = verallgemeinerte Aussage über Zusammenhänge; konzeptionelles Modell = Darstellung kausaler Beziehungen; Induktion = spezifisch zu allgemein; Kausalfrage = nach Ursachen fragend; Randomisierung = zufällige Zuteilung zu Konditionen."
+},
+{
+  id: "esf-23p-sc-13",
+  type: "single",
+  course: "ESF",
+  topic: "Metaanalyse und Publikations-Bias",
+  difficulty: 3,
+  tags: ["ESF", "Publikations-Bias", "Metaanalyse", "Replikation", "Open Science"],
+  question: "Macnamara & Burgoyne (2023) überprüften 63 Studien (N=97.672) zur Wirksamkeit von Growth-Mindset-Interventionen. Nach Korrektur des Publikations-Bias fanden sie keine Evidenz für einen Effekt. Welche Aussage ist am zutreffendsten?",
+  options: [
+    "A. Das Korrigieren des Publikations-Bias ist nicht nötig, da genügend Publikationen vorliegen.",
+    "B. Publikations-Bias bedeutet, dass nur Studien ohne Effekt veröffentlicht wurden.",
+    "C. Eine mögliche Ursache für den Publikations-Bias: nur Studien, die für Growth-Mindset sprechen, wurden veröffentlicht.",
+    "D. Der Publikations-Bias beeinträchtigt nicht nur die Effektschätzung, sondern auch die Qualität der Studien.",
+    "E. Eine Ursache für den Publikations-Bias könnte eine sehr hohe Power des Effekts sein."
+  ],
+  correctIndex: 2,
+  explanation: "C ist korrekt: Publikations-Bias entsteht typischerweise dadurch, dass positive Befunde (die für einen Effekt sprechen) eher veröffentlicht werden als Nullergebnisse. Dieses «file drawer problem» verzerrt den geschätzten wahren Effekt nach oben. D ist falsch: Publikations-Bias beeinträchtigt die Schätzung des Effekts, aber nicht die interne Qualität der einzelnen Studien."
+},
+{
+  id: "esf-23p-sc-14",
+  type: "single",
+  course: "ESF",
+  topic: "Qualitative Forschung: Mythen",
+  difficulty: 2,
+  tags: ["ESF", "qualitative Forschung", "Mythen", "Generalisierbarkeit"],
+  question: "Welche der folgenden Aussagen zur qualitativen Forschung ist KEIN Mythos (d. h., welche ist tatsächlich wahr)?",
+  options: [
+    "A. Qualitative Daten sind subjektiv und können nicht systematisch analysiert werden.",
+    "B. Qualitative Forschung ist einfacher und schneller als quantitative Forschung.",
+    "C. Qualitative Forschung eignet sich nur für vorläufige Studien.",
+    "D. Qualitative Daten sind weniger «wissenschaftlich» als andere Methoden.",
+    "E. Qualitative Forschung liefert detaillierte Einblicke, aber diese Stärke kann die Generalisierbarkeit einschränken."
+  ],
+  correctIndex: 4,
+  explanation: "E ist kein Mythos: Es ist tatsächlich wahr, dass qualitative Forschung durch die Tiefe des Verstehens und kleine, nicht-repräsentative Stichproben in ihrer Generalisierbarkeit eingeschränkt ist. Das ist eine reale methodische Limitation, kein Mythos. Alle anderen Aussagen (A–D) sind Mythen, die qualitative Forschung unfair abwerten."
+},
+{
+  id: "esf-23p-sc-15",
+  type: "single",
+  course: "ESF",
+  topic: "Datenmanipulation und Forschungsintegrität",
+  difficulty: 2,
+  tags: ["ESF", "Forschungsintegrität", "Datenfälschung", "p-Hacking", "Replikation"],
+  question: "Im Kontext der Vorwürfe gegen Francesca Gino (Datenfälschung): Welche Aussage zu Methoden in den Verhaltenswissenschaften ist am zutreffendsten?",
+  options: [
+    "A. «Social Priming» ist eine allseits anerkannte Methodik in den Verhaltenswissenschaften.",
+    "B. Statistisch gesehen kann die Manipulation von nur 20 von 500 Antworten das Ergebnis einer Studie massgeblich verzerren.",
+    "C. Verhaltensforschende gehen davon aus, dass es kein irrationales Verhalten gibt.",
+    "D. Falls eine Studie nicht repliziert werden kann, spricht dies für Datenfälschung.",
+    "E. Auch bei vorher festgelegtem Erhebungszeitraum können Forschende die Datenerhebung früher abbrechen."
+  ],
+  correctIndex: 1,
+  explanation: "B ist korrekt: Selbst eine kleine Manipulation (z. B. 20 von 500 Antworten = 4%) kann statistisch signifikante Ergebnisse erzeugen, besonders bei knappen p-Werten. Dies zeigt, wie leicht Datenfälschung im kleinen Massstab grosse Auswirkungen hat. D ist falsch: Nicht-Replizierbarkeit kann viele Ursachen haben (Stichprobenvariation, Kontextunterschiede) und beweist keine Fälschung."
+},
+
+// ── ESF HS2023 Übungsklausur ────────────────────────────────────────────────
+{
+  id: "esf-23u-sc-01",
+  type: "single",
+  course: "ESF",
+  topic: "Experimentelle Forschung: Online-Experiment",
+  difficulty: 1,
+  tags: ["ESF", "Online-Experiment", "between-subjects", "Studiendesign"],
+  question: "Eine HBR-Studie lässt 115 Wirtschaftsstudierende eine kurze historische Beschreibung lesen: die Hälfte las eine über vergangene Ungerechtigkeiten gegenüber Frauen, die andere Hälfte eine neutrale Beschreibung. Danach wurden Einstellungen zu aktueller Geschlechterdiskriminierung gemessen. Welche Aussage über das Design ist am zutreffendsten?",
+  options: [
+    "A. Die Studierenden nahmen an einem Quasi-Experiment im Labor teil.",
+    "B. Die Studierenden nahmen an einer Mixed-Methods-Studie teil.",
+    "C. Die Studierenden nahmen an einem Online-Experiment teil.",
+    "D. Die Studierenden nahmen an einer Fallstudie teil.",
+    "E. Die Studierenden nahmen an einer Online-Fokusgruppe teil."
+  ],
+  correctIndex: 2,
+  explanation: "C ist korrekt: Die Studie wurde online durchgeführt (Online-Studie laut Text), mit zufälliger Zuteilung zu zwei Textkonditionen — das ist ein Online-Experiment mit between-subjects Design. Es ist kein Quasi-Experiment (da echte Randomisierung vorlag) und keine Fallstudie oder Fokusgruppe."
+},
+{
+  id: "esf-23u-sc-02",
+  type: "single",
+  course: "ESF",
+  topic: "Experimentelle Forschung: UV und AV",
+  difficulty: 1,
+  tags: ["ESF", "UV", "AV", "unabhängige Variable", "abhängige Variable"],
+  question: "Was war die unabhängige Variable (UV) in der HBR-Studie zur Geschlechterdiskriminierung?",
+  options: [
+    "A. Fokus auf historische Ungerechtigkeiten (vs. neutrale Beschreibung)",
+    "B. Unterstützung für Sanierungsprogramme",
+    "C. Einschreibung in ein kooperatives Bildungsprogramm",
+    "D. Geschlecht (männlich vs. weiblich)",
+    "E. Einstellungen zum aktuellen Stand der Geschlechterdiskriminierung"
+  ],
+  correctIndex: 0,
+  explanation: "A ist korrekt: Die UV ist das, was die Forschenden manipuliert haben — die Art der gelesenen Beschreibung (historische Ungerechtigkeiten vs. neutral). Die Einstellungen (B, E) sind abhängige Variablen. Das Geschlecht (D) ist eine demographische Kontrollvariable, nicht die manipulierte UV."
+},
+{
+  id: "esf-23u-sc-03",
+  type: "single",
+  course: "ESF",
+  topic: "Messung: Skalentypen",
+  difficulty: 2,
+  tags: ["ESF", "Likert-Skala", "Fragebogen", "Messung"],
+  question: "In der HBR-Studie sollten Studierende (1) ihre Einstellungen zu Geschlechterdiskriminierung (Aussagen mit 1–7 Zustimmungsskala) und (2) ihren Grad der Unterstützung für ein Chancengleichheitsprogramm bewerten. Was ist richtig bezüglich der Fragetypen?",
+  options: [
+    "A. Fragen zu (1) als Multiple-Choice, Fragen zu (2) als Likert-Skala.",
+    "B. Fragen zu (1) als Likert-Skala. Es ist nicht ganz klar, wie Fragen zu (2) konzipiert wurden.",
+    "C. Fragen zu (1) als Likert-Skala, Fragen zu (2) als offene Fragen.",
+    "D. Fragen zu (1) als semantische Differentialfragen. Es ist nicht klar, wie (2) konzipiert wurde.",
+    "E. Es ist nicht möglich zu sagen, wie die Fragen konzipiert wurden."
+  ],
+  correctIndex: 1,
+  explanation: "B ist korrekt: Der Text beschreibt für (1) explizit eine 1-7 Zustimmungsskala (Likert-Format). Für (2) wird nur erwähnt, dass Unterstützung bewertet wurde — ohne genauen Skalentyp zu nennen. Daher ist B die präziseste Aussage."
+},
+{
+  id: "esf-23u-sc-04",
+  type: "single",
+  course: "ESF",
+  topic: "Forschungsfragen und Hypothesen",
+  difficulty: 2,
+  tags: ["ESF", "Forschungsfrage", "deskriptiv", "Hypothese", "Schlussfolgerung"],
+  question: "Die MIT-Studie zu COVID-Präventionsmassnahmen stellt die Frage: «Sollten Mitteilungen den Nutzen für den Einzelnen, die Gesellschaft oder beide hervorheben?» und findet: öffentliche Formulierung > persönliche Formulierung. Was ist am zutreffendsten?",
+  options: [
+    "A. Die Frage «Sollten...?» ist eine deduktive Forschungsfrage.",
+    "B. Die Frage ist eine deskriptive Forschungsfrage.",
+    "C. «Die Betonung des öffentlichen Nutzens ist eine wirksamere Strategie» ist eine Schlussfolgerung.",
+    "D. «Die Betonung des öffentlichen Nutzens ist eine wirksamere Strategie» ist ein interpretativer Anspruch.",
+    "E. «Die Betonung des öffentlichen Nutzens ist eine wirksamere Strategie» ist die Nullhypothese."
+  ],
+  correctIndex: 2,
+  explanation: "C ist korrekt: Die Aussage «öffentliche Betonung ist wirksamer» ist das Ergebnis der Studie — eine empirisch gestützte Schlussfolgerung aus den Daten. Sie ist nicht die Nullhypothese (E wäre korrekt, wenn die Aussage lautete «es gibt keinen Unterschied»). Eine deduktive Forschungsfrage beginnt mit einer Theorie, die hier nicht der Ausgangspunkt ist."
+},
+{
+  id: "esf-23u-sc-05",
+  type: "single",
+  course: "ESF",
+  topic: "Experimentelle Forschung: Konditionen",
+  difficulty: 1,
+  tags: ["ESF", "between-subjects", "Konditionen", "Kontrollgruppe"],
+  question: "In der MIT-Studie zu COVID-Prävention werden drei Flyer-Versionen verwendet: (1) persönlicher Nutzen, (2) öffentlicher Nutzen, (3) persönlicher + öffentlicher Nutzen. Jeder Teilnehmende sieht nur eine Version (between-subjects). Was ist am zutreffendsten?",
+  options: [
+    "A. Jedem/jeder Teilnehmer*in wurde einer der drei Flyer gezeigt.",
+    "B. Allen Teilnehmenden wurden alle drei Flyer gezeigt.",
+    "C. Der rechte Flyer stellt die Kontrollkondition dar.",
+    "D. Nur der rechte Flyer stellt die Versuchskondition dar.",
+    "E. «Persönlicher Gesundheitsnotfall» bezieht sich auf die abhängige Variable."
+  ],
+  correctIndex: 0,
+  explanation: "A ist korrekt: Bei einem between-subjects Design sieht jede Person nur eine Kondition — hier also nur einen der drei Flyer. B (within-subjects) wäre falsch. Die Kontrollkondition könnte der Flyer ohne spezifische Nutzenbetonung sein, nicht notwendigerweise der rechte."
+},
+{
+  id: "esf-23u-sc-06",
+  type: "single",
+  course: "ESF",
+  topic: "Doppelgänger Brand Image: Forschungsdesign",
+  difficulty: 2,
+  tags: ["ESF", "Doppelgänger Brand Image", "Thompson", "interpretativ", "qualitative Forschung"],
+  question: "Thompson et al. (2006) sammelten Daten über zwei Jahre mit einem Multisite-Ansatz: tape-recorded phenomenological interviews mit 36 Café-Besuchenden sowie Feldnotizen und Fotos aus Beobachtungen. Welche Aussage ist am wenigsten zutreffend?",
+  options: [
+    "A. Die Forschenden nehmen eine interpretivistische Perspektive ein.",
+    "B. Subjektivität ist ein Problem bei der Datenanalyse.",
+    "C. Diese Methode folgt einem induktiven Ansatz von der Empirie zur Theorie.",
+    "D. Die Forschenden verwenden die Mixed-Methods-Methode.",
+    "E. Die Forschenden betreiben kein Hypothesentesten."
+  ],
+  correctIndex: 3,
+  explanation: "D trifft am wenigsten zu: Thompson et al. arbeiten rein qualitativ (phänomenologische Interviews + Beobachtungen) — keine Mixed-Methods. Mixed-Methods würde eine Kombination aus qualitativen und quantitativen Methoden erfordern, was hier nicht der Fall ist."
+},
+{
+  id: "esf-23u-sc-07",
+  type: "single",
+  course: "ESF",
+  topic: "Qualitative Analyse: Hermeneutik",
+  difficulty: 2,
+  tags: ["ESF", "Hermeneutik", "Kodierung", "qualitative Analyse", "Thompson"],
+  question: "Thompson et al. (2006) beschreiben: «Wir interpretierten die qualitativen Daten mit einem hermeneutischen Ansatz. Vorläufige Verständnisse werden gebildet, hinterfragt, revidiert und weiterentwickelt durch eine iterative Bewegung zwischen einzelnen Transkripten und dem aufkommenden Gesamtverständnis.» Auf welchen Prozess gehen die Forschenden hier ein?",
+  options: [
+    "A. Zielgruppenauswahl",
+    "B. Kodierung",
+    "C. Ethnographie",
+    "D. Präregistrierung",
+    "E. Anthropologie"
+  ],
+  correctIndex: 1,
+  explanation: "B ist korrekt: Die iterative Bewegung zwischen einzelnen Transkripten und dem Gesamtverständnis beschreibt den qualitativen Kodierungsprozess. Das Revidieren und Weiterentwickeln von Codes entspricht dem axialen und selektiven Kodieren in der Grounded Theory. Die Hermeneutik ist die theoretische Basis, aber der beschriebene Prozess ist Kodierung."
+},
+{
+  id: "esf-23u-sc-08",
+  type: "single",
+  course: "ESF",
+  topic: "Grounded Theory: Merkmale",
+  difficulty: 2,
+  tags: ["ESF", "Grounded Theory", "induktiv", "empirisch"],
+  question: "Welche Aussage zur Grounded Theory trifft am wenigsten zu?",
+  options: [
+    "A. Der Fokus liegt auf der Generierung theoretischer Ideen auf Basis von Daten.",
+    "B. Die Grounded Theory ist nicht empirisch fundiert; ihr Interesse ist die Rekonstruktion subjektiver Ansichten.",
+    "C. Die Grounded Theory ist hilfreich, um Phänomene zu verstehen, die nicht durch bestehende Theorien erklärt werden können.",
+    "D. Die Grounded Theory wird als radikaler Ansatz betrachtet.",
+    "E. Die Grounded Theory beginnt mit den Daten selbst."
+  ],
+  correctIndex: 1,
+  explanation: "B trifft am wenigsten zu: Grounded Theory ist sehr wohl empirisch fundiert — sie basiert explizit auf empirischen Daten (daher «grounded»). Sie zielt auf Theorieentwicklung aus Daten, nicht bloss auf Rekonstruktion subjektiver Ansichten (das wäre eher Phänomenologie). Alle anderen Aussagen (A, C, D, E) beschreiben korrekte Merkmale."
+},
+{
+  id: "esf-23u-sc-09",
+  type: "single",
+  course: "ESF",
+  topic: "Forschungsprozess: Qualitative Tiefeninterviews",
+  difficulty: 2,
+  tags: ["ESF", "Tiefeninterview", "Kodierung", "Reihenfolge", "Transkription"],
+  question: "Wie lautet die typische Reihenfolge der Schritte bei qualitativen Tiefeninterviews? (1) Sammeln der Daten, (2) Axiale Kodierung, (3) Offene Kodierung, (4) Entwickeln einer Theorie, (5) Transkribieren der Daten.",
+  options: [
+    "A. 1, 5, 2, 3, 4",
+    "B. 2, 3, 5, 4, 1",
+    "C. 1, 2, 5, 4, 3",
+    "D. 3, 5, 2, 1, 4",
+    "E. 1, 5, 3, 2, 4"
+  ],
+  correctIndex: 4,
+  explanation: "E ist korrekt: Zuerst Daten sammeln (1), dann transkribieren (5), dann offen kodieren (3), dann axial kodieren (2), schliesslich Theorie entwickeln (4). Die Reihenfolge offenes → axiales Kodieren ist zentral in der Grounded Theory: vom Aufdecken erster Codes bis zur Verknüpfung und Theoriebildung."
+},
+{
+  id: "esf-23u-sc-10",
+  type: "single",
+  course: "ESF",
+  topic: "UV und AV: Hypothesen",
+  difficulty: 1,
+  tags: ["ESF", "UV", "AV", "Hypothese", "Verpackungsfarbe"],
+  question: "Betrachten Sie die Hypothese: «Grüne Verpackung (im Vergleich zu andersfarbiger Verpackung) von Lebensmitteln wird von Verbraucher*innen als gesünder empfunden.» Was ist hinsichtlich der Variablen am ehesten richtig?",
+  options: [
+    "A. Es ist unklar, welche Variable UV und welche AV ist.",
+    "B. Die Verpackungsfarbe ist die UV und Gesundheitsempfindung ist die AV.",
+    "C. Die Verpackungsfarbe ist die AV und Gesundheitsempfindung ist die UV.",
+    "D. Grüne Verpackung ist die UV und andersfarbige Verpackung ist die AV.",
+    "E. Grüne Verpackung ist die AV und andersfarbige Verpackung ist die UV."
+  ],
+  correctIndex: 1,
+  explanation: "B ist korrekt: Die Verpackungsfarbe wird manipuliert (grün vs. andere Farben) — sie ist die unabhängige Variable (UV). Die Gesundheitsempfindung wird als Reaktion gemessen — sie ist die abhängige Variable (AV). D und E verwechseln die Stufen der UV mit der UV selbst."
+},
+{
+  id: "esf-23u-sc-11",
+  type: "single",
+  course: "ESF",
+  topic: "Soziale Erwünschtheit",
+  difficulty: 1,
+  tags: ["ESF", "soziale Erwünschtheit", "Messverzerrung", "Bias"],
+  question: "Worauf bezieht sich die folgende Definition? «Ein systematischer Fehler bei Selbstbeurteilungsmessungen, der aus dem Wunsch der Befragten resultiert, Blamage zu vermeiden und anderen ein positives Bild von sich zu vermitteln.»",
+  options: [
+    "A. Beobachter-Erwartungseffekt",
+    "B. Item-Priming-Effekt",
+    "C. Verlustaversion",
+    "D. Soziale Erwünschtheit",
+    "E. Befragtenerwünschtheitseffekt"
+  ],
+  correctIndex: 3,
+  explanation: "D ist korrekt: Soziale Erwünschtheit (social desirability bias) beschreibt genau die Tendenz, Antworten zu geben, die gesellschaftlich akzeptabel erscheinen, anstatt ehrlich zu antworten. Dies ist ein zentrales Problem bei Selbstberichtsmessungen in Umfragen."
+},
+{
+  id: "esf-23u-sc-12",
+  type: "single",
+  course: "ESF",
+  topic: "Deskriptive Statistik",
+  difficulty: 1,
+  tags: ["ESF", "Median", "Mittelwert", "Modus", "deskriptive Statistik"],
+  question: "Berechnen Sie Median, Mittelwert und Modus der Zahlenreihe: 4, 5, 7, 8, 5, 1.",
+  options: [
+    "A. Median=4, Mittelwert=5, Modus=6",
+    "B. Median=6, Mittelwert=5, Modus=4",
+    "C. Median=5, Mittelwert=5, Modus=1",
+    "D. Median=5, Mittelwert=5, Modus=5",
+    "E. Median=5, Mittelwert=5, Modus=5 — korrigiert: Median=5, Mittelwert=5, Modus=5"
+  ],
+  correctIndex: 3,
+  explanation: "Sortiert: 1, 4, 5, 5, 7, 8. Median = Durchschnitt der 3. und 4. Zahl = (5+5)/2 = 5. Mittelwert = (1+4+5+7+8+5)/6 = 30/6 = 5. Modus = 5 (kommt zweimal vor). Also: Median=5, Mittelwert=5, Modus=5 → Antwort D."
 }
 
 ];
