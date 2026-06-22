@@ -148,8 +148,21 @@
     #bottom-nav { display:flex; }
     #content-area { flex:1; padding:0 1rem 6rem; max-width:480px; margin:0 auto; width:100%; }
 
-    /* ── DESKTOP layout (≥768px) ── */
+    /* ── iPad portrait: centered iPhone column ── */
+    @media (min-width:520px) {
+      body { display:flex; justify-content:center; align-items:flex-start; }
+      #app-shell { max-width:430px; width:100%; }
+      #bottom-nav {
+        width:min(430px, 100vw);
+        left:50%; right:auto;
+        transform:translateX(-50%);
+      }
+    }
+
+    /* ── DESKTOP layout (≥1024px landscape) ── */
     @media (min-width:1024px) and (orientation:landscape) {
+      body { justify-content:flex-start; align-items:stretch; }
+      #app-shell { max-width:none; }
       #top-bar    { display:none; }
       #bottom-nav { display:none; }
       #sidebar {
@@ -220,10 +233,13 @@
     body.feed-active #top-bar { display:none !important; }
     body.feed-active #content-area { padding:0 !important; max-width:none !important; margin:0 !important; }
     body.feed-active #view-feed {
-      position:fixed !important; top:0; left:0; right:0; bottom:56px;
-      z-index:40; background:#000; overflow:hidden;
+      position:fixed !important; top:0; bottom:56px; z-index:40; background:#000; overflow:hidden;
+      left:max(0px, calc(50% - 215px)); right:max(0px, calc(50% - 215px));
     }
-    @media (min-width:1024px) and (orientation:landscape) { body.feed-active #view-feed { left:var(--sidebar-w); bottom:0; } }
+    @media (max-width:519px) {
+      body.feed-active #view-feed { left:0; right:0; }
+    }
+    @media (min-width:1024px) and (orientation:landscape) { body.feed-active #view-feed { left:var(--sidebar-w); right:0; bottom:0; } }
 
     #feed-filter-bar {
       position:absolute; top:0; left:0; right:0; z-index:10;
