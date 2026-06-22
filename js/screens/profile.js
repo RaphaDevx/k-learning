@@ -88,6 +88,17 @@ window.ProfileScreen = (function () {
         </div>
       </div>
 
+      ${user.id === '1a834dc1-1c0e-4d4f-ac50-e790deb8f8c7' ? `
+      <!-- Admin Panel -->
+      <div class="rounded-[20px] p-4 mb-4" style="background:var(--card);border:1px solid rgba(239,68,68,0.3)">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-sm font-semibold" style="color:#f87171">Admin</span>
+          <span class="text-xs px-2 py-0.5 rounded-full" style="background:rgba(239,68,68,0.15);color:#f87171">Gemeldete Karten</span>
+        </div>
+        <div id="admin-reports-content"><p class="text-xs" style="color:var(--txt-3)">Lade…</p></div>
+      </div>
+      ` : ''}
+
       <!-- Sign out -->
       <button onclick="Auth.signOut()"
         class="tap-card w-full rounded-xl py-3 text-sm font-medium transition"
@@ -107,6 +118,7 @@ window.ProfileScreen = (function () {
     _initGeminiKeyUI();
     _renderQuizStats();
     _loadLearningProfile(user);
+    if (user.id === '1a834dc1-1c0e-4d4f-ac50-e790deb8f8c7') _loadAdminReports();
   }
 
   async function _handleUpload(e) {
@@ -882,5 +894,45 @@ window.ProfileScreen = (function () {
     document.body.appendChild(modal);
   }
 
-  return { init, refresh, reviewExamDraft, _toggleDetails };
+  // ── Admin: Card Reports ───────────────────────────────────────────
+  const REASON_LABELS = { wrong_content: 'Inhaltlich falsch', wrong_category: 'Falsche Kategorie', other: 'Sonstiges' };
+
+  async function _loadAdminReports() {
+    const el = document.getElementById('admin-reports-content');
+    if (!el) return;
+    const { data, error } = await _supabase
+      .from('card_reports')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(50);
+    if (error) { el.innerHTML = `<p class="text-xs text-red-400">${error.message}</p>`; return; }
+    if (!data?.length) { el.innerHTML = `<p class="text-xs" style="color:var(--txt-3)">Keine Meldungen.</p>`; return; }
+    const pending = data.filter(r => r.status === 'pending');
+    const done    = data.filter(r => r.status !== 'pending');
+    el.innerHTML = `
+      <p class="text-xs mb-3" style="color:var(--txt-3)">${pending.length} offen · ${done.length} erledigt</p>
+      ${data.map(r => `
+        <div class="rounded-xl p-3 mb-2" style="background:var(--card-raised);border:1px solid ${r.status==='pending'?'rgba(239,68,68,0.3)':'var(--border)'}">
+          <div class="flex items-start justify-between gap-2 mb-1">
+            <span class="text-xs font-semibold" style="color:${r.status==='pending'?'#f87171':'var(--txt-3)'}">${REASON_LABELS[r.reason]||r.reason}</span>
+            <div class="flex gap-1 flex-shrink-0">
+              ${r.status==='pending' ? `
+                <button onclick="ProfileScreen._resolveReport('${r.id}','resolved')" class="text-xs px-2 py-0.5 rounded-full" style="background:rgba(34,197,94,0.15);color:#4ade80">Erledigt</button>
+                <button onclick="ProfileScreen._resolveReport('${r.id}','dismissed')" class="text-xs px-2 py-0.5 rounded-full" style="background:rgba(255,255,255,0.07);color:var(--txt-3)">Ignorieren</button>
+              ` : `<span class="text-xs" style="color:var(--txt-3)">${r.status}</span>`}
+            </div>
+          </div>
+          <div class="text-xs mb-0.5" style="color:var(--txt-2)">${(r.card_front||'').slice(0,100)}</div>
+          ${r.card_topic ? `<div class="text-xs" style="color:var(--txt-3)">${r.card_course} · ${r.card_topic}</div>` : ''}
+          ${r.note ? `<div class="text-xs mt-1 italic" style="color:var(--txt-3)">"${r.note}"</div>` : ''}
+          <div class="text-xs mt-1" style="color:var(--txt-3)">${new Date(r.created_at).toLocaleDateString('de-CH')}</div>
+        </div>`).join('')}`;
+  }
+
+  async function _resolveReport(id, status) {
+    await _supabase.from('card_reports').update({ status, reviewed_at: new Date().toISOString() }).eq('id', id);
+    _loadAdminReports();
+  }
+
+  return { init, refresh, reviewExamDraft, _toggleDetails, _resolveReport };
 })();

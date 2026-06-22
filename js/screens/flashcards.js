@@ -235,9 +235,11 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     activeTopic  = topic || null;
     _sessionKey  = `${activeCourse || 'all'}::${activeTopic || '_all'}`;
 
+    const reported = _reportedCardIds();
     filteredCards = allCards
       .filter(c => !activeCourse || c.course === activeCourse)
-      .filter(c => !activeTopic  || c.topic  === activeTopic);
+      .filter(c => !activeTopic  || c.topic  === activeTopic)
+      .filter(c => !reported.has(c.id));
 
     // SM-2: due cards first (sorted by ease asc = hardest first), then new, then future
     const now = Date.now();
@@ -1424,6 +1426,85 @@ Antworte NUR in diesem JSON-Format (kein weiterer Text):
   }
 
   // ══════════════════════════════════════════════════════════
+  // CARD REPORTING
+  // ══════════════════════════════════════════════════════════
+
+  const REPORTED_KEY = 'fc_reported_cards';
+  let _selectedReason = null;
+
+  function _reportedCardIds() {
+    try { return new Set(JSON.parse(localStorage.getItem(REPORTED_KEY) || '[]')); }
+    catch { return new Set(); }
+  }
+
+  function _addReportedCard(id) {
+    const set = _reportedCardIds();
+    set.add(id);
+    localStorage.setItem(REPORTED_KEY, JSON.stringify([...set]));
+  }
+
+  function reportCurrentCard() {
+    const card = filteredCards[currentIndex];
+    if (!card) return;
+    const modal = document.getElementById('fc-report-modal');
+    if (!modal) return;
+    _selectedReason = null;
+    document.getElementById('fc-report-submit').classList.add('opacity-40', 'pointer-events-none');
+    document.getElementById('fc-report-note').value = '';
+    document.querySelectorAll('.fc-report-reason').forEach(b => b.style.border = '2px solid transparent');
+    const preview = document.getElementById('fc-report-card-preview');
+    if (preview) preview.textContent = (card.front || '').slice(0, 120);
+    modal.classList.remove('hidden');
+  }
+
+  function closeReportModal() {
+    document.getElementById('fc-report-modal')?.classList.add('hidden');
+    _selectedReason = null;
+  }
+
+  function selectReportReason(btn, reason) {
+    document.querySelectorAll('.fc-report-reason').forEach(b => b.style.border = '2px solid transparent');
+    btn.style.border = '2px solid var(--accent)';
+    _selectedReason = reason;
+    const submit = document.getElementById('fc-report-submit');
+    submit.classList.remove('opacity-40', 'pointer-events-none');
+  }
+
+  async function submitReport() {
+    const card = filteredCards[currentIndex];
+    if (!card || !_selectedReason) return;
+    const note = document.getElementById('fc-report-note')?.value?.trim() || null;
+    closeReportModal();
+
+    // Save to Supabase
+    const user = _supabase.auth.getUser ? (await _supabase.auth.getUser()).data?.user : null;
+    if (user) {
+      await _supabase.from('card_reports').insert({
+        user_id: user.id,
+        card_id: card.id,
+        card_type: 'flashcard',
+        reason: _selectedReason,
+        note,
+        card_front: card.front,
+        card_back: card.back,
+        card_topic: card.topic,
+        card_course: card.course,
+      });
+    }
+
+    // Hide locally until re-deployed
+    _addReportedCard(card.id);
+    filteredCards.splice(currentIndex, 1);
+    if (!filteredCards.length) {
+      document.getElementById('fc-session-done')?.classList.remove('hidden');
+      document.getElementById('fc-swipe-view')?.classList.add('hidden');
+      return;
+    }
+    if (currentIndex >= filteredCards.length) currentIndex = filteredCards.length - 1;
+    showCard(currentIndex);
+  }
+
+  // ══════════════════════════════════════════════════════════
   // PUBLIC API
   // ══════════════════════════════════════════════════════════
 
@@ -1458,5 +1539,10 @@ Antworte NUR in diesem JSON-Format (kein weiterer Text):
     _resumeSaved,
     _restartSaved,
     _closeResumePrompt,
+    // Card reporting
+    reportCurrentCard,
+    closeReportModal,
+    selectReportReason,
+    submitReport,
   };
 })();

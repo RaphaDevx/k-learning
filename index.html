@@ -673,7 +673,12 @@
                 <div class="card-back absolute inset-0 rounded-3xl flex flex-col p-5" style="background:var(--card-raised);border:2px solid var(--border)">
                   <div class="flex items-center justify-between gap-2 mb-3">
                     <span class="text-xs uppercase tracking-widest font-semibold text-green-400 flex-shrink-0">Antwort</span>
-                    <span class="fc-chapter-label text-xs px-2 py-0.5 rounded-full truncate" style="background:rgba(99,102,241,0.15);color:#a5b4fc;max-width:170px"></span>
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                      <span class="fc-chapter-label text-xs px-2 py-0.5 rounded-full truncate" style="background:rgba(99,102,241,0.15);color:#a5b4fc;max-width:130px"></span>
+                      <button onclick="FlashcardsScreen.reportCurrentCard()" title="Karte melden"
+                        class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs transition"
+                        style="background:rgba(255,255,255,0.07);color:var(--txt-3)" onmouseenter="this.style.background='rgba(239,68,68,0.15)';this.style.color='#f87171'" onmouseleave="this.style.background='rgba(255,255,255,0.07)';this.style.color='var(--txt-3)'">⚑</button>
+                    </div>
                   </div>
                   <div class="flex-1 flex items-start justify-center overflow-auto py-1">
                     <div class="fc-back-text text-base leading-relaxed w-full" style="white-space:pre-line"></div>
@@ -700,7 +705,12 @@
                 <div class="card-back absolute inset-0 rounded-3xl flex flex-col p-5" style="background:var(--card-raised);border:2px solid var(--border)">
                   <div class="flex items-center justify-between gap-2 mb-3">
                     <span class="text-xs uppercase tracking-widest font-semibold text-green-400 flex-shrink-0">Antwort</span>
-                    <span class="fc-chapter-label text-xs px-2 py-0.5 rounded-full truncate" style="background:rgba(99,102,241,0.15);color:#a5b4fc;max-width:170px"></span>
+                    <div class="flex items-center gap-2 flex-shrink-0">
+                      <span class="fc-chapter-label text-xs px-2 py-0.5 rounded-full truncate" style="background:rgba(99,102,241,0.15);color:#a5b4fc;max-width:130px"></span>
+                      <button onclick="FlashcardsScreen.reportCurrentCard()" title="Karte melden"
+                        class="flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center text-xs transition"
+                        style="background:rgba(255,255,255,0.07);color:var(--txt-3)" onmouseenter="this.style.background='rgba(239,68,68,0.15)';this.style.color='#f87171'" onmouseleave="this.style.background='rgba(255,255,255,0.07)';this.style.color='var(--txt-3)'">⚑</button>
+                    </div>
                   </div>
                   <div class="flex-1 flex items-start justify-center overflow-auto py-1">
                     <div class="fc-back-text text-base leading-relaxed w-full" style="white-space:pre-line"></div>
@@ -1150,6 +1160,30 @@
     }).join('');
   })();
 </script>
+
+<!-- ── Card Report Modal ───────────────────────────────────────────── -->
+<div id="fc-report-modal" class="hidden fixed inset-0 flex items-end justify-center z-[9999]" style="background:rgba(0,0,0,0.6);backdrop-filter:blur(4px)" onclick="if(event.target===this)FlashcardsScreen.closeReportModal()">
+  <div class="w-full max-w-lg rounded-t-3xl p-6 pb-8" style="background:var(--surface);border-top:1px solid var(--border)">
+    <div class="flex items-center justify-between mb-5">
+      <span class="text-base font-semibold" style="color:var(--txt-1)">Karte melden</span>
+      <button onclick="FlashcardsScreen.closeReportModal()" class="w-7 h-7 rounded-full flex items-center justify-center text-sm" style="background:var(--card-raised);color:var(--txt-3)">✕</button>
+    </div>
+    <p class="text-xs mb-4" style="color:var(--txt-3)" id="fc-report-card-preview"></p>
+    <div class="space-y-2 mb-4" id="fc-report-reasons">
+      <button onclick="FlashcardsScreen.selectReportReason(this,'wrong_content')" class="fc-report-reason w-full text-left px-4 py-3 rounded-xl text-sm transition" style="background:var(--card-raised);color:var(--txt-1);border:2px solid transparent">
+        Inhaltlich falsch
+      </button>
+      <button onclick="FlashcardsScreen.selectReportReason(this,'wrong_category')" class="fc-report-reason w-full text-left px-4 py-3 rounded-xl text-sm transition" style="background:var(--card-raised);color:var(--txt-1);border:2px solid transparent">
+        Falsche Kategorie / Thema
+      </button>
+      <button onclick="FlashcardsScreen.selectReportReason(this,'other')" class="fc-report-reason w-full text-left px-4 py-3 rounded-xl text-sm transition" style="background:var(--card-raised);color:var(--txt-1);border:2px solid transparent">
+        Sonstiges
+      </button>
+    </div>
+    <textarea id="fc-report-note" rows="2" placeholder="Optionale Anmerkung…" class="w-full rounded-xl px-4 py-3 text-sm mb-4 resize-none" style="background:var(--card-raised);color:var(--txt-1);border:1px solid var(--border);outline:none"></textarea>
+    <button onclick="FlashcardsScreen.submitReport()" id="fc-report-submit" class="w-full py-3 rounded-xl font-semibold text-sm transition opacity-40 pointer-events-none" style="background:var(--accent);color:#fff">Melden &amp; Karte überspringen</button>
+  </div>
+</div>
 
 </body>
 </html>
