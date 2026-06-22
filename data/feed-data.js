@@ -1230,7 +1230,7 @@ window.FEED_CARDS = [
     topics: ["Mayring", "Inhaltsanalyse", "Qualitativ vs. Quantitativ", "Fallstudien", "Prüfungsfallen"],
     duration: "2:38",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/reels/ESF_S4_V3_Inhaltsanalyse_Pruefungsfallen.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_S4_V3_Inhaltsanalyse_Pruefungsfallen_v3.mp4",
     thumbnail_emoji: "📁",
     block: "Sitzung 4 — Qualitative Forschung"
   },
@@ -1247,7 +1247,7 @@ window.FEED_CARDS = [
     topics: ["Theoretisches Sampling", "Grounded Theory", "Kodierung", "Transkription", "Purposive Sampling", "Theoretische Sättigung"],
     duration: "2:38",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/reels/ESF_S4_V2_Sampling_Kodierung_GroundedTheory.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_S4_V2_Sampling_Kodierung_GroundedTheory_v3.mp4",
     thumbnail_emoji: "🗂️",
     block: "Sitzung 4 — Qualitative Forschung"
   },
@@ -1264,7 +1264,7 @@ window.FEED_CARDS = [
     topics: ["Qualitative Forschung", "Positivismus", "Interpretivismus", "Interview-Typen", "Fokusgruppen", "Ethnographie"],
     duration: "2:32",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/reels/ESF_S4_V1_Grundlagen_Datenerhebung.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_S4_V1_Grundlagen_Datenerhebung_v3.mp4",
     thumbnail_emoji: "🔍",
     block: "Sitzung 4 — Qualitative Forschung"
   },
@@ -1281,7 +1281,7 @@ window.FEED_CARDS = [
     topics: ["Virtual Reality", "Eye-Tracking", "Emotion Recognition", "Galvanic Skin Response", "Face Recognition", "Prüfungsfallen"],
     duration: "2:22",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/reels/ESF_S5_V3_NeueTechnologien_Pruefungsfallen.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_S5_V3_NeueTechnologien_Pruefungsfallen_v3.mp4",
     thumbnail_emoji: "🤖",
     block: "Sitzung 5 — Gütekriterien, Open Science & neue Technologien"
   },
@@ -1298,7 +1298,7 @@ window.FEED_CARDS = [
     topics: ["Replikationskrise", "p-Hacking", "HARKing", "Open Science", "Präregistrierung", "OSF", "Publikations-Bias"],
     duration: "2:32",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/reels/ESF_S5_V2_Replikationskrise_OpenScience.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_S5_V2_Replikationskrise_OpenScience_v3.mp4",
     thumbnail_emoji: "💥",
     block: "Sitzung 5 — Gütekriterien, Open Science & neue Technologien"
   },
@@ -1315,7 +1315,7 @@ window.FEED_CARDS = [
     topics: ["Reliabilität", "Validität", "Objektivität", "Cronbachs Alpha", "Externe Validität", "Gütekriterien"],
     duration: "2:22",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/reels/ESF_S5_V1_Guetekriterien.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_S5_V1_Guetekriterien_v3.mp4",
     thumbnail_emoji: "🎯",
     block: "Sitzung 5 — Gütekriterien, Open Science & neue Technologien"
   },
@@ -1332,7 +1332,7 @@ window.FEED_CARDS = [
     topics: ["Publikation", "VHB-Jourqual", "Desk Reject", "Reviewer", "Prüfungsfallen", "A+"],
     duration: "2:42",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/reels/ESF_S6_V4_Publikation_Pruefungsfallen.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_S6_V4_Publikation_Pruefungsfallen_v3.mp4",
     thumbnail_emoji: "🏆",
     block: "Sitzung 6 — Schreiben, Visualisierung & Publikation"
   },
@@ -1349,7 +1349,7 @@ window.FEED_CARDS = [
     topics: ["Datenvisualisierung", "10 Prinzipien", "Less is More", "ggplot", "Limitationen", "Prüfungsfallen"],
     duration: "2:02",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/reels/ESF_S6_V3_Datenvisualisierung.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_S6_V3_Datenvisualisierung_v3.mp4",
     thumbnail_emoji: "📊",
     block: "Sitzung 6 — Schreiben, Visualisierung & Publikation"
   },
@@ -1366,7 +1366,7 @@ window.FEED_CARDS = [
     topics: ["APA 7th Edition", "Zitation", "et al.", "Plagiat", "Referenzierung", "Prüfungsfallen"],
     duration: "2:18",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/reels/ESF_S6_V2_APA_Plagiate.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_S6_V2_APA_Plagiate_v3.mp4",
     thumbnail_emoji: "📝",
     block: "Sitzung 6 — Schreiben, Visualisierung & Publikation"
   },
@@ -1383,7 +1383,7 @@ window.FEED_CARDS = [
     topics: ["Akademisches Schreiben", "5 Phasen", "Writing Framework", "Quantitativ", "Qualitativ", "Prüfungsfallen"],
     duration: "2:24",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/reels/ESF_S6_V1_Akademisches_Schreiben.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_S6_V1_Akademisches_Schreiben_v3.mp4",
     thumbnail_emoji: "✍️",
     block: "Sitzung 6 — Schreiben, Visualisierung & Publikation"
   },
@@ -1399,7 +1399,7 @@ window.FEED_CARDS = [
     topics: ["AI Assessment", "Experiment", "UV/AV", "Mediator", "PNAS", "Prüfungspaper"],
     duration: "2:27",
     level: "Prüfungspaper ⭐",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/reels/ESF_Paper1_AI_Assessment_Effect.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_Paper1_AI_Assessment_Effect_v3.mp4",
     thumbnail_emoji: "🤖",
     block: "Prüfungsrelevante Papers"
   },
@@ -1414,7 +1414,7 @@ window.FEED_CARDS = [
     topics: ["Doppelgänger", "Emotional Branding", "Qualitativ", "Hermeneutik", "Journal of Marketing"],
     duration: "2:00",
     level: "Prüfungspaper ⭐",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/reels/ESF_Paper2_Doppelgaenger_Brand_Image.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_Paper2_Doppelgaenger_Brand_Image_v3.mp4",
     thumbnail_emoji: "👥",
     block: "Prüfungsrelevante Papers"
   },
@@ -1429,7 +1429,7 @@ window.FEED_CARDS = [
     topics: ["Open Science", "Replikationskrise", "Ioannidis", "Publikationsbias", "Präregistrierung"],
     duration: "2:20",
     level: "Prüfungspaper ⭐",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/reels/ESF_Paper3_Open_Science_Replikationskrise.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_Paper3_Open_Science_Replikationskrise_v3.mp4",
     thumbnail_emoji: "💥",
     block: "Prüfungsrelevante Papers"
   },
@@ -1444,7 +1444,7 @@ window.FEED_CARDS = [
     topics: ["Korrelation", "Kausalität", "Experiment", "Spurious Correlation", "HBR"],
     duration: "1:55",
     level: "Prüfungspaper ⭐",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/reels/ESF_Paper4_Luca_Korrelation_Kausalitaet.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_Paper4_Luca_Korrelation_Kausalitaet_v3.mp4",
     thumbnail_emoji: "📈",
     block: "Prüfungsrelevante Papers"
   },
@@ -1459,7 +1459,7 @@ window.FEED_CARDS = [
     topics: ["Manual Labor", "Autonome Produkte", "Mediator", "Multi-Study", "Journal of Marketing"],
     duration: "1:55",
     level: "Prüfungspaper ⭐",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/reels/ESF_Paper5_de_Bellis_Manual_Labor.mp4",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_Paper5_de_Bellis_Manual_Labor_v3.mp4",
     thumbnail_emoji: "🔧",
     block: "Prüfungsrelevante Papers"
   },
