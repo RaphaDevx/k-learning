@@ -49,14 +49,21 @@
         {
           "id": "bwl-b-fs25-q01",
           "number": 1,
-          "type": "open",
+          "type": "gapped_text_dropdown",
           "points": 4,
-          "text": "1.1 — Sie möchten ein Praktikum beim führenden Energiedienstleister AlpenAG absolvieren. Als Teil des Assessments sollen Sie die folgenden Auszüge aus der Jahresrechnung den passenden Pflichtbestandteilen zuordnen: Auszug 1, Auszug 2, Auszug 3, Auszug 4. Optionen: Eigenkapitalveränderungsrechnung | Erfolgs-/Gesamtergebnisrechnung | Bilanz | Geldflussrechnung",
+          "text": "1.1 — Praktikum AlpenAG: Ordnen Sie Auszug 1–4 den passenden Pflichtbestandteilen zu (1 Punkt je korrekte Zuordnung).",
           "imageHtml": null,
           "choices": null,
           "correct": null,
-          "model_answer": "Auszug 1 → Erfolgs-/Gesamtergebnisrechnung | Auszug 2 → Eigenkapitalveränderungsrechnung | Auszug 3 → Bilanz | Auszug 4 → Erfolgs-/Gesamtergebnisrechnung (1 Punkt je korrekte Zuordnung)",
-          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "model_answer": null,
+          "gappedText": "<strong style=\"color:#94a3b8;font-size:0.8rem\">1.1 — Ordnen Sie jedem Auszug den passenden Pflichtbestandteil zu:</strong><br><br><strong style=\"color:#60a5fa\">Auszug 1</strong> &nbsp;→&nbsp; {{g1}}<br><img src=\"assets/exams/bwl-b-fs25/auszug1.jpg\" style=\"max-width:100%;border-radius:6px;margin:6px 0 20px 0;display:block\"><strong style=\"color:#60a5fa\">Auszug 2</strong> &nbsp;→&nbsp; {{g2}}<br><img src=\"assets/exams/bwl-b-fs25/auszug2.jpg\" style=\"max-width:100%;border-radius:6px;margin:6px 0 20px 0;display:block\"><strong style=\"color:#60a5fa\">Auszug 3</strong> &nbsp;→&nbsp; {{g3}}<br><img src=\"assets/exams/bwl-b-fs25/auszug3.jpg\" style=\"max-width:100%;border-radius:6px;margin:6px 0 20px 0;display:block\"><strong style=\"color:#60a5fa\">Auszug 4</strong> &nbsp;→&nbsp; {{g4}}<br><img src=\"assets/exams/bwl-b-fs25/auszug4.jpg\" style=\"max-width:100%;border-radius:6px;margin:6px 0 4px 0;display:block\">",
+          "gaps": [
+            { "gapId": "g1", "choices": ["Eigenkapitalveränderungsrechnung", "Erfolgs-/Gesamtergebnisrechnung", "Bilanz", "Geldflussrechnung"], "correct": "Erfolgs-/Gesamtergebnisrechnung" },
+            { "gapId": "g2", "choices": ["Eigenkapitalveränderungsrechnung", "Erfolgs-/Gesamtergebnisrechnung", "Bilanz", "Geldflussrechnung"], "correct": "Eigenkapitalveränderungsrechnung" },
+            { "gapId": "g3", "choices": ["Eigenkapitalveränderungsrechnung", "Erfolgs-/Gesamtergebnisrechnung", "Bilanz", "Geldflussrechnung"], "correct": "Bilanz" },
+            { "gapId": "g4", "choices": ["Eigenkapitalveränderungsrechnung", "Erfolgs-/Gesamtergebnisrechnung", "Bilanz", "Geldflussrechnung"], "correct": "Erfolgs-/Gesamtergebnisrechnung" }
+          ],
+          "explanation": "Auszug 1 → Erfolgs-/Gesamtergebnisrechnung (OCI-Teil: Cashflow Hedges, Währungsdiff.) | Auszug 2 → Eigenkapitalveränderungsrechnung (Aktienkapital, Gesamtergebnis, Dividenden) | Auszug 3 → Bilanz (Anlagevermögen: Sachanlagen, imm. Anlagen) | Auszug 4 → Erfolgs-/Gesamtergebnisrechnung (Gesamtkostenverfahren: Nettoumsatz → EBITDA)",
           "topics": ["Jahresrechnung", "Berichterstattung"]
         },
         {
@@ -77,8 +84,8 @@
           "number": 3,
           "type": "open",
           "points": 4,
-          "text": "1.3 — Sie sind Finanzleiter:in von Superconductors GmbH und überprüfen das Eigenkapital vor einem Investor-Meeting. Berechnen Sie das Eigenkapital: Vorräte 235'000 EUR, Forderungen aus L&L 220'000 EUR, Kurzfristiges FK 280'000 EUR, Steuerguthaben 45'000 EUR, Sachanlagen 500'000 EUR, Total Anlagevermögen 800'000 EUR, Langfristiges FK 650'000 EUR.",
-          "imageHtml": null,
+          "text": "1.3 — Sie sind Finanzleiter:in von Superconductors GmbH. Berechnen Sie das Eigenkapital (Antwort in EUR).",
+          "imageHtml": "<div style=\"font-size:0.82rem\"><strong style=\"color:#e2e8f0\">Superconductors GmbH — Bilanzpositionen</strong><table style=\"width:100%;font-size:0.8rem;border-collapse:collapse;margin:8px 0\"><thead><tr style=\"background:#1f2937\"><th style=\"text-align:left;padding:5px 10px;color:#9ca3af\">Position</th><th style=\"text-align:right;padding:5px 10px;color:#60a5fa\">Betrag (EUR)</th></tr></thead><tbody><tr style=\"border-top:1px solid #374151\"><td style=\"padding:5px 10px;color:#d1d5db\">Vorräte</td><td style=\"text-align:right;padding:5px 10px;color:#f9fafb\">235'000</td></tr><tr style=\"border-top:1px solid #374151\"><td style=\"padding:5px 10px;color:#d1d5db\">Forderungen aus L&amp;L</td><td style=\"text-align:right;padding:5px 10px;color:#f9fafb\">220'000</td></tr><tr style=\"border-top:1px solid #374151\"><td style=\"padding:5px 10px;color:#d1d5db\">Steuerguthaben</td><td style=\"text-align:right;padding:5px 10px;color:#f9fafb\">45'000</td></tr><tr style=\"border-top:1px solid #374151\"><td style=\"padding:5px 10px;color:#d1d5db\">Sachanlagen</td><td style=\"text-align:right;padding:5px 10px;color:#f9fafb\">500'000</td></tr><tr style=\"border-top:1px solid #374151;font-weight:bold\"><td style=\"padding:5px 10px;color:#fff\">Total Anlagevermögen</td><td style=\"text-align:right;padding:5px 10px;color:#fff\">800'000</td></tr><tr style=\"border-top:2px solid #4b5563\"><td style=\"padding:5px 10px;color:#f87171\">Kurzfristiges FK</td><td style=\"text-align:right;padding:5px 10px;color:#f87171\">280'000</td></tr><tr style=\"border-top:1px solid #374151\"><td style=\"padding:5px 10px;color:#f87171\">Langfristiges FK</td><td style=\"text-align:right;padding:5px 10px;color:#f87171\">650'000</td></tr></tbody></table><p style=\"color:#fbbf24;font-size:0.75rem;margin-top:6px\">→ Berechnen Sie das Eigenkapital in EUR</p></div>",
           "choices": null,
           "correct": null,
           "model_answer": "EK = UV + AV − FK total | UV = 235'000 + 220'000 + 45'000 = 500'000 | AV = 800'000 | FK = 280'000 + 650'000 = 930'000 | EK = 500'000 + 800'000 − 930'000 = EUR 370'000 (4 Punkte für korrektes Endresultat, keine Teilpunkte)",
@@ -90,12 +97,21 @@
           "number": 4,
           "type": "open",
           "points": 3,
-          "text": "1.4 — Die EcoTech Solutions AG erstellt die Jahreserfolgsrechnung nach dem Umsatzkostenverfahren. Ordnen Sie die fehlenden Positionen korrekt an (Dropdowns 1–6): Umsatzerlöse → [1] → [2] → [3] → = EBIT → [4] → [5] → [6] → = Jahresgewinn. Verfügbare Positionen: Umsatzkosten (COGS), Bruttogewinn, Vertriebskosten, Verwaltungskosten, Finanzerträge und -aufwendungen, EBT, Steuern",
+          "text": "1.4 — EcoTech Solutions AG: Umsatzkostenverfahren. Ordnen Sie die fehlenden Positionen (0.5 Punkte je korrekter Zuordnung, 7 Optionen für 6 Lücken).",
           "imageHtml": null,
           "choices": null,
           "correct": null,
-          "model_answer": "1 → Umsatzkosten (COGS) | 2 → Bruttogewinn | 3 → Vertriebskosten | 4 → Finanzerträge und -aufwendungen | 5 → EBT | 6 → Steuern (0.5 Punkte je korrekter Zuordnung)",
-          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "model_answer": null,
+          "gappedText": "<strong style=\"color:#94a3b8;font-size:0.8rem\">1.4 — Jahreserfolgsrechnung nach Umsatzkostenverfahren (EcoTech Solutions AG)</strong><br><br><span style=\"color:#6ee7b7;font-weight:bold\">Umsatzerlöse</span><br>&nbsp;&nbsp;→ {{g1}}<br>&nbsp;&nbsp;→ {{g2}}<br>&nbsp;&nbsp;→ {{g3}}<br><span style=\"color:#fbbf24;font-weight:bold\">= EBIT</span><br>&nbsp;&nbsp;→ {{g4}}<br>&nbsp;&nbsp;→ {{g5}}<br>&nbsp;&nbsp;→ {{g6}}<br><span style=\"color:#6ee7b7;font-weight:bold\">= Jahresgewinn</span>",
+          "gaps": [
+            { "gapId": "g1", "choices": ["Umsatzkosten (COGS)", "Bruttogewinn", "Vertriebskosten", "Verwaltungskosten", "Finanzerträge und -aufwendungen", "EBT", "Steuern"], "correct": "Umsatzkosten (COGS)" },
+            { "gapId": "g2", "choices": ["Umsatzkosten (COGS)", "Bruttogewinn", "Vertriebskosten", "Verwaltungskosten", "Finanzerträge und -aufwendungen", "EBT", "Steuern"], "correct": "Bruttogewinn" },
+            { "gapId": "g3", "choices": ["Umsatzkosten (COGS)", "Bruttogewinn", "Vertriebskosten", "Verwaltungskosten", "Finanzerträge und -aufwendungen", "EBT", "Steuern"], "correct": "Vertriebskosten" },
+            { "gapId": "g4", "choices": ["Umsatzkosten (COGS)", "Bruttogewinn", "Vertriebskosten", "Verwaltungskosten", "Finanzerträge und -aufwendungen", "EBT", "Steuern"], "correct": "Finanzerträge und -aufwendungen" },
+            { "gapId": "g5", "choices": ["Umsatzkosten (COGS)", "Bruttogewinn", "Vertriebskosten", "Verwaltungskosten", "Finanzerträge und -aufwendungen", "EBT", "Steuern"], "correct": "EBT" },
+            { "gapId": "g6", "choices": ["Umsatzkosten (COGS)", "Bruttogewinn", "Vertriebskosten", "Verwaltungskosten", "Finanzerträge und -aufwendungen", "EBT", "Steuern"], "correct": "Steuern" }
+          ],
+          "explanation": "Umsatzkostenverfahren: Umsatzerlöse − Umsatzkosten (COGS) = Bruttogewinn − Vertriebskosten = EBIT ± Finanzerträge und -aufwendungen = EBT − Steuern = Jahresgewinn. Verwaltungskosten ist der Distraktor.",
           "topics": ["Erfolgsrechnung", "Umsatzkostenverfahren"]
         },
         {
