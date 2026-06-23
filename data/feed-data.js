@@ -1585,4 +1585,20 @@ window.FEED_CARDS = [
     thumbnail_emoji: "📋",
     block: "Block 3 — Production Management"
   }
+,
+  {
+    id: "om-sv-mrp2-vollstaendig",
+    type: "localvideo",
+    course: "OM", courseColor: "#ea580c",
+    emoji: "⚙️",
+    title: "MRP II — 3 Prüfungsfallen",
+    subtitle: "5 Schritte, Schritt 4 = wöchentlich, Feedback-Loop",
+    description: "MRP II vollständig: 5 Schritte, MRP = Schritt 4 wöchentlich (NICHT jährlich!), S&OP aggregiert, Closed-Loop mit Feedback.",
+    topics: ["MRP II", "Pr\u00fcfungsfalle", "5 Schritte", "Feedback", "W\u00f6chentlich"],
+    duration: "1:40",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/om_mrp2_vollstaendig.mp4",
+    thumbnail_emoji: "⚙️",
+    block: "Block 3 — Production Management"
+  }
 ];
