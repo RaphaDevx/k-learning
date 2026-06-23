@@ -1569,4 +1569,20 @@ window.FEED_CARDS = [
     thumbnail_emoji: "🌳",
     block: "Block 3 — Production Management"
   }
+,
+  {
+    id: "om-sv-mrp1",
+    type: "localvideo",
+    course: "OM", courseColor: "#ea580c",
+    emoji: "📋",
+    title: "MRP I — Material Requirements Planning",
+    subtitle: "Gross → Net → Offset → Release in unter 2 Min.",
+    description: "MRP I von Grund auf: 3 Inputs (MPS, BOM, Inventory), Gross→Net Berechnung, Lead Time Offset rückwärts, Multi-Level Top-Down.",
+    topics: ["MRP I", "MRP", "BOM", "Lead Time", "Net Requirements"],
+    duration: "1:40",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/om_mrp1_material_requirements.mp4",
+    thumbnail_emoji: "📋",
+    block: "Block 3 — Production Management"
+  }
 ];
