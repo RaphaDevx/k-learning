@@ -404,7 +404,7 @@ window.ProfileScreen = (function () {
     if (!el) return;
 
     const [{ data: examResults }, { data: weights }, { data: deckCards }, enrolled] = await Promise.all([
-      _supabase.from('exam_results').select('exam_id, score_pct, taken_at').eq('user_id', user.id),
+      _supabase.from('exam_results').select('id, exam_id, score_pct, taken_at, answers').eq('user_id', user.id),
       _supabase.from('topic_weights')
         .select('topic_tag, wrong_count, correct_count, priority, ema_accuracy, correct_streak')
         .eq('user_id', user.id).limit(200),
@@ -689,16 +689,24 @@ window.ProfileScreen = (function () {
           const col   = _overallColor(pct);
           const date  = new Date(r.taken_at).toLocaleDateString('de-CH');
           const lbl   = r.exam_id.replace('esf-', 'ESF ').replace('stat-', 'Statistik ').toUpperCase();
+          // Check if any open question has null earned (not yet AI-graded)
+          const answers = r.answers || [];
+          const hasUngraded = answers.some(a => a.user_answer && a.model_answer && a.earned === null);
+          const gradingBadge = hasUngraded
+            ? `<span class="text-xs px-1.5 py-0.5 rounded-full font-medium bg-yellow-900 text-yellow-300 ml-1">⚠ Offen</span>`
+            : (answers.some(a => a.user_answer) ? `<span class="text-xs text-green-500 ml-1">✓</span>` : '');
           return `
-            <div class="flex items-center justify-between py-2 border-b border-gray-700 last:border-0">
+            <div class="flex items-center justify-between py-2 border-b border-gray-700 last:border-0 cursor-pointer hover:bg-gray-800 rounded-lg px-1 -mx-1 transition"
+                 onclick="ProfileScreen.showExamDetail('${r.id}', '${r.exam_id}')">
               <div>
-                <div class="text-sm text-gray-300">${lbl}</div>
+                <div class="text-sm text-gray-300">${lbl}${gradingBadge}</div>
                 <div class="text-xs text-gray-500 mt-0.5">${date}</div>
               </div>
               <div class="flex items-center gap-2">
                 <span class="text-sm font-bold" style="color:${col}">${pct}%</span>
                 <span class="text-xs px-1.5 py-0.5 rounded-full font-medium"
                       style="background:${col}22;color:${col}">Note ${grade}</span>
+                <span class="text-xs text-gray-500">›</span>
               </div>
             </div>`;
         }).join('')}
@@ -894,6 +902,227 @@ window.ProfileScreen = (function () {
     document.body.appendChild(modal);
   }
 
+  // ── Exam History Detail Modal ─────────────────────────────────────────────
+
+  async function showExamDetail(resultId, examId) {
+    // Remove existing modal if any
+    document.getElementById('exam-detail-modal')?.remove();
+
+    // Create modal skeleton
+    const modal = document.createElement('div');
+    modal.id = 'exam-detail-modal';
+    modal.className = 'fixed inset-0 z-50 overflow-y-auto';
+    modal.style.background = 'rgba(0,0,0,0.85)';
+    modal.innerHTML = `
+      <div class="max-w-2xl mx-auto px-4 py-8">
+        <div class="rounded-2xl p-5" style="background:var(--card);border:1px solid var(--border)">
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-lg font-bold" style="color:var(--txt)">Prüfungsdetail</h2>
+            <button onclick="document.getElementById('exam-detail-modal').remove()"
+              class="text-gray-400 hover:text-white text-2xl leading-none px-2">✕</button>
+          </div>
+          <div id="exam-detail-body" class="text-sm" style="color:var(--txt-2)">Lade…</div>
+        </div>
+      </div>`;
+    document.body.appendChild(modal);
+
+    // Close on backdrop click
+    modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+
+    try {
+      // Fetch the result row
+      const { data: result, error: resErr } = await _supabase
+        .from('exam_results')
+        .select('*')
+        .eq('id', resultId)
+        .single();
+
+      if (resErr || !result) throw new Error('Ergebnis nicht gefunden.');
+
+      // Try to fetch exam JSON
+      let examJson = null;
+      try {
+        const resp = await fetch(`exams/${examId}-data.json?v=${Date.now()}`);
+        if (resp.ok) examJson = await resp.json();
+      } catch (_) { /* JSON not available for this exam */ }
+
+      const body = document.getElementById('exam-detail-body');
+      if (!body) return;
+
+      const answers = result.answers || [];
+      const pct = result.score_pct;
+      const grade = _gradeFromPct(pct);
+      const col = _overallColor(pct);
+      const date = new Date(result.taken_at).toLocaleDateString('de-CH', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+      const lbl = examId.replace('esf-', 'ESF ').replace('stat-', 'Statistik ').toUpperCase();
+
+      const hasUngraded = answers.some(a => a.user_answer && a.model_answer && a.earned === null);
+
+      let questionsHtml = '';
+      if (examJson) {
+        const allQs = (examJson.sections || []).flatMap(s => s.questions || []);
+        answers.forEach(a => {
+          const qDef = allQs.find(q => q.id === a.question_id);
+          const isText = a.user_answer !== null || a.model_answer !== null;
+
+          if (isText) {
+            const earned = a.earned;
+            const maxPts = a.max_pts || qDef?.points || 0;
+            const hasGrade = earned !== null;
+            const colQ = hasGrade ? (earned / maxPts >= 0.7 ? '#4ade80' : earned / maxPts >= 0.4 ? '#fbbf24' : '#f87171') : '#fbbf24';
+            questionsHtml += `
+              <div class="rounded-xl p-3 mb-2" style="background:var(--card-raised);border:1px solid var(--border)">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-xs font-semibold" style="color:var(--txt)">📝 ${(a.question_text || qDef?.text || a.question_id).substring(0, 100)}</span>
+                  <span class="text-xs font-bold flex-shrink-0 ml-2" style="color:${colQ}">${hasGrade ? `${earned}/${maxPts}P` : '? P'}</span>
+                </div>
+                ${a.user_answer ? `<div class="text-xs mb-1" style="color:var(--txt-2)">Antwort: <em>${a.user_answer.substring(0, 200)}${a.user_answer.length > 200 ? '…' : ''}</em></div>` : '<div class="text-xs text-gray-500">Keine Antwort</div>'}
+                ${a.model_answer ? `<div class="text-xs text-green-400 mb-1">Musterlösung: ${a.model_answer.substring(0, 150)}${a.model_answer.length > 150 ? '…' : ''}</div>` : ''}
+                ${a.ai_feedback ? `<div class="text-xs text-indigo-300">KI: ${a.ai_feedback}</div>` : (!hasGrade && a.user_answer ? '<div class="text-xs text-yellow-500">Noch nicht bewertet</div>' : '')}
+              </div>`;
+          } else {
+            const isOk = a.is_correct;
+            const earned = a.earned;
+            const maxPts = a.max_pts || qDef?.points || 0;
+            questionsHtml += `
+              <div class="flex items-center justify-between py-1.5 border-b last:border-0" style="border-color:var(--border)">
+                <span class="text-xs" style="color:var(--txt-2)">${isOk ? '✅' : '❌'} ${(qDef?.text || a.question_id).substring(0, 80)}</span>
+                <span class="text-xs flex-shrink-0 ml-2" style="color:${isOk ? '#4ade80' : '#f87171'}">${earned !== null ? earned : (isOk ? maxPts : 0)}/${maxPts}P</span>
+              </div>`;
+          }
+        });
+      } else {
+        // No JSON available — show summary only
+        const openAnswers = answers.filter(a => a.user_answer);
+        if (openAnswers.length) {
+          questionsHtml = openAnswers.map(a => {
+            const earned = a.earned;
+            const maxPts = a.max_pts || 0;
+            const hasGrade = earned !== null;
+            return `
+              <div class="rounded-xl p-3 mb-2" style="background:var(--card-raised);border:1px solid var(--border)">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-xs font-semibold" style="color:var(--txt)">📝 ${(a.question_text || a.question_id).substring(0, 100)}</span>
+                  <span class="text-xs font-bold flex-shrink-0 ml-2" style="color:${hasGrade ? '#4ade80' : '#fbbf24'}">${hasGrade ? `${earned}/${maxPts}P` : '? P'}</span>
+                </div>
+                <div class="text-xs mb-1" style="color:var(--txt-2)">${a.user_answer.substring(0, 200)}${a.user_answer.length > 200 ? '…' : ''}</div>
+                ${a.ai_feedback ? `<div class="text-xs text-indigo-300">KI: ${a.ai_feedback}</div>` : (!hasGrade ? '<div class="text-xs text-yellow-500">Noch nicht bewertet</div>' : '')}
+              </div>`;
+          }).join('');
+        }
+        if (!questionsHtml) questionsHtml = '<p class="text-xs text-gray-500 mb-3">Detailansicht nur für JSON-Prüfungen verfügbar.</p>';
+      }
+
+      body.innerHTML = `
+        <div class="flex items-center justify-between mb-4 pb-3" style="border-bottom:1px solid var(--border)">
+          <div>
+            <div class="font-bold" style="color:var(--txt)">${lbl}</div>
+            <div class="text-xs mt-0.5" style="color:var(--txt-3)">${date}</div>
+          </div>
+          <div class="text-right">
+            <div class="text-2xl font-black" style="color:${col}">${pct}%</div>
+            <div class="text-xs" style="color:${col}">Note ${grade}</div>
+          </div>
+        </div>
+        ${hasUngraded ? `
+          <div class="rounded-xl p-3 mb-4 text-center" style="background:rgba(234,179,8,0.1);border:1px solid rgba(234,179,8,0.3)">
+            <div class="text-xs text-yellow-300 mb-2">⚠ Offene Fragen wurden noch nicht von der KI bewertet.</div>
+            <button onclick="ProfileScreen._regradeExam('${resultId}', '${examId}')"
+              class="text-xs px-4 py-2 rounded-xl font-bold text-white transition"
+              style="background:#4f46e5">Alle offenen Fragen neu bewerten</button>
+          </div>` : (answers.some(a => a.user_answer) ? `
+          <div class="rounded-xl p-3 mb-4 text-center" style="background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2)">
+            <button onclick="ProfileScreen._regradeExam('${resultId}', '${examId}')"
+              class="text-xs px-4 py-2 rounded-xl font-bold transition" style="background:var(--card-raised);color:var(--txt-2)">Offene Fragen neu bewerten</button>
+          </div>` : '')}
+        <div class="space-y-1">
+          ${questionsHtml || '<p class="text-xs" style="color:var(--txt-3)">Keine Fragedetails verfügbar.</p>'}
+        </div>`;
+    } catch (err) {
+      const body = document.getElementById('exam-detail-body');
+      if (body) body.innerHTML = `<p class="text-xs text-red-400">Fehler: ${err.message}</p>`;
+    }
+  }
+
+  async function _regradeExam(resultId, examId) {
+    const btn = document.querySelector('#exam-detail-body button[onclick*="_regradeExam"]');
+    if (btn) { btn.disabled = true; btn.textContent = '⏳ KI bewertet…'; }
+
+    try {
+      // Fetch current result
+      const { data: result } = await _supabase
+        .from('exam_results')
+        .select('*')
+        .eq('id', resultId)
+        .single();
+
+      if (!result) throw new Error('Ergebnis nicht gefunden');
+
+      const answers = result.answers || [];
+      const openAnswers = answers.filter(a => a.user_answer && a.model_answer);
+      if (!openAnswers.length) throw new Error('Keine offenen Fragen zum Bewerten');
+
+      // Local AI grader (mirrors exam.js _callAIGrader)
+      async function _localCallAIGrader(questionText, modelAnswer, userAnswer, maxPts, course) {
+        const prompt = `Bewerte die folgende Prüfungsantwort.\n\nFrage: ${questionText}\n\nMaximale Punktzahl: ${maxPts} Punkte\n\nMusterlösung:\n${modelAnswer}\n\nStudentenantwort:\n"${userAnswer}"\n\nGib NUR dieses JSON zurück:\n{"points": <Zahl 0 bis ${maxPts}>, "feedback": "<1-2 kurze Sätze auf Deutsch>"}`;
+        const response = await AIService.ask(
+          [{ role: 'user', content: prompt }],
+          { system: `Du bist ein Prüfungskorrigierender für ${course || ''} (HSG). Bewerte streng aber fair. Antworte NUR mit JSON.`, max_tokens: 200 }
+        );
+        const text = AIService.extractText(response);
+        const match = text.match(/\{[\s\S]*\}/);
+        if (!match) throw new Error('No JSON');
+        const parsed = JSON.parse(match[0]);
+        const earned = Math.round(Math.min(maxPts, Math.max(0, Number(parsed.points))) * 10) / 10;
+        return { earned, feedback: parsed.feedback || '' };
+      }
+
+      const updatedAnswers = [...answers];
+      let totalEarned = 0, totalMax = 0;
+
+      for (const a of updatedAnswers) {
+        const maxPts = a.max_pts || 0;
+        totalMax += maxPts;
+        if (a.user_answer && a.model_answer) {
+          try {
+            const grade = await _localCallAIGrader(
+              a.question_text || a.question_id,
+              a.model_answer,
+              a.user_answer,
+              maxPts,
+              examId.split('-')[0]
+            );
+            a.earned = grade.earned;
+            a.ai_feedback = grade.feedback;
+            a.is_correct = grade.earned > 0;
+            totalEarned += grade.earned;
+          } catch (_) {
+            totalEarned += (a.earned || 0);
+          }
+        } else {
+          totalEarned += (a.earned || 0);
+        }
+      }
+
+      const newPct = totalMax > 0 ? Math.round(totalEarned / totalMax * 100) : result.score_pct;
+
+      await _supabase
+        .from('exam_results')
+        .update({ score_pct: newPct, answers: updatedAnswers })
+        .eq('id', resultId);
+
+      // Refresh the detail view
+      showExamDetail(resultId, examId);
+    } catch (err) {
+      if (btn) {
+        btn.disabled = false;
+        btn.textContent = err.message === 'no_key_set'
+          ? 'Kein API-Key gesetzt'
+          : `Fehler: ${err.message}`;
+      }
+    }
+  }
+
   // ── Admin: Card Reports ───────────────────────────────────────────
   const REASON_LABELS = { wrong_content: 'Inhaltlich falsch', wrong_category: 'Falsche Kategorie', other: 'Sonstiges' };
 
@@ -934,5 +1163,5 @@ window.ProfileScreen = (function () {
     _loadAdminReports();
   }
 
-  return { init, refresh, reviewExamDraft, _toggleDetails, _resolveReport };
+  return { init, refresh, reviewExamDraft, _toggleDetails, _resolveReport, showExamDetail, _regradeExam };
 })();

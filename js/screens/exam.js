@@ -191,6 +191,7 @@ window.ExamScreen = (function() {
   let _examActive = false;
   let _isPaused = false;
   let _inited = false;
+  let _pendingGradeRef = null; // { exam_id, user_id, taken_at } for AI grading persistence
 
   // ── Init ──────────────────────────────────────────────────────────────────
   function init() {
@@ -908,13 +909,23 @@ window.ExamScreen = (function() {
     const gradeColor = grade >= 4 ? 'text-green-400' : grade ? 'text-red-400' : 'text-gray-400';
     const pctColor = pct >= 60 ? 'text-green-400' : pct >= 45 ? 'text-yellow-400' : 'text-red-400';
 
+    // Check if there are open questions with answers to grade
+    const hasOpenQs = results.sections.some(({ questions }) =>
+      questions.some(({ q, userAnswer }) => {
+        const isText = q.type === 'text' || q.type === 'open';
+        return isText && userAnswer && String(userAnswer).trim() && q.model_answer;
+      })
+    );
+
     let html = `
       <div class="max-w-3xl mx-auto px-4 py-8">
         ${timeUp ? '<div class="bg-red-900 text-red-200 rounded-xl px-4 py-2 text-sm text-center mb-6">⏱ Zeit abgelaufen — Prüfung automatisch abgegeben</div>' : ''}
 
+        <div id="ai-grading-bar" class="bg-indigo-950 border border-indigo-700 rounded-xl px-4 py-2 text-sm text-center mb-4 text-indigo-300${hasOpenQs ? '' : ' hidden'}">⏳ KI bewertet offene Fragen…</div>
+
         <div class="bg-gray-800 rounded-3xl p-6 text-center mb-6">
-          <div class="text-5xl font-black ${pctColor} mb-1">${pct}%</div>
-          <div class="text-xl text-gray-300">${results.totalEarned} / ${results.totalMax} Punkte</div>
+          <div id="results-pct" class="text-5xl font-black ${pctColor} mb-1">${pct}%</div>
+          <div id="results-total-score" class="text-xl text-gray-300">${results.totalEarned} / ${results.totalMax} Punkte</div>
           ${grade ? `<div class="text-3xl font-bold ${gradeColor} mt-3">Note ${grade}</div>` : ''}
           ${results.grading ? `<div class="text-xs text-gray-500 mt-3 leading-relaxed">${results.grading}</div>` : ''}
         </div>
@@ -926,7 +937,7 @@ window.ExamScreen = (function() {
           <div class="bg-gray-800 rounded-2xl overflow-hidden">
             <div class="px-4 py-3 border-b border-gray-700 flex justify-between items-center">
               <h3 class="font-bold">${section.title}</h3>
-              <span class="text-sm font-bold text-blue-400">${secEarned} / ${secMax} P</span>
+              <span id="sec-pts-${section.id}" class="text-sm font-bold text-blue-400">${secEarned} / ${secMax} P</span>
             </div>
             <div class="divide-y divide-gray-700">`;
 
@@ -947,7 +958,7 @@ window.ExamScreen = (function() {
                 <div class="flex gap-2 items-start mb-2">
                   <span class="text-base flex-shrink-0">${statusIcon}</span>
                   <p class="text-sm font-medium flex-1">${displayLabel}</p>
-                  <span class="text-xs text-gray-500 flex-shrink-0">${earned !== null ? earned : '?'}/${maxPts}P</span>
+                  <span id="q-pts-${q.id}" class="text-xs text-gray-500 flex-shrink-0">${earned !== null ? earned : '?'}/${maxPts}P</span>
                 </div>`;
 
         if (isGapped) {
@@ -973,6 +984,8 @@ window.ExamScreen = (function() {
           html += `</div>`;
           if (explanation) html += `<div class="ml-7 mt-2 text-xs text-gray-500 italic">${explanation}</div>`;
         } else if (isText) {
+          const hasUserAnswer = userAnswer && String(userAnswer).trim();
+          const canAutoGrade = hasUserAnswer && modelAnswer;
           html += `
                 <div class="ml-7 space-y-2">
                   <div class="bg-gray-900 rounded-lg p-3 text-xs">
@@ -984,7 +997,10 @@ window.ExamScreen = (function() {
                     <div class="text-green-500 mb-1">Musterlösung:</div>
                     <div class="text-gray-300">${modelAnswer}</div>
                   </div>` : ''}
-                  <div class="text-xs text-yellow-600">Textantworten: Bitte mit Musterlösung selbst vergleichen.</div>
+                  ${canAutoGrade
+                    ? `<div id="ai-grade-${q.id}" class="mt-2 text-xs text-yellow-400 animate-pulse">⏳ KI bewertet…</div>`
+                    : `<div class="text-xs text-yellow-600">${hasUserAnswer ? 'Keine Musterlösung — bitte selbst vergleichen.' : 'Keine Antwort gegeben.'}</div>`
+                  }
                 </div>`;
         } else {
           // Show choices with correct/wrong indicators
@@ -1079,14 +1095,22 @@ window.ExamScreen = (function() {
 
       const answers = [];
       results.sections.forEach(({ questions }) => {
-        questions.forEach(({ q, isCorrect }) => {
+        questions.forEach(({ q, userAnswer, isCorrect, earned, maxPts }) => {
+          const isText = q.type === 'text' || q.type === 'open';
           answers.push({
             question_id: q.id,
             topics: q.topics || [],
             is_correct: isCorrect === true,
+            earned: earned,
+            max_pts: maxPts,
+            user_answer: (isText && userAnswer) ? String(userAnswer) : null,
+            model_answer: isText ? (q.model_answer || null) : null,
+            question_text: isText ? q.text : null,
           });
         });
       });
+
+      const takenAt = new Date().toISOString();
 
       await window.supabaseClient.rpc('save_exam_result', {
         p_user_id:  userId,
@@ -1096,10 +1120,180 @@ window.ExamScreen = (function() {
         p_answers:  answers,
       });
 
+      _pendingGradeRef = { exam_id: _currentEntry.id, user_id: userId, taken_at: takenAt };
+
       // Feed im Hintergrund neu laden — Schwachstellen-Videos erscheinen sofort oben
       if (window.FeedScreen) FeedScreen.load();
+
+      // Fire-and-forget AI grading for open questions
+      _gradeOpenQuestionsWithAI(results);
     } catch (e) {
       console.warn('save_exam_result:', e);
+    }
+  }
+
+  // ── AI Grading for Open Questions ─────────────────────────────────────────
+
+  async function _gradeOpenQuestionsWithAI(results) {
+    // Collect open questions with non-empty answers and model answers
+    const toGrade = [];
+    results.sections.forEach(({ questions }) => {
+      questions.forEach(({ q, userAnswer, maxPts }) => {
+        const isText = q.type === 'text' || q.type === 'open';
+        if (isText && userAnswer && String(userAnswer).trim() && q.model_answer) {
+          toGrade.push({ q, userAnswer: String(userAnswer).trim(), maxPts });
+        }
+      });
+    });
+
+    if (!toGrade.length) {
+      // Hide grading bar if no open questions to grade
+      const bar = document.getElementById('ai-grading-bar');
+      if (bar) bar.style.display = 'none';
+      return;
+    }
+
+    const bar = document.getElementById('ai-grading-bar');
+
+    const openGrades = {}; // { questionId: { earned, feedback } }
+
+    for (const { q, userAnswer, maxPts } of toGrade) {
+      const gradeEl = document.getElementById(`ai-grade-${q.id}`);
+      try {
+        const gradeResult = await _callAIGrader(q, userAnswer, maxPts);
+        openGrades[q.id] = gradeResult;
+        _updateOpenQuestionGradeUI(q.id, gradeResult, maxPts);
+      } catch (err) {
+        const msg = err.message === 'no_key_set'
+          ? 'Kein API-Key gesetzt — bitte im Profil eintragen.'
+          : 'KI-Bewertung fehlgeschlagen — 0 Punkte';
+        openGrades[q.id] = { earned: 0, feedback: msg };
+        if (gradeEl) {
+          gradeEl.className = 'mt-2 text-xs text-yellow-400';
+          gradeEl.textContent = msg;
+        }
+        const ptsEl = document.getElementById(`q-pts-${q.id}`);
+        if (ptsEl) ptsEl.textContent = `0/${maxPts}P`;
+      }
+    }
+
+    // Update total score display
+    _recalculateTotalScoreUI(results, openGrades);
+
+    // Persist AI grades back to Supabase
+    await _persistAIGrades(openGrades, results);
+
+    // Hide grading bar
+    if (bar) {
+      bar.textContent = '✅ KI-Bewertung abgeschlossen';
+      bar.className = 'bg-green-950 border border-green-700 rounded-xl px-4 py-2 text-sm text-center mb-4 text-green-300';
+      setTimeout(() => { if (bar) bar.style.display = 'none'; }, 3000);
+    }
+  }
+
+  async function _callAIGrader(q, userAnswer, maxPts) {
+    const courseKey = _currentEntry?.course || '';
+    const prompt = `Bewerte die folgende Prüfungsantwort.\n\nFrage: ${q.text}\n\nMaximale Punktzahl: ${maxPts} Punkte\n\nMusterlösung:\n${q.model_answer}\n\nStudentenantwort:\n"${userAnswer}"\n\nGib NUR dieses JSON zurück:\n{"points": <Zahl 0 bis ${maxPts}>, "feedback": "<1-2 kurze Sätze auf Deutsch>"}`;
+
+    const response = await AIService.ask(
+      [{ role: 'user', content: prompt }],
+      { system: `Du bist ein Prüfungskorrigierender für ${courseKey} (HSG). Bewerte streng aber fair. Antworte NUR mit JSON.`, max_tokens: 200 }
+    );
+
+    const text = AIService.extractText(response);
+    const match = text.match(/\{[\s\S]*\}/);
+    if (!match) throw new Error('No JSON in AI response');
+    const parsed = JSON.parse(match[0]);
+    const earned = Math.round(Math.min(maxPts, Math.max(0, Number(parsed.points))) * 10) / 10;
+    return { earned, feedback: parsed.feedback || '' };
+  }
+
+  function _updateOpenQuestionGradeUI(questionId, gradeResult, maxPts) {
+    const gradeEl = document.getElementById(`ai-grade-${questionId}`);
+    if (gradeEl) {
+      const pct = maxPts > 0 ? gradeResult.earned / maxPts : 0;
+      const col = pct >= 0.7 ? 'text-green-400' : pct >= 0.4 ? 'text-yellow-400' : 'text-red-400';
+      gradeEl.className = `mt-2 text-xs ${col}`;
+      gradeEl.innerHTML = `<strong>KI-Bewertung: ${gradeResult.earned}/${maxPts} P</strong>${gradeResult.feedback ? ` — ${gradeResult.feedback}` : ''}`;
+    }
+    const ptsEl = document.getElementById(`q-pts-${questionId}`);
+    if (ptsEl) ptsEl.textContent = `${gradeResult.earned}/${maxPts}P`;
+  }
+
+  function _recalculateTotalScoreUI(results, openGrades) {
+    let totalEarned = 0;
+    let totalMax = 0;
+    results.sections.forEach(({ questions, secMax }) => {
+      totalMax += secMax;
+      questions.forEach(({ q, earned, maxPts }) => {
+        const isText = q.type === 'text' || q.type === 'open';
+        if (isText && openGrades[q.id] != null) {
+          totalEarned += openGrades[q.id].earned;
+        } else if (earned !== null) {
+          totalEarned += earned;
+        }
+      });
+    });
+
+    const pct = totalMax > 0 ? Math.round(totalEarned / totalMax * 100) : 0;
+    const pctEl = document.getElementById('results-pct');
+    const scoreEl = document.getElementById('results-total-score');
+    if (pctEl) {
+      const col = pct >= 60 ? 'text-green-400' : pct >= 45 ? 'text-yellow-400' : 'text-red-400';
+      pctEl.className = `text-5xl font-black ${col} mb-1`;
+      pctEl.textContent = pct + '%';
+    }
+    if (scoreEl) scoreEl.textContent = `${totalEarned} / ${totalMax} Punkte`;
+  }
+
+  async function _persistAIGrades(openGrades, results) {
+    if (!_pendingGradeRef) return;
+    try {
+      const { exam_id, user_id } = _pendingGradeRef;
+
+      const { data: rows } = await window.supabaseClient
+        .from('exam_results')
+        .select('id, answers')
+        .eq('user_id', user_id)
+        .eq('exam_id', exam_id)
+        .order('taken_at', { ascending: false })
+        .limit(1);
+
+      if (!rows?.length) return;
+      const row = rows[0];
+      const updatedAnswers = (row.answers || []).map(a => {
+        if (openGrades[a.question_id] != null) {
+          return {
+            ...a,
+            earned: openGrades[a.question_id].earned,
+            ai_feedback: openGrades[a.question_id].feedback,
+            is_correct: openGrades[a.question_id].earned > 0,
+          };
+        }
+        return a;
+      });
+
+      // Recalculate score_pct from updated answers
+      let totalEarned = 0, totalMax = 0;
+      results.sections.forEach(({ questions, secMax }) => {
+        totalMax += secMax;
+        questions.forEach(({ q, earned, maxPts }) => {
+          const isText = q.type === 'text' || q.type === 'open';
+          if (isText && openGrades[q.id] != null) {
+            totalEarned += openGrades[q.id].earned;
+          } else if (earned !== null) {
+            totalEarned += earned;
+          }
+        });
+      });
+      const newPct = totalMax > 0 ? Math.round(totalEarned / totalMax * 100) : 0;
+
+      await window.supabaseClient
+        .from('exam_results')
+        .update({ score_pct: newPct, answers: updatedAnswers })
+        .eq('id', row.id);
+    } catch (e) {
+      console.warn('_persistAIGrades:', e);
     }
   }
 
@@ -1175,5 +1369,6 @@ window.ExamScreen = (function() {
     isExamActive, requestAiFeedback,
     getExamsByCourse,
     playSectionAudio, stopSectionAudio, toggleTranscript,
+    callAIGrader: _callAIGrader,
   };
 })();
