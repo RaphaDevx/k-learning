@@ -1,0 +1,748 @@
+{
+  "_meta": {
+    "sourceFile": "FS25_GFF_Pruefung.pdf",
+    "createdAt": "2026-06-23",
+    "promptVersion": "create-exam-v3",
+    "status": "final",
+    "schemaVersion": "1"
+  },
+  "id": "bwl-b-fs25",
+  "title": "BWL B — Assessmentjahr FS 2025",
+  "course": "BWL",
+  "courseColor": "#0d9488",
+  "durationMinutes": 180,
+  "totalPoints": 180,
+  "resourceLink": "assets/exams/bwl-b-fs25/FS25_GFF_Pruefung.pdf",
+  "examInfo": {
+    "date": "Frühlingssemester 2025",
+    "duration": "180 Minuten (135' GFF + 45' Ethik)",
+    "format": "9 Kurzfragen + 8 Fallstudienfragen + 20 Multiple-Choice + 5 offene Ethik-Fragen",
+    "allowedAids": "Taschenrechner, keine weiteren Hilfsmittel",
+    "grading": "Note 6.0: ≥85%, Note 5.5: ≥75%, Note 5.0: ≥65%, Note 4.5: ≥55%, Note 4.0: ≥45%, Note 3.5: ≥35%"
+  },
+  "scoringRules": {
+    "single_choice": {
+      "correct": 3,
+      "wrong": 0,
+      "blank": 0
+    },
+    "open": {
+      "correct": null,
+      "wrong": null,
+      "blank": null
+    }
+  },
+  "validation": [
+    "⚠ Q20 (4.3): Durchschnittskostenwert 37'966.51 basiert auf Totalkosten 256'380 (285×449=127'965). Bitte mit Originalprüfung verifizieren.",
+    "⚠ Q23 (4.6): Break-Even Umsatz B = 271'365.55 ≈ 271'366 — marginale Rundungsdifferenz, Antwort D korrekt.",
+    "⚠ Offene Fragen (Sektionen 1–3, 6) werden nicht automatisch bewertet. Musterlösungen dienen der Selbstüberprüfung."
+  ],
+  "sections": [
+    {
+      "id": "gff-kurzfragen",
+      "title": "Teil I — Grundlagen der finanziellen Führung: Kurzfragen (31 Punkte)",
+      "description": "Bearbeiten Sie stichwortartig alle folgenden Kurzfragen. Für 'Auswahlsendungen' werden keine Punkte vergeben. Keine Mehrwertsteuer, Rundung auf zwei Nachkommastellen.",
+      "points": 31,
+      "question_type": "open",
+      "context": null,
+      "questions": [
+        {
+          "id": "bwl-b-fs25-q01",
+          "number": 1,
+          "type": "open",
+          "points": 4,
+          "text": "1.1 — Sie möchten ein Praktikum beim führenden Energiedienstleister AlpenAG absolvieren. Als Teil des Assessments sollen Sie die folgenden Auszüge aus der Jahresrechnung den passenden Pflichtbestandteilen zuordnen: Auszug 1, Auszug 2, Auszug 3, Auszug 4. Optionen: Eigenkapitalveränderungsrechnung | Erfolgs-/Gesamtergebnisrechnung | Bilanz | Geldflussrechnung",
+          "imageHtml": null,
+          "choices": null,
+          "correct": null,
+          "model_answer": "Auszug 1 → Erfolgs-/Gesamtergebnisrechnung | Auszug 2 → Eigenkapitalveränderungsrechnung | Auszug 3 → Bilanz | Auszug 4 → Erfolgs-/Gesamtergebnisrechnung (1 Punkt je korrekte Zuordnung)",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Jahresrechnung", "Berichterstattung"]
+        },
+        {
+          "id": "bwl-b-fs25-q02",
+          "number": 2,
+          "type": "open",
+          "points": 3,
+          "text": "1.2 — Sie sind Controller:in in einem Technologieunternehmen, das eine innovative Softwareplattform entwickelt hat. Der CEO möchte die Entwicklungskosten als immaterielles Vermögen aktivieren. Nennen Sie die sechs Bedingungen (Ansatzkriterien) nach IAS 38.",
+          "imageHtml": null,
+          "choices": null,
+          "correct": null,
+          "model_answer": "1. Technische Realisierbarkeit | 2. Absicht zur Weiterentwicklung und Nutzung/Vermarktung | 3. Fähigkeit zur Nutzung/Vermarktung | 4. Erläuterung des zukünftigen wirtschaftlichen Nutzens | 5. Verfügbarkeit adäquater technischer, finanzieller und anderer Mittel | 6. Zuverlässige Zurechenbarkeit der Entwicklungskosten (0.5 Punkte je Kriterium)",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Bilanzierung", "Immaterielle Vermögenswerte", "IFRS"]
+        },
+        {
+          "id": "bwl-b-fs25-q03",
+          "number": 3,
+          "type": "open",
+          "points": 4,
+          "text": "1.3 — Sie sind Finanzleiter:in von Superconductors GmbH und überprüfen das Eigenkapital vor einem Investor-Meeting. Berechnen Sie das Eigenkapital: Vorräte 235'000 EUR, Forderungen aus L&L 220'000 EUR, Kurzfristiges FK 280'000 EUR, Steuerguthaben 45'000 EUR, Sachanlagen 500'000 EUR, Total Anlagevermögen 800'000 EUR, Langfristiges FK 650'000 EUR.",
+          "imageHtml": null,
+          "choices": null,
+          "correct": null,
+          "model_answer": "EK = UV + AV − FK total | UV = 235'000 + 220'000 + 45'000 = 500'000 | AV = 800'000 | FK = 280'000 + 650'000 = 930'000 | EK = 500'000 + 800'000 − 930'000 = EUR 370'000 (4 Punkte für korrektes Endresultat, keine Teilpunkte)",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Bilanz", "Eigenkapital", "Berechnung"]
+        },
+        {
+          "id": "bwl-b-fs25-q04",
+          "number": 4,
+          "type": "open",
+          "points": 3,
+          "text": "1.4 — Die EcoTech Solutions AG erstellt die Jahreserfolgsrechnung nach dem Umsatzkostenverfahren. Ordnen Sie die fehlenden Positionen korrekt an (Dropdowns 1–6): Umsatzerlöse → [1] → [2] → [3] → = EBIT → [4] → [5] → [6] → = Jahresgewinn. Verfügbare Positionen: Umsatzkosten (COGS), Bruttogewinn, Vertriebskosten, Verwaltungskosten, Finanzerträge und -aufwendungen, EBT, Steuern",
+          "imageHtml": null,
+          "choices": null,
+          "correct": null,
+          "model_answer": "1 → Umsatzkosten (COGS) | 2 → Bruttogewinn | 3 → Vertriebskosten | 4 → Finanzerträge und -aufwendungen | 5 → EBT | 6 → Steuern (0.5 Punkte je korrekter Zuordnung)",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Erfolgsrechnung", "Umsatzkostenverfahren"]
+        },
+        {
+          "id": "bwl-b-fs25-q05",
+          "number": 5,
+          "type": "open",
+          "points": 4,
+          "text": "1.5 — SkyHigh GmbH produziert Snowboards. Direkte Materialkosten CHF 120/Stück, Personalkosten CHF 80/Stück. Fixkosten: Maschinenmiete CHF 5'000/Monat, Verwaltung CHF 2'000/Monat. (1) Wie viel kann die GmbH pro Stück einsparen, wenn die Produktion von 50 auf 80 Stück erhöht wird? (2) Berechnen Sie den minimalen Verkaufspreis bei 80 Stück und einem Gesamtgewinn von CHF 9'600.",
+          "imageHtml": null,
+          "choices": null,
+          "correct": null,
+          "model_answer": "(1) Kosten bei 50 Stück: (120+80) + 7'000/50 = CHF 340/Stück | Kosten bei 80 Stück: 200 + 7'000/80 = CHF 287.50/Stück | Sparpotenzial = 340 − 287.50 = CHF 52.50/Stück | (2) 9'600 = (P − 200) × 80 − 7'000 → P = CHF 407.50 (je 2 Punkte)",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Kostenrechnung", "Fixkostendegression", "Break-Even"]
+        },
+        {
+          "id": "bwl-b-fs25-q06",
+          "number": 6,
+          "type": "open",
+          "points": 6,
+          "text": "1.6 — Green Bottles AG verkauft Wasserflaschen zu USD 1.80/Stück, 72'000 Einheiten/Jahr (2024). Kosten: Materialkosten 90'000, Mietkosten 12'000, Verpackungskosten 36'000, Marketingkosten 24'000, Abschreibungskosten 18'000, Personalkosten (Stundenlohn) 57'600. (1) Berechnen Sie den Deckungsbeitrag pro Flasche. (2) Berechnen Sie die Break-Even-Menge und kommentieren Sie. (3) Schlagen Sie zwei Lösungen vor, die Green Bottles AG helfen könnten, den Break-Even zu erreichen.",
+          "imageHtml": null,
+          "choices": null,
+          "correct": null,
+          "model_answer": "(1) Variable Kosten = Materialkosten + Verpackungskosten + Personalkosten (Stundenlohn) = (90'000 + 36'000 + 57'600) / 72'000 = 183'600/72'000 = USD 2.55/Stück | DB = 1.80 − 2.55 = USD −0.75/Stück | (2) Break-Even kann nicht berechnet/erreicht werden, da variable Kosten (2.55) > Verkaufspreis (1.80) → jede Einheit erzeugt einen Verlust | (3) z.B. Verkaufspreis erhöhen (über USD 2.55) ODER variable Kosten senken (Material, Verpackung, Personal)",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Deckungsbeitragsrechnung", "Break-Even", "Kostenrechnung"]
+        },
+        {
+          "id": "bwl-b-fs25-q07",
+          "number": 7,
+          "type": "open",
+          "points": 2,
+          "text": "1.7 — Erklären Sie den Zweck eines Green Bonds im Vergleich zu einer klassischen Anleihe. Geben Sie ein Beispiel für ein typisches Projekt.",
+          "imageHtml": null,
+          "choices": null,
+          "correct": null,
+          "model_answer": "Green Bond: Anleihe, deren Erlöse zweckgebunden für umwelt- oder klimabezogene Projekte eingesetzt werden (im Gegensatz zur klassischen Anleihe, die für allgemeine Zwecke verwendet wird). Schlüsselwörter: 'Umwelt', 'Klima', 'nachhaltig', 'zweckgebunden'. | Beispiel: Erneuerbare Energien (Windpark, Solarpanel), Energieeffizienz, Klimaschutz, nachhaltige Mobilität.",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Finanzierung", "Green Finance", "Anleihen"]
+        },
+        {
+          "id": "bwl-b-fs25-q08",
+          "number": 8,
+          "type": "open",
+          "points": 2,
+          "text": "1.8 — Berechnen Sie die Payout Ratio und die Plowback Ratio (in Prozent). Hinweis: Dividende je Aktie CHF 3.20, Gewinn je Aktie CHF 3.19.",
+          "imageHtml": null,
+          "choices": null,
+          "correct": null,
+          "model_answer": "Payout Ratio = Dividende / Gewinn = 3.20 / 3.19 = 100.31% ≈ 100% | Plowback Ratio = 1 − Payout Ratio = 0% (1 Punkt je korrektes Endresultat; Teilpunkt für 100.31% und −0.31%)",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Dividendenpolitik", "Kennzahlen", "Finanzierung"]
+        },
+        {
+          "id": "bwl-b-fs25-q09",
+          "number": 9,
+          "type": "open",
+          "points": 3,
+          "text": "1.9 — Nennen Sie drei strategische Gründe, warum Unternehmen M&A-Transaktionen durchführen.",
+          "imageHtml": null,
+          "choices": null,
+          "correct": null,
+          "model_answer": "Aus folgenden wählen (1 Punkt je Nennung, max. 3): Fixkostendegression / Economies of Scale | Zugewinn qualifizierter Mitarbeitender (Humankapital) | Erwerb von Know-how und Expertise | Risikominimierung durch Diversifikation | Steuervorteile | Verbesserung der Marktstellung | Zugriff auf Ressourcen | Schnäppchen / günstige Bewertung | Nachfolgeregelung",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["M&A", "Strategie", "Unternehmensführung"]
+        }
+      ]
+    },
+    {
+      "id": "gff-alpineflow",
+      "title": "Teil II — Fallstudie AlpineFlow AG (18 Punkte)",
+      "description": "Die folgenden Aufgaben beziehen sich auf die untenstehenden Finanzdaten der AlpineFlow AG.",
+      "points": 18,
+      "question_type": "open",
+      "context": "<div style='font-size:0.82rem'><strong style='color:#e2e8f0'>BILANZ AlpineFlow AG (in Mio. CHF)</strong><br><table style='width:100%;font-size:0.75rem;border-collapse:collapse;margin:8px 0'><thead><tr style='background:#1f2937'><th style='text-align:left;padding:4px 8px;color:#9ca3af'>Position</th><th style='text-align:right;padding:4px 8px;color:#60a5fa'>31.12.2024</th><th style='text-align:right;padding:4px 8px;color:#9ca3af'>31.12.2023</th><th style='text-align:right;padding:4px 8px;color:#9ca3af'>Δ</th></tr></thead><tbody><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Flüssige Mittel</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>107</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>73</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>+34</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Forderungen aus L&L</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>17</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>16</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>+1</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Vorräte</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>22</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>19</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>+3</td></tr><tr style='border-top:1px solid #374151;font-weight:bold'><td style='padding:4px 8px;color:#fff'>Total Umlaufvermögen</td><td style='text-align:right;padding:4px 8px;color:#fff'>146</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>108</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>+38</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Beteiligungen</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>6</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>12</td><td style='text-align:right;padding:4px 8px;color:#f87171'>−6</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Sachanlagen</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>37</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>43</td><td style='text-align:right;padding:4px 8px;color:#f87171'>−6</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Immaterielle Anlagen</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>12</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>9</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>+3</td></tr><tr style='border-top:1px solid #374151;font-weight:bold'><td style='padding:4px 8px;color:#fff'>Total Anlagevermögen</td><td style='text-align:right;padding:4px 8px;color:#fff'>55</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>64</td><td style='text-align:right;padding:4px 8px;color:#f87171'>−9</td></tr><tr style='border-top:1px solid #374151;font-weight:bold'><td style='padding:4px 8px;color:#fff'>Total Aktiven</td><td style='text-align:right;padding:4px 8px;color:#fff'>201</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>172</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>+29</td></tr><tr style='border-top:2px solid #4b5563'><td style='padding:4px 8px;color:#d1d5db'>Verbindlichkeiten L+L</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>28</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>24</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>+4</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Darlehen</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>13</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>14</td><td style='text-align:right;padding:4px 8px;color:#f87171'>−1</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Rückstellungen</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>9</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>6</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>+3</td></tr><tr style='border-top:1px solid #374151;font-weight:bold'><td style='padding:4px 8px;color:#fff'>Total Fremdkapital</td><td style='text-align:right;padding:4px 8px;color:#fff'>50</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>44</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>+6</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Aktienkapital</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>98</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>98</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>0</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Gewinnreserven</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>21</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>15</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>+6</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Jahresgewinn</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>32</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>15</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>+17</td></tr><tr style='border-top:1px solid #374151;font-weight:bold'><td style='padding:4px 8px;color:#fff'>Total Eigenkapital</td><td style='text-align:right;padding:4px 8px;color:#fff'>151</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>128</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>+23</td></tr><tr style='border-top:1px solid #374151;font-weight:bold'><td style='padding:4px 8px;color:#fff'>Total Passiven</td><td style='text-align:right;padding:4px 8px;color:#fff'>201</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>172</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>+29</td></tr></tbody></table><br><strong style='color:#e2e8f0'>ERFOLGSRECHNUNG AlpineFlow AG (in Mio. CHF)</strong><br><table style='width:100%;font-size:0.75rem;border-collapse:collapse;margin:8px 0'><thead><tr style='background:#1f2937'><th style='text-align:left;padding:4px 8px;color:#9ca3af'>Position</th><th style='text-align:right;padding:4px 8px;color:#60a5fa'>2024</th><th style='text-align:right;padding:4px 8px;color:#9ca3af'>2023</th></tr></thead><tbody><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Erlöse aus L&L</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>382</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>366</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Bestandesveränderung</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>7</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>4</td></tr><tr style='border-top:1px solid #374151;font-weight:bold'><td style='padding:4px 8px;color:#fff'>Nettoertrag</td><td style='text-align:right;padding:4px 8px;color:#fff'>389</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>370</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Materialaufwand</td><td style='text-align:right;padding:4px 8px;color:#f87171'>−220</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>−216</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Personalaufwand</td><td style='text-align:right;padding:4px 8px;color:#f87171'>−108</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>−99</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Sonstiger Betriebsaufwand</td><td style='text-align:right;padding:4px 8px;color:#f87171'>−6</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>−28</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Abschreibungen Sachanlagen</td><td style='text-align:right;padding:4px 8px;color:#f87171'>−16</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>−5</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Abschreibungen Immaterielle</td><td style='text-align:right;padding:4px 8px;color:#f87171'>−5</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>−6</td></tr><tr style='border-top:1px solid #374151;font-weight:bold'><td style='padding:4px 8px;color:#fff'>EBIT</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>34</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>16</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Finanzergebnis</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>+7</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>+3</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Steuern</td><td style='text-align:right;padding:4px 8px;color:#f87171'>−9</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>−4</td></tr><tr style='border-top:1px solid #374151;font-weight:bold'><td style='padding:4px 8px;color:#fff'>Jahresgewinn</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>32</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>15</td></tr></tbody></table><em style='color:#6b7280;font-size:0.7rem'>Dividendenausschüttung 2024: CHF 9 Mio. | Rückgang Beteiligungen resultiert aus einem Verkauf.</em><br><a href='assets/exams/bwl-b-fs25/FS25_GFF_Beilage.pdf' target='_blank' style='display:inline-flex;align-items:center;gap:6px;margin:12px 0 4px;padding:8px 16px;background:#1e293b;border:1px solid #334155;border-radius:8px;color:#94a3b8;font-size:0.8rem;text-decoration:none'>📄 Beilage als PDF öffnen</a></div>",
+      "questions": [
+        {
+          "id": "bwl-b-fs25-q10",
+          "number": 10,
+          "type": "open",
+          "points": 9,
+          "text": "2.1 — Erstellen Sie die Geldflussrechnung der AlpineFlow AG für das Jahr 2024 anhand der obenstehenden Bilanz und Erfolgsrechnung. Verwenden Sie das vorgegebene Schema (ACHTUNG: leere Felder = 0 Punkte).",
+          "imageHtml": "<div style='font-size:0.82rem;line-height:1.6;background:#0f172a;padding:12px;border-radius:8px;border:1px solid #1e3a2f;color:#d1fae5'><strong style='color:#6ee7b7'>Operative Tätigkeit</strong><br>EBIT ___ | Abschreibungen/Zuschreibungen ___ | Zunahme/Abnahme Rückstellungen ___ | Zunahme/Abnahme Vorräte, Forderungen, andere Aktiven ___ | Zunahme/Abnahme Verbindlichkeiten L+L, andere Passiven ___ | Zinsen ___ | Gezahlte Ertragssteuern ___ | <strong>= CF operative Tätigkeit ___</strong><br><br><strong style='color:#6ee7b7'>Investitionstätigkeit</strong><br>Einzahlungen Abgänge Sachanlagen/Immaterielles ___ | Auszahlungen Investitionen Sachanlagen/Immaterielles ___ | Einzahlungen Abgänge Finanzanlagevermögen ___ | Auszahlungen Investitionen Finanzanlagevermögen ___ | <strong>= CF Investitionstätigkeit ___</strong><br><br><strong style='color:#6ee7b7'>Finanzierungstätigkeit</strong><br>Einzahlungen EK-Zuführung ___ | Auszahlungen an Eigentümer (Dividende) ___ | Einzahlungen Anleihen/Finanzschulden ___ | Auszahlungen Tilgung Anleihen/Finanzschulden ___ | <strong>= CF Finanzierungstätigkeit ___</strong></div>",
+          "choices": null,
+          "correct": null,
+          "model_answer": "**Operativ:** EBIT = 34 | Abschreibungen = 16+5 = 21 | Rückstellungen = +3 | Vorräte/Forderungen = −(3+1) = −4 | Verbindlichkeiten L+L = +4 | Zinsen = +7 | Steuern = −9 | **CF operativ = 56** | **Investition:** Einzahlungen Sachanlagen = 0 | Auszahlungen Sachanlagen = −10 | Auszahlungen Immaterielles = −8 | Einzahlungen Finanzanlage (Beteiligungen) = +6 | Auszahlungen Finanzanlage = 0 | **CF Investition = −12** | **Finanzierung:** EK-Zuführung = 0 | Dividende = −9 | Anleihen aufnehmen = 0 | Tilgung Darlehen = −1 | **CF Finanzierung = −10** | Kontrolle: 56 − 12 − 10 = +34 = Zunahme flüssige Mittel ✓ (0.5 Punkte je korrektem Endresultat)",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Geldflussrechnung", "Cashflow", "Indirekte Methode"]
+        },
+        {
+          "id": "bwl-b-fs25-q11",
+          "number": 11,
+          "type": "open",
+          "points": 4,
+          "text": "2.2 — Berechnen Sie den Cash Conversion Cycle (CCC) der AlpineFlow AG für 2024. Runden Sie auf zwei Nachkommastellen.",
+          "imageHtml": null,
+          "choices": null,
+          "correct": null,
+          "model_answer": "DSO (Debitorenfrist) = Ø Debitoren / Erlöse L&L × 365 = (17+16)/2 / 382 × 365 = 16.5/382 × 365 = **15.77 Tage** | DPO (Kreditorenfrist) = Ø Kreditoren / Materialaufwand × 365 = (28+24)/2 / 220 × 365 = 26/220 × 365 = **43.14 Tage** | DIH (Lagerreichweite) = Ø Vorräte / Materialaufwand × 365 = (22+19)/2 / 220 × 365 = 20.5/220 × 365 = **34.01 Tage** | CCC = 34.01 + 15.77 − 43.14 = **6.64 Tage** (1 Punkt je korrektem Endresultat)",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Working Capital", "Cash Conversion Cycle", "Kennzahlen"]
+        },
+        {
+          "id": "bwl-b-fs25-q12",
+          "number": 12,
+          "type": "open",
+          "points": 5,
+          "text": "2.3 — Wählen Sie für jeden der folgenden Geschäftsvorfälle der AlpineFlow AG die zutreffende Art des Cashflows und die Auswirkung: (a) Verminderung Vorräte CHF 4 Mio. (b) Erhalt Zinsen auf Darlehen CHF 0.6 Mio. (c) Debitorenverluste CHF 3.2 Mio. (d) Erwerb aller Anteile MountainGear GmbH bar CHF 13 Mio. (e) Aufnahme Finanzverbindlichkeiten zum Kauf MountainGear GmbH CHF 12 Mio.",
+          "imageHtml": null,
+          "choices": null,
+          "correct": null,
+          "model_answer": "(a) Keinen Einfluss auf den Cashflow (nicht liquiditätswirksam, nur Umbuchung innerhalb UV) | (b) Es besteht ein Wahlrecht; der jeweilige Cashflow nimmt zu (IAS 7: Zinsen Wahlrecht operativ oder investiv) | (c) Keinen Einfluss auf den Cashflow (nicht liquiditätswirksam, buchhalterische Korrektur) | (d) Cashflow aus Investitionstätigkeit nimmt ab | (e) Cashflow aus Finanzierungstätigkeit nimmt zu (1 Punkt je korrekter Auswahl)",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Cashflow-Klassifikation", "Geldflussrechnung", "IFRS"]
+        }
+      ]
+    },
+    {
+      "id": "gff-sps",
+      "title": "Teil III — Fallstudie Swiss Prime Site AG (41 Punkte)",
+      "description": "Swiss Prime Site AG ist die grösste börsenkotierte Immobiliengesellschaft der Schweiz (Portfolio ~CHF 13 Mrd., berichtet nach IFRS). Alle Zahlen in CHF 1'000.",
+      "points": 41,
+      "question_type": "open",
+      "context": "<div style='font-size:0.82rem'><strong style='color:#e2e8f0'>BILANZ-KENNZAHLEN Swiss Prime Site AG (in CHF 1'000)</strong><br><table style='width:100%;font-size:0.75rem;border-collapse:collapse;margin:8px 0'><thead><tr style='background:#1f2937'><th style='text-align:left;padding:4px 8px;color:#9ca3af'>Position</th><th style='text-align:right;padding:4px 8px;color:#60a5fa'>31.12.2022</th><th style='text-align:right;padding:4px 8px;color:#9ca3af'>31.12.2023</th></tr></thead><tbody><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Total Anlagevermögen</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>13'449'011</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>13'410'791</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Total kfr. Verbindlichkeiten</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>724'048</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>761'187</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Total lfr. Verbindlichkeiten</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>6'477'877</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>6'479'696</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Total Fremdkapital</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>7'201'925</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>7'240'883</td></tr><tr style='border-top:1px solid #374151;font-weight:bold'><td style='padding:4px 8px;color:#fff'>Total Eigenkapital</td><td style='text-align:right;padding:4px 8px;color:#fff'>6'569'297</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>6'537'382</td></tr></tbody></table><br><strong style='color:#e2e8f0'>ERFOLGSRECHNUNG Swiss Prime Site AG (in CHF 1'000)</strong><br><table style='width:100%;font-size:0.75rem;border-collapse:collapse;margin:8px 0'><thead><tr style='background:#1f2937'><th style='text-align:left;padding:4px 8px;color:#9ca3af'>Position</th><th style='text-align:right;padding:4px 8px;color:#60a5fa'>2022</th><th style='text-align:right;padding:4px 8px;color:#9ca3af'>2023</th></tr></thead><tbody><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Betriebsertrag</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>646'583</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>658'578</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Neubewertung Renditeliegenschaften netto</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>+169'739</td><td style='text-align:right;padding:4px 8px;color:#f87171'>−250'493</td></tr><tr style='border-top:1px solid #374151;font-weight:bold'><td style='padding:4px 8px;color:#fff'>Betriebsgewinn (EBIT)</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>549'655</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>152'462</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Finanzaufwand</td><td style='text-align:right;padding:4px 8px;color:#f87171'>−44'815</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>−77'373</td></tr><tr style='border-top:1px solid #374151;font-weight:bold'><td style='padding:4px 8px;color:#fff'>Gewinn Aktionäre Swiss Prime Site AG</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>404'429</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>236'018</td></tr><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Dividendenausschüttung</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>256'975</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>260'794</td></tr></tbody></table><br><strong style='color:#e2e8f0'>GELDFLUSSRECHNUNG Swiss Prime Site AG (in CHF 1'000)</strong><br><table style='width:100%;font-size:0.75rem;border-collapse:collapse;margin:8px 0'><thead><tr style='background:#1f2937'><th style='text-align:left;padding:4px 8px;color:#9ca3af'>Position</th><th style='text-align:right;padding:4px 8px;color:#60a5fa'>2022</th><th style='text-align:right;padding:4px 8px;color:#9ca3af'>2023</th></tr></thead><tbody><tr style='border-top:1px solid #374151'><td style='padding:4px 8px;color:#d1d5db'>Geldfluss aus Betriebstätigkeit</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>364'851</td><td style='text-align:right;padding:4px 8px;color:#9ca3af'>430'585</td></tr></tbody></table><a href='assets/exams/bwl-b-fs25/FS25_GFF_Beilage.pdf' target='_blank' style='display:inline-flex;align-items:center;gap:6px;margin:12px 0 4px;padding:8px 16px;background:#1e293b;border:1px solid #334155;border-radius:8px;color:#94a3b8;font-size:0.8rem;text-decoration:none'>📄 Beilage als PDF öffnen</a></div>",
+      "questions": [
+        {
+          "id": "bwl-b-fs25-q13",
+          "number": 13,
+          "type": "open",
+          "points": 11,
+          "text": "3.1 — Berechnen Sie als Analyst:in folgende Kennzahlen für 2022 und 2023 (auf xx.xx%): (A) Cashflow Ratio, (B) Anlagedeckungsgrad II, (C) Reingewinnmarge. Ordnen Sie diese dem Zieldreieck (Liquidität/Sicherheit/Rentabilität) zu und kommentieren Sie die Entwicklung.",
+          "imageHtml": null,
+          "choices": null,
+          "correct": null,
+          "model_answer": "**Cashflow Ratio** = CF Betriebstätigkeit / kfr. Verbindlichkeiten: 2022: 364'851/724'048 = **50.39%** | 2023: 430'585/761'187 = **56.57%** → Perspektive: Liquidität | **Anlagedeckungsgrad II** = (EK + lfr. FK) / Anlagevermögen: 2022: (6'569'297+6'477'877)/13'449'011 = **97.01%** | 2023: (6'537'382+6'479'696)/13'410'791 = **97.06%** → Perspektive: Sicherheit | **Reingewinnmarge** = Gewinn / Betriebsertrag: 2022: 404'429/646'583 = **62.55%** | 2023: 236'018/658'578 = **35.84%** → Perspektive: Rentabilität | **Kommentar:** Liquidität leicht verbessert (>50%, aber <100% Branchen-Richtwert). Sicherheit stabil, knapp unter 100% (goldene Bilanzregel nicht erfüllt, aber branchentypisch). Rentabilität stark gesunken durch Neubewertungsverlust.",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Kennzahlen", "Zieldreieck", "Finanzanalyse"]
+        },
+        {
+          "id": "bwl-b-fs25-q14",
+          "number": 14,
+          "type": "open",
+          "points": 3,
+          "text": "3.2 — Betrachten Sie die Erfolgsrechnung 2022/2023. Welche Position erklärt die markante Gewinnveränderung? Welchen Fachbegriff verbinden Sie damit (Bilanzierung von Aktiva)? Welchen Einfluss auf den Geldfluss erwarten Sie?",
+          "imageHtml": null,
+          "choices": null,
+          "correct": null,
+          "model_answer": "Position: «Neubewertung Renditeliegenschaften, netto» hat sich um CHF −420'232 Tsd. verändert (2022: +169'739; 2023: −250'493). | Fachbegriff: Fair Value Anpassung / Impairment / Wertberichtigung (Neubewertung zum Fair Value nach IFRS). | Geldfluss: Keinen Einfluss — nicht liquiditätswirksam. Dies zeigt sich in der Geldflussrechnung, wo die Neubewertung herausgerechnet wird.",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Erfolgsrechnung", "Fair Value", "IFRS", "Geldflussrechnung"]
+        },
+        {
+          "id": "bwl-b-fs25-q15",
+          "number": 15,
+          "type": "open",
+          "points": 7,
+          "text": "3.3 — Berechnen Sie die Payout Ratio für 2022 und 2023 (auf xx.xx%). Kommentieren Sie im Hinblick auf die Nachhaltigkeit (Branchendurchschnitt 55.0%). Nennen Sie zwei Argumente, mit denen der CFO die Ausschüttung 2023 begründen würde.",
+          "imageHtml": null,
+          "choices": null,
+          "correct": null,
+          "model_answer": "**Payout Ratio 2022** = 256'975 / 404'429 = **63.54%** | **Payout Ratio 2023** = 260'794 / 236'018 = **110.50%** | **Kommentar:** 2022 über Branchendurchschnitt (55%), aber Selbstfinanzierung noch möglich. 2023 übersteigt 100% → Dividende > Gewinn, keine Selbstfinanzierung → nicht nachhaltig/aggressiv. | **CFO-Argumente (2 aus):** (1) Hohe Gewinnreserven aus Vorjahren | (2) Gewinn ohne Neubewertungen (nicht-liquiditätswirksam) ist höher als Dividende | (3) Kontinuität der Dividendenzahlungen für Aktionäre | (4) Starker operativer Cashflow | (5) Attraktivität für Investoren.",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Dividendenpolitik", "Payout Ratio", "Nachhaltigkeit"]
+        },
+        {
+          "id": "bwl-b-fs25-q16",
+          "number": 16,
+          "type": "open",
+          "points": 6,
+          "text": "3.4 — Berechnen Sie den Verschuldungsgrad sowie den WACC_S der Swiss Prime Site AG für 2023. Eigenkapitalkosten 14.5%, Fremdkapitalkosten 5.4%, Steuerbelastung 15.4%. Runden Sie auf xx.xx%.",
+          "imageHtml": null,
+          "choices": null,
+          "correct": null,
+          "model_answer": "**Verschuldungsgrad (Gearing)** = FK / EK = 7'240'883 / 6'537'382 = **110.76%** | **WACC_S:** EK-Anteil = 1/(1+1.1076) = 47.45% | FK-Anteil = 1.1076/(1+1.1076) = 52.55% | WACC_S = 0.4745 × 14.5% + 0.5255 × (1−0.154) × 5.4% = 6.88% + 2.40% = **9.28%**",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Kapitalkosten", "WACC", "Verschuldungsgrad"]
+        },
+        {
+          "id": "bwl-b-fs25-q17",
+          "number": 17,
+          "type": "open",
+          "points": 14,
+          "text": "3.5 — Swiss Prime Site AG plant die Übernahme der Staub Flachdach AG. Daten: EBIT −29 Mio., Amortisationen 21 Mio., Abschreibungen 25 Mio., FK 85 Mio. FCF-Prognose: 2025E: 8 Mio., 2026E: 10.2 Mio., 2027E: 14.5 Mio., 2028E: 15.8 Mio., 2029E: 16.6 Mio. WACC_S = 8.8%, Wachstumsrate Terminal Value g = 7.4%, EBITDA-Multiple = 5.8×. Berechnen Sie: (1) Netto-Unternehmenswert DCF-Methode, (2) Netto-Unternehmenswert Multiplikator-Methode. Welche Annahme ist aus Sicht eines Dritten kritisch?",
+          "imageHtml": "<div style='font-size:0.82rem;background:#0f172a;padding:12px;border-radius:8px;border:1px solid #1e293b;margin:8px 0'><strong style='color:#6ee7b7'>Staub Flachdach AG — Finanzdaten 2024</strong><table style='width:100%;border-collapse:collapse;margin-top:8px;font-size:0.78rem'><tr style='border-bottom:1px solid #1e293b'><td style='padding:4px 8px;color:#9ca3af'>EBIT</td><td style='text-align:right;padding:4px 8px;color:#f87171'>−29 Mio. CHF</td></tr><tr style='border-bottom:1px solid #1e293b'><td style='padding:4px 8px;color:#d1d5db'>+ Amortisationen</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>+21 Mio.</td></tr><tr style='border-bottom:1px solid #1e293b'><td style='padding:4px 8px;color:#d1d5db'>+ Abschreibungen</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>+25 Mio.</td></tr><tr style='border-bottom:1px solid #334155;font-weight:bold'><td style='padding:4px 8px;color:#fff'>= EBITDA</td><td style='text-align:right;padding:4px 8px;color:#6ee7b7'>17 Mio.</td></tr><tr><td style='padding:4px 8px;color:#9ca3af'>Fremdkapital</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>85 Mio.</td></tr></table><table style='width:100%;border-collapse:collapse;margin-top:10px;font-size:0.78rem'><tr style='background:#1e293b'><th style='padding:4px 8px;text-align:left;color:#9ca3af'>Jahr</th><th style='padding:4px 8px;text-align:right;color:#60a5fa'>2025E</th><th style='padding:4px 8px;text-align:right;color:#60a5fa'>2026E</th><th style='padding:4px 8px;text-align:right;color:#60a5fa'>2027E</th><th style='padding:4px 8px;text-align:right;color:#60a5fa'>2028E</th><th style='padding:4px 8px;text-align:right;color:#60a5fa'>2029E</th></tr><tr><td style='padding:4px 8px;color:#d1d5db'>FCF (Mio.)</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>8</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>10.2</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>14.5</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>15.8</td><td style='text-align:right;padding:4px 8px;color:#f9fafb'>16.6</td></tr></table></div>",
+          "choices": null,
+          "correct": null,
+          "model_answer": "**DCF-Methode:** PV(2025)=8/1.088=7.35 | PV(2026)=10.2/1.088²=8.62 | PV(2027)=14.5/1.088³=11.26 | PV(2028)=15.8/1.088⁴=11.28 | PV(2029)=16.6/1.088⁵=10.89 | Summe Detailperioden=49.40 | Terminal Value: (16.6×1.074)/(8.8%−7.4%)=1'273.46 | PV(TV)=1'273.46/1.088⁵=835.30 | **Brutto-DCF=884.70 Mio.** | Netto-DCF=884.70−85=**799.70 Mio.** | **Multiplikator-Methode:** EBITDA=−29+21+25=17 Mio. | 17×5.8=98.60 Mio. Brutto | Netto=98.60−85=**13.60 Mio.** | **Kritische Annahme:** Wachstumsrate g=7.4% für Terminal Value ist sehr hoch für ein 15 Jahre altes Handwerksunternehmen in der reifen Baubranche — dürfte von Dritten in Frage gestellt werden. Auch die FCF-Prognose (+15.7% p.a.) ist für ein Unternehmen mit negativem EBIT sehr optimistisch.",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Unternehmensbewertung", "DCF", "Multiplikatormethode", "M&A"]
+        }
+      ]
+    },
+    {
+      "id": "gff-mc",
+      "title": "Teil IV — Multiple Choice: Grundlagen der finanziellen Führung (45 Punkte)",
+      "description": "Pro richtige Antwort 3 Punkte, für Falschantworten keine Abzüge. Nur eine Antwort ist zutreffend.",
+      "points": 45,
+      "question_type": "single_choice",
+      "context": null,
+      "questions": [
+        {
+          "id": "bwl-b-fs25-q18",
+          "number": 18,
+          "type": "single_choice",
+          "points": 3,
+          "text": "4.1 — Welche Aussage zum Eigenfinanzierungsgrad ist zutreffend?",
+          "imageHtml": null,
+          "choices": [
+            { "key": "A", "text": "Aus Renditegesichtspunkten ist ein möglichst hoher Eigenfinanzierungsgrad anzustreben." },
+            { "key": "B", "text": "Aus Sicherheits-/Stabilitätsgesichtspunkten ist eine möglichst tiefe Eigenkapitalquote anzustreben." },
+            { "key": "C", "text": "Aus Renditegesichtspunkten ist ein möglichst tiefer Eigenfinanzierungsgrad anzustreben." },
+            { "key": "D", "text": "Keine der anderen Aussagen ist zutreffend." }
+          ],
+          "correct": ["C"],
+          "model_answer": null,
+          "explanation": "C ist korrekt: Ein tiefer Eigenfinanzierungsgrad (mehr Fremdkapital) erhöht die Eigenkapitalrendite durch den Leverage-Effekt (Hebelwirkung des Fremdkapitals). A ist falsch: Mehr EK reduziert die Rendite. B ist falsch: Aus Sicherheitssicht ist hohe EK-Quote anzustreben.",
+          "topics": ["Eigenkapital", "Leverage", "Kapitalstruktur"]
+        },
+        {
+          "id": "bwl-b-fs25-q19",
+          "number": 19,
+          "type": "single_choice",
+          "points": 3,
+          "text": "4.2 — Welche Aussage zur Berichterstattung ist korrekt?",
+          "imageHtml": null,
+          "choices": [
+            { "key": "A", "text": "Es gibt drei Arten: Ad-Hoc-Publizität, Pro-forma-Bericht und Geschäftsbericht." },
+            { "key": "B", "text": "Die finanzielle Berichterstattung informiert interne (Mitarbeitende, Aktionäre, Geschäftsleitung) und externe Adressaten (Steuerbehörden, Ratingagenturen, Gläubiger)." },
+            { "key": "C", "text": "Im Jahresbericht werden u.a. die Corporate Governance sowie Tätigkeiten im Bereich Corporate Responsibility aufgezeigt." },
+            { "key": "D", "text": "Alle Schweizer KMUs berichten nach IFRS-Standards." }
+          ],
+          "correct": ["C"],
+          "model_answer": null,
+          "explanation": "C ist korrekt: Der Jahresbericht enthält typischerweise Corporate Governance und Corporate Responsibility/Sustainability. A ist unvollständig (Halbjahresbericht etc. fehlen). B ist falsch: Aktionäre sind externe Adressaten. D ist falsch: Schweizer KMUs berichten nach OR, nicht IFRS.",
+          "topics": ["Berichterstattung", "Jahresbericht", "Corporate Governance"]
+        },
+        {
+          "id": "bwl-b-fs25-q20",
+          "number": 20,
+          "type": "single_choice",
+          "points": 3,
+          "text": "4.3 — QuickClean GmbH: Anfangsbestand 285 Stück à CHF 449. Zugänge 2024: 3.1. 92×470, 15.4. 60×430, 11.8. 79×375, 27.12. 85×350. Verkäufe 2024: 512 Stück. Welche Aussage ist korrekt?",
+          "imageHtml": null,
+          "choices": [
+            { "key": "A", "text": "Die Wahl der Bewertungsmethode hat nie einen Einfluss auf den ausgewiesenen Gewinn." },
+            { "key": "B", "text": "Der Bilanzvvert nach Durchschnittskostenmethode ist tiefer als nach FIFO." },
+            { "key": "C", "text": "Der Bilanzvvert nach FIFO-Methode beträgt CHF 37'966.51." },
+            { "key": "D", "text": "Der Bilanzvvert nach Durchschnittskostenmethode beträgt CHF 37'966.51." }
+          ],
+          "correct": ["D"],
+          "model_answer": null,
+          "explanation": "D ist korrekt: Total 601 Einheiten, 89 verbleiben. Gesamtkosten = 285×449 + 92×470 + 60×430 + 79×375 + 85×350 = 127'965 + 43'240 + 25'800 + 29'625 + 29'750 = 256'380. Durchschnitt = 256'380/601 = CHF 426.59/Stück. 89 × 426.59 ≈ CHF 37'966.51 ✓. FIFO-Wert = 85×350 + 4×375 = CHF 31'250. A ist falsch (bei Preisveränderungen hat Methode Einfluss). B ist falsch (Average 37'967 > FIFO 31'250 bei fallenden Preisen).",
+          "topics": ["Vorrätebewertung", "FIFO", "Durchschnittskostenmethode"]
+        },
+        {
+          "id": "bwl-b-fs25-q21",
+          "number": 21,
+          "type": "single_choice",
+          "points": 3,
+          "text": "4.4 — Welche Aussage zu den Kennzahlen ist korrekt?",
+          "imageHtml": null,
+          "choices": [
+            { "key": "A", "text": "Die Fristendivergenz bei der goldenen Finanzierungsregel besagt, dass das Anlagevermögen mit langfristigem Kapital finanziert sein soll." },
+            { "key": "B", "text": "Das DuPont-Schema ist ein Rechensystem zur Messung der Liquidität und berechnet sich durch ROS × CTO." },
+            { "key": "C", "text": "Gemäss dem Zieldreieck stehen Sicherheits-, Rentabilitäts- und Liquiditätskennzahlen im Einklang." },
+            { "key": "D", "text": "Keine der anderen Aussagen ist zutreffend." }
+          ],
+          "correct": ["D"],
+          "model_answer": null,
+          "explanation": "D ist korrekt. A ist falsch: Was beschrieben wird ist Fristenkongruenz (nicht Fristendivergenz). B ist falsch: DuPont misst Rentabilität (ROE), nicht Liquidität. C ist falsch: Die drei Perspektiven des Zieldreiecks stehen in Konflikt/Spannung zueinander, nicht im Einklang.",
+          "topics": ["Kennzahlen", "Zieldreieck", "DuPont"]
+        },
+        {
+          "id": "bwl-b-fs25-q22",
+          "number": 22,
+          "type": "single_choice",
+          "points": 3,
+          "text": "4.5 — BalanceBusters GmbH: Welche Vorgehensweise zur Aktivierung oder Passivierung ist korrekt?",
+          "imageHtml": null,
+          "choices": [
+            { "key": "A", "text": "Ein Geschäftsvorfall, der die Kriterien zur Definition einer Verbindlichkeit nicht erfüllt, wird nicht in der Bilanz angesetzt, jedoch gemäss Offenlegungsvorschriften im Anhang angegeben." },
+            { "key": "B", "text": "Unter IFRS wird die Aktivierung von Forschungskosten durchgeführt, wenn Ansatzkriterien erfüllt sind." },
+            { "key": "C", "text": "Eine Verbindlichkeit wird durch: gegenwärtige Verpflichtung, vergangenes Ereignis und Zufluss von Ressourcen definiert." },
+            { "key": "D", "text": "Keine der anderen Aussagen ist zutreffend." }
+          ],
+          "correct": ["A"],
+          "model_answer": null,
+          "explanation": "A ist korrekt: Nicht-ansetzbare Verbindlichkeiten (z.B. Eventualverbindlichkeiten) werden im Anhang offengelegt. B ist falsch: Forschungskosten sind nach IAS 38 immer aufwandswirksam; nur Entwicklungskosten können aktiviert werden. C ist falsch: Die dritte Bedingung lautet Abfluss (nicht Zufluss) von Ressourcen.",
+          "topics": ["Bilanzierung", "Verbindlichkeiten", "IFRS", "IAS 38"]
+        },
+        {
+          "id": "bwl-b-fs25-q23",
+          "number": 23,
+          "type": "single_choice",
+          "points": 3,
+          "text": "4.6 — Fixkosten CHF 127'565. Produkt A: Preis 125, variable Kosten 85. Produkt B: Preis 117, variable Kosten 62. Dann:",
+          "imageHtml": null,
+          "choices": [
+            { "key": "A", "text": "Die Break-Even-Menge von Produkt A liegt bei 3'189 Stück." },
+            { "key": "B", "text": "Der Break-Even-Umsatz von Produkt B liegt bei CHF 271'366." },
+            { "key": "C", "text": "Die Deckungsbeitragsmarge für Produkt B liegt bei 32%." },
+            { "key": "D", "text": "Stimmt keine der anderen Antwortmöglichkeiten." }
+          ],
+          "correct": ["D"],
+          "model_answer": null,
+          "explanation": "D ist korrekt: BEP-A = 127'565/40 = 3'189.125 → aufzurunden auf 3'190 (A falsch). BEP-Umsatz B = 127'565/(55/117) = 271'365.55 ≈ 271'366 (B ist sehr nahe, aber nicht exakt CHF 271'366). DB-Marge B = 55/117 = 47% (C falsch mit 32%). Somit keine Antwort exakt korrekt.",
+          "topics": ["Kostenrechnung", "Break-Even", "Deckungsbeitrag"]
+        },
+        {
+          "id": "bwl-b-fs25-q24",
+          "number": 24,
+          "type": "single_choice",
+          "points": 3,
+          "text": "4.7 — Welche Aussage zu den Bewertungsmethoden ist korrekt?",
+          "imageHtml": null,
+          "choices": [
+            { "key": "A", "text": "Die Substanzwert-Methode eignet sich als Preisobergrenze, da sie die zukünftige maximale Ertragslage präzise abbildet." },
+            { "key": "B", "text": "Der Unternehmenswert bei der DCF-Methode steigt, wenn der WACC sinkt." },
+            { "key": "C", "text": "Bei der Multiplikator-Methode wird eine Bezugsgrösse durch einen Markt-Multiple geteilt." },
+            { "key": "D", "text": "Beim Netto-Substanzwert handelt es sich um das Gesamtvermögen eines Unternehmens." }
+          ],
+          "correct": ["B"],
+          "model_answer": null,
+          "explanation": "B ist korrekt: In der DCF-Methode werden Cashflows mit dem WACC abdiskontiert. Ein tieferer WACC führt zu einem höheren Barwert → höherer Unternehmenswert. A ist falsch: Substanzwert berücksichtigt keine Zukunftserträge. C ist falsch: Bezugsgrösse wird MULTIPLIZIERT (nicht dividiert). D ist falsch: Netto-Substanzwert = Aktiven minus Fremdkapital = Eigenkapital.",
+          "topics": ["Unternehmensbewertung", "DCF", "Substanzwert"]
+        },
+        {
+          "id": "bwl-b-fs25-q25",
+          "number": 25,
+          "type": "single_choice",
+          "points": 3,
+          "text": "4.8 — Welche der folgenden Aussagen zu M&A-Transaktionen (von Ihrem M&A-Berater) ist NICHT korrekt?",
+          "imageHtml": null,
+          "choices": [
+            { "key": "A", "text": "Unzureichende Post Merger Integration (PMI) ist einer der Hauptgründe für das Scheitern von M&A." },
+            { "key": "B", "text": "Share Deal: Käufer tritt in alle Rechte/Pflichten ein; Asset Deal: Käufer kauft Vermögenswerte." },
+            { "key": "C", "text": "Unternehmen kaufen andere, um Steuervorteile zu erzielen, zur Progression der Fixkosten oder zur Portfolio-Diversifikation." },
+            { "key": "D", "text": "Beim Signing werden die endverhandelten Verträge unterzeichnet." }
+          ],
+          "correct": ["C"],
+          "model_answer": null,
+          "explanation": "C ist NICHT korrekt: Unternehmen kaufen andere Unternehmen zur DEGRESSION der Fixkosten (Economies of Scale / Fixkostendegression), nicht zur Progression. Die anderen Aussagen (A, B, D) sind korrekt.",
+          "topics": ["M&A", "Transaktion", "Post Merger Integration"]
+        },
+        {
+          "id": "bwl-b-fs25-q26",
+          "number": 26,
+          "type": "single_choice",
+          "points": 3,
+          "text": "4.9 — Welche Aussage zur Due Diligence ist zutreffend?",
+          "imageHtml": null,
+          "choices": [
+            { "key": "A", "text": "Due Diligence ist ein Prozess moderner Rechnungslegung und wird im Jahresbericht veröffentlicht." },
+            { "key": "B", "text": "Das Aufdecken relevanter Informationen kann schwierig sein, da im Vorfeld oft nicht bekannt ist, wonach gesucht wird." },
+            { "key": "C", "text": "Das Ergebnis der DD hat in der Regel keinen grossen Einfluss auf den Kaufpreis." },
+            { "key": "D", "text": "Due Diligence wird ausschliesslich von externen Beratern durchgeführt." }
+          ],
+          "correct": ["B"],
+          "model_answer": null,
+          "explanation": "B ist korrekt: Due Diligence ist explorativ — man weiss oft nicht im Vorfeld genau, welche Risiken oder Chancen man finden wird. A ist falsch: DD ist kein Rechnungslegungsprozess. C ist falsch: DD-Ergebnisse beeinflussen Preis stark. D ist falsch: DD kann auch intern durchgeführt werden.",
+          "topics": ["Due Diligence", "M&A", "Unternehmenskauf"]
+        },
+        {
+          "id": "bwl-b-fs25-q27",
+          "number": 27,
+          "type": "single_choice",
+          "points": 3,
+          "text": "4.10 — FlexFit AG: Neue Fitness-Maschine, degressiver Satz 48%, Nutzungsdauer 5 Jahre. Ab welchem Jahr ist der jährliche Abschreibungsbetrag nach degressiver Methode kleiner als nach linearer Methode?",
+          "imageHtml": null,
+          "choices": [
+            { "key": "A", "text": "Ab Jahr 2." },
+            { "key": "B", "text": "Ab Jahr 3." },
+            { "key": "C", "text": "Ab Jahr 4." },
+            { "key": "D", "text": "Ab Jahr 5." }
+          ],
+          "correct": ["B"],
+          "model_answer": null,
+          "explanation": "B ist korrekt: Linear: 100/5 = 20% p.a. Degressiv: Jahr 1: 48% → verbleibend 52%. Jahr 2: 52%×48% = 24.96% > 20% (degressiv noch grösser). Jahr 3: 27.04%×48% = 12.98% < 20% → ab Jahr 3 ist degressive Abschreibung kleiner als lineare.",
+          "topics": ["Abschreibungen", "Degressiv", "Linear"]
+        },
+        {
+          "id": "bwl-b-fs25-q28",
+          "number": 28,
+          "type": "single_choice",
+          "points": 3,
+          "text": "4.11 — Welche Aussage zum Thema Finanzierung ist korrekt?",
+          "imageHtml": null,
+          "choices": [
+            { "key": "A", "text": "Typische hybride Finanzierungsinstrumente (Mezzanine-Finanzierung) sind Optionsanleihen, Wandelanleihen und Genussscheine." },
+            { "key": "B", "text": "Die Plowback Ratio gibt den Grad der Fremdfinanzierung an." },
+            { "key": "C", "text": "Gemäss Pecking Order Theory bevorzugen grosse Unternehmen das Emittieren von Eigenkapital vor Aufnahme von Fremdkapital." },
+            { "key": "D", "text": "Keine der anderen Aussagen ist zutreffend." }
+          ],
+          "correct": ["A"],
+          "model_answer": null,
+          "explanation": "A ist korrekt: Optionsanleihen (Bonds mit Warrants), Wandelanleihen (Convertible Bonds) und Genussscheine sind klassische Mezzanine-/Hybridinstrumente (haben Eigenschaften von EK und FK). B ist falsch: Plowback Ratio = Thesaurierungsquote (Anteil einbehaltener Gewinne). C ist falsch: Pecking Order Theory besagt Präferenz für Innenfinanzierung > FK > EK.",
+          "topics": ["Finanzierung", "Mezzanine", "Pecking Order"]
+        },
+        {
+          "id": "bwl-b-fs25-q29",
+          "number": 29,
+          "type": "single_choice",
+          "points": 3,
+          "text": "4.12 — Independa AG: Verschuldungsgrad 1/3 (FK/EK). Eigenkapitalkosten 8.80%, Fremdkapitalkosten 4.50%, Steuerbelastung 15.00%. Berechnen Sie den WACC_S.",
+          "imageHtml": null,
+          "choices": [
+            { "key": "A", "text": "7.73%" },
+            { "key": "B", "text": "5.07%" },
+            { "key": "C", "text": "7.56%" },
+            { "key": "D", "text": "6.31%" }
+          ],
+          "correct": ["C"],
+          "model_answer": null,
+          "explanation": "C ist korrekt: Verschuldungsgrad FK/EK = 1/3 → EK-Anteil = 3/4 = 75%, FK-Anteil = 1/4 = 25%. WACC_S = 0.75 × 8.80% + 0.25 × (1−0.15) × 4.50% = 6.60% + 0.25 × 3.825% = 6.60% + 0.956% = 7.556% ≈ 7.56%",
+          "topics": ["WACC", "Kapitalkosten", "Berechnung"]
+        },
+        {
+          "id": "bwl-b-fs25-q30",
+          "number": 30,
+          "type": "single_choice",
+          "points": 3,
+          "text": "4.13 — Welche Aussage zur Erfolgs- und Geldflussrechnung ist zutreffend?",
+          "imageHtml": null,
+          "choices": [
+            { "key": "A", "text": "Der EBIT kann einerseits durch das Umsatzkostenverfahren und andererseits durch das Gesamtkostenverfahren ermittelt werden." },
+            { "key": "B", "text": "Der Cashflow aus Investitionstätigkeit kann durch die direkte und die indirekte Berechnungsmethode bestimmt werden." },
+            { "key": "C", "text": "Der Zahlungseingang verkaufter Ware hat einen Einfluss auf die Erfolgs- und Geldflussrechnung." },
+            { "key": "D", "text": "Keine der anderen Aussagen ist zutreffend." }
+          ],
+          "correct": ["A"],
+          "model_answer": null,
+          "explanation": "A ist korrekt: Beide Methoden der Erfolgsrechnung (Umsatzkostenverfahren / Gesamtkostenverfahren) führen zum EBIT. B ist falsch: Die direkte/indirekte Methode gilt für den operativen Cashflow, nicht für den Investitions-CF. C ist falsch: Ein Zahlungseingang beeinflusst die Geldflussrechnung (Liquidität), aber NICHT die Erfolgsrechnung (Periodenabgrenzung).",
+          "topics": ["Erfolgsrechnung", "Geldflussrechnung", "Methoden"]
+        },
+        {
+          "id": "bwl-b-fs25-q31",
+          "number": 31,
+          "type": "single_choice",
+          "points": 3,
+          "text": "4.14 — Welche Aussage zur Umsatzrendite ist NICHT korrekt?",
+          "imageHtml": null,
+          "choices": [
+            { "key": "A", "text": "Die Umsatzrendite bildet die Effizienz der gesamten Geschäftstätigkeit ab." },
+            { "key": "B", "text": "Für den Nettoumsatz müssen Umsatzminderungen wie Rabatte und Skonti abgezogen werden." },
+            { "key": "C", "text": "Bei einem Nettoumsatz von MCHF 4.6 und einem EBIT von MCHF 0.8 liegt die EBIT-Marge bei 5.75%." },
+            { "key": "D", "text": "Je tiefer die Umsatzrendite, desto eher hat ein Unternehmen Rentabilitätsprobleme." }
+          ],
+          "correct": ["C"],
+          "model_answer": null,
+          "explanation": "C ist NICHT korrekt: EBIT-Marge = 0.8/4.6 = 17.39%, nicht 5.75%. (5.75% wäre 0.8/13.9.) A, B, D sind alle korrekte Aussagen.",
+          "topics": ["Umsatzrendite", "EBIT-Marge", "Kennzahlen"]
+        },
+        {
+          "id": "bwl-b-fs25-q32",
+          "number": 32,
+          "type": "single_choice",
+          "points": 3,
+          "text": "4.15 — Deinvest AG verkauft Tochtergesellschaft Farewell Ventures Ltd.: Aktiven CHF 12.2 Mia., FK CHF 8.6 Mia. Käufer nimmt Neubewertungen +CHF 5.3 Mia. vor, Goodwill beträgt CHF 4.4 Mia. Wie hoch ist der Kaufpreis?",
+          "imageHtml": null,
+          "choices": [
+            { "key": "A", "text": "CHF 8 Mia." },
+            { "key": "B", "text": "CHF 9.7 Mia." },
+            { "key": "C", "text": "CHF 13.3 Mia." },
+            { "key": "D", "text": "Mit den vorliegenden Informationen kann der Kaufpreis nicht berechnet werden." }
+          ],
+          "correct": ["C"],
+          "model_answer": null,
+          "explanation": "C ist korrekt: Buchhalterisches EK = Aktiven − FK = 12.2 − 8.6 = 3.6 Mia. Nach Neubewertung: Fair Value EK = 3.6 + 5.3 = 8.9 Mia. Goodwill = KP − Fair Value EK = 4.4 Mia. → Kaufpreis = 8.9 + 4.4 = CHF 13.3 Mia.",
+          "topics": ["M&A", "Goodwill", "Kaufpreisermittlung"]
+        }
+      ]
+    },
+    {
+      "id": "ethik-mc",
+      "title": "Teil V — Multiple Choice: Wirtschaftsethik (15 Punkte)",
+      "description": "Prof. Dr. Michael G. Festl. Pro richtige Antwort 3 Punkte, keine Abzüge für Falschantworten.",
+      "points": 15,
+      "question_type": "single_choice",
+      "context": null,
+      "questions": [
+        {
+          "id": "bwl-b-fs25-q33",
+          "number": 33,
+          "type": "single_choice",
+          "points": 3,
+          "text": "E1 — Wie könnte das Konzept der Klimakompensation verbessert werden, um ethische Bedenken zu adressieren?",
+          "imageHtml": null,
+          "choices": [
+            { "key": "A", "text": "Durch die Reduktion der Anzahl der Kompensationsprojekte weltweit." },
+            { "key": "B", "text": "Durch die Einführung strengerer staatlicher Regulierungen und unabhängiger Überprüfungen der Kompensationsprojekte." },
+            { "key": "C", "text": "Durch die ausschliessliche Fokussierung auf Projekte in Industrieländern." },
+            { "key": "D", "text": "Durch die Erhöhung der Preise für Klimazertifikate, um die Nachfrage zu senken." }
+          ],
+          "correct": ["B"],
+          "model_answer": null,
+          "explanation": "B ist korrekt: Stärkere staatliche Regulierung und unabhängige Überprüfung erhöhen Transparenz und Wirksamkeit, was die häufigste ethische Kritik (Principal-Agent-Problem, mangelnde Kontrolle) adressiert.",
+          "topics": ["Klimakompensation", "Wirtschaftsethik", "Regulierung"]
+        },
+        {
+          "id": "bwl-b-fs25-q34",
+          "number": 34,
+          "type": "single_choice",
+          "points": 3,
+          "text": "E2 — Die Deontologie bewertet Handlungen nach ihrem intrinsischen Wert. Was ist mit 'intrinsischem Wert' gemeint?",
+          "imageHtml": null,
+          "choices": [
+            { "key": "A", "text": "'Intrinsisch' bezieht sich auf die Art und Weise, wie eine Handlung ausgeführt wird." },
+            { "key": "B", "text": "Handlungen müssen Ausdruck von intrinsischen Werten sein wie dem Eigenwert des Lebens." },
+            { "key": "C", "text": "Handlungen liegen Grundsätze oder Absichten zugrunde — diese wohnen dem Handeln inne." },
+            { "key": "D", "text": "Es ist gemeint, dass Handlungen die goldene Mitte treffen müssen." }
+          ],
+          "correct": ["C"],
+          "model_answer": null,
+          "explanation": "C ist korrekt: 'Intrinsisch' bedeutet im deontologischen Sinne, dass Handlungen nach den ihnen zugrundeliegenden Maximen/Absichten bewertet werden — nicht nach den Konsequenzen (das wäre Utilitarismus). Die Moral liegt in der Handlung selbst (innewohnend).",
+          "topics": ["Deontologie", "Ethik", "Kant"]
+        },
+        {
+          "id": "bwl-b-fs25-q35",
+          "number": 35,
+          "type": "single_choice",
+          "points": 3,
+          "text": "E3 — Welche Aussage beschreibt am besten die Idee der Klimakompensation unter Berücksichtigung ethischer und praktischer Herausforderungen?",
+          "imageHtml": null,
+          "choices": [
+            { "key": "A", "text": "Klimakompensation: Unternehmen gleichen CO₂ durch Zertifikate aus. Diese Projekte sind immer effektiv und transparent." },
+            { "key": "B", "text": "Klimakompensation: Unternehmen reduzieren Emissionen durch erneuerbare Energien — immer die beste Methode." },
+            { "key": "C", "text": "Klimakompensation: Unternehmen gleichen Emissionen durch Reduktion des Büroenergieverbrauchs aus — keine ethischen Herausforderungen." },
+            { "key": "D", "text": "Klimakompensation: Unternehmen gleichen CO₂ durch Zertifikate für Projekte zur Treibhausgasreduktion aus. Diese Projekte können aber ethische und praktische Herausforderungen aufweisen." }
+          ],
+          "correct": ["D"],
+          "model_answer": null,
+          "explanation": "D ist korrekt: Diese Antwort enthält die korrekte Grundidee UND anerkennt, dass es Herausforderungen gibt (z.B. wie beim Kariba-Projekt von South Pole). Alle anderen Antworten sind entweder zu absolutistisch ('immer effektiv', 'immer beste Methode') oder unvollständig.",
+          "topics": ["Klimakompensation", "Carbon Offsetting", "Ethik"]
+        },
+        {
+          "id": "bwl-b-fs25-q36",
+          "number": 36,
+          "type": "single_choice",
+          "points": 3,
+          "text": "E4 — Die Tugendethik bietet wenig Unterstützung bei Dilemmasituationen wie dem Trolley-Problem. Wählen Sie die Option, die KEINEN sinnvollen Grund darstellt!",
+          "imageHtml": null,
+          "choices": [
+            { "key": "A", "text": "Gemäss Aristoteles' Ethik sollten nur tugendhafte Personen gerettet werden — im Trolley-Problem fehlen diese Informationen." },
+            { "key": "B", "text": "Die Tugendethik konzentriert sich auf den Charakter, nicht auf spezifische Handlungen oder Handlungstypen." },
+            { "key": "C", "text": "Die aristotelische Tugendethik legt kein festes Moralprinzip fest, sondern betont Überlegung und Klugheit in konkreten Situationen." },
+            { "key": "D", "text": "Szenarien wie das Trolley-Problem abstrahieren von situativen Details — die situationsabhängige Tugendethik bietet daher wenig Unterstützung." }
+          ],
+          "correct": ["A"],
+          "model_answer": null,
+          "explanation": "A ist KEIN sinnvoller Grund: Die Tugendethik bewertet nicht, wer 'tugendhaft' genug ist, um gerettet zu werden — das wäre eine Fehlinterpretation. B, C und D sind legitime Gründe, warum die Tugendethik bei abstrakten Dilemmasituationen wenig hilft.",
+          "topics": ["Tugendethik", "Aristoteles", "Ethische Theorien"]
+        },
+        {
+          "id": "bwl-b-fs25-q37",
+          "number": 37,
+          "type": "single_choice",
+          "points": 3,
+          "text": "E5 — Welche Formulierung drückt Immanuel Kants Kategorischen Imperativ in seiner Grundform am besten aus?",
+          "imageHtml": null,
+          "choices": [
+            { "key": "A", "text": "Handle so, dass deine Maxime ausdrückt, wie du wollen würdest, dass alle vernünftigen Wesen handeln!" },
+            { "key": "B", "text": "Handle so, dass deine Maxime völlig uneigennützig ist, denn das ist im Interesse aller." },
+            { "key": "C", "text": "Handle nach der Maxime, die, wenn sie von allen befolgt würde, ein wünschenswerter Teil unserer Gesellschaftsordnung wäre." },
+            { "key": "D", "text": "Handle nach der Maxime, die, als allgemeines Gesetz gedacht, ohne Widerspruch vorstellbar ist und gewollt werden kann." }
+          ],
+          "correct": ["D"],
+          "model_answer": null,
+          "explanation": "D ist korrekt: Kants Kategorischer Imperativ in der Universalgesetz-Formel: 'Handle nur nach derjenigen Maxime, durch die du zugleich wollen kannst, dass sie ein allgemeines Gesetz werde.' D trifft den Kern am genauesten (Widerspruchsfreiheit als allgemeines Gesetz). A ist ähnlich, aber weniger präzise. B betont Uneigennützigkeit (nicht das Kernprinzip). C verweist auf gesellschaftliche Wünschbarkeit (nicht Kantisch).",
+          "topics": ["Kant", "Kategorischer Imperativ", "Deontologie"]
+        }
+      ]
+    },
+    {
+      "id": "ethik-offen",
+      "title": "Teil VI — Offene Fragen: Wirtschaftsethik (30 Punkte)",
+      "description": "Prof. Dr. Michael G. Festl. Beantworten Sie alle Fragen sorgfältig. Für die Interpretation der Grafik (Q6–Q8) beziehen Sie sich auf die Entwicklung der Körperschaftsteuersätze in ausgewählten Industrieländern (sinkender Trend 1980–2020, von ~50% auf ~20%).",
+      "points": 30,
+      "question_type": "open",
+      "context": "<div style='background:#1e293b;border:1px solid #334155;border-radius:10px;padding:14px;margin-bottom:12px;font-size:0.83rem;color:#94a3b8'><strong style='color:#e2e8f0'>Grafik-Kontext Q38–Q40:</strong> Die Grafik zeigt die Entwicklung der Körperschaftsteuersätze in ausgewählten Industrieländern. Der Trend zeigt einen deutlichen Rückgang von ~50% (1980) auf ~20% (2020) in Ländern wie USA, UK, Frankreich, Deutschland und weiteren. <strong style='color:#e2e8f0'>Q41–Q42:</strong> beziehen sich auf das Kariba-Projekt von South Pole in Simbabwe (Klimakompensationsprojekt).</div>",
+      "questions": [
+        {
+          "id": "bwl-b-fs25-q38",
+          "number": 38,
+          "type": "open",
+          "points": 4,
+          "text": "6 / Q6 — Erläutern Sie, was Wirtschaftsethiker unter «Race to the Bottom» verstehen. Benennen Sie den Kern des Problems und gehen Sie auf das Konzept der Ordnungslücke ein.",
+          "imageHtml": null,
+          "choices": null,
+          "correct": null,
+          "model_answer": "**Kern (2 Punkte):** Race to the bottom = Nationalstaaten konkurrieren durch Senkung der Unternehmenssteuern, um Unternehmen anzulocken. Je tiefer die Steuern, desto attraktiver der Standort → Abwärtsspirale der Steuersätze. | **Ordnungslücke (2 Punkte):** Das geltende Recht ist auf den Einflussbereich der Nationalstaaten beschränkt. Jenseits der Grenzen existiert eine Regelungslücke, in der gesetzliche Vorschriften nicht gelten. Unternehmen können dies nutzen, indem sie ihren Hauptsitz verlagern, um Kosten zu sparen.",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Race to the Bottom", "Ordnungslücke", "Steuerwettbewerb"]
+        },
+        {
+          "id": "bwl-b-fs25-q39",
+          "number": 39,
+          "type": "open",
+          "points": 8,
+          "text": "6 / Q7 — Welche Machtverschiebung deutet das dargestellte Race to the Bottom an, und warum befürchten einige Wirtschaftsethiker, dass diese Machtverschiebung ethisch problematisch ist?",
+          "imageHtml": null,
+          "choices": null,
+          "correct": null,
+          "model_answer": "**Machtverschiebung (2 Punkte):** Unternehmen haben zunehmend Einfluss auf Staaten und deren Massnahmen (insbesondere Steuersätze). Unternehmen 'diktieren' in gewissem Mass den rechtlichen/politischen Rahmen. | **Von öffentlich zu privat (2 Punkte):** Macht verlagert sich von demokratisch gewählten Vertretern zu von Investoren kontrollierten Unternehmen. 'Private Macht' dominiert 'öffentliche Macht'. | **Geldströme (2 Punkte):** Geld fliesst vom Staat (und damit vom Volk) hin zu privaten Unternehmen und deren Interessenvertretern. | **Konsequenzen (2 Punkte):** Staaten verlieren Mittel für öffentliche Güter wie Bildung, Infrastruktur, Gesundheitsversorgung.",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Machtverschiebung", "Steuerwettbewerb", "Demokratie", "Wirtschaftsethik"]
+        },
+        {
+          "id": "bwl-b-fs25-q40",
+          "number": 40,
+          "type": "open",
+          "points": 6,
+          "text": "6 / Q8 — Es gibt zwei Gegenmassnahmen: Deglobalisierung der Wirtschaft oder Globalisierung der Politik. Erläutern Sie beide und argumentieren Sie, welche besser ist und warum.",
+          "imageHtml": null,
+          "choices": null,
+          "correct": null,
+          "model_answer": "**Globalisierung der Politik (2 Punkte Erläuterung):** Supranationale Zusammenarbeit stärken, z.B. supranationale Organisationen oder Mindeststeuerabkommen zwischen Ländern (OECD Mindeststeuer 15%). | **Deglobalisierung der Wirtschaft (2 Punkte Erläuterung):** Verringerung der Fragmentierung von Produktionsketten; Unternehmen produzieren mehr in Ländern mit guten Vorschriften. | **Begründete Positionierung (2 Punkte):** Für Globalisierung der Politik: Deglobalisierung bedeutet weniger Effizienz, weniger Güter für alle, auch weniger Staatseinnahmen — der 'Kuchen' wird kleiner. ODER: Für Deglobalisierung: Wir produzieren genug, besser Verteilung fokussieren; starke Supranationalisierung birgt Freiheitsrisiken.",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Deglobalisierung", "Globalisierung der Politik", "Wirtschaftsethik"]
+        },
+        {
+          "id": "bwl-b-fs25-q41",
+          "number": 41,
+          "type": "open",
+          "points": 6,
+          "text": "6 / Q9 — Beschreiben Sie die Grundidee der Klimakompensation. Erläutern Sie anhand des Kariba-Projekts von South Pole die Vorteile und Herausforderungen.",
+          "imageHtml": null,
+          "choices": null,
+          "correct": null,
+          "model_answer": "**Grundidee (2 Punkte):** Klimakompensation (Carbon Offsetting) = Ausgleich von Treibhausgasemissionen durch Massnahmen/Projekte, die THG-Emissionen um mindestens denselben Betrag reduzieren. Unternehmen kaufen Zertifikate, die solche Projekte finanzieren. | **Vorteile (2 Punkte):** (1) Besser als unkompensierte Emissionen — selbst bei geringerer Wirkung als angekündigt entsteht ein positiver Effekt. (2) Grosse Mehrheit der Projekte weltweit funktioniert; ein Misserfolg (Kariba) sollte nicht alle verdammen. | **Herausforderungen (2 Punkte):** (1) Principal-Agent-Problem: Projektanbieter profitiert vom Zertifikatverkauf und hat Interessenskonflikt. (2) Unzureichende Überwachung lokaler Projektpartner kann zu ineffizienten/gescheiterten Projekten führen (wie Kariba).",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Klimakompensation", "Carbon Offsetting", "Kariba", "South Pole"]
+        },
+        {
+          "id": "bwl-b-fs25-q42",
+          "number": 42,
+          "type": "open",
+          "points": 6,
+          "text": "6 / Q10 — Erörtern Sie, wie der Utilitarismus die Klimakompensation im Kontext des Kariba-Projekts bewerten würde. Erläutern Sie das Grundkonzept des Utilitarismus.",
+          "imageHtml": null,
+          "choices": null,
+          "correct": null,
+          "model_answer": "**Utilitarismus Grundkonzept (2 Punkte):** Moralische Beurteilung nach Konsequenzen/Folgen von Handlungen (1 Punkt). Prinzip des grössten allgemeinen Glücks / Nutzens für die grösstmögliche Zahl (1 Punkt). | **Utilitaristische Bewertung Klimakompensation (4 Punkte):** PRO: Besser zu kompensieren als nicht zu kompensieren — Kariba hatte reale positive Auswirkungen. Gesamtabwägung aller Konsequenzen (globale Klimaeffekte, Nutzen für Bevölkerung in Simbabwe) kann positiv sein. CONTRA: Wenn Kompensation moralische Hemmschwellen senkt oder keine echten Anreize zur Emissionsreduktion setzt, könnten die Gesamtfolgen klimaschädlich sein. Langzeiteffekte, Auswirkungen auf zukünftige Generationen und nichtmenschliche Lebewesen sind einzubeziehen.",
+          "explanation": "Offene Frage — Musterlösung dient der Selbstüberprüfung.",
+          "topics": ["Utilitarismus", "Mill", "Klimakompensation", "Ethik"]
+        }
+      ]
+    }
+  ]
+}

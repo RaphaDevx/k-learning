@@ -126,6 +126,15 @@ window.ExamScreen = (function() {
       available: true,
     },
     {
+      id: 'bwl-b-fs25',
+      label: 'BWL B — FS 2025',
+      course: 'BWL',
+      dataVar: null,
+      file: 'exams/bwl-b-fs25-data.json',
+      format: 'json',
+      available: true,
+    },
+    {
       id: 'bwl-fifu-2021',
       label: 'BWL — Finanzielle Führung FS 2021',
       course: 'BWL',
