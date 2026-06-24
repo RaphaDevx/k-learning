@@ -70,6 +70,14 @@ window.ExamScreen = (function() {
       available: true,
     },
     {
+      id: 'om-hs24',
+      label: 'OM — Prüfung HS 2024',
+      course: 'OM',
+      dataVar: 'EXAM_DATA_OM_HS24',
+      file: 'exams/om-hs24-data.js',
+      available: true,
+    },
+    {
       id: 'om-hs23',
       label: 'OM — Prüfung HS 2023',
       course: 'OM',
