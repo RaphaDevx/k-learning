@@ -395,6 +395,859 @@ window.LERNSET_DATA = [
 ,
 
 // ════════════════════════════════════════════════════════════════
+// OM — Block A: Production, SCM & Revenue Management
+// Prüfungsvorbereitung FS26 — Q14–Q16, Q20–Q22, Q26–Q28
+// ════════════════════════════════════════════════════════════════
+
+// ── MRP II ───────────────────────────────────────────────────────
+{
+  "id": "om-mrp-order-01", "type": "order", "course": "OM",
+  "topic": "Block 3 — Production Management", "difficulty": 1,
+  "tags": ["MRP II", "Produktionsplanung", "Wirkungskette"],
+  "prompt": "Bringe die 5 Schritte von MRP II in der richtigen Reihenfolge (1 = strategisch/jährlich bis 5 = operativ/täglich):",
+  "items": [
+    "Business Planning (jährlich)",
+    "Sales & Operations Planning (monatlich)",
+    "Master Production Scheduling (wöchentlich)",
+    "Material Requirements Planning (wöchentlich)",
+    "Production Activity Control (täglich)"
+  ],
+  "explanation": "MRP II hat genau 5 Schritte: von Business Planning (jährlich, strategisch) über S&OP und MPS bis zu MRP (Schritt 4, wöchentlich) und Production Activity Control (täglich, operativ). Merkformel: 5-4-W — 5 Schritte, MRP = Schritt 4, Weekly."
+},
+
+{
+  "id": "om-mrp-tf-01", "type": "truefalse", "course": "OM",
+  "topic": "Block 3 — Production Management", "difficulty": 2,
+  "tags": ["MRP II", "Prüfungsfalle", "Produktionsplanung"],
+  "prompt": "MRP II — wahr oder falsch?",
+  "statements": [
+    {
+      "text": "MRP (Material Requirements Planning) ist Schritt 4 von MRP II und läuft wöchentlich.",
+      "isTrue": true,
+      "explanation": "Korrekt: MRP ist Schritt 4 (nicht 3!) und läuft wöchentlich. Prüfungsfalle: viele Studierende verwechseln MRP mit MPS (Schritt 3) oder denken, MRP läuft jährlich."
+    },
+    {
+      "text": "MRP II besteht aus 6 Schritten.",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: MRP II hat genau 5 Schritte, nicht 6. Die 5 Schritte: Business Planning → S&OP → MPS → MRP → Production Activity Control."
+    },
+    {
+      "text": "Sales & Operations Planning (Schritt 2) arbeitet mit aggregierten Produktfamilien, nicht mit einzelnen SKUs.",
+      "isTrue": true,
+      "explanation": "S&OP plant auf Ebene von Produktfamilien (aggregiert) und bezieht Maschinen und Mitarbeiter ein. Einzelne Produkte werden erst im Master Production Scheduling (Schritt 3) geplant."
+    },
+    {
+      "text": "MRP II hat keinen Feedback-Loop — Ist-Daten fliessen nicht zurück in die Planung.",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: Das Gegenteil ist richtig. MRP II ist ein geschlossener Kreislauf (closed-loop) — Ist-Daten aus der Produktion fliessen zurück an Business Planning. Das unterscheidet MRP II von MRP I."
+    },
+    {
+      "text": "Business Planning (Schritt 1) findet jährlich statt.",
+      "isTrue": true,
+      "explanation": "Business Planning ist die strategische Ebene und findet jährlich statt. Danach wird monatlich (S&OP), wöchentlich (MPS, MRP) und täglich (Production Activity Control) geplant."
+    }
+  ]
+},
+
+{
+  "id": "om-mrp-single-01", "type": "single", "course": "OM",
+  "topic": "Block 3 — Production Management", "difficulty": 1,
+  "tags": ["MRP II", "Merkformel", "Produktionsplanung"],
+  "question": "In welchem Schritt von MRP II findet Material Requirements Planning (MRP) statt — und wie oft?",
+  "options": [
+    "Schritt 3, monatlich",
+    "Schritt 4, wöchentlich",
+    "Schritt 4, jährlich",
+    "Schritt 5, täglich"
+  ],
+  "correctIndex": 1,
+  "explanation": "MRP = Schritt 4, wöchentlich. Merkformel: 5-4-W — 5 Schritte insgesamt, MRP ist Schritt 4, Weekly (wöchentlich). Schritt 3 ist MPS (Master Production Scheduling), auch wöchentlich, aber nicht MRP."
+},
+
+{
+  "id": "om-mrp-multi-01", "type": "multiple", "course": "OM",
+  "topic": "Block 3 — Production Management", "difficulty": 2,
+  "tags": ["MRP II", "Prüfungsfrage", "Produktionsplanung"],
+  "question": "Welche der folgenden Aussagen zu MRP II sind korrekt? (Mehrfachauswahl)",
+  "options": [
+    "Business Planning ist der erste Schritt und findet jährlich statt.",
+    "Sales & Operations Planning plant aggregiert auf Produktfamilien-Ebene (inkl. Maschinen und Mitarbeiter).",
+    "MRP (Schritt 4) findet jährlich statt.",
+    "MRP II enthält einen Feedback-Loop: Ist-Daten fliessen zurück in die Planung.",
+    "MRP II besteht aus 6 Planungsschritten."
+  ],
+  "correctIndices": [0, 1, 3],
+  "explanation": "A ✓ Business Planning = Schritt 1, jährlich. B ✓ S&OP = aggregiert (Produktfamilien, Maschinen + MA). D ✓ MRP II ist closed-loop mit Feedback. C ✗ MRP läuft WÖCHENTLICH, nicht jährlich. E ✗ MRP II hat 5 Schritte, nicht 6."
+},
+
+// ── JIT & Sequenzplanung ──────────────────────────────────────────
+{
+  "id": "om-jit-tf-01", "type": "truefalse", "course": "OM",
+  "topic": "Block 3 — Production Management", "difficulty": 2,
+  "tags": ["JIT", "Just-in-Time", "Prüfungsfalle", "Sequenzplanung"],
+  "prompt": "JIT & Sequenzplanung — wahr oder falsch?",
+  "statements": [
+    {
+      "text": "Just-in-Time basiert auf dem Pull-Prinzip: Nachfrage wird vom Kunden gezogen, nicht vom Hersteller gestossen.",
+      "isTrue": true,
+      "explanation": "Korrekt: JIT nutzt das Pull-Prinzip (Kanban). Produktion wird erst ausgelöst, wenn tatsächliche Nachfrage vorliegt — im Gegensatz zum Push-Prinzip bei MRP."
+    },
+    {
+      "text": "JIT ist generell besser als MRP II und sollte immer bevorzugt werden.",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: JIT ist nicht pauschal besser. JIT eignet sich für stabile, repetitive Nachfrage. MRP II ist besser bei komplexen, variablen Produktionsprogrammen. Der Kontext entscheidet."
+    },
+    {
+      "text": "Standardisierung ist ein zentrales Element von JIT, um Waste zu reduzieren.",
+      "isTrue": true,
+      "explanation": "Standardisierung gehört zu den JIT-Prinzipien: Einheitliche Prozesse reduzieren Variabilität und damit Verschwendung (Waste / Muda). Standardisierung ist eine der 7 Waste-Kategorien-Gegenmassnahmen."
+    },
+    {
+      "text": "Kein Sequenzierungsregel (SPT, EDD, etc.) ist in allen Situationen überlegen.",
+      "isTrue": true,
+      "explanation": "Jede Sequenzierungsregel optimiert ein anderes Ziel: SPT (Shortest Processing Time) minimiert durchschnittliche Durchlaufzeit, EDD (Earliest Due Date) minimiert maximale Verspätung. Keine Regel dominiert alle Kriterien gleichzeitig."
+    },
+    {
+      "text": "Sequenzplanung ist nur für produzierende Unternehmen relevant, nicht für Dienstleistungsbetriebe.",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: Sequenzplanung gilt auch für Services (z.B. Reihenfolge von Patientenbehandlungen im Spital, Warteschlangen bei Callcentern). Das Grundprinzip — optimale Reihenfolge von Aufträgen — ist branchenunabhängig."
+    }
+  ]
+},
+
+{
+  "id": "om-jit-multi-01", "type": "multiple", "course": "OM",
+  "topic": "Block 3 — Production Management", "difficulty": 2,
+  "tags": ["JIT", "Just-in-Time", "Prüfungsfrage"],
+  "question": "Welche der folgenden Aussagen zu Just-in-Time (JIT) sind korrekt? (Mehrfachauswahl)",
+  "options": [
+    "JIT basiert auf dem Push-Prinzip: Produktion stösst Nachfrage vorwärts.",
+    "JIT nutzt das Pull-Prinzip: Nachfrage des Kunden löst Produktion aus.",
+    "Standardisierung ist ein wichtiges JIT-Element zur Reduktion von Waste.",
+    "JIT ist in jeder Situation besser als MRP II."
+  ],
+  "correctIndices": [1, 2],
+  "explanation": "B ✓ Pull-Prinzip (Kanban). C ✓ Standardisierung reduziert Waste. A ✗ JIT nutzt Pull, nicht Push — Push ist MRP. D ✗ JIT ist nicht pauschal überlegen — Kontext (stabile vs. variable Nachfrage) entscheidet."
+},
+
+// ── SCM & Postponement ───────────────────────────────────────────
+{
+  "id": "om-sc-tf-02", "type": "truefalse", "course": "OM",
+  "topic": "Block 4 — Supply Chain Management", "difficulty": 2,
+  "tags": ["Postponement", "Safety-Stock", "SCM", "Prüfungsfalle"],
+  "prompt": "Postponement & SCM — wahr oder falsch?",
+  "statements": [
+    {
+      "text": "Durch Postponement (Risikoausgleich/Pooling) erhöht sich der benötigte Safety Stock insgesamt.",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: Das Gegenteil! Pooling REDUZIERT den benötigten Safety Stock. Wenn Nachfrageschwankungen verschiedener Märkte teilweise gegenläufig sind, kompensieren sie sich — der Gesamtbestand sinkt."
+    },
+    {
+      "text": "Supply Chain Management umfasst nur den Bereich upstream (Beschaffung), nicht downstream (Vertrieb).",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: SCM umfasst die gesamte Kette — Beschaffung (upstream) + Produktion + Versand/Distribution (downstream). Eine Sichtweise nur auf upstream ist falsch und eine häufige Prüfungsfalle."
+    },
+    {
+      "text": "Postponement verschiebt den Customization-Point möglichst nah zum Kunden, um mit generischen Vorprodukten zu arbeiten.",
+      "isTrue": true,
+      "explanation": "Postponement bedeutet: Endkonfiguration (Customization) wird so spät wie möglich vorgenommen. Vorher werden generische, undifferenzierte Produkte gelagert — das reduziert Safety Stock durch Pooling-Effekte."
+    },
+    {
+      "text": "Quantity Discounts beim Lieferanten können den Bullwhip-Effekt verstärken.",
+      "isTrue": true,
+      "explanation": "Forward Buying: Wenn Lieferanten Mengenrabatte anbieten, bestellen Kunden bei Promotion viel mehr als nötig und danach wenig. Diese künstlichen Bestellschwankungen verstärken den Bullwhip-Effekt upstream."
+    }
+  ]
+},
+
+{
+  "id": "om-sc-multi-02", "type": "multiple", "course": "OM",
+  "topic": "Block 4 — Supply Chain Management", "difficulty": 2,
+  "tags": ["SCM", "Grundlagen", "Prüfungsfrage"],
+  "question": "Welche der folgenden Aussagen zu Supply Chain Management (SCM) sind korrekt? (Mehrfachauswahl)",
+  "options": [
+    "Quantity Discounts beim Lieferanten können den Bullwhip-Effekt auslösen (Forward Buying).",
+    "SCM umfasst nur den upstream-Teil der Wertschöpfungskette (Beschaffung).",
+    "Konflikte bei Liefermengen zwischen Partnern sind typische SCM-Herausforderungen.",
+    "SCM umfasst Beschaffung, Produktion und Versand/Distribution."
+  ],
+  "correctIndices": [0, 2, 3],
+  "explanation": "A ✓ Mengenrabatte → Forward Buying → Bullwhip. C ✓ Liefermengen-Konflikte zwischen Partnern sind klassische SCM-Probleme. D ✓ SCM umfasst die gesamte Kette. B ✗ SCM ist nicht nur upstream — es umfasst die ganze Kette inkl. downstream."
+},
+
+{
+  "id": "om-sc-multi-03", "type": "multiple", "course": "OM",
+  "topic": "Block 4 — Supply Chain Management", "difficulty": 2,
+  "tags": ["Postponement", "Safety-Stock", "Prüfungsfrage"],
+  "question": "Welche der folgenden Aussagen zu Postponement sind korrekt? (Mehrfachauswahl)",
+  "options": [
+    "Durch Postponement (Pooling) addieren sich die Safety Stocks der Märkte — der Gesamtbestand steigt.",
+    "Der Customization-Point kann sowohl nahe beim Kunden als auch nahe beim Hersteller liegen.",
+    "Postponement ermöglicht flexible Reaktion auf verschiedene Teilmärkte.",
+    "Der Customization-Point liegt bei Postponement immer beim Hersteller, nie beim Kunden."
+  ],
+  "correctIndices": [1, 2],
+  "explanation": "B ✓ Der Customization-Point kann beide Positionen einnehmen — je nach Strategie. C ✓ Flexibilität auf Teilmärkte ist ein Hauptvorteil. A ✗ Prüfungsfalle: Pooling REDUZIERT Safety Stock! D ✗ Prüfungsfalle: Der Punkt liegt bei Postponement eher beim Kunden (späte Differenzierung), kann aber auch näher am Hersteller sein."
+},
+
+{
+  "id": "om-sc-multi-04", "type": "multiple", "course": "OM",
+  "topic": "Block 4 — Supply Chain Management", "difficulty": 2,
+  "tags": ["Bullwhip-Effect", "Ursachen", "Prüfungsfrage"],
+  "question": "Welche der folgenden Aussagen zum Bullwhip-Effekt sind korrekt? (Mehrfachauswahl)",
+  "options": [
+    "Der Bullwhip-Effekt verstärkt sich downstream (Richtung Endkunde).",
+    "Preisschwankungen und Promotions verstärken den Bullwhip-Effekt.",
+    "Forecasts basierend auf Forecasts (Demand Signal Processing) verstärken den Bullwhip-Effekt.",
+    "Leerkapazität in der Fabrik ist ein Haupttreiber des Bullwhip-Effekts.",
+    "Bessere Koordination und Informationsaustausch reduzieren den Bullwhip-Effekt."
+  ],
+  "correctIndices": [1, 2, 4],
+  "explanation": "B ✓ Preisschwankungen → Forward Buying → Bullwhip. C ✓ Jede Stufe prognostiziert auf Basis der Prognose der nächsten Stufe → Verzerrung wächst. E ✓ Transparenz (z.B. Vendor-Managed Inventory) reduziert Überreaktionen. A ✗ Bullwhip verstärkt sich UPSTREAM (Richtung Lieferant), nicht downstream! D ✗ Leerkapazität ist eine Konsequenz, kein Treiber."
+},
+
+// ── Revenue Management ───────────────────────────────────────────
+{
+  "id": "om-rm-tf-01", "type": "truefalse", "course": "OM",
+  "topic": "Block 5 — Revenue Management", "difficulty": 2,
+  "tags": ["Revenue Management", "Prüfungsfalle", "Fencing"],
+  "prompt": "Revenue Management — wahr oder falsch?",
+  "statements": [
+    {
+      "text": "Revenue Management setzt konstante, stabile Nachfrage voraus.",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: Das Gegenteil. RM braucht variable, ungewisse und segmentierbare Nachfrage. Bei konstanter Nachfrage gibt es keinen Grund zur Differenzierung."
+    },
+    {
+      "text": "Niedrige Grenzkosten (z.B. bei Airlines und Hotels) sind eine typische Voraussetzung für Revenue Management.",
+      "isTrue": true,
+      "explanation": "Niedrige Grenzkosten bedeuten: Eine zusätzlich verkaufte Einheit (Sitzplatz, Zimmer) kostet wenig extra. Dadurch lohnt sich auch ein niedriger Preis für Restkapazität — das ist die Basis für RM-Preisdifferenzierung."
+    },
+    {
+      "text": "Religion ist ein zulässiger Fencing-Mechanismus im Revenue Management.",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: Religion ist ein UNGÜLTIGER Fence — es wäre Diskriminierung. Gültige Fences sind z.B. Region, Produktvariante, Buchungszeitpunkt, Flexibilität (refundable vs. non-refundable)."
+    },
+    {
+      "text": "Flexibilität (z.B. refundable vs. non-refundable Ticket) ist ein gültiger Fencing-Mechanismus.",
+      "isTrue": true,
+      "explanation": "Korrekt: Flexibilität ist ein klassischer Fence. Kunden mit hoher Zahlungsbereitschaft buchen oft kurzfristig und flexibel → zahlen mehr. Preissensitive Kunden buchen früh und akzeptieren keine Rückgabe → zahlen weniger."
+    },
+    {
+      "text": "Revenue Management gilt ausschliesslich für physische Produkte, nicht für Dienstleistungen.",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: RM ist besonders geeignet für DIENSTLEISTUNGEN mit nicht-lagerbarer Kapazität (Hotels, Airlines, Mietwagen). Bei physischen Produkten mit lagerbarer Kapazität ist RM weniger typisch."
+    }
+  ]
+},
+
+{
+  "id": "om-rm-single-01", "type": "single", "course": "OM",
+  "topic": "Block 5 — Revenue Management", "difficulty": 1,
+  "tags": ["Revenue Management", "Voraussetzungen"],
+  "question": "Welche Aussage beschreibt eine FALSCHE Voraussetzung für Revenue Management?",
+  "options": [
+    "Die Kapazität ist kurzfristig fix und nicht erweiterbar.",
+    "Die Nachfrage ist segmentierbar (verschiedene Zahlungsbereitschaften).",
+    "Die Nachfrage ist konstant und gut vorhersagbar.",
+    "Die Grenzkosten einer zusätzlichen Einheit sind niedrig."
+  ],
+  "correctIndex": 2,
+  "explanation": "C ist FALSCH als Voraussetzung: RM setzt gerade VARIABLE, unsichere Nachfrage voraus — nicht konstante. A, B und D sind echte RM-Voraussetzungen: fixe Kapazität, segmentierbare Nachfrage und niedrige Grenzkosten."
+},
+
+{
+  "id": "om-rm-multi-01", "type": "multiple", "course": "OM",
+  "topic": "Block 5 — Revenue Management", "difficulty": 2,
+  "tags": ["Revenue Management", "Merkmale", "Prüfungsfrage"],
+  "question": "Welche der folgenden Aussagen zu Revenue Management (RM) sind korrekt? (Mehrfachauswahl)",
+  "options": [
+    "RM nutzt preisabhängige Nachfrage zur Kapazitätsoptimierung.",
+    "Kapazitätsoptimierung ist ein Kernziel von RM.",
+    "RM gilt ausschliesslich für physische Produkte (nicht Dienstleistungen).",
+    "Product Bundling ist eine Technik im Revenue Management."
+  ],
+  "correctIndices": [0, 1, 3],
+  "explanation": "A ✓ Preisabhängige Nachfrage ist Grundlage von RM. B ✓ Kapazitätsoptimierung (wer bekommt welche Kapazität zu welchem Preis?) ist das Kernziel. D ✓ Product Bundling (z.B. Flug + Hotel) gehört zu RM-Techniken. C ✗ RM gilt NICHT nur für Produkte — es ist typisch für Dienstleistungen mit nicht-lagerbarer Kapazität."
+},
+
+{
+  "id": "om-rm-multi-02", "type": "multiple", "course": "OM",
+  "topic": "Block 5 — Revenue Management", "difficulty": 2,
+  "tags": ["Revenue Management", "Voraussetzungen", "Prüfungsfrage"],
+  "question": "Welche der folgenden Eigenschaften sind typische Voraussetzungen für den Einsatz von Revenue Management? (Mehrfachauswahl)",
+  "options": [
+    "Kapazität ist verderblich / nicht lagerbar (z.B. Hotelzimmer, Flugplatz).",
+    "Nachfrage ist konstant und vorhersagbar.",
+    "Niedrige Grenzkosten je zusätzlicher Einheit.",
+    "Nachfrage ist segmentierbar in Gruppen mit unterschiedlicher Zahlungsbereitschaft.",
+    "Kapazität ist kurzfristig fix."
+  ],
+  "correctIndices": [0, 2, 3, 4],
+  "explanation": "A ✓ Verderbliche/nicht lagerbare Kapazität (perishability). C ✓ Niedrige Grenzkosten ermöglichen Restkapazitäts-Verkauf zu reduzierten Preisen. D ✓ Segmentierbarkeit erlaubt Preisdifferenzierung. E ✓ Fixe Kapazität schafft den Optimierungsdruck. B ✗ FALSCH: RM braucht VARIABLE, unsichere Nachfrage — nicht konstante."
+},
+
+{
+  "id": "om-rm-multi-03", "type": "multiple", "course": "OM",
+  "topic": "Block 5 — Revenue Management", "difficulty": 2,
+  "tags": ["Revenue Management", "Fencing", "Prüfungsfalle"],
+  "question": "Ein Airline möchte Fencing-Bedingungen einsetzen, um verschiedene Kundensegmente zu trennen. Welche der folgenden Fencing-Mechanismen sind zulässig? (Mehrfachauswahl)",
+  "options": [
+    "Geographische Region (z.B. anderer Preis für Schweiz vs. Deutschland)",
+    "Produktvariante (z.B. Economy vs. Business Class)",
+    "Religion des Kunden",
+    "Flexibilität (z.B. non-refundable vs. refundable Ticket)",
+    "Kapazitätsbeschränkung als grundsätzliches Hindernis für Fencing"
+  ],
+  "correctIndices": [0, 1, 3],
+  "explanation": "A ✓ Region/Geografie ist ein klassischer, gültiger Fence. B ✓ Produktvariante (Economy/Business) ist gültiger Fence. D ✓ Flexibilität (Rückgaberecht) ist gültiger Fence. C ✗ Religion ist ungültig — diskriminierend und rechtlich unzulässig. E ✗ Kapazitätsbeschränkung ist kein Fence-Mechanismus, sondern eine Rahmenbedingung."
+}
+
+,
+
+// ════════════════════════════════════════════════════════════════
+// OM — Block B: Excel-Formeln (Q10–Q13, Q17–Q19)
+// EOQ / EPQ / Newsvendor / Make-or-Buy / Chase-Level / BOM
+// ════════════════════════════════════════════════════════════════
+
+// ── EOQ & EPQ ────────────────────────────────────────────────────
+{
+  "id": "om-eoq-tf-01", "type": "truefalse", "course": "OM",
+  "topic": "Block 2 — Inventory Management", "difficulty": 2,
+  "tags": ["EOQ", "EPQ", "Durchschnittslager", "Prüfungsfalle", "Excel"],
+  "prompt": "EOQ & EPQ Formeln — wahr oder falsch?",
+  "statements": [
+    {
+      "text": "Das durchschnittliche Lager (Average Stock) beim EOQ-Modell berechnet sich als Q*/2.",
+      "isTrue": true,
+      "explanation": "Korrekt: EOQ Avg Stock = Q*/2. Prüfungsfalle: manche Studierende schreiben nochmals die vollständige SQRT-Formel — falsch! Es ist einfach Q_star / 2, also die Zelle mit dem berechneten Q* durch 2 teilen."
+    },
+    {
+      "text": "Das durchschnittliche Lager beim EPQ-Modell berechnet sich ebenfalls als Q*/2 (gleich wie EOQ).",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: EPQ Avg Stock = Q*/2 × (1 − d/p). Der Korrekturfaktor (1 − d/p) berücksichtigt, dass während der Produktion gleichzeitig verbraucht wird. Nur EOQ hat einfach Q*/2."
+    },
+    {
+      "text": "Die EPQ-Formel enthält den Korrekturfaktor p/(p−d) im Vergleich zur EOQ-Formel.",
+      "isTrue": true,
+      "explanation": "EPQ: Q* = SQRT(2·D·S/H · p/(p−d)). Der Faktor p/(p−d) > 1 vergrössert die optimale Losgrösse, weil während der Produktion gleichzeitig Bedarf gedeckt wird."
+    },
+    {
+      "text": "Das EOQ-Modell setzt voraus, dass Nachschub sofort (unendlich schnell) eintrifft.",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: EOQ setzt voraus, dass Nachschub auf einen Schlag eintrifft (nicht unendlich schnell produziert wird). Im EPQ-Modell wird hingegen mit endlicher Produktionsrate p gearbeitet."
+    },
+    {
+      "text": "Beim EPQ-Modell gilt: Durchschnittslager = Q*/2 × (1 − d/p), wobei d die Nachfragerate und p die Produktionsrate ist.",
+      "isTrue": true,
+      "explanation": "Korrekt: EPQ Avg Stock = Q*/2 × (1 − d/p). Wenn p = d (Produktion gleich Verbrauch), wäre der Lager 0 — das macht intuitiv Sinn. In Excel: =F11/2*(1-D5/D6)."
+    }
+  ]
+},
+
+{
+  "id": "om-eoq-single-01", "type": "single", "course": "OM",
+  "topic": "Block 2 — Inventory Management", "difficulty": 1,
+  "tags": ["EPQ", "Durchschnittslager", "Formel", "Excel"],
+  "question": "Welche Excel-Formel berechnet das durchschnittliche Lager beim EPQ-Modell korrekt? (Q_star steht in Zelle F11, d in D5, p in D6)",
+  "options": [
+    "=SQRT(2*D*S/H * p/(p-d)) / 2",
+    "=F11/2",
+    "=F11/2*(1-D5/D6)",
+    "=F11*(1-D5/D6)"
+  ],
+  "correctIndex": 2,
+  "explanation": "EPQ Avg Stock = Q*/2 × (1−d/p). In Excel: =F11/2*(1-D5/D6). Häufiger Fehler: nochmals die SQRT-Formel schreiben (A) oder den Korrekturfaktor vergessen (B wie bei EOQ). D fehlt die Division durch 2."
+},
+
+{
+  "id": "om-eoq-multi-01", "type": "multiple", "course": "OM",
+  "topic": "Block 2 — Inventory Management", "difficulty": 2,
+  "tags": ["EOQ", "EPQ", "Theorie", "Prüfungsfrage"],
+  "question": "Welche der folgenden Aussagen zu EOQ und EPQ sind korrekt? (Mehrfachauswahl)",
+  "options": [
+    "EOQ und EPQ können nicht gleichzeitig für dasselbe Produkt verwendet werden.",
+    "Das EPQ-Modell bestimmt die optimale Produktionslosgrösse, um Setup- und Lagerkosten zu minimieren.",
+    "Das EOQ-Modell setzt linearen Lagerabbau und gebündelten Nachschub voraus.",
+    "Das EPQ-Modell hat einen höheren Average Stock als das EOQ-Modell bei gleichen Parametern."
+  ],
+  "correctIndices": [0, 1, 2],
+  "explanation": "A ✓ EOQ und EPQ können nicht gleichzeitig genutzt werden — EOQ bestellt extern, EPQ produziert intern. B ✓ EPQ minimiert Setup- + Lagerkosten. C ✓ EOQ: linearer Abbau, Nachschub auf einmal. D ✗ EPQ hat KLEINEREN Average Stock weil (1−d/p) < 1 — der Lager baut sich während der Produktion durch gleichzeitigen Verbrauch langsamer auf."
+},
+
+// ── Newsvendor / ROP ─────────────────────────────────────────────
+{
+  "id": "om-news-tf-01", "type": "truefalse", "course": "OM",
+  "topic": "Block 2 — Inventory Management", "difficulty": 2,
+  "tags": ["Newsvendor", "ROP", "Servicegrad", "Prüfungsfalle", "Excel"],
+  "prompt": "Newsvendor & ROP Formeln — wahr oder falsch?",
+  "statements": [
+    {
+      "text": "Der ROP (Reorder Point) bei einem Servicegrad von SL berechnet sich als: ROP = μ + NORM.S.INV(SL) × σ",
+      "isTrue": true,
+      "explanation": "Korrekt: ROP = μ + z × σ, wobei z = NORM.S.INV(SL). In Excel: =E3 + NORM.S.INV(E6)*E5. Diese Formel gibt den Bestellpunkt an, ab dem in (1−SL)% der Fälle Stockout eintritt."
+    },
+    {
+      "text": "In Excel lautet die korrekte Formel für den ROP: =E3*E6 (Mittelwert multipliziert mit Servicegrad).",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: =E3*E6 ist FALSCH! Das multipliziert nur μ mit SL — das ergibt keinen Sinn. Korrekt: =E3 + NORM.S.INV(E6)*E5, also μ + z·σ."
+    },
+    {
+      "text": "Der Critical Ratio im Newsvendor-Modell berechnet sich als Cu / (Cu + Co).",
+      "isTrue": true,
+      "explanation": "CR = Cu/(Cu+Co), wobei Cu = Underage Cost (Kosten bei zu wenig bestellt) und Co = Overage Cost (Kosten bei zu viel bestellt). CR bestimmt den optimalen Servicegrad."
+    },
+    {
+      "text": "Wenn der Critical Ratio < 0.5 ist, sollte man eher mehr bestellen (höherer Bestand).",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: CR < 0.5 bedeutet, die Overage Costs überwiegen → man sollte WENIGER bestellen (vorsichtiger). Erst wenn CR > 0.5 lohnt sich ein höherer Bestand."
+    },
+    {
+      "text": "NORM.S.INV(0.98) in Excel gibt den z-Wert zurück, der einem Servicegrad von 98% entspricht.",
+      "isTrue": true,
+      "explanation": "Korrekt: NORM.S.INV gibt den Quantilwert der Standardnormalverteilung zurück. NORM.S.INV(0.98) ≈ 2.054. Dieser z-Wert multipliziert mit σ ergibt den Safety Stock für 98% Servicegrad."
+    }
+  ]
+},
+
+{
+  "id": "om-news-single-01", "type": "single", "course": "OM",
+  "topic": "Block 2 — Inventory Management", "difficulty": 1,
+  "tags": ["ROP", "Newsvendor", "Excel", "Formel"],
+  "question": "Welche Excel-Formel berechnet den ROP korrekt? (μ in E3, σ in E5, Servicegrad in E6)",
+  "options": [
+    "=E3*E6",
+    "=E3 + E6*E5",
+    "=E3 + NORM.S.INV(E6)*E5",
+    "=NORM.S.INV(E6) + E3/E5"
+  ],
+  "correctIndex": 2,
+  "explanation": "ROP = μ + NORM.S.INV(SL) × σ → =E3 + NORM.S.INV(E6)*E5. A ist falsch (μ × SL hat keine Bedeutung). B ist falsch (E6 direkt als z-Wert, aber E6 ist der Servicegrad, nicht der z-Wert). D ergibt keinen Sinn."
+},
+
+// ── Bullwhip Effect & Order-Up-To Policy ─────────────────────────
+{
+  "id": "om-sc-single-05", "type": "single", "course": "OM",
+  "topic": "Block 4 — SCM & Forecasting", "difficulty": 2,
+  "tags": ["Bullwhip", "SCM", "Varianz", "Excel"],
+  "question": "Was misst der Bullwhip-Effekt und wie wird er berechnet?",
+  "options": [
+    "Bullwhip = Var(Demand) / Var(Orders) — misst wie stabil die Nachfrage ist",
+    "Bullwhip = Var(Orders) / Var(Demand) — misst wie stark Bestellungen relativ zur Nachfrage schwanken",
+    "Bullwhip = Mean(Orders) / Mean(Demand) — misst den durchschnittlichen Bestellüberhang",
+    "Bullwhip = Var(Forecast Error) / Var(Demand) — misst die Prognosegenauigkeit"
+  ],
+  "correctIndex": 1,
+  "explanation": "Bullwhip = Var(Orders)/Var(Demand). In Excel: =VAR(L9:L18)/VAR(D9:D18). Wert > 1 bedeutet: Bestellungen schwanken stärker als die Nachfrage. Sinnvoll weil: Demand ist das 'echte Signal', Orders sind die 'Reaktion' — je stärker die Reaktion im Vergleich zum Signal, desto ausgeprägter der Bullwhip-Effekt. HS23: Bullwhip ≈ 19."
+},
+{
+  "id": "om-sc-tf-05", "type": "truefalse", "course": "OM",
+  "topic": "Block 4 — SCM & Forecasting", "difficulty": 3,
+  "tags": ["Bullwhip", "Target Level", "Order-Up-To", "Prüfungsfalle", "Excel"],
+  "prompt": "Bullwhip-Modell: Order-Up-To Policy — wahr oder falsch?",
+  "statements": [
+    {
+      "text": "Der Target Level (Auffüllziel) berechnet sich als: S = (LT+1) × Forecast + z × SQRT(Varianz) × SQRT(LT+1)",
+      "isTrue": true,
+      "explanation": "Korrekt: S = (LT+1)×E_t + z×σ̂×√(LT+1). Der erste Teil (LT+1)×E_t ist die erwartete Nachfrage über Lead Time + aktuelle Periode. Der zweite Teil ist der Safety Stock. In Excel: =($F$3+1)*E9 + $F$4*SQRT(H9)*SQRT($F$3+1)."
+    },
+    {
+      "text": "Die Error Variance wird berechnet als laufende Varianz der Forecast-Fehler: =VAR($F$9:F11)",
+      "isTrue": true,
+      "explanation": "Korrekt: VAR($F$9:F11) berechnet die Stichprobenvarianz aller bisherigen Forecast-Fehler (F-Spalte). Je mehr Perioden, desto stabiler die Schätzung. Das $F$9 bleibt fix (Startpunkt), der zweite Bezug läuft mit."
+    },
+    {
+      "text": "Wenn der Bullwhip-Wert = 1 ist, schwanken Bestellungen genauso stark wie die Nachfrage — kein Bullwhip-Effekt.",
+      "isTrue": true,
+      "explanation": "Korrekt: Bullwhip = 1 bedeutet Var(Orders) = Var(Demand) — perfekte Weitergabe des Nachfragesignals ohne Verstärkung. In der Praxis fast nie erreicht. Wert > 1 = Bullwhip, Wert < 1 theoretisch möglich bei Glättungsstrategien."
+    },
+    {
+      "text": "Der Target Level ohne Forecast-Term — also nur S = z × SQRT(Varianz) × SQRT(LT+1) — ist ausreichend.",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle HS23: Nur Safety Stock als Target Level vergisst die erwartete Nachfrage über LT+1 Perioden! Resultat: Target Level zu klein → Bestellungen werden wild negativ/positiv → Bullwhip massiv überschätzt (314 statt 19). Immer beide Terme: Basis + Safety Stock."
+    },
+    {
+      "text": "Die Bestellmenge in der Order-Up-To Policy berechnet sich als: Order = Target Level − Actual Inventory − Pipeline Inventory",
+      "isTrue": true,
+      "explanation": "Korrekt: L_t = I_t − J_t − K_t. Du bestellst so viel, dass deine gesamte Inventory Position (on-hand + pipeline) den Target Level erreicht. Negative Orders bedeuten: Bestand überschreitet bereits den Target → kein Bestellbedarf."
+    }
+  ]
+},
+
+// ── Newsvendor Postponement & f01 ────────────────────────────────
+{
+  "id": "om-news-single-02", "type": "single", "course": "OM",
+  "topic": "Block 2 — Inventory Management", "difficulty": 2,
+  "tags": ["Newsvendor", "Postponement", "f01", "Critical Ratio", "Excel"],
+  "question": "Welche Excel-Formel berechnet die partielle Erwartung f01(z*) korrekt? (z* steht in Zelle F7)",
+  "options": [
+    "=NORM.S.DIST(F7;TRUE)",
+    "=NORM.S.DIST(F7;FALSE) - F7*(1-NORM.S.DIST(F7;TRUE))",
+    "=NORM.S.INV(F7) - F7*NORM.S.DIST(F7;FALSE)",
+    "=1 - NORM.S.DIST(F7;TRUE)"
+  ],
+  "correctIndex": 1,
+  "explanation": "f01(z) = φ(z) − z·(1−Φ(z)). In Excel: φ(z) = NORM.S.DIST(z;FALSE) ist der PDF-Wert, Φ(z) = NORM.S.DIST(z;TRUE) ist der CDF-Wert. Also: =NORM.S.DIST(F7;FALSE)-F7*(1-NORM.S.DIST(F7;TRUE)). Merkhilfe: FALSE=Kurve (φ), TRUE=Fläche (Φ)."
+},
+{
+  "id": "om-news-tf-03", "type": "truefalse", "course": "OM",
+  "topic": "Block 2 — Inventory Management", "difficulty": 3,
+  "tags": ["Newsvendor", "Postponement", "Critical Ratio", "Pooling", "Prüfungsfalle"],
+  "prompt": "Newsvendor mit Postponement — wahr oder falsch?",
+  "statements": [
+    {
+      "text": "Der Critical Ratio für den Newsvendor mit Penalty-Kosten p und Holding-Kosten h lautet: CR = p / (p + h)",
+      "isTrue": true,
+      "explanation": "Korrekt: CR = p/(p+h). In Excel: =F5/(F5+F4). Für h=8, p=120: CR = 120/128 = 0.9375. CR > 0.5 → eher mehr bestellen (Strafe fürs Fehlen ist teuer)."
+    },
+    {
+      "text": "Die σ eines gepoolten Lagers berechnet sich als: σ_pool = σ_1 + σ_2 + σ_3 + σ_4 (einfache Summe).",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle! Einfache Summe ist FALSCH. Korrekt: σ_pool = SQRT(σ_1² + σ_2² + σ_3² + σ_4²) — Wurzel der Summe der Quadrate. In Excel: =SQRT(E13^2+E14^2+E15^2+E16^2). Pooling reduziert σ weil sich Schwankungen teilweise ausgleichen."
+    },
+    {
+      "text": "Die erwarteten Kosten ohne Postponement sind immer höher als mit Postponement, weil Pooling σ reduziert.",
+      "isTrue": true,
+      "explanation": "Ja: C* = (h+p) × σ × SQRT(LT+1) × f01(z*). Da σ_pool < Σσ_i (Pooling-Effekt), sind die Kosten mit Postponement immer tiefer. Die Einsparung = (ΣC*_i - C*_pool) / ΣC*_i × 100%."
+    },
+    {
+      "text": "Q* mit Lead Time lautet: Q* = μ + z·σ (wie beim Standard-Newsvendor).",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle! Mit Lead Time LT gilt: Q* = μ·(LT+1) + z·σ·SQRT(LT+1). Der Mittelwert skaliert mit (LT+1), die Standardabweichung nur mit SQRT(LT+1) — weil σ bei unabhängigen Perioden quadratisch wächst."
+    }
+  ]
+},
+
+// ── Newsvendor Theorie: σ vs σ², Inputs, Anwendung ───────────────
+{
+  "id": "om-news-tf-02", "type": "truefalse", "course": "OM",
+  "topic": "Block 2 — Inventory Management", "difficulty": 2,
+  "tags": ["Newsvendor", "ROP", "Servicegrad", "Standardabweichung", "Excel"],
+  "prompt": "Newsvendor Formel Q* = μ + z·σ — wahr oder falsch?",
+  "statements": [
+    {
+      "text": "Im Newsvendor-Modell wird σ (Standardabweichung) verwendet, nicht σ² (Varianz), weil σ in der gleichen Einheit wie die Bestellmenge ist.",
+      "isTrue": true,
+      "explanation": "σ² wäre in 'Einheiten²' — das macht physisch keinen Sinn als Bestellmenge. σ ist in 'Einheiten', genau wie μ und Q*. Wenn σ² gegeben ist: σ = SQRT(σ²). In Excel: E5 = SQRT(E4)."
+    },
+    {
+      "text": "Wenn die Varianz σ² = 144 gegeben ist, setzt man in die Formel Q* = μ + z × 144 ein.",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle! Niemals σ² direkt einsetzen. Erst umrechnen: σ = SQRT(144) = 12. Dann: Q* = μ + z × 12. In der HS23 Prüfung war σ² = 145 gegeben → σ = 12.04 (Zelle E5 = SQRT(E4))."
+    },
+    {
+      "text": "Der z-Wert NORM.S.INV(0.98) ≈ 2.054 gibt an, wie viele Standardabweichungen über dem Mittelwert 98% der Nachfrage liegen.",
+      "isTrue": true,
+      "explanation": "Genau: z = NORM.S.INV(SL) ist der Quantilwert der Standardnormalverteilung. z×σ = Safety Stock. Je höher SL, desto grösser z, desto mehr Puffer nötig."
+    },
+    {
+      "text": "Die Formel Q* = μ + z·σ gilt nur für den Newsvendor, nicht für den Reorder Point (ROP).",
+      "isTrue": false,
+      "explanation": "Die Formel ist identisch für beide! ROP = μ_LT + z·σ_LT (Nachfrage über Lead Time). Newsvendor Q* = μ + z·σ. Beide addieren Safety Stock (z·σ) auf den Mittelwert."
+    },
+    {
+      "text": "Was immer gegeben ist: μ und σ² (oder σ). Was immer berechnet wird: σ = SQRT(σ²), z = NORM.S.INV(SL), dann Q* = μ + z·σ.",
+      "isTrue": true,
+      "explanation": "Das ist das Standard-Schema in JEDER OM-Prüfung: (1) σ aus σ² berechnen falls nötig, (2) z-Wert via NORM.S.INV(Servicegrad), (3) Q* = μ + z·σ. Die Inputs μ, σ², SL sind immer gegeben — nie Q* direkt."
+    }
+  ]
+},
+
+// ── Make-or-Buy & Chase/Level ─────────────────────────────────────
+{
+  "id": "om-prod-tf-01", "type": "truefalse", "course": "OM",
+  "topic": "Block 3 — Production Management", "difficulty": 2,
+  "tags": ["Make-or-Buy", "Chase", "Level", "Prüfungsfalle", "Excel"],
+  "prompt": "Make-or-Buy & Chase/Level Strategien — wahr oder falsch?",
+  "statements": [
+    {
+      "text": "Bei der Chase-Strategie wird die Mitarbeiterzahl jeden Monat neu angepasst (ROUNDUP pro Monat).",
+      "isTrue": true,
+      "explanation": "Chase folgt der Nachfrage: Mitarbeiter_t = ROUNDUP(Demand_t / Output_pro_MA, 0) — für jeden Monat separat. Die Belegschaft schwankt stark, was zu hohen Hire/Fire-Kosten führt."
+    },
+    {
+      "text": "Bei der Level-Strategie wird die Mitarbeiterzahl monatlich angepasst, um Kosten zu sparen.",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: Level macht das Gegenteil — eine FIXE Mitarbeiterzahl für alle Monate. Diese wird auf Basis des Maximalmonats bestimmt: MAX(alle ROUNDUP-Werte). Dadurch entstehen in schwachen Monaten Überkapazitäten."
+    },
+    {
+      "text": "Beim Make-or-Buy wird für In-house-Produktion die Anzahl Mitarbeiter auf Basis des MAXIMALEN Monatsbedarfs bestimmt.",
+      "isTrue": true,
+      "explanation": "Korrekt: Bei In-house-Produktion mit fixer Belegschaft stellt man genug Mitarbeiter für den stärksten Monat ein. Formel: ROUNDUP(Max_Demand / Output_pro_MA / Stunden, 0)."
+    },
+    {
+      "text": "Der Kostenvorteil der Chase-Strategie gegenüber Level liegt immer darin, dass die Gesamtkosten kleiner sind.",
+      "isTrue": false,
+      "explanation": "Nicht immer: Chase ist günstiger wenn Hire/Fire-Kosten niedrig sind und Flexibilität wichtig ist. Level ist günstiger wenn die Überkapazitätskosten geringer als die Anpassungskosten sind. Die Aufgabe berechnet die Differenz — nicht automatisch eine Strategie ist besser."
+    }
+  ]
+},
+
+{
+  "id": "om-prod-single-01", "type": "single", "course": "OM",
+  "topic": "Block 3 — Production Management", "difficulty": 2,
+  "tags": ["Chase", "Level", "Excel", "Formel"],
+  "question": "Wie wird bei der Level-Strategie die (fixe) Mitarbeiterzahl für alle Monate bestimmt?",
+  "options": [
+    "AVERAGE aller monatlichen ROUNDUP-Werte",
+    "ROUNDUP des Durchschnittsmonats",
+    "MAX aller monatlichen ROUNDUP-Werte",
+    "MIN aller monatlichen ROUNDUP-Werte"
+  ],
+  "correctIndex": 2,
+  "explanation": "Level: Eine FIXE Mitarbeiterzahl = MAX(ROUNDUP(Demand_1/Output,0), ROUNDUP(Demand_2/Output,0), ...). Man muss den stärksten Monat abdecken können. AVERAGE würde in Spitzenmonaten zu Unterkapazität führen, MIN wäre fast immer zu wenig."
+},
+
+// ── BOM ──────────────────────────────────────────────────────────
+{
+  "id": "om-bom-order-01", "type": "order", "course": "OM",
+  "topic": "Block 3 — Production Management", "difficulty": 1,
+  "tags": ["BOM", "Bill-of-Materials", "Wirkungskette", "Excel"],
+  "prompt": "Bringe die Schritte zur Berechnung der BOM-Gesamtkosten in die richtige Reihenfolge:",
+  "items": [
+    "Komponenten auf tiefstem Level identifizieren (Level 2 / Einzelteile)",
+    "Kosten = Menge × Stückpreis für jede Komponente berechnen",
+    "Kosten auf nächsthöheres Level aufsummieren (+ Fertigungskosten)",
+    "Schritte wiederholen bis Level 0 (Endprodukt) erreicht"
+  ],
+  "explanation": "BOM-Kosten immer von unten nach oben (bottom-up): Erst die untersten Komponenten berechnen (Menge × Preis), dann aufaddieren inkl. Fertigungskosten auf jeder Ebene. Niemals top-down! Prüfungsfalle: Menge × Preis = Multiplikation, nicht Addition."
+},
+
+{
+  "id": "om-bom-tf-01", "type": "truefalse", "course": "OM",
+  "topic": "Block 3 — Production Management", "difficulty": 2,
+  "tags": ["BOM", "Bill-of-Materials", "Prüfungsfalle", "Excel"],
+  "prompt": "BOM-Kosten in Excel — wahr oder falsch?",
+  "statements": [
+    {
+      "text": "Die Kosten einer BOM-Komponente berechnen sich als Menge × Stückpreis (Multiplikation).",
+      "isTrue": true,
+      "explanation": "Korrekt: Kosten = Menge * Preis — immer Multiplikation. Prüfungsfalle: viele addieren stattdessen (Menge + Preis), was keinen Sinn ergibt."
+    },
+    {
+      "text": "Bei einem mehrstufigen BOM beginnt die Berechnung beim Endprodukt (Level 0) und arbeitet sich nach unten.",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: IMMER bottom-up! Zuerst die tiefsten Komponenten (Level 2, Einzelteile) berechnen, dann nach oben aufsummieren bis Level 0 (Endprodukt). Top-down führt zu Fehlern, weil Unterkomponenten-Kosten noch unbekannt sind."
+    },
+    {
+      "text": "Wenn eine Komponente in mehreren Stellen des BOM vorkommt, wird ihre Menge für jede Verwendung separat multipliziert.",
+      "isTrue": true,
+      "explanation": "Korrekt: Bei Multi-Level-BOM muss man die Hierarchie beachten. Eine Schraube, die in zwei verschiedenen Baugruppen vorkommt, wird für jede Baugruppe separat mit der jeweiligen Menge multipliziert."
+    },
+    {
+      "text": "Fertigungskosten (Manufacturing Costs) auf einem BOM-Level werden nur einmal am Ende addiert.",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: Fertigungskosten werden auf JEDER Ebene separat addiert, nicht nur am Ende. Jede Baugruppe hat ihre eigenen Fertigungskosten, die beim Aufsummieren einbezogen werden müssen."
+    }
+  ]
+},
+
+{
+  "id": "om-bom-single-01", "type": "single", "course": "OM",
+  "topic": "Block 3 — Production Management", "difficulty": 1,
+  "tags": ["BOM", "Formel", "Excel"],
+  "question": "In welcher Reihenfolge werden BOM-Kosten bei einem mehrstufigen Stücklisten-Baum berechnet?",
+  "options": [
+    "Top-down: Endprodukt (Level 0) zuerst, dann Baugruppen, dann Einzelteile",
+    "Bottom-up: Einzelteile (tiefstes Level) zuerst, dann aufsummieren bis Level 0",
+    "Alphabetisch nach Komponentenname",
+    "Nach absteigenden Stückkosten (teuerste Komponente zuerst)"
+  ],
+  "correctIndex": 1,
+  "explanation": "Immer bottom-up: Erst die tiefsten Ebenen (Einzelteile) berechnen, dann die Kosten nach oben aufsummieren. Top-down (A) ist unmöglich, weil die Kosten der Unterkomponenten erst bekannt sein müssen, bevor man die übergeordnete Ebene berechnen kann."
+}
+
+,
+
+// ════════════════════════════════════════════════════════════════
+// OM — Block C: Gesamtüberblick alle 5 Blöcke (Prüfungssimulation)
+// Forecasting + Inventory + Production + SCM + Revenue Mgmt
+// ════════════════════════════════════════════════════════════════
+
+// ── Forecasting Konzepte (Block 1) ───────────────────────────────
+{
+  "id": "om-fc-tf-01", "type": "truefalse", "course": "OM",
+  "topic": "Block 1 — Forecasting", "difficulty": 2,
+  "tags": ["Forecasting", "MAD", "MAPE", "MEE", "Prüfungsfalle"],
+  "prompt": "Forecasting Fehlermaße — wahr oder falsch?",
+  "statements": [
+    {
+      "text": "MEE (Mean Exponential Error) ist ein standardmässiges Fehlermaß in der Prognose.",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: MEE existiert NICHT als Standardmaß. Es gibt MAD, MSE, MAPE und Bias — aber kein MEE. Wenn MEE in einer Antwortmöglichkeit steht, immer streichen."
+    },
+    {
+      "text": "MAPE ist einheitenlos und erlaubt den Vergleich von Prognosefehlern über verschiedene Produkte.",
+      "isTrue": true,
+      "explanation": "Korrekt: MAPE = Ø |Ist−Prognose|/Ist — prozentualer Fehler, daher einheitenlos und produktübergreifend vergleichbar."
+    },
+    {
+      "text": "MSE gewichtet grosse Fehler stärker als kleine Fehler.",
+      "isTrue": true,
+      "explanation": "Korrekt: MSE verwendet quadratische Fehler — ein Fehler von 10 geht mit 100 ein, ein Fehler von 1 nur mit 1. Grosse Fehler werden überproportional bestraft."
+    },
+    {
+      "text": "Ein Moving Average mit grösserem k reagiert schneller auf Trendveränderungen.",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: Grösseres k → träger, langsamer. Mehr Perioden werden gemittelt → Veränderungen werden durch ältere Daten abgedämpft. Kleineres k = reaktiver."
+    },
+    {
+      "text": "Holt-Winters ist die beste Methode, wenn Daten sowohl Trend als auch Saisonalität aufweisen.",
+      "isTrue": true,
+      "explanation": "Korrekt: Holt-Winters (Triple Exponential Smoothing) modelliert explizit Trend UND Saisonalität. Einfaches ES oder MA können beides nicht gleichzeitig abbilden."
+    }
+  ]
+},
+
+{
+  "id": "om-fc-single-01", "type": "single", "course": "OM",
+  "topic": "Block 1 — Forecasting", "difficulty": 1,
+  "tags": ["CMA", "Saisonalität", "Forecasting", "Excel"],
+  "question": "Ab welcher Periode t ist der CMA(k=12) zum ersten Mal berechenbar?",
+  "options": ["t = 6", "t = 7", "t = 12", "t = 13"],
+  "correctIndex": 1,
+  "explanation": "CMA(k=12) benötigt zwei überlappende 12er-MAs: einen zentriert bei t=6.5 (t=1..12) und einen bei t=7.5 (t=2..13). Deren Durchschnitt ergibt den CMA bei t=7. Excel: =AVERAGE(AVERAGE(D2:D13), AVERAGE(D3:D14))."
+},
+
+{
+  "id": "om-fc-multi-01", "type": "multiple", "course": "OM",
+  "topic": "Block 1 — Forecasting", "difficulty": 2,
+  "tags": ["Forecasting", "Prüfungsfragen", "MAD", "MSE"],
+  "question": "Welche der folgenden Aussagen zur Prognosequalität sind korrekt? (Mehrfachauswahl)",
+  "options": [
+    "Der Mean Error (Bias) ist kein geeignetes finales Gütemaß, weil sich positive und negative Fehler aufheben.",
+    "Der MEE (Mean Exponential Error) ist geeignet, wenn Fehlerkosten exponentiell steigen.",
+    "MAD und MSE messen beide absolute Fehler — MSE bestraft grosse Abweichungen stärker.",
+    "MAPE eignet sich nicht, wenn die tatsächliche Nachfrage Null erreichen kann."
+  ],
+  "correctIndices": [0, 2, 3],
+  "explanation": "A ✓ Bias hebt sich auf — daher zur Endbeurteilung ungeeignet, nur als Tendenzindikator. C ✓ MSE = quadratisch, MAD = linear; MSE bestraft grosse Fehler stärker. D ✓ MAPE Division durch Null bei Null-Nachfrage. B ✗ MEE existiert NICHT als Standardmaß."
+},
+
+// ── Inventory Konzepte (Block 2) ─────────────────────────────────
+{
+  "id": "om-inv-tf-01", "type": "truefalse", "course": "OM",
+  "topic": "Block 2 — Inventory Management", "difficulty": 2,
+  "tags": ["EOQ", "Servicegrad", "Newsvendor", "Prüfungsfalle"],
+  "prompt": "Inventory Management — wahr oder falsch?",
+  "statements": [
+    {
+      "text": "Das EOQ-Modell minimiert die Summe aus Bestell- und Lagerkosten.",
+      "isTrue": true,
+      "explanation": "Korrekt: EOQ (Economic Order Quantity) findet Q*, bei dem Ordering Cost = Holding Cost. Die Summe beider Kostenkurven wird minimiert."
+    },
+    {
+      "text": "Ein Servicegrad (Type I) von 98% bedeutet, dass 98% der Bestellungen vollständig geliefert werden können.",
+      "isTrue": false,
+      "explanation": "Prüfungsfalle: Type I Servicegrad = Wahrscheinlichkeit, dass kein Stockout in einer Bestellperiode eintritt. 98% bedeutet: In 98% der Nachschubzyklen gibt es keinen Fehlbestand — nicht 98% der Einheiten werden geliefert (das wäre Type II / Fill Rate)."
+    },
+    {
+      "text": "Im Newsvendor-Modell gilt: Je höher der Critical Ratio, desto höher der optimale Bestand.",
+      "isTrue": true,
+      "explanation": "Korrekt: CR = Cu/(Cu+Co). Hoher CR → hohe Underage Costs → es lohnt sich, mehr zu bestellen. Niedriger CR → hohe Overage Costs → lieber weniger bestellen."
+    },
+    {
+      "text": "Der Reorder Point (ROP) gibt an, bei welcher Lagerbestandsmenge eine neue Bestellung ausgelöst wird.",
+      "isTrue": true,
+      "explanation": "Korrekt: ROP = d × L (+ Safety Stock bei Unsicherheit). Wenn der Bestand auf den ROP fällt, wird die Bestellung ausgelöst, damit sie genau dann eintrifft, wenn der Bestand Null erreicht."
+    }
+  ]
+},
+
+// ── Gesamtüberblick Prüfungssimulation ───────────────────────────
+{
+  "id": "om-all-order-01", "type": "order", "course": "OM",
+  "topic": "Block C — Gesamtüberblick", "difficulty": 1,
+  "tags": ["MRP II", "Prüfungssimulation", "Reihenfolge"],
+  "prompt": "Bringe die 5 Themenblöcke in der Reihenfolge ihrer Prüfungsrelevanz (häufigste zuerst):",
+  "items": [
+    "Forecasting — in jeder Prüfung (sehr hoch)",
+    "Inventory Management — in jeder Prüfung (sehr hoch)",
+    "Production Management — in ~75% der Prüfungen (hoch)",
+    "Supply Chain Management — in ~75% der Prüfungen (hoch)",
+    "Revenue Management — in ~60% der Prüfungen (mittel-hoch)"
+  ],
+  "explanation": "Forecasting und Inventory sind Pflichtthemen in jeder OM-Prüfung. Production und SCM erscheinen in ca. 75% aller Prüfungen. Revenue Management ist etwas seltener (~60%). Für den Endspurt: Blöcke 1+2 haben die höchste Rendite pro Lernstunde."
+},
+
+{
+  "id": "om-all-multi-01", "type": "multiple", "course": "OM",
+  "topic": "Block C — Gesamtüberblick", "difficulty": 3,
+  "tags": ["Prüfungssimulation", "Alle Blöcke", "Formeln"],
+  "question": "Welche der folgenden Formeln sind korrekt? (Mehrfachauswahl)",
+  "options": [
+    "EOQ: $Q^* = \\sqrt{\\frac{2 \\cdot D \\cdot S}{H}}$",
+    "EPQ Avg Stock: $= Q^*/2$",
+    "EPQ Avg Stock: $= Q^*/2 \\cdot (1 - d/p)$",
+    "Newsvendor ROP: $= \\mu \\cdot SL$",
+    "Newsvendor ROP: $= \\mu + \\text{NORM.S.INV}(SL) \\cdot \\sigma$"
+  ],
+  "correctIndices": [0, 2, 4],
+  "explanation": "A ✓ EOQ-Formel korrekt. C ✓ EPQ Avg Stock braucht Korrekturfaktor (1−d/p). E ✓ Newsvendor ROP = μ + z·σ. B ✗ EPQ Avg Stock ist NICHT gleich EOQ (fehlender Korrekturfaktor). D ✗ μ × SL ist keine sinnvolle Formel."
+},
+
+{
+  "id": "om-all-single-01", "type": "single", "course": "OM",
+  "topic": "Block C — Gesamtüberblick", "difficulty": 2,
+  "tags": ["Prüfungssimulation", "Alle Blöcke", "Fallen"],
+  "question": "Welche der folgenden Aussagen ist die EINZIGE, die in der OM-Prüfung IMMER falsch ist?",
+  "options": [
+    "JIT ist in bestimmten Kontexten besser als MRP II.",
+    "Bullwhip-Effekt verstärkt sich upstream.",
+    "MEE ist ein geeignetes Fehlermaß für Prognosen.",
+    "Revenue Management setzt niedrige Grenzkosten voraus."
+  ],
+  "correctIndex": 2,
+  "explanation": "C ist immer falsch: MEE existiert nicht als Standardfehlermaß. A ist situativ wahr (JIT kann besser sein). B ist wahr (Bullwhip geht upstream). D ist wahr (niedrige Grenzkosten sind RM-Voraussetzung)."
+},
+
+{
+  "id": "om-all-tf-01", "type": "truefalse", "course": "OM",
+  "topic": "Block C — Gesamtüberblick", "difficulty": 3,
+  "tags": ["Prüfungssimulation", "Alle Blöcke", "Fallen"],
+  "prompt": "OM Gesamtcheck — Die 7 grössten Prüfungsfallen. Wahr oder falsch?",
+  "statements": [
+    {
+      "text": "MEE existiert als Standardfehlermaß neben MAD, MSE und MAPE.",
+      "isTrue": false,
+      "explanation": "FALLE 1: MEE existiert NICHT. Immer streichen."
+    },
+    {
+      "text": "MRP II hat genau 5 Schritte, und MRP läuft als Schritt 4 wöchentlich.",
+      "isTrue": true,
+      "explanation": "Korrekt: 5 Schritte (nicht 6!), MRP = Schritt 4, wöchentlich (nicht jährlich!). Merkformel: 5-4-W."
+    },
+    {
+      "text": "Newsvendor ROP in Excel: =mu * Servicegrad.",
+      "isTrue": false,
+      "explanation": "FALLE 3: Formel ist FALSCH. Korrekt: =mu + NORM.S.INV(Servicegrad) * sigma."
+    },
+    {
+      "text": "Der Bullwhip-Effekt verstärkt sich upstream (Richtung Lieferant), nicht downstream.",
+      "isTrue": true,
+      "explanation": "Korrekt: Kleine Schwankungen beim Endkunden werden auf dem Weg zum Lieferant immer grösser — wie ein Peitschenknall."
+    },
+    {
+      "text": "Postponement (Pooling) reduziert den benötigten Safety Stock.",
+      "isTrue": true,
+      "explanation": "Korrekt: Pooling kombiniert Nachfrageschwankungen, die sich teilweise ausgleichen → geringerer Gesamt-Safety-Stock. FALLE wäre: 'SS addiert sich' — falsch!"
+    },
+    {
+      "text": "EPQ Durchschnittslager = Q*/2 (gleich wie EOQ).",
+      "isTrue": false,
+      "explanation": "FALLE 6: EPQ Avg Stock = Q*/2 × (1−d/p). Der Korrekturfaktor fehlt! Nur EOQ hat einfach Q*/2."
+    },
+    {
+      "text": "Religion ist ein ungültiger Fencing-Mechanismus im Revenue Management.",
+      "isTrue": true,
+      "explanation": "Korrekt: Religion wäre Diskriminierung. Gültige Fences: Region, Produktvariante, Flexibilität (refundable/non-refundable), Buchungszeitpunkt."
+    }
+  ]
+}
+
+,
+
+// ════════════════════════════════════════════════════════════════
 // ESF HS2019 — Herbstsemester 2019
 // ════════════════════════════════════════════════════════════════
 
@@ -1727,6 +2580,683 @@ window.LERNSET_DATA = [
   ],
   correctIndex: 3,
   explanation: "Sortiert: 1, 4, 5, 5, 7, 8. Median = Durchschnitt der 3. und 4. Zahl = (5+5)/2 = 5. Mittelwert = (1+4+5+7+8+5)/6 = 30/6 = 5. Modus = 5 (kommt zweimal vor). Also: Median=5, Mittelwert=5, Modus=5 → Antwort D."
+}
+
+,
+
+// ════════════════════════════════════════════════════════════════
+// STATISTIK — Block 1: Deskriptive Statistik
+// ════════════════════════════════════════════════════════════════
+
+{
+  id: "stat01-order-01", type: "order", course: "Statistik",
+  topic: "Deskriptive Statistik", difficulty: 1,
+  tags: ["Median", "Berechnungsschritte", "Lageparameter"],
+  prompt: "Bringe die Schritte zur Berechnung des Medians in die richtige Reihenfolge:",
+  items: [
+    "Datenreihe der Grösse nach sortieren",
+    "Anzahl der Beobachtungen n bestimmen",
+    "Position des Medians berechnen: (n+1)/2",
+    "Bei geradem n: Durchschnitt der zwei mittleren Werte bilden"
+  ],
+  explanation: "Der Median erfordert zwingend eine sortierte Datenreihe — das ist die häufigste Prüfungsfalle. Danach bestimmt man n, lokalisiert die Position und bildet ggf. den Durchschnitt der zwei Mittelwerte."
+},
+{
+  id: "stat01-tf-01", type: "truefalse", course: "Statistik",
+  topic: "Deskriptive Statistik", difficulty: 2,
+  tags: ["Prüfungsfalle", "Varianz", "Mittelwert", "Skalenniveau"],
+  prompt: "Deskriptive Statistik — wahr oder falsch?",
+  statements: [
+    { text: "Die Stichprobenvarianz wird durch n-1 (nicht n) im Nenner berechnet.", isTrue: true, explanation: "Korrekt — Division durch n-1 liefert einen unverzerrten Schätzer der Grundgesamtheitsvarianz (Bessel-Korrektur)." },
+    { text: "Der Median kann ohne vorherige Sortierung der Daten bestimmt werden.", isTrue: false, explanation: "Falsch — der Median setzt eine sortierte Datenreihe voraus. Ohne Sortierung ist die Mittelposition bedeutungslos." },
+    { text: "Auf einer Nominalskala ist der Mittelwert eine sinnvolle Kenngrösse.", isTrue: false, explanation: "Falsch — auf Nominalskala (z.B. Nationalität, Beruf) sind nur Häufigkeiten und Modus sinnvoll. Mittelwert und Median setzen mindestens Ordinalskalierung voraus." },
+    { text: "Der Variationskoeffizient (VK) ist dimensionslos und ermöglicht Vergleiche zwischen Variablen mit unterschiedlichen Einheiten.", isTrue: true, explanation: "Korrekt — VK = s/x̄ ist eine relative Streuungsgrösse ohne Einheit und erlaubt Vergleiche (z.B. Streuung von Einkommen vs. Alter)." },
+    { text: "Bei einem rechtsschiefen Datensatz gilt: Modus < Median < Mittelwert.", isTrue: true, explanation: "Korrekt — bei Rechtsschief­heit zieht der lange rechte Ausläufer den Mittelwert nach oben, während der Modus am linken Gipfel liegt." },
+    { text: "Das geometrische Mittel eignet sich für durchschnittliche Wachstumsraten.", isTrue: true, explanation: "Korrekt — für Wachstumsraten und Indizes wird das geometrische Mittel verwendet: $\\bar{x}_g = \\sqrt[n]{x_1 \\cdot x_2 \\cdots x_n}$." }
+  ]
+},
+{
+  id: "stat01-single-01", type: "single", course: "Statistik",
+  topic: "Deskriptive Statistik", difficulty: 1,
+  tags: ["Skalenniveau", "Nominal", "Ordinal", "Kardinal"],
+  question: "Schulnoten (1–6 in der Schweiz) sind auf welchem Skalenniveau gemessen?",
+  options: [
+    "Nominalskala — nur Kategorien, keine Rangordnung",
+    "Ordinalskala — Rangordnung, aber Abstände nicht interpretierbar",
+    "Intervallskala — Abstände gleich gross, kein absoluter Nullpunkt",
+    "Verhältnisskala — Abstände gleich gross, absoluter Nullpunkt"
+  ],
+  correctIndex: 1,
+  explanation: "Schulnoten sind ordinal: man kann sagen, Note 5 ist besser als Note 4, aber der Abstand zwischen 5 und 6 ist nicht zwingend gleich gross wie zwischen 4 und 5. Es gibt keinen absoluten Nullpunkt und keine interpre­tierbare Abstands­gleichheit."
+},
+{
+  id: "stat01-single-02", type: "single", course: "Statistik",
+  topic: "Deskriptive Statistik", difficulty: 2,
+  tags: ["Mittelwert", "Median", "Berechnung", "Lageparameter"],
+  question: "Blog-Besucher der letzten 7 Tage: 17, 18, 19, 19, 21, 22, 25. Was ist der Median?",
+  options: ["18", "19", "20", "21"],
+  correctIndex: 1,
+  explanation: "Die Daten sind bereits sortiert. n=7 (ungerade) → Median = Wert an Position (7+1)/2 = 4. Der 4. Wert ist 19. Mittelwert wäre (17+18+19+19+21+22+25)/7 = 141/7 ≈ 20.1."
+},
+{
+  id: "stat01-single-03", type: "single", course: "Statistik",
+  topic: "Deskriptive Statistik", difficulty: 2,
+  tags: ["Geometrisches Mittel", "Wachstumsrate", "Mittelwert"],
+  question: "Eine Gemeinde wächst von 20'000 auf 48'826 Einwohner in 4 Jahren. Welches Mittel ist für die durchschnittliche Wachstumsrate korrekt?",
+  options: [
+    "Arithmetisches Mittel der jährlichen Wachstumsraten",
+    "Geometrisches Mittel der jährlichen Wachstumsfaktoren",
+    "Harmonisches Mittel der jährlichen Wachstumsraten",
+    "Gewichtetes arithmetisches Mittel"
+  ],
+  correctIndex: 1,
+  explanation: "Für Wachstumsraten und Indizes gilt: geometrisches Mittel. $\\bar{w}_g = \\sqrt[4]{\\frac{48826}{20000}} - 1 \\approx 24.9\\%$ p.a. Das arithmetische Mittel überschätzt systematisch, weil es den Zinseszinseffekt ignoriert."
+},
+{
+  id: "stat01-multi-01", type: "multiple", course: "Statistik",
+  topic: "Deskriptive Statistik", difficulty: 1,
+  tags: ["Bestandsgrössen", "Stromgrössen", "Klassifikation"],
+  question: "Welche der folgenden Grössen sind Stromgrössen (nicht Bestandsgrössen)? (Mehrfachauswahl)",
+  options: [
+    "Anzahl der eingeschriebenen Studenten an der HSG heute",
+    "Neuanmeldungen auf Facebook pro Woche",
+    "Anzahl Maschinenausfälle in einer Fabrik pro Monat",
+    "Warteschlange der Kunden im Arbeitsamt",
+    "Schweizerisches Bruttoinlandsprodukt (BIP)"
+  ],
+  correctIndices: [1, 2, 4],
+  explanation: "Stromgrössen messen Flüsse über einen Zeitraum: Neuanmeldungen/Woche, Ausfälle/Monat, BIP (= Produktion pro Jahr). Bestandsgrössen messen einen Zustand zu einem Zeitpunkt: eingeschriebene Studenten heute, Warteschlange jetzt."
+},
+
+// ════════════════════════════════════════════════════════════════
+// STATISTIK — Block 2: Wahrscheinlichkeitsrechnung
+// ════════════════════════════════════════════════════════════════
+
+{
+  id: "stat02-tf-01", type: "truefalse", course: "Statistik",
+  topic: "Wahrscheinlichkeitsrechnung", difficulty: 2,
+  tags: ["Prüfungsfalle", "Bedingte Wahrscheinlichkeit", "Unabhängigkeit", "Bayes"],
+  prompt: "Wahrscheinlichkeitsrechnung — wahr oder falsch?",
+  statements: [
+    { text: "Wenn $\\text{cov}(X,Y) = 0$, dann sind X und Y stochastisch unabhängig.", isTrue: false, explanation: "Falsch — Kovarianz 0 bedeutet nur kein linearer Zusammenhang. Nicht-lineare Abhängigkeiten werden nicht erfasst. Stochastische Unabhängigkeit impliziert cov=0, aber nicht umgekehrt." },
+    { text: "$P(A|B) = P(B|A)$ gilt nur, wenn $P(A) = P(B)$.", isTrue: false, explanation: "Falsch — nach Bayes gilt $P(A|B) = P(B|A) \\cdot P(A)/P(B)$. Die beiden sind nur gleich, wenn P(A)=P(B). Vertauschung ist eine klassische Prüfungsfalle." },
+    { text: "Für unabhängige Ereignisse A und B gilt: $P(A \\cap B) = P(A) \\cdot P(B)$.", isTrue: true, explanation: "Korrekt — das ist die Definition stochastischer Unabhängigkeit. Im abhängigen Fall gilt der allgemeine Multiplikationssatz: $P(A \\cap B) = P(A|B) \\cdot P(B)$." },
+    { text: "Der Additionssatz für zwei Ereignisse lautet: $P(A \\cup B) = P(A) + P(B) - P(A \\cap B)$.", isTrue: true, explanation: "Korrekt — ohne den Subtraktionsterm würde die Schnittmenge doppelt gezählt. Bei disjunkten Ereignissen entfällt der Term, weil $P(A \\cap B) = 0$." },
+    { text: "Bei einem Laplace-Experiment sind alle Ergebnisse gleichwahrscheinlich.", isTrue: true, explanation: "Korrekt — beim Laplace-Experiment gilt $P(A) = \\text{günstige Ergebnisse} / \\text{alle Ergebnisse}$. Typisches Beispiel: idealer Würfel, faire Münze." }
+  ]
+},
+{
+  id: "stat02-single-01", type: "single", course: "Statistik",
+  topic: "Wahrscheinlichkeitsrechnung", difficulty: 2,
+  tags: ["Bedingte Wahrscheinlichkeit", "Vierfeldertafel"],
+  question: "In einer Arbeitsgruppe sind 60 Personen (36 Frauen, 24 Männer). Davon rauchen 9 Frauen und 16 Männer. Wie gross ist die Wahrscheinlichkeit, dass eine zufällig gewählte Person raucht, gegeben dass sie eine Frau ist?",
+  options: ["25%", "36%", "42%", "15%"],
+  correctIndex: 0,
+  explanation: "$P(\\text{Raucher}|\\text{Frau}) = P(\\text{Raucher} \\cap \\text{Frau}) / P(\\text{Frau}) = (9/60) / (36/60) = 9/36 = 0.25 = 25\\%$. Die Quote (Odds) bei Frauen: 9:27 = 1:3, bei Männern: 16:8 = 2:1 — Männer rauchen relativ deutlich häufiger."
+},
+{
+  id: "stat02-single-02", type: "single", course: "Statistik",
+  topic: "Wahrscheinlichkeitsrechnung", difficulty: 2,
+  tags: ["Binomialverteilung", "Erwartungswert", "Varianz"],
+  question: "Eine binomialverteilte Zufallsvariable X hat E(X) = 2 und Var(X) = 4/3. Wie gross ist n?",
+  options: ["n = 3", "n = 6", "n = 4", "n = 12"],
+  correctIndex: 1,
+  explanation: "Aus $E(X) = n \\cdot p = 2$ und $\\text{Var}(X) = n \\cdot p \\cdot (1-p) = 4/3$ folgt: $(1-p) = (4/3)/2 = 2/3$, also $p = 1/3$. Damit: $n = E(X)/p = 2/(1/3) = 6$."
+},
+{
+  id: "stat02-single-03", type: "single", course: "Statistik",
+  topic: "Wahrscheinlichkeitsrechnung", difficulty: 2,
+  tags: ["Hypergeometrisch", "Kombinatorik", "Verteilung"],
+  question: "Aus 14 Bewerbern (5 erfahren, 9 unerfahren) werden 5 ausgewählt. Welche Verteilung beschreibt die Anzahl erfahrener Mitglieder korrekt?",
+  options: [
+    "Binomialverteilung — n=14, p=5/14",
+    "Poissonverteilung — λ=5·(5/14)",
+    "Hypergeometrische Verteilung — Ziehen ohne Zurücklegen",
+    "Normalverteilung — Approximation"
+  ],
+  correctIndex: 2,
+  explanation: "Ziehen ohne Zurücklegen aus einer endlichen Grundgesamtheit → Hypergeometrische Verteilung. Binomial wäre nur korrekt, wenn mit Zurücklegen gezogen würde (oder die Grundgesamtheit sehr gross wäre)."
+},
+{
+  id: "stat02-single-04", type: "single", course: "Statistik",
+  topic: "Wahrscheinlichkeitsrechnung", difficulty: 2,
+  tags: ["Poisson", "Approximation", "Binomial"],
+  question: "2% der Mitarbeiter leiden unter Depressionen. Bei n=100 Mitarbeitern: Wann ist die Poisson-Approximation der Binomialverteilung sinnvoll?",
+  options: [
+    "Immer, wenn n > 30",
+    "Wenn n gross (n ≥ 50) und p klein (p ≤ 0.1) sind, so dass λ = n·p klein bleibt",
+    "Wenn p nahe bei 0.5 liegt",
+    "Nur wenn n·p > 5"
+  ],
+  correctIndex: 1,
+  explanation: "Faustregel: Poisson-Approximation ist gut, wenn n ≥ 50 und p ≤ 0.1. Hier: λ = n·p = 100·0.02 = 2. Die Approximation ist gut, weil n gross und p sehr klein. Für p ≈ 0.5 ist stattdessen die Normalapproximation sinnvoll."
+},
+{
+  id: "stat02-multi-01", type: "multiple", course: "Statistik",
+  topic: "Wahrscheinlichkeitsrechnung", difficulty: 2,
+  tags: ["Kombinatorik", "Permutation", "Kombination"],
+  question: "Welche Aussagen über Kombinatorik treffen zu? (Mehrfachauswahl)",
+  options: [
+    "Die Anzahl Permutationen von n Elementen beträgt n!",
+    "Eine Kombination ohne Wiederholung aus n Elementen zu k lautet $\\binom{n}{k} = \\frac{n!}{k!(n-k)!}$",
+    "Bei einem 4-stelligen Code aus Ziffern 0–9 mit Wiederholung gibt es 10! Möglichkeiten",
+    "Beim Aussendienstmitarbeiter (12 Kunden, 8 Termine) gibt es $\\binom{12}{8}$ Möglichkeiten"
+  ],
+  correctIndices: [0, 1, 3],
+  explanation: "Option A und B sind Standarddefinitionen. Option D: $\\binom{12}{8} = \\binom{12}{4} = 495$ — Reihenfolge spielt keine Rolle, also Kombination. Option C ist falsch: mit Wiederholung gibt es $10^4 = 10'000$ Möglichkeiten, nicht 10!."
+},
+
+// ════════════════════════════════════════════════════════════════
+// STATISTIK — Block 3: Wahrscheinlichkeitsverteilungen
+// ════════════════════════════════════════════════════════════════
+
+{
+  id: "stat03-order-01", type: "order", course: "Statistik",
+  topic: "Verteilungen", difficulty: 2,
+  tags: ["Normalverteilung", "Standardisierung", "Schritte"],
+  prompt: "Bringe die Schritte zur Normalverteilungs-Berechnung von $P(X \\leq x)$ in die richtige Reihenfolge:",
+  items: [
+    "Z-Wert berechnen: $Z = (x - \\mu) / \\sigma$",
+    "Normalverteilungstabelle aufschlagen",
+    "$\\Phi(z)$ ablesen — das ist $P(X \\leq x)$",
+    "Vorzeichen prüfen: bei negativem z gilt $\\Phi(-z) = 1 - \\Phi(z)$"
+  ],
+  explanation: "Zuerst standardisieren (Z-Transform), dann in der Standardnormalverteilungs-Tabelle nachschlagen. Bei negativem z: die meisten Tabellen geben nur positive Werte — Symmetrie der Normalverteilung nutzen: $\\Phi(-z) = 1 - \\Phi(z)$."
+},
+{
+  id: "stat03-tf-01", type: "truefalse", course: "Statistik",
+  topic: "Verteilungen", difficulty: 2,
+  tags: ["Prüfungsfalle", "Normalverteilung", "t-Verteilung", "Verteilungsauswahl"],
+  prompt: "Verteilungen — wahr oder falsch?",
+  statements: [
+    { text: "Die t-Verteilung wird verwendet, wenn die Grundgesamtheitsvarianz $\\sigma^2$ unbekannt ist.", isTrue: true, explanation: "Korrekt — bei unbekanntem σ² schätzt man s² aus der Stichprobe und verwendet die t-Verteilung mit (n-1) Freiheitsgraden statt der z-Standardnormalverteilung." },
+    { text: "Bei der Standardisierung gilt: $Z = (X - \\mu) / \\sigma^2$.", isTrue: false, explanation: "Falsch — korrekt ist $Z = (X - \\mu) / \\sigma$, also Division durch die Standardabweichung (nicht die Varianz). Das ist eine der häufigsten Flüchtigkeitsfehler." },
+    { text: "Für grosse n nähert sich die t-Verteilung der Standardnormalverteilung an.", isTrue: true, explanation: "Korrekt — für $n \\to \\infty$ (bzw. df $\\to \\infty$) gilt $t(df) \\to N(0,1)$. Als Faustregel: ab n ≈ 30 sind die Unterschiede gering." },
+    { text: "Die Poisson-Verteilung hat die Eigenschaft: $E(X) = \\text{Var}(X) = \\lambda$.", isTrue: true, explanation: "Korrekt — Erwartungswert und Varianz sind bei der Poisson-Verteilung gleich (beide = λ). Das ist ein eindeutiges Erkennungsmerkmal." },
+    { text: "Beim χ²-Test testet man eine Hypothese über den Mittelwert.", isTrue: false, explanation: "Falsch — der χ²-Test (Einstichprobe) testet eine Hypothese über die Varianz $\\sigma^2$, nicht den Mittelwert. Für den Mittelwert verwendet man z-Test oder t-Test." }
+  ]
+},
+{
+  id: "stat03-single-01", type: "single", course: "Statistik",
+  topic: "Verteilungen", difficulty: 2,
+  tags: ["Normalverteilung", "Standardisierung", "Berechnung"],
+  question: "Haushalts­einkommen: $\\mu = 7416$ CHF, $\\sigma = 910$ CHF (normalverteilt). Welcher Anteil der Haushalte verdient mehr als 10'000 CHF?",
+  options: [
+    "ca. 0.2%",
+    "ca. 2.4%",
+    "ca. 5.0%",
+    "ca. 11.5%"
+  ],
+  correctIndex: 1,
+  explanation: "$Z = (10000 - 7416) / 910 = 2584/910 \\approx 2.84$. $P(X > 10000) = 1 - \\Phi(2.84) \\approx 1 - 0.9977 = 0.0023 \\approx 2.3\\%$. Bei z ≈ 2.84 liegt man sehr weit rechts im Schwanz der Normalverteilung."
+},
+{
+  id: "stat03-single-02", type: "single", course: "Statistik",
+  topic: "Verteilungen", difficulty: 1,
+  tags: ["Verteilungsauswahl", "Binomial", "Poisson", "Hypergeometrisch", "Normal"],
+  question: "In einem Produktionsunternehmen fallen durchschnittlich 0.4 Virusattacken/Woche auf das Netz an. Welche Verteilung ist geeignet?",
+  options: [
+    "Binomialverteilung B(n, p)",
+    "Poisson-Verteilung Poi(λ)",
+    "Normalverteilung N(μ, σ²)",
+    "Hypergeometrische Verteilung"
+  ],
+  correctIndex: 1,
+  explanation: "Seltene Ereignisse in einem Zeitintervall → Poisson mit λ = 0.4. Erkennungsmerkmal: 'im Mittel x Ereignisse pro Zeiteinheit', keine feste Anzahl Versuche n bekannt, Ereignisse selten und unabhängig."
+},
+{
+  id: "stat03-multi-01", type: "multiple", course: "Statistik",
+  topic: "Verteilungen", difficulty: 2,
+  tags: ["Verteilungsauswahl", "Merkmale", "Übersicht"],
+  question: "Welche Situationen passen zur Binomialverteilung? (Mehrfachauswahl)",
+  options: [
+    "n unabhängige Versuche, jeder mit Erfolgswahrscheinlichkeit p",
+    "Ziehen ohne Zurücklegen aus einer kleinen Grundgesamtheit",
+    "7-maliges Drehen eines Glücksrads, Zählen der Treffer auf Feld 8",
+    "Anzahl Virusattacken pro Woche bei sehr seltenen Angriffen",
+    "Anzahl Studenten mit Teilzeitjob in einer Stichprobe von n=20 (p=0.4)"
+  ],
+  correctIndices: [0, 2, 4],
+  explanation: "Binomial: festes n, unabhängige Versuche, konstantes p, zwei Ausgänge (Treffer/kein Treffer). Option B ist hypergeometrisch (ohne Zurücklegen, endliche GG). Option D ist Poisson (seltene Ereignisse, kein festes n)."
+},
+
+// ════════════════════════════════════════════════════════════════
+// STATISTIK — Block 4: Schätztheorie & Konfidenzintervalle
+// ════════════════════════════════════════════════════════════════
+
+{
+  id: "stat04-order-01", type: "order", course: "Statistik",
+  topic: "Schätztheorie", difficulty: 2,
+  tags: ["Konfidenzintervall", "Berechnungsschritte", "KI"],
+  prompt: "Bringe die Schritte zur Berechnung eines Konfidenzintervalls für μ in die richtige Reihenfolge:",
+  items: [
+    "Prüfen: ist σ bekannt? → z-Wert; unbekannt? → t-Wert (n-1 df)",
+    "Signifikanzniveau α festlegen, kritischen Wert $z_{\\alpha/2}$ bzw. $t_{n-1,\\,\\alpha/2}$ ablesen",
+    "Stichprobenmittelwert $\\bar{x}$ und ggf. $s$ berechnen",
+    "KI berechnen: $\\bar{x} \\pm z_{\\alpha/2} \\cdot \\sigma / \\sqrt{n}$"
+  ],
+  explanation: "Die Reihenfolge ist: zuerst Stichprobenstatistiken bestimmen, dann entscheiden ob σ bekannt (z) oder unbekannt (t), dann kritischen Wert ablesen, schliesslich das Intervall berechnen."
+},
+{
+  id: "stat04-tf-01", type: "truefalse", course: "Statistik",
+  topic: "Schätztheorie", difficulty: 2,
+  tags: ["Prüfungsfalle", "Konfidenzintervall", "Interpretation", "Stichprobenumfang"],
+  prompt: "Konfidenzintervalle — wahr oder falsch?",
+  statements: [
+    { text: "Ein 95%-KI bedeutet: 'Der wahre Parameter liegt mit 95% Wahrscheinlichkeit in diesem Intervall.'", isTrue: false, explanation: "Falsch — diese Interpretation ist die häufigste Prüfungsfalle! Korrekt: 'Bei 100 wiederholten Stichproben würde das konstruierte KI in 95 Fällen den wahren Parameter enthalten.' Der Parameter ist fix, nicht zufällig." },
+    { text: "Mit wachsendem Stichprobenumfang n wird das Konfidenzintervall enger.", isTrue: true, explanation: "Korrekt — die Länge des KI ist proportional zu $\\sigma/\\sqrt{n}$. Grösseres n → kleinerer Standardfehler → engeres KI." },
+    { text: "Für ein KI für den Anteilswert p wird die Formel $p \\pm z_{\\alpha/2} \\cdot \\sqrt{p(1-p)/n}$ verwendet.", isTrue: true, explanation: "Korrekt — das ist das KI für einen Anteilswert (Bernoulli-Variable). Voraussetzung: n·p ≥ 5 und n·(1-p) ≥ 5 für die Normalapproximation." },
+    { text: "Ein breiteres Konfidenzintervall bedeutet mehr Präzision.", isTrue: false, explanation: "Falsch — ein breiteres KI bedeutet weniger Präzision (grössere Unsicherheit). Engere Intervalle sind präziser. Man erhält engere Intervalle durch grösseres n oder durch Senkung des Konfidenzniveaus." }
+  ]
+},
+{
+  id: "stat04-single-01", type: "single", course: "Statistik",
+  topic: "Schätztheorie", difficulty: 2,
+  tags: ["KI für μ", "σ bekannt", "z-Wert"],
+  question: "Produktionslinie: σ=0.3cm bekannt, n=30, x̄=15.05cm. Welche Formel für das 99%-KI?",
+  options: [
+    "$15.05 \\pm 1.645 \\cdot 0.3/\\sqrt{30}$",
+    "$15.05 \\pm 1.96 \\cdot 0.3/\\sqrt{30}$",
+    "$15.05 \\pm 2.576 \\cdot 0.3/\\sqrt{30}$",
+    "$15.05 \\pm t_{29,\\,0.005} \\cdot 0.3/\\sqrt{30}$"
+  ],
+  correctIndex: 2,
+  explanation: "σ ist bekannt → z-Verteilung (nicht t). Für 99%-KI: $\\alpha = 0.01$, $\\alpha/2 = 0.005$ → $z_{0.005} = 2.576$. Merke die drei wichtigsten z-Werte: 1.645 (90%), 1.96 (95%), 2.576 (99%)."
+},
+{
+  id: "stat04-single-02", type: "single", course: "Statistik",
+  topic: "Schätztheorie", difficulty: 2,
+  tags: ["Stichprobenumfang", "Fehlergrenze", "KI für Anteil"],
+  question: "600 Studenten befragt, 360 haben Natel-Abo. Welches ist der korrekte Punktschätzer für den Anteil in der Grundgesamtheit?",
+  options: ["p̂ = 0.5", "p̂ = 0.6", "p̂ = 0.65", "p̂ = 0.36"],
+  correctIndex: 1,
+  explanation: "$\\hat{p} = 360/600 = 0.60 = 60\\%$. Das 95%-KI wäre: $0.60 \\pm 1.96 \\cdot \\sqrt{0.60 \\cdot 0.40 / 600} = 0.60 \\pm 0.039$, also ca. [56.1%, 63.9%]."
+},
+
+// ════════════════════════════════════════════════════════════════
+// STATISTIK — Block 5: Hypothesentests
+// ════════════════════════════════════════════════════════════════
+
+{
+  id: "stat05-order-01", type: "order", course: "Statistik",
+  topic: "Hypothesentests", difficulty: 1,
+  tags: ["Testschema", "Hypothesentest", "Schritte"],
+  prompt: "Bringe das Standard-Testschema in die richtige Reihenfolge:",
+  items: [
+    "$H_0$ und $H_1$ formulieren",
+    "Signifikanzniveau α festlegen",
+    "Teststatistik berechnen",
+    "Kritischen Wert aus Tabelle ablesen",
+    "Entscheidungsregel anwenden und Ergebnis interpretieren"
+  ],
+  explanation: "Das Testschema ist immer gleich — auswendig lernen! Wichtig: H0 und H1 zuerst klar formulieren, bevor man rechnet. Die Entscheidungsregel: |T| > k_krit → H0 ablehnen. Alternativ: p-Wert < α → H0 ablehnen."
+},
+{
+  id: "stat05-tf-01", type: "truefalse", course: "Statistik",
+  topic: "Hypothesentests", difficulty: 2,
+  tags: ["Prüfungsfalle", "α-Fehler", "β-Fehler", "Welch", "Pooled"],
+  prompt: "Hypothesentests — wahr oder falsch?",
+  statements: [
+    { text: "Der α-Fehler (Typ-I-Fehler) ist die Wahrscheinlichkeit, H0 fälschlicherweise abzulehnen.", isTrue: true, explanation: "Korrekt — α-Fehler = 'false positive', H0 ist wahr, wird aber abgelehnt. Das Signifikanzniveau α ist genau diese Fehlerwahrscheinlichkeit, die man im Voraus festlegt." },
+    { text: "Bei einem zweiseitigen Test mit α=0.05 liest man $z_{0.05}$ = 1.645 aus der Tabelle ab.", isTrue: false, explanation: "Falsch — beim zweiseitigen Test teilt man α auf beide Seiten auf: $\\alpha/2 = 0.025$, also $z_{0.025} = 1.96$. $z_{0.05} = 1.645$ gilt für einseitige Tests auf dem 5%-Niveau." },
+    { text: "Für den Welch-t-Test braucht man keinen vorherigen F-Test auf Varianzhomogenität.", isTrue: true, explanation: "Korrekt — Welch ist immer anwendbar (robust gegenüber ungleichen Varianzen). Der Pooled t-Test setzt Varianzhomogenität voraus, die zuerst per F-Test geprüft werden muss." },
+    { text: "Ein kleiner p-Wert spricht gegen die Nullhypothese.", isTrue: true, explanation: "Korrekt — der p-Wert ist die Wahrscheinlichkeit, die beobachteten Daten (oder extremere) zu erhalten, wenn H0 wahr wäre. Kleiner p-Wert = die Daten sind unter H0 unwahrscheinlich → H0 ablehnen." },
+    { text: "Beim F-Test für Varianzhomogenität lautet die H0: $\\sigma_1^2 \\neq \\sigma_2^2$.", isTrue: false, explanation: "Falsch — H0 beim F-Test für Varianzhomogenität lautet $\\sigma_1^2 = \\sigma_2^2$ (Varianzen sind gleich). H1 wäre $\\sigma_1^2 \\neq \\sigma_2^2$. Wenn H0 nicht abgelehnt wird → Pooled t-Test, sonst → Welch." }
+  ]
+},
+{
+  id: "stat05-single-01", type: "single", course: "Statistik",
+  topic: "Hypothesentests", difficulty: 2,
+  tags: ["z-Test", "t-Test", "Testauswahl"],
+  question: "Stanzmaschine: σ=0.7mm bekannt, n=35, x̄=2.025cm, μ₀=2cm, α=0.01. Welcher Test ist korrekt?",
+  options: [
+    "t-Test (einseitig), weil n < 30",
+    "z-Test (zweiseitig), weil σ bekannt und μ₀ = 2 cm geprüft wird",
+    "F-Test, weil Varianzen verglichen werden",
+    "χ²-Test, weil über die Streuung geurteilt wird"
+  ],
+  correctIndex: 1,
+  explanation: "σ bekannt → z-Test. Die Frage lautet 'sollte die Maschine neu justiert werden?' = Abweichung in beide Richtungen relevant → zweiseitig. $T = (\\bar{x} - \\mu_0)/(\\sigma/\\sqrt{n}) = (2.025-2.0)/(0.07/\\sqrt{35}) \\approx 2.11$. Kritischer Wert: $z_{0.005} = 2.576$. Da |T| < 2.576 → H0 nicht abgelehnt."
+},
+{
+  id: "stat05-single-02", type: "single", course: "Statistik",
+  topic: "Hypothesentests", difficulty: 2,
+  tags: ["Zweistichproben", "Welch", "Pooled", "Entscheidung"],
+  question: "Reifenvergleich: $s_1 = 4000$km, $s_2 = 3000$km. Der F-Test ergibt, dass die Varianzen signifikant verschieden sind. Welcher Test ist jetzt korrekt für den Mittelwertvergleich?",
+  options: [
+    "Pooled t-Test (Varianzhomogenität vorausgesetzt)",
+    "Welch t-Test (robuster gegenüber ungleichen Varianzen)",
+    "z-Test (Normalapproximation)",
+    "χ²-Test (Varianzvergleich)"
+  ],
+  correctIndex: 1,
+  explanation: "Wenn der F-Test H0 (Varianzhomogenität) ablehnt → Varianzen sind signifikant verschieden → Pooled t-Test wäre verletzt → Welch t-Test verwenden. Merke: F-Test zuerst → wenn H0 nicht abgelehnt → Pooled; wenn H0 abgelehnt → Welch."
+},
+{
+  id: "stat05-multi-01", type: "multiple", course: "Statistik",
+  topic: "Hypothesentests", difficulty: 2,
+  tags: ["Einseitig", "Zweiseitig", "H0 Formulierung"],
+  question: "Bei welchen Fragestellungen ist ein einseitiger Test (und nicht zweiseitig) angebracht? (Mehrfachauswahl)",
+  options: [
+    "Untersuchung der Zunahme der Luftverschmutzung (hat sie zugenommen?)",
+    "Prüfung der Abweichung eines technischen Normteils von der vorgegebenen Norm",
+    "Prüfung ob eine Partei die 5%-Hürde überwindet (überwindet sie?)",
+    "Untersuchung ob sich der Alkoholkonsum verändert hat"
+  ],
+  correctIndices: [0, 2],
+  explanation: "Einseitig: wenn man nur an einer Richtung interessiert ist. 'Zunahme Luftverschmutzung' (nur H1: μ > μ₀) und '5%-Hürde überwunden' (nur H1: p > 0.05) → einseitig. 'Abweichung vom Normteil' (beide Richtungen, zu lang oder zu kurz) und 'Änderung Alkohol' (zu- oder abnehmend) → zweiseitig."
+},
+
+// ════════════════════════════════════════════════════════════════
+// STATISTIK — Block 6: ANOVA & Regression
+// ════════════════════════════════════════════════════════════════
+
+{
+  id: "stat06-tf-01", type: "truefalse", course: "Statistik",
+  topic: "ANOVA & Regression", difficulty: 2,
+  tags: ["Prüfungsfalle", "ANOVA", "R²", "Regression"],
+  prompt: "ANOVA und Regression — wahr oder falsch?",
+  statements: [
+    { text: "Bei der ANOVA gilt: $SST = SSB + SSW$ (Gesamtstreuung = Streuung zwischen den Gruppen + Streuung innerhalb der Gruppen).", isTrue: true, explanation: "Korrekt — das ist die Zerlegung der Gesamtstreuung. SST = Sum of Squares Total, SSB = Between Groups, SSW = Within Groups. Der F-Test prüft ob SSB relativ zu SSW gross genug ist." },
+    { text: "Ein $R^2 = 0.85$ bedeutet, dass 85% der Varianz in Y durch das Regressionsmodell erklärt werden.", isTrue: true, explanation: "Korrekt — das Bestimmtheitsmass $R^2 = SSR/SST = 1 - SSE/SST$ gibt den Anteil der erklärten Varianz an. $R^2 \\in [0,1]$; höherer Wert bedeutet bessere Modellanpassung." },
+    { text: "Eine hohe Kovarianz zwischen X und Y beweist einen kausalen Einfluss von X auf Y.", isTrue: false, explanation: "Falsch — Korrelation und Kovarianz messen nur den linearen Zusammenhang, nicht Kausalität. 'Korrelation ≠ Kausalität' ist ein Grundprinzip der Statistik." },
+    { text: "Der KQ-Schätzer $\\hat{\\beta}_1$ minimiert die Summe der quadrierten Residuen.", isTrue: true, explanation: "Korrekt — die Methode der kleinsten Quadrate (KQ/OLS) findet jene $\\hat{\\beta}_0$ und $\\hat{\\beta}_1$, die $\\sum(y_i - \\hat{y}_i)^2$ minimieren." },
+    { text: "Bei der ANOVA ist der F-Test immer zweiseitig.", isTrue: false, explanation: "Falsch — der F-Test bei der ANOVA ist einseitig (rechtsseitig), weil der F-Wert immer positiv ist. H0: alle Gruppenmittelwerte gleich; H1: mindestens zwei Mittelwerte verschieden." }
+  ]
+},
+{
+  id: "stat06-single-01", type: "single", course: "Statistik",
+  topic: "ANOVA & Regression", difficulty: 2,
+  tags: ["ANOVA", "F-Test", "Freiheitsgrade"],
+  question: "Drei Gruppen (k=3), insgesamt n=18 Beobachtungen. Wie lauten die Freiheitsgrade des F-Tests bei der einfachen ANOVA?",
+  options: [
+    "df₁ = 2, df₂ = 15",
+    "df₁ = 3, df₂ = 15",
+    "df₁ = 2, df₂ = 17",
+    "df₁ = 3, df₂ = 14"
+  ],
+  correctIndex: 0,
+  explanation: "$df_1 = k-1 = 3-1 = 2$ (zwischen den Gruppen), $df_2 = n-k = 18-3 = 15$ (innerhalb der Gruppen). Der F-Test lautet: $F = (SSB/(k-1)) / (SSW/(n-k)) \\sim F(2, 15)$."
+},
+{
+  id: "stat06-single-02", type: "single", course: "Statistik",
+  topic: "ANOVA & Regression", difficulty: 2,
+  tags: ["Regression", "β₁", "Steigung", "KQ"],
+  question: "Welche Formel berechnet die KQ-Schätzung für den Regressionskoeffizient $\\hat{\\beta}_1$?",
+  options: [
+    "$\\hat{\\beta}_1 = \\bar{y} / \\bar{x}$",
+    "$\\hat{\\beta}_1 = \\frac{\\sum(x_i - \\bar{x})(y_i - \\bar{y})}{\\sum(x_i - \\bar{x})^2}$",
+    "$\\hat{\\beta}_1 = \\frac{\\sum x_i y_i}{\\sum x_i^2}$",
+    "$\\hat{\\beta}_1 = \\text{cov}(X,Y) / \\text{Var}(Y)$"
+  ],
+  correctIndex: 1,
+  explanation: "$\\hat{\\beta}_1 = \\frac{\\sum(x_i-\\bar{x})(y_i-\\bar{y})}{\\sum(x_i-\\bar{x})^2} = \\frac{\\text{cov}_{XY}}{s_X^2}$. Danach: $\\hat{\\beta}_0 = \\bar{y} - \\hat{\\beta}_1 \\cdot \\bar{x}$. Die Regressionsgerade geht immer durch $(\\bar{x}, \\bar{y})$."
+},
+{
+  id: "stat06-single-03", type: "single", course: "Statistik",
+  topic: "ANOVA & Regression", difficulty: 2,
+  tags: ["Korrelation", "Kovarianz", "Interpretation"],
+  question: "Bravais-Pearson Korrelationskoeffizient $\\rho_{XY} = 0$. Was folgt daraus?",
+  options: [
+    "X und Y sind stochastisch unabhängig",
+    "Es besteht kein linearer Zusammenhang zwischen X und Y",
+    "Die Regressionsgerade hat die Steigung 0 und Bestimmtheitsmass R²=0",
+    "Sowohl B als auch C treffen zu, aber nicht A"
+  ],
+  correctIndex: 3,
+  explanation: "$\\rho = 0$ bedeutet: kein linearer Zusammenhang (also B). Daraus folgt auch $\\hat{\\beta}_1 = 0$ und $R^2 = 0$ (also C). Aber stochastische Unabhängigkeit (A) folgt nicht — es könnte ein nicht-linearer Zusammenhang bestehen (z.B. quadratisch)."
+},
+{
+  id: "stat06-multi-01", type: "multiple", course: "Statistik",
+  topic: "ANOVA & Regression", difficulty: 3,
+  tags: ["ANOVA", "Regression", "Voraussetzungen"],
+  question: "Welche Aussagen über die einfache lineare Regression sind korrekt? (Mehrfachauswahl)",
+  options: [
+    "Die Regressionsgerade minimiert die Summe der quadrierten vertikalen Abstände (Residuen)",
+    "$R^2$ kann negativ werden, wenn das Modell sehr schlecht ist",
+    "$\\hat{\\beta}_0$ ist der y-Achsenabschnitt — der vorhergesagte Y-Wert wenn X=0",
+    "Die Regressionsgerade verläuft stets durch den Punkt $(\\bar{x}, \\bar{y})$",
+    "Korrelation und Kausalität sind dasselbe, wenn R² > 0.9"
+  ],
+  correctIndices: [0, 2, 3],
+  explanation: "A: Korrekt — KQ-Methode minimiert $\\sum(y_i - \\hat{y}_i)^2$. C: Korrekt — $\\hat{\\beta}_0 = \\bar{y} - \\hat{\\beta}_1 \\bar{x}$. D: Korrekt — beweisbar aus der KQ-Herleitung. B: Falsch — $R^2 \\in [0,1]$ ist immer nicht-negativ. E: Falsch — Korrelation ≠ Kausalität, egal wie hoch."
+}
+
+,
+
+// ════════════════════════════════════════════════════════════════
+// STATISTIK — Block 1b: Häufigkeitsverteilung & Quartile
+// ════════════════════════════════════════════════════════════════
+
+{
+  id: "stat01-single-04", type: "single", course: "Statistik",
+  topic: "Deskriptive Statistik", difficulty: 2,
+  tags: ["Häufigkeitsverteilung", "Kumuliert", "Relative Häufigkeit"],
+  question: "Stadt: 457 Haushalte mit 1 Person, 628 mit 2, 612 mit 3, 526 mit 4, 344 mit 5+. Gesamt: 2567. Wie viele Haushalte haben 3 oder weniger Personen (relativ, kumuliert)?",
+  options: ["42.3%", "66.1%", "86.6%", "53.8%"],
+  correctIndex: 1,
+  explanation: "Kumulierte relative Häufigkeit bis x=3: $F(3) = (457+628+612)/2567 = 1697/2567 \\approx 0.661 = 66.1\\%$. Aufbau der Häufigkeitsverteilung: absolute Häufigkeiten $n_i$, relative $f(x_i) = n_i/n$, kumulierte $F(x_i) = \\sum_{j \\leq i} f(x_j)$."
+},
+{
+  id: "stat01-single-05", type: "single", course: "Statistik",
+  topic: "Deskriptive Statistik", difficulty: 2,
+  tags: ["Quartile", "IQR", "Quartilsabstand"],
+  question: "Was ist der Quartilsabstand (IQR) und wofür wird er verwendet?",
+  options: [
+    "IQR = Q3 + Q1; misst die Gesamtspannweite",
+    "IQR = Q3 - Q1; robustes Streuungsmass, das 50% der mittleren Daten umfasst",
+    "IQR = Median - Mittelwert; misst die Schiefe der Verteilung",
+    "IQR = (xmax - xmin)/4; der vierte Teil der Spannweite"
+  ],
+  correctIndex: 1,
+  explanation: "$IQR = Q_3 - Q_1$ umfasst die mittleren 50% der Daten. Er ist robust gegenüber Ausreissern (anders als die Spannweite). Quartilsposition: $Q_i$ liegt an Position $i \\cdot (n+1)/4$ in der sortierten Reihe."
+},
+{
+  id: "stat01-tf-02", type: "truefalse", course: "Statistik",
+  topic: "Deskriptive Statistik", difficulty: 1,
+  tags: ["Häufigkeitsverteilung", "Quartile", "Grundbegriffe"],
+  prompt: "Häufigkeiten und Quartile — wahr oder falsch?",
+  statements: [
+    { text: "Die kumulierte relative Häufigkeit $F(x_i)$ liegt immer zwischen 0 und 1.", isTrue: true, explanation: "Korrekt — $F(x_i) = \\sum_{j \\leq i} f(x_j)$, wobei $\\sum_i f(x_i) = 1$. Damit gilt $0 \\leq F(x_i) \\leq 1$." },
+    { text: "Der Interquartilsabstand IQR = Q3 - Q1 enthält genau 50% aller Datenpunkte.", isTrue: true, explanation: "Korrekt — Q1 ist das 25%-Quantil und Q3 das 75%-Quantil, also liegen genau 50% der Beobachtungen im Bereich [Q1, Q3]." },
+    { text: "Für die Position von Q1 in einer sortierten Reihe gilt: Position = n/4.", isTrue: false, explanation: "Falsch — korrekt ist Position = 1·(n+1)/4 (nicht n/4). Für Q2 (Median): 2·(n+1)/4 = (n+1)/2. Für Q3: 3·(n+1)/4." },
+    { text: "Das erste Dezil $D_1$ entspricht dem 10%-Quantil der Verteilung.", isTrue: true, explanation: "Korrekt — Dezile teilen die sortierte Datenreihe in 10 gleiche Teile. $D_1$ ist das 10%-Quantil, Position = 1·(n+1)/10." }
+  ]
+},
+
+// ════════════════════════════════════════════════════════════════
+// STATISTIK — Block 3b: Exponentialverteilung & ZGS
+// ════════════════════════════════════════════════════════════════
+
+{
+  id: "stat03-single-03", type: "single", course: "Statistik",
+  topic: "Verteilungen", difficulty: 2,
+  tags: ["Exponentialverteilung", "Lebensdauer", "Verteilung"],
+  question: "Ein Bauteil hält im Schnitt 10 Jahre (exponentialverteilt). Mit welcher Wahrscheinlichkeit hält es 8 Jahre oder kürzer?",
+  options: ["ca. 33%", "ca. 45%", "ca. 55%", "ca. 80%"],
+  correctIndex: 2,
+  explanation: "$E(X) = 1/\\lambda = 10 \\Rightarrow \\lambda = 0.1$. $P(X \\leq 8) = F(8) = 1 - e^{-\\lambda x} = 1 - e^{-0.1 \\cdot 8} = 1 - e^{-0.8} \\approx 1 - 0.449 = 0.551 \\approx 55\\%$."
+},
+{
+  id: "stat03-single-04", type: "single", course: "Statistik",
+  topic: "Verteilungen", difficulty: 2,
+  tags: ["Exponentialverteilung", "Formel", "P(X≥x)"],
+  question: "Zugverspätungen sind exponentialverteilt mit mittlerer Verspätung = 5 Min. Wie gross ist $P(X \\geq 10)$?",
+  options: ["$e^{-2} \\approx 13.5\\%$", "$1-e^{-2} \\approx 86.5\\%$", "$e^{-0.5} \\approx 60.7\\%$", "$1-e^{-0.5} \\approx 39.3\\%$"],
+  correctIndex: 0,
+  explanation: "$\\lambda = 1/5 = 0.2$. $P(X \\geq 10) = 1 - F(10) = e^{-\\lambda x} = e^{-0.2 \\cdot 10} = e^{-2} \\approx 0.135$. Merke: $P(X \\geq x) = e^{-\\lambda x}$ — das ist die komplementäre Verteilungsfunktion der Exponentialverteilung."
+},
+{
+  id: "stat03-tf-02", type: "truefalse", course: "Statistik",
+  topic: "Verteilungen", difficulty: 2,
+  tags: ["ZGS", "Stichprobenverteilung", "Zentraler Grenzwertsatz"],
+  prompt: "Zentraler Grenzwertsatz (ZGS) — wahr oder falsch?",
+  statements: [
+    { text: "Der ZGS besagt: Für grosse n ist $\\bar{X} \\approx N(\\mu, \\sigma^2/n)$, unabhängig von der Grundgesamtheitsverteilung.", isTrue: true, explanation: "Korrekt — das ist der Kern des ZGS. Ab n ≈ 30 gilt diese Approximation. Der Standardfehler des Mittelwerts ist $\\sigma/\\sqrt{n}$." },
+    { text: "Mit steigendem Stichprobenumfang n nimmt die Streuung des Stichprobenmittelwerts zu.", isTrue: false, explanation: "Falsch — es gilt $\\text{Var}(\\bar{X}) = \\sigma^2/n$. Mit wachsendem n nimmt die Streuung von $\\bar{X}$ ab. Dies ist der Grund, warum grössere Stichproben präzisere Schätzer liefern." },
+    { text: "Für den Stichprobenanteil $\\hat{p}$ gilt näherungsweise: $\\hat{p} \\approx N(\\pi, \\pi(1-\\pi)/n)$.", isTrue: true, explanation: "Korrekt — Voraussetzung: $n \\cdot \\pi \\geq 5$ und $n \\cdot (1-\\pi) \\geq 5$. Der Standardfehler des Anteils ist $\\sqrt{\\pi(1-\\pi)/n}$." },
+    { text: "Der ZGS gilt nur, wenn die Grundgesamtheit normalverteilt ist.", isTrue: false, explanation: "Falsch — gerade das Gegenteil ist die Aussage des ZGS: er gilt für beliebige Grundgesamtheitsverteilungen (mit endlicher Varianz), sofern n gross genug ist (n ≥ 30 als Faustregel)." }
+  ]
+},
+{
+  id: "stat03-single-05", type: "single", course: "Statistik",
+  topic: "Verteilungen", difficulty: 2,
+  tags: ["ZGS", "Stichprobenverteilung", "Standardfehler"],
+  question: "Überstunden pro Jahr: μ=62, σ=15. Stichprobe n=36. Wie gross ist $P(\\bar{X} < 65)$?",
+  options: ["ca. 88%", "ca. 92%", "ca. 97%", "ca. 84%"],
+  correctIndex: 0,
+  explanation: "Standardfehler: $\\sigma_{\\bar{X}} = \\sigma/\\sqrt{n} = 15/\\sqrt{36} = 2.5$. Standardisieren: $Z = (65-62)/2.5 = 1.2$. $P(\\bar{X} < 65) = \\Phi(1.2) \\approx 0.885 \\approx 88\\%$."
+},
+{
+  id: "stat03-single-06", type: "single", course: "Statistik",
+  topic: "Verteilungen", difficulty: 2,
+  tags: ["Stichprobenverteilung", "Anteil", "Normalapproximation"],
+  question: "17% der Aktienfonds-Besitzer sind Rentner (π=0.17). Stichprobe n=400. Was ist der Standardfehler von $\\hat{p}$?",
+  options: ["$\\approx 1.87\\%$", "$\\approx 3.42\\%$", "$\\approx 5.00\\%$", "$\\approx 0.43\\%$"],
+  correctIndex: 0,
+  explanation: "$SE(\\hat{p}) = \\sqrt{\\pi(1-\\pi)/n} = \\sqrt{0.17 \\cdot 0.83 / 400} = \\sqrt{0.1411/400} = \\sqrt{0.000353} \\approx 0.0188 = 1.88\\%$. Damit: $P(\\hat{p} \\geq 0.20) = P(Z \\geq (0.20-0.17)/0.0188) = P(Z \\geq 1.60) = 1 - \\Phi(1.60) \\approx 5.5\\%$."
+},
+
+// ════════════════════════════════════════════════════════════════
+// STATISTIK — Block 4b: Prognoseintervall & Stichprobenumfang
+// ════════════════════════════════════════════════════════════════
+
+{
+  id: "stat04-tf-02", type: "truefalse", course: "Statistik",
+  topic: "Schätztheorie", difficulty: 3,
+  tags: ["Prognoseintervall", "Konfidenzintervall", "Unterschied"],
+  prompt: "Prognoseintervall vs. Konfidenzintervall — wahr oder falsch?",
+  statements: [
+    { text: "Das Konfidenzintervall schätzt den unbekannten Parameter $\\mu$ der Grundgesamtheit.", isTrue: true, explanation: "Korrekt — KI ist ein Rückschluss von der Stichprobe auf den fixen, unbekannten Parameter der Grundgesamtheit (Repräsentationsschluss)." },
+    { text: "Das Prognoseintervall gibt an, in welchem Bereich eine neue Einzelbeobachtung mit Wahrscheinlichkeit $(1-\\alpha)$ liegt.", isTrue: true, explanation: "Korrekt — das Prognoseintervall (Inklusionsschluss) schliesst von bekannten Parametern auf eine noch unbekannte Beobachtung. Es ist breiter als das KI, da es die Streuung einer Einzelbeobachtung, nicht des Mittelwerts, abdeckt." },
+    { text: "Das Prognoseintervall ist immer enger als das Konfidenzintervall für denselben Parameter.", isTrue: false, explanation: "Falsch — das Prognoseintervall ist breiter, weil es die Variabilität einer Einzelbeobachtung ($\\sigma^2$) abdeckt, während das KI die deutlich geringere Variabilität des Stichprobenmittelwerts ($\\sigma^2/n$) abdeckt." },
+    { text: "Bei der Formel für das KI des Anteils gilt als Voraussetzung: $n \\cdot \\hat{p} \\geq 5$ und $n(1-\\hat{p}) \\geq 5$.", isTrue: true, explanation: "Korrekt — diese Faustregeln stellen sicher, dass die Normalapproximation der Binomialverteilung ausreichend gut ist, damit das KI-Verfahren valide ist." }
+  ]
+},
+{
+  id: "stat04-single-03", type: "single", course: "Statistik",
+  topic: "Schätztheorie", difficulty: 3,
+  tags: ["Stichprobenumfang", "Fehlergrenze", "Berechnung"],
+  question: "Gesucht: Mindest-n damit das 95%-KI für einen Anteilswert die Fehlergrenze $\\varepsilon = 0.03$ nicht überschreitet (konservative Schätzung mit $\\hat{p} = 0.5$).",
+  options: ["n = 752", "n = 1068", "n = 267", "n = 384"],
+  correctIndex: 1,
+  explanation: "$n = \\left(\\frac{z_{\\alpha/2}}{\\varepsilon}\\right)^2 \\cdot \\hat{p}(1-\\hat{p}) = \\left(\\frac{1.96}{0.03}\\right)^2 \\cdot 0.5 \\cdot 0.5 = 4268.4 \\cdot 0.25 = 1067.1 \\Rightarrow n = 1068$. Konservativ: $\\hat{p} = 0.5$ maximiert $\\hat{p}(1-\\hat{p}) = 0.25$."
+},
+
+// ════════════════════════════════════════════════════════════════
+// STATISTIK — Block 5b: χ²-Test, Zweistichproben-Anteil, β-Fehler
+// ════════════════════════════════════════════════════════════════
+
+{
+  id: "stat05-single-03", type: "single", course: "Statistik",
+  topic: "Hypothesentests", difficulty: 2,
+  tags: ["χ²-Test", "Varianztest", "Teststatistik"],
+  question: "Für den χ²-Test der Varianz ($H_0: \\sigma^2 = \\sigma_0^2$) lautet die Teststatistik:",
+  options: [
+    "$T = (\\bar{x} - \\mu_0)/(s/\\sqrt{n})$",
+    "$T = (n-1) \\cdot s^2 / \\sigma_0^2$",
+    "$T = s^2 / \\sigma_0^2$",
+    "$T = n \\cdot s^2 / \\sigma_0^2$"
+  ],
+  correctIndex: 1,
+  explanation: "$T = \\frac{(n-1) \\cdot s^2}{\\sigma_0^2} \\sim \\chi^2(n-1)$ unter $H_0$. Wichtig: im Zähler steht $(n-1) \\cdot s^2$, nicht $n \\cdot s^2$. Der kritische Bereich hängt davon ab, ob man $H_1: \\sigma^2 > \\sigma_0^2$ (rechtsseitig) oder zweiseitig testet."
+},
+{
+  id: "stat05-single-04", type: "single", course: "Statistik",
+  topic: "Hypothesentests", difficulty: 2,
+  tags: ["Zweistichproben", "Anteil", "z-Test"],
+  question: "HSG vs. Uni Bern: Anteil Befürworter bargeldloser Zahlung. $n_1=1200, \\hat{p}_1=0.56$ vs. $n_2=900, \\hat{p}_2=0.61$. Welcher Test ist korrekt?",
+  options: [
+    "t-Test für abhängige Stichproben",
+    "z-Test für zwei Anteile (da n gross genug)",
+    "F-Test für Varianzhomogenität",
+    "χ²-Anpassungstest"
+  ],
+  correctIndex: 1,
+  explanation: "Bei Zweistichproben-Vergleich von Anteilen mit grossem n ($n_1 \\cdot \\hat{p} \\geq 5$ etc.) → z-Test. Teststatistik: $T = (\\hat{p}_1 - \\hat{p}_2)/SE$, wobei $SE = \\sqrt{\\hat{p}(1-\\hat{p})(1/n_1+1/n_2)}$ mit gepooltem $\\hat{p} = (n_1\\hat{p}_1 + n_2\\hat{p}_2)/(n_1+n_2)$."
+},
+{
+  id: "stat05-tf-02", type: "truefalse", course: "Statistik",
+  topic: "Hypothesentests", difficulty: 3,
+  tags: ["β-Fehler", "Macht", "Teststärke"],
+  prompt: "β-Fehler und Teststärke — wahr oder falsch?",
+  statements: [
+    { text: "Der β-Fehler (Typ-II-Fehler) ist die Wahrscheinlichkeit, H0 fälschlicherweise beizubehalten, obwohl H1 wahr ist.", isTrue: true, explanation: "Korrekt — β-Fehler = 'false negative'. Man übersieht einen echten Effekt. Die Teststärke (Power) = 1 - β." },
+    { text: "α und β können gleichzeitig beliebig klein gemacht werden, ohne n zu erhöhen.", isTrue: false, explanation: "Falsch — α und β stehen in einem Trade-off: verkleinert man α (strengeres Kriterium), wird β grösser (man übersieht echte Effekte häufiger). Nur grösseres n reduziert beide gleichzeitig." },
+    { text: "Die Teststärke (Power = 1-β) gibt die Wahrscheinlichkeit an, einen echten Effekt zu entdecken.", isTrue: true, explanation: "Korrekt — Power = P(H0 ablehnen | H1 wahr) = 1-β. Eine Teststärke von 0.8 bedeutet: bei 100 Wiederholungen würde man den echten Effekt in 80 Fällen korrekt entdecken." },
+    { text: "Je grösser der wahre Effekt $|\\mu_1 - \\mu_0|$, desto kleiner ist der β-Fehler.", isTrue: true, explanation: "Korrekt — je grösser der Effekt, desto weiter liegen die Verteilungen unter H0 und H1 auseinander, desto leichter unterscheidet man sie → kleineres β, grössere Teststärke." }
+  ]
+},
+{
+  id: "stat05-multi-02", type: "multiple", course: "Statistik",
+  topic: "Hypothesentests", difficulty: 2,
+  tags: ["Testauswahl", "Übersicht", "Wann welcher Test"],
+  question: "Welche Tests werden für Mittelwertvergleiche verwendet? Ordne richtig zu: (Mehrfachauswahl der korrekten Aussagen)",
+  options: [
+    "z-Test: σ bekannt (oder n gross genug, σ ≈ s)",
+    "t-Test (Einstichprobe): σ unbekannt, n klein",
+    "Welch-t-Test: zwei Stichproben, Varianzen ungleich",
+    "F-Test: Mittelwertvergleich mehr als 2 Gruppen",
+    "χ²-Test: Test auf Varianzhomogenität"
+  ],
+  correctIndices: [0, 1, 2],
+  explanation: "A: z-Test wenn σ bekannt. B: t-Test Einstichprobe wenn σ unbekannt. C: Welch für zwei Stichproben mit ungleichen Varianzen. D falsch: F-Test vergleicht Varianzen (nicht Mittelwerte) — für >2 Gruppen-Mittelwertvergleich ist ANOVA zuständig. E falsch: χ²-Test testet Varianz einer Stichprobe, nicht Varianzhomogenität (das macht der F-Test)."
+},
+
+// ════════════════════════════════════════════════════════════════
+// STATISTIK — Block 6b: Regression Interpretation & ANOVA Details
+// ════════════════════════════════════════════════════════════════
+
+{
+  id: "stat06-single-04", type: "single", course: "Statistik",
+  topic: "ANOVA & Regression", difficulty: 2,
+  tags: ["Regression", "β₀", "y-Achsenabschnitt", "Interpretation"],
+  question: "Einfache Regression: $\\hat{Y} = 2.4 + 0.8 \\cdot X$ (X = Anrufe/Monat, Y = Vertragsabschlüsse). Wie viele Abschlüsse werden bei 0 Anrufen erwartet?",
+  options: ["0 Abschlüsse", "0.8 Abschlüsse", "2.4 Abschlüsse", "3.2 Abschlüsse"],
+  correctIndex: 2,
+  explanation: "$\\hat{\\beta}_0 = 2.4$ ist der y-Achsenabschnitt: der vorhergesagte Wert von Y, wenn X=0. Hier also 2.4 Abschlüsse ohne Anrufe (Basiswert). $\\hat{\\beta}_1 = 0.8$ bedeutet: jeder zusätzliche Anruf bringt im Schnitt 0.8 weitere Abschlüsse."
+},
+{
+  id: "stat06-single-05", type: "single", course: "Statistik",
+  topic: "ANOVA & Regression", difficulty: 3,
+  tags: ["ANOVA", "Zweifaktoriell", "Blocking"],
+  question: "ANOVA mit Blockbildung (zweifaktorielle ANOVA): Warum wird ein Block-Faktor zusätzlich modelliert?",
+  options: [
+    "Um die Zahl der Freiheitsgrade zu erhöhen",
+    "Um den Einfluss einer Störvariable (z.B. Virusstamm) herauszurechnen und die Trennschärfe zu erhöhen",
+    "Um die Berechnung des F-Tests zu vereinfachen",
+    "Weil bei kleinem n die einfache ANOVA nicht funktioniert"
+  ],
+  correctIndex: 1,
+  explanation: "Im Medikamenten-Beispiel: Blockfaktor = Virusstamm. Durch Modellierung des Blockfaktors wird seine Varianz aus SSW herausgenommen → kleinerer SSW → grössere F-Statistik → mehr Teststärke. Man kann echte Dosierungseffekte besser nachweisen, weil 'Rauschen' durch den Blockfaktor erklärt wird."
+},
+{
+  id: "stat06-order-01", type: "order", course: "Statistik",
+  topic: "ANOVA & Regression", difficulty: 2,
+  tags: ["Regression", "KQ", "Schritte"],
+  prompt: "Bringe die Schritte einer einfachen linearen Regression in die richtige Reihenfolge:",
+  items: [
+    "$\\bar{x}$ und $\\bar{y}$ berechnen",
+    "$\\hat{\\beta}_1 = \\frac{\\sum(x_i-\\bar{x})(y_i-\\bar{y})}{\\sum(x_i-\\bar{x})^2}$ berechnen",
+    "$\\hat{\\beta}_0 = \\bar{y} - \\hat{\\beta}_1 \\cdot \\bar{x}$ berechnen",
+    "$R^2 = 1 - SSE/SST$ berechnen und Modell beurteilen"
+  ],
+  explanation: "Reihenfolge: Mittelwerte → Steigung β₁ → Achsenabschnitt β₀ → Gütemass R². Die Regressionsgerade verläuft immer durch (x̄, ȳ) — das folgt direkt aus der KQ-Bedingung."
+},
+{
+  id: "stat06-multi-02", type: "multiple", course: "Statistik",
+  topic: "ANOVA & Regression", difficulty: 3,
+  tags: ["ANOVA", "SST", "SSB", "SSW", "Interpretation"],
+  question: "Welche Aussagen über die ANOVA-Zerlegung sind korrekt? (Mehrfachauswahl)",
+  options: [
+    "$SST = SSB + SSW$ ist die Grundzerlegung der Gesamtstreuung",
+    "Grosses SSB relativ zu SSW spricht für unterschiedliche Gruppenmittelwerte",
+    "Bei H0 (alle Mittelwerte gleich) folgt der F-Wert einer t-Verteilung",
+    "df für SSB = k-1, df für SSW = n-k (k = Gruppen, n = Gesamtbeobachtungen)",
+    "R² aus der Regression ist dasselbe wie der F-Wert in der ANOVA"
+  ],
+  correctIndices: [0, 1, 3],
+  explanation: "A: Korrekt — SST (gesamt) = SSB (zwischen Gruppen) + SSW (innerhalb). B: Korrekt — F = (SSB/(k-1))/(SSW/(n-k)); grosses F → H0 ablehnen. D: Korrekt — df1=k-1, df2=n-k. C: Falsch — F-Statistik folgt F-Verteilung, nicht t-Verteilung. E: Falsch — R² misst erklärte Varianz in Regression, nicht dasselbe wie F-Wert (obwohl beide auf ähnlicher Varianzzerlegung basieren)."
 }
 
 ];
