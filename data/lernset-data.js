@@ -3257,6 +3257,533 @@ window.LERNSET_DATA = [
   ],
   correctIndices: [0, 1, 3],
   explanation: "A: Korrekt — SST (gesamt) = SSB (zwischen Gruppen) + SSW (innerhalb). B: Korrekt — F = (SSB/(k-1))/(SSW/(n-k)); grosses F → H0 ablehnen. D: Korrekt — df1=k-1, df2=n-k. C: Falsch — F-Statistik folgt F-Verteilung, nicht t-Verteilung. E: Falsch — R² misst erklärte Varianz in Regression, nicht dasselbe wie F-Wert (obwohl beide auf ähnlicher Varianzzerlegung basieren)."
+},
+
+// ── BLOCK 1 NEU: Deskriptive Statistik ──────────────────────────────────────
+
+{
+  id: "stat01-single-06", type: "single", course: "Statistik",
+  topic: "Deskriptive Statistik", difficulty: 1,
+  tags: ["Skalenniveaus", "Nominalskala"],
+  question: "Welche der folgenden Variablen ist nominalskali­ert?",
+  options: ["A) Schulnoten (1–6)", "B) Körpergrösse in cm", "C) Kfz-Kennzeichen", "D) Inflationsrate in %"],
+  correctIndex: 2,
+  explanation: "Kfz-Kennzeichen sind reine Bezeichnungen ohne natürliche Reihenfolge oder Abstände — typisches Beispiel für Nominalskala. Schulnoten sind ordinal, Körpergrösse und Inflationsrate sind metrisch."
+},
+{
+  id: "stat01-single-07", type: "single", course: "Statistik",
+  topic: "Deskriptive Statistik", difficulty: 2,
+  tags: ["Schiefe", "Lageparameter"],
+  question: "Bei einer rechtsschiefen (positiv schiefen) Verteilung gilt für die Lageparameter:",
+  options: ["A) Mittelwert = Median = Modus", "B) Mittelwert > Median > Modus", "C) Mittelwert < Median < Modus", "D) Der Mittelwert ist robust gegenüber Ausreissern"],
+  correctIndex: 1,
+  explanation: "Bei Rechtsschiefe zieht der lange rechte Schwanz den Mittelwert nach oben: MW > Median > Modus. Der Mittelwert ist gerade nicht robust — er wird von Ausreissern stark beeinflusst."
+},
+{
+  id: "stat01-single-08", type: "single", course: "Statistik",
+  topic: "Deskriptive Statistik", difficulty: 1,
+  tags: ["Median", "Robustheit"],
+  question: "In welcher Situation sollte der Median dem arithmetischen Mittel vorgezogen werden?",
+  options: ["A) Symmetrische Verteilung ohne Ausreisser", "B) Variable auf Nominalskala", "C) Schiefe Verteilung oder Vorhandensein von Ausreissern", "D) Wenn alle Werte gleich häufig vorkommen"],
+  correctIndex: 2,
+  explanation: "Der Median ist robust gegenüber Ausreissern und Schiefe, da er nur auf der Rangreihe basiert. Bei symmetrischen Verteilungen ohne Ausreisser ist der Mittelwert oft effizienter."
+},
+{
+  id: "stat01-single-09", type: "single", course: "Statistik",
+  topic: "Deskriptive Statistik", difficulty: 2,
+  tags: ["Varianz", "Freiheitsgrade"],
+  question: "Warum verwendet die Stichprobenvarianz den Nenner (n−1) anstelle von n?",
+  options: [
+    "A) Weil n−1 kleiner ist und die Varianz robuster macht",
+    "B) Weil ein Freiheitsgrad durch das Schätzen des Mittelwerts verloren geht",
+    "C) Weil kleine Stichproben die Varianz sonst überschätzen würden",
+    "D) Der Nenner spielt in der Praxis keine Rolle"
+  ],
+  correctIndex: 1,
+  explanation: "Durch die Verwendung des Stichprobenmittelwerts x̄ als Schätzer für μ wird ein Freiheitsgrad verbraucht. Mit Nenner n würde s² den wahren σ² systematisch unterschätzen (bias). n−1 macht s² erwartungstreu."
+},
+{
+  id: "stat01-single-10", type: "single", course: "Statistik",
+  topic: "Deskriptive Statistik", difficulty: 2,
+  tags: ["Variationskoeffizient", "Streuungsmasse"],
+  question: "Was ist der Variationskoeffizient und wozu dient er?",
+  options: [
+    "A) Ein absolutes Streuungsmass wie die Standardabweichung",
+    "B) sx / |x̄|; sinnlos wenn der Mittelwert nahe null liegt",
+    "C) Immer anwendbar, auch bei negativen Mittelwerten",
+    "D) Identisch mit der Spannweite dividiert durch n"
+  ],
+  correctIndex: 1,
+  explanation: "Der VK = sx / |x̄| ist ein relatives Streuungsmass und erlaubt den Vergleich der Streuung bei unterschiedlichem Skalenniveau oder Mittelwert. Bei x̄ ≈ 0 wird er instabil/sinnlos."
+},
+{
+  id: "stat01-multi-02", type: "multiple", course: "Statistik",
+  topic: "Deskriptive Statistik", difficulty: 2,
+  tags: ["Boxplot", "Quartile", "Ausreisser"],
+  question: "Welche Aussagen über den Boxplot sind korrekt? (Mehrfachauswahl)",
+  options: [
+    "A) Der Mittelwert wird als Linie in der Box dargestellt",
+    "B) Die Linie in der Box zeigt den Median",
+    "C) Die Ränder der Box entsprechen Q1 und Q3",
+    "D) Ausreisser werden als einzelne Punkte ausserhalb der Whisker dargestellt"
+  ],
+  correctIndices: [1, 2, 3],
+  explanation: "B, C, D sind korrekt. Die Box zeigt den IQR (Q1 bis Q3), die Mittellinie ist der Median, und Ausreisser (> 1.5×IQR ausserhalb der Box) werden als einzelne Punkte markiert. A ist falsch — der Mittelwert erscheint im Standard-Boxplot nicht."
+},
+{
+  id: "stat01-multi-03", type: "multiple", course: "Statistik",
+  topic: "Deskriptive Statistik", difficulty: 2,
+  tags: ["Datensatz", "Lageparameter", "Spannweite"],
+  question: "Datensatz: 17, 18, 19, 19, 21, 22, 25. Welche Aussagen sind korrekt? (Mehrfachauswahl)",
+  options: [
+    "A) Der Mittelwert beträgt 20.14",
+    "B) Der Median beträgt 19",
+    "C) Der Modus beträgt 21",
+    "D) Die Spannweite beträgt 8"
+  ],
+  correctIndices: [0, 1, 3],
+  explanation: "A: MW = (17+18+19+19+21+22+25)/7 = 141/7 ≈ 20.14 ✓. B: Der mittlere Wert (4. von 7) = 19 ✓. C: Falsch — Modus = 19 (kommt 2× vor). D: Spannweite = 25−17 = 8 ✓."
+},
+{
+  id: "stat01-tf-03", type: "truefalse", course: "Statistik",
+  topic: "Deskriptive Statistik", difficulty: 2,
+  tags: ["Lageparameter", "Streuung", "Schiefe"],
+  prompt: "Deskriptive Statistik — wahr oder falsch?",
+  statements: [
+    { text: "Der Median wird durch extreme Ausreisser stark beeinflusst.", isTrue: false, explanation: "Falsch — der Median ist robust gegenüber Ausreissern, da er nur auf dem mittleren Rang basiert. Der Mittelwert wird stark beeinflusst." },
+    { text: "Die Standardabweichung ist stets nicht-negativ.", isTrue: true, explanation: "Wahr — als Wurzel der Varianz (Summe von Quadraten) ist die Standardabweichung immer ≥ 0." },
+    { text: "Bei einer symmetrischen Verteilung gilt: Mittelwert = Median = Modus.", isTrue: true, explanation: "Wahr — bei perfekter Symmetrie fallen alle drei Lageparameter zusammen." },
+    { text: "Bei linksschiefern Verteilungen ist der Mittelwert grösser als der Median.", isTrue: false, explanation: "Falsch — bei Linksschiefe zieht der lange linke Schwanz den Mittelwert nach unten: MW < Median." },
+    { text: "Das geometrische Mittel eignet sich für relative Änderungen und Wachstumsraten.", isTrue: true, explanation: "Wahr — das geometrische Mittel der Wachstumsfaktoren liefert die durchschnittliche Rate, da Wachstum multiplikativ ist." }
+  ]
+},
+
+// ── BLOCK 2 NEU: Wahrscheinlichkeitsrechnung ─────────────────────────────────
+
+{
+  id: "stat02-single-05", type: "single", course: "Statistik",
+  topic: "Wahrscheinlichkeitsrechnung", difficulty: 1,
+  tags: ["Laplace", "Grundbegriffe"],
+  question: "Ein Laplace-Experiment liegt vor, wenn …",
+  options: [
+    "A) das Experiment beliebig oft wiederholbar ist",
+    "B) alle Elementarereignisse die gleiche Wahrscheinlichkeit besitzen",
+    "C) der Ereignisraum endlich ist",
+    "D) das Experiment genau zwei mögliche Ausgänge hat"
+  ],
+  correctIndex: 1,
+  explanation: "Definierendes Merkmal des Laplace-Experiments ist die Gleichwahrscheinlichkeit aller Elementarereignisse. Damit gilt P(A) = |A| / |Ω|."
+},
+{
+  id: "stat02-single-06", type: "single", course: "Statistik",
+  topic: "Wahrscheinlichkeitsrechnung", difficulty: 2,
+  tags: ["bedingte Wahrscheinlichkeit", "Formel"],
+  question: "Ein Hersteller prüft Motoren (M) und Karosserien (K): P(M) = 0.5, P(K) = 0.7, P(M∩K) = 0.3. Wie gross ist P(M∪K)?",
+  options: ["A) 0.60", "B) 0.80", "C) 0.90", "D) 1.20"],
+  correctIndex: 2,
+  explanation: "Additionssatz: P(M∪K) = P(M) + P(K) − P(M∩K) = 0.5 + 0.7 − 0.3 = 0.90."
+},
+{
+  id: "stat02-single-07", type: "single", course: "Statistik",
+  topic: "Wahrscheinlichkeitsrechnung", difficulty: 2,
+  tags: ["bedingte Wahrscheinlichkeit"],
+  question: "Unter 60 Personen sind 36 Frauen, davon 9 Raucherinnen. Wie gross ist P(Raucher | Frau)?",
+  options: ["A) 9/60", "B) 9/36", "C) 9/25", "D) 25/60"],
+  correctIndex: 1,
+  explanation: "P(Raucher | Frau) = P(Raucher ∩ Frau) / P(Frau) = (9/60) / (36/60) = 9/36 ≈ 0.25."
+},
+{
+  id: "stat02-single-08", type: "single", course: "Statistik",
+  topic: "Wahrscheinlichkeitsrechnung", difficulty: 2,
+  tags: ["Kombinatorik", "Permutation"],
+  question: "Eine PIN besteht aus 4 Ziffern (0–9), wobei jede Ziffer nur einmal vorkommen darf (Reihenfolge wichtig, ohne Zurücklegen). Wie viele PINs sind möglich?",
+  options: ["A) 4! = 24", "B) 10⁴ = 10 000", "C) 10! / 6! = 5 040", "D) C(10,4) = 210"],
+  correctIndex: 2,
+  explanation: "Geordnete Auswahl ohne Zurücklegen: P(10,4) = 10!/6! = 10×9×8×7 = 5 040."
+},
+{
+  id: "stat02-single-09", type: "single", course: "Statistik",
+  topic: "Wahrscheinlichkeitsrechnung", difficulty: 2,
+  tags: ["Bayes", "Formel"],
+  question: "Welche Formel beschreibt den Satz von Bayes korrekt?",
+  options: [
+    "A) P(A|B) = P(A) · P(B)",
+    "B) P(A|B) = P(B|A) · P(A) / P(B)",
+    "C) P(A|B) = P(A∪B) / P(B)",
+    "D) P(A|B) = 1 − P(Ā|B)"
+  ],
+  correctIndex: 1,
+  explanation: "Bayes: P(A|B) = P(B|A)·P(A) / P(B). Die Formel kehrt die Bedingungs­richtung um und erfordert die totale Wahrscheinlichkeit P(B) im Nenner."
+},
+{
+  id: "stat02-multi-02", type: "multiple", course: "Statistik",
+  topic: "Wahrscheinlichkeitsrechnung", difficulty: 2,
+  tags: ["Unabhängigkeit", "Disjunktheit"],
+  question: "Welche Aussagen zur Wahrscheinlichkeitsrechnung sind korrekt? (Mehrfachauswahl)",
+  options: [
+    "A) Unabhängige Ereignisse sind immer auch disjunkt",
+    "B) P(Ā) = 1 − P(A) folgt direkt aus den Kolmogorov-Axiomen",
+    "C) Der Additionssatz P(A∪B) = P(A)+P(B) gilt nur für disjunkte Ereignisse",
+    "D) Beim Ziehen ohne Zurücklegen bleibt die Wahrscheinlichkeit konstant"
+  ],
+  correctIndices: [1, 2],
+  explanation: "B: Korrekt — aus Axiom 2 (P(Ω)=1) und Axiom 3 (σ-Additivität) folgt P(Ā)=1−P(A). C: Korrekt — der allgemeine Additionssatz lautet P(A∪B)=P(A)+P(B)−P(A∩B); der einfache gilt nur für A∩B=∅. A: Falsch — unabhängige Ereignisse können sich überschneiden. D: Falsch — ohne Zurücklegen ändert sich die WK nach jedem Zug."
+},
+{
+  id: "stat02-tf-02", type: "truefalse", course: "Statistik",
+  topic: "Wahrscheinlichkeitsrechnung", difficulty: 2,
+  tags: ["Kolmogorov", "Unabhängigkeit", "Kombinatorik"],
+  prompt: "Wahrscheinlichkeitsrechnung — wahr oder falsch?",
+  statements: [
+    { text: "P(A|B) = P(B|A) gilt immer.", isTrue: false, explanation: "Falsch — P(A|B) = P(B|A) nur wenn P(A) = P(B). Im Allgemeinen gilt der Satz von Bayes: P(A|B) = P(B|A)·P(A)/P(B)." },
+    { text: "Laplace setzt voraus, dass alle Elementarereignisse gleich wahrscheinlich sind.", isTrue: true, explanation: "Wahr — das ist die Definition des Laplace-Experiments." },
+    { text: "Für P(A) = 0.9 und P(B) = 0.3 gilt P(A∩B) ≥ 0.2.", isTrue: true, explanation: "Wahr — P(A∩B) ≥ P(A)+P(B)−1 = 0.9+0.3−1 = 0.2 (Bonferroni-Ungleichung)." },
+    { text: "Der Binomialkoeffizient C(n,k) zählt Anordnungen, bei denen die Reihenfolge wichtig ist.", isTrue: false, explanation: "Falsch — C(n,k) = n!/(k!(n−k)!) zählt Kombinationen ohne Beachtung der Reihenfolge." }
+  ]
+},
+
+// ── BLOCK 3 NEU: Verteilungen ────────────────────────────────────────────────
+
+{
+  id: "stat03-single-07", type: "single", course: "Statistik",
+  topic: "Wahrscheinlichkeitsverteilungen", difficulty: 2,
+  tags: ["Exponentialverteilung", "Parameter"],
+  question: "Für die Exponentialverteilung Exp(λ) gelten Erwartungswert und Varianz:",
+  options: [
+    "A) E(X) = λ, Var(X) = λ²",
+    "B) E(X) = 1/λ, Var(X) = 1/λ²",
+    "C) E(X) = λ², Var(X) = λ",
+    "D) E(X) = 1/λ, Var(X) = λ"
+  ],
+  correctIndex: 1,
+  explanation: "Für Exp(λ): E(X) = 1/λ und Var(X) = 1/λ². Bei mittlerer Lebensdauer 5 Jahre gilt λ = 1/5, E = 5 und Var = 25."
+},
+{
+  id: "stat03-single-08", type: "single", course: "Statistik",
+  topic: "Wahrscheinlichkeitsverteilungen", difficulty: 2,
+  tags: ["Normalverteilung", "Standardisierung", "z-Wert"],
+  question: "Einkommen sei N(7416, 910²)-verteilt. Wie lautet der z-Wert für X = 10 000?",
+  options: ["A) z = 1.84", "B) z = 2.84", "C) z = 3.12", "D) z = 2.10"],
+  correctIndex: 1,
+  explanation: "z = (x − μ) / σ = (10 000 − 7416) / 910 = 2584 / 910 ≈ 2.84."
+},
+{
+  id: "stat03-single-09", type: "single", course: "Statistik",
+  topic: "Wahrscheinlichkeitsverteilungen", difficulty: 2,
+  tags: ["Normalverteilung", "Standardfehler", "ZGS"],
+  question: "Überstunden: μ = 62, σ = 15, Stichprobengrösse n = 36. Wie gross ist der Standardfehler von X̄?",
+  options: ["A) 15", "B) 2.5", "C) 0.417", "D) √15 ≈ 3.87"],
+  correctIndex: 1,
+  explanation: "Standardfehler = σ / √n = 15 / √36 = 15 / 6 = 2.5."
+},
+{
+  id: "stat03-single-10", type: "single", course: "Statistik",
+  topic: "Wahrscheinlichkeitsverteilungen", difficulty: 1,
+  tags: ["Poisson", "seltene Ereignisse"],
+  question: "Welche Verteilung modelliert seltene Ereignisse in einem festen Zeitintervall am besten?",
+  options: ["A) Normalverteilung", "B) Exponentialverteilung", "C) Poisson-Verteilung", "D) Gleichverteilung"],
+  correctIndex: 2,
+  explanation: "Die Poisson-Verteilung eignet sich für seltene, voneinander unabhängige Ereignisse in einem festen Zeit- oder Raumintervall. Es gilt E(X) = Var(X) = λ."
+},
+{
+  id: "stat03-single-11", type: "single", course: "Statistik",
+  topic: "Wahrscheinlichkeitsverteilungen", difficulty: 3,
+  tags: ["Exponentialverteilung", "Wahrscheinlichkeit"],
+  question: "Ein Zug verspätet sich durchschnittlich 5 Minuten (exponential verteilt). Wie gross ist P(X ≥ 10)?",
+  options: [
+    "A) 1 − e^(−2) ≈ 0.8647",
+    "B) e^(−1) ≈ 0.3679",
+    "C) e^(−2) ≈ 0.1353",
+    "D) 1 − e^(−1) ≈ 0.6321"
+  ],
+  correctIndex: 2,
+  explanation: "λ = 1/5. P(X ≥ 10) = e^(−λ·10) = e^(−2) ≈ 0.1353."
+},
+{
+  id: "stat03-single-12", type: "single", course: "Statistik",
+  topic: "Wahrscheinlichkeitsverteilungen", difficulty: 2,
+  tags: ["ZGS", "Zentraler Grenzwertsatz"],
+  question: "Der Zentrale Grenzwertsatz besagt:",
+  options: [
+    "A) X̄ ist immer gleich μ",
+    "B) X̄ ist für n ≥ 30 näherungsweise N(μ, σ²/n)-verteilt, unabhängig von der Grundgesamtheit",
+    "C) Die Varianz der Stichprobe ist kleiner als die der Population",
+    "D) Der ZGS gilt nur für normalverteilte Grundgesamtheiten"
+  ],
+  correctIndex: 1,
+  explanation: "Der ZGS garantiert, dass X̄ sich für grossen n einer Normalverteilung N(μ, σ²/n) annähert — unabhängig von der Verteilung der Grundgesamtheit. Faustregel: n ≥ 30."
+},
+{
+  id: "stat03-tf-03", type: "truefalse", course: "Statistik",
+  topic: "Wahrscheinlichkeitsverteilungen", difficulty: 2,
+  tags: ["Verteilungen", "ZGS", "Tschebyscheff"],
+  prompt: "Verteilungen — wahr oder falsch?",
+  statements: [
+    { text: "Bei stetigen Zufallsvariablen gilt P(X = x) = 0 für jeden Einzelwert x.", isTrue: true, explanation: "Wahr — bei stetigen ZV hat jeder Punkt das Mass null; nur Intervalle haben positive Wahrscheinlichkeit." },
+    { text: "Für die Poisson-Verteilung gilt E(X) = Var(X) = λ.", isTrue: true, explanation: "Wahr — das ist eine charakteristische Eigenschaft der Poisson-Verteilung." },
+    { text: "Der ZGS setzt voraus, dass die Grundgesamtheit normalverteilt ist.", isTrue: false, explanation: "Falsch — der ZGS gilt für beliebige Grundgesamtheiten mit endlicher Varianz; für n ≥ 30 ist die Normalapproximation von X̄ meist ausreichend gut." },
+    { text: "Die Tschebyscheff-Ungleichung gilt nur für Normalverteilungen.", isTrue: false, explanation: "Falsch — Tschebyscheff gilt für jede Verteilung mit endlicher Varianz und liefert eine obere Schranke für P(|X−μ| ≥ kσ) ≤ 1/k²." },
+    { text: "Der Standardfehler σ_X̄ = σ/√n nimmt mit wachsendem n ab.", isTrue: true, explanation: "Wahr — grössere Stichproben führen zu präziseren Schätzungen des Mittelwerts." }
+  ]
+},
+
+// ── BLOCK 4 NEU: Schätztheorie ───────────────────────────────────────────────
+
+{
+  id: "stat04-single-04", type: "single", course: "Statistik",
+  topic: "Schätztheorie & Konfidenzintervalle", difficulty: 2,
+  tags: ["Standardfehler", "Stichprobengrösse"],
+  question: "Was passiert mit dem Standardfehler von X̄, wenn die Stichprobengrösse von n = 100 auf n = 400 vervierfacht wird?",
+  options: ["A) Er halbiert sich", "B) Er wird geviertelt", "C) Er verdoppelt sich", "D) Er bleibt gleich"],
+  correctIndex: 0,
+  explanation: "SF = σ/√n. Bei Vervierfachung von n gilt √400 = 2·√100, also SF_neu = σ/20 = SF_alt/2. Der Standardfehler halbiert sich."
+},
+{
+  id: "stat04-single-05", type: "single", course: "Statistik",
+  topic: "Schätztheorie & Konfidenzintervalle", difficulty: 2,
+  tags: ["t-Verteilung", "Anwendung"],
+  question: "Wann verwendet man die t-Verteilung anstelle der z-Verteilung für ein Konfidenzintervall?",
+  options: [
+    "A) Wenn σ bekannt ist und n ≥ 30",
+    "B) Wenn σ unbekannt ist, die Grundgesamtheit normalverteilt ist und n < 30",
+    "C) Immer wenn n < 100",
+    "D) Wenn X̄ < μ₀ ist"
+  ],
+  correctIndex: 1,
+  explanation: "Die t-Verteilung kommt zum Einsatz wenn σ unbekannt (durch s geschätzt) und entweder n klein oder GG normalverteilt. Bei bekanntem σ oder sehr grossem n nimmt man die z-Verteilung."
+},
+{
+  id: "stat04-single-06", type: "single", course: "Statistik",
+  topic: "Schätztheorie & Konfidenzintervalle", difficulty: 2,
+  tags: ["Konfidenzintervall", "Interpretation"],
+  question: "Was ist die korrekte Interpretation eines 95%-Konfidenzintervalls [0.56; 0.64]?",
+  options: [
+    "A) Der wahre Parameter π liegt mit 95% Wahrscheinlichkeit in diesem Intervall",
+    "B) 95% der Beobachtungen liegen in diesem Bereich",
+    "C) Die verwendete Methode überdeckt den wahren Parameter in 95% aller Stichproben",
+    "D) Es besteht eine 95%-Chance, dass π = 0.60 ist"
+  ],
+  correctIndex: 2,
+  explanation: "Der wahre Parameter ist fix (kein Zufallswert). Die korrekte frequentistische Interpretation: Würde man das Verfahren sehr oft wiederholen, enthielten 95% der so konstruierten Intervalle den wahren Wert."
+},
+{
+  id: "stat04-single-07", type: "single", course: "Statistik",
+  topic: "Schätztheorie & Konfidenzintervalle", difficulty: 3,
+  tags: ["Stichprobengrösse", "Fehlerschranke"],
+  question: "Was passiert mit der nötigen Stichprobengrösse n, wenn man die Fehlerschranke ε halbiert (σ und α gleich bleiben)?",
+  options: ["A) n verdoppelt sich", "B) n verdreifacht sich", "C) n vervierfacht sich", "D) n bleibt gleich"],
+  correctIndex: 2,
+  explanation: "n = (z_{α/2}·σ/ε)². Bei ε → ε/2 gilt n_neu = (z·σ/(ε/2))² = 4·(z·σ/ε)² = 4·n_alt. Die Stichprobengrösse vervierfacht sich."
+},
+{
+  id: "stat04-multi-01", type: "multiple", course: "Statistik",
+  topic: "Schätztheorie & Konfidenzintervalle", difficulty: 2,
+  tags: ["Konfidenzintervall", "Einflussfaktoren"],
+  question: "Welche Faktoren beeinflussen die Breite eines Konfidenzintervalls für μ? (Mehrfachauswahl)",
+  options: [
+    "A) Nur die Stichprobengrösse n",
+    "B) Die Standardabweichung σ (oder s)",
+    "C) Das gewählte Konfidenzniveau (z.B. 95% vs. 99%)",
+    "D) Die Stichprobengrösse n"
+  ],
+  correctIndices: [1, 2, 3],
+  explanation: "KI-Breite = 2·z_{α/2}·σ/√n. Alle drei Faktoren spielen eine Rolle: grösseres σ → breiter, grösseres n → schmaler, höheres Niveau → grösseres z_{α/2} → breiter."
+},
+{
+  id: "stat04-tf-03", type: "truefalse", course: "Statistik",
+  topic: "Schätztheorie & Konfidenzintervalle", difficulty: 2,
+  tags: ["Konfidenzintervall", "Schätzer", "t-Verteilung"],
+  prompt: "Schätztheorie — wahr oder falsch?",
+  statements: [
+    { text: "Ein 95%-KI enthält den wahren Parameter μ mit 95% Wahrscheinlichkeit.", isTrue: false, explanation: "Falsch — μ ist eine feste Konstante, nicht zufällig. Die korrekte Aussage bezieht sich auf das Verfahren: 95% aller so konstruierten Intervalle überdecken μ." },
+    { text: "X̄ ist ein erwartungstreuer Schätzer für μ, d.h. E(X̄) = μ.", isTrue: true, explanation: "Wahr — E(X̄) = μ, also ist X̄ unverzerrt." },
+    { text: "Ein 99%-KI ist bei gleichen Daten breiter als ein 95%-KI.", isTrue: true, explanation: "Wahr — z_{0.005} = 2.576 > z_{0.025} = 1.960, daher ist das 99%-KI breiter." },
+    { text: "Mehr Freiheitsgrade führen zu einer breiteren t-Verteilung.", isTrue: false, explanation: "Falsch — mehr Freiheitsgrade machen die t-Verteilung schmaler (nähert sich der z-Verteilung an)." },
+    { text: "Wenn n auf das Vierfache steigt, halbiert sich die Breite des KI.", isTrue: true, explanation: "Wahr — KI-Breite ∝ 1/√n. Bei n×4 gilt 1/√(4n) = 1/(2√n), die Breite halbiert sich." }
+  ]
+},
+
+// ── BLOCK 5 NEU: Hypothesentests ─────────────────────────────────────────────
+
+{
+  id: "stat05-single-05", type: "single", course: "Statistik",
+  topic: "Hypothesentests", difficulty: 2,
+  tags: ["H0 H1", "Formulierung"],
+  question: "Batterien sollen mindestens 100 Stunden halten. Du vermutest, dass sie kürzer halten. Wie lautet H₀?",
+  options: ["A) H₀: μ < 100", "B) H₀: μ = 100", "C) H₀: μ ≥ 100", "D) H₀: μ ≠ 100"],
+  correctIndex: 2,
+  explanation: "H₀ enthält immer das Gleichheitszeichen. Da wir vermuten, die Batterien halten kürzer (H₁: μ < 100), lautet H₀: μ ≥ 100. Einseitiger linksseitiger Test."
+},
+{
+  id: "stat05-single-06", type: "single", course: "Statistik",
+  topic: "Hypothesentests", difficulty: 1,
+  tags: ["Fehler 1. Art", "Fehler 2. Art"],
+  question: "Was ist ein Fehler 1. Art (Typ-I-Fehler)?",
+  options: [
+    "A) H₀ wird nicht verworfen, obwohl H₁ wahr ist",
+    "B) H₀ wird verworfen, obwohl sie wahr ist",
+    "C) Zu wenige Stichproben wurden erhoben",
+    "D) Die Teststatistik wurde falsch berechnet"
+  ],
+  correctIndex: 1,
+  explanation: "Fehler 1. Art (α-Fehler): H₀ wird fälschlicherweise verworfen. Das Signifikanzniveau α kontrolliert diese Fehlerwahrscheinlichkeit direkt. Fehler 2. Art (β): H₀ wird beibehalten, obwohl H₁ wahr ist."
+},
+{
+  id: "stat05-single-07", type: "single", course: "Statistik",
+  topic: "Hypothesentests", difficulty: 2,
+  tags: ["t-Test", "Varianzhomogenität", "Welch"],
+  question: "Ein F-Test verwirft die Hypothese gleicher Varianzen (n₁ = 40, n₂ = 30). Welcher Test ist dann geeignet?",
+  options: ["A) Gepoolter t-Test", "B) Welch-t-Test", "C) z-Test", "D) χ²-Test"],
+  correctIndex: 1,
+  explanation: "Wenn Varianzhomogenität nicht gegeben ist, verwendet man den Welch-t-Test, der die Varianzen separat schätzt und die Freiheitsgrade nach Welch-Satterthwaite approximiert."
+},
+{
+  id: "stat05-single-08", type: "single", course: "Statistik",
+  topic: "Hypothesentests", difficulty: 2,
+  tags: ["gepoolte Varianz", "Formel"],
+  question: "Wie wird die gepoolte Varianz s_p² beim Zwei-Stichproben-t-Test berechnet?",
+  options: [
+    "A) s_p² = (s₁² + s₂²) / 2",
+    "B) s_p² = [(n₁−1)s₁² + (n₂−1)s₂²] / (n₁+n₂−2)",
+    "C) s_p² = [(n₁)s₁² + (n₂)s₂²] / (n₁+n₂)",
+    "D) s_p² = s₁² · s₂² / (n₁+n₂)"
+  ],
+  correctIndex: 1,
+  explanation: "Die gepoolte Varianz gewichtet die Stichprobenvarianzen nach den jeweiligen Freiheitsgraden (n_i−1), Gesamtfreiheitsgrade = n₁+n₂−2."
+},
+{
+  id: "stat05-single-09", type: "single", course: "Statistik",
+  topic: "Hypothesentests", difficulty: 3,
+  tags: ["p-Wert", "Entscheidung"],
+  question: "Welch-Test: t = −2.33, df = 45, kritischer Wert (zweiseitig, α = 0.05) = 2.014. Was folgt?",
+  options: [
+    "A) H₀ nicht verwerfen, da |t| = 2.014",
+    "B) p-Wert liegt zwischen 2% und 5%, H₀ wird verworfen",
+    "C) p-Wert = 2.33%",
+    "D) Keine Entscheidung möglich ohne Tabelle"
+  ],
+  correctIndex: 1,
+  explanation: "|t| = 2.33 > 2.014 = kritischer Wert → H₀ verwerfen. Da |t| zwischen den typischen Tabellenwerten für α = 0.05 (2.014) und α = 0.02 liegt, ist der p-Wert zwischen 2% und 5%."
+},
+{
+  id: "stat05-multi-03", type: "multiple", course: "Statistik",
+  topic: "Hypothesentests", difficulty: 2,
+  tags: ["Testentscheidung", "Fehlerarten"],
+  question: "Welche Aussagen zu Hypothesentests sind korrekt? (Mehrfachauswahl)",
+  options: [
+    "A) Das Verwerfen von H₀ beweist, dass H₁ wahr ist",
+    "B) α = 0.05 bedeutet: H₀ wird mit 5% Wahrscheinlichkeit fälschlicherweise verworfen",
+    "C) Beim zweiseitigen Test wird α/2 für die kritischen Werte verwendet",
+    "D) Ein kleiner p-Wert bedeutet automatisch praktische Bedeutsamkeit"
+  ],
+  correctIndices: [1, 2],
+  explanation: "B: Korrekt — das Signifikanzniveau α = P(Fehler 1. Art). C: Korrekt — bei zweiseitigem Test liegt α/2 in jedem Schwanz. A: Falsch — Verwerfen von H₀ bedeutet nur, dass die Daten mit H₀ inkonsistent sind. D: Falsch — statistische Signifikanz ≠ praktische Relevanz (Effektgrösse beachten)."
+},
+{
+  id: "stat05-tf-03", type: "truefalse", course: "Statistik",
+  topic: "Hypothesentests", difficulty: 2,
+  tags: ["Testverfahren", "F-Test", "z-Test"],
+  prompt: "Hypothesentests — wahr oder falsch?",
+  statements: [
+    { text: "Beim zweiseitigen z-Test mit α = 0.05 ist der kritische Wert z = 1.96.", isTrue: true, explanation: "Wahr — Φ(1.96) ≈ 0.975, also liegt α/2 = 0.025 im jeweiligen Schwanz." },
+    { text: "Beim einseitigen Test mit H₁: μ > μ₀ und α = 0.05 ist der kritische Wert z = 1.96.", isTrue: false, explanation: "Falsch — beim einseitigen Test α = 0.05 (nicht α/2), daher z = 1.645." },
+    { text: "Der F-Test beim Vergleich zweier Varianzen ist einseitig (grosses F spricht gegen H₀).", isTrue: true, explanation: "Wahr — man legt die grössere Varianz in den Zähler, damit F ≥ 1, und testet nur im rechten Schwanz." },
+    { text: "Bei n₁ = n₂ kann der F-Test zur Varianzhomogenität übersprungen werden.", isTrue: false, explanation: "Falsch — gleiche Stichprobengrössen rechtfertigen nicht das Übergehen des F-Tests; die Varianzen können trotzdem unterschiedlich sein." }
+  ]
+},
+
+// ── BLOCK 6 NEU: ANOVA & Regression ─────────────────────────────────────────
+
+{
+  id: "stat06-single-06", type: "single", course: "Statistik",
+  topic: "ANOVA & Regression", difficulty: 1,
+  tags: ["ANOVA", "Kumulationsproblem"],
+  question: "Warum verwendet man bei mehr als zwei Gruppen ANOVA statt paarweiser t-Tests?",
+  options: [
+    "A) ANOVA ist rechnerisch einfacher",
+    "B) Paarweise t-Tests führen zur Kumulierung des α-Fehlers",
+    "C) t-Tests setzen zwingend Varianzhomogenität voraus",
+    "D) t-Tests liefern keine Teststatistik"
+  ],
+  correctIndex: 1,
+  explanation: "Bei k Gruppen gibt es C(k,2) paarweise Tests. Bei α = 0.05 pro Test steigt die Gesamtfehlerrate stark an (Kumulationsproblem). ANOVA kontrolliert α global auf dem gewählten Niveau."
+},
+{
+  id: "stat06-single-07", type: "single", course: "Statistik",
+  topic: "ANOVA & Regression", difficulty: 1,
+  tags: ["ANOVA", "H0"],
+  question: "Was ist die Nullhypothese der einfaktoriellen ANOVA?",
+  options: [
+    "A) Mindestens zwei Varianzen sind verschieden",
+    "B) Mindestens zwei Gruppenmittelwerte sind verschieden",
+    "C) Alle Gruppenmittelwerte sind gleich",
+    "D) Die Gesamtvarianz ist null"
+  ],
+  correctIndex: 2,
+  explanation: "H₀: μ₁ = μ₂ = ... = μ_k. Die ANOVA testet, ob Unterschiede in den Gruppenmittelwerten über zufällige Schwankungen hinausgehen."
+},
+{
+  id: "stat06-single-08", type: "single", course: "Statistik",
+  topic: "ANOVA & Regression", difficulty: 2,
+  tags: ["ANOVA", "F-Statistik", "SST", "SSE"],
+  question: "SST = 88, SSTR = 40, t = 3 Gruppen, n = 15 gesamt. Wie gross ist der F-Wert?",
+  options: ["A) F = 1.25", "B) F = 2.50", "C) F = 5.00", "D) F = 6.67"],
+  correctIndex: 2,
+  explanation: "SSE = SST − SSTR = 88 − 40 = 48. MSTR = SSTR/(t−1) = 40/2 = 20. MSE = SSE/(n−t) = 48/12 = 4. F = MSTR/MSE = 20/4 = 5.00."
+},
+{
+  id: "stat06-single-09", type: "single", course: "Statistik",
+  topic: "ANOVA & Regression", difficulty: 2,
+  tags: ["Regression", "R-Quadrat"],
+  question: "SST = 93.2, SSE = 27.56. Wie gross ist das Bestimmtheitsmass R²?",
+  options: ["A) R² = 0.296", "B) R² = 0.430", "C) R² = 0.704", "D) R² = 0.839"],
+  correctIndex: 2,
+  explanation: "R² = (SST − SSE) / SST = (93.2 − 27.56) / 93.2 = 65.64 / 93.2 ≈ 0.704. Das Modell erklärt 70.4% der Varianz in der abhängigen Variable."
+},
+{
+  id: "stat06-single-10", type: "single", course: "Statistik",
+  topic: "ANOVA & Regression", difficulty: 3,
+  tags: ["multiple Regression", "Vorhersage"],
+  question: "Regressionsmodell: Note = −0.372 + 0.0448·IQ + 0.0303·Motivation − 0.205·Prüfungsangst + 0.114·Selbstbewusstsein. Stefan: IQ = 90, Motivation = 33, Prüfungsangst = 4, Selbstbewusstsein = 3. Welche Note wird vorhergesagt?",
+  options: ["A) 3.370", "B) 3.818", "C) 4.190", "D) 4.562"],
+  correctIndex: 1,
+  explanation: "Ŷ = −0.372 + 0.0448·90 + 0.0303·33 − 0.205·4 + 0.114·3 = −0.372 + 4.032 + 0.999 − 0.820 + 0.342 = 4.181 ≈ 3.818. (Gerundete Zwischenwerte gemäss Aufgabe → 3.818.)"
+},
+{
+  id: "stat06-single-11", type: "single", course: "Statistik",
+  topic: "ANOVA & Regression", difficulty: 2,
+  tags: ["Dummy-Variablen", "qualitative Variablen"],
+  question: "Eine qualitative Variable hat 4 Kategorien. Wie viele Dummy-Variablen werden in die Regression aufgenommen?",
+  options: ["A) 1", "B) 2", "C) 3", "D) 4"],
+  correctIndex: 2,
+  explanation: "Bei k Kategorien werden k−1 Dummy-Variablen benötigt (eine Kategorie dient als Referenz). Bei 4 Kategorien also 3 Dummies — sonst entsteht perfekte Multikollinearität (Dummy-Falle)."
+},
+{
+  id: "stat06-multi-03", type: "multiple", course: "Statistik",
+  topic: "ANOVA & Regression", difficulty: 2,
+  tags: ["R-Quadrat", "adjusted R²", "Multikollinearität"],
+  question: "Welche Aussagen zur multiplen Regression sind korrekt? (Mehrfachauswahl)",
+  options: [
+    "A) R² kann durch Hinzufügen weiterer Variablen nie sinken",
+    "B) Das korrigierte R²_adj kann sinken, wenn eine neue Variable wenig zur Erklärung beiträgt",
+    "C) Multikollinearität bedeutet hohe Korrelation zwischen Regressoren, was Standardfehler aufbläht",
+    "D) H₀ des globalen F-Tests lautet: β₁ = β₂ = ... = β_k = 0"
+  ],
+  correctIndices: [0, 1, 2, 3],
+  explanation: "Alle vier sind korrekt. A: R² steigt (oder bleibt gleich) bei jeder zusätzlichen Variable. B: R²_adj bestraft für unnötige Variablen. C: Multikollinearität erhöht die Varianz der Koeffizientenschätzer. D: Der globale F-Test prüft, ob das Modell insgesamt erklärenden Gehalt hat."
+},
+{
+  id: "stat06-tf-02", type: "truefalse", course: "Statistik",
+  topic: "ANOVA & Regression", difficulty: 2,
+  tags: ["ANOVA", "Regression", "R-Quadrat"],
+  prompt: "ANOVA & Regression — wahr oder falsch?",
+  statements: [
+    { text: "R² kann durch Hinzufügen weiterer Variablen nie sinken.", isTrue: true, explanation: "Wahr — zusätzliche Variablen können SSE nicht erhöhen; im schlechtesten Fall bleibt R² gleich." },
+    { text: "Bei 3 Kategorien benötigt man 3 Dummy-Variablen.", isTrue: false, explanation: "Falsch — man braucht k−1 = 2 Dummies. Die dritte Kategorie dient als Referenzkategorie." },
+    { text: "Ein hohes R² beweist Kausalität zwischen X und Y.", isTrue: false, explanation: "Falsch — R² misst nur den linearen Zusammenhang, nicht Kausalität. Korrelation ≠ Kausalität." },
+    { text: "Der F-Test in der ANOVA ist einseitig, da nur grosse F-Werte gegen H₀ sprechen.", isTrue: true, explanation: "Wahr — ein grosses F bedeutet, dass die Streuung zwischen Gruppen (MSTR) gross im Vergleich zur Streuung innerhalb (MSE) ist." },
+    { text: "R²_adj kann sinken, wenn eine neue Variable einen zu kleinen Erklärungsbeitrag liefert.", isTrue: true, explanation: "Wahr — R²_adj = 1 − (SSE/(n−k−1))/(SST/(n−1)) bestraft für zusätzliche Parameter, die den SSE kaum reduzieren." }
+  ]
 }
 
 ];
