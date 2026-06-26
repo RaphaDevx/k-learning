@@ -8,8 +8,8 @@ set -euo pipefail
 HLS_DIR="${1:-/home/raphael/lernplattform/hls}"
 BUCKET="${2:-k-learning-videos}"
 
-# Token kommt aus Umgebung: source ~/.config/kcloud/.env
-: "${CLOUDFLARE_API_TOKEN:?Bitte CLOUDFLARE_API_TOKEN setzen (source ~/.config/kcloud/.env)}"
+# Token-Source: /home/claude/.keys/tokens.env  (chmod 600 — nie Token hardcoden)
+source /home/claude/.keys/tokens.env
 export CLOUDFLARE_API_TOKEN
 
 echo "▶ Uploading HLS from $HLS_DIR → R2 bucket: $BUCKET"

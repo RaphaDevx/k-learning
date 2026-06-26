@@ -13,7 +13,7 @@ window.FEED_CARDS = [
     topics: ["ESF Definition", "Theorie", "Empirie", "Methode", "Dialektik"],
     duration: "1:18",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf_01_was_ist_esf_v2.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/esf_01_was_ist_esf_v2.mp4",
     thumbnail_emoji: "🔬",
     block: "Grundlagen & Forschungsprozess"
   },
@@ -28,7 +28,7 @@ window.FEED_CARDS = [
     topics: ["Laborexperiment", "Kausalität", "UV", "AV", "Randomisierung", "Validität"],
     duration: "1:15",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf_04_laborexperiment_v2.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/esf_04_laborexperiment_v2.mp4",
     thumbnail_emoji: "🧪",
     block: "Forschungsdesigns & Experimente"
   },
@@ -43,7 +43,7 @@ window.FEED_CARDS = [
     topics: ["Qualitativ", "Quantitativ", "Paradigmen", "Methoden"],
     duration: "1:06",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf_05_qualitativ_quantitativ_v2.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/esf_05_qualitativ_quantitativ_v2.mp4",
     thumbnail_emoji: "⚖️",
     block: "Qualitative & Quantitative Forschung"
   },
@@ -58,7 +58,7 @@ window.FEED_CARDS = [
     topics: ["ESF Definition", "Theorie", "Empirie", "Methode"],
     duration: "0:48",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf_01_was_ist_esf.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/esf_01_was_ist_esf.mp4",
     thumbnail_emoji: "🔬",
     block: "Grundlagen & Forschungsprozess"
   },
@@ -73,7 +73,7 @@ window.FEED_CARDS = [
     topics: ["Laborexperiment", "Kausalität", "UV", "AV", "Kontrollgruppe"],
     duration: "1:00",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/laborexperiment_reel.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/laborexperiment_reel.mp4",
     thumbnail_emoji: "🔬",
     block: "Forschungsdesigns & Experimente"
   },
@@ -88,7 +88,7 @@ window.FEED_CARDS = [
     topics: ["Forschungsprozess", "Hypothesen", "Operationalisierung", "Datenerhebung"],
     duration: "0:57",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf_02_forschungsprozess.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/esf_02_forschungsprozess.mp4",
     thumbnail_emoji: "📋",
     block: "Grundlagen & Forschungsprozess"
   },
@@ -103,7 +103,7 @@ window.FEED_CARDS = [
     topics: ["Forschungsdesign", "Querschnitt", "Längsschnitt", "Fallstudie"],
     duration: "0:57",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf_03_forschungsdesign.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/esf_03_forschungsdesign.mp4",
     thumbnail_emoji: "📐",
     block: "Grundlagen & Forschungsprozess"
   },
@@ -118,7 +118,7 @@ window.FEED_CARDS = [
     topics: ["Qualitativ", "Quantitativ", "Forschungsparadigmen"],
     duration: "0:55",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf_05_qualitativ_quantitativ.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/esf_05_qualitativ_quantitativ.mp4",
     thumbnail_emoji: "⚖️",
     block: "Qualitative & Quantitative Forschung"
   },
@@ -133,7 +133,7 @@ window.FEED_CARDS = [
     topics: ["Mixed Methods", "Triangulation", "Sequential", "Concurrent"],
     duration: "0:52",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf_06_mixed_methods.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/esf_06_mixed_methods.mp4",
     thumbnail_emoji: "🔀",
     block: "Qualitative & Quantitative Forschung"
   },
@@ -148,7 +148,7 @@ window.FEED_CARDS = [
     topics: ["Primärdaten", "Sekundärdaten", "Datenerhebung"],
     duration: "0:56",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf_07_primaer_sekundaer.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/esf_07_primaer_sekundaer.mp4",
     thumbnail_emoji: "🗄️",
     block: "Grundlagen & Forschungsprozess"
   },
@@ -163,7 +163,7 @@ window.FEED_CARDS = [
     topics: ["Deduktion", "Induktion", "Forschungslogik", "Theorie"],
     duration: "1:36",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf_01_deduktion_vs_induktion.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/esf_01_deduktion_vs_induktion.mp4",
     thumbnail_emoji: "🔄",
     block: "Grundlagen & Forschungsprozess"
   },
@@ -178,7 +178,7 @@ window.FEED_CARDS = [
     topics: ["Forschungsdesign", "Experiment", "Befragung", "Beobachtung"],
     duration: "1:43",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf_02_forschungsdesigns.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/esf_02_forschungsdesigns.mp4",
     thumbnail_emoji: "📊",
     block: "Grundlagen & Forschungsprozess"
   },
@@ -193,7 +193,7 @@ window.FEED_CARDS = [
     topics: ["Forschungsprozess", "Hypothesen", "Datenerhebung", "Publikation"],
     duration: "1:51",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf_03_forschungsprozess_v2.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/esf_03_forschungsprozess_v2.mp4",
     thumbnail_emoji: "🗺️",
     block: "Grundlagen & Forschungsprozess"
   },
@@ -207,7 +207,7 @@ window.FEED_CARDS = [
     topics: ["ESF Definition", "Theorie", "Empirie", "Forschungsmethode"],
     duration: "1:23",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf-s1-was-ist-esf.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/esf-s1-was-ist-esf.mp4",
     thumbnail_emoji: "🔬",
     block: "Grundlagen & Forschungsprozess"
   },
@@ -221,7 +221,7 @@ window.FEED_CARDS = [
     topics: ["Forschungsprozess", "Bryman", "7 Phasen", "Forschungsfrage"],
     duration: "1:09",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf-s1-forschungsprozess.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/esf-s1-forschungsprozess.mp4",
     thumbnail_emoji: "🗺️",
     block: "Grundlagen & Forschungsprozess"
   },
@@ -235,7 +235,7 @@ window.FEED_CARDS = [
     topics: ["Forschungsdesign", "Qualitativ", "Quantitativ", "Mixed Methods", "Induktion", "Deduktion"],
     duration: "1:23",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf-s1-forschungsdesign.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/esf-s1-forschungsdesign.mp4",
     thumbnail_emoji: "⚖️",
     block: "Grundlagen & Forschungsprozess"
   },
@@ -249,7 +249,7 @@ window.FEED_CARDS = [
     topics: ["Primärdaten", "Sekundärdaten", "Datenerhebung"],
     duration: "1:13",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf-s1-primaer-sekundaer.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/esf-s1-primaer-sekundaer.mp4",
     thumbnail_emoji: "📂",
     block: "Grundlagen & Forschungsprozess"
   },
@@ -263,7 +263,7 @@ window.FEED_CARDS = [
     topics: ["IPA", "Phänomenologie", "Hermeneutik", "Double Hermeneutic", "Grounded Theory", "Qualitative Forschung"],
     duration: "1:26",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/esf-s4-ipa.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/esf-s4-ipa.mp4",
     thumbnail_emoji: "🔍",
     block: "Qualitative Forschung"
   },
@@ -278,7 +278,7 @@ window.FEED_CARDS = [
     topics: ["t-Test", "Mann-Whitney", "Zweistichproben", "Hypothesentest"],
     duration: "1:16",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/stats_zweistichproben.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/stats_zweistichproben.mp4",
     thumbnail_emoji: "📈",
     block: "Hypothesentests"
   },
@@ -294,7 +294,7 @@ window.FEED_CARDS = [
     topics: ["Skalenniveau", "Nominal", "Ordinal", "Intervall", "Verhältnis"],
     duration: "1:06",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_02_m01_skalenniveaus.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_02_m01_skalenniveaus.mp4",
     thumbnail_emoji: "📏",
     block: "M01 — Grundlagen & Deskriptive Statistik"
   },
@@ -309,7 +309,7 @@ window.FEED_CARDS = [
     topics: ["Mittelwert", "Median", "Modus", "Schiefe", "Lageparameter"],
     duration: "1:00",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_03_m01_lageparameter.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_03_m01_lageparameter.mp4",
     thumbnail_emoji: "📊",
     block: "M01 — Grundlagen & Deskriptive Statistik"
   },
@@ -324,7 +324,7 @@ window.FEED_CARDS = [
     topics: ["Varianz", "Standardabweichung", "IQR", "Streuung", "n-1"],
     duration: "1:07",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_04_m01_streuungsmasse.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_04_m01_streuungsmasse.mp4",
     thumbnail_emoji: "📐",
     block: "M01 — Grundlagen & Deskriptive Statistik"
   },
@@ -339,7 +339,7 @@ window.FEED_CARDS = [
     topics: ["Bedingte Wahrscheinlichkeit", "Multiplikationssatz", "Unabhängigkeit", "P(B|A)"],
     duration: "1:11",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_05_m02_bedingte_wahrscheinlichkeit.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_05_m02_bedingte_wahrscheinlichkeit.mp4",
     thumbnail_emoji: "🎲",
     block: "M02 — Wahrscheinlichkeitsrechnung"
   },
@@ -354,7 +354,7 @@ window.FEED_CARDS = [
     topics: ["Bayes", "Totale Wahrscheinlichkeit", "Falsch-Positiv", "Diagnostik"],
     duration: "1:20",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_06_m02_satz_von_bayes.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_06_m02_satz_von_bayes.mp4",
     thumbnail_emoji: "🔬",
     block: "M02 — Wahrscheinlichkeitsrechnung"
   },
@@ -369,7 +369,7 @@ window.FEED_CARDS = [
     topics: ["Kombinatorik", "Permutation", "Kombination", "Binomialkoeffizient", "Fakultät"],
     duration: "1:25",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_07_m02_kombinatorik.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_07_m02_kombinatorik.mp4",
     thumbnail_emoji: "🔢",
     block: "M02 — Wahrscheinlichkeitsrechnung"
   },
@@ -384,7 +384,7 @@ window.FEED_CARDS = [
     topics: ["Binomialverteilung", "Bernoulli", "Erwartungswert", "Varianz", "Wahrscheinlichkeit"],
     duration: "1:13",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_08_m03_binomialverteilung.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_08_m03_binomialverteilung.mp4",
     thumbnail_emoji: "📈",
     block: "M03 — Wahrscheinlichkeitsverteilungen"
   },
@@ -399,7 +399,7 @@ window.FEED_CARDS = [
     topics: ["Normalverteilung", "z-Transformation", "Standardnormalverteilung", "68-95-99.7", "Quantil"],
     duration: "1:27",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_09_m03_normalverteilung.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_09_m03_normalverteilung.mp4",
     thumbnail_emoji: "🔔",
     block: "M03 — Wahrscheinlichkeitsverteilungen"
   },
@@ -414,7 +414,7 @@ window.FEED_CARDS = [
     topics: ["Poissonverteilung", "Grenzfall", "Binomial", "Erwartungswert", "Varianz"],
     duration: "1:18",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_10_m03_poissonverteilung.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_10_m03_poissonverteilung.mp4",
     thumbnail_emoji: "⚡",
     block: "M03 — Wahrscheinlichkeitsverteilungen"
   },
@@ -429,7 +429,7 @@ window.FEED_CARDS = [
     topics: ["Zentraler Grenzwertsatz", "Stichprobenmittelwert", "Standardfehler", "Normalverteilung"],
     duration: "1:18",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_11_m04_zentraler_grenzwertsatz.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_11_m04_zentraler_grenzwertsatz.mp4",
     thumbnail_emoji: "🎯",
     block: "M04 — Stichprobenverteilungen & Schätztheorie"
   },
@@ -444,7 +444,7 @@ window.FEED_CARDS = [
     topics: ["Konfidenzintervall", "z-Verteilung", "t-Verteilung", "σ bekannt", "Schätztheorie"],
     duration: "1:28",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_12_m04_konfidenzintervall_z_vs_t.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_12_m04_konfidenzintervall_z_vs_t.mp4",
     thumbnail_emoji: "📐",
     block: "M04 — Stichprobenverteilungen & Schätztheorie"
   },
@@ -459,7 +459,7 @@ window.FEED_CARDS = [
     topics: ["Stichprobenumfang", "Fehlertoleranz", "Konfidenzintervall", "Anteilswert"],
     duration: "1:16",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_13_m04_stichprobenumfang.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_13_m04_stichprobenumfang.mp4",
     thumbnail_emoji: "🔭",
     block: "M04 — Stichprobenverteilungen & Schätztheorie"
   },
@@ -474,7 +474,7 @@ window.FEED_CARDS = [
     topics: ["Fehler 1. Art", "Fehler 2. Art", "p-Wert", "Signifikanzniveau", "Power"],
     duration: "1:08",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_14_m05_fehlerarten_pwert.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_14_m05_fehlerarten_pwert.mp4",
     thumbnail_emoji: "⚠️",
     block: "M05 — Hypothesentests"
   },
@@ -489,7 +489,7 @@ window.FEED_CARDS = [
     topics: ["z-Test", "t-Test", "Entscheidungsbaum", "Prüfgröße", "Freiheitsgrade"],
     duration: "1:19",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_15_m05_ztest_vs_ttest.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_15_m05_ztest_vs_ttest.mp4",
     thumbnail_emoji: "🔍",
     block: "M05 — Hypothesentests"
   },
@@ -504,7 +504,7 @@ window.FEED_CARDS = [
     topics: ["Welch-Test", "Pooled t-Test", "F-Test", "Zweistichproben", "Varianzhomogenität"],
     duration: "1:29",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_16_m05_zweistichproben_welch_pooled.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_16_m05_zweistichproben_welch_pooled.mp4",
     thumbnail_emoji: "⚖️",
     block: "M05 — Hypothesentests"
   },
@@ -519,7 +519,7 @@ window.FEED_CARDS = [
     topics: ["ANOVA", "F-Test", "SST", "SSTR", "SSE", "Varianzanalyse"],
     duration: "1:16",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_17_m06_anova_ftest.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_17_m06_anova_ftest.mp4",
     thumbnail_emoji: "📊",
     block: "M06 — ANOVA & Regression"
   },
@@ -534,7 +534,7 @@ window.FEED_CARDS = [
     topics: ["OLS", "Regression", "R²", "β-Koeffizienten", "Bestimmtheitsmaß"],
     duration: "1:22",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_18_m06_linreg_ols.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_18_m06_linreg_ols.mp4",
     thumbnail_emoji: "📉",
     block: "M06 — ANOVA & Regression"
   },
@@ -549,7 +549,7 @@ window.FEED_CARDS = [
     topics: ["Multiple Regression", "adj. R²", "Multikollinearität", "ceteris paribus", "Interpretation"],
     duration: "1:25",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_19_m06_multiple_regression.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_19_m06_multiple_regression.mp4",
     thumbnail_emoji: "📐",
     block: "M06 — ANOVA & Regression"
   },
@@ -1118,7 +1118,7 @@ window.FEED_CARDS = [
     block: "Block 1 — Deskriptive Statistik",
     title: "Deskriptive Statistik in 90 Sekunden",
     tldr: "Skalenniveaus, Lageparameter, Varianz (n-1!) und Boxplot — alles was du für Teil I brauchst.",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_t1_deskriptiv.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_t1_deskriptiv.mp4",
     emoji: "🎬"
   },
   // ── Statistik Reel: Wahrscheinlichkeit in 90 Sekunden ──
@@ -1130,7 +1130,7 @@ window.FEED_CARDS = [
     block: "Block 2 — Wahrscheinlichkeitsrechnung",
     title: "Wahrscheinlichkeit in 90 Sekunden",
     tldr: "Kolmogorov-Axiome, Additionssatz, Bayes und Kombinatorik — die 4 Kernkonzepte.",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_t2_wahrscheinlichkeit.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_t2_wahrscheinlichkeit.mp4",
     emoji: "🎬"
   },
   // ── Statistik Reel: Verteilungen in 90 Sekunden ──
@@ -1142,7 +1142,7 @@ window.FEED_CARDS = [
     block: "Block 3 — Wahrscheinlichkeitsverteilungen",
     title: "Verteilungen in 90 Sekunden",
     tldr: "Binomial, Poisson, Normalverteilung, Z-Transformation — und wann welche Verteilung.",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_t3_verteilungen.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_t3_verteilungen.mp4",
     emoji: "🎬"
   },
   // ── Statistik Reel: Schätztheorie in 90 Sekunden ──
@@ -1154,7 +1154,7 @@ window.FEED_CARDS = [
     block: "Block 4 — Schätztheorie & Konfidenzintervalle",
     title: "Schätztheorie in 90 Sekunden",
     tldr: "Zentraler Grenzwertsatz, Konfidenzintervalle für μ und p, Stichprobenumfang.",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_t4_schaetztheorie.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_t4_schaetztheorie.mp4",
     emoji: "🎬"
   },
   // ── Statistik Reel: Hypothesentests in 90 Sekunden ──
@@ -1166,7 +1166,7 @@ window.FEED_CARDS = [
     block: "Block 5 — Hypothesentests",
     title: "Hypothesentests in 90 Sekunden",
     tldr: "Das 6-Schritte-Testschema, α/β-Fehler, z/t-Test und Welch vs. Pooled.",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_t5_hypothesentests.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_t5_hypothesentests.mp4",
     emoji: "🎬"
   },
   // ── Statistik Reel: ANOVA & Regression in 90 Sekunden ──
@@ -1178,7 +1178,7 @@ window.FEED_CARDS = [
     block: "Block 6 — ANOVA & Regression",
     title: "ANOVA & Regression in 90 Sekunden",
     tldr: "SST=SSB+SSW, F-Test, β-Koeffizienten per OLS, R² und Dummy-Variablen.",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/statistik_t6_anova_regression.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/statistik_t6_anova_regression.mp4",
     emoji: "🎬"
   },
 
@@ -1195,7 +1195,7 @@ window.FEED_CARDS = [
     topics: ["Supply Chain", "Postponement", "Newsvendor", "Lead Time", "Coefficient of Variance", "Excel"],
     duration: "2:25",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/om_sc_without_postponement_latex.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/om_sc_without_postponement_latex.mp4",
     thumbnail_emoji: "🔗",
     block: "Block 4 — Supply Chain Management"
   },
@@ -1213,7 +1213,7 @@ window.FEED_CARDS = [
     topics: ["Bullwhip Effect", "Supply Chain", "Demand Fluctuation", "Utilization", "Stockout", "Overstock"],
     duration: "1:58",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/om_bullwhip_effect.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/om_bullwhip_effect.mp4",
     thumbnail_emoji: "🌪️",
     block: "Block 4 — Supply Chain Management"
   },
@@ -1230,7 +1230,7 @@ window.FEED_CARDS = [
     topics: ["Mayring", "Inhaltsanalyse", "Qualitativ vs. Quantitativ", "Fallstudien", "Prüfungsfallen"],
     duration: "2:38",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_S4_V3_Inhaltsanalyse_Pruefungsfallen_v3.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/ESF_S4_V3_Inhaltsanalyse_Pruefungsfallen_v3.mp4",
     thumbnail_emoji: "📁",
     block: "Sitzung 4 — Qualitative Forschung"
   },
@@ -1247,7 +1247,7 @@ window.FEED_CARDS = [
     topics: ["Theoretisches Sampling", "Grounded Theory", "Kodierung", "Transkription", "Purposive Sampling", "Theoretische Sättigung"],
     duration: "2:38",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_S4_V2_Sampling_Kodierung_GroundedTheory_v3.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/ESF_S4_V2_Sampling_Kodierung_GroundedTheory_v3.mp4",
     thumbnail_emoji: "🗂️",
     block: "Sitzung 4 — Qualitative Forschung"
   },
@@ -1264,7 +1264,7 @@ window.FEED_CARDS = [
     topics: ["Qualitative Forschung", "Positivismus", "Interpretivismus", "Interview-Typen", "Fokusgruppen", "Ethnographie"],
     duration: "2:32",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_S4_V1_Grundlagen_Datenerhebung_v3.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/ESF_S4_V1_Grundlagen_Datenerhebung_v3.mp4",
     thumbnail_emoji: "🔍",
     block: "Sitzung 4 — Qualitative Forschung"
   },
@@ -1281,7 +1281,7 @@ window.FEED_CARDS = [
     topics: ["Virtual Reality", "Eye-Tracking", "Emotion Recognition", "Galvanic Skin Response", "Face Recognition", "Prüfungsfallen"],
     duration: "2:22",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_S5_V3_NeueTechnologien_Pruefungsfallen_v3.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/ESF_S5_V3_NeueTechnologien_Pruefungsfallen_v3.mp4",
     thumbnail_emoji: "🤖",
     block: "Sitzung 5 — Gütekriterien, Open Science & neue Technologien"
   },
@@ -1298,7 +1298,7 @@ window.FEED_CARDS = [
     topics: ["Replikationskrise", "p-Hacking", "HARKing", "Open Science", "Präregistrierung", "OSF", "Publikations-Bias"],
     duration: "2:32",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_S5_V2_Replikationskrise_OpenScience_v3.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/ESF_S5_V2_Replikationskrise_OpenScience_v3.mp4",
     thumbnail_emoji: "💥",
     block: "Sitzung 5 — Gütekriterien, Open Science & neue Technologien"
   },
@@ -1315,7 +1315,7 @@ window.FEED_CARDS = [
     topics: ["Reliabilität", "Validität", "Objektivität", "Cronbachs Alpha", "Externe Validität", "Gütekriterien"],
     duration: "2:22",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_S5_V1_Guetekriterien_v3.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/ESF_S5_V1_Guetekriterien_v3.mp4",
     thumbnail_emoji: "🎯",
     block: "Sitzung 5 — Gütekriterien, Open Science & neue Technologien"
   },
@@ -1332,7 +1332,7 @@ window.FEED_CARDS = [
     topics: ["Publikation", "VHB-Jourqual", "Desk Reject", "Reviewer", "Prüfungsfallen", "A+"],
     duration: "2:42",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_S6_V4_Publikation_Pruefungsfallen_v3.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/ESF_S6_V4_Publikation_Pruefungsfallen_v3.mp4",
     thumbnail_emoji: "🏆",
     block: "Sitzung 6 — Schreiben, Visualisierung & Publikation"
   },
@@ -1349,7 +1349,7 @@ window.FEED_CARDS = [
     topics: ["Datenvisualisierung", "10 Prinzipien", "Less is More", "ggplot", "Limitationen", "Prüfungsfallen"],
     duration: "2:02",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_S6_V3_Datenvisualisierung_v3.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/ESF_S6_V3_Datenvisualisierung_v3.mp4",
     thumbnail_emoji: "📊",
     block: "Sitzung 6 — Schreiben, Visualisierung & Publikation"
   },
@@ -1366,7 +1366,7 @@ window.FEED_CARDS = [
     topics: ["APA 7th Edition", "Zitation", "et al.", "Plagiat", "Referenzierung", "Prüfungsfallen"],
     duration: "2:18",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_S6_V2_APA_Plagiate_v3.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/ESF_S6_V2_APA_Plagiate_v3.mp4",
     thumbnail_emoji: "📝",
     block: "Sitzung 6 — Schreiben, Visualisierung & Publikation"
   },
@@ -1383,7 +1383,7 @@ window.FEED_CARDS = [
     topics: ["Akademisches Schreiben", "5 Phasen", "Writing Framework", "Quantitativ", "Qualitativ", "Prüfungsfallen"],
     duration: "2:24",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_S6_V1_Akademisches_Schreiben_v3.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/ESF_S6_V1_Akademisches_Schreiben_v3.mp4",
     thumbnail_emoji: "✍️",
     block: "Sitzung 6 — Schreiben, Visualisierung & Publikation"
   },
@@ -1399,7 +1399,7 @@ window.FEED_CARDS = [
     topics: ["AI Assessment", "Experiment", "UV/AV", "Mediator", "PNAS", "Prüfungspaper"],
     duration: "2:27",
     level: "Prüfungspaper ⭐",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_Paper1_AI_Assessment_Effect_v3.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/ESF_Paper1_AI_Assessment_Effect_v3.mp4",
     thumbnail_emoji: "🤖",
     block: "Prüfungsrelevante Papers"
   },
@@ -1414,7 +1414,7 @@ window.FEED_CARDS = [
     topics: ["Doppelgänger", "Emotional Branding", "Qualitativ", "Hermeneutik", "Journal of Marketing"],
     duration: "2:00",
     level: "Prüfungspaper ⭐",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_Paper2_Doppelgaenger_Brand_Image_v3.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/ESF_Paper2_Doppelgaenger_Brand_Image_v3.mp4",
     thumbnail_emoji: "👥",
     block: "Prüfungsrelevante Papers"
   },
@@ -1429,7 +1429,7 @@ window.FEED_CARDS = [
     topics: ["Open Science", "Replikationskrise", "Ioannidis", "Publikationsbias", "Präregistrierung"],
     duration: "2:20",
     level: "Prüfungspaper ⭐",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_Paper3_Open_Science_Replikationskrise_v3.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/ESF_Paper3_Open_Science_Replikationskrise_v3.mp4",
     thumbnail_emoji: "💥",
     block: "Prüfungsrelevante Papers"
   },
@@ -1444,7 +1444,7 @@ window.FEED_CARDS = [
     topics: ["Korrelation", "Kausalität", "Experiment", "Spurious Correlation", "HBR"],
     duration: "1:55",
     level: "Prüfungspaper ⭐",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_Paper4_Luca_Korrelation_Kausalitaet_v3.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/ESF_Paper4_Luca_Korrelation_Kausalitaet_v3.mp4",
     thumbnail_emoji: "📈",
     block: "Prüfungsrelevante Papers"
   },
@@ -1459,7 +1459,7 @@ window.FEED_CARDS = [
     topics: ["Manual Labor", "Autonome Produkte", "Mediator", "Multi-Study", "Journal of Marketing"],
     duration: "1:55",
     level: "Prüfungspaper ⭐",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/ESF_Paper5_de_Bellis_Manual_Labor_v3.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/ESF_Paper5_de_Bellis_Manual_Labor_v3.mp4",
     thumbnail_emoji: "🔧",
     block: "Prüfungsrelevante Papers"
   },
@@ -1475,7 +1475,7 @@ window.FEED_CARDS = [
     topics: ["Bullwhip-Effekt", "SCM", "Upstream", "Koordination", "Pr\u00fcfungsfalle"],
     duration: "1:34",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/om_bullwhip_effekt.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/om_bullwhip_effekt.mp4",
     thumbnail_emoji: "🐂",
     block: "Block 4 — Supply Chain Management"
   },
@@ -1490,7 +1490,7 @@ window.FEED_CARDS = [
     topics: ["EPQ", "EOQ", "Durchschnittslager", "Excel", "Pr\u00fcfungsfalle"],
     duration: "1:25",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/om_epq_lagerbestand.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/om_epq_lagerbestand.mp4",
     thumbnail_emoji: "📦",
     block: "Block 2 — Inventory Management"
   },
@@ -1505,7 +1505,7 @@ window.FEED_CARDS = [
     topics: ["MRP II", "5 Schritte", "Produktionsplanung", "Pr\u00fcfungsfalle"],
     duration: "1:18",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/om_mrp2_schritte.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/om_mrp2_schritte.mp4",
     thumbnail_emoji: "🏭",
     block: "Block 3 — Production Management"
   },
@@ -1520,7 +1520,7 @@ window.FEED_CARDS = [
     topics: ["Newsvendor", "Critical Ratio", "Servicegrad", "Cu", "Co"],
     duration: "2:10",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/om_newsvendor_critical_ratio.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/om_newsvendor_critical_ratio.mp4",
     thumbnail_emoji: "📰",
     block: "Block 2 — Inventory Management"
   },
@@ -1535,7 +1535,7 @@ window.FEED_CARDS = [
     topics: ["Newsvendor", "ROP", "NORM.S.INV", "Excel", "Pr\u00fcfungsfalle"],
     duration: "1:52",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/om_newsvendor_excel_stepbystep.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/om_newsvendor_excel_stepbystep.mp4",
     thumbnail_emoji: "📊",
     block: "Block 2 — Inventory Management"
   },
@@ -1550,7 +1550,7 @@ window.FEED_CARDS = [
     topics: ["Quantity Discount", "EOQ", "Gesamtkosten", "Excel", "HS23"],
     duration: "5:11",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/om_q12_quantity_discount.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/om_q12_quantity_discount.mp4",
     thumbnail_emoji: "💰",
     block: "Block 2 — Inventory Management"
   },
@@ -1565,7 +1565,7 @@ window.FEED_CARDS = [
     topics: ["BOM", "Bill of Materials", "Multi-Level", "Excel", "HS23"],
     duration: "5:09",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/om_q19_hs23_bom_excel_v2.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/om_q19_hs23_bom_excel_v2.mp4",
     thumbnail_emoji: "🌳",
     block: "Block 3 — Production Management"
   }
@@ -1581,7 +1581,7 @@ window.FEED_CARDS = [
     topics: ["MRP I", "MRP", "BOM", "Lead Time", "Net Requirements"],
     duration: "1:40",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/om_mrp1_material_requirements.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/om_mrp1_material_requirements.mp4",
     thumbnail_emoji: "📋",
     block: "Block 3 — Production Management"
   }
@@ -1597,7 +1597,7 @@ window.FEED_CARDS = [
     topics: ["MRP II", "Pr\u00fcfungsfalle", "5 Schritte", "Feedback", "W\u00f6chentlich"],
     duration: "1:40",
     level: "Prüfungsrelevant ⚡",
-    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/om_mrp2_vollstaendig.mp4",
+    video_src: "https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev/om_mrp2_vollstaendig.mp4",
     thumbnail_emoji: "⚙️",
     block: "Block 3 — Production Management"
   }

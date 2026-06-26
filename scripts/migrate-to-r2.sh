@@ -1,20 +1,14 @@
 #!/bin/bash
 # ── Migrate videos: Supabase Storage → Cloudflare R2 ─────────────────────────
-#
-# VORAUSSETZUNGEN:
-#   1. wrangler login  (einmalig, Browser öffnet sich)
-#   2. R2_BUCKET_NAME unten setzen (default: k-learning-videos)
-#   3. Nach Upload: PUBLIC_URL unten setzen (aus Cloudflare Dashboard)
-#
-# ABLAUF:
-#   Phase 1 — Download alle Videos von Supabase lokal in /tmp/r2-migration/
-#   Phase 2 — Upload nach R2 via wrangler r2 object put
-#   Phase 3 — patch-urls.sh ausführen um feed-data.js zu patchen
-#
-# USAGE: bash scripts/migrate-to-r2.sh [--phase 1|2|3|all]
+# Token-Source: /home/claude/.keys/tokens.env  (chmod 600 — nie Token hardcoden)
+# USAGE: bash scripts/migrate-to-r2.sh [all | phase 1|2|3]
 # ─────────────────────────────────────────────────────────────────────────────
 
 set -e
+
+# Keystore laden
+source /home/claude/.keys/tokens.env
+export CLOUDFLARE_API_TOKEN
 
 SUPABASE_BASE="https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos"
 R2_BUCKET_NAME="k-learning-videos"
@@ -23,7 +17,7 @@ PHASE="${2:-all}"
 
 # Nach R2-Bucket-Erstellung + Public Access aktivieren:
 # Dashboard → R2 → k-learning-videos → Settings → Public URL
-R2_PUBLIC_URL=""  # z.B. "https://pub-abc123.r2.dev"
+R2_PUBLIC_URL="https://pub-c9ae7dac5a4b4514a6048354bd2bde9c.r2.dev"
 
 # Liste aller 69 Video-Dateien
 VIDEOS=(
@@ -108,17 +102,17 @@ phase1_download() {
     local dest="$TMP_DIR/$f"
     if [ -f "$dest" ]; then
       echo "  ⏭  $f (schon vorhanden)"
-      ((ok++))
+      ok=$((ok + 1))
       continue
     fi
     echo -n "  ↓  $f ... "
     if curl -s -f -o "$dest" "$url"; then
       local size=$(du -sh "$dest" | cut -f1)
       echo "✅ ($size)"
-      ((ok++))
+      ok=$((ok + 1))
     else
       echo "❌ FEHLER"
-      ((fail++))
+      fail=$((fail + 1))
     fi
   done
   echo ""
@@ -133,7 +127,7 @@ phase2_upload() {
     local src="$TMP_DIR/$f"
     if [ ! -f "$src" ]; then
       echo "  ⚠️  $f fehlt lokal — Phase 1 zuerst ausführen"
-      ((fail++))
+      fail=$((fail + 1))
       continue
     fi
     echo -n "  ↑  $f ... "
@@ -142,10 +136,10 @@ phase2_upload() {
         --content-type "video/mp4" \
         --cache-control "public, max-age=31536000" 2>/dev/null; then
       echo "✅"
-      ((ok++))
+      ok=$((ok + 1))
     else
       echo "❌"
-      ((fail++))
+      fail=$((fail + 1))
     fi
   done
   echo ""
