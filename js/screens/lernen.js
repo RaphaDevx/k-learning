@@ -105,108 +105,77 @@ window.LernenScreen = (function() {
     return _renderQuiz();
   }
 
-  // ── Lernkarten: all-deck + topics ──
+  // ── Lernkarten: topic list grouped by actual card.topic (same logic as deck selector) ──
   function _renderKarten() {
     if (!_activeCourse) return _empty('Wähle oben ein Fach aus.');
 
-    const courseData = (window.TOPICS_DATA || {})[_activeCourse];
-    const allCards   = window.FLASHCARD_DATA || [];
-    const prog       = AppState.get('cardProgress') || {};
-
-    const loading = !window.FLASHCARD_DATA;
+    const courseData  = (window.TOPICS_DATA || {})[_activeCourse];
+    const allCards    = window.FLASHCARD_DATA || [];
+    const prog        = AppState.get('cardProgress') || {};
+    const loading     = !window.FLASHCARD_DATA;
     const courseCards = allCards.filter(c => c.course === _activeCourse);
-    if (!loading && !courseCards.length && !courseData) return _empty(`Noch keine Karten für ${_activeCourse}.`);
+    const course      = _activeCourse;
+    const color       = courseData?.color || '#6366f1';
 
-    const allDone  = courseCards.filter(c => prog[c.id]?.reviews > 0).length;
-    const allTotal = courseCards.length;
-    const allPct   = allTotal ? Math.round(allDone / allTotal * 100) : 0;
+    if (loading) return `<p class="text-center py-8 text-sm" style="color:var(--txt-3)">Karten werden geladen…</p>`;
+    if (!courseCards.length) return _empty(`Noch keine Karten für ${course}.`);
 
-    const bgGrad  = courseData?.bgGradient || 'linear-gradient(135deg,#1e3a8a,#1e40af)';
-    const emoji   = courseData?.emoji || '📚';
-    const color   = courseData?.color || '#6366f1';
-    const course  = _activeCourse;
+    // Group by actual c.topic (same as flashcards deck selector)
+    const groups = {};
+    courseCards.forEach(c => {
+      const key = c.topic || 'Allgemein';
+      if (!groups[key]) groups[key] = [];
+      groups[key].push(c);
+    });
 
-    // filterCards first, then showView — avoids init() async overwrite race
-    const allDeck = `
-      <button onclick="FlashcardsScreen.filterCards('${course}', null); showView('flashcards');"
-        class="tap-card w-full flex items-center justify-between rounded-2xl p-4 mb-3"
-        style="background:${bgGrad};border:1px solid rgba(255,255,255,0.1)">
-        <div class="flex items-center gap-3">
-          <span class="text-2xl">${emoji}</span>
-          <div>
-            <div class="font-bold text-sm text-white">Alle Karten — ${course}</div>
-            <div class="text-xs text-white/60 mt-0.5">${loading ? 'Lädt…' : `${allTotal} Karten · ${allPct}% gelernt`}</div>
-          </div>
-        </div>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-      </button>`;
-
-    if (!courseData || !courseData.topics?.length) return allDeck;
-
-    const _topicCard = (topic) => {
-      const cards = courseCards.filter(c => c.topic === topic.title);
-      const total = cards.length;
-      const done  = cards.filter(c => prog[c.id]?.reviews > 0).length;
-      const pct   = total ? Math.round(done / total * 100) : 0;
-      const due   = cards.filter(c => {
-        const p = prog[c.id];
-        return !p || !p.nextReview || new Date(p.nextReview) <= new Date();
-      }).length;
-
-      const dueBadge = due > 0
-        ? `<span class="flex-shrink-0 text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-500/10 text-red-400 border border-red-500/20">${due} fällig</span>`
-        : '';
-
-      const safeTitle = topic.title.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
-
-      return `
-        <button onclick="FlashcardsScreen.filterCards('${course}', '${safeTitle}'); showView('flashcards');"
-          class="tap-card w-full flex items-start gap-3 rounded-2xl p-4"
-          style="background:var(--card);border:1px solid var(--border)">
-          <span class="text-xl mt-0.5 flex-shrink-0">${topic.emoji}</span>
-          <div class="flex-1 min-w-0 text-left">
-            <div class="font-semibold text-sm leading-snug" style="color:var(--txt)">${topic.title}</div>
-            <div class="text-xs mt-0.5 mb-2.5" style="color:var(--txt-2)">${topic.desc}</div>
-            <div class="flex items-center gap-2">
-              <div class="flex-1 h-1.5 rounded-full" style="background:var(--card-raised)">
-                <div class="h-full rounded-full transition-all" style="width:${pct}%;background:${color}"></div>
-              </div>
-              <span class="text-[10px] font-mono flex-shrink-0" style="color:var(--txt-3)">${loading ? '…' : `${done}/${total}`}</span>
-            </div>
-          </div>
-          ${dueBadge}
-        </button>`;
-    };
-
-    // Group by session if sessions map exists and topics have session field
-    const hasSessions = courseData.sessions && courseData.topics.some(t => t.session);
-
-    let topicRows;
-    if (hasSessions) {
-      const grouped = {};
-      courseData.topics.forEach(t => {
-        const s = t.session || 0;
-        if (!grouped[s]) grouped[s] = [];
-        grouped[s].push(t);
-      });
-
-      topicRows = Object.keys(grouped).sort((a, b) => a - b).map(s => {
-        const label = courseData.sessions[s] || `Sitzung ${s}`;
-        const cards = grouped[s].map(_topicCard).join('');
-        return `
-          <div class="mb-4">
-            <div class="flex items-center gap-2 mb-2 px-1">
-              <span class="text-[10px] font-bold uppercase tracking-widest" style="color:var(--txt-3)">S${s}</span>
-              <span class="text-xs font-semibold" style="color:var(--txt-2)">${label}</span>
-            </div>
-            <div class="space-y-2">${cards}</div>
-          </div>`;
-      }).join('');
-    } else {
-      topicRows = `<div class="space-y-2">${courseData.topics.map(_topicCard).join('')}</div>`;
+    function _moduleNum(t) {
+      const m = t.match(/^(?:Block|Modul|M)\s*(\d+)/i);
+      return m ? parseInt(m[1], 10) : Infinity;
     }
 
-    return allDeck + topicRows;
+    const now = Date.now();
+    const sorted = Object.keys(groups).sort((a, b) => {
+      const ka = _moduleNum(a), kb = _moduleNum(b);
+      if (ka !== kb) return ka - kb;
+      return a.localeCompare(b);
+    });
+
+    const rows = sorted.map(topicName => {
+      const cards = groups[topicName];
+      const total = cards.length;
+      const done  = cards.filter(c => (prog[c.id]?.reviews || 0) > 0).length;
+      const due   = cards.filter(c => {
+        const p = prog[c.id];
+        return !p?.nextReview || p.nextReview <= now;
+      }).length;
+      const pct   = total ? Math.round(done / total * 100) : 0;
+      const safeTopic = topicName.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+      const dueBadge  = due > 0
+        ? `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0" style="background:rgba(251,146,60,0.18);color:#fb923c">${due} fällig</span>`
+        : '';
+
+      return `
+        <button onclick="FlashcardsScreen.startDeck('${course}', '${safeTopic}'); showView('flashcards');"
+          class="tap-card w-full rounded-2xl p-4 text-left flex items-center gap-4"
+          style="background:var(--card);border:1px solid var(--border)">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-lg"
+               style="background:${color}22">🃏</div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 mb-1">
+              <span class="font-semibold text-sm truncate" style="color:var(--txt)">${topicName}</span>
+              ${dueBadge}
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="flex-1 h-1.5 rounded-full overflow-hidden" style="background:var(--card-raised)">
+                <div class="h-full rounded-full transition-all" style="width:${pct}%;background:${color}"></div>
+              </div>
+              <span class="text-[10px] font-mono flex-shrink-0" style="color:var(--txt-3)">${done}/${total}</span>
+            </div>
+          </div>
+        </button>`;
+    }).join('');
+
+    return `<div class="space-y-2">${rows}</div>`;
   }
 
   // ── Lernset: interactive exercises (order/truefalse/single/multiple) ──
