@@ -118,7 +118,7 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     _renderFilterButtons(enrolled || []);
     updateAllCount();
     filteredCards = [...allCards];
-    renderDeckList(deckFilter);
+    setDeckFilter(deckFilter);
   }
 
   function _renderFilterButtons(enrolledKeys) {
@@ -342,14 +342,16 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     document.getElementById('fc-resume-prompt')?.classList.add('hidden');
   }
 
-  function showDeckSelector() {
+  async function showDeckSelector() {
     if (speechMode) exitSpeechMode();
     if (!_sessionDone && filteredCards.length && currentIndex < filteredCards.length) {
       SessionSync.save('flashcards', _sessionKey, { itemIds: filteredCards.map(c => c.id), currentIndex });
     }
     document.getElementById('fc-swipe-view')?.classList.add('hidden');
     document.getElementById('fc-deck-selector')?.classList.remove('hidden');
-    renderDeckList(deckFilter);
+    // Force full re-init so filter buttons are always rendered with correct active state
+    _skipInitReset = false;
+    await init();
   }
 
   // ══════════════════════════════════════════════════════════
@@ -1405,7 +1407,13 @@ Antworte NUR in diesem JSON-Format (kein weiterer Text):
   // ══════════════════════════════════════════════════════════
 
   function filterCards(course, topic) {
-    startDeck(course || 'all', topic || null);
+    if (topic) {
+      startDeck(course || 'all', topic);
+    } else {
+      // No specific topic → show deck selector filtered to this course
+      deckFilter = course || 'all';
+      // Don't call startDeck → _skipInitReset stays false → init() renders deck selector
+    }
   }
 
   function openCardDirect(id) {
