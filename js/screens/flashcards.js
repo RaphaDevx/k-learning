@@ -233,6 +233,7 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     if (!allCards.length && window.FLASHCARD_DATA?.length) allCards = window.FLASHCARD_DATA;
     activeCourse = course === 'all' ? null : course;
     activeTopic  = topic || null;
+    deckFilter   = course || 'all';
     _sessionKey  = `${activeCourse || 'all'}::${activeTopic || '_all'}`;
 
     const reported = _reportedCardIds();
