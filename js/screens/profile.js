@@ -1001,6 +1001,42 @@ window.ProfileScreen = (function () {
 
   // ── Exam History Detail Modal ─────────────────────────────────────────────
 
+  let _pendingCorrections = {}; // questionId → earned (manuell gesetzt, noch nicht gespeichert)
+
+  function _updatePts(qId, val) {
+    _pendingCorrections[qId] = parseFloat(val) || 0;
+    const bar = document.getElementById('exam-corrections-bar');
+    if (bar) bar.style.display = 'block';
+  }
+
+  async function _saveExamCorrections(resultId, examId) {
+    const btn = document.querySelector('#exam-corrections-bar button');
+    if (btn) { btn.disabled = true; btn.textContent = '⏳ Speichert…'; }
+
+    const { data: result } = await _supabase.from('exam_results').select('*').eq('id', resultId).single();
+    if (!result) return;
+
+    const answers = (result.answers || []).map(a => {
+      if (_pendingCorrections[a.question_id] !== undefined) {
+        const maxPts = a.max_pts || 0;
+        const earned = Math.min(maxPts, Math.max(0, _pendingCorrections[a.question_id]));
+        return { ...a, earned, is_correct: earned > 0 };
+      }
+      return a;
+    });
+
+    let totalEarned = 0, totalMax = 0;
+    answers.forEach(a => {
+      totalMax += (a.max_pts || 0);
+      totalEarned += (a.earned != null ? a.earned : (a.is_correct ? (a.max_pts || 0) : 0));
+    });
+
+    const newPct = totalMax > 0 ? Math.round(totalEarned / totalMax * 100) : result.score_pct;
+    await _supabase.from('exam_results').update({ score_pct: newPct, answers }).eq('id', resultId);
+    _pendingCorrections = {};
+    showExamDetail(resultId, examId);
+  }
+
   async function showExamDetail(resultId, examId) {
     document.getElementById('exam-detail-modal')?.remove();
 
@@ -1059,9 +1095,19 @@ window.ProfileScreen = (function () {
             const qCol = isText
               ? (a.earned !== null && a.earned !== undefined ? (a.earned / maxPts >= 0.7 ? '#4ade80' : a.earned / maxPts >= 0.4 ? '#fbbf24' : '#f87171') : '#fbbf24')
               : (isOk ? '#4ade80' : '#f87171');
-            const icon = isText ? '📝' : (isGapped ? (isOk ? '✅' : '❌') : (isOk ? '✅' : '❌'));
-            const qText = (q.text || '').slice(0, 150) + ((q.text || '').length > 150 ? '…' : '');
+            const icon = isText ? '📝' : (isOk ? '✅' : '❌');
+            const qText = q.text || '';
             const correctChoices = (q.choices || []).filter(c => c.correct).map(c => c.text).join(', ');
+            const ptsDisplay = isText
+              ? `<span class="flex-shrink-0 ml-1 flex items-center gap-0.5">
+                   <input type="number" min="0" max="${maxPts}" step="0.5"
+                     value="${earned != null ? earned : ''}"
+                     id="pts-${q.id}"
+                     oninput="ProfileScreen._updatePts('${q.id}', this.value)"
+                     style="width:44px;background:var(--card-raised);color:${qCol};border:1px solid var(--border);border-radius:6px;padding:2px 4px;font-size:0.7rem;font-weight:700;text-align:center">
+                   <span style="font-size:0.7rem;color:var(--txt-3)">/${maxPts}P</span>
+                 </span>`
+              : `<span class="text-xs font-bold flex-shrink-0 ml-1" style="color:${qCol}">${earned != null ? earned : '?'}/${maxPts}P</span>`;
             return `
               <div class="py-3" style="border-bottom:1px solid var(--border)">
                 <div class="flex items-start gap-2">
@@ -1069,12 +1115,12 @@ window.ProfileScreen = (function () {
                   <div class="flex-1 min-w-0">
                     <div class="flex items-start justify-between gap-2">
                       <p class="text-sm leading-snug" style="color:var(--txt)">${qText}</p>
-                      <span class="text-xs font-bold flex-shrink-0 ml-1" style="color:${qCol}">${earned !== null && earned !== undefined ? earned : '?'}/${maxPts}P</span>
+                      ${ptsDisplay}
                     </div>
                     ${!isText && !isOk && correctChoices ? `<div class="text-xs mt-1" style="color:#4ade80">✓ ${correctChoices}</div>` : ''}
-                    ${isText && a.user_answer ? `<div class="text-xs mt-1 italic" style="color:var(--txt-2)">Deine Antwort: ${a.user_answer.slice(0,200)}${a.user_answer.length>200?'…':''}</div>` : ''}
-                    ${isText && a.model_answer ? `<div class="text-xs mt-0.5" style="color:#4ade80">Musterlösung: ${a.model_answer.slice(0,150)}</div>` : ''}
-                    ${a.ai_feedback ? `<div class="text-xs mt-0.5 italic" style="color:#818cf8">KI: ${a.ai_feedback}</div>` : ''}
+                    ${isText && a.user_answer ? `<div class="text-xs mt-2 p-2 rounded-lg italic" style="color:var(--txt-2);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07)">Deine Antwort: ${a.user_answer}</div>` : ''}
+                    ${isText && a.model_answer ? `<div class="text-xs mt-1.5 p-2 rounded-lg" style="color:#4ade80;background:rgba(74,222,128,0.06);border:1px solid rgba(74,222,128,0.15)">✓ Musterlösung: ${a.model_answer}</div>` : ''}
+                    ${a.ai_feedback ? `<div class="text-xs mt-1 italic" style="color:#818cf8">KI: ${a.ai_feedback}</div>` : ''}
                   </div>
                 </div>
               </div>`;
@@ -1118,6 +1164,7 @@ window.ProfileScreen = (function () {
         }
       }
 
+      _pendingCorrections = {};
       document.getElementById('exam-detail-body').innerHTML = `
         <div class="flex items-center justify-between mb-5 pb-4" style="border-bottom:1px solid var(--border)">
           <div>
@@ -1135,7 +1182,14 @@ window.ProfileScreen = (function () {
             <button onclick="ProfileScreen._regradeExam('${resultId}','${examId}')"
               class="text-xs px-3 py-1.5 rounded-lg font-bold" style="background:#4f46e5;color:#fff">KI bewerten</button>
           </div>` : ''}
-        ${sectionsHtml}`;
+        ${sectionsHtml}
+        <div id="exam-corrections-bar" style="display:none;margin-top:1rem;position:sticky;bottom:0;padding:0.75rem 0">
+          <button onclick="ProfileScreen._saveExamCorrections('${resultId}','${examId}')"
+            class="w-full py-3 rounded-2xl font-bold text-sm text-white"
+            style="background:#4f46e5;box-shadow:0 4px 20px rgba(99,102,241,0.4)">
+            💾 Korrekturen speichern
+          </button>
+        </div>`;
 
     } catch (err) {
       const body = document.getElementById('exam-detail-body');
@@ -1262,5 +1316,5 @@ window.ProfileScreen = (function () {
     _loadAdminReports();
   }
 
-  return { init, refresh, reviewExamDraft, _toggleDetails, _resolveReport, showExamDetail, _regradeExam };
+  return { init, refresh, reviewExamDraft, _toggleDetails, _resolveReport, showExamDetail, _regradeExam, _updatePts, _saveExamCorrections };
 })();

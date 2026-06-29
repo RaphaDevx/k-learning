@@ -9,7 +9,7 @@ window.FeedScreen = (function() {
 
   // Queue state
   let _queue       = [];   // all fetched card objects
-  let _seenIds     = new Set(JSON.parse(localStorage.getItem('feedSeenIds') || '[]'));
+  let _seenIds     = new Set(); // session-only; SM-2 bringt Videos per next_review_at zurück
   let _currentIdx  = 0;   // index of card currently in view
   let _isFetching  = false;
   let _exhausted   = false; // no more videos to fetch
@@ -25,11 +25,6 @@ window.FeedScreen = (function() {
     _renderFilterBar();
     _reset();
     await _fetchMore();
-  }
-
-  function _saveSeenIds() {
-    const arr = [..._seenIds].slice(-500);
-    try { localStorage.setItem('feedSeenIds', JSON.stringify(arr)); } catch {}
   }
 
   function _reset() {
@@ -260,7 +255,7 @@ window.FeedScreen = (function() {
 
           // Mark as seen for next fetch's exclude list
           const dbId = card.dataset.dbId;
-          if (dbId) { _seenIds.add(dbId); _saveSeenIds(); }
+          if (dbId) _seenIds.add(dbId);
 
           _updatePreloadWindow();
 
