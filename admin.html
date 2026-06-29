@@ -6,74 +6,114 @@
   <title>K-Learning Admin</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --bg:      #0f1117;
       --surface: #1a1d27;
       --card:    #1e2130;
+      --card2:   #252840;
       --border:  #2a2d3e;
       --txt:     #e2e4ef;
       --txt-2:   #8b8fa8;
       --txt-3:   #4a4e6a;
       --accent:  #6366f1;
     }
+    body { background:var(--bg); color:var(--txt); font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif; font-size:14px; min-height:100vh; }
 
-    body { background: var(--bg); color: var(--txt); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; min-height: 100vh; }
+    /* Auth wall */
+    #auth-wall { display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:100vh; gap:1rem; }
+    #auth-wall h1 { font-size:1.5rem; }
+    #auth-wall p  { color:var(--txt-2); text-align:center; max-width:320px; }
+    #auth-wall a  { color:var(--accent); text-decoration:none; }
 
-    #auth-wall { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; gap: 1rem; }
-    #auth-wall h1 { font-size: 1.5rem; color: var(--txt); }
-    #auth-wall p  { color: var(--txt-2); text-align: center; max-width: 320px; }
-    #auth-wall a  { color: var(--accent); text-decoration: none; }
+    /* Header */
+    header { background:var(--surface); border-bottom:1px solid var(--border); padding:0.9rem 1.25rem; display:flex; align-items:center; justify-content:space-between; position:sticky; top:0; z-index:50; }
+    header h1 { font-size:1rem; font-weight:700; }
+    .hdr-right { display:flex; align-items:center; gap:0.75rem; }
+    .hdr-right span { color:var(--txt-3); font-size:0.75rem; }
+    .hdr-btn { padding:0.35rem 0.8rem; border-radius:8px; border:1px solid var(--border); background:var(--card2); color:var(--txt-2); cursor:pointer; font-size:0.75rem; }
+    .hdr-btn:hover { background:var(--accent); color:#fff; border-color:var(--accent); }
 
-    header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
-    header h1 { font-size: 1.1rem; font-weight: 700; }
-    header span { color: var(--txt-2); font-size: 0.8rem; }
+    /* Toolbar */
+    .toolbar { padding:0.75rem 1.25rem; display:flex; gap:0.6rem; flex-wrap:wrap; align-items:center; background:var(--surface); border-bottom:1px solid var(--border); }
+    .filter-btn { padding:0.35rem 0.85rem; border-radius:999px; border:1px solid var(--border); background:var(--card); color:var(--txt-2); cursor:pointer; font-size:0.75rem; transition:all 0.15s; }
+    .filter-btn.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+    .count-badge { background:rgba(99,102,241,0.2); color:#818cf8; border-radius:999px; padding:0.2rem 0.55rem; font-size:0.73rem; font-weight:700; margin-left:auto; }
 
-    .toolbar { padding: 1rem 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; background: var(--surface); border-bottom: 1px solid var(--border); }
-    .filter-btn { padding: 0.4rem 0.9rem; border-radius: 999px; border: 1px solid var(--border); background: var(--card); color: var(--txt-2); cursor: pointer; font-size: 0.78rem; transition: all 0.15s; }
-    .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
-    .count-badge { background: rgba(99,102,241,0.2); color: #818cf8; border-radius: 999px; padding: 0.25rem 0.6rem; font-size: 0.75rem; font-weight: 700; margin-left: auto; }
+    /* Main */
+    main { padding:1.25rem; max-width:900px; margin:0 auto; }
+    #spinner { text-align:center; padding:3rem; color:var(--txt-2); }
+    #empty   { display:none; text-align:center; padding:4rem; color:var(--txt-2); }
+    #empty .ico { font-size:3rem; margin-bottom:0.75rem; }
 
-    main { padding: 1.5rem; max-width: 1100px; margin: 0 auto; }
+    /* Report card */
+    .rc { background:var(--card); border:1px solid var(--border); border-radius:14px; margin-bottom:0.85rem; overflow:hidden; transition:border-color 0.2s; }
+    .rc.status-reviewed { border-left:3px solid #f59e0b; }
+    .rc.status-fixed    { border-left:3px solid #10b981; opacity:0.6; }
+    .rc.status-deleted  { border-left:3px solid #ef4444; opacity:0.5; }
 
-    #empty { display: none; text-align: center; padding: 4rem; color: var(--txt-2); }
-    #empty .icon { font-size: 3rem; margin-bottom: 0.75rem; }
+    /* Report card — header row */
+    .rc-head { display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap; padding:0.85rem 1rem 0.5rem; }
+    .badge { display:inline-flex; align-items:center; gap:0.25rem; padding:0.18rem 0.5rem; border-radius:999px; font-size:0.7rem; font-weight:700; white-space:nowrap; }
+    .b-fc   { background:rgba(139,92,246,0.2);  color:#a78bfa; }
+    .b-ls   { background:rgba(16,185,129,0.2);  color:#34d399; }
+    .b-vid  { background:rgba(239,68,68,0.2);   color:#f87171; }
+    .b-new  { background:rgba(251,146,60,0.2);  color:#fb923c; }
+    .b-rev  { background:rgba(234,179,8,0.2);   color:#fbbf24; }
+    .b-fix  { background:rgba(16,185,129,0.2);  color:#34d399; }
+    .b-del  { background:rgba(239,68,68,0.2);   color:#f87171; }
+    .reason-tag { background:rgba(255,255,255,0.07); border-radius:6px; padding:0.15rem 0.4rem; font-size:0.7rem; color:var(--txt-2); }
+    .rc-meta { margin-left:auto; font-size:0.7rem; color:var(--txt-3); }
 
-    .report-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 0.75rem; display: grid; grid-template-columns: auto 1fr auto; gap: 0.75rem 1rem; align-items: start; }
-    .report-card.status-reviewed { border-left: 3px solid #10b981; }
-    .report-card.status-fixed    { border-left: 3px solid #3b82f6; opacity: 0.55; }
+    /* Content preview */
+    .rc-content { padding:0 1rem 0.75rem; }
+    .content-box { background:var(--card2); border:1px solid var(--border); border-radius:10px; padding:0.75rem; margin-bottom:0.5rem; }
+    .content-box label { display:block; font-size:0.65rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--txt-3); margin-bottom:0.3rem; }
+    .content-box p { font-size:0.83rem; color:var(--txt); line-height:1.5; white-space:pre-wrap; }
+    .note-box { background:rgba(99,102,241,0.08); border:1px solid rgba(99,102,241,0.2); border-radius:10px; padding:0.6rem 0.75rem; font-size:0.8rem; color:#c7d2fe; font-style:italic; margin-bottom:0.5rem; }
 
-    .type-badge { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.25rem 0.6rem; border-radius: 999px; font-size: 0.72rem; font-weight: 700; white-space: nowrap; }
-    .type-flashcard { background: rgba(139,92,246,0.2); color: #a78bfa; }
-    .type-lernset   { background: rgba(16,185,129,0.2); color: #34d399; }
-    .type-video     { background: rgba(239,68,68,0.2);  color: #f87171; }
+    /* Action row */
+    .rc-actions { display:flex; gap:0.5rem; flex-wrap:wrap; padding:0.6rem 1rem 0.85rem; border-top:1px solid var(--border); }
+    .ab { padding:0.35rem 0.75rem; border-radius:8px; border:1px solid var(--border); background:transparent; color:var(--txt-2); cursor:pointer; font-size:0.73rem; white-space:nowrap; transition:all 0.15s; }
+    .ab:hover         { background:var(--accent); color:#fff; border-color:var(--accent); }
+    .ab.green:hover   { background:#10b981; border-color:#10b981; }
+    .ab.yellow:hover  { background:#f59e0b; border-color:#f59e0b; }
+    .ab.red:hover     { background:#ef4444; border-color:#ef4444; }
+    .ab.purple:hover  { background:#8b5cf6; border-color:#8b5cf6; }
 
-    .status-badge { display: inline-block; padding: 0.2rem 0.55rem; border-radius: 999px; font-size: 0.7rem; font-weight: 700; }
-    .status-new      { background: rgba(251,146,60,0.2); color: #fb923c; }
-    .status-reviewed { background: rgba(16,185,129,0.2); color: #34d399; }
-    .status-fixed    { background: rgba(59,130,246,0.2); color: #60a5fa; }
+    /* Expanded panels */
+    .rc-panel { border-top:1px solid var(--border); padding:1rem; background:rgba(0,0,0,0.2); display:none; }
+    .rc-panel.open { display:block; }
+    .panel-title { font-size:0.75rem; font-weight:700; color:var(--txt-2); margin-bottom:0.75rem; text-transform:uppercase; letter-spacing:0.05em; }
 
-    .reason-pill { background: rgba(255,255,255,0.06); border-radius: 6px; padding: 0.2rem 0.5rem; font-size: 0.72rem; color: var(--txt-2); }
+    /* Edit form */
+    .edit-field { margin-bottom:0.75rem; }
+    .edit-field label { display:block; font-size:0.72rem; color:var(--txt-3); margin-bottom:0.25rem; }
+    .edit-field input, .edit-field textarea {
+      width:100%; background:var(--card2); border:1px solid var(--border); border-radius:8px;
+      padding:0.5rem 0.75rem; font-size:0.83rem; color:var(--txt); font-family:inherit; resize:vertical;
+    }
+    .edit-field input:focus, .edit-field textarea:focus { outline:none; border-color:var(--accent); }
+    .edit-actions { display:flex; gap:0.5rem; margin-top:0.5rem; }
+    .btn-primary { padding:0.45rem 1rem; border-radius:8px; border:none; background:var(--accent); color:#fff; cursor:pointer; font-size:0.8rem; font-weight:700; }
+    .btn-secondary { padding:0.45rem 1rem; border-radius:8px; border:1px solid var(--border); background:transparent; color:var(--txt-2); cursor:pointer; font-size:0.8rem; }
+    .btn-primary:hover { background:#4f46e5; }
+    .btn-secondary:hover { background:var(--card2); }
 
-    .preview   { color: var(--txt); font-size: 0.85rem; line-height: 1.5; margin: 0.25rem 0; }
-    .note-text { color: var(--txt-2); font-size: 0.8rem; font-style: italic; margin-top: 0.25rem; }
-    .meta      { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-top: 0.4rem; }
-    .meta span { font-size: 0.72rem; color: var(--txt-3); }
+    /* AI panel */
+    .ai-suggestion { background:rgba(139,92,246,0.08); border:1px solid rgba(139,92,246,0.25); border-radius:10px; padding:0.75rem; margin:0.5rem 0; font-size:0.82rem; color:var(--txt); line-height:1.5; }
+    .ai-thinking { color:var(--txt-3); font-size:0.8rem; font-style:italic; padding:0.5rem 0; }
 
-    .actions { display: flex; flex-direction: column; gap: 0.4rem; }
-    .action-btn { padding: 0.35rem 0.7rem; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--txt-2); cursor: pointer; font-size: 0.75rem; white-space: nowrap; transition: all 0.15s; }
-    .action-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
-    .action-btn.green:hover { background: #10b981; border-color: #10b981; }
-    .action-btn.blue:hover  { background: #3b82f6; border-color: #3b82f6; }
+    /* Delete confirm */
+    .delete-confirm { background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.25); border-radius:10px; padding:0.75rem; }
+    .delete-confirm p { font-size:0.82rem; color:#f87171; margin-bottom:0.75rem; }
 
-    .col-badge { display: flex; flex-direction: column; gap: 0.4rem; align-items: flex-start; padding-top: 0.1rem; }
-
-    #spinner { text-align: center; padding: 3rem; color: var(--txt-2); }
+    /* Toast */
+    #toast { position:fixed; bottom:1.5rem; left:50%; transform:translateX(-50%); background:#1e2130; border:1px solid var(--border); border-radius:10px; padding:0.6rem 1.2rem; font-size:0.82rem; color:var(--txt); z-index:999; opacity:0; transition:opacity 0.2s; pointer-events:none; box-shadow:0 4px 20px rgba(0,0,0,0.5); }
+    #toast.show { opacity:1; }
   </style>
 </head>
 <body>
 
-<!-- Auth wall (shown until logged in as admin) -->
 <div id="auth-wall" style="display:none">
   <div style="font-size:2.5rem">🔐</div>
   <h1>K-Learning Admin</h1>
@@ -81,42 +121,51 @@
   <a href="/">← Zur App</a>
 </div>
 
-<!-- Admin UI -->
 <div id="admin-ui" style="display:none">
   <header>
     <h1>🛠 Admin — Inhaltsmeldungen</h1>
-    <span id="last-updated"></span>
+    <div class="hdr-right">
+      <span id="last-updated"></span>
+      <button class="hdr-btn" onclick="loadReports()">↺ Neu laden</button>
+      <a href="/" style="text-decoration:none"><button class="hdr-btn">← App</button></a>
+    </div>
   </header>
 
   <div class="toolbar">
-    <button class="filter-btn active" data-filter="all"      onclick="setFilter('all',this)">Alle</button>
-    <button class="filter-btn"        data-filter="new"      onclick="setFilter('new',this)">🔴 Neu</button>
-    <button class="filter-btn"        data-filter="reviewed" onclick="setFilter('reviewed',this)">🟡 Gesehen</button>
-    <button class="filter-btn"        data-filter="fixed"    onclick="setFilter('fixed',this)">🟢 Behoben</button>
-    <span class="count-badge" id="count-badge">0 Reports</span>
+    <button class="filter-btn active" data-f="all"      onclick="setFilter('all',this)">Alle</button>
+    <button class="filter-btn"        data-f="new"      onclick="setFilter('new',this)">🔴 Neu</button>
+    <button class="filter-btn"        data-f="reviewed" onclick="setFilter('reviewed',this)">🟡 Gesehen</button>
+    <button class="filter-btn"        data-f="fixed"    onclick="setFilter('fixed',this)">🟢 Behoben</button>
+    <span class="count-badge" id="count-badge">0</span>
   </div>
 
   <main>
     <div id="spinner">Lade Reports…</div>
-    <div id="empty">
-      <div class="icon">✅</div>
-      <div>Keine Meldungen in dieser Kategorie.</div>
-    </div>
+    <div id="empty"><div class="ico">✅</div><div>Keine Meldungen.</div></div>
     <div id="reports-list"></div>
   </main>
 </div>
+
+<div id="toast"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <script src="js/auth.js"></script>
 <script>
 const ADMIN_UID = '1a834dc1-1c0e-4d4f-ac50-e790deb8f8c7';
 const sb = window.supabaseClient;
+const AI_PROXY = 'https://ifmwcgwfvunjbnfwwbtr.supabase.co/functions/v1/ai-proxy';
 
-let _allReports = [];
-let _filter = 'all';
+let _reports = [];
+let _filter  = 'all';
+
+const TYPE_LABEL  = { flashcard:'🃏 Karte', lernset:'🎯 Übung', video:'🎬 Reel' };
+const TYPE_CLS    = { flashcard:'b-fc', lernset:'b-ls', video:'b-vid' };
+const STATUS_CLS  = { new:'b-new', reviewed:'b-rev', fixed:'b-fix', deleted:'b-del' };
+const STATUS_LBL  = { new:'🔴 Neu', reviewed:'🟡 Gesehen', fixed:'🟢 Behoben', deleted:'🗑 Gelöscht' };
+const REASON_LBL  = { wrong_content:'Inhaltlich falsch', typo:'Tippfehler', wrong_category:'Falsches Thema', other:'Sonstiges' };
 
 async function init() {
-  const { data: { user } } = await sb.auth.getUser();
+  const { data:{ user } } = await sb.auth.getUser();
   if (!user || user.id !== ADMIN_UID) {
     document.getElementById('auth-wall').style.display = 'flex';
     return;
@@ -126,13 +175,11 @@ async function init() {
 }
 
 async function loadReports() {
-  const { data, error } = await sb
-    .from('card_reports')
-    .select('*')
-    .order('created_at', { ascending: false });
-
-  if (error) { console.error(error); return; }
-  _allReports = data || [];
+  document.getElementById('spinner').style.display = 'block';
+  const { data, error } = await sb.from('card_reports').select('*').order('created_at', { ascending:false });
+  document.getElementById('spinner').style.display = 'none';
+  if (error) { showToast('Fehler: ' + error.message); return; }
+  _reports = data || [];
   document.getElementById('last-updated').textContent = 'Stand: ' + new Date().toLocaleTimeString('de-CH');
   renderReports();
 }
@@ -145,82 +192,296 @@ function setFilter(f, btn) {
 }
 
 function renderReports() {
-  const list = document.getElementById('reports-list');
+  const list  = document.getElementById('reports-list');
   const empty = document.getElementById('empty');
-  const spinner = document.getElementById('spinner');
-  spinner.style.display = 'none';
-
-  const filtered = _filter === 'all'
-    ? _allReports
-    : _allReports.filter(r => r.status === _filter);
-
-  document.getElementById('count-badge').textContent = `${filtered.length} Report${filtered.length !== 1 ? 's' : ''}`;
-
-  if (!filtered.length) {
-    list.innerHTML = '';
-    empty.style.display = 'block';
-    return;
-  }
+  const filtered = _filter === 'all' ? _reports : _reports.filter(r => r.status === _filter);
+  document.getElementById('count-badge').textContent = filtered.length + ' Report' + (filtered.length !== 1 ? 's' : '');
+  if (!filtered.length) { list.innerHTML = ''; empty.style.display = 'block'; return; }
   empty.style.display = 'none';
   list.innerHTML = filtered.map(r => reportCard(r)).join('');
 }
 
 function reportCard(r) {
-  const date = new Date(r.created_at).toLocaleDateString('de-CH', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' });
-  const typeClass = `type-${r.card_type || 'flashcard'}`;
-  const typeLabel = { flashcard: '🃏 Lernkarte', lernset: '🎯 Übung', video: '🎬 Video' }[r.card_type] || r.card_type;
-  const reasonLabel = { wrong_content: 'Inhaltlich falsch', typo: 'Tippfehler', wrong_category: 'Falsches Thema', other: 'Sonstiges' }[r.reason] || r.reason;
-  const statusClass = `status-${r.status || 'new'}`;
-  const statusLabel = { new: '🔴 Neu', reviewed: '🟡 Gesehen', fixed: '🟢 Behoben' }[r.status] || r.status;
+  const date   = new Date(r.created_at).toLocaleDateString('de-CH', { day:'2-digit', month:'2-digit', year:'2-digit', hour:'2-digit', minute:'2-digit' });
+  const typCls = TYPE_CLS[r.card_type]   || 'b-fc';
+  const stCls  = STATUS_CLS[r.status]    || 'b-new';
+  const typLbl = TYPE_LABEL[r.card_type] || r.card_type;
+  const stLbl  = STATUS_LBL[r.status]   || r.status;
+  const rsLbl  = REASON_LBL[r.reason]   || r.reason;
 
-  const safePreview = (r.card_front || '—').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  const safeNote    = r.note ? r.note.replace(/</g,'&lt;').replace(/>/g,'&gt;') : null;
-  const safeBack    = r.card_back ? r.card_back.replace(/</g,'&lt;').replace(/>/g,'&gt;') : null;
-
-  const studioUrl = `https://supabase.com/dashboard/project/ifmwcgwfvunjbnfwwbtr/editor`;
+  const safe   = s => (s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const front  = safe(r.card_front || '—');
+  const back   = r.card_back  ? safe(r.card_back)  : null;
+  const note   = r.note       ? safe(r.note)        : null;
+  const cardId = r.card_id || '';
+  const rid    = r.id;
 
   return `
-  <div class="report-card ${statusClass}" id="rc-${r.id}">
-    <div class="col-badge">
-      <span class="type-badge ${typeClass}">${typeLabel}</span>
-      <span class="status-badge ${statusClass}">${statusLabel}</span>
+  <div class="rc status-${r.status}" id="rc-${rid}">
+    <div class="rc-head">
+      <span class="badge ${typCls}">${typLbl}</span>
+      <span class="badge ${stCls}">${stLbl}</span>
+      <span class="reason-tag">${rsLbl}</span>
+      ${r.card_course ? `<span class="reason-tag">${safe(r.card_course)}</span>` : ''}
+      ${r.card_topic  ? `<span class="reason-tag">${safe(r.card_topic).slice(0,30)}</span>` : ''}
+      <span class="rc-meta">🕐 ${date} · ID ${cardId.slice(0,8)}</span>
     </div>
-    <div>
-      <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;margin-bottom:0.35rem">
-        <span class="reason-pill">${reasonLabel}</span>
-        ${r.card_course ? `<span class="reason-pill">${r.card_course}</span>` : ''}
-        ${r.card_topic  ? `<span class="reason-pill" title="${r.card_topic}">${r.card_topic.slice(0,30)}</span>` : ''}
+
+    <div class="rc-content">
+      <div class="content-box">
+        <label>${r.card_type === 'video' ? 'Titel' : 'Vorderseite / Frage'}</label>
+        <p>${front}</p>
       </div>
-      <div class="preview">${safePreview}</div>
-      ${safeBack  ? `<div class="note-text">↳ ${safeBack.slice(0,120)}</div>` : ''}
-      ${safeNote  ? `<div class="note-text">💬 "${safeNote}"</div>` : ''}
-      <div class="meta">
-        <span>🕐 ${date}</span>
-        <span>ID: ${(r.card_id||'').slice(0,8)}…</span>
-      </div>
+      ${back ? `<div class="content-box"><label>${r.card_type === 'video' ? 'Beschreibung' : 'Rückseite / Antwort'}</label><p>${back}</p></div>` : ''}
+      ${note ? `<div class="note-box">💬 "${note}"</div>` : ''}
     </div>
-    <div class="actions">
-      <button class="action-btn green" onclick="setStatus('${r.id}','reviewed')">✓ Gesehen</button>
-      <button class="action-btn blue"  onclick="setStatus('${r.id}','fixed')">✔ Behoben</button>
-      <button class="action-btn"       onclick="setStatus('${r.id}','new')">↩ Neu</button>
-      <a href="${studioUrl}" target="_blank" style="text-decoration:none">
-        <button class="action-btn" style="width:100%">↗ Studio</button>
-      </a>
+
+    <div class="rc-actions">
+      ${r.status !== 'reviewed' ? `<button class="ab yellow" onclick="setStatus('${rid}','reviewed')">✓ Gesehen</button>` : ''}
+      ${r.status !== 'fixed'    ? `<button class="ab green"  onclick="setStatus('${rid}','fixed')">✔ Behoben</button>` : ''}
+      ${r.status !== 'new'      ? `<button class="ab"        onclick="setStatus('${rid}','new')">↩ Neu</button>` : ''}
+      ${r.card_type !== 'lernset' ? `<button class="ab purple" onclick="toggleEdit('${rid}','${r.card_type}','${cardId}')">✏ Bearbeiten</button>` : ''}
+      <button class="ab purple" onclick="toggleAI('${rid}','${r.card_type}','${cardId}')">🤖 KI-Korrektur</button>
+      <button class="ab red"    onclick="toggleDelete('${rid}','${r.card_type}','${cardId}')">🗑 Löschen</button>
+    </div>
+
+    <!-- Edit panel -->
+    <div class="rc-panel" id="panel-edit-${rid}">
+      <div class="panel-title">✏ Inhalt bearbeiten</div>
+      <div id="edit-form-${rid}"><p style="color:var(--txt-3);font-size:0.8rem">Lade…</p></div>
+    </div>
+
+    <!-- AI panel -->
+    <div class="rc-panel" id="panel-ai-${rid}">
+      <div class="panel-title">🤖 KI-Korrektur</div>
+      <div id="ai-content-${rid}"></div>
+    </div>
+
+    <!-- Delete panel -->
+    <div class="rc-panel" id="panel-del-${rid}">
+      <div class="panel-title">🗑 Löschen</div>
+      <div class="delete-confirm">
+        <p>Inhalt wird für 30 Tage in den Papierkorb verschoben und dann permanent gelöscht. Diese Aktion betrifft den Originalinhalt (nicht nur die Meldung).</p>
+        <div class="edit-actions">
+          <button class="btn-primary" style="background:#ef4444" onclick="deleteContent('${rid}','${r.card_type}','${cardId}')">Jetzt löschen</button>
+          <button class="btn-secondary" onclick="closePanel('${rid}','del')">Abbrechen</button>
+        </div>
+      </div>
     </div>
   </div>`;
 }
 
-async function setStatus(id, status) {
+// ── Status ────────────────────────────────────────────────────────────────
+
+async function setStatus(rid, status) {
   const { error } = await sb.from('card_reports')
     .update({ status, reviewed_at: status !== 'new' ? new Date().toISOString() : null })
-    .eq('id', id);
-  if (error) { console.error(error); return; }
-  const r = _allReports.find(x => x.id === id);
-  if (r) {
-    r.status = status;
-    r.reviewed_at = status !== 'new' ? new Date().toISOString() : null;
-  }
+    .eq('id', rid);
+  if (error) { showToast('Fehler: ' + error.message); return; }
+  const r = _reports.find(x => x.id === rid);
+  if (r) { r.status = status; r.reviewed_at = status !== 'new' ? new Date().toISOString() : null; }
   renderReports();
+  showToast('Status aktualisiert');
+}
+
+// ── Edit ──────────────────────────────────────────────────────────────────
+
+async function toggleEdit(rid, type, cardId) {
+  const panel = document.getElementById('panel-edit-' + rid);
+  if (panel.classList.toggle('open')) {
+    await loadEditForm(rid, type, cardId);
+  }
+}
+
+async function loadEditForm(rid, type, cardId) {
+  const form = document.getElementById('edit-form-' + rid);
+  form.innerHTML = '<p class="ai-thinking">Lade Inhalt…</p>';
+
+  if (type === 'video') {
+    const { data, error } = await sb.from('videos').select('*').eq('id', cardId).single();
+    if (error || !data) { form.innerHTML = '<p style="color:#f87171;font-size:0.8rem">Inhalt nicht gefunden.</p>'; return; }
+    form.innerHTML = `
+      <div class="edit-field"><label>Titel</label><input id="ef-title-${rid}" value="${esc(data.title)}"></div>
+      <div class="edit-field"><label>Untertitel</label><input id="ef-sub-${rid}" value="${esc(data.subtitle||'')}"></div>
+      <div class="edit-field"><label>Beschreibung</label><textarea id="ef-desc-${rid}" rows="3">${esc(data.description||'')}</textarea></div>
+      <div class="edit-field"><label>Themen (kommagetrennt)</label><input id="ef-topics-${rid}" value="${esc((data.topics||[]).join(', '))}"></div>
+      <div class="edit-actions">
+        <button class="btn-primary" onclick="saveVideo('${rid}','${cardId}')">💾 Speichern</button>
+        <button class="btn-secondary" onclick="closePanel('${rid}','edit')">Abbrechen</button>
+      </div>`;
+  } else {
+    // flashcard
+    const { data, error } = await sb.from('deck_cards').select('*').eq('id', cardId).single();
+    if (error || !data) { form.innerHTML = '<p style="color:#f87171;font-size:0.8rem">Karte nicht gefunden.</p>'; return; }
+    form.innerHTML = `
+      <div class="edit-field"><label>Vorderseite (Frage)</label><textarea id="ef-front-${rid}" rows="3">${esc(data.front||data.question||'')}</textarea></div>
+      <div class="edit-field"><label>Rückseite (Antwort)</label><textarea id="ef-back-${rid}"  rows="4">${esc(data.back||data.answer||'')}</textarea></div>
+      <div class="edit-field"><label>Thema</label><input id="ef-topic-${rid}" value="${esc(data.topic||'')}"></div>
+      <div class="edit-actions">
+        <button class="btn-primary" onclick="saveCard('${rid}','${cardId}')">💾 Speichern</button>
+        <button class="btn-secondary" onclick="closePanel('${rid}','edit')">Abbrechen</button>
+      </div>`;
+  }
+}
+
+async function saveCard(rid, cardId) {
+  const front = document.getElementById('ef-front-' + rid)?.value;
+  const back  = document.getElementById('ef-back-'  + rid)?.value;
+  const topic = document.getElementById('ef-topic-' + rid)?.value;
+  const { error } = await sb.from('deck_cards').update({ front, back, topic, updated_at: new Date().toISOString() }).eq('id', cardId);
+  if (error) { showToast('Fehler: ' + error.message); return; }
+  await setStatus(rid, 'fixed');
+  closePanel(rid, 'edit');
+  showToast('Karte gespeichert ✓');
+}
+
+async function saveVideo(rid, cardId) {
+  const title    = document.getElementById('ef-title-'  + rid)?.value;
+  const subtitle = document.getElementById('ef-sub-'    + rid)?.value;
+  const desc     = document.getElementById('ef-desc-'   + rid)?.value;
+  const topicsRaw= document.getElementById('ef-topics-' + rid)?.value;
+  const topics   = topicsRaw.split(',').map(t => t.trim()).filter(Boolean);
+  const { error } = await sb.from('videos').update({ title, subtitle, description: desc, topics }).eq('id', cardId);
+  if (error) { showToast('Fehler: ' + error.message); return; }
+  await setStatus(rid, 'fixed');
+  closePanel(rid, 'edit');
+  showToast('Video gespeichert ✓');
+}
+
+// ── AI Korrektur ──────────────────────────────────────────────────────────
+
+async function toggleAI(rid, type, cardId) {
+  const panel = document.getElementById('panel-ai-' + rid);
+  if (panel.classList.toggle('open')) {
+    await runAI(rid, type, cardId);
+  }
+}
+
+async function runAI(rid, type, cardId) {
+  const r      = _reports.find(x => x.id === rid);
+  const box    = document.getElementById('ai-content-' + rid);
+  box.innerHTML = '<p class="ai-thinking">🤖 Claude denkt nach…</p>';
+
+  let content = {};
+  if (type === 'video') {
+    const { data } = await sb.from('videos').select('title,subtitle,description,topics').eq('id', cardId).single();
+    content = data || { title: r.card_front, description: r.card_back };
+  } else if (type === 'flashcard') {
+    const { data } = await sb.from('deck_cards').select('front,back,topic').eq('id', cardId).single();
+    content = data || { front: r.card_front, back: r.card_back };
+  } else {
+    box.innerHTML = '<p style="color:var(--txt-3);font-size:0.8rem">Lernsets sind statisch (data/lernset-data.js) — bitte manuell bearbeiten.</p>';
+    return;
+  }
+
+  const reason = REASON_LBL[r.reason] || r.reason;
+  const note   = r.note || '';
+
+  let prompt = '';
+  if (type === 'flashcard') {
+    prompt = `Du bist Lernkarten-Korrektor für HSG-Studierende. Korrigiere diese Lernkarte basierend auf der Fehlermeldung.\n\nFEHLER: ${reason}${note ? ' — Nutzerhinweis: "' + note + '"' : ''}\n\nAKTUELL:\nVorderseite: ${content.front}\nRückseite: ${content.back}\n\nGib NUR dieses JSON zurück:\n{"front":"<korrigierte Vorderseite>","back":"<korrigierte Rückseite>","explanation":"<1 Satz was du geändert hast>"}`;
+  } else {
+    prompt = `Du bist Video-Metadaten-Korrektor. Korrigiere diese Video-Metadaten basierend auf der Meldung.\n\nFEHLER: ${reason}${note ? ' — Nutzerhinweis: "' + note + '"' : ''}\n\nAKTUELL:\nTitel: ${content.title}\nUntertitel: ${content.subtitle||''}\nBeschreibung: ${content.description||''}\n\nGib NUR dieses JSON zurück:\n{"title":"<korrigiert>","subtitle":"<korrigiert>","description":"<korrigiert>","explanation":"<1 Satz was geändert>"}`;
+  }
+
+  try {
+    const { data:{ session } } = await sb.auth.getSession();
+    const resp = await fetch(AI_PROXY, {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer ' + session.access_token, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages:[{ role:'user', content: prompt }], max_tokens:600, system:'Antworte ausschließlich mit dem angegebenen JSON-Format.' })
+    });
+    if (!resp.ok) throw new Error('AI-Proxy Status ' + resp.status);
+    const result = await resp.json();
+    const text   = result?.content?.[0]?.text || result?.choices?.[0]?.message?.content || '';
+    const match  = text.match(/\{[\s\S]*\}/);
+    if (!match) throw new Error('Kein JSON in Antwort');
+    const parsed = JSON.parse(match[0]);
+
+    if (type === 'flashcard') {
+      box.innerHTML = `
+        <p style="font-size:0.75rem;color:var(--txt-3);margin-bottom:0.5rem">📝 ${esc(parsed.explanation || '')}</p>
+        <div class="ai-suggestion"><strong style="color:var(--txt-3);font-size:0.7rem">VORDERSEITE</strong><br>${esc(parsed.front||'')}</div>
+        <div class="ai-suggestion"><strong style="color:var(--txt-3);font-size:0.7rem">RÜCKSEITE</strong><br>${esc(parsed.back||'')}</div>
+        <div class="edit-actions">
+          <button class="btn-primary" onclick="applyAICard('${rid}','${cardId}',${JSON.stringify(parsed.front).replace(/"/g,'&quot;')},${JSON.stringify(parsed.back).replace(/"/g,'&quot;')})">✓ Übernehmen</button>
+          <button class="btn-secondary" onclick="closePanel('${rid}','ai')">Abbrechen</button>
+        </div>`;
+    } else {
+      box.innerHTML = `
+        <p style="font-size:0.75rem;color:var(--txt-3);margin-bottom:0.5rem">📝 ${esc(parsed.explanation || '')}</p>
+        <div class="ai-suggestion"><strong style="color:var(--txt-3);font-size:0.7rem">TITEL</strong><br>${esc(parsed.title||'')}</div>
+        <div class="ai-suggestion"><strong style="color:var(--txt-3);font-size:0.7rem">UNTERTITEL</strong><br>${esc(parsed.subtitle||'')}</div>
+        <div class="ai-suggestion"><strong style="color:var(--txt-3);font-size:0.7rem">BESCHREIBUNG</strong><br>${esc(parsed.description||'')}</div>
+        <div class="edit-actions">
+          <button class="btn-primary" onclick="applyAIVideo('${rid}','${cardId}',this)">✓ Übernehmen</button>
+          <button class="btn-secondary" onclick="closePanel('${rid}','ai')">Abbrechen</button>
+        </div>`;
+      // Store parsed result for apply
+      document.getElementById('panel-ai-' + rid).dataset.aiResult = JSON.stringify(parsed);
+    }
+  } catch(err) {
+    box.innerHTML = `<p style="color:#f87171;font-size:0.8rem">KI-Fehler: ${err.message}<br><span style="color:var(--txt-3)">Kein API-Key gesetzt? In der App unter Profil → KI-Einstellungen.</span></p>`;
+  }
+}
+
+async function applyAICard(rid, cardId, front, back) {
+  const { error } = await sb.from('deck_cards').update({ front, back, updated_at: new Date().toISOString() }).eq('id', cardId);
+  if (error) { showToast('Fehler: ' + error.message); return; }
+  await setStatus(rid, 'fixed');
+  closePanel(rid, 'ai');
+  showToast('KI-Korrektur übernommen ✓');
+}
+
+async function applyAIVideo(rid, cardId) {
+  const panel  = document.getElementById('panel-ai-' + rid);
+  const parsed = JSON.parse(panel.dataset.aiResult || '{}');
+  const { error } = await sb.from('videos').update({ title: parsed.title, subtitle: parsed.subtitle, description: parsed.description }).eq('id', cardId);
+  if (error) { showToast('Fehler: ' + error.message); return; }
+  await setStatus(rid, 'fixed');
+  closePanel(rid, 'ai');
+  showToast('KI-Korrektur übernommen ✓');
+}
+
+// ── Soft Delete ───────────────────────────────────────────────────────────
+
+function toggleDelete(rid, type, cardId) {
+  const panel = document.getElementById('panel-del-' + rid);
+  panel.classList.toggle('open');
+}
+
+async function deleteContent(rid, type, cardId) {
+  const table = type === 'video' ? 'videos' : type === 'flashcard' ? 'deck_cards' : null;
+  if (!table) { showToast('Lernsets können nur manuell gelöscht werden'); return; }
+
+  const deletedAt = new Date().toISOString();
+  const { error } = await sb.from(table).update({ deleted_at: deletedAt }).eq('id', cardId);
+  if (error) { showToast('Fehler: ' + error.message); return; }
+
+  await sb.from('card_reports').update({ status: 'fixed', reviewed_at: deletedAt }).eq('id', rid);
+  const r = _reports.find(x => x.id === rid);
+  if (r) { r.status = 'fixed'; r.reviewed_at = deletedAt; }
+
+  const permDate = new Date(Date.now() + 30 * 864e5).toLocaleDateString('de-CH');
+  closePanel(rid, 'del');
+  showToast(`Gelöscht — permanent am ${permDate}`);
+  renderReports();
+}
+
+// ── Helpers ───────────────────────────────────────────────────────────────
+
+function closePanel(rid, type) {
+  document.getElementById(`panel-${type}-${rid}`)?.classList.remove('open');
+}
+
+function esc(s) { return (s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove('show'), 3000);
 }
 
 init();

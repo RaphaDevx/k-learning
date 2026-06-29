@@ -74,7 +74,7 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
   async function _ensureCardsLoaded() {
     if (window.FLASHCARD_DATA) return;
     if (!_loadPromise) {
-      _loadPromise = _supabase.from('deck_cards').select('*')
+      _loadPromise = _supabase.from('deck_cards').select('*').is('deleted_at', null)
         .then(({ data, error }) => {
           window.FLASHCARD_DATA = error ? [] : (data || []);
           _loadPromise = null;
