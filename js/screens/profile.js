@@ -644,7 +644,7 @@ window.ProfileScreen = (function () {
 
     const readiness = _readinessScore({ fcSeenPct: fcPct, fcAccPct: fcAccAvg, videoAvg, lernsetAvg: etappenAvg, quizAvg, examAvg });
 
-    const detailsHtml = _examHistoryHtml(courseExamResults) + _weaknessProfileHtml(courseWeights) + _quizTopicBarsHtml(courseQuizStats) + _videoSummaryHtml(vidData);
+    const detailsHtml = _weaknessProfileHtml(courseWeights) + _quizTopicBarsHtml(courseQuizStats) + _videoSummaryHtml(vidData);
 
     return `
       <div class="rounded-[20px] p-4" style="background:var(--card);border:1px solid var(--border)">
@@ -658,14 +658,12 @@ window.ProfileScreen = (function () {
             <div class="text-2xl font-black" style="color:${_overallColor(readiness)}">${readiness}%</div>
           </div>
         </div>
-        ${_examBannerHtml(courseExamResults)}
+        ${_examHistoryHtml(courseExamResults)}
         <div class="space-y-2 mb-3">
           ${etappen.map(_etappeBarHtml).join('')}
         </div>
-        ${_detailsToggleHtml()}
-        <div class="hidden mt-3 pt-3" style="border-top:1px solid var(--border)">
-          ${detailsHtml || `<p class="text-sm" style="color:var(--txt-2)">Noch keine Details verfügbar.</p>`}
-        </div>
+        ${detailsHtml ? _detailsToggleHtml() : ''}
+        ${detailsHtml ? `<div class="hidden mt-3 pt-3" style="border-top:1px solid var(--border)">${detailsHtml}</div>` : ''}
       </div>`;
   }
 
@@ -684,7 +682,7 @@ window.ProfileScreen = (function () {
     const videoAvg = vidData?.pct ?? null;
     const readiness = _readinessScore({ fcSeenPct: fcPct, videoAvg, examAvg });
 
-    const detailsHtml = _examHistoryHtml(courseExamResults) + _videoSummaryHtml(vidData);
+    const detailsHtml = _videoSummaryHtml(vidData);
 
     return `
       <div class="rounded-[20px] p-4" style="background:var(--card);border:1px solid var(--border)">
@@ -698,7 +696,7 @@ window.ProfileScreen = (function () {
             <div class="text-2xl font-black" style="color:${_overallColor(readiness)}">${readiness}%</div>
           </div>
         </div>
-        ${_examBannerHtml(courseExamResults)}
+        ${_examHistoryHtml(courseExamResults)}
         ${detailsHtml ? `
           ${_detailsToggleHtml()}
           <div class="hidden mt-3 pt-3" style="border-top:1px solid var(--border)">${detailsHtml}</div>
@@ -732,37 +730,43 @@ window.ProfileScreen = (function () {
 
   function _examHistoryHtml(results) {
     if (!results?.length) return '';
-    const sorted = [...results].sort((a, b) => new Date(b.taken_at) - new Date(a.taken_at)).slice(0, 10);
+    const sorted = [...results].sort((a, b) => new Date(b.taken_at) - new Date(a.taken_at)).slice(0, 6);
+    const rows = sorted.map(r => {
+      const pct   = r.score_pct;
+      const grade = _gradeFromPct(pct);
+      const col   = _overallColor(pct);
+      const date  = new Date(r.taken_at).toLocaleDateString('de-CH', { day: '2-digit', month: '2-digit', year: '2-digit' });
+      const lbl   = r.exam_id
+        .replace(/^esf-/i, 'ESF ')
+        .replace(/^stat-/i, 'Statistik ')
+        .replace(/^om-/i, 'OM ')
+        .replace(/^makro-/i, 'Makro ')
+        .toUpperCase();
+      const answers = r.answers || [];
+      const hasUngraded = answers.some(a => a.user_answer && a.model_answer && a.earned === null);
+      const badge = hasUngraded
+        ? `<span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full" style="background:rgba(234,179,8,0.15);color:#fbbf24">⚠ Offen</span>`
+        : '';
+      return `
+        <button onclick="ProfileScreen.showExamDetail('${r.id}','${r.exam_id}')"
+          class="w-full flex items-center justify-between py-2.5 px-3 rounded-xl transition tap-card"
+          style="background:var(--card-raised);border:1px solid transparent">
+          <div class="flex items-center gap-2 min-w-0">
+            <span class="text-xs truncate font-medium" style="color:var(--txt)">${lbl}</span>
+            ${badge}
+            <span class="text-xs flex-shrink-0" style="color:var(--txt-3)">${date}</span>
+          </div>
+          <div class="flex items-center gap-2 flex-shrink-0 ml-2">
+            <span class="text-sm font-bold" style="color:${col}">${pct}%</span>
+            <span class="text-[11px] font-semibold px-1.5 py-0.5 rounded-lg" style="background:${col}18;color:${col}">Note ${grade}</span>
+            <span class="text-xs" style="color:var(--txt-3)">›</span>
+          </div>
+        </button>`;
+    }).join('');
     return `
-      <div class="mb-4">
-        <p class="text-xs text-gray-400 uppercase tracking-wide mb-2">Letzte Prüfungen</p>
-        ${sorted.map(r => {
-          const pct   = r.score_pct;
-          const grade = _gradeFromPct(pct);
-          const col   = _overallColor(pct);
-          const date  = new Date(r.taken_at).toLocaleDateString('de-CH');
-          const lbl   = r.exam_id.replace('esf-', 'ESF ').replace('stat-', 'Statistik ').toUpperCase();
-          // Check if any open question has null earned (not yet AI-graded)
-          const answers = r.answers || [];
-          const hasUngraded = answers.some(a => a.user_answer && a.model_answer && a.earned === null);
-          const gradingBadge = hasUngraded
-            ? `<span class="text-xs px-1.5 py-0.5 rounded-full font-medium bg-yellow-900 text-yellow-300 ml-1">⚠ Offen</span>`
-            : (answers.some(a => a.user_answer) ? `<span class="text-xs text-green-500 ml-1">✓</span>` : '');
-          return `
-            <div class="flex items-center justify-between py-2 border-b border-gray-700 last:border-0 cursor-pointer hover:bg-gray-800 rounded-lg px-1 -mx-1 transition"
-                 onclick="ProfileScreen.showExamDetail('${r.id}', '${r.exam_id}')">
-              <div>
-                <div class="text-sm text-gray-300">${lbl}${gradingBadge}</div>
-                <div class="text-xs text-gray-500 mt-0.5">${date}</div>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-sm font-bold" style="color:${col}">${pct}%</span>
-                <span class="text-xs px-1.5 py-0.5 rounded-full font-medium"
-                      style="background:${col}22;color:${col}">Note ${grade}</span>
-                <span class="text-xs text-gray-500">›</span>
-              </div>
-            </div>`;
-        }).join('')}
+      <div class="mb-3">
+        <p class="text-[10px] uppercase tracking-widest font-semibold mb-2" style="color:var(--txt-3)">Prüfungen</p>
+        <div class="space-y-1.5">${rows}</div>
       </div>`;
   }
 
@@ -771,34 +775,28 @@ window.ProfileScreen = (function () {
     if (!rows.length) return '';
     return `
       <div class="mb-4">
-        <p class="text-xs text-gray-400 uppercase tracking-wide mb-2">Schwächenprofil nach Thema</p>
+        <p class="text-[10px] uppercase tracking-widest font-semibold mb-2" style="color:var(--txt-3)">Schwächenprofil</p>
         ${rows.map(w => {
           const total = w.wrong_count + w.correct_count;
           const pct = w.ema_accuracy != null
             ? Math.round(w.ema_accuracy * 100)
             : Math.round((w.correct_count / total) * 100);
           const streak = w.correct_streak || 0;
-          const barColor = pct >= 70 ? 'bg-green-500' : pct >= 40 ? 'bg-yellow-500' : 'bg-red-500';
+          const col = pct >= 70 ? '#4ade80' : pct >= 40 ? '#fbbf24' : '#f87171';
           const badge = streak >= 3 ? 'Verstanden' : pct >= 70 ? 'Stark' : pct >= 40 ? 'Üben' : 'Fokus';
-          const badgeColor = streak >= 3
-            ? 'bg-emerald-900 text-emerald-300'
-            : pct >= 70 ? 'bg-green-900 text-green-300'
-            : pct >= 40 ? 'bg-yellow-900 text-yellow-300'
-            : 'bg-red-900 text-red-300';
-          const streakLabel = streak >= 2
-            ? `<span class="text-xs text-emerald-400">${streak}× ✓</span>` : '';
+          const streakLabel = streak >= 2 ? `<span class="text-[10px]" style="color:#34d399">${streak}× ✓</span>` : '';
           return `
             <div class="mb-2.5">
               <div class="flex items-center justify-between mb-1">
-                <span class="text-xs text-gray-300">${w.topic_tag}</span>
+                <span class="text-xs" style="color:var(--txt)">${w.topic_tag}</span>
                 <div class="flex items-center gap-2">
                   ${streakLabel}
-                  <span class="text-xs text-gray-500">${w.correct_count}/${total}</span>
-                  <span class="text-xs px-1.5 py-0.5 rounded-full ${badgeColor}">${badge}</span>
+                  <span class="text-xs" style="color:var(--txt-3)">${w.correct_count}/${total}</span>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded-full font-semibold" style="background:${col}18;color:${col}">${badge}</span>
                 </div>
               </div>
-              <div class="h-1.5 bg-gray-700 rounded-full overflow-hidden">
-                <div class="${barColor} h-full rounded-full transition-all" style="width:${pct}%"></div>
+              <div class="h-1.5 rounded-full overflow-hidden" style="background:var(--card-raised)">
+                <div class="h-full rounded-full transition-all" style="width:${pct}%;background:${col}"></div>
               </div>
             </div>`;
         }).join('')}
@@ -810,24 +808,23 @@ window.ProfileScreen = (function () {
     if (!entries.length) return '';
     const sorted = entries.sort((a, b) => (a[1].correct / a[1].total) - (b[1].correct / b[1].total));
     return `
-      <div>
-        <p class="text-xs text-gray-400 uppercase tracking-wide mb-2">Quiz-Themen</p>
+      <div class="mb-4">
+        <p class="text-[10px] uppercase tracking-widest font-semibold mb-2" style="color:var(--txt-3)">Quiz-Themen</p>
         ${sorted.map(([topic, s]) => {
           const pct = Math.round((s.correct / s.total) * 100);
           const col = pct >= 70 ? '#4ade80' : pct >= 50 ? '#fbbf24' : '#f87171';
           const badge = pct >= 70 ? 'Stark' : pct >= 50 ? 'Üben' : 'Fokus';
-          const badgeBg = pct >= 70 ? 'rgba(22,163,74,0.15)' : pct >= 50 ? 'rgba(202,138,4,0.15)' : 'rgba(220,38,38,0.15)';
           return `
-            <div class="mb-3">
+            <div class="mb-2.5">
               <div class="flex items-center justify-between mb-1">
                 <span class="text-xs" style="color:var(--txt)">${topic}</span>
                 <div class="flex items-center gap-2">
-                  <span class="text-xs" style="color:var(--txt-2)">${s.correct}/${s.total}</span>
-                  <span class="text-xs px-1.5 py-0.5 rounded-full font-medium" style="background:${badgeBg};color:${col}">${badge}</span>
+                  <span class="text-xs" style="color:var(--txt-3)">${s.correct}/${s.total}</span>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded-full font-semibold" style="background:${col}18;color:${col}">${badge}</span>
                 </div>
               </div>
-              <div class="h-1.5 rounded-full" style="background:rgba(255,255,255,0.06)">
-                <div class="h-1.5 rounded-full transition-all" style="width:${pct}%;background:${col}"></div>
+              <div class="h-1.5 rounded-full overflow-hidden" style="background:var(--card-raised)">
+                <div class="h-full rounded-full transition-all" style="width:${pct}%;background:${col}"></div>
               </div>
             </div>`;
         }).join('')}
@@ -958,142 +955,144 @@ window.ProfileScreen = (function () {
   // ── Exam History Detail Modal ─────────────────────────────────────────────
 
   async function showExamDetail(resultId, examId) {
-    // Remove existing modal if any
     document.getElementById('exam-detail-modal')?.remove();
 
-    // Create modal skeleton
     const modal = document.createElement('div');
     modal.id = 'exam-detail-modal';
-    modal.className = 'fixed inset-0 z-50 overflow-y-auto';
-    modal.style.background = 'rgba(0,0,0,0.85)';
+    modal.style.cssText = 'position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,0.7);backdrop-filter:blur(4px);overflow-y:auto;display:flex;flex-direction:column';
     modal.innerHTML = `
-      <div class="max-w-2xl mx-auto px-4 py-8">
-        <div class="rounded-2xl p-5" style="background:var(--card);border:1px solid var(--border)">
-          <div class="flex items-center justify-between mb-4">
-            <h2 class="text-lg font-bold" style="color:var(--txt)">Prüfungsdetail</h2>
+      <div style="max-width:680px;width:100%;margin:0 auto;padding:1rem;flex:1">
+        <div class="rounded-[20px] overflow-hidden" style="background:var(--card);border:1px solid var(--border)">
+          <div class="flex items-center justify-between px-5 py-4 sticky top-0" style="background:var(--card);border-bottom:1px solid var(--border);z-index:1">
+            <h2 class="font-bold text-base" style="color:var(--txt)">Prüfungsansicht</h2>
             <button onclick="document.getElementById('exam-detail-modal').remove()"
-              class="text-gray-400 hover:text-white text-2xl leading-none px-2">✕</button>
+              style="width:28px;height:28px;border-radius:50%;border:none;background:var(--card-raised);color:var(--txt-2);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center">✕</button>
           </div>
-          <div id="exam-detail-body" class="text-sm" style="color:var(--txt-2)">Lade…</div>
+          <div id="exam-detail-body" class="p-5" style="color:var(--txt-2)">
+            <div style="text-align:center;padding:2rem">⏳ Lade…</div>
+          </div>
         </div>
       </div>`;
     document.body.appendChild(modal);
-
-    // Close on backdrop click
     modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
 
     try {
-      // Fetch the result row
-      const { data: result, error: resErr } = await _supabase
-        .from('exam_results')
-        .select('*')
-        .eq('id', resultId)
-        .single();
+      const { data: result, error } = await _supabase
+        .from('exam_results').select('*').eq('id', resultId).single();
+      if (error || !result) throw new Error('Ergebnis nicht gefunden');
 
-      if (resErr || !result) throw new Error('Ergebnis nicht gefunden.');
+      // Find exam data from registry
+      const registry = window.ExamScreen?.EXAM_REGISTRY || [];
+      const entry = registry.find(e => e.id === examId);
+      const examData = entry?.dataVar ? window[entry.dataVar] : null;
 
-      // Try to fetch exam JSON
-      let examJson = null;
-      try {
-        const resp = await fetch(`exams/${examId}-data.json?v=${Date.now()}`);
-        if (resp.ok) examJson = await resp.json();
-      } catch (_) { /* JSON not available for this exam */ }
+      const answersMap = {};
+      (result.answers || []).forEach(a => { answersMap[a.question_id] = a; });
 
-      const body = document.getElementById('exam-detail-body');
-      if (!body) return;
-
-      const answers = result.answers || [];
-      const pct = result.score_pct;
+      const pct   = result.score_pct;
       const grade = _gradeFromPct(pct);
-      const col = _overallColor(pct);
-      const date = new Date(result.taken_at).toLocaleDateString('de-CH', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
-      const lbl = examId.replace('esf-', 'ESF ').replace('stat-', 'Statistik ').toUpperCase();
+      const col   = _overallColor(pct);
+      const date  = new Date(result.taken_at).toLocaleDateString('de-CH', { day:'2-digit', month:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+      const lbl   = (entry?.label || examId).toUpperCase();
+      const hasUngraded = result.answers?.some(a => a.user_answer && a.model_answer && a.earned === null);
 
-      const hasUngraded = answers.some(a => a.user_answer && a.model_answer && a.earned === null);
-
-      let questionsHtml = '';
-      if (examJson) {
-        const allQs = (examJson.sections || []).flatMap(s => s.questions || []);
-        answers.forEach(a => {
-          const qDef = allQs.find(q => q.id === a.question_id);
-          const isText = a.user_answer !== null || a.model_answer !== null;
-
-          if (isText) {
-            const earned = a.earned;
-            const maxPts = a.max_pts || qDef?.points || 0;
-            const hasGrade = earned !== null;
-            const colQ = hasGrade ? (earned / maxPts >= 0.7 ? '#4ade80' : earned / maxPts >= 0.4 ? '#fbbf24' : '#f87171') : '#fbbf24';
-            questionsHtml += `
-              <div class="rounded-xl p-3 mb-2" style="background:var(--card-raised);border:1px solid var(--border)">
-                <div class="flex items-center justify-between mb-1">
-                  <span class="text-xs font-semibold" style="color:var(--txt)">📝 ${(a.question_text || qDef?.text || a.question_id).substring(0, 100)}</span>
-                  <span class="text-xs font-bold flex-shrink-0 ml-2" style="color:${colQ}">${hasGrade ? `${earned}/${maxPts}P` : '? P'}</span>
-                </div>
-                ${a.user_answer ? `<div class="text-xs mb-1" style="color:var(--txt-2)">Antwort: <em>${a.user_answer.substring(0, 200)}${a.user_answer.length > 200 ? '…' : ''}</em></div>` : '<div class="text-xs text-gray-500">Keine Antwort</div>'}
-                ${a.model_answer ? `<div class="text-xs text-green-400 mb-1">Musterlösung: ${a.model_answer.substring(0, 150)}${a.model_answer.length > 150 ? '…' : ''}</div>` : ''}
-                ${a.ai_feedback ? `<div class="text-xs text-indigo-300">KI: ${a.ai_feedback}</div>` : (!hasGrade && a.user_answer ? '<div class="text-xs text-yellow-500">Noch nicht bewertet</div>' : '')}
-              </div>`;
-          } else {
+      let sectionsHtml = '';
+      if (examData?.sections) {
+        examData.sections.forEach(section => {
+          let secEarned = 0, secMax = 0;
+          const qRows = (section.questions || []).map(q => {
+            const a = answersMap[q.id] || {};
+            const maxPts = q.points || 0;
+            secMax += maxPts;
+            const isText = q.type === 'text' || q.type === 'open';
+            const isGapped = q.type === 'gapped_text_dropdown' || q.type === 'gapped_text_input';
+            const earned = a.earned ?? (a.is_correct ? maxPts : 0);
+            secEarned += (earned || 0);
             const isOk = a.is_correct;
-            const earned = a.earned;
-            const maxPts = a.max_pts || qDef?.points || 0;
-            questionsHtml += `
-              <div class="flex items-center justify-between py-1.5 border-b last:border-0" style="border-color:var(--border)">
-                <span class="text-xs" style="color:var(--txt-2)">${isOk ? '✅' : '❌'} ${(qDef?.text || a.question_id).substring(0, 80)}</span>
-                <span class="text-xs flex-shrink-0 ml-2" style="color:${isOk ? '#4ade80' : '#f87171'}">${earned !== null ? earned : (isOk ? maxPts : 0)}/${maxPts}P</span>
-              </div>`;
-          }
-        });
-      } else {
-        // No JSON available — show summary only
-        const openAnswers = answers.filter(a => a.user_answer);
-        if (openAnswers.length) {
-          questionsHtml = openAnswers.map(a => {
-            const earned = a.earned;
-            const maxPts = a.max_pts || 0;
-            const hasGrade = earned !== null;
+            const qCol = isText
+              ? (a.earned !== null && a.earned !== undefined ? (a.earned / maxPts >= 0.7 ? '#4ade80' : a.earned / maxPts >= 0.4 ? '#fbbf24' : '#f87171') : '#fbbf24')
+              : (isOk ? '#4ade80' : '#f87171');
+            const icon = isText ? '📝' : (isGapped ? (isOk ? '✅' : '❌') : (isOk ? '✅' : '❌'));
+            const qText = (q.text || '').slice(0, 150) + ((q.text || '').length > 150 ? '…' : '');
+            const correctChoices = (q.choices || []).filter(c => c.correct).map(c => c.text).join(', ');
             return `
-              <div class="rounded-xl p-3 mb-2" style="background:var(--card-raised);border:1px solid var(--border)">
-                <div class="flex items-center justify-between mb-1">
-                  <span class="text-xs font-semibold" style="color:var(--txt)">📝 ${(a.question_text || a.question_id).substring(0, 100)}</span>
-                  <span class="text-xs font-bold flex-shrink-0 ml-2" style="color:${hasGrade ? '#4ade80' : '#fbbf24'}">${hasGrade ? `${earned}/${maxPts}P` : '? P'}</span>
+              <div class="py-3" style="border-bottom:1px solid var(--border)">
+                <div class="flex items-start gap-2">
+                  <span class="text-sm flex-shrink-0 mt-0.5">${icon}</span>
+                  <div class="flex-1 min-w-0">
+                    <div class="flex items-start justify-between gap-2">
+                      <p class="text-sm leading-snug" style="color:var(--txt)">${qText}</p>
+                      <span class="text-xs font-bold flex-shrink-0 ml-1" style="color:${qCol}">${earned !== null && earned !== undefined ? earned : '?'}/${maxPts}P</span>
+                    </div>
+                    ${!isText && !isOk && correctChoices ? `<div class="text-xs mt-1" style="color:#4ade80">✓ ${correctChoices}</div>` : ''}
+                    ${isText && a.user_answer ? `<div class="text-xs mt-1 italic" style="color:var(--txt-2)">Deine Antwort: ${a.user_answer.slice(0,200)}${a.user_answer.length>200?'…':''}</div>` : ''}
+                    ${isText && a.model_answer ? `<div class="text-xs mt-0.5" style="color:#4ade80">Musterlösung: ${a.model_answer.slice(0,150)}</div>` : ''}
+                    ${a.ai_feedback ? `<div class="text-xs mt-0.5 italic" style="color:#818cf8">KI: ${a.ai_feedback}</div>` : ''}
+                  </div>
                 </div>
-                <div class="text-xs mb-1" style="color:var(--txt-2)">${a.user_answer.substring(0, 200)}${a.user_answer.length > 200 ? '…' : ''}</div>
-                ${a.ai_feedback ? `<div class="text-xs text-indigo-300">KI: ${a.ai_feedback}</div>` : (!hasGrade ? '<div class="text-xs text-yellow-500">Noch nicht bewertet</div>' : '')}
               </div>`;
           }).join('');
+          sectionsHtml += `
+            <div class="rounded-xl mb-3 overflow-hidden" style="border:1px solid var(--border)">
+              <div class="flex items-center justify-between px-4 py-2.5" style="background:var(--card-raised)">
+                <span class="text-sm font-semibold" style="color:var(--txt)">${section.title || ''}</span>
+                <span class="text-xs font-bold" style="color:#818cf8">${secEarned} / ${secMax} P</span>
+              </div>
+              <div class="px-4">${qRows}</div>
+            </div>`;
+        });
+      } else {
+        // Fallback: show saved answers without full question text
+        const allAnswers = result.answers || [];
+        const openOnes = allAnswers.filter(a => a.user_answer);
+        if (openOnes.length) {
+          sectionsHtml = openOnes.map(a => {
+            const earned = a.earned;
+            const maxPts = a.max_pts || 0;
+            const col2 = earned !== null ? (earned/maxPts >= 0.7 ? '#4ade80' : earned/maxPts >= 0.4 ? '#fbbf24' : '#f87171') : '#fbbf24';
+            return `
+              <div class="rounded-xl p-4 mb-2" style="background:var(--card-raised);border:1px solid var(--border)">
+                <div class="flex justify-between mb-1">
+                  <span class="text-xs font-semibold" style="color:var(--txt)">📝 ${(a.question_text || a.question_id || '').slice(0,100)}</span>
+                  <span class="text-xs font-bold" style="color:${col2}">${earned !== null ? `${earned}/${maxPts}P` : '?P'}</span>
+                </div>
+                <div class="text-xs italic mb-1" style="color:var(--txt-2)">${a.user_answer.slice(0,200)}</div>
+                ${a.model_answer ? `<div class="text-xs" style="color:#4ade80">✓ ${a.model_answer.slice(0,150)}</div>` : ''}
+                ${a.ai_feedback ? `<div class="text-xs italic" style="color:#818cf8">KI: ${a.ai_feedback}</div>` : ''}
+              </div>`;
+          }).join('');
+        } else {
+          const mcRows = allAnswers.map(a => `
+            <div class="flex items-center justify-between py-2" style="border-bottom:1px solid var(--border)">
+              <span class="text-xs" style="color:var(--txt)">${a.is_correct ? '✅' : '❌'} Frage ${a.question_id?.slice(0,12) || '?'}</span>
+              <span class="text-xs" style="color:${a.is_correct?'#4ade80':'#f87171'}">${a.earned ?? (a.is_correct ? a.max_pts : 0)}/${a.max_pts || 0}P</span>
+            </div>`).join('');
+          sectionsHtml = `<div>${mcRows || '<p class="text-xs py-2" style="color:var(--txt-3)">Keine Fragedetails gespeichert.</p>'}</div>`;
         }
-        if (!questionsHtml) questionsHtml = '<p class="text-xs text-gray-500 mb-3">Detailansicht nur für JSON-Prüfungen verfügbar.</p>';
       }
 
-      body.innerHTML = `
-        <div class="flex items-center justify-between mb-4 pb-3" style="border-bottom:1px solid var(--border)">
+      document.getElementById('exam-detail-body').innerHTML = `
+        <div class="flex items-center justify-between mb-5 pb-4" style="border-bottom:1px solid var(--border)">
           <div>
-            <div class="font-bold" style="color:var(--txt)">${lbl}</div>
+            <div class="font-bold text-base" style="color:var(--txt)">${lbl}</div>
             <div class="text-xs mt-0.5" style="color:var(--txt-3)">${date}</div>
           </div>
           <div class="text-right">
-            <div class="text-2xl font-black" style="color:${col}">${pct}%</div>
-            <div class="text-xs" style="color:${col}">Note ${grade}</div>
+            <div class="text-3xl font-black" style="color:${col}">${pct}%</div>
+            <div class="text-sm font-semibold" style="color:${col}">Note ${grade}</div>
           </div>
         </div>
         ${hasUngraded ? `
-          <div class="rounded-xl p-3 mb-4 text-center" style="background:rgba(234,179,8,0.1);border:1px solid rgba(234,179,8,0.3)">
-            <div class="text-xs text-yellow-300 mb-2">⚠ Offene Fragen wurden noch nicht von der KI bewertet.</div>
-            <button onclick="ProfileScreen._regradeExam('${resultId}', '${examId}')"
-              class="text-xs px-4 py-2 rounded-xl font-bold text-white transition"
-              style="background:#4f46e5">Alle offenen Fragen neu bewerten</button>
-          </div>` : (answers.some(a => a.user_answer) ? `
-          <div class="rounded-xl p-3 mb-4 text-center" style="background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.2)">
-            <button onclick="ProfileScreen._regradeExam('${resultId}', '${examId}')"
-              class="text-xs px-4 py-2 rounded-xl font-bold transition" style="background:var(--card-raised);color:var(--txt-2)">Offene Fragen neu bewerten</button>
-          </div>` : '')}
-        <div class="space-y-1">
-          ${questionsHtml || '<p class="text-xs" style="color:var(--txt-3)">Keine Fragedetails verfügbar.</p>'}
-        </div>`;
+          <div class="rounded-xl p-3 mb-4 flex items-center justify-between gap-3" style="background:rgba(234,179,8,0.1);border:1px solid rgba(234,179,8,0.25)">
+            <span class="text-xs" style="color:#fbbf24">⚠ Offene Fragen noch nicht bewertet</span>
+            <button onclick="ProfileScreen._regradeExam('${resultId}','${examId}')"
+              class="text-xs px-3 py-1.5 rounded-lg font-bold" style="background:#4f46e5;color:#fff">KI bewerten</button>
+          </div>` : ''}
+        ${sectionsHtml}`;
+
     } catch (err) {
       const body = document.getElementById('exam-detail-body');
-      if (body) body.innerHTML = `<p class="text-xs text-red-400">Fehler: ${err.message}</p>`;
+      if (body) body.innerHTML = `<p class="text-xs" style="color:#f87171">Fehler: ${err.message}</p>`;
     }
   }
 
