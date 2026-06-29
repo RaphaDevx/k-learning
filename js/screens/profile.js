@@ -421,6 +421,7 @@ window.ProfileScreen = (function () {
 
     const weightsByTag = new Map((weights || []).map(w => [w.topic_tag, w]));
     const quizStats = AppState.get('quizTopicStats') || {};
+    const quizCourseStats = AppState.get('quizCourseStats') || {};
 
     // Flashcard-Abdeckung pro Kurs (unabhängig von window.FLASHCARD_DATA)
     const flashcardCoverage = {};
@@ -454,7 +455,7 @@ window.ProfileScreen = (function () {
       videoCoverage[k] = { pct: c.total ? c.scoreSum / c.total : null, kapiert: c.kapiert, total: c.total };
     });
 
-    const ctx = { examResults: examResults || [], weightsByTag, quizStats, flashcardCoverage, videoCoverage };
+    const ctx = { examResults: examResults || [], weightsByTag, quizStats, quizCourseStats, flashcardCoverage, videoCoverage };
 
     el.innerHTML = enrolled.map(courseKey =>
       window.TOPICS_DATA?.[courseKey]
@@ -483,11 +484,12 @@ window.ProfileScreen = (function () {
   }
 
   // Pro-Etappe-Fortschritt: Mix aus Quiz/Exam-Signal + Lernset-Signal, 0..1 oder null ("nicht begonnen")
-  function _etappePct(courseKey, etappe, quizStats, weightsByTag) {
+  // courseTagStats: { [tag]: { correct, total } } — kurs-spezifisch, nach Tag-Name indiziert
+  function _etappePct(courseKey, etappe, courseTagStats, weightsByTag) {
     const scores = [];
-    const local = quizStats[etappe.title];
-    if (local && local.total > 0) scores.push(local.correct / local.total);
     (etappe.tags || []).forEach(tag => {
+      const s = courseTagStats[tag];
+      if (s && s.total > 0) scores.push(s.correct / s.total);
       const w = weightsByTag.get(tag);
       const acc = w ? _topicWeightAccuracy(w) : null;
       if (acc != null) scores.push(acc);
@@ -613,18 +615,17 @@ window.ProfileScreen = (function () {
   }
 
   function _renderCourseCard(courseKey, ctx) {
-    const { examResults, weightsByTag, quizStats, flashcardCoverage, videoCoverage } = ctx;
+    const { examResults, weightsByTag, quizCourseStats, flashcardCoverage, videoCoverage } = ctx;
     const topicsData = window.TOPICS_DATA[courseKey];
     const course = window.getCourse?.(courseKey);
     const label = course?.label || courseKey;
 
-    const etappen = topicsData.topics.map(et => ({ ...et, pct: _etappePct(courseKey, et, quizStats, weightsByTag) }));
+    const courseTagStats = quizCourseStats?.[courseKey] || {};
+    const etappen = topicsData.topics.map(et => ({ ...et, pct: _etappePct(courseKey, et, courseTagStats, weightsByTag) }));
     const started = etappen.map(e => e.pct).filter(p => p != null);
     const etappenAvg = started.length ? started.reduce((a, b) => a + b, 0) / started.length : null;
 
-    const etappenTitles = new Set(topicsData.topics.map(t => t.title));
-    const courseQuizStats = Object.fromEntries(Object.entries(quizStats).filter(([topic]) => etappenTitles.has(topic)));
-    const quizEntries = Object.values(courseQuizStats).filter(s => s.total > 0);
+    const quizEntries = Object.values(courseTagStats).filter(s => s.total > 0);
     const quizAvg = quizEntries.length ? quizEntries.reduce((s, e) => s + e.correct / e.total, 0) / quizEntries.length : null;
 
     const courseExamResults = examResults.filter(r => _examIdToCourse(r.exam_id) === courseKey);
@@ -644,7 +645,7 @@ window.ProfileScreen = (function () {
 
     const readiness = _readinessScore({ fcSeenPct: fcPct, fcAccPct: fcAccAvg, videoAvg, lernsetAvg: etappenAvg, quizAvg, examAvg });
 
-    const detailsHtml = _weaknessProfileHtml(courseWeights) + _quizTopicBarsHtml(courseQuizStats) + _videoSummaryHtml(vidData);
+    const detailsHtml = _weaknessProfileHtml(courseWeights) + _quizTopicBarsHtml(courseTagStats) + _videoSummaryHtml(vidData);
 
     return `
       <div class="rounded-[20px] p-4" style="background:var(--card);border:1px solid var(--border)">
@@ -831,52 +832,98 @@ window.ProfileScreen = (function () {
       </div>`;
   }
 
-  function _renderQuizStats() {
+  async function _renderQuizStats() {
     const el = document.getElementById('quiz-stats-content');
     if (!el) return;
 
-    const stats = AppState.get('quizTopicStats') || {};
-    const entries = Object.entries(stats).filter(([, s]) => s.total > 0);
-    if (!entries.length) return;
+    const courseStats = AppState.get('quizCourseStats') || {};
+    const enrolled    = await CoursesDB.getEnrolledKeys();
 
-    const sorted = entries.sort((a, b) => {
-      const ra = a[1].correct / a[1].total;
-      const rb = b[1].correct / b[1].total;
-      return ra - rb;
+    // Nur eingeschriebene Kurse mit Quiz-Daten zeigen
+    const activeCourses = enrolled.filter(k => {
+      const cs = courseStats[k];
+      return cs && Object.values(cs).some(s => s.total > 0);
     });
 
-    const totalQ = entries.reduce((s, [, v]) => s + v.total, 0);
-    const totalC = entries.reduce((s, [, v]) => s + v.correct, 0);
-    const overallPct = Math.round((totalC / totalQ) * 100);
-
-    el.innerHTML = `
-      <div class="flex items-center gap-3 mb-4 p-3 rounded-xl" style="background:var(--card-raised)">
-        <div class="text-2xl font-black" style="color:${overallPct >= 70 ? '#4ade80' : overallPct >= 50 ? '#fbbf24' : '#f87171'}">${overallPct}%</div>
-        <div>
-          <div class="text-xs font-semibold" style="color:var(--txt)">Gesamt-Trefferquote</div>
-          <div class="text-xs" style="color:var(--txt-2)">${totalC} / ${totalQ} Fragen richtig</div>
+    if (!activeCourses.length) {
+      // Fallback: flache Statistik (ältere Daten ohne Kurszuordnung)
+      const flat = AppState.get('quizTopicStats') || {};
+      const flatEntries = Object.entries(flat).filter(([, s]) => s.total > 0);
+      if (!flatEntries.length) return;
+      const sorted = flatEntries.sort((a, b) => (a[1].correct / a[1].total) - (b[1].correct / b[1].total));
+      const totalQ = flatEntries.reduce((s, [, v]) => s + v.total, 0);
+      const totalC = flatEntries.reduce((s, [, v]) => s + v.correct, 0);
+      const overallPct = Math.round((totalC / totalQ) * 100);
+      const col0 = overallPct >= 70 ? '#4ade80' : overallPct >= 50 ? '#fbbf24' : '#f87171';
+      el.innerHTML = `
+        <div class="flex items-center gap-3 mb-4 p-3 rounded-xl" style="background:var(--card-raised)">
+          <div class="text-2xl font-black" style="color:${col0}">${overallPct}%</div>
+          <div>
+            <div class="text-xs font-semibold" style="color:var(--txt)">Gesamt-Trefferquote</div>
+            <div class="text-xs" style="color:var(--txt-2)">${totalC} / ${totalQ} Fragen richtig</div>
+          </div>
         </div>
-      </div>
-      ${sorted.map(([topic, s]) => {
-        const pct = Math.round((s.correct / s.total) * 100);
-        const col = pct >= 70 ? '#4ade80' : pct >= 50 ? '#fbbf24' : '#f87171';
-        const badge = pct >= 70 ? 'Stark' : pct >= 50 ? 'Üben' : 'Fokus';
-        const badgeBg = pct >= 70 ? 'rgba(22,163,74,0.15)' : pct >= 50 ? 'rgba(202,138,4,0.15)' : 'rgba(220,38,38,0.15)';
-        return `
-          <div class="mb-3">
-            <div class="flex items-center justify-between mb-1">
-              <span class="text-xs" style="color:var(--txt)">${topic}</span>
-              <div class="flex items-center gap-2">
-                <span class="text-xs" style="color:var(--txt-2)">${s.correct}/${s.total}</span>
-                <span class="text-xs px-1.5 py-0.5 rounded-full font-medium" style="background:${badgeBg};color:${col}">${badge}</span>
+        ${sorted.map(([topic, s]) => {
+          const pct = Math.round((s.correct / s.total) * 100);
+          const col = pct >= 70 ? '#4ade80' : pct >= 50 ? '#fbbf24' : '#f87171';
+          const badge = pct >= 70 ? 'Stark' : pct >= 50 ? 'Üben' : 'Fokus';
+          return `
+            <div class="mb-3">
+              <div class="flex items-center justify-between mb-1">
+                <span class="text-xs" style="color:var(--txt)">${topic}</span>
+                <div class="flex items-center gap-2">
+                  <span class="text-xs" style="color:var(--txt-2)">${s.correct}/${s.total}</span>
+                  <span class="text-xs px-1.5 py-0.5 rounded-full font-medium" style="background:${col}22;color:${col}">${badge}</span>
+                </div>
               </div>
-            </div>
-            <div class="h-1.5 rounded-full" style="background:rgba(255,255,255,0.06)">
-              <div class="h-1.5 rounded-full transition-all" style="width:${pct}%;background:${col}"></div>
-            </div>
-          </div>`;
-      }).join('')}
-    `;
+              <div class="h-1.5 rounded-full" style="background:rgba(255,255,255,0.06)">
+                <div class="h-1.5 rounded-full transition-all" style="width:${pct}%;background:${col}"></div>
+              </div>
+            </div>`;
+        }).join('')}`;
+      return;
+    }
+
+    // Pro-Kurs-Aufschlüsselung — nur eingeschriebene Kurse
+    const courseBlocks = activeCourses.map((courseKey, ci) => {
+      const cs = courseStats[courseKey];
+      const entries = Object.entries(cs).filter(([, s]) => s.total > 0);
+      if (!entries.length) return '';
+      const sorted = [...entries].sort((a, b) => (a[1].correct / a[1].total) - (b[1].correct / b[1].total));
+      const totalQ = entries.reduce((s, [, v]) => s + v.total, 0);
+      const totalC = entries.reduce((s, [, v]) => s + v.correct, 0);
+      const overallPct = Math.round((totalC / totalQ) * 100);
+      const col = overallPct >= 70 ? '#4ade80' : overallPct >= 50 ? '#fbbf24' : '#f87171';
+      const course = window.getCourse?.(courseKey);
+      const icon = course?.icon || '📚';
+      const isLast = ci === activeCourses.length - 1;
+      return `
+        <div class="mb-4${isLast ? '' : ' pb-4'}"${isLast ? '' : ' style="border-bottom:1px solid var(--border)"'}>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-xs font-semibold" style="color:var(--txt)">${icon} ${course?.label || courseKey}</span>
+            <span class="text-sm font-bold" style="color:${col}">${overallPct}% <span class="text-xs font-normal" style="color:var(--txt-3)">${totalC}/${totalQ}</span></span>
+          </div>
+          ${sorted.map(([topic, s]) => {
+            const pct = Math.round((s.correct / s.total) * 100);
+            const c = pct >= 70 ? '#4ade80' : pct >= 50 ? '#fbbf24' : '#f87171';
+            const badge = pct >= 70 ? 'Stark' : pct >= 50 ? 'Üben' : 'Fokus';
+            return `
+              <div class="mb-2">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="text-xs" style="color:var(--txt)">${topic}</span>
+                  <div class="flex items-center gap-2">
+                    <span class="text-xs" style="color:var(--txt-2)">${s.correct}/${s.total}</span>
+                    <span class="text-xs px-1.5 py-0.5 rounded-full font-medium" style="background:${c}22;color:${c}">${badge}</span>
+                  </div>
+                </div>
+                <div class="h-1.5 rounded-full" style="background:rgba(255,255,255,0.06)">
+                  <div class="h-1.5 rounded-full transition-all" style="width:${pct}%;background:${c}"></div>
+                </div>
+              </div>`;
+          }).join('')}
+        </div>`;
+    });
+    el.innerHTML = courseBlocks.join('');
   }
 
   function _showMsg(section, text, isError) {

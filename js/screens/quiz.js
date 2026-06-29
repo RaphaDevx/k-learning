@@ -700,11 +700,23 @@ window.QuizScreen = (function() {
       quizResults[_dataVar][qId] = { correct, topic, ts: Date.now() };
       AppState.set('quizResults', quizResults);
 
+      // Flat stats (legacy — used by feed weak-topic algo)
       const stats = AppState.get('quizTopicStats') || {};
       if (!stats[topic]) stats[topic] = { correct: 0, total: 0 };
       stats[topic].total++;
       if (correct) stats[topic].correct++;
       AppState.set('quizTopicStats', stats);
+
+      // Course-keyed stats (for profile course cards)
+      const course = _quizMeta?.course;
+      if (course) {
+        const cs = AppState.get('quizCourseStats') || {};
+        if (!cs[course]) cs[course] = {};
+        if (!cs[course][topic]) cs[course][topic] = { correct: 0, total: 0 };
+        cs[course][topic].total++;
+        if (correct) cs[course][topic].correct++;
+        AppState.set('quizCourseStats', cs);
+      }
 
       if (window.Gamification) {
         if (correct) Gamification.addXP(5);

@@ -9,7 +9,7 @@ window.FeedScreen = (function() {
 
   // Queue state
   let _queue       = [];   // all fetched card objects
-  let _seenIds     = new Set(); // DB UUIDs seen this session (for exclude_ids)
+  let _seenIds     = new Set(JSON.parse(localStorage.getItem('feedSeenIds') || '[]'));
   let _currentIdx  = 0;   // index of card currently in view
   let _isFetching  = false;
   let _exhausted   = false; // no more videos to fetch
@@ -27,9 +27,14 @@ window.FeedScreen = (function() {
     await _fetchMore();
   }
 
+  function _saveSeenIds() {
+    const arr = [..._seenIds].slice(-500);
+    try { localStorage.setItem('feedSeenIds', JSON.stringify(arr)); } catch {}
+  }
+
   function _reset() {
     _queue      = [];
-    _seenIds    = new Set();
+    // _seenIds deliberately not cleared — persists across filter changes and page loads
     _currentIdx = 0;
     _isFetching = false;
     _exhausted  = false;
@@ -255,7 +260,7 @@ window.FeedScreen = (function() {
 
           // Mark as seen for next fetch's exclude list
           const dbId = card.dataset.dbId;
-          if (dbId) _seenIds.add(dbId);
+          if (dbId) { _seenIds.add(dbId); _saveSeenIds(); }
 
           _updatePreloadWindow();
 
