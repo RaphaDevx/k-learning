@@ -1,25 +1,49 @@
 // ── Feed Screen ───────────────────────────────────────────────────────────────
-// Instagram-style fullscreen video feed with Anki spaced repetition
+// Infinite scroll video feed with 5-video preload window + SM-2 algorithm
 
 window.FeedScreen = (function() {
-  let activeFilter = null;
-  let isLoading    = false;
-  let observer     = null;  // IntersectionObserver for autoplay
-  let isMuted      = true;  // Start muted (browser autoplay policy)
+  let _activeFilter = null;
+  let _isMuted      = true;
   let _enrolledKeys = [];
+  let _observer     = null;
+
+  // Queue state
+  let _queue       = [];   // all fetched card objects
+  let _seenIds     = new Set(); // DB UUIDs seen this session (for exclude_ids)
+  let _currentIdx  = 0;   // index of card currently in view
+  let _isFetching  = false;
+  let _exhausted   = false; // no more videos to fetch
+
+  const FETCH_LIMIT   = 15;
+  const PRELOAD_AHEAD = 2;  // preload current + 2 next
+  const FETCH_AHEAD   = 3;  // start next fetch when this many from end
+
+  // ── Init ──────────────────────────────────────────────────────────────────
 
   async function init() {
     _enrolledKeys = await CoursesDB.getEnrolledKeys();
     _renderFilterBar();
-    load();
+    _reset();
+    await _fetchMore();
   }
 
-  // ── Filter bar (dynamic, from enrolled courses) ───────────────────────────
+  function _reset() {
+    _queue      = [];
+    _seenIds    = new Set();
+    _currentIdx = 0;
+    _isFetching = false;
+    _exhausted  = false;
+    _destroyObserver();
+    const container = document.getElementById('feed-cards-container');
+    if (container) container.innerHTML = _loadingSpinner();
+  }
+
+  // ── Filter bar ────────────────────────────────────────────────────────────
 
   function _renderFilterBar() {
     const bar = document.getElementById('feed-filter-bar');
     if (!bar) return;
-    const catalog = window.COURSES_CONFIG || [];
+    const catalog  = window.COURSES_CONFIG || [];
     const enrolled = _enrolledKeys;
 
     const courseButtons = enrolled.map(key => {
@@ -36,45 +60,65 @@ window.FeedScreen = (function() {
       ${courseButtons}`;
   }
 
-  // ── Data loading ──────────────────────────────────────────────────────────
+  // ── Data fetching ─────────────────────────────────────────────────────────
 
-  async function load(course) {
-    if (isLoading) return;
-    isLoading = true;
-
-    _destroyObserver();
-
-    const container = document.getElementById('feed-cards-container');
-    if (!container) return;
-
-    container.innerHTML = _loadingSpinner();
+  async function _fetchMore() {
+    if (_isFetching || _exhausted) return;
+    _isFetching = true;
 
     try {
       const userId = await _getUserId();
-      let cards;
+      let newCards = [];
 
       if (userId) {
-        const { data, error } = await window.supabaseClient
-          .rpc('get_user_feed', { p_user_id: userId, p_course: course || null, p_limit: 30 });
+        const excludeIds = [..._seenIds].filter(id => id && id.length > 10);
+        const { data, error } = await window.supabaseClient.rpc('get_user_feed', {
+          p_user_id:    userId,
+          p_course:     _activeFilter || null,
+          p_limit:      FETCH_LIMIT,
+          p_exclude_ids: excludeIds.length ? excludeIds : null
+        });
         if (error) throw error;
-        cards = data;
+        newCards = data || [];
       } else {
-        cards = _staticFallback(course);
+        newCards = _staticFallback(_activeFilter);
       }
 
-      cachedCards = cards || [];
-      // Filter to enrolled courses only (when showing 'all')
-      if (!course || course === 'all') {
-        cachedCards = cachedCards.filter(c => !c.course || _enrolledKeys.includes(c.course));
+      // Filter to enrolled courses
+      if (!_activeFilter || _activeFilter === 'all') {
+        newCards = newCards.filter(c => !c.course || _enrolledKeys.includes(c.course));
       }
-      _render(cachedCards);
 
+      // Remove any we've already queued (safety dedup)
+      const existing = new Set(_queue.map(c => c.id));
+      newCards = newCards.filter(c => !existing.has(c.id));
+
+      if (!newCards.length) {
+        _exhausted = true;
+      } else {
+        const startIdx = _queue.length;
+        _queue.push(...newCards);
+        _appendCards(newCards, startIdx);
+        if (_queue.length === newCards.length) {
+          // First load: init observer after DOM is ready
+          _initObserver();
+          _updatePreloadWindow();
+          _updateFilterButtons();
+        }
+      }
     } catch (err) {
-      console.warn('Feed load error, fallback:', err);
-      _render(_staticFallback(course));
+      console.warn('Feed fetch error, using fallback:', err);
+      if (!_queue.length) {
+        const fallback = _staticFallback(_activeFilter);
+        _queue.push(...fallback);
+        _appendCards(fallback, 0);
+        _initObserver();
+        _updatePreloadWindow();
+        _updateFilterButtons();
+      }
     }
 
-    isLoading = false;
+    _isFetching = false;
   }
 
   function _staticFallback(course) {
@@ -84,63 +128,57 @@ window.FeedScreen = (function() {
     } else {
       cards = cards.filter(c => !c.course || _enrolledKeys.includes(c.course));
     }
+    // Exclude already seen
+    cards = cards.filter(c => !_seenIds.has(c.id));
     return cards.filter(c => c.type === 'localvideo');
   }
 
-  async function _getUserId() {
-    try {
-      const { data } = await window.supabaseClient.auth.getUser();
-      return data?.user?.id || null;
-    } catch { return null; }
-  }
+  // ── DOM rendering ─────────────────────────────────────────────────────────
 
-  // ── Rendering ─────────────────────────────────────────────────────────────
-
-  function _render(cards) {
+  function _appendCards(cards, startIdx) {
     const container = document.getElementById('feed-cards-container');
     if (!container) return;
 
-    if (!cards.length) {
-      container.innerHTML = `<div class="feed-card" style="display:flex;align-items:center;justify-content:center;flex-direction:column;gap:1rem;">
-        <div style="font-size:3rem">⚡</div>
-        <p style="color:#9ca3af">Keine Videos.</p></div>`;
-      return;
-    }
+    if (startIdx === 0) container.innerHTML = '';
 
-    container.innerHTML = cards.map((c, i) => _renderVideoCard(c, i)).join('');
-    _updateFilterButtons();
-    _initAutoplay();
+    const html = cards.map((c, i) => _renderVideoCard(c, startIdx + i)).join('');
+    container.insertAdjacentHTML('beforeend', html);
+
+    // Observe newly added cards
+    if (_observer) {
+      cards.forEach((_, i) => {
+        const el = document.getElementById(`feed-${startIdx + i}`);
+        if (el) _observer.observe(el);
+      });
+    }
   }
 
   function _renderVideoCard(card, index) {
-    const id       = card.slug || card.id;
-    const src      = card.hls_src || card.video_src;
-    const isHLS    = src && src.endsWith('.m3u8');
-    const label    = id.includes('nlm') ? '🎬 NotebookLM AI' : '📹 Short Video';
-    const color    = card.course_color || card.courseColor || '#7c3aed';
-    const dbId     = card.id || '';
+    const id    = card.slug || card.id;
+    const src   = card.hls_src || card.video_src;
+    const isHLS = src && src.endsWith('.m3u8');
+    const label = id.includes('nlm') ? '🎬 NotebookLM AI' : '📹 Short Video';
+    const color = card.course_color || card.courseColor || '#7c3aed';
+    const dbId  = card.id || '';
 
     return `
-    <div class="feed-card feed-card-video" id="feed-${index}" data-slug="${id}" data-db-id="${dbId}">
+    <div class="feed-card feed-card-video" id="feed-${index}" data-slug="${id}" data-db-id="${dbId}" data-idx="${index}">
       <div class="feed-card-inner" style="background:#000;">
 
-        <!-- Video -->
         <video
           id="vid-${id}"
           style="display:block;background:#000;"
-          muted loop playsinline preload="auto"
+          muted loop playsinline preload="none"
           onplay="FeedScreen.onPlay('${id}','${dbId}')"
         >
           <source src="${src}" type="${isHLS ? 'application/x-mpegURL' : 'video/mp4'}">
         </video>
 
-        <!-- Tap layer: click to pause / resume -->
         <div onclick="FeedScreen.tapCard('${id}')"
           style="position:absolute;inset:0;z-index:5;cursor:pointer;background:transparent;">
           <div id="tap-ind-${id}" class="feed-tap-indicator"></div>
         </div>
 
-        <!-- Mute toggle -->
         <button id="mute-${id}" onclick="FeedScreen.toggleMute('${id}')"
           style="position:absolute;top:4rem;right:1rem;z-index:20;
                  width:40px;height:40px;border-radius:50%;border:none;
@@ -150,20 +188,19 @@ window.FeedScreen = (function() {
           🔇
         </button>
 
-        <!-- Info overlay -->
         <div style="position:absolute;bottom:0;left:0;right:0;z-index:10;
           background:linear-gradient(to top,rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.5) 55%,transparent 100%);
           padding:5rem 1rem 1.5rem;pointer-events:none;">
 
           <div class="flex items-center gap-2 mb-1.5">
             <span class="text-xs font-bold px-2 py-0.5 rounded-full text-white"
-              style="background:${color}66;border:1px solid ${color}99">${card.course}</span>
+              style="background:${color}66;border:1px solid ${color}99">${card.course || ''}</span>
             <span class="text-xs text-white px-2 py-0.5 rounded-full"
               style="background:rgba(255,255,255,0.15)">${label}</span>
             <span class="text-xs text-gray-300 ml-auto">${card.duration || ''}</span>
           </div>
 
-          <h2 class="text-sm font-bold text-white leading-tight mb-0.5">${card.title}</h2>
+          <h2 class="text-sm font-bold text-white leading-tight mb-0.5">${card.title || ''}</h2>
           <p class="text-xs mb-3" style="color:${color}dd">${card.subtitle || ''}</p>
 
           <div class="flex gap-2" style="pointer-events:auto">
@@ -184,53 +221,88 @@ window.FeedScreen = (function() {
     </div>`;
   }
 
-  // ── Autoplay via IntersectionObserver ─────────────────────────────────────
+  // ── Preload window management ─────────────────────────────────────────────
 
-  function _initAutoplay() {
+  function _updatePreloadWindow() {
+    _queue.forEach((card, i) => {
+      const id  = card.slug || card.id;
+      const vid = document.getElementById('vid-' + id);
+      if (!vid) return;
+      const inWindow = i >= _currentIdx && i <= _currentIdx + PRELOAD_AHEAD;
+      vid.preload = inWindow ? 'auto' : 'none';
+    });
+  }
+
+  // ── IntersectionObserver ──────────────────────────────────────────────────
+
+  function _initObserver() {
     _destroyObserver();
 
-    observer = new IntersectionObserver((entries) => {
+    _observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const card = entry.target;
         const slug = card.dataset.slug;
+        const idx  = parseInt(card.dataset.idx, 10);
         const vid  = document.getElementById('vid-' + slug);
         if (!vid) return;
 
         if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
-          vid.muted = isMuted;
+          _currentIdx = idx;
+          vid.muted = _isMuted;
           vid.play().catch(() => { vid.muted = true; vid.play(); });
+
+          // Mark as seen for next fetch's exclude list
+          const dbId = card.dataset.dbId;
+          if (dbId) _seenIds.add(dbId);
+
+          _updatePreloadWindow();
+
+          // Trigger next fetch when approaching end
+          if (_currentIdx >= _queue.length - FETCH_AHEAD) {
+            _fetchMore();
+          }
         } else {
           vid.pause();
         }
       });
-    }, {
-      threshold: 0.6  // 60% des Videos muss sichtbar sein → autoplay
-    });
+    }, { threshold: 0.6 });
 
-    document.querySelectorAll('.feed-card-video').forEach(card => {
-      observer.observe(card);
-    });
+    document.querySelectorAll('.feed-card-video').forEach(el => _observer.observe(el));
   }
 
   function _destroyObserver() {
-    if (observer) { observer.disconnect(); observer = null; }
+    if (_observer) { _observer.disconnect(); _observer = null; }
   }
 
-  // ── Mute Toggle ───────────────────────────────────────────────────────────
+  // ── Filter ────────────────────────────────────────────────────────────────
+
+  function render(filter) {
+    _activeFilter = (filter === 'all' || !filter) ? null : filter;
+    _reset();
+    _fetchMore();
+  }
+
+  function _updateFilterButtons() {
+    document.querySelectorAll('.feed-filter-btn').forEach(btn => {
+      const isActive = (btn.dataset.filter === 'all' && !_activeFilter)
+                    || btn.dataset.filter === _activeFilter;
+      btn.classList.toggle('bg-blue-600',   isActive);
+      btn.classList.toggle('text-white',    isActive);
+      btn.classList.toggle('bg-gray-700',  !isActive);
+      btn.classList.toggle('text-gray-300', !isActive);
+    });
+  }
+
+  // ── Mute ──────────────────────────────────────────────────────────────────
 
   function toggleMute(slug) {
-    isMuted = !isMuted;
-    // Alle aktuell spielenden Videos updaten
+    _isMuted = !_isMuted;
     document.querySelectorAll('.feed-card-video').forEach(card => {
       const vid = document.getElementById('vid-' + card.dataset.slug);
-      if (vid) vid.muted = isMuted;
+      if (vid) vid.muted = _isMuted;
     });
-    // Icon tauschen
-    const btn = document.getElementById('mute-' + slug);
-    if (btn) btn.textContent = isMuted ? '🔇' : '🔊';
-    // Alle anderen Mute-Buttons auch updaten
     document.querySelectorAll('[id^="mute-"]').forEach(b => {
-      b.textContent = isMuted ? '🔇' : '🔊';
+      b.textContent = _isMuted ? '🔇' : '🔊';
     });
   }
 
@@ -266,40 +338,12 @@ window.FeedScreen = (function() {
       AppState.set('feedProgress', prog);
     }
 
-    // Kurzes visuelles Feedback
     const card = document.querySelector(`[data-slug="${slug}"]`);
     if (card) {
       card.style.transition = 'opacity 0.15s';
       card.style.opacity = '0.5';
       setTimeout(() => { card.style.opacity = '1'; }, 200);
     }
-  }
-
-  // ── Filter ────────────────────────────────────────────────────────────────
-
-  function render(filter) {
-    activeFilter = (filter === 'all' || !filter) ? null : filter;
-    load(activeFilter);
-  }
-
-  function _updateFilterButtons() {
-    document.querySelectorAll('.feed-filter-btn').forEach(btn => {
-      const isActive = (btn.dataset.filter === 'all' && !activeFilter)
-                    || btn.dataset.filter === activeFilter;
-      btn.classList.toggle('bg-blue-600', isActive);
-      btn.classList.toggle('text-white',  isActive);
-      btn.classList.toggle('bg-gray-700', !isActive);
-      btn.classList.toggle('text-gray-300', !isActive);
-    });
-  }
-
-  // ── Helpers ───────────────────────────────────────────────────────────────
-
-  function _loadingSpinner() {
-    return `<div class="feed-card" style="display:flex;align-items:center;justify-content:center;">
-      <div style="width:40px;height:40px;border:3px solid rgba(255,255,255,0.2);
-                  border-top-color:white;border-radius:50%;animation:spin 0.8s linear infinite"></div>
-    </div>`;
   }
 
   // ── Tap to pause / resume ─────────────────────────────────────────────────
@@ -325,7 +369,24 @@ window.FeedScreen = (function() {
     el._t = setTimeout(() => { el.style.opacity = '0'; }, 700);
   }
 
+  // ── Helpers ───────────────────────────────────────────────────────────────
+
+  async function _getUserId() {
+    try {
+      const { data } = await window.supabaseClient.auth.getUser();
+      return data?.user?.id || null;
+    } catch { return null; }
+  }
+
+  function _loadingSpinner() {
+    return `<div class="feed-card" style="display:flex;align-items:center;justify-content:center;">
+      <div style="width:40px;height:40px;border:3px solid rgba(255,255,255,0.2);
+                  border-top-color:white;border-radius:50%;animation:spin 0.8s linear infinite"></div>
+    </div>`;
+  }
+
   // Legacy compat
+  function load(course) { render(course); }
   function toggleRecall(id) { const el = document.getElementById(id); if (el) el.classList.toggle('open'); }
   function trackVideoOpen(id) { onPlay(id, ''); }
   function togglePlay(videoId) { tapCard(videoId); }
