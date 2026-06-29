@@ -64,6 +64,7 @@ window.ReportSystem = (function() {
         card_course: snap.course,
         status:      'new',
       });
+      _reportedSets = null; // Cache invalidieren → nächste Abfrage lädt frisch
     } catch(e) { console.warn('ReportSystem.submit:', e); }
   }
 
@@ -92,5 +93,33 @@ window.ReportSystem = (function() {
       title="Inhalt melden">⋮</button>`;
   }
 
-  return { open, close, selectReason, submit, dotsBtnDark, dotsBtnCard };
+  // ── Gemeldete IDs (session-gecacht, invalidiert nach Submit) ──────────────
+  let _reportedSets = null; // { flashcard: Set, lernset: Set, video: Set }
+
+  async function _fetchAllReported() {
+    if (_reportedSets) return _reportedSets;
+    try {
+      const { data: { user } } = await window.supabaseClient.auth.getUser();
+      if (!user) { _reportedSets = {}; return _reportedSets; }
+      const { data } = await window.supabaseClient
+        .from('card_reports')
+        .select('card_id, card_type')
+        .eq('user_id', user.id)
+        .in('status', ['new', 'reviewed']);
+      _reportedSets = {};
+      (data || []).forEach(r => {
+        if (!_reportedSets[r.card_type]) _reportedSets[r.card_type] = new Set();
+        _reportedSets[r.card_type].add(r.card_id);
+      });
+    } catch { _reportedSets = {}; }
+    return _reportedSets;
+  }
+
+  // Gibt ein Set mit gemeldeten IDs für den angegebenen Typ zurück
+  async function getReportedIds(type) {
+    const sets = await _fetchAllReported();
+    return sets[type] || new Set();
+  }
+
+  return { open, close, selectReason, submit, dotsBtnDark, dotsBtnCard, getReportedIds };
 })();

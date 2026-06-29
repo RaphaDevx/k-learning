@@ -71,7 +71,8 @@ window.FeedScreen = (function() {
       let newCards = [];
 
       if (userId) {
-        const excludeIds = [..._seenIds].filter(id => id && id.length > 10);
+        const reportedIds = await (window.ReportSystem?.getReportedIds('video') ?? Promise.resolve(new Set()));
+        const excludeIds = [..._seenIds, ...reportedIds].filter(id => id && id.length > 10);
         const { data, error } = await window.supabaseClient.rpc('get_user_feed', {
           p_user_id:    userId,
           p_course:     _activeFilter || null,

@@ -104,16 +104,18 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
         '<p class="text-center py-10 text-sm" style="color:var(--txt-3)">Karten werden geladen…</p>';
     }
 
-    const [, enrolledKeys] = await Promise.all([
+    const [, enrolledKeys, reportedIds] = await Promise.all([
       _ensureCardsLoaded(),
       CoursesDB.getEnrolledKeys(),
+      window.ReportSystem?.getReportedIds('flashcard') ?? Promise.resolve(new Set()),
     ]);
 
-    // Only show cards from enrolled courses
+    // Only show cards from enrolled courses, hide user-reported ones until resolved
     const enrolled = enrolledKeys.length > 0 ? enrolledKeys : null;
-    allCards = enrolled
+    allCards = (enrolled
       ? (window.FLASHCARD_DATA || []).filter(c => enrolled.includes(c.course))
-      : (window.FLASHCARD_DATA || []);
+      : (window.FLASHCARD_DATA || [])
+    ).filter(c => !reportedIds.has(c.id));
 
     _renderFilterButtons(enrolled || []);
     updateAllCount();

@@ -46,9 +46,11 @@ window.LernsetScreen = (function () {
     activeTopic  = topic  || null;
     _sessionKey  = `${activeCourse || 'all'}::${activeTopic || '_all'}`;
 
+    const reportedIds = await (window.ReportSystem?.getReportedIds('lernset') ?? Promise.resolve(new Set()));
     const pool = allItems
       .filter(c => !activeCourse || c.course === activeCourse)
-      .filter(c => !activeTopic  || c.topic  === activeTopic);
+      .filter(c => !activeTopic  || c.topic  === activeTopic)
+      .filter(c => !reportedIds.has(c.id));
 
     document.getElementById('lernset-overlay')?.classList.remove('hidden');
     document.body.style.overflow = 'hidden';
