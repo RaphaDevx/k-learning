@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>K-Learning Admin</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0f1117;
+      --surface: #1a1d27;
+      --card:    #1e2130;
+      --border:  #2a2d3e;
+      --txt:     #e2e4ef;
+      --txt-2:   #8b8fa8;
+      --txt-3:   #4a4e6a;
+      --accent:  #6366f1;
+    }
+
+    body { background: var(--bg); color: var(--txt); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; min-height: 100vh; }
+
+    #auth-wall { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; gap: 1rem; }
+    #auth-wall h1 { font-size: 1.5rem; color: var(--txt); }
+    #auth-wall p  { color: var(--txt-2); text-align: center; max-width: 320px; }
+    #auth-wall a  { color: var(--accent); text-decoration: none; }
+
+    header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 1rem 1.5rem; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 10; }
+    header h1 { font-size: 1.1rem; font-weight: 700; }
+    header span { color: var(--txt-2); font-size: 0.8rem; }
+
+    .toolbar { padding: 1rem 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; background: var(--surface); border-bottom: 1px solid var(--border); }
+    .filter-btn { padding: 0.4rem 0.9rem; border-radius: 999px; border: 1px solid var(--border); background: var(--card); color: var(--txt-2); cursor: pointer; font-size: 0.78rem; transition: all 0.15s; }
+    .filter-btn.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .count-badge { background: rgba(99,102,241,0.2); color: #818cf8; border-radius: 999px; padding: 0.25rem 0.6rem; font-size: 0.75rem; font-weight: 700; margin-left: auto; }
+
+    main { padding: 1.5rem; max-width: 1100px; margin: 0 auto; }
+
+    #empty { display: none; text-align: center; padding: 4rem; color: var(--txt-2); }
+    #empty .icon { font-size: 3rem; margin-bottom: 0.75rem; }
+
+    .report-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 0.75rem; display: grid; grid-template-columns: auto 1fr auto; gap: 0.75rem 1rem; align-items: start; }
+    .report-card.status-reviewed { border-left: 3px solid #10b981; }
+    .report-card.status-fixed    { border-left: 3px solid #3b82f6; opacity: 0.55; }
+
+    .type-badge { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.25rem 0.6rem; border-radius: 999px; font-size: 0.72rem; font-weight: 700; white-space: nowrap; }
+    .type-flashcard { background: rgba(139,92,246,0.2); color: #a78bfa; }
+    .type-lernset   { background: rgba(16,185,129,0.2); color: #34d399; }
+    .type-video     { background: rgba(239,68,68,0.2);  color: #f87171; }
+
+    .status-badge { display: inline-block; padding: 0.2rem 0.55rem; border-radius: 999px; font-size: 0.7rem; font-weight: 700; }
+    .status-new      { background: rgba(251,146,60,0.2); color: #fb923c; }
+    .status-reviewed { background: rgba(16,185,129,0.2); color: #34d399; }
+    .status-fixed    { background: rgba(59,130,246,0.2); color: #60a5fa; }
+
+    .reason-pill { background: rgba(255,255,255,0.06); border-radius: 6px; padding: 0.2rem 0.5rem; font-size: 0.72rem; color: var(--txt-2); }
+
+    .preview   { color: var(--txt); font-size: 0.85rem; line-height: 1.5; margin: 0.25rem 0; }
+    .note-text { color: var(--txt-2); font-size: 0.8rem; font-style: italic; margin-top: 0.25rem; }
+    .meta      { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; margin-top: 0.4rem; }
+    .meta span { font-size: 0.72rem; color: var(--txt-3); }
+
+    .actions { display: flex; flex-direction: column; gap: 0.4rem; }
+    .action-btn { padding: 0.35rem 0.7rem; border-radius: 8px; border: 1px solid var(--border); background: transparent; color: var(--txt-2); cursor: pointer; font-size: 0.75rem; white-space: nowrap; transition: all 0.15s; }
+    .action-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .action-btn.green:hover { background: #10b981; border-color: #10b981; }
+    .action-btn.blue:hover  { background: #3b82f6; border-color: #3b82f6; }
+
+    .col-badge { display: flex; flex-direction: column; gap: 0.4rem; align-items: flex-start; padding-top: 0.1rem; }
+
+    #spinner { text-align: center; padding: 3rem; color: var(--txt-2); }
+  </style>
+</head>
+<body>
+
+<!-- Auth wall (shown until logged in as admin) -->
+<div id="auth-wall" style="display:none">
+  <div style="font-size:2.5rem">🔐</div>
+  <h1>K-Learning Admin</h1>
+  <p>Bitte zuerst in der App einloggen, dann diese Seite neu laden.</p>
+  <a href="/">← Zur App</a>
+</div>
+
+<!-- Admin UI -->
+<div id="admin-ui" style="display:none">
+  <header>
+    <h1>🛠 Admin — Inhaltsmeldungen</h1>
+    <span id="last-updated"></span>
+  </header>
+
+  <div class="toolbar">
+    <button class="filter-btn active" data-filter="all"      onclick="setFilter('all',this)">Alle</button>
+    <button class="filter-btn"        data-filter="new"      onclick="setFilter('new',this)">🔴 Neu</button>
+    <button class="filter-btn"        data-filter="reviewed" onclick="setFilter('reviewed',this)">🟡 Gesehen</button>
+    <button class="filter-btn"        data-filter="fixed"    onclick="setFilter('fixed',this)">🟢 Behoben</button>
+    <span class="count-badge" id="count-badge">0 Reports</span>
+  </div>
+
+  <main>
+    <div id="spinner">Lade Reports…</div>
+    <div id="empty">
+      <div class="icon">✅</div>
+      <div>Keine Meldungen in dieser Kategorie.</div>
+    </div>
+    <div id="reports-list"></div>
+  </main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+<script src="js/auth.js"></script>
+<script>
+const ADMIN_UID = '1a834dc1-1c0e-4d4f-ac50-e790deb8f8c7';
+const sb = window.supabaseClient;
+
+let _allReports = [];
+let _filter = 'all';
+
+async function init() {
+  const { data: { user } } = await sb.auth.getUser();
+  if (!user || user.id !== ADMIN_UID) {
+    document.getElementById('auth-wall').style.display = 'flex';
+    return;
+  }
+  document.getElementById('admin-ui').style.display = 'block';
+  await loadReports();
+}
+
+async function loadReports() {
+  const { data, error } = await sb
+    .from('card_reports')
+    .select('*')
+    .order('created_at', { ascending: false });
+
+  if (error) { console.error(error); return; }
+  _allReports = data || [];
+  document.getElementById('last-updated').textContent = 'Stand: ' + new Date().toLocaleTimeString('de-CH');
+  renderReports();
+}
+
+function setFilter(f, btn) {
+  _filter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderReports();
+}
+
+function renderReports() {
+  const list = document.getElementById('reports-list');
+  const empty = document.getElementById('empty');
+  const spinner = document.getElementById('spinner');
+  spinner.style.display = 'none';
+
+  const filtered = _filter === 'all'
+    ? _allReports
+    : _allReports.filter(r => r.status === _filter);
+
+  document.getElementById('count-badge').textContent = `${filtered.length} Report${filtered.length !== 1 ? 's' : ''}`;
+
+  if (!filtered.length) {
+    list.innerHTML = '';
+    empty.style.display = 'block';
+    return;
+  }
+  empty.style.display = 'none';
+  list.innerHTML = filtered.map(r => reportCard(r)).join('');
+}
+
+function reportCard(r) {
+  const date = new Date(r.created_at).toLocaleDateString('de-CH', { day: '2-digit', month: '2-digit', year: '2-digit', hour: '2-digit', minute: '2-digit' });
+  const typeClass = `type-${r.card_type || 'flashcard'}`;
+  const typeLabel = { flashcard: '🃏 Lernkarte', lernset: '🎯 Übung', video: '🎬 Video' }[r.card_type] || r.card_type;
+  const reasonLabel = { wrong_content: 'Inhaltlich falsch', typo: 'Tippfehler', wrong_category: 'Falsches Thema', other: 'Sonstiges' }[r.reason] || r.reason;
+  const statusClass = `status-${r.status || 'new'}`;
+  const statusLabel = { new: '🔴 Neu', reviewed: '🟡 Gesehen', fixed: '🟢 Behoben' }[r.status] || r.status;
+
+  const safePreview = (r.card_front || '—').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  const safeNote    = r.note ? r.note.replace(/</g,'&lt;').replace(/>/g,'&gt;') : null;
+  const safeBack    = r.card_back ? r.card_back.replace(/</g,'&lt;').replace(/>/g,'&gt;') : null;
+
+  const studioUrl = `https://supabase.com/dashboard/project/ifmwcgwfvunjbnfwwbtr/editor`;
+
+  return `
+  <div class="report-card ${statusClass}" id="rc-${r.id}">
+    <div class="col-badge">
+      <span class="type-badge ${typeClass}">${typeLabel}</span>
+      <span class="status-badge ${statusClass}">${statusLabel}</span>
+    </div>
+    <div>
+      <div style="display:flex;gap:0.5rem;align-items:center;flex-wrap:wrap;margin-bottom:0.35rem">
+        <span class="reason-pill">${reasonLabel}</span>
+        ${r.card_course ? `<span class="reason-pill">${r.card_course}</span>` : ''}
+        ${r.card_topic  ? `<span class="reason-pill" title="${r.card_topic}">${r.card_topic.slice(0,30)}</span>` : ''}
+      </div>
+      <div class="preview">${safePreview}</div>
+      ${safeBack  ? `<div class="note-text">↳ ${safeBack.slice(0,120)}</div>` : ''}
+      ${safeNote  ? `<div class="note-text">💬 "${safeNote}"</div>` : ''}
+      <div class="meta">
+        <span>🕐 ${date}</span>
+        <span>ID: ${(r.card_id||'').slice(0,8)}…</span>
+      </div>
+    </div>
+    <div class="actions">
+      <button class="action-btn green" onclick="setStatus('${r.id}','reviewed')">✓ Gesehen</button>
+      <button class="action-btn blue"  onclick="setStatus('${r.id}','fixed')">✔ Behoben</button>
+      <button class="action-btn"       onclick="setStatus('${r.id}','new')">↩ Neu</button>
+      <a href="${studioUrl}" target="_blank" style="text-decoration:none">
+        <button class="action-btn" style="width:100%">↗ Studio</button>
+      </a>
+    </div>
+  </div>`;
+}
+
+async function setStatus(id, status) {
+  const { error } = await sb.from('card_reports')
+    .update({ status, reviewed_at: status !== 'new' ? new Date().toISOString() : null })
+    .eq('id', id);
+  if (error) { console.error(error); return; }
+  const r = _allReports.find(x => x.id === id);
+  if (r) {
+    r.status = status;
+    r.reviewed_at = status !== 'new' ? new Date().toISOString() : null;
+  }
+  renderReports();
+}
+
+init();
+</script>
+</body>
+</html>

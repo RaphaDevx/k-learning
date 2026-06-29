@@ -192,7 +192,11 @@ window.LernsetScreen = (function () {
           <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>Themen
         </button>
         <div id="lns-deck-title" class="font-semibold text-sm truncate max-w-[160px]" style="color:var(--txt)"></div>
-        <div class="w-16"></div>
+        <button onclick="LernsetScreen.openReport()"
+          style="width:32px;height:32px;border-radius:50%;border:none;cursor:pointer;flex-shrink:0;
+                 display:flex;align-items:center;justify-content:center;
+                 background:var(--card-raised);color:var(--txt-3);font-size:1.1rem"
+          title="Übung melden">⋮</button>
       </div>
 
       <div class="flex-1 overflow-y-auto">
@@ -450,6 +454,15 @@ window.LernsetScreen = (function () {
     if (el) el.textContent = text;
   }
 
+  function openReport() {
+    const item = filteredItems[currentIndex];
+    if (!item) return;
+    window.ReportSystem?.open(item.id, 'lernset', item.prompt || item.question || item.id, {
+      course: item.course,
+      topic:  item.topic,
+    });
+  }
+
   // ══════════════════════════════════════════════════════════
   // PUBLIC API
   // ══════════════════════════════════════════════════════════
@@ -459,6 +472,7 @@ window.LernsetScreen = (function () {
     startDeck,
     close,
     handleAction,
+    openReport,
     _resumeSaved,
     _restartSaved,
     _closeResumePrompt,

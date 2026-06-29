@@ -179,14 +179,16 @@ window.FeedScreen = (function() {
           <div id="tap-ind-${id}" class="feed-tap-indicator"></div>
         </div>
 
-        <button id="mute-${id}" onclick="FeedScreen.toggleMute('${id}')"
-          style="position:absolute;top:4rem;right:1rem;z-index:20;
-                 width:40px;height:40px;border-radius:50%;border:none;
-                 background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);
-                 color:white;font-size:1.1rem;cursor:pointer;display:flex;
-                 align-items:center;justify-content:center;">
-          🔇
-        </button>
+        <div style="position:absolute;top:4rem;right:1rem;z-index:20;display:flex;flex-direction:column;gap:0.5rem;align-items:center">
+          <button id="mute-${id}" onclick="FeedScreen.toggleMute('${id}')"
+            style="width:40px;height:40px;border-radius:50%;border:none;
+                   background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);
+                   color:white;font-size:1.1rem;cursor:pointer;display:flex;
+                   align-items:center;justify-content:center;">
+            🔇
+          </button>
+          ${window.ReportSystem?.dotsBtnDark(id, 'video', card.title || id, { course: card.course || '', topic: (card.topics||[]).join(', ') }) || ''}
+        </div>
 
         <div style="position:absolute;bottom:0;left:0;right:0;z-index:10;
           background:linear-gradient(to top,rgba(0,0,0,0.9) 0%,rgba(0,0,0,0.5) 55%,transparent 100%);

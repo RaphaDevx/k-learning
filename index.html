@@ -61,6 +61,7 @@
   <script src="js/ai-service.js"></script>
   <script src="js/state.js"></script>
   <script src="js/gamification.js"></script>
+  <script src="js/report-system.js"></script>
   <script src="js/lernset-engine.js"></script>
   <script src="js/tab-router.js"></script>
   <script src="js/router.js"></script>
@@ -1178,27 +1179,36 @@
   })();
 </script>
 
-<!-- ── Card Report Modal ───────────────────────────────────────────── -->
-<div id="fc-report-modal" class="hidden fixed inset-0 flex items-end justify-center z-[9999]" style="background:rgba(0,0,0,0.6);backdrop-filter:blur(4px)" onclick="if(event.target===this)FlashcardsScreen.closeReportModal()">
+<!-- ── Unified Report Modal ─────────────────────────────────────────── -->
+<div id="report-modal" class="hidden fixed inset-0 flex items-end justify-center z-[9999]"
+     style="background:rgba(0,0,0,0.6);backdrop-filter:blur(4px)"
+     onclick="if(event.target===this)ReportSystem.close()">
   <div class="w-full max-w-lg rounded-t-3xl p-6 pb-8" style="background:var(--surface);border-top:1px solid var(--border)">
-    <div class="flex items-center justify-between mb-5">
-      <span class="text-base font-semibold" style="color:var(--txt-1)">Karte melden</span>
-      <button onclick="FlashcardsScreen.closeReportModal()" class="w-7 h-7 rounded-full flex items-center justify-center text-sm" style="background:var(--card-raised);color:var(--txt-3)">✕</button>
+    <div class="flex items-center justify-between mb-4">
+      <span id="report-modal-title" class="text-base font-semibold" style="color:var(--txt-1)">Inhalt melden</span>
+      <button onclick="ReportSystem.close()" class="w-7 h-7 rounded-full flex items-center justify-center text-sm" style="background:var(--card-raised);color:var(--txt-3)">✕</button>
     </div>
-    <p class="text-xs mb-4" style="color:var(--txt-3)" id="fc-report-card-preview"></p>
-    <div class="space-y-2 mb-4" id="fc-report-reasons">
-      <button onclick="FlashcardsScreen.selectReportReason(this,'wrong_content')" class="fc-report-reason w-full text-left px-4 py-3 rounded-xl text-sm transition" style="background:var(--card-raised);color:var(--txt-1);border:2px solid transparent">
+    <p id="report-item-preview" class="text-xs mb-4 leading-relaxed" style="color:var(--txt-3)"></p>
+    <div class="space-y-2 mb-4">
+      <button onclick="ReportSystem.selectReason(this,'wrong_content')" class="report-reason-btn w-full text-left px-4 py-3 rounded-xl text-sm" style="background:var(--card-raised);color:var(--txt-1);border:2px solid transparent">
         Inhaltlich falsch
       </button>
-      <button onclick="FlashcardsScreen.selectReportReason(this,'wrong_category')" class="fc-report-reason w-full text-left px-4 py-3 rounded-xl text-sm transition" style="background:var(--card-raised);color:var(--txt-1);border:2px solid transparent">
-        Falsche Kategorie / Thema
+      <button onclick="ReportSystem.selectReason(this,'typo')" class="report-reason-btn w-full text-left px-4 py-3 rounded-xl text-sm" style="background:var(--card-raised);color:var(--txt-1);border:2px solid transparent">
+        Tippfehler / Formatierung
       </button>
-      <button onclick="FlashcardsScreen.selectReportReason(this,'other')" class="fc-report-reason w-full text-left px-4 py-3 rounded-xl text-sm transition" style="background:var(--card-raised);color:var(--txt-1);border:2px solid transparent">
+      <button onclick="ReportSystem.selectReason(this,'wrong_category')" class="report-reason-btn w-full text-left px-4 py-3 rounded-xl text-sm" style="background:var(--card-raised);color:var(--txt-1);border:2px solid transparent">
+        Falsches Thema / Kategorie
+      </button>
+      <button onclick="ReportSystem.selectReason(this,'other')" class="report-reason-btn w-full text-left px-4 py-3 rounded-xl text-sm" style="background:var(--card-raised);color:var(--txt-1);border:2px solid transparent">
         Sonstiges
       </button>
     </div>
-    <textarea id="fc-report-note" rows="2" placeholder="Optionale Anmerkung…" class="w-full rounded-xl px-4 py-3 text-sm mb-4 resize-none" style="background:var(--card-raised);color:var(--txt-1);border:1px solid var(--border);outline:none"></textarea>
-    <button onclick="FlashcardsScreen.submitReport()" id="fc-report-submit" class="w-full py-3 rounded-xl font-semibold text-sm transition opacity-40 pointer-events-none" style="background:var(--accent);color:#fff">Melden &amp; Karte überspringen</button>
+    <textarea id="report-note" rows="2" placeholder="Beschreibe den Fehler genauer… (optional)"
+      class="w-full rounded-xl px-4 py-3 text-sm mb-4 resize-none"
+      style="background:var(--card-raised);color:var(--txt-1);border:1px solid var(--border);outline:none"></textarea>
+    <button onclick="ReportSystem.submit()" id="report-submit"
+      class="w-full py-3 rounded-xl font-semibold text-sm opacity-40 pointer-events-none"
+      style="background:#ef4444;color:#fff">Melden</button>
   </div>
 </div>
 
