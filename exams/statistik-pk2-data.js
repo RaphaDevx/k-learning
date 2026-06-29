@@ -10,7 +10,7 @@ window.EXAM_DATA_STATISTIK_PK2 = {
     duration: '90 Minuten',
     format: 'Single Choice (Teil I) + Multiple Choice (Teil II)',
     allowed_aids: 'Formelsammlung (wird ausgeteilt)',
-    grading: 'Note 6.0: ≥85%, Note 5.5: ≥75%, Note 5.0: ≥65%, Note 4.5: ≥55%, Note 4.0: ≥45%, Note 3.5: ≥35%, Note 3.0: ≥25%'
+    grading: 'Echte FS26-Kurve noch unbekannt. Historische Kurven (UniClubs): HS25 (Schürle): 4.0=30 Pts, 5.0=46 Pts, 6.0=62 Pts | HS24 (Füss): 4.0=45 Pts, 5.0=65 Pts, 6.0=85 Pts | HS20: 4.0=32 Pts, 5.0=44 Pts, 6.0=56 Pts | Maximum immer 90 Pts'
   },
   scoring_rules: {
     single_choice: { correct: 2, wrong: 0, blank: 0 },
