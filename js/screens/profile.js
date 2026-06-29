@@ -403,12 +403,14 @@ window.ProfileScreen = (function () {
     const el = document.getElementById('learning-profile-cards');
     if (!el) return;
 
-    const [{ data: examResults }, { data: weights }, { data: deckCards }, enrolled] = await Promise.all([
+    const [{ data: examResults }, { data: weights }, { data: deckCards }, { data: allVideos }, { data: myVideoProgress }, enrolled] = await Promise.all([
       _supabase.from('exam_results').select('id, exam_id, score_pct, taken_at, answers').eq('user_id', user.id),
       _supabase.from('topic_weights')
         .select('topic_tag, wrong_count, correct_count, priority, ema_accuracy, correct_streak')
         .eq('user_id', user.id).limit(200),
       _supabase.from('deck_cards').select('id, course, topic'),
+      _supabase.from('videos').select('id, course'),
+      _supabase.from('video_progress').select('video_id, last_rating, review_count').eq('user_id', user.id),
       CoursesDB.getEnrolledKeys(),
     ]);
 
@@ -432,7 +434,27 @@ window.ProfileScreen = (function () {
       flashcardCoverage[k] = c.total ? c.done / c.total : null;
     });
 
-    const ctx = { examResults: examResults || [], weightsByTag, quizStats, flashcardCoverage };
+    // Video-Abdeckung pro Kurs: 'knew' → 1.0, watched (review_count>0) → 0.25, ungesehen → 0
+    const videoCoverage = {};
+    const vpByVideoId = new Map((myVideoProgress || []).map(p => [p.video_id, p]));
+    (allVideos || []).forEach(v => {
+      if (!v.course) return;
+      if (!videoCoverage[v.course]) videoCoverage[v.course] = { total: 0, scoreSum: 0, kapiert: 0 };
+      videoCoverage[v.course].total++;
+      const p = vpByVideoId.get(v.id);
+      if (p) {
+        const score = p.last_rating === 'knew' ? 1.0 : (p.review_count > 0 ? 0.25 : 0);
+        videoCoverage[v.course].scoreSum += score;
+        if (p.last_rating === 'knew') videoCoverage[v.course].kapiert++;
+      }
+    });
+    // Normalize to 0..1
+    Object.keys(videoCoverage).forEach(k => {
+      const c = videoCoverage[k];
+      videoCoverage[k] = { pct: c.total ? c.scoreSum / c.total : null, kapiert: c.kapiert, total: c.total };
+    });
+
+    const ctx = { examResults: examResults || [], weightsByTag, quizStats, flashcardCoverage, videoCoverage };
 
     el.innerHTML = enrolled.map(courseKey =>
       window.TOPICS_DATA?.[courseKey]
@@ -483,17 +505,19 @@ window.ProfileScreen = (function () {
   }
 
   // Bereitschafts-Score: Lernen gibt Punkte, Prüfung korrigiert nach oben/unten.
-  // fcSeenPct: % gesehener Karten (0..1)  — niedrig gewichtet (kann ohne Wissen geklickt werden)
-  // fcAccPct:  EMA-Accuracy der topic_weights (0..1) — sehr niedrig (leicht zu faken)
-  // lernsetAvg: Ø bestScore der Lernset-Übungen (0..1) — mittel
-  // quizAvg:   Ø Quiz-Trefferquote (0..1) — hoch
-  // examAvg:   Ø Prüfungs-Score (0..1)    — dominiert, zieht hoch oder runter
-  function _readinessScore({ fcSeenPct, fcAccPct, lernsetAvg, quizAvg, examAvg }) {
+  // fcSeenPct:  % gesehener Karten (0..1)  — niedrig, kann ohne Wissen geklickt werden
+  // fcAccPct:   EMA-Accuracy topic_weights (0..1) — sehr niedrig
+  // videoAvg:   Reels gesehen/kapiert (0..1) — niedrig, passives Medium
+  // lernsetAvg: Ø bestScore Lernset-Übungen (0..1) — mittel
+  // quizAvg:    Ø Quiz-Trefferquote (0..1) — hoch
+  // examAvg:    Ø Prüfungs-Score (0..1)    — dominiert, zieht hoch oder runter
+  function _readinessScore({ fcSeenPct, fcAccPct, videoAvg, lernsetAvg, quizAvg, examAvg }) {
     const comps = [];
-    if (fcSeenPct  != null) comps.push({ val: fcSeenPct,  w: 0.15 });
+    if (fcSeenPct  != null) comps.push({ val: fcSeenPct,  w: 0.12 });
     if (fcAccPct   != null) comps.push({ val: fcAccPct,   w: 0.05 });
-    if (lernsetAvg != null) comps.push({ val: lernsetAvg, w: 0.30 });
-    if (quizAvg    != null) comps.push({ val: quizAvg,    w: 0.50 });
+    if (videoAvg   != null) comps.push({ val: videoAvg,   w: 0.08 });
+    if (lernsetAvg != null) comps.push({ val: lernsetAvg, w: 0.28 });
+    if (quizAvg    != null) comps.push({ val: quizAvg,    w: 0.47 });
     const totalW   = comps.reduce((s, c) => s + c.w, 0);
     const studyRaw = totalW > 0 ? comps.reduce((s, c) => s + c.val * c.w, 0) / totalW : null;
     if (examAvg == null) return studyRaw != null ? Math.round(studyRaw * 100) : 0;
@@ -589,7 +613,7 @@ window.ProfileScreen = (function () {
   }
 
   function _renderCourseCard(courseKey, ctx) {
-    const { examResults, weightsByTag, quizStats, flashcardCoverage } = ctx;
+    const { examResults, weightsByTag, quizStats, flashcardCoverage, videoCoverage } = ctx;
     const topicsData = window.TOPICS_DATA[courseKey];
     const course = window.getCourse?.(courseKey);
     const label = course?.label || courseKey;
@@ -615,9 +639,12 @@ window.ProfileScreen = (function () {
     const accVals = courseWeights.map(_topicWeightAccuracy).filter(v => v != null);
     const fcAccAvg = accVals.length ? accVals.reduce((a, b) => a + b, 0) / accVals.length : null;
 
-    const readiness = _readinessScore({ fcSeenPct: fcPct, fcAccPct: fcAccAvg, lernsetAvg: etappenAvg, quizAvg, examAvg });
+    const vidData  = videoCoverage?.[courseKey] ?? null;
+    const videoAvg = vidData?.pct ?? null;
 
-    const detailsHtml = _examHistoryHtml(courseExamResults) + _weaknessProfileHtml(courseWeights) + _quizTopicBarsHtml(courseQuizStats);
+    const readiness = _readinessScore({ fcSeenPct: fcPct, fcAccPct: fcAccAvg, videoAvg, lernsetAvg: etappenAvg, quizAvg, examAvg });
+
+    const detailsHtml = _examHistoryHtml(courseExamResults) + _weaknessProfileHtml(courseWeights) + _quizTopicBarsHtml(courseQuizStats) + _videoSummaryHtml(vidData);
 
     return `
       <div class="rounded-[20px] p-4" style="background:var(--card);border:1px solid var(--border)">
@@ -643,7 +670,7 @@ window.ProfileScreen = (function () {
   }
 
   function _renderSimpleCourseCard(courseKey, ctx) {
-    const { examResults, flashcardCoverage } = ctx;
+    const { examResults, flashcardCoverage, videoCoverage } = ctx;
     const course = window.getCourse?.(courseKey);
     const label = course?.label || courseKey;
     const emoji = course?.icon || '📘';
@@ -652,10 +679,12 @@ window.ProfileScreen = (function () {
     const examAvg = courseExamResults.length
       ? courseExamResults.reduce((s, r) => s + r.score_pct, 0) / courseExamResults.length / 100
       : null;
-    const fcPct = flashcardCoverage[courseKey] ?? null;
-    const readiness = _readinessScore({ fcSeenPct: fcPct, examAvg });
+    const fcPct    = flashcardCoverage[courseKey] ?? null;
+    const vidData  = videoCoverage?.[courseKey] ?? null;
+    const videoAvg = vidData?.pct ?? null;
+    const readiness = _readinessScore({ fcSeenPct: fcPct, videoAvg, examAvg });
 
-    const detailsHtml = _examHistoryHtml(courseExamResults);
+    const detailsHtml = _examHistoryHtml(courseExamResults) + _videoSummaryHtml(vidData);
 
     return `
       <div class="rounded-[20px] p-4" style="background:var(--card);border:1px solid var(--border)">
@@ -674,6 +703,30 @@ window.ProfileScreen = (function () {
           ${_detailsToggleHtml()}
           <div class="hidden mt-3 pt-3" style="border-top:1px solid var(--border)">${detailsHtml}</div>
         ` : ''}
+      </div>`;
+  }
+
+  function _videoSummaryHtml(vidData) {
+    if (!vidData || vidData.total === 0) return '';
+    const pct      = Math.round((vidData.pct ?? 0) * 100);
+    const kapiert  = vidData.kapiert ?? 0;
+    const total    = vidData.total ?? 0;
+    const color    = pct >= 70 ? '#4ade80' : pct >= 30 ? '#fbbf24' : '#60a5fa';
+    return `
+      <div class="mb-4">
+        <p class="text-xs uppercase tracking-wide mb-2" style="color:var(--txt-3)">Reels</p>
+        <div class="flex items-center gap-3 px-3 py-2.5 rounded-xl" style="background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07)">
+          <span class="text-base">🎬</span>
+          <div class="flex-1 min-w-0">
+            <div class="flex justify-between text-xs mb-1" style="color:var(--txt-2)">
+              <span>${kapiert} von ${total} kapiert</span>
+              <span style="color:${color}">${pct}%</span>
+            </div>
+            <div class="h-1.5 rounded-full overflow-hidden" style="background:var(--card-raised)">
+              <div class="h-full rounded-full transition-all" style="width:${pct}%;background:${color}"></div>
+            </div>
+          </div>
+        </div>
       </div>`;
   }
 
