@@ -152,7 +152,7 @@
 
     /* ── iPad portrait: centered iPhone column ── */
     @media (min-width:520px) {
-      body { align-items:center; justify-content:flex-start; }
+      body { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; }
       #app-shell { max-width:430px; width:100%; }
       #bottom-nav {
         width:min(430px, 100vw);
