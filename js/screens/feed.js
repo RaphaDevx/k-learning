@@ -9,10 +9,11 @@ window.FeedScreen = (function() {
 
   // Queue state
   let _queue       = [];   // all fetched card objects
-  let _seenIds     = new Set(); // session-only; SM-2 bringt Videos per next_review_at zurück
+  let _seenIds     = new Set(); // IDs gesehen in dieser Filter-Session
   let _currentIdx  = 0;   // index of card currently in view
   let _isFetching  = false;
   let _exhausted   = false; // no more videos to fetch
+  let _cycling     = false; // verhindert endlose Cycling-Schleife
 
   const FETCH_LIMIT   = 15;
   const PRELOAD_AHEAD = 2;  // preload current + 2 next
@@ -29,10 +30,11 @@ window.FeedScreen = (function() {
 
   function _reset() {
     _queue      = [];
-    // _seenIds deliberately not cleared — persists across filter changes and page loads
+    _seenIds    = new Set(); // bei Filterwechsel neu starten
     _currentIdx = 0;
     _isFetching = false;
     _exhausted  = false;
+    _cycling    = false;
     _destroyObserver();
     const container = document.getElementById('feed-cards-container');
     if (container) container.innerHTML = _loadingSpinner();
@@ -71,12 +73,13 @@ window.FeedScreen = (function() {
       let newCards = [];
 
       if (userId) {
+        // Gemeldete IDs bei jedem Fetch frisch holen (Cache in ReportSystem, invalidiert nach Submit)
         const reportedIds = await (window.ReportSystem?.getReportedIds('video') ?? Promise.resolve(new Set()));
         const excludeIds = [..._seenIds, ...reportedIds].filter(id => id && id.length > 10);
         const { data, error } = await window.supabaseClient.rpc('get_user_feed', {
-          p_user_id:    userId,
-          p_course:     _activeFilter || null,
-          p_limit:      FETCH_LIMIT,
+          p_user_id:     userId,
+          p_course:      _activeFilter || null,
+          p_limit:       FETCH_LIMIT,
           p_exclude_ids: excludeIds.length ? excludeIds : null
         });
         if (error) throw error;
@@ -85,23 +88,35 @@ window.FeedScreen = (function() {
         newCards = _staticFallback(_activeFilter);
       }
 
-      // Filter to enrolled courses
+      // Filter auf eingeschriebene Kurse
       if (!_activeFilter || _activeFilter === 'all') {
         newCards = newCards.filter(c => !c.course || _enrolledKeys.includes(c.course));
       }
 
-      // Remove any we've already queued (safety dedup)
+      // Safety-Dedup: bereits in Queue vorhandene rauswerfen
       const existing = new Set(_queue.map(c => c.id));
       newCards = newCards.filter(c => !existing.has(c.id));
 
       if (!newCards.length) {
+        // Exhausted — wenn noch nicht gecyclet und Videos gesehen wurden: einmal recyclen
+        if (!_cycling && _seenIds.size > 0) {
+          _cycling = true;
+          _seenIds = new Set(); // alle gesehenen freigeben → nächster Fetch bringt sie zurück
+          _exhausted = false;
+          _isFetching = false;
+          await _fetchMore();
+          return;
+        }
+        // Wirklich alles gesehen → End-Card zeigen
         _exhausted = true;
+        _showExhaustedCard();
       } else {
+        _cycling = false; // neuer Inhalt verfügbar → Cycling-Guard zurücksetzen
         const startIdx = _queue.length;
         _queue.push(...newCards);
         _appendCards(newCards, startIdx);
         if (_queue.length === newCards.length) {
-          // First load: init observer after DOM is ready
+          // Erster Load: Observer starten
           _initObserver();
           _updatePreloadWindow();
           _updateFilterButtons();
@@ -129,7 +144,6 @@ window.FeedScreen = (function() {
     } else {
       cards = cards.filter(c => !c.course || _enrolledKeys.includes(c.course));
     }
-    // Exclude already seen
     cards = cards.filter(c => !_seenIds.has(c.id));
     return cards.filter(c => c.type === 'localvideo');
   }
@@ -145,13 +159,32 @@ window.FeedScreen = (function() {
     const html = cards.map((c, i) => _renderVideoCard(c, startIdx + i)).join('');
     container.insertAdjacentHTML('beforeend', html);
 
-    // Observe newly added cards
     if (_observer) {
       cards.forEach((_, i) => {
         const el = document.getElementById(`feed-${startIdx + i}`);
         if (el) _observer.observe(el);
       });
     }
+  }
+
+  function _showExhaustedCard() {
+    const container = document.getElementById('feed-cards-container');
+    if (!container) return;
+    const label = _activeFilter ? `im Kurs <strong>${_activeFilter}</strong>` : '';
+    container.insertAdjacentHTML('beforeend', `
+      <div class="feed-card" style="display:flex;flex-direction:column;align-items:center;
+        justify-content:center;gap:1rem;padding:2rem;text-align:center;">
+        <div style="font-size:3rem">🎉</div>
+        <p style="color:#fff;font-weight:700;font-size:1rem">Alle Videos ${label} gesehen!</p>
+        <p style="color:rgba(255,255,255,0.6);font-size:0.8rem">
+          Beim nächsten Öffnen gibt es neue Empfehlungen basierend auf deinem Lernprofil.
+        </p>
+        <button onclick="FeedScreen.render('${_activeFilter || 'all'}')"
+          style="margin-top:0.5rem;padding:0.6rem 1.4rem;border-radius:9999px;border:none;
+                 background:#6366f1;color:#fff;font-size:0.85rem;cursor:pointer;font-weight:600">
+          🔄 Neu starten
+        </button>
+      </div>`);
   }
 
   function _renderVideoCard(card, index) {
@@ -254,13 +287,13 @@ window.FeedScreen = (function() {
           vid.muted = _isMuted;
           vid.play().catch(() => { vid.muted = true; vid.play(); });
 
-          // Mark as seen for next fetch's exclude list
+          // Als gesehen markieren (für exclude_ids beim nächsten Fetch)
           const dbId = card.dataset.dbId;
           if (dbId) _seenIds.add(dbId);
 
           _updatePreloadWindow();
 
-          // Trigger next fetch when approaching end
+          // Nächsten Batch laden wenn nahe am Ende
           if (_currentIdx >= _queue.length - FETCH_AHEAD) {
             _fetchMore();
           }

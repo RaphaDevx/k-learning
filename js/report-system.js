@@ -100,7 +100,7 @@ window.ReportSystem = (function() {
     if (_reportedSets) return _reportedSets;
     try {
       const { data: { user } } = await window.supabaseClient.auth.getUser();
-      if (!user) { _reportedSets = {}; return _reportedSets; }
+      if (!user) { return {}; } // nicht cachen — Auth könnte noch nicht bereit sein
       const { data } = await window.supabaseClient
         .from('card_reports')
         .select('card_id, card_type')

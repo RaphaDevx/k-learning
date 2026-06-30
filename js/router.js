@@ -1,4 +1,4 @@
-// ── Router (v3.12.1) ────────────────────────────────────────────────────────
+// ── Router (v3.12.3) ────────────────────────────────────────────────────────
 // Thin wrapper — all navigation logic lives in TabRouter (tab-router.js)
 
 window.Router = (function() {
