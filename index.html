@@ -154,11 +154,6 @@
     @media (min-width:520px) {
       body { display:flex; flex-direction:column; align-items:center; justify-content:flex-start; }
       #app-shell { max-width:430px; width:100%; }
-      #bottom-nav {
-        width:min(430px, 100vw);
-        left:50%; right:auto;
-        transform:translateX(-50%);
-      }
     }
 
     /* ── DESKTOP layout (≥1024px) ── */
@@ -229,6 +224,14 @@
     html.light #bottom-nav {
       background: rgba(245,245,247,0.88);
       border-top: 1px solid rgba(0,0,0,0.09);
+    }
+    /* Center bottom-nav on tablet/iPad (520–1023px) — must come AFTER base #bottom-nav to win cascade */
+    @media (min-width:520px) and (max-width:1023px) {
+      #bottom-nav {
+        width:min(430px, 100vw);
+        left:50%; right:auto;
+        transform:translateX(-50%);
+      }
     }
 
     /* ── Feed Fullscreen ── */
