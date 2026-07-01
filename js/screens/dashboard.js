@@ -14,7 +14,7 @@ window.DashboardScreen = (function() {
     window.COURSES_CONFIG = _catalog;
     renderCourseGrid();
     renderDueToday();
-    Gamification.render();
+    LevelSystem.render();
   }
 
   function updateGreeting() {

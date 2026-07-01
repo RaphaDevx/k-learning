@@ -758,18 +758,18 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
       else                       { prog.interval = Math.round(prog.interval * prog.ease); }
       prog.reps++;
       prog.ease = Math.min(3.0, prog.ease + 0.1);
-      Gamification.addXP(Gamification.XP.cardEasy);
+      LevelSystem.award('cardEasy');
     } else if (rating === 'medium') {
       // Partially correct — small interval boost, ease unchanged
       prog.interval = Math.max(1, Math.round(prog.interval * 1.2));
       prog.reps     = Math.max(0, prog.reps - 1); // partial credit: don't fully reset
-      Gamification.addXP(Gamification.XP.cardHard);
+      LevelSystem.award('cardMedium');
     } else {
       // Failed (Again) — reset to day 1, penalise ease
       prog.interval = 1;
       prog.reps     = 0;
       prog.ease     = Math.max(1.3, prog.ease - 0.2);
-      Gamification.addXP(Gamification.XP.cardHard);
+      LevelSystem.award('cardHard');
     }
 
     prog.nextReview = Date.now() + prog.interval * 24 * 60 * 60 * 1000;

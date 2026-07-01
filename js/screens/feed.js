@@ -345,7 +345,7 @@ window.FeedScreen = (function() {
   // ── Rating / Progress ─────────────────────────────────────────────────────
 
   async function onPlay(slug, dbId) {
-    Gamification.addXP(5);
+    LevelSystem.award('feedWatch');
     if (!dbId) return;
     try {
       const userId = await _getUserId();
@@ -357,7 +357,7 @@ window.FeedScreen = (function() {
   }
 
   async function rate(slug, dbId, rating) {
-    Gamification.addXP(rating === 'knew' ? 15 : 5);
+    LevelSystem.award(rating === 'knew' ? 'feedKnew' : 'feedDidnt');
 
     if (dbId) {
       try {

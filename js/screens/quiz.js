@@ -719,8 +719,7 @@ window.QuizScreen = (function() {
       }
 
       if (window.Gamification) {
-        if (correct) Gamification.addXP(5);
-        else         Gamification.addXP(1);
+        LevelSystem.award(correct ? 'quizCorrect' : 'quizWrong');
       }
     } catch(e) {}
   }

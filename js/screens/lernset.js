@@ -438,10 +438,7 @@ window.LernsetScreen = (function () {
     prog.bestScore = Math.max(prog.bestScore || 0, fraction);
     AppState.setLernsetProgress(item.id, prog);
 
-    const xp = fraction === 1 ? Gamification.XP.lernCorrect
-             : fraction > 0   ? Gamification.XP.lernPartial
-             :                  Gamification.XP.lernWrong;
-    Gamification.addXP(xp);
+    LevelSystem.award(fraction === 1 ? 'lernCorrect' : fraction > 0 ? 'lernPartial' : 'lernWrong');
   }
 
   function _setActionBtn(label, isNext) {
