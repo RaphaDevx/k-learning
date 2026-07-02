@@ -362,12 +362,11 @@ window.LernsetScreen = (function () {
     const ctx = item.context
       ? `<div class="text-sm mb-3 px-3 py-2 rounded-xl" style="background:rgba(99,102,241,0.1);color:var(--txt-2)">${E.escHtml(item.context)}</div>`
       : '';
-    const skipBtn = item.requiresCalculator
-      ? `<button id="lns-skip-calc-btn" onclick="LernsetScreen.openSkip()"
-           class="py-3 px-4 rounded-xl font-semibold text-sm flex-shrink-0"
-           style="background:var(--card-raised);color:var(--txt-2);border:1px solid var(--border)">
-           🧮 Kein TR</button>`
-      : '';
+    const skipBtn = `<button id="lns-skip-calc-btn" onclick="LernsetScreen.openSkip()"
+         class="py-3 px-4 rounded-xl font-semibold text-sm flex-shrink-0"
+         style="background:var(--card-raised);color:var(--txt-2);border:1px solid var(--border)"
+         title="Aufgabe überspringen — kein Taschenrechner verfügbar">
+         🧮 Kein TR</button>`;
     body.innerHTML = `
       ${ctx}
       <textarea id="lns-open-answer" rows="5"
