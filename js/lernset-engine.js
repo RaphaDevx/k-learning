@@ -23,6 +23,7 @@ window.LernsetEngine = (function () {
     truefalse: 'Wahr / Falsch',
     single: 'Single Choice',
     multiple: 'Multiple Choice',
+    open: 'Offene Aufgabe',
   };
 
   // ══════════════════════════════════════════════════════════

@@ -24,6 +24,7 @@ window.LernsetScreen = (function () {
   let tfAnswers      = [];   // 'truefalse': array of bool|null
   let selectedSingle = null; // 'single'
   let selectedMulti  = [];   // 'multiple'
+  let skipCalculator = false; // 'open': when true, all requiresCalculator questions are auto-skipped
 
   // Session
   let _sessionKey    = null; // `${course}::${topic}` for cross-device sync
@@ -122,6 +123,7 @@ window.LernsetScreen = (function () {
   function _startNewSet(pool) {
     filteredItems = _selectSet(pool);
     currentIndex = 0;
+    skipCalculator = false;
     _render();
     _setTitle();
 
@@ -281,12 +283,26 @@ window.LernsetScreen = (function () {
         case 'truefalse':  _renderTrueFalse(item, body); break;
         case 'single':     _renderSingle(item, body);    break;
         case 'multiple':   _renderMultiple(item, body);  break;
+        case 'open':       _renderOpen(item, body);      break;
         default:           body.innerHTML = '';
       }
       E.renderMathIn(body);
     }
 
-    _setActionBtn('Prüfen', false);
+    if (item.type === 'open') {
+      // If skipCalculator is active and this question needs a calculator → auto-skip it
+      if (item.requiresCalculator && skipCalculator) {
+        _showOpenSkipped(item);
+        _saveProgress(item, 0.5);
+        checked = true;
+        _setActionBtn(currentIndex < filteredItems.length - 1 ? 'Weiter' : 'Fertig 🎉', true);
+        const btn = document.getElementById('lns-action-btn');
+        if (btn) btn.classList.remove('hidden');
+      }
+      // Main action button is hidden for open questions (inline buttons take over)
+    } else {
+      _setActionBtn('Prüfen', false);
+    }
 
     const card = document.getElementById('lns-exercise-card');
     if (card) {
@@ -340,6 +356,130 @@ window.LernsetScreen = (function () {
       else selectedMulti.push(idx);
       E.updateMultiSelection(listEl, selectedMulti);
     });
+  }
+
+  function _renderOpen(item, body) {
+    const ctx = item.context
+      ? `<div class="text-sm mb-3 px-3 py-2 rounded-xl" style="background:rgba(99,102,241,0.1);color:var(--txt-2)">${E.escHtml(item.context)}</div>`
+      : '';
+    const skipBtn = item.requiresCalculator
+      ? `<button id="lns-skip-calc-btn" onclick="LernsetScreen.openSkip()"
+           class="py-3 px-4 rounded-xl font-semibold text-sm flex-shrink-0"
+           style="background:var(--card-raised);color:var(--txt-2);border:1px solid var(--border)">
+           🧮 Kein TR</button>`
+      : '';
+    body.innerHTML = `
+      ${ctx}
+      <textarea id="lns-open-answer" rows="5"
+        class="w-full rounded-xl p-3 text-sm resize-none"
+        style="background:var(--card-raised);border:1px solid var(--border);color:var(--txt);outline:none;font-family:inherit"
+        placeholder="Tippe deine Antwort hier…"></textarea>
+      <div class="flex gap-2 mt-3">
+        <button id="lns-ai-eval-btn" onclick="LernsetScreen.openAiCheck()"
+          class="flex-1 py-3 rounded-xl font-bold text-sm text-white"
+          style="background:#4f46e5">🤖 KI-Auswertung</button>
+        ${skipBtn}
+      </div>`;
+    E.renderMathIn(body);
+    // Hide the main action button — inline buttons drive the flow
+    const btn = document.getElementById('lns-action-btn');
+    if (btn) btn.classList.add('hidden');
+  }
+
+  function _showOpenResult(item, aiText, fraction) {
+    const fb = document.getElementById('lns-feedback');
+    if (!fb) return;
+    const badge = E.feedbackBadge(fraction);
+    fb.className = `lns-feedback-box ${badge.cls}`;
+    fb.innerHTML = `
+      <div class="lns-fb-badge">${badge.label}</div>
+      <div class="text-sm leading-relaxed mb-3" style="color:var(--txt)">${E.escHtml(aiText)}</div>
+      <div class="text-xs uppercase tracking-widest mb-1" style="color:var(--txt-3)">Musterlösung</div>
+      <div class="text-sm p-3 rounded-xl" style="background:rgba(0,0,0,0.25);color:var(--txt-2)">${E.escHtml(item.modelAnswer)}</div>`;
+    fb.classList.remove('hidden');
+    E.renderMathIn(fb);
+    if (fraction === 1) _showSuccessAnim();
+  }
+
+  function _showOpenSkipped(item) {
+    const fb = document.getElementById('lns-feedback');
+    if (!fb) return;
+    fb.className = 'lns-feedback-box lns-fb-teilweise';
+    fb.innerHTML = `
+      <div class="lns-fb-badge">🧮 Übersprungen — kein Taschenrechner</div>
+      <div class="text-xs mt-2 mb-1" style="color:var(--txt-3)">Musterlösung</div>
+      <div class="text-sm p-3 rounded-xl" style="background:rgba(0,0,0,0.25);color:var(--txt-2)">${E.escHtml(item.modelAnswer)}</div>`;
+    fb.classList.remove('hidden');
+    E.renderMathIn(fb);
+  }
+
+  async function openAiCheck() {
+    if (checked) return;
+    const item = filteredItems[currentIndex];
+    const userAnswer = (document.getElementById('lns-open-answer')?.value || '').trim();
+
+    if (!userAnswer) {
+      const ta = document.getElementById('lns-open-answer');
+      if (ta) { ta.style.borderColor = '#ef4444'; setTimeout(() => { ta.style.borderColor = ''; }, 1500); }
+      return;
+    }
+
+    const evalBtn = document.getElementById('lns-ai-eval-btn');
+    const skipBtn = document.getElementById('lns-skip-calc-btn');
+    if (evalBtn) { evalBtn.disabled = true; evalBtn.textContent = '⏳ Wird ausgewertet…'; }
+    if (skipBtn) skipBtn.disabled = true;
+
+    try {
+      const resp = await AIService.ask([{
+        role: 'user',
+        content: `Frage: ${item.prompt}\n\nMusterlösung: ${item.modelAnswer}\n\nStudentenantwort: "${userAnswer}"\n\nBeurteile die Antwort. Beginne die erste Zeile mit genau einem von: "Korrekt", "Teilweise korrekt" oder "Nicht korrekt". Danach 2-3 Sätze Feedback auf Deutsch.`,
+      }], {
+        system: 'Du bist ein präziser Makroökonomik-Tutor an der Universität St. Gallen. Vergleiche die Studentenantwort mit der Musterlösung und gib konstruktives, kurzes Feedback auf Deutsch.',
+        max_tokens: 320,
+      });
+
+      const text = AIService.extractText(resp);
+      const lower = text.toLowerCase();
+      const fraction = lower.startsWith('nicht') ? 0 : lower.startsWith('teilweise') ? 0.5 : 1;
+
+      _showOpenResult(item, text, fraction);
+      _saveProgress(item, fraction);
+    } catch (_) {
+      // No key or network error → show model answer without AI verdict
+      const fb = document.getElementById('lns-feedback');
+      if (fb) {
+        fb.className = 'lns-feedback-box lns-fb-teilweise';
+        fb.innerHTML = `
+          <div class="lns-fb-badge">⚠️ KI nicht verfügbar — Selbstkorrektur</div>
+          <div class="text-sm mb-2" style="color:var(--txt)">Kein API-Key gesetzt oder Verbindungsfehler. Vergleiche deine Antwort selbst mit der Musterlösung.</div>
+          <div class="text-xs mb-1" style="color:var(--txt-3)">Musterlösung</div>
+          <div class="text-sm p-3 rounded-xl" style="background:rgba(0,0,0,0.25);color:var(--txt-2)">${E.escHtml(item.modelAnswer)}</div>`;
+        fb.classList.remove('hidden');
+        E.renderMathIn(fb);
+      }
+      _saveProgress(item, 0.5);
+    }
+
+    checked = true;
+    const btn = document.getElementById('lns-action-btn');
+    if (btn) {
+      btn.classList.remove('hidden');
+      _setActionBtn(currentIndex < filteredItems.length - 1 ? 'Weiter' : 'Fertig 🎉', true);
+    }
+  }
+
+  function openSkip() {
+    if (checked) return;
+    skipCalculator = true; // auto-skip all future requiresCalculator questions this session
+    const item = filteredItems[currentIndex];
+    _showOpenSkipped(item);
+    _saveProgress(item, 0.5);
+    checked = true;
+    const btn = document.getElementById('lns-action-btn');
+    if (btn) {
+      btn.classList.remove('hidden');
+      _setActionBtn(currentIndex < filteredItems.length - 1 ? 'Weiter' : 'Fertig 🎉', true);
+    }
   }
 
   // ══════════════════════════════════════════════════════════
@@ -472,6 +612,8 @@ window.LernsetScreen = (function () {
     close,
     handleAction,
     openReport,
+    openAiCheck,
+    openSkip,
     _resumeSaved,
     _restartSaved,
     _closeResumePrompt,
