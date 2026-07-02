@@ -84,6 +84,7 @@
   <script src="js/screens/lernset.js"></script>
   <script src="js/screens/lernen.js"></script>
   <script src="js/screens/profile.js"></script>
+  <script src="js/screens/progress.js"></script>
 
   <style>
     /* ── Design Tokens ── */
@@ -455,7 +456,24 @@
       <span>Profil</span>
     </button>
 
+    <!-- Lernpfad-Button -->
+    <button onclick="TabRouter.navigateTo('progress')" id="snav-tab-progress" class="sidebar-nav-btn">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+      <span>Lernpfad</span>
+    </button>
+
     <div id="sidebar-stats">
+      <!-- Tagesziel -->
+      <div class="mb-3 rounded-xl px-3 py-2.5" style="background:var(--card);border:1px solid var(--border)">
+        <div class="flex items-center justify-between mb-1.5">
+          <span class="text-xs font-semibold" style="color:var(--txt)">🎯 Tagesziel</span>
+          <span class="xp-today-display text-xs font-bold text-yellow-400"></span>
+        </div>
+        <div style="height:4px;border-radius:9999px;background:rgba(255,255,255,0.08);overflow:hidden">
+          <div class="daily-progress-fill h-full rounded-full transition-all duration-700"
+               style="width:0%;background:linear-gradient(90deg,#f59e0b,#f97316)"></div>
+        </div>
+      </div>
       <div class="font-semibold text-sm mb-2" style="color:var(--txt)">Prüfungen</div>
       <div id="sidebar-exam-list" class="space-y-1 text-xs" style="color:var(--txt-2)">—</div>
     </div>
@@ -875,6 +893,10 @@
     </div>
 
     <!-- ══════════════════════════════════════════════════════ -->
+    <!-- LERNPFAD / PROGRESS                                  -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <div id="view-progress" class="hidden"></div>
+
     <!-- PROFIL                                               -->
     <!-- ══════════════════════════════════════════════════════ -->
     <div id="view-profile" class="hidden py-4">

@@ -24,6 +24,7 @@ window.TabRouter = (function() {
     'learn-path': 'lernen',
     exam:         'pruefungen',
     profile:      'profil',
+    progress:     'profil',
   };
 
   const ALL_VIEWS = Object.keys(VIEW_TAB);
@@ -69,6 +70,7 @@ window.TabRouter = (function() {
       exam:         window.ExamScreen,
       tutor:        window.TutorScreen,
       profile:      window.ProfileScreen,
+      progress:     window.ProgressScreen,
     };
     const screen = screens[name];
     if (screen && screen.init) screen.init();

@@ -16,6 +16,9 @@ window.LEVEL_CONFIG = {
     { xp: 5000,  name: 'Legende',    badge: '👑' },
   ],
 
+  // Tägliches XP-Ziel (aktives Lernen — nicht Login)
+  dailyGoal: 50,
+
   // XP pro Event — alle Vergaben laufen über LevelSystem.award('eventName')
   events: {
     // Feed
