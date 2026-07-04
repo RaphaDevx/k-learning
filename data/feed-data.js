@@ -1753,4 +1753,65 @@ window.FEED_CARDS = [
     thumbnail_emoji: "📈",
     block: "Block 1 — Finanzmärkte & Geldpolitik"
   }
+,
+  {
+    id: "makro-r3-1-ppp",
+    type: "localvideo",
+    course: "MakroII", courseColor: "#059669",
+    emoji: "🍔",
+    title: "Big Mac Index & Kaufkraftparität",
+    subtitle: "P = E × P* — der ehrlichste Wechselkurscheck",
+    description: "PPP erklärt mit dem Big Mac Index: Warum der Franken laut Hamburger 35% überbewertet ist. PPP-Formel, Arbitrage-Logik und warum PPP kurzfristig nicht gilt.",
+    topics: ["PPP", "Kaufkraftparit\u00e4t", "Big Mac Index", "Wechselkurs", "\u00dcberbewertung"],
+    duration: "1:26",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/makro_r3_1_big_mac_ppp.mp4",
+    thumbnail_emoji: "🍔",
+    block: "Block 3 — Offene Volkswirtschaft"
+  },
+  {
+    id: "makro-r3-2-uip",
+    type: "localvideo",
+    course: "MakroII", courseColor: "#059669",
+    emoji: "🇨🇭",
+    title: "UIP: Warum der Franken aufwertet",
+    subtitle: "i = i* + (E^e − E)/E — Zinsparität als Arbitrage",
+    description: "Uncovered Interest Parity: Warum tiefe Schweizer Zinsen trotzdem attraktiv sind. UIP-Formel, Arbitragelogik, Umstellen nach erwartetem Wechselkurs. Prüfungsformel mit Beispiel.",
+    topics: ["UIP", "Zinsparit\u00e4t", "Wechselkurs", "Arbitrage", "Franken", "SNB"],
+    duration: "1:34",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/makro_r3_2_uip_wechselkurs.mp4",
+    thumbnail_emoji: "🇨🇭",
+    block: "Block 3 — Offene Volkswirtschaft"
+  },
+  {
+    id: "makro-r3-3-mundell",
+    type: "localvideo",
+    course: "MakroII", courseColor: "#059669",
+    emoji: "🌍",
+    title: "Mundell-Fleming: Wann wirkt was?",
+    subtitle: "Flexibel: Geldpolitik wirkt | Fix: Fiskalpolitik wirkt",
+    description: "Mundell-Fleming kompakt: Fiskalpolitik verpufft unter flexiblem Wechselkurs (Crowding-out via ER). Unter fixem WK voll wirksam. Geldpolitik genau umgekehrt. Mit Merktabelle.",
+    topics: ["Mundell-Fleming", "Fiskalpolitik", "Geldpolitik", "Wechselkurs", "Impossible Trinity"],
+    duration: "1:40",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/makro_r3_3_mundell_fleming.mp4",
+    thumbnail_emoji: "🌍",
+    block: "Block 3 — Offene Volkswirtschaft"
+  },
+  {
+    id: "makro-r3-4-snb2015",
+    type: "localvideo",
+    course: "MakroII", courseColor: "#059669",
+    emoji: "💥",
+    title: "SNB 2015: Der Franken-Schock",
+    subtitle: "+20% in Minuten — Impossible Trinity live",
+    description: "SNB 2015 als Fallstudie: Mindestkurs 1.20, explodierende Devisenreserven, EZB-QE als Auslöser. Impossible Trinity in der Praxis — warum kein Land den Kurs ewig halten kann.",
+    topics: ["SNB 2015", "Mindestkurs", "Impossible Trinity", "Devisenreserven", "Wechselkurspolitik"],
+    duration: "1:37",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/makro_r3_4_snb_2015.mp4",
+    thumbnail_emoji: "💥",
+    block: "Block 3 — Offene Volkswirtschaft"
+  }
 ];
