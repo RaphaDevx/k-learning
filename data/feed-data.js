@@ -1737,4 +1737,20 @@ window.FEED_CARDS = [
     thumbnail_emoji: "💥",
     block: "Block 2 — IS-LM & Konsum"
   }
+,
+  {
+    id: "makro-r1-6-aktienpreis",
+    type: "localvideo",
+    course: "MakroII", courseColor: "#059669",
+    emoji: "📈",
+    title: "Aktienpreis & Risikoprämie",
+    subtitle: "ERP: Warum Aktien mehr rentieren als Anleihen",
+    description: "Aktienpreis als Barwert künftiger Dividenden. Equity Risk Premium (ERP): Warum Aktienrenditen langfristig über Anleihezinsen liegen müssen.",
+    topics: ["Aktienpreis", "Risikopr\u00e4mie", "ERP", "Dividenden", "Barwert", "Finanzm\u00e4rkte"],
+    duration: "1:43",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/makro_r1_6_aktienpreis_risikopraemie.mp4",
+    thumbnail_emoji: "📈",
+    block: "Block 1 — Finanzmärkte & Geldpolitik"
+  }
 ];
