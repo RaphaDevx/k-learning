@@ -159,6 +159,19 @@ window.FeedScreen = (function() {
     const html = cards.map((c, i) => _renderVideoCard(c, startIdx + i)).join('');
     container.insertAdjacentHTML('beforeend', html);
 
+    if (typeof renderMathInElement !== 'undefined') {
+      cards.forEach((_, i) => {
+        const el = document.getElementById(`feed-${startIdx + i}`);
+        if (!el) return;
+        el.querySelectorAll('h2, p').forEach(node => {
+          renderMathInElement(node, {
+            delimiters: [{ left: '$', right: '$', display: false }],
+            throwOnError: false,
+          });
+        });
+      });
+    }
+
     if (_observer) {
       cards.forEach((_, i) => {
         const el = document.getElementById(`feed-${startIdx + i}`);
