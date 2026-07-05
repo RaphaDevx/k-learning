@@ -160,15 +160,13 @@ window.FeedScreen = (function() {
     container.insertAdjacentHTML('beforeend', html);
 
     if (typeof renderMathInElement !== 'undefined') {
-      cards.forEach((_, i) => {
+      const opts = { delimiters: [{ left: '$', right: '$', display: false }], throwOnError: false };
+      cards.forEach((c, i) => {
+        const hasMath = (c.title + (c.subtitle || '')).includes('$');
+        if (!hasMath) return;
         const el = document.getElementById(`feed-${startIdx + i}`);
         if (!el) return;
-        el.querySelectorAll('h2, p').forEach(node => {
-          renderMathInElement(node, {
-            delimiters: [{ left: '$', right: '$', display: false }],
-            throwOnError: false,
-          });
-        });
+        el.querySelectorAll('h2, p').forEach(node => renderMathInElement(node, opts));
       });
     }
 
