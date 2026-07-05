@@ -66,11 +66,11 @@
           "imageHtml": null,
           "imageAsset": null,
           "choices": [
-            { "key": "A", "text": "Der Barwert hängt positiv vom Zins in Periode t ab, also $\\frac{\\partial V_t}{\\partial i_t} > 0$." },
-            { "key": "B", "text": "Der Barwert hängt positiv vom erwarteten Zins in Periode t+1 ab, also $\\frac{\\partial V_t}{\\partial i_{t+1}^e} > 0$." },
-            { "key": "C", "text": "Der Barwert hängt positiv vom erwarteten Zahlungsstrom in Periode t+2 ab, also $\\frac{\\partial V_t}{\\partial z_{t+2}^e} > 0$." },
-            { "key": "D", "text": "Der Barwert hängt positiv vom erwarteten Zahlungsstrom in Periode t+1 ab, also $\\frac{\\partial V_t}{\\partial z_{t+1}^e} > 0$." },
-            { "key": "E", "text": "Der Effekt eines Anstiegs des erwarteten Zahlungsstroms in Periode t+2 auf den Barwert hängt negativ vom Zins in Periode t ab." }
+            { "key": "A", "text": "Der Barwert dieses Vermögenswerts (nominal) in Periode t hängt positiv vom Zins in Periode t ab, also $\\frac{\\partial V_t}{\\partial i_t} > 0$." },
+            { "key": "B", "text": "Der Barwert dieses Vermögenswerts (nominal) in Periode t hängt positiv vom erwarteten Zins in Periode t+1 ab, also $\\frac{\\partial V_t}{\\partial i_{t+1}^e} > 0$." },
+            { "key": "C", "text": "Der Barwert dieses Vermögenswerts (nominal) in Periode t hängt positiv vom erwarteten Zahlungsstrom in Periode t+2 ab, also $\\frac{\\partial V_t}{\\partial z_{t+2}^e} > 0$." },
+            { "key": "D", "text": "Der Barwert dieses Vermögenswerts (nominal) in Periode t hängt positiv vom erwarteten Zahlungsstrom in Periode t+1 ab, also $\\frac{\\partial V_t}{\\partial z_{t+1}^e} > 0$." },
+            { "key": "E", "text": "Der Effekt eines Anstiegs des erwarteten Zahlungsstroms in Periode t+2 auf den Barwert dieses Vermögenswerts (nominal) in Periode t hängt negativ vom Zins in Periode t ab, also $\\frac{\\partial \\left(\\frac{\\partial V_t}{\\partial z_{t+2}^e}\\right)}{\\partial i_t} < 0$." }
           ],
           "correct": ["C","D","E"],
           "modelAnswer": null,
@@ -88,33 +88,33 @@
           "imageHtml": null,
           "imageAsset": null,
           "choices": [
-            { "key": "A", "text": "Der Barwert ist grösser als 100 CHF." },
-            { "key": "B", "text": "Der Barwert ist grösser als 99 CHF." },
-            { "key": "C", "text": "Der Barwert ist kleiner als 99 CHF." },
-            { "key": "D", "text": "Der Barwert ist grösser als 97 CHF." },
-            { "key": "E", "text": "Der Barwert ist kleiner als 97 CHF." }
+            { "key": "A", "text": "Der Barwert dieses Vermögenswerts (nominal) in Periode t ist grösser als 100 CHF." },
+            { "key": "B", "text": "Der Barwert dieses Vermögenswerts (nominal) in Periode t ist genau gleich 100 CHF." },
+            { "key": "C", "text": "Der Barwert dieses Vermögenswerts (nominal) in Periode t ist kleiner als 99 CHF." },
+            { "key": "D", "text": "Der Barwert dieses Vermögenswerts (nominal) in Periode t ist kleiner als 98 CHF." },
+            { "key": "E", "text": "Der Barwert dieses Vermögenswerts (nominal) in Periode t ist kleiner als 97 CHF." }
           ],
           "correct": [],
           "modelAnswer": null,
-          "explanation": "Einsetzen ergibt $V_t = 1 + 10/1.10 + 100/(1.10 \\cdot 1.02) \\approx 99.22$ CHF. Der Barwert liegt zwischen 99 und 100 CHF, ist also weder grösser als 100 noch kleiner als 99, aber grösser als 97. Wichtig: 'grösser als 97' war in der Prüfung nicht als Option gelistet — daher ist keine der angegebenen Aussagen streng korrekt.",
+          "explanation": "Einsetzen ergibt $V_t = 1 + 10/1.10 + 100/(1.10 \\cdot 1.02) \\approx 99.22$ CHF. Der Barwert liegt zwischen 99 und 100 CHF: A (>100) falsch, B (=100) falsch, C (<99) falsch, D (<98) falsch, E (<97) falsch — keine der Aussagen ist streng korrekt. Vermutung: In der Originalklausur könnte eine der Aussagen (z.B. 'grösser als 99 CHF' oder 'kleiner als 100 CHF') als richtig markiert werden; bitte mit Original vergleichen.",
           "topics": ["Finanzmärkte", "Barwert", "Erwartungen"],
           "metadata": { "difficulty": "medium", "category": "Finanzmärkte", "latex": true, "_generated": false }
         },
         {
           "id": "makro2-probeklausur-fs26-q04",
           "number": 4,
-          "text": "1.4 — Betrachte eine sichere zweijährige und eine sichere einjährige Nullkuponanleihe (je Nennwert 100 CHF). Markiere die wahren Aussagen.",
+          "text": "1.4 — Betrachte eine sichere zweijährige Nullkuponanleihe (Nennwert $F_{2,t+2} = 100$ CHF, Zins $i_{2,t}$) und eine sichere einjährige Nullkuponanleihe (Nennwert $F_{1,t+1} = 100$ CHF, Zins $i_{1,t}$), beide in Periode t ausgegeben. Investoren sind risikoneutral. Markiere die wahren Aussagen.",
           "type": "multiple_choice",
           "points": 2,
           "expectedDuration": 2,
           "imageHtml": null,
           "imageAsset": null,
           "choices": [
-            { "key": "A", "text": "Je höher der erwartete Zins $i_{1,t+1}^e$ nächstes Jahr, desto niedriger der Zins $i_{2,t}$ für die zweijährige Anleihe." },
-            { "key": "B", "text": "Je höher der Preis $P_{1,t}$ der einjährigen Anleihe heute, desto niedriger der Zins $i_{2,t}$." },
-            { "key": "C", "text": "Je höher der Preis $P_{2,t}$ der zweijährigen Anleihe heute, desto niedriger ist der Zins $i_{2,t}$." },
-            { "key": "D", "text": "Je höher der erwartete Zins $i_{1,t+1}^e$ nächstes Jahr, desto niedriger der Preis $P_{2,t}$." },
-            { "key": "E", "text": "Der Zins der zweijährigen Anleihe $i_{2,t}$ ist unabhängig vom Zins $i_{1,t}$." }
+            { "key": "A", "text": "Je höher der erwartete Zins $i_{1,t+1}^e$ einer einjährigen Anleihe nächstes Jahr, desto niedriger der Zins $i_{2,t}$ für eine zweijährige Anleihe." },
+            { "key": "B", "text": "Je höher der Preis $P_{1,t}$ der einjährigen Anleihe heute, desto niedriger der Zins $i_{2,t}$ für eine zweijährige Anleihe." },
+            { "key": "C", "text": "Je höher der Preis $P_{2,t}$ der zweijährigen Anleihe heute, desto niedriger ist der Zins $i_{2,t}$ einer zweijährigen Anleihe." },
+            { "key": "D", "text": "Je höher der erwartete Zins $i_{1,t+1}^e$ einer einjährigen Anleihe nächstes Jahr, desto niedriger der Preis $P_{2,t}$ einer zweijährigen Anleihe." },
+            { "key": "E", "text": "Der Zins einer zweijährigen Anleihe $i_{2,t}$ ist unabhängig vom Zins einer einjährigen Anleihe dieses Jahr $i_{1,t}$." }
           ],
           "correct": ["B","C","D"],
           "modelAnswer": null,
@@ -125,7 +125,7 @@
         {
           "id": "makro2-probeklausur-fs26-q05",
           "number": 5,
-          "text": "1.5 — Nimm an $i_{1,t} = 10\\%$ und Investoren erwarten $i_{1,t+1}^e = 0\\%$ und dies bleibt für immer so. Markiere die wahren Aussagen.",
+          "text": "1.5 — Nimm nun an, dass $i_{1,t}=10\\%$ und Investoren erwarten, dass der Zins auf die einjährige Anleihe nächstes Jahr $i_{1,t+1}^e=0\\%$ sein wird und für immer auf diesem Niveau bleiben wird. Markiere die wahren Aussagen.",
           "type": "multiple_choice",
           "points": 2,
           "expectedDuration": 2,
@@ -134,13 +134,13 @@
           "choices": [
             { "key": "A", "text": "Die Zinsstrukturkurve verläuft steigend." },
             { "key": "B", "text": "Die Zinsstrukturkurve verläuft fallend." },
-            { "key": "C", "text": "Der jährliche Zins $i_{2,t}$ für die zweijährige Anleihe ist 0% (Approximation Blanchard/Illing)." },
-            { "key": "D", "text": "Der jährliche Zins $i_{2,t}$ ist 5% (Approximation Blanchard/Illing)." },
-            { "key": "E", "text": "Der Preis der einjährigen Anleihe [Text nicht vollständig lesbar]." }
+            { "key": "C", "text": "Der jährliche Zins $i_{2,t}$ für unsere zweijährige Anleihe ist 0%, wenn wir die Annäherungsformel aus dem Lehrbuch von Blanchard/Illing verwenden." },
+            { "key": "D", "text": "Der exakte jährliche Zins $i_{2,t}$ für unsere zweijährige Anleihe ist kleiner als 5%." },
+            { "key": "E", "text": "Der Preis der einjährigen Anleihe [Originaltext im PDF unlesbar/abgeschnitten]." }
           ],
           "correct": ["B","D"],
           "modelAnswer": null,
-          "explanation": "Mit der Approximation $i_{2,t} \\approx (i_{1,t} + i_{1,t+1}^e)/2 = (10\\% + 0\\%)/2 = 5\\%$ (D korrekt, C falsch). Da langfristige Zinsen ($5\\%$, dann $0\\%$) unter dem kurzfristigen Zins ($10\\%$) liegen, fällt die Zinsstrukturkurve (B korrekt, A falsch).",
+          "explanation": "Mit der exakten Formel gilt $(1+i_{2,t})^2 = (1+i_{1,t})(1+i_{1,t+1}^e) = 1.10 \\cdot 1.00 = 1.10$, also $i_{2,t} \\approx 4.88\\% < 5\\%$ (D korrekt). Die Annäherungsformel Blanchard/Illing gibt $i_{2,t} \\approx (i_{1,t} + i_{1,t+1}^e)/2 = 5\\%$ — nicht 0% (C falsch). Da langfristige Zinsen unter dem kurzfristigen Zins liegen, fällt die Zinsstrukturkurve (B korrekt, A falsch).",
           "topics": ["Finanzmärkte", "Barwert", "Erwartungen"],
           "metadata": { "difficulty": "medium", "category": "Finanzmärkte", "latex": true, "_generated": false }
         }
@@ -779,7 +779,7 @@
         {
           "id": "makro2-probeklausur-fs26-q32",
           "number": 32,
-          "text": "7.2 — Risikoneutrale Investoren wählen zwischen einer sicheren einjährigen Nullkuponanleihe mit Zins $i_{1,t}$ und einer risikoreichen Aktie mit Ex-Dividende-Preis $Q_t$, erwarteter Dividende $D_{t+1}^e$ und erwartetem Preis $Q_{t+1}^e$. Markiere die wahren Aussagen.",
+          "text": "7.2 — Nimm an, risikoneutrale Investoren können wählen zwischen einer sicheren einjährigen Nullkuponanleihe, die in Periode t mit Zins $i_{1,t}$ emittiert wird, und einer risikoreichen Aktie. Die Aktie hat einen Ex-Dividende Preis $Q_t$ (d.h. der Preis nach der Dividendenzahlung) im aktuellen Jahr t, zahlt die erwartete Dividende $D_{t+1}^e$ nächstes Jahr und wird zum erwarteten Preis $Q_{t+1}^e$ in einem Jahr verkauft. [Zusatzangaben aus dem Original-PDF teilweise unlesbar.] Markiere die wahren Aussagen.",
           "type": "multiple_choice",
           "points": 2,
           "expectedDuration": 2,
@@ -788,9 +788,9 @@
           "choices": [
             { "key": "A", "text": "Arbitrage impliziert, dass die erwartete Dividende gleich dem einjährigen Zins sein muss, also $D_{t+1}^e = i_{1,t}$." },
             { "key": "B", "text": "Arbitrage impliziert, dass die erwartete Dividende gleich der Aktienprämie sein muss, also $D_{t+1}^e = x$." },
-            { "key": "C", "text": "Arbitrage impliziert eine spezifische Beziehung zwischen $Q_t$, $Q_{t+1}^e$, $D_{t+1}^e$ und $i_{1,t}$." },
+            { "key": "C", "text": "Arbitrage impliziert, dass die erwartete Dividende $D_{t+1}^e$ gleich 1 CHF ist." },
             { "key": "D", "text": "Arbitrage impliziert, dass die erwartete Dividende $D_{t+1}^e$ gleich 2 CHF ist." },
-            { "key": "E", "text": "Arbitrage impliziert, dass die erwartete Dividende $D_{t+1}^e$ gleich der Aktienprämie multipliziert mit dem heutigen Preis $Q_t$ ist." }
+            { "key": "E", "text": "Arbitrage impliziert, dass die erwartete Dividende $D_{t+1}^e$ gleich 3 CHF ist." }
           ],
           "correct": ["E"],
           "modelAnswer": null,
@@ -801,7 +801,7 @@
         {
           "id": "makro2-probeklausur-fs26-q33",
           "number": 33,
-          "text": "7.3 — Im Zwei-Perioden-Konsummodell ...",
+          "text": "7.3 — Im Zwei-Perioden-Modell zur Konsum-Spar-Entscheidung der Haushalte...",
           "type": "multiple_choice",
           "points": 2,
           "expectedDuration": 2,
@@ -812,7 +812,7 @@
             { "key": "B", "text": "genügt die Euler-Gleichung allein zur Bestimmung des optimalen Konsums." },
             { "key": "C", "text": "impliziert die Euler-Gleichung, dass $\\beta = \\frac{1}{1+r}$." },
             { "key": "D", "text": "impliziert die Euler-Gleichung, dass $\\beta = 1$." },
-            { "key": "E", "text": "impliziert die Euler-Gleichung, dass der Haushalt in beiden Perioden dieselbe Menge konsumiert." }
+            { "key": "E", "text": "impliziert die Euler-Gleichung, dass der Haushalt die gleichen Mengen in beiden Perioden konsumiert." }
           ],
           "correct": ["A"],
           "modelAnswer": null,
@@ -1088,10 +1088,12 @@
     }
   ],
   "_validation": [
-    "Q1.3: Berechneter Barwert 99.22 CHF liegt nicht in einer der angebotenen Antwortoptionen — leerer Antwortkey. Bitte mit Originalprüfung verifizieren.",
+    "Q1.3: Berechneter Barwert 99.22 CHF liegt in keiner der Antwortoptionen — leerer Antwortkey. Choices B und D wurden gemäss Lösungen.md korrigiert (B: 'genau gleich 100 CHF', D: 'kleiner als 98 CHF'). Bitte mit Originalprüfung verifizieren.",
+    "Q1.5 (E): 'Der Preis der einjährigen Anleihe...' — Originaltext in beiden PDF-Quellen abgeschnitten; Platzhalter im JSON.",
     "Q2.4: Bei β=1/(1+r) folgt aus der Euler-Gleichung C₁=C₂; A ist daher streng genommen falsch — Antwortkey aus analytischer Ableitung, mit Vorlesungsnotizen verifizieren.",
     "Q3.4: Vorzeichenkonvention des nominalen Wechselkurses folgt Blanchard/Illing (E steigt = heimische Aufwertung). Antwortkey konsistent mit dieser Konvention.",
+    "Q4.2 (E): 'Das Gleichgewicht ohne Verpflichtung hat einen positiven Inflationsbias.' — Originaltext in beiden PDF-Quellen abgeschnitten; Rekonstruktion basierend auf dem Zeitinkonsistenz-Modell.",
     "Q5.5: Bei festen Wechselkursen ist die Rolle der Investitionen ambivalent — Antwortkey folgt Vorlesungslogik.",
-    "Q7.2: Frage im Original teilweise unlesbar (Symbolik). Antwortkey konservativ auf die klarste Aussage (E) gesetzt."
+    "Q7.2: Choices C, D, E gemäss Lösungen.md korrigiert zu 'gleich 1/2/3 CHF' (numerische Optionen). Vollständiger Frage-Kontext im Original teilweise unlesbar — Zusatzangaben zur Aktienprämie und zu Q_t, Q_{t+1}^e fehlen und Antwortkey ist provisorisch (E)."
   ]
 }
