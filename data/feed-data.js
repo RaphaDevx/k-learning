@@ -1680,6 +1680,7 @@ window.FEED_CARDS = [
   {
     id: "makro-r2-1-euler",
     type: "localvideo",
+    model_id: "euler-gleichung",
     course: "MakroII", courseColor: "#059669",
     emoji: "⏳",
     title: "Euler-Gleichung: Wann spare ich?",

@@ -89,6 +89,7 @@
   <script src="js/screens/dashboard.js"></script>
   <script src="js/screens/courseHub.js"></script>
   <script src="js/screens/learnPath.js"></script>
+  <script src="js/screens/reelModel.js"></script>
   <script src="js/screens/feed.js"></script>
   <script src="js/screens/flashcards.js"></script>
   <script src="js/screens/topics.js"></script>
@@ -109,6 +110,12 @@
     .card-inner.flipped { transform: rotateY(180deg); }
     .card-front, .card-back { backface-visibility: hidden; -webkit-backface-visibility: hidden; }
     .card-back { transform: rotateY(180deg); }
+
+    /* Flashcard back: only vertical scroll, no horizontal */
+    .fc-back-scroll { overflow-y: auto; overflow-x: hidden; touch-action: pan-y; }
+
+    /* KaTeX display: allow JS scale transform without layout side-effects */
+    .katex-display { transform-origin: center top; transition: none !important; }
 
     /* ── Animations ── */
     @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
@@ -725,7 +732,7 @@
                         style="background:rgba(255,255,255,0.07);color:var(--txt-3)" onmouseenter="this.style.background='rgba(239,68,68,0.15)';this.style.color='#f87171'" onmouseleave="this.style.background='rgba(255,255,255,0.07)';this.style.color='var(--txt-3)'">⚑</button>
                     </div>
                   </div>
-                  <div class="flex-1 flex items-start justify-center overflow-auto py-1">
+                  <div class="fc-back-scroll flex-1 flex items-start justify-center py-1">
                     <div class="fc-back-text text-base leading-relaxed w-full" style="white-space:pre-line"></div>
                   </div>
                 </div>
@@ -757,7 +764,7 @@
                         style="background:rgba(255,255,255,0.07);color:var(--txt-3)" onmouseenter="this.style.background='rgba(239,68,68,0.15)';this.style.color='#f87171'" onmouseleave="this.style.background='rgba(255,255,255,0.07)';this.style.color='var(--txt-3)'">⚑</button>
                     </div>
                   </div>
-                  <div class="flex-1 flex items-start justify-center overflow-auto py-1">
+                  <div class="fc-back-scroll flex-1 flex items-start justify-center py-1">
                     <div class="fc-back-text text-base leading-relaxed w-full" style="white-space:pre-line"></div>
                   </div>
                 </div>

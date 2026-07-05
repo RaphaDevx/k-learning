@@ -176,6 +176,8 @@ window.FeedScreen = (function() {
         if (el) _observer.observe(el);
       });
     }
+
+    _initModelCards();
   }
 
   function _showExhaustedCard() {
@@ -206,10 +208,8 @@ window.FeedScreen = (function() {
     const color = card.course_color || card.courseColor || '#7c3aed';
     const dbId  = card.id || '';
 
-    return `
-    <div class="feed-card feed-card-video" id="feed-${index}" data-slug="${id}" data-db-id="${dbId}" data-idx="${index}">
-      <div class="feed-card-inner" style="background:#000;">
-
+    // Video panel content (shared for both layouts)
+    const videoPanel = `
         <video
           id="vid-${id}"
           style="display:block;background:#000;"
@@ -262,10 +262,80 @@ window.FeedScreen = (function() {
               🔁 Nochmal
             </button>
           </div>
-        </div>
 
+          ${card.model_id ? `
+          <button onclick="event.stopPropagation();ReelModel.openFromCard('${id}')"
+            style="position:absolute;bottom:7rem;right:1rem;z-index:30;
+                   background:rgba(79,195,247,0.2);border:1px solid rgba(79,195,247,0.6);
+                   color:#4FC3F7;font-size:0.75rem;padding:6px 12px;border-radius:20px;
+                   backdrop-filter:blur(4px);cursor:pointer;font-weight:600">
+            ⚡ Modell
+          </button>` : ''}
+        </div>`;
+
+    if (card.model_id) {
+      // Two-panel horizontal track layout
+      return `
+    <div class="feed-card feed-card-video" id="feed-${index}" data-slug="${id}" data-db-id="${dbId}" data-idx="${index}" style="overflow:hidden;">
+      <div class="feed-card-inner" style="background:#000;overflow:hidden;">
+        <div class="reel-model-track" id="rmt-${id}"
+          style="display:flex;width:200%;height:100%;transition:transform 0.4s cubic-bezier(0.4,0,0.2,1);will-change:transform;">
+          <div style="width:50%;height:100%;position:relative;flex-shrink:0;">
+            ${videoPanel}
+          </div>
+          <div style="width:50%;height:100%;overflow-y:auto;flex-shrink:0;-webkit-overflow-scrolling:touch;"
+            id="model-panel-${id}">
+          </div>
+        </div>
       </div>
     </div>`;
+    }
+
+    // Standard layout (no model)
+    return `
+    <div class="feed-card feed-card-video" id="feed-${index}" data-slug="${id}" data-db-id="${dbId}" data-idx="${index}">
+      <div class="feed-card-inner" style="background:#000;">
+        ${videoPanel}
+      </div>
+    </div>`;
+  }
+
+  function _initModelCards() {
+    _queue.forEach(card => {
+      if (!card.model_id) return;
+      if (!window.ReelModel || !window.ReelModel.hasModel(card.model_id)) return;
+      const id = card.slug || card.id;
+      const panelEl = document.getElementById('model-panel-' + id);
+      if (!panelEl || panelEl.dataset.rmInit) return;
+      panelEl.dataset.rmInit = '1';
+      panelEl.innerHTML = window.ReelModel.renderPanel(card.model_id);
+      window.ReelModel.initPanel(card.model_id, panelEl);
+
+      // Swipe detection on the feed-card-inner
+      const cardEl = document.querySelector(`[data-slug="${id}"] .feed-card-inner`);
+      if (!cardEl) return;
+      let tx = 0, ty = 0, moved = false;
+      cardEl.addEventListener('touchstart', e => {
+        tx = e.touches[0].clientX;
+        ty = e.touches[0].clientY;
+        moved = false;
+      }, { passive: true });
+      cardEl.addEventListener('touchmove', e => {
+        moved = true;
+      }, { passive: true });
+      cardEl.addEventListener('touchend', e => {
+        if (!moved) return;
+        const dx = e.changedTouches[0].clientX - tx;
+        const dy = e.changedTouches[0].clientY - ty;
+        if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 60) {
+          if (dx < 0) {
+            ReelModel.openFromCard(id);
+          } else {
+            ReelModel.closeFromCard(id);
+          }
+        }
+      }, { passive: true });
+    });
   }
 
   // ── Preload window management ─────────────────────────────────────────────
