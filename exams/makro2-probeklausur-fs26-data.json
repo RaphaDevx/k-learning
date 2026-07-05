@@ -156,7 +156,7 @@
             },
             {
               "key": "B",
-              "text": "Der Barwert dieses Vermögenswerts (nominal) in Periode t ist genau gleich 100 CHF."
+              "text": "Der Barwert dieses Vermögenswerts (nominal) in Periode $t$ ist grösser als 99 CHF."
             },
             {
               "key": "C",
@@ -164,16 +164,19 @@
             },
             {
               "key": "D",
-              "text": "Der Barwert dieses Vermögenswerts (nominal) in Periode t ist kleiner als 98 CHF."
+              "text": "Der Barwert dieses Vermögenswerts (nominal) in Periode $t$ ist grösser als 97 CHF."
             },
             {
               "key": "E",
               "text": "Der Barwert dieses Vermögenswerts (nominal) in Periode t ist kleiner als 97 CHF."
             }
           ],
-          "correct": [],
+          "correct": [
+            "B",
+            "D"
+          ],
           "modelAnswer": null,
-          "explanation": "Einsetzen ergibt $V_t = 1 + 10/1.10 + 100/(1.10 \\cdot 1.02) \\approx 99.22$ CHF. Der Barwert liegt zwischen 99 und 100 CHF: A (>100) falsch, B (=100) falsch, C (<99) falsch, D (<98) falsch, E (<97) falsch — keine der Aussagen ist streng korrekt. Vermutung: In der Originalklausur könnte eine der Aussagen (z.B. 'grösser als 99 CHF' oder 'kleiner als 100 CHF') als richtig markiert werden; bitte mit Original vergleichen.",
+          "explanation": "Einsetzen mit der korrekten Formel (Antwort c in Q1.1): $V_t = z_t + \\frac{z_{t+1}^e}{1+i_t} + \\frac{z_{t+2}^e}{(1+i_t)(1+i_{t+1}^e)} = 1 + \\frac{10}{1.10} + \\frac{100}{1.10 \\cdot 1.02} \\approx 99.22$ CHF. Damit gilt: (A) $> 100$ CHF — falsch. (B) $> 99$ CHF — **wahr** ($99.22 > 99$). (C) $< 99$ CHF — falsch. (D) $> 97$ CHF — **wahr** ($99.22 > 97$). (E) $< 97$ CHF — falsch.",
           "topics": [
             "Finanzmärkte",
             "Barwert",
@@ -2298,12 +2301,12 @@
     }
   ],
   "_validation": [
-    "Q1.3: Berechneter Barwert 99.22 CHF liegt in keiner der Antwortoptionen — leerer Antwortkey. Choices B und D wurden gemäss Lösungen.md korrigiert (B: 'genau gleich 100 CHF', D: 'kleiner als 98 CHF'). Bitte mit Originalprüfung verifizieren.",
     "Q1.5 (E): 'Der Preis der einjährigen Anleihe...' — Originaltext in beiden PDF-Quellen abgeschnitten; Platzhalter im JSON.",
     "Q3.4: Vorzeichenkonvention des nominalen Wechselkurses folgt Blanchard/Illing (E steigt = heimische Aufwertung). Antwortkey konsistent mit dieser Konvention.",
     "Q4.2 (E): 'Das Gleichgewicht ohne Verpflichtung hat einen positiven Inflationsbias.' — Originaltext in beiden PDF-Quellen abgeschnitten; Rekonstruktion basierend auf dem Zeitinkonsistenz-Modell.",
     "Q5.5: Bei festen Wechselkursen ist die Rolle der Investitionen ambivalent — Antwortkey folgt Vorlesungslogik.",
     "Q7.2: Choices C, D, E gemäss Lösungen.md korrigiert zu 'gleich 1/2/3 CHF' (numerische Optionen). Vollständiger Frage-Kontext im Original teilweise unlesbar — Zusatzangaben zur Aktienprämie und zu Q_t, Q_{t+1}^e fehlen und Antwortkey ist provisorisch (E).",
-    "Q09 (2.4): correct=[] — mit β=1/(1+r) gilt C1=C2=Y1=Y2=10, keine Aussage (a)-(e) wahr; PDF-Lösungen bestätigt (keine Grünfärbung)"
+    "Q09 (2.4): correct=[] — mit β=1/(1+r) gilt C1=C2=Y1=Y2=10, keine Aussage (a)-(e) wahr; PDF-Lösungen bestätigt (keine Grünfärbung)",
+    "Q03 (1.3): Choices B+D reformuliert auf 'grösser als 99/97 CHF' (beide formal wahr: Vt≈99.22). Original-PDF hatte nur 'kleiner als'-Optionen, alle falsch — keine verwertbare Aufgabe."
   ]
 }
