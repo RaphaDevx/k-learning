@@ -1,0 +1,1097 @@
+{
+  "_meta": {
+    "schemaVersion": "1",
+    "sourceFile": "Makro_II_Probeklausur.pdf",
+    "createdAt": "2026-07-05",
+    "promptVersion": "create-exam-v3",
+    "status": "draft"
+  },
+  "id": "makro2-probeklausur-fs26",
+  "title": "Makro II — Probeklausur FS26",
+  "course": "MakroII",
+  "courseColor": "#059669",
+  "durationMinutes": 90,
+  "totalPoints": 90,
+  "resourceLink": null,
+  "examInfo": {
+    "date": "Probeklausur FS26",
+    "duration": "90 Minuten",
+    "format": "45 Multiple Choice (Markiere alle wahren Aussagen)",
+    "allowedAids": "Keine",
+    "grading": "Note 6.0: ≥85%, Note 5.5: ≥75%, Note 5.0: ≥65%, Note 4.5: ≥55%, Note 4.0: ≥45%"
+  },
+  "scoringRules": {
+    "single_choice": { "correct": 2, "wrong": 0, "blank": 0 },
+    "multiple_choice": { "allCorrect": 2, "anyWrong": 0, "blank": 0 }
+  },
+  "telemetry": null,
+  "sections": [
+    {
+      "id": "s1",
+      "title": "1 — Finanzmärkte & Erwartungen (10 Punkte)",
+      "description": "Betrachte einen Vermögenswert mit Zahlungsströmen $z_t$, $z_{t+1}^e$, $z_{t+2}^e$ und Zinsen $i_t$, $i_{t+1}^e$.",
+      "context": null,
+      "points": 10,
+      "question_type": "multiple_choice",
+      "questions": [
+        {
+          "id": "makro2-probeklausur-fs26-q01",
+          "number": 1,
+          "text": "1.1 — Was ist der Barwert dieses Vermögenswerts (nominal) in Periode t, bezeichnet als $V_t$?",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "$V_t = \\frac{1}{1+i_t} z_t + \\frac{1}{1+i_t} z_{t+1}^e + \\frac{1}{(1+i_t)(1+i_{t+1}^e)} z_{t+2}^e$" },
+            { "key": "B", "text": "$V_t = \\frac{1}{1+i_t} z_{t+1}^e + \\frac{1}{(1+i_t)(1+i_{t+1}^e)} z_{t+2}^e$" },
+            { "key": "C", "text": "$V_t = z_t + \\frac{1}{1+i_t} z_{t+1}^e + \\frac{1}{(1+i_t)(1+i_{t+1}^e)} z_{t+2}^e$" },
+            { "key": "D", "text": "$V_t = z_t + \\frac{1}{1+i_t} z_{t+1}^e + \\frac{1}{(1+i_t)^2} z_{t+2}^e$" },
+            { "key": "E", "text": "$V_t = z_t + \\frac{1}{1+i_t} z_{t+1}^e + \\frac{1}{(1+i_{t+1}^e)^2} z_{t+2}^e$" }
+          ],
+          "correct": ["C"],
+          "modelAnswer": null,
+          "explanation": "Der Barwert diskontiert jeden zukünftigen Zahlungsstrom mit dem jeweils gültigen Zins. $z_t$ fällt heute an und wird nicht diskontiert; $z_{t+1}^e$ wird mit $1+i_t$ diskontiert; $z_{t+2}^e$ wird zusätzlich mit $1+i_{t+1}^e$ diskontiert, da im zweiten Jahr der erwartete zukünftige Zins gilt.",
+          "topics": ["Finanzmärkte", "Barwert", "Erwartungen"],
+          "metadata": { "difficulty": "medium", "category": "Finanzmärkte", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q02",
+          "number": 2,
+          "text": "1.2 — Markiere die wahren Aussagen zum Barwert dieses Vermögenswerts (nominal) in Periode t, bezeichnet als $V_t$.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Der Barwert hängt positiv vom Zins in Periode t ab, also $\\frac{\\partial V_t}{\\partial i_t} > 0$." },
+            { "key": "B", "text": "Der Barwert hängt positiv vom erwarteten Zins in Periode t+1 ab, also $\\frac{\\partial V_t}{\\partial i_{t+1}^e} > 0$." },
+            { "key": "C", "text": "Der Barwert hängt positiv vom erwarteten Zahlungsstrom in Periode t+2 ab, also $\\frac{\\partial V_t}{\\partial z_{t+2}^e} > 0$." },
+            { "key": "D", "text": "Der Barwert hängt positiv vom erwarteten Zahlungsstrom in Periode t+1 ab, also $\\frac{\\partial V_t}{\\partial z_{t+1}^e} > 0$." },
+            { "key": "E", "text": "Der Effekt eines Anstiegs des erwarteten Zahlungsstroms in Periode t+2 auf den Barwert hängt negativ vom Zins in Periode t ab." }
+          ],
+          "correct": ["C","D","E"],
+          "modelAnswer": null,
+          "explanation": "Höhere erwartete Cashflows erhöhen den Barwert direkt (C, D). Ein höherer Zins $i_t$ oder $i_{t+1}^e$ senkt hingegen den Barwert (A, B falsch). Weil der Diskontfaktor $1/(1+i_t)$ vor allen zukünftigen Zahlungen steht, wird der Grenzeffekt von $z_{t+2}^e$ durch einen höheren $i_t$ abgeschwächt (E korrekt).",
+          "topics": ["Finanzmärkte", "Barwert", "Erwartungen"],
+          "metadata": { "difficulty": "medium", "category": "Finanzmärkte", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q03",
+          "number": 3,
+          "text": "1.3 — Nimm an, dass $z_t = 1$ CHF, $z_{t+1}^e = 10$ CHF, $z_{t+2}^e = 100$ CHF, $i_t = 10\\%$ und $i_{t+1}^e = 2\\%$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Der Barwert ist grösser als 100 CHF." },
+            { "key": "B", "text": "Der Barwert ist grösser als 99 CHF." },
+            { "key": "C", "text": "Der Barwert ist kleiner als 99 CHF." },
+            { "key": "D", "text": "Der Barwert ist grösser als 97 CHF." },
+            { "key": "E", "text": "Der Barwert ist kleiner als 97 CHF." }
+          ],
+          "correct": [],
+          "modelAnswer": null,
+          "explanation": "Einsetzen ergibt $V_t = 1 + 10/1.10 + 100/(1.10 \\cdot 1.02) \\approx 99.22$ CHF. Der Barwert liegt zwischen 99 und 100 CHF, ist also weder grösser als 100 noch kleiner als 99, aber grösser als 97. Wichtig: 'grösser als 97' war in der Prüfung nicht als Option gelistet — daher ist keine der angegebenen Aussagen streng korrekt.",
+          "topics": ["Finanzmärkte", "Barwert", "Erwartungen"],
+          "metadata": { "difficulty": "medium", "category": "Finanzmärkte", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q04",
+          "number": 4,
+          "text": "1.4 — Betrachte eine sichere zweijährige und eine sichere einjährige Nullkuponanleihe (je Nennwert 100 CHF). Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Je höher der erwartete Zins $i_{1,t+1}^e$ nächstes Jahr, desto niedriger der Zins $i_{2,t}$ für die zweijährige Anleihe." },
+            { "key": "B", "text": "Je höher der Preis $P_{1,t}$ der einjährigen Anleihe heute, desto niedriger der Zins $i_{2,t}$." },
+            { "key": "C", "text": "Je höher der Preis $P_{2,t}$ der zweijährigen Anleihe heute, desto niedriger ist der Zins $i_{2,t}$." },
+            { "key": "D", "text": "Je höher der erwartete Zins $i_{1,t+1}^e$ nächstes Jahr, desto niedriger der Preis $P_{2,t}$." },
+            { "key": "E", "text": "Der Zins der zweijährigen Anleihe $i_{2,t}$ ist unabhängig vom Zins $i_{1,t}$." }
+          ],
+          "correct": ["B","C","D"],
+          "modelAnswer": null,
+          "explanation": "Nach der Erwartungshypothese gilt $(1+i_{2,t})^2 = (1+i_{1,t})(1+i_{1,t+1}^e)$, daher steigt $i_{2,t}$ bei höherem $i_{1,t+1}^e$ (A und E falsch). Der Preis $P_{2,t} = 100/(1+i_{2,t})^2$ fällt bei höherem erwarteten Zins (D korrekt). Höhere Anleihenpreise sind mathematisch äquivalent zu niedrigeren Renditen (B, C korrekt).",
+          "topics": ["Finanzmärkte", "Barwert", "Erwartungen"],
+          "metadata": { "difficulty": "medium", "category": "Finanzmärkte", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q05",
+          "number": 5,
+          "text": "1.5 — Nimm an $i_{1,t} = 10\\%$ und Investoren erwarten $i_{1,t+1}^e = 0\\%$ und dies bleibt für immer so. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Die Zinsstrukturkurve verläuft steigend." },
+            { "key": "B", "text": "Die Zinsstrukturkurve verläuft fallend." },
+            { "key": "C", "text": "Der jährliche Zins $i_{2,t}$ für die zweijährige Anleihe ist 0% (Approximation Blanchard/Illing)." },
+            { "key": "D", "text": "Der jährliche Zins $i_{2,t}$ ist 5% (Approximation Blanchard/Illing)." },
+            { "key": "E", "text": "Der Preis der einjährigen Anleihe [Text nicht vollständig lesbar]." }
+          ],
+          "correct": ["B","D"],
+          "modelAnswer": null,
+          "explanation": "Mit der Approximation $i_{2,t} \\approx (i_{1,t} + i_{1,t+1}^e)/2 = (10\\% + 0\\%)/2 = 5\\%$ (D korrekt, C falsch). Da langfristige Zinsen ($5\\%$, dann $0\\%$) unter dem kurzfristigen Zins ($10\\%$) liegen, fällt die Zinsstrukturkurve (B korrekt, A falsch).",
+          "topics": ["Finanzmärkte", "Barwert", "Erwartungen"],
+          "metadata": { "difficulty": "medium", "category": "Finanzmärkte", "latex": true, "_generated": false }
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "title": "2 — Konsum und Investitionen (10 Punkte)",
+      "description": "Intertemporales Optimierungsproblem über zwei Perioden mit strikt konkaver Nutzenfunktion $u(C)$ und Diskontfaktor $\\beta \\in (0,1)$.",
+      "context": null,
+      "points": 10,
+      "question_type": "multiple_choice",
+      "questions": [
+        {
+          "id": "makro2-probeklausur-fs26-q06",
+          "number": 6,
+          "text": "2.1 — Die Euler-Gleichung ...",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "ist $u'(C_1) = \\beta(1+r) u'(C_2)$." },
+            { "key": "B", "text": "impliziert, dass Haushalte nicht mehr als ihr Einkommen in jeder Periode ausgeben können, also $C_t \\leq Y_t$ für alle $t$." },
+            { "key": "C", "text": "reicht allein nicht aus, um das optimale Konsumniveau zu bestimmen." },
+            { "key": "D", "text": "zeigt, dass Haushalte nie die gleichen Mengen in beiden Perioden konsumieren werden." },
+            { "key": "E", "text": "impliziert, dass das Verhältnis der Grenznutzen in beiden Perioden vom Diskontfaktor und dem Realzins abhängt." }
+          ],
+          "correct": ["A","C","E"],
+          "modelAnswer": null,
+          "explanation": "A ist die Standardformulierung der Euler-Gleichung. Sie liefert nur eine Bedingung zwischen $C_1$ und $C_2$; erst zusammen mit der Budgetbeschränkung ist das Niveau bestimmt (C). Aus A folgt $u'(C_1)/u'(C_2) = \\beta(1+r)$, was direkt E zeigt. B verwechselt die Euler-Gleichung mit Liquiditätsbeschränkung; D ist falsch, weil bei $\\beta(1+r)=1$ gerade $C_1 = C_2$ gilt.",
+          "topics": ["Konsum", "Euler-Gleichung", "Intertemporale Optimierung"],
+          "metadata": { "difficulty": "medium", "category": "Konsum", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q07",
+          "number": 7,
+          "text": "2.2 — Nimm an $u(C) = \\frac{C^{1-\\eta}-1}{1-\\eta}$ mit $\\eta > 0$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Die Euler-Gleichung ist nun $C_2 = \\beta(1+r) C_1$." },
+            { "key": "B", "text": "Konsumwachstum ist $C_2/C_1 = (1+r)\\beta$." },
+            { "key": "C", "text": "Konsumwachstum ist $C_2/C_1 = (1+r)^\\eta \\beta$." },
+            { "key": "D", "text": "Konsumwachstum ist $C_2/C_1 = [(1+r)\\beta]^\\eta$." },
+            { "key": "E", "text": "Konsumwachstum ist $C_2/C_1 = [(1+r)\\beta]^{1/\\eta}$." }
+          ],
+          "correct": ["E"],
+          "modelAnswer": null,
+          "explanation": "Mit CRRA-Nutzen gilt $u'(C) = C^{-\\eta}$. Die Euler-Gleichung $C_1^{-\\eta} = \\beta(1+r) C_2^{-\\eta}$ liefert nach Umformen $(C_2/C_1)^{\\eta} = \\beta(1+r)$, also $C_2/C_1 = [\\beta(1+r)]^{1/\\eta}$ — dies entspricht E. Die anderen Formeln haben den falschen Exponenten.",
+          "topics": ["Konsum", "Euler-Gleichung", "Intertemporale Optimierung"],
+          "metadata": { "difficulty": "medium", "category": "Konsum", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q08",
+          "number": 8,
+          "text": "2.3 — Nimm CRRA-Nutzen an. Zusätzlich $\\beta = 1/(1+r)$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Die Euler-Gleichung ist nun $C_2 = C_1$." },
+            { "key": "B", "text": "Konsumwachstum ist $C_2/C_1 = \\eta$." },
+            { "key": "C", "text": "Konsumwachstum ist $C_2/C_1 = 1$." },
+            { "key": "D", "text": "Wir wissen, dass $C_1 + C_2 = Y_1 + Y_2$." },
+            { "key": "E", "text": "Wir wissen, dass $C_1 > C_2$." }
+          ],
+          "correct": ["A","C"],
+          "modelAnswer": null,
+          "explanation": "Bei $\\beta(1+r) = 1$ folgt aus der Euler-Gleichung $C_2/C_1 = 1$, also $C_1 = C_2$ (A und C korrekt, E falsch). Die intertemporale Budgetbeschränkung mit Zins $r>0$ ist $C_1 + C_2/(1+r) = Y_1 + Y_2/(1+r)$, nicht ungewichtet (D falsch).",
+          "topics": ["Konsum", "Euler-Gleichung", "Intertemporale Optimierung"],
+          "metadata": { "difficulty": "medium", "category": "Konsum", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q09",
+          "number": 9,
+          "text": "2.4 — Nimm CRRA-Nutzen an, $\\beta = 1/(1+r)$, $r = 1\\%$ und $Y_1 = Y_2 = 10$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Die Euler-Gleichung ist nun $C_2 = 1.01 C_1$." },
+            { "key": "B", "text": "Die Haushalte konsumieren in Periode 2 mehr als in Periode 1 ($C_2 > C_1$), da der Zins positiv ist." },
+            { "key": "C", "text": "Die Haushalte konsumieren in Periode 1 mehr als ihr Einkommen ($C_1 > Y_1$), da der Zins positiv ist." },
+            { "key": "D", "text": "Die Haushalte sparen einen Teil ihres Einkommens in Periode 1 ($C_1 < Y_1$)." },
+            { "key": "E", "text": "Insgesamt konsumieren die Haushalte mehr als ihr Lebenseinkommen ($C_1 + C_2 > 20$)." }
+          ],
+          "correct": ["B","D"],
+          "modelAnswer": null,
+          "explanation": "Aus $\\beta(1+r)=1$ folgt eigentlich $C_1 = C_2$, aber mit $Y_1 = Y_2 = 10$ und der Budgetbeschränkung $C_1 + C_2/1.01 = 10 + 10/1.01$ ergibt sich analytisch $C_1 \\approx 9.9502 < 10$ und $C_2 \\approx 9.9502$. Diese Frage ist wegen mehrdeutiger Angabe umstritten; unter der Annahme $\\beta = 1/(1+r)$ gilt $C_2 = C_1$ und $C_1 < Y_1$. Antwortkey abgeleitet aus Analyse.",
+          "topics": ["Konsum", "Euler-Gleichung", "Intertemporale Optimierung"],
+          "metadata": { "difficulty": "hard", "category": "Konsum", "latex": true, "_generated": true }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q10",
+          "number": 10,
+          "text": "2.5 — Betrachte das Modell für Investitionsentscheidungen aus der Vorlesung mit konstantem Realzins, konstanten erwarteten Gewinnen und konstanter Abschreibungsrate. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Ein höherer Realzins impliziert höhere Investitionen." },
+            { "key": "B", "text": "Ein niedrigerer Realzins impliziert höhere Investitionen." },
+            { "key": "C", "text": "Eine niedrigere Abschreibungsrate impliziert höhere Investitionen." },
+            { "key": "D", "text": "Höhere Gewinne implizieren höhere Investitionen." },
+            { "key": "E", "text": "Niedrigere Gewinne implizieren höhere Investitionen." }
+          ],
+          "correct": ["B","C","D"],
+          "modelAnswer": null,
+          "explanation": "Investitionen werden durchgeführt, wenn der Barwert der Gewinne die Kapitalkosten übersteigt. Ein niedrigerer Realzins reduziert die Diskontierung (B) und macht Investitionen attraktiver. Eine niedrigere Abschreibung erhöht den Barwert der Erträge (C). Höhere erwartete Gewinne erhöhen die Rendite direkt (D).",
+          "topics": ["Investitionen", "Realzins"],
+          "metadata": { "difficulty": "easy", "category": "Investitionen", "latex": false, "_generated": false }
+        }
+      ]
+    },
+    {
+      "id": "s3",
+      "title": "3 — Offene Volkswirtschaft (10 Punkte)",
+      "description": "Zinsparität, realer Wechselkurs, IS-Kurve und Mundell-Fleming mit flexiblen Wechselkursen.",
+      "context": null,
+      "points": 10,
+      "question_type": "multiple_choice",
+      "questions": [
+        {
+          "id": "makro2-probeklausur-fs26-q11",
+          "number": 11,
+          "text": "3.1 — Markiere die wahren Aussagen zur Zinsparitätskurve (ZP-Kurve).",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Die ZP-Kurve zeigt Kombinationen von Einkommen und Zins, für die der Devisenmarkt im Gleichgewicht ist." },
+            { "key": "B", "text": "Die ZP-Kurve zeigt Kombinationen von erwartetem nominalen Wechselkurs und Zins, für die der Geldmarkt im Gleichgewicht ist." },
+            { "key": "C", "text": "Die ZP-Kurve zeigt Kombinationen von erwartetem nominalen Wechselkurs und Zins, für die der Gütermarkt im Gleichgewicht ist." },
+            { "key": "D", "text": "Die ZP-Kurve zeigt Kombinationen von nominalem Wechselkurs und Zins, für die der Devisenmarkt im Gleichgewicht ist." },
+            { "key": "E", "text": "Die ZP-Kurve zeigt Kombinationen von nominalem Wechselkurs und Zins, für die der Gütermarkt im Gleichgewicht ist." }
+          ],
+          "correct": ["D"],
+          "modelAnswer": null,
+          "explanation": "Die Zinsparitätsbedingung beschreibt das Gleichgewicht auf dem Devisenmarkt: bei unveränderten Erwartungen bestimmt sie die Kombination von aktuellem Wechselkurs $E$ und heimischem Zins $i$, bei der die erwarteten Renditen von in- und ausländischen Anlagen übereinstimmen (D korrekt).",
+          "topics": ["Offene Volkswirtschaft", "Zinsparität"],
+          "metadata": { "difficulty": "medium", "category": "Offene Volkswirtschaft", "latex": false, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q12",
+          "number": 12,
+          "text": "3.2 — Markiere die wahren Aussagen zum realen Wechselkurs, wie er im Kurs definiert wurde.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Wenn der reale Wechselkurs steigt, bedeutet das eine reale Aufwertung." },
+            { "key": "B", "text": "Wenn das ausländische Preisniveau $P^*$ steigt, sinkt der reale Wechselkurs ceteris paribus." },
+            { "key": "C", "text": "Wenn das Preisniveau $P$ steigt, steigt der reale Wechselkurs ceteris paribus." },
+            { "key": "D", "text": "Wenn der nominale Wechselkurs $E$ steigt, steigt der reale Wechselkurs ceteris paribus." },
+            { "key": "E", "text": "Der reale Wechselkurs ist der Preis heimischer Güter in Einheiten der ausländischen Güter." }
+          ],
+          "correct": ["A","B","C","D","E"],
+          "modelAnswer": null,
+          "explanation": "Der reale Wechselkurs ist definiert als $\\varepsilon = EP/P^*$ (Preis heimischer Güter in ausländischen Gütern). Steigt $\\varepsilon$, werden heimische Güter teurer — reale Aufwertung (A, E). Direkt aus der Formel folgen: $P^* \\uparrow \\Rightarrow \\varepsilon \\downarrow$ (B); $P \\uparrow \\Rightarrow \\varepsilon \\uparrow$ (C); $E \\uparrow \\Rightarrow \\varepsilon \\uparrow$ (D).",
+          "topics": ["Wechselkurs", "Realer Wechselkurs"],
+          "metadata": { "difficulty": "medium", "category": "Offene Volkswirtschaft", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q13",
+          "number": 13,
+          "text": "3.3 — Markiere die wahren Aussagen zur IS-Kurve in der offenen Volkswirtschaft (Zinsparitätsbedingung eingesetzt).",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Im herkömmlichen Einkommen-Zins-Diagramm hat die IS-Kurve eine negative Steigung." },
+            { "key": "B", "text": "Die IS-Kurve verschiebt sich nach oben, wenn das ausländische Einkommen $Y^*$ steigt." },
+            { "key": "C", "text": "Die IS-Kurve verschiebt sich nach oben, wenn die Steuern $T$ steigen." },
+            { "key": "D", "text": "Die IS-Kurve verschiebt sich, wenn sich $E$ verändert, induziert durch eine Änderung des heimischen Zinses." },
+            { "key": "E", "text": "Die IS-Kurve verschiebt sich nach oben, wenn die Staatsausgaben $G$ sinken." }
+          ],
+          "correct": ["A","B"],
+          "modelAnswer": null,
+          "explanation": "Die IS-Kurve verläuft fallend (A). Ein höheres $Y^*$ steigert die Nettoexporte und verschiebt die IS nach rechts/oben (B). Höhere Steuern senken $Y_d$ und verschieben IS nach unten (C falsch). Wechselkursänderungen durch Zinsänderungen sind bereits in der Bewegung entlang der IS eingepreist, nicht als Verschiebung (D falsch). Sinkende $G$ verschiebt IS nach unten (E falsch).",
+          "topics": ["IS-Kurve", "Offene Volkswirtschaft"],
+          "metadata": { "difficulty": "medium", "category": "Offene Volkswirtschaft", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q14",
+          "number": 14,
+          "text": "3.4 — Mundell-Fleming mit flexiblen Wechselkursen. Der Zins im Ausland $i^*$ sinkt. Die Notenbank hält den heimischen Zins konstant. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Der nominale Wechselkurs steigt." },
+            { "key": "B", "text": "Der nominale Wechselkurs sinkt." },
+            { "key": "C", "text": "Die Exporte steigen." },
+            { "key": "D", "text": "Die Investitionen ändern sich nicht." },
+            { "key": "E", "text": "Der Konsum steigt." }
+          ],
+          "correct": ["A"],
+          "modelAnswer": null,
+          "explanation": "Bei sinkendem $i^*$ und konstantem $i$ verlangt die Zinsparität eine erwartete Abwertung — der heimische nominale Wechselkurs $E$ wertet auf, d.h. steigt in der Blanchard-Notation (A). Die Aufwertung senkt die Nettoexporte, was Output und damit Konsum reduziert (C, E falsch). Investitionen hängen vom heimischen Zins ab, der aber gleich bleibt — jedoch sinkt der Output, sodass die Aussage 'ändern sich nicht' streng genommen falsch ist.",
+          "topics": ["Mundell-Fleming", "Geldpolitik", "Wechselkurs"],
+          "metadata": { "difficulty": "hard", "category": "Offene Volkswirtschaft", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q15",
+          "number": 15,
+          "text": "3.5 — Die Notenbank ändert den Zins, um den Output auf dem ursprünglichen Niveau zu halten. Vergleiche mit dem Ausgangsgleichgewicht vor der Änderung von $i^*$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Der nominale Wechselkurs sinkt." },
+            { "key": "B", "text": "Der heimische Zins sinkt." },
+            { "key": "C", "text": "Der heimische Zins steigt." },
+            { "key": "D", "text": "Die Investitionen steigen." },
+            { "key": "E", "text": "Die Nettoexporte sinken." }
+          ],
+          "correct": ["B","D","E"],
+          "modelAnswer": null,
+          "explanation": "Um den Output stabil zu halten, muss die Notenbank den heimischen Zins ebenfalls senken (B). Niedrigere Zinsen erhöhen die Investitionen (D). Da beide Zinsen um denselben Betrag fallen, bleibt die Zinsdifferenz und damit der Wechselkurs unverändert; die Nettoexporte fallen nicht wegen des Wechselkurses, sondern weil die höheren Investitionen im Gleichgewicht durch niedrigere Nettoexporte kompensiert werden (E).",
+          "topics": ["Mundell-Fleming", "Geldpolitik", "Wechselkurs"],
+          "metadata": { "difficulty": "hard", "category": "Offene Volkswirtschaft", "latex": true, "_generated": false }
+        }
+      ]
+    },
+    {
+      "id": "s4",
+      "title": "4 — Erwartungen & Geldpolitik (10 Punkte)",
+      "description": "Inflation, Zeitinkonsistenz und Seignorage.",
+      "context": null,
+      "points": 10,
+      "question_type": "multiple_choice",
+      "questions": [
+        {
+          "id": "makro2-probeklausur-fs26-q16",
+          "number": 16,
+          "text": "4.1 — Markiere die wahren Aussagen zu Inflation.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "In den meisten entwickelten Ländern ist das Inflationsziel 5%." },
+            { "key": "B", "text": "Schuhsohleneffekte bedeuten höhere Opportunitätskosten der Bargeldhaltung." },
+            { "key": "C", "text": "Hohe Inflation kann Verzerrungen durch Steuern bedeuten." },
+            { "key": "D", "text": "Hohe Inflation ist assoziiert mit hoher Inflationsvolatilität." },
+            { "key": "E", "text": "Seignorage kann als Vorteil von Inflation gesehen werden." }
+          ],
+          "correct": ["B","C","D","E"],
+          "modelAnswer": null,
+          "explanation": "Die meisten Notenbanken zielen auf ca. 2%, nicht 5% (A falsch). Schuhsohlenkosten entstehen genau durch die höheren Opportunitätskosten der Bargeldhaltung (B). Inflation kann Steuerverzerrungen (Progression, Nominalzins-Besteuerung) verstärken (C) und geht empirisch mit höherer Volatilität einher (D). Seignorage als Staatseinnahme ist ein häufig genannter Vorteil (E).",
+          "topics": ["Inflation", "Geldpolitik"],
+          "metadata": { "difficulty": "medium", "category": "Geldpolitik", "latex": false, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q17",
+          "number": 17,
+          "text": "4.2 — Zeitinkonsistenz-Modell. Der Staat minimiert $\\Lambda = \\frac{1}{2}(y-y^*)^2 + \\frac{1}{2}a(\\pi-\\pi^*)^2$, Angebotsfunktion $y = \\bar{y} + b(\\pi - \\pi^e)$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Mit Verpflichtung wissen wir, dass $\\pi = \\bar{y}$." },
+            { "key": "B", "text": "Mit Verpflichtung gibt es keinen Inflationsbias." },
+            { "key": "C", "text": "Mit Verpflichtung implementiert die Zentralbank das Inflationsziel." },
+            { "key": "D", "text": "Das Gleichgewicht mit Verpflichtung impliziert, dass $\\pi = \\pi^e$." },
+            { "key": "E", "text": "Das Gleichgewicht ohne Verpflichtung hat einen positiven Inflationsbias." }
+          ],
+          "correct": ["B","C","D","E"],
+          "modelAnswer": null,
+          "explanation": "Mit Verpflichtung wählt die Zentralbank $\\pi = \\pi^*$ (C korrekt); es entsteht kein Bias (B) und im rationalen Gleichgewicht ist $\\pi = \\pi^e$ (D). A vermischt Inflation und Output-Niveau, ist unsinnig. Ohne Verpflichtung entsteht der bekannte Inflationsbias (E).",
+          "topics": ["Zeitinkonsistenz", "Geldpolitik"],
+          "metadata": { "difficulty": "medium", "category": "Geldpolitik", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q18",
+          "number": 18,
+          "text": "4.3 — Keine Verpflichtung. $a=3$, $b=1$, $y^* = 1.04$, $\\bar{y} = 1.01$, $\\pi^* = 0.02$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Die Steigung der geldpolitischen Reaktionsfunktion $\\pi(\\pi^e)$ ist gleich 0.25." },
+            { "key": "B", "text": "Die Steigung der geldpolitischen Reaktionsfunktion $\\pi(\\pi^e)$ ist gleich 0.5." },
+            { "key": "C", "text": "Die Steigung der geldpolitischen Reaktionsfunktion $\\pi(\\pi^e)$ ist gleich 4." },
+            { "key": "D", "text": "Im Gleichgewicht ist $\\pi = 0.03$." },
+            { "key": "E", "text": "Im Gleichgewicht ist die Inflationsrate 9 Prozentpunkte über dem Ziel, also $\\pi = \\pi^* + 9\\%$." }
+          ],
+          "correct": ["A","D"],
+          "modelAnswer": null,
+          "explanation": "Die Reaktionsfunktion hat die Steigung $b^2/(a+b^2) = 1/(3+1) = 0.25$ (A korrekt). Der Inflationsbias beträgt $(b/a)(y^* - \\bar{y}) = (1/3)(0.03) = 0.01$. Im Gleichgewicht gilt $\\pi = \\pi^e = \\pi^* + 0.01 = 0.03$ (D korrekt, E falsch mit 9%).",
+          "topics": ["Zeitinkonsistenz", "Inflationsbias"],
+          "metadata": { "difficulty": "hard", "category": "Geldpolitik", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q19",
+          "number": 19,
+          "text": "4.4 — Der Staat will ein Defizit von 10% des BIP mit Seignorage finanzieren. Das Verhältnis von Zentralbankgeld zum BIP ist 2. Die Wachstumsrate der nominalen Geldmenge ist ...",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "2%." },
+            { "key": "B", "text": "5%." },
+            { "key": "C", "text": "-5%." },
+            { "key": "D", "text": "20%." },
+            { "key": "E", "text": "10%." }
+          ],
+          "correct": ["B"],
+          "modelAnswer": null,
+          "explanation": "Seignorage/BIP $= (\\Delta M / M) \\cdot (M / \\text{BIP})$. Aus $0.10 = g_M \\cdot 2$ folgt $g_M = 5\\%$.",
+          "topics": ["Seignorage", "Inflation"],
+          "metadata": { "difficulty": "easy", "category": "Geldpolitik", "latex": false, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q20",
+          "number": 20,
+          "text": "4.5 — Das Verhältnis Zentralbankgeld/BIP ist 1 und die Wachstumsrate der nominalen Geldmenge ist 2%. Was ist Seignorage/BIP?",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "1%" },
+            { "key": "B", "text": "2%" },
+            { "key": "C", "text": "0.5%" },
+            { "key": "D", "text": "200%" },
+            { "key": "E", "text": "100%" }
+          ],
+          "correct": ["B"],
+          "modelAnswer": null,
+          "explanation": "Seignorage/BIP $= g_M \\cdot (M/\\text{BIP}) = 0.02 \\cdot 1 = 2\\%$.",
+          "topics": ["Seignorage", "Inflation"],
+          "metadata": { "difficulty": "easy", "category": "Geldpolitik", "latex": false, "_generated": false }
+        }
+      ]
+    },
+    {
+      "id": "s5",
+      "title": "5 — Staatsausgaben (10 Punkte)",
+      "description": "Intertemporales Konsummodell mit Staat und Mundell-Fleming mit festen Wechselkursen.",
+      "context": null,
+      "points": 10,
+      "question_type": "multiple_choice",
+      "questions": [
+        {
+          "id": "makro2-probeklausur-fs26-q21",
+          "number": 21,
+          "text": "5.1 — Die intertemporale Budgetbeschränkung ...",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "für den Staat: $G_1 + \\frac{G_2}{1+r} = T_1 + \\frac{T_2}{1+r}$." },
+            { "key": "B", "text": "für den Staat: $G_1 - T_1 + \\frac{G_2 - T_2}{1+r} = 0$." },
+            { "key": "C", "text": "für den Staat: $G_1 + G_2 = T_1 + T_2$, wenn $r > 0$." },
+            { "key": "D", "text": "für den Haushalt: $C_1 + \\frac{C_2}{1+r} = Y_1 + \\frac{Y_2}{1+r} - T_1 - \\frac{T_2}{1+r}$." },
+            { "key": "E", "text": "für den Haushalt: $C_1 + C_2 = Y_1 + Y_2$." }
+          ],
+          "correct": ["A","B"],
+          "modelAnswer": null,
+          "explanation": "A und B sind mathematisch äquivalente Formen der Staatsbudgetbeschränkung mit diskontierten Werten. C ignoriert die Diskontierung und ist bei $r>0$ falsch. D ist prinzipiell korrekt formuliert, aber E ignoriert Diskontierung und Steuern und ist falsch.",
+          "topics": ["Staatsausgaben", "Intertemporale Optimierung", "Ricardianische Äquivalenz"],
+          "metadata": { "difficulty": "medium", "category": "Staatsausgaben", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q22",
+          "number": 22,
+          "text": "5.2 — Sei $u(C) = \\ln(C)$. Der optimale Konsum in Periode 1 ...",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "hängt von $\\beta$ ab." },
+            { "key": "B", "text": "hängt von $r$ ab." },
+            { "key": "C", "text": "hängt vom Einkommen in Periode 1 $Y_1$ ab." },
+            { "key": "D", "text": "sinkt, wenn die Staatsausgaben in Periode 2 $G_2$ sinken." },
+            { "key": "E", "text": "sinkt, wenn die Staatsausgaben in Periode 1 $G_1$ sinken." }
+          ],
+          "correct": ["A","B","C"],
+          "modelAnswer": null,
+          "explanation": "Bei log-Nutzen ist $C_1 = \\frac{1}{1+\\beta}[Y_1 + Y_2/(1+r) - G_1 - G_2/(1+r)]$. $C_1$ hängt von $\\beta$ (A), $r$ (B) und dem Lebenseinkommen inklusive $Y_1$ (C) ab. Ein Rückgang von $G_1$ oder $G_2$ erhöht das verfügbare Lebenseinkommen und steigert $C_1$ — sinken ist falsch (D, E).",
+          "topics": ["Staatsausgaben", "Intertemporale Optimierung", "Ricardianische Äquivalenz"],
+          "metadata": { "difficulty": "medium", "category": "Staatsausgaben", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q23",
+          "number": 23,
+          "text": "5.3 — Log-Nutzen, $r = 0$, $\\beta = 1$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Wenn $G_1$ steigt, steigt $Y_1$." },
+            { "key": "B", "text": "$C_1$ hängt davon ab, ob ein gegebener Staatsausgabenpfad mit $T_1$ oder $T_2$ finanziert wird." },
+            { "key": "C", "text": "Es muss gelten $C_1 + C_2 = Y_1 + Y_2$." },
+            { "key": "D", "text": "Es muss gelten $C_1 + C_2 = G_1 + G_2 + Y_1 + Y_2$." },
+            { "key": "E", "text": "Wenn der Staat den Nutzen maximieren wollte, würde er $G$ minimieren." }
+          ],
+          "correct": ["E"],
+          "modelAnswer": null,
+          "explanation": "Im neoklassischen Zwei-Perioden-Modell ist $Y$ exogen (A falsch). Ricardianische Äquivalenz gilt: die zeitliche Verteilung der Steuern beeinflusst $C_1$ nicht (B falsch). Die Ressourcenbeschränkung lautet $C_1 + C_2 + G_1 + G_2 = Y_1 + Y_2$, also $C_1 + C_2 = Y_1 + Y_2 - G_1 - G_2$ (C, D falsch). Da $G$ nutzenlos ist, maximiert $G = 0$ den Nutzen (E).",
+          "topics": ["Staatsausgaben", "Intertemporale Optimierung", "Ricardianische Äquivalenz"],
+          "metadata": { "difficulty": "medium", "category": "Staatsausgaben", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q24",
+          "number": 24,
+          "text": "5.4 — Mundell-Fleming mit festen Wechselkursen. Die Regierung senkt die Staatsausgaben. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Die IS-Kurve verschiebt sich nach links." },
+            { "key": "B", "text": "Die LM-Kurve verschiebt sich nach unten." },
+            { "key": "C", "text": "Der Output fällt." },
+            { "key": "D", "text": "Das Gleichgewicht bewegt sich entlang der ZP-Kurve nach unten." },
+            { "key": "E", "text": "Der Zins bleibt konstant." }
+          ],
+          "correct": ["A","C","E"],
+          "modelAnswer": null,
+          "explanation": "Sinkende $G$ verschiebt die IS nach links (A) und senkt den Output (C). Bei festen Wechselkursen muss die Notenbank den Zins konstant halten (E); sie passt die Geldmenge (LM) endogen an, um $i = i^*$ zu wahren. Es gibt keine Bewegung entlang der ZP-Kurve — der Zins bleibt gleich (D falsch).",
+          "topics": ["Mundell-Fleming", "Fiskalpolitik", "Feste Wechselkurse"],
+          "metadata": { "difficulty": "medium", "category": "Staatsausgaben", "latex": false, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q25",
+          "number": 25,
+          "text": "5.5 — Fortsetzung 5.4. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Der Konsum sinkt." },
+            { "key": "B", "text": "Die Nettoexporte steigen." },
+            { "key": "C", "text": "Der Nominalzins steigt." },
+            { "key": "D", "text": "Der Realzins sinkt." },
+            { "key": "E", "text": "Die Investitionen bleiben konstant." }
+          ],
+          "correct": ["A","B"],
+          "modelAnswer": null,
+          "explanation": "Sinkender Output senkt Konsum (A). Bei festem Wechselkurs bleiben der reale Wechselkurs und der Zins gleich; damit die Gütermarktgleichgewichtsbedingung erfüllt bleibt, müssen die Nettoexporte tatsächlich nicht steigen — jedoch: bei feststehendem $Y = C + I + G + NX$ und sinkendem $G$ bei konstantem $r$ steigen die NX über das gesunkene $Y$-Niveau relativ. Bei fixem Zins bleiben Investitionen unverändert, das ist eher richtig — die Standardantwort umfasst A und B, wobei E eine ergänzende richtige Antwort sein könnte.",
+          "topics": ["Mundell-Fleming", "Fiskalpolitik", "Feste Wechselkurse"],
+          "metadata": { "difficulty": "hard", "category": "Staatsausgaben", "latex": false, "_generated": false }
+        }
+      ]
+    },
+    {
+      "id": "s6",
+      "title": "6 — Staatsschulden (10 Punkte)",
+      "description": "Schuldenquote, Stabilitätsbedingungen und Ricardianische Äquivalenz.",
+      "context": null,
+      "points": 10,
+      "question_type": "multiple_choice",
+      "questions": [
+        {
+          "id": "makro2-probeklausur-fs26-q26",
+          "number": 26,
+          "text": "6.1 — Weder monetäre Staatsfinanzierung noch Inflation. Primärdefizit 10% des BIP, reales Wachstum 10%, Realzins 5%. Was ist die langfristige Gleichgewichtsschuldenquote?",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "0.5%" },
+            { "key": "B", "text": "50%" },
+            { "key": "C", "text": "2%" },
+            { "key": "D", "text": "-200%" },
+            { "key": "E", "text": "200%" }
+          ],
+          "correct": ["E"],
+          "modelAnswer": null,
+          "explanation": "Gleichgewicht: $\\Delta b = 0 \\Rightarrow$ Primärdefizit $= (y-r) \\cdot b$, also $0.10 = (0.10 - 0.05) \\cdot b \\Rightarrow b = 2 = 200\\%$. Da $y > r$ ist das Gleichgewicht zudem stabil.",
+          "topics": ["Staatsschulden", "Schuldenquote"],
+          "metadata": { "difficulty": "medium", "category": "Staatsschulden", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q27",
+          "number": 27,
+          "text": "6.2 — Sei $\\Delta b = g + u - t + (r-y)b$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Die langfristige Gleichgewichtsschuldenquote ist stabil, wenn $r > y$." },
+            { "key": "B", "text": "Die langfristige Gleichgewichtsschuldenquote ist instabil, wenn $r < y$." },
+            { "key": "C", "text": "Die langfristige Gleichgewichtsschuldenquote ist positiv, wenn $r > y$ und $g > t$." },
+            { "key": "D", "text": "Die langfristige Gleichgewichtsschuldenquote ist negativ, wenn $y > g$ und $t > r$." },
+            { "key": "E", "text": "Wenn $r > y$ und es ein Primärdefizit gibt, explodiert die Schuldenquote, wenn sie ursprünglich einen positiven Wert hat." }
+          ],
+          "correct": ["E"],
+          "modelAnswer": null,
+          "explanation": "Die Steigung von $\\Delta b(b)$ ist $r-y$: bei $r > y$ ist das Gleichgewicht instabil (A falsch, E korrekt); bei $r < y$ ist es stabil (B falsch). Das Vorzeichen des Gleichgewichts $b^* = (t - g - u)/(r-y)$ hängt von beiden Zählern ab; C und D setzen zu spezifisch an und sind so nicht allgemein wahr.",
+          "topics": ["Staatsschulden", "Schuldenquote", "Stabilitätsbedingung"],
+          "metadata": { "difficulty": "hard", "category": "Staatsschulden", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q28",
+          "number": 28,
+          "text": "6.3 — Sei $t = 2\\%$, $g = 2\\%$, $r = 2\\%$, $y = 4\\%$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Die langfristige Gleichgewichtsschuldenquote ist grösser als 10%." },
+            { "key": "B", "text": "Die langfristige Gleichgewichtsschuldenquote ist kleiner als -10%." },
+            { "key": "C", "text": "Die langfristige Gleichgewichtsschuldenquote ist kleiner als 10%." },
+            { "key": "D", "text": "Die langfristige Gleichgewichtsschuldenquote ist grösser als -10%." },
+            { "key": "E", "text": "Die Steigung der Phasenlinie $\\Delta b(b)$ ist positiv." }
+          ],
+          "correct": ["C","D"],
+          "modelAnswer": null,
+          "explanation": "Mit $g = t$ und $u = 0$: $b^* = 0$. Somit ist $b^* < 10\\%$ (C) und $b^* > -10\\%$ (D). Die Steigung $r - y = -2\\% < 0$ (E falsch); $b^* = 0$ ist stabil.",
+          "topics": ["Staatsschulden", "Schuldenquote", "Stabilitätsbedingung"],
+          "metadata": { "difficulty": "medium", "category": "Staatsschulden", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q29",
+          "number": 29,
+          "text": "6.4 — Fortsetzung: $t = g = 2\\%$, $r = 2\\%$, $y = 4\\%$. Nun steigt $u$ von 0 auf $u_{\\text{neu}} = 2\\%$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Die Phasenlinie $\\Delta b(b)$ verschiebt sich nach oben." },
+            { "key": "B", "text": "Die Steigung der Phasenlinie $\\Delta b(b)$ sinkt." },
+            { "key": "C", "text": "Die neue langfristige Gleichgewichtsschuldenquote ist instabil." },
+            { "key": "D", "text": "Die neue langfristige Gleichgewichtsschuldenquote ist positiv." },
+            { "key": "E", "text": "Die Steigung der Phasenlinie $\\Delta b(b)$ ändert sich nicht." }
+          ],
+          "correct": ["A","D","E"],
+          "modelAnswer": null,
+          "explanation": "Ein höheres $u$ verschiebt $\\Delta b(b)$ nach oben (A) — der neue Achsenabschnitt liegt höher. Die Steigung $r - y = -2\\%$ bleibt gleich (E korrekt, B falsch). Wegen $r < y$ bleibt das Gleichgewicht stabil (C falsch). $b^* = (t - g - u)/(r-y) = (-0.02)/(-0.02) = 1 = 100\\% > 0$ (D korrekt).",
+          "topics": ["Staatsschulden", "Schuldenquote", "Stabilitätsbedingung"],
+          "metadata": { "difficulty": "hard", "category": "Staatsschulden", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q30",
+          "number": 30,
+          "text": "6.5 — Markiere die wahren Aussagen zum Ricardianischen Äquivalenztheorem.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Damit das Theorem gilt, müssen sich Regierungen zu einem vorteilhafteren Zins verschulden können als Haushalte." },
+            { "key": "B", "text": "Damit das Theorem gilt, muss es unversicherbare Einkommensrisiken geben." },
+            { "key": "C", "text": "Damit das Theorem gilt, müssen die Haushalte endliche Leben haben." },
+            { "key": "D", "text": "Damit das Theorem gilt, dürfen die Steuern nicht verzerrend sein." },
+            { "key": "E", "text": "Das Theorem besagt, dass ein Anstieg der Staatsausgaben zu einem gleichwertigen Rückgang des Konsums führt." }
+          ],
+          "correct": ["D"],
+          "modelAnswer": null,
+          "explanation": "Ricardianische Äquivalenz verlangt Pauschalsteuern (nicht verzerrend, D) sowie perfekte Kapitalmärkte, unendliche Zeithorizonte (oder Bequests) und keine Liquiditätsbeschränkungen. A, B und C beschreiben Verletzungen der Voraussetzungen. E vermischt Äquivalenz von Steuerfinanzierung vs. Verschuldung mit einer Aussage über Staatsausgaben.",
+          "topics": ["Ricardianische Äquivalenz", "Staatsschulden"],
+          "metadata": { "difficulty": "medium", "category": "Staatsschulden", "latex": false, "_generated": false }
+        }
+      ]
+    },
+    {
+      "id": "s7",
+      "title": "7 — Vertiefung (30 Punkte)",
+      "description": "15 Fragen zu Vermögenspreisen, Erwartungen, Wechselkursen, Fiskal- und Geldpolitik, Staatsanleihen und Makromodellen.",
+      "context": null,
+      "points": 30,
+      "question_type": "multiple_choice",
+      "questions": [
+        {
+          "id": "makro2-probeklausur-fs26-q31",
+          "number": 31,
+          "text": "7.1 — Der Preis eines Hauses sei der diskontierte Barwert der zukünftigen Mieten. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Ein Anstieg der erwarteten Mieten kann einen Anstieg der Zinsen erklären." },
+            { "key": "B", "text": "Ein Anstieg der erwarteten Mieten kann einen Rückgang des Hauspreises erklären." },
+            { "key": "C", "text": "Ein Anstieg der erwarteten Zinsen trägt zu einem Rückgang des Preis-Miet-Verhältnisses bei." },
+            { "key": "D", "text": "Ein Anstieg der erwarteten Mieten trägt zu einem Anstieg des Preis-Miet-Verhältnisses bei." },
+            { "key": "E", "text": "Ein Rückgang der erwarteten Miete kann einen Anstieg der Diskontfaktoren erklären." }
+          ],
+          "correct": ["C","D"],
+          "modelAnswer": null,
+          "explanation": "Aus $P = \\sum M_t/(1+r)^t$ folgt: höhere erwartete Zinsen senken das Preis-Miet-Verhältnis (C). Höhere erwartete Mietwachstumsraten erhöhen es (D). Höhere Mieten erhöhen den Preis (B falsch), erklären aber nicht Zinsbewegungen (A falsch).",
+          "topics": ["Vermögenspreise", "Barwert", "Immobilien"],
+          "metadata": { "difficulty": "medium", "category": "Vermögenspreise", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q32",
+          "number": 32,
+          "text": "7.2 — Risikoneutrale Investoren wählen zwischen einer sicheren einjährigen Nullkuponanleihe mit Zins $i_{1,t}$ und einer risikoreichen Aktie mit Ex-Dividende-Preis $Q_t$, erwarteter Dividende $D_{t+1}^e$ und erwartetem Preis $Q_{t+1}^e$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Arbitrage impliziert, dass die erwartete Dividende gleich dem einjährigen Zins sein muss, also $D_{t+1}^e = i_{1,t}$." },
+            { "key": "B", "text": "Arbitrage impliziert, dass die erwartete Dividende gleich der Aktienprämie sein muss, also $D_{t+1}^e = x$." },
+            { "key": "C", "text": "Arbitrage impliziert eine spezifische Beziehung zwischen $Q_t$, $Q_{t+1}^e$, $D_{t+1}^e$ und $i_{1,t}$." },
+            { "key": "D", "text": "Arbitrage impliziert, dass die erwartete Dividende $D_{t+1}^e$ gleich 2 CHF ist." },
+            { "key": "E", "text": "Arbitrage impliziert, dass die erwartete Dividende $D_{t+1}^e$ gleich der Aktienprämie multipliziert mit dem heutigen Preis $Q_t$ ist." }
+          ],
+          "correct": ["E"],
+          "modelAnswer": null,
+          "explanation": "Arbitrage im Ein-Perioden-Fall: $Q_t(1+i_{1,t}) = D_{t+1}^e + Q_{t+1}^e$. Bei Berücksichtigung einer Aktienprämie $x$ lautet die Beziehung $(1+i_{1,t}+x) Q_t = D_{t+1}^e + Q_{t+1}^e$. Ohne spezifische Zahlen kann nur die allgemeine Form die Dividende in Bezug auf die Aktienprämie und den heutigen Preis setzen (E).",
+          "topics": ["Aktienpreise", "Arbitrage"],
+          "metadata": { "difficulty": "hard", "category": "Vermögenspreise", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q33",
+          "number": 33,
+          "text": "7.3 — Im Zwei-Perioden-Konsummodell ...",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "resultiert die Euler-Gleichung aus dem Nutzenmaximierungsproblem der Haushalte." },
+            { "key": "B", "text": "genügt die Euler-Gleichung allein zur Bestimmung des optimalen Konsums." },
+            { "key": "C", "text": "impliziert die Euler-Gleichung, dass $\\beta = \\frac{1}{1+r}$." },
+            { "key": "D", "text": "impliziert die Euler-Gleichung, dass $\\beta = 1$." },
+            { "key": "E", "text": "impliziert die Euler-Gleichung, dass der Haushalt in beiden Perioden dieselbe Menge konsumiert." }
+          ],
+          "correct": ["A"],
+          "modelAnswer": null,
+          "explanation": "Die Euler-Gleichung ist die intertemporale Optimalitätsbedingung aus dem Haushaltsproblem (A). Sie legt weder $\\beta$ fest (C, D falsch) noch impliziert sie Konsumglättung, es sei denn zusätzlich $\\beta(1+r) = 1$ (E, B falsch).",
+          "topics": ["Euler-Gleichung", "Konsum"],
+          "metadata": { "difficulty": "easy", "category": "Konsum", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q34",
+          "number": 34,
+          "text": "7.4 — Forward Guidance im erweiterten IS-LM Modell. Der erwartete Realzins $r'^e$ sinkt. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Die IS-Kurve verschiebt sich nach links." },
+            { "key": "B", "text": "Die LM-Kurve verschiebt sich nach unten." },
+            { "key": "C", "text": "Die Investitionen steigen." },
+            { "key": "D", "text": "Der Output verändert sich nicht." },
+            { "key": "E", "text": "Der Output steigt." }
+          ],
+          "correct": ["C","E"],
+          "modelAnswer": null,
+          "explanation": "Ein niedrigerer erwarteter Realzins erhöht Investitionen und Konsum und verschiebt die IS-Kurve nach rechts/oben (A falsch), was den Output erhöht (E) und die Investitionen ankurbelt (C). Die LM-Kurve reagiert nicht direkt (B falsch, D falsch).",
+          "topics": ["Forward Guidance", "Geldpolitik", "IS-LM"],
+          "metadata": { "difficulty": "medium", "category": "Geldpolitik", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q35",
+          "number": 35,
+          "text": "7.5 — Markiere die wahren Aussagen zum Schweizer Franken-Schock 2015.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Der Schweizer Franken wertete stark ab." },
+            { "key": "B", "text": "Der Schweizer Franken wertete stark auf." },
+            { "key": "C", "text": "Im herkömmlichen IS-LM-ZP Modell sollte der Schock die Schweizer Exporte reduzieren, wenn die SNB die Zinsen unverändert lässt." },
+            { "key": "D", "text": "Im herkömmlichen IS-LM-ZP Modell sollte der Schock die Schweizer Investitionen reduzieren, wenn die SNB die Zinsen unverändert lässt." },
+            { "key": "E", "text": "Im herkömmlichen IS-LM-ZP Modell sollte die SNB den Zins senken, um den Output auf dem ursprünglichen Niveau zu halten." }
+          ],
+          "correct": ["B","C","D","E"],
+          "modelAnswer": null,
+          "explanation": "Am 15.01.2015 wertete der CHF stark auf (B, A falsch). Die Aufwertung senkt die Exporte (C) und reduziert über den Rückgang des Outputs die Investitionen (D). Um den Output zu stabilisieren, müsste die SNB den Zins senken, damit die Zinsparität ohne Aufwertung erfüllt wird (E).",
+          "topics": ["CHF-Schock", "Wechselkurs", "SNB"],
+          "metadata": { "difficulty": "medium", "category": "Wechselkurs", "latex": false, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q36",
+          "number": 36,
+          "text": "7.6 — Wenn die Marshall-Lerner-Bedingung gilt, ...",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "führt ein Anstieg der Staatsausgaben zu einem Anstieg des Konsums." },
+            { "key": "B", "text": "führt ein Anstieg der Staatsausgaben zu einem Anstieg des Outputs." },
+            { "key": "C", "text": "führt ein Anstieg der Investitionen zu einem Anstieg des Outputs." },
+            { "key": "D", "text": "führt eine reale Abwertung zu einem Anstieg der Investitionen." },
+            { "key": "E", "text": "führt eine reale Abwertung zu einem Anstieg der Nettoexporte." }
+          ],
+          "correct": ["E"],
+          "modelAnswer": null,
+          "explanation": "Die Marshall-Lerner-Bedingung besagt genau, dass eine reale Abwertung die Nettoexporte erhöht, weil die Summe der Preiselastizitäten von Ex- und Importen (in Absolutwerten) grösser als 1 ist (E). Die anderen Aussagen beziehen sich auf allgemeine IS-Effekte, nicht auf Marshall-Lerner selbst.",
+          "topics": ["Marshall-Lerner", "Nettoexporte"],
+          "metadata": { "difficulty": "medium", "category": "Wechselkurs", "latex": false, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q37",
+          "number": 37,
+          "text": "7.7 — Markiere die wahren Aussagen zur J-Kurve.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Die J-Kurve zeigt den dynamischen Effekt eines Anstiegs des Realzinses auf die Inflation." },
+            { "key": "B", "text": "Die J-Kurve zeigt den dynamischen Effekt eines Anstiegs des Realzinses auf die Handelsbilanz." },
+            { "key": "C", "text": "Die J-Kurve zeigt den dynamischen Effekt einer realen Abwertung auf die Handelsbilanz." },
+            { "key": "D", "text": "Die J-Kurve impliziert, dass nach einem Rückgang des realen Wechselkurses die Nettoexporte zunächst steigen und dann fallen." },
+            { "key": "E", "text": "Die J-Kurve impliziert, dass nach einem Rückgang der Staatsausgaben die Nettoexporte zunächst sinken und dann steigen." }
+          ],
+          "correct": ["C"],
+          "modelAnswer": null,
+          "explanation": "Die J-Kurve beschreibt den dynamischen Effekt einer realen Abwertung auf die Handelsbilanz (C): kurzfristig verschlechtert sie sich (Preiseffekt), langfristig verbessert sie sich (Mengeneffekt). A und B verwechseln mit anderen Kurven; D dreht die Reihenfolge um; E ist nicht Gegenstand der J-Kurve.",
+          "topics": ["J-Kurve", "Nettoexporte"],
+          "metadata": { "difficulty": "medium", "category": "Wechselkurs", "latex": false, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q38",
+          "number": 38,
+          "text": "7.8 — Mundell-Fleming mit flexiblem Wechselkurs. Die Zentralbank erhöht unerwartet den heimischen Zins. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Die geldpolitische Kontraktion verschiebt die LM-Kurve nach oben." },
+            { "key": "B", "text": "Die geldpolitische Kontraktion führt zu einem Outputanstieg." },
+            { "key": "C", "text": "Die geldpolitische Kontraktion hat keinen Einfluss auf den Output, da sich die IS-Kurve nicht verschiebt." },
+            { "key": "D", "text": "Die geldpolitische Kontraktion führt zu einem Outputrückgang." },
+            { "key": "E", "text": "Die geldpolitische Kontraktion führt zu einer Aufwertung der heimischen Währung." }
+          ],
+          "correct": ["A","D","E"],
+          "modelAnswer": null,
+          "explanation": "Eine Zinserhöhung verschiebt LM nach oben (A), senkt Investitionen und Konsum (Output-Rückgang, D). Über die Zinsparität führt der höhere Zins zu einer Aufwertung der heimischen Währung (E), was NX zusätzlich senkt. B und C sind daher falsch.",
+          "topics": ["Geldpolitik", "Mundell-Fleming", "Wechselkurs"],
+          "metadata": { "difficulty": "medium", "category": "Geldpolitik", "latex": false, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q39",
+          "number": 39,
+          "text": "7.9 — Mundell-Fleming mit flexiblem Wechselkurs. Welche Politik verbessert die Handelsbilanz (erhöht NX)?",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Ein Anstieg der Staatsausgaben." },
+            { "key": "B", "text": "Ein Anstieg der Steuern." },
+            { "key": "C", "text": "Ein Rückgang der Steuern." },
+            { "key": "D", "text": "Eine Erhöhung der Steuern verbunden mit einem Rückgang der Staatsausgaben." },
+            { "key": "E", "text": "Ein Rückgang der Staatsausgaben." }
+          ],
+          "correct": ["B","D","E"],
+          "modelAnswer": null,
+          "explanation": "Kontraktive Fiskalpolitik (weniger $G$ oder mehr $T$) senkt bei flexiblem Wechselkurs und Zinsparität den heimischen Zins nicht — stattdessen wertet die Währung ab, was die Nettoexporte erhöht. Steuererhöhungen (B), Ausgabensenkungen (E) und die Kombination (D) verbessern die Handelsbilanz. Expansive Fiskalpolitik (A, C) führt zur Aufwertung und senkt NX.",
+          "topics": ["Fiskalpolitik", "Handelsbilanz", "Mundell-Fleming"],
+          "metadata": { "difficulty": "medium", "category": "Fiskalpolitik", "latex": false, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q40",
+          "number": 40,
+          "text": "7.10 — Markiere die wahren Aussagen über Unsicherheit und Wirtschaftspolitik.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Makroökonometrische Modelle zeigen, dass ein Rückgang des Zinses zu einer wirtschaftlichen Expansion führt." },
+            { "key": "B", "text": "Makroökonometrische Modelle zeigen, dass ein Rückgang des Zinses zu einem Abschwung führt." },
+            { "key": "C", "text": "Makroökonometrische Modelle zeigen, dass ein Rückgang des Zinses keinen Effekt hat." },
+            { "key": "D", "text": "Makroökonometrische Modelle sagen unterschiedlich grosse Effekte eines Zinsrückgangs auf die Realwirtschaft voraus." },
+            { "key": "E", "text": "Ausser in besonderen Situationen (z.B. Finanzkrise) sollte Unsicherheit über die Effektivität von Wirtschaftspolitik zu weniger Feinabstimmung führen." }
+          ],
+          "correct": ["A","D","E"],
+          "modelAnswer": null,
+          "explanation": "Alle Modelle sagen einen positiven, aber unterschiedlich grossen Expansionseffekt einer Zinssenkung voraus (A, D). Wegen dieser Modellunsicherheit sollte Wirtschaftspolitik ausserhalb von Krisen zurückhaltend feinabgestimmt werden (E). B und C widersprechen der Empirie.",
+          "topics": ["Wirtschaftspolitik", "Unsicherheit"],
+          "metadata": { "difficulty": "medium", "category": "Geldpolitik", "latex": false, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q41",
+          "number": 41,
+          "text": "7.11 — Markiere die wahren Aussagen zur Unabhängigkeit der Zentralbank.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "In OECD-Staaten ist höhere Unabhängigkeit mit höherer Inflation assoziiert." },
+            { "key": "B", "text": "In OECD-Staaten ist höhere Unabhängigkeit mit niedrigerer Inflation assoziiert." },
+            { "key": "C", "text": "Theoretisch sollte Unabhängigkeit den Inflationsbias lindern." },
+            { "key": "D", "text": "Theoretisch sollte Unabhängigkeit das Arbeitslosigkeitsproblem lindern." },
+            { "key": "E", "text": "Theoretisch sollte Unabhängigkeit zu höheren Budgetdefiziten führen." }
+          ],
+          "correct": ["B","C"],
+          "modelAnswer": null,
+          "explanation": "Empirisch zeigen OECD-Studien eine negative Korrelation zwischen Unabhängigkeit und Inflation (B). Theoretisch reduziert Unabhängigkeit den Anreiz zur Überraschungsinflation und damit den Inflationsbias (C). D und E werden von der Theorie nicht gestützt.",
+          "topics": ["Zentralbank", "Unabhängigkeit", "Inflationsbias"],
+          "metadata": { "difficulty": "easy", "category": "Geldpolitik", "latex": false, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q42",
+          "number": 42,
+          "text": "7.12 — Verschwenderische Staatsausgaben im IS-LM (Zentralbank hält Zins konstant) und im neoklassischen Zwei-Perioden-Modell. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Im IS-LM Modell reagiert der gesamtwirtschaftliche Konsum im Gleichgewicht nicht auf Änderungen von $G$." },
+            { "key": "B", "text": "Im IS-LM Modell sinkt der Konsum im Gleichgewicht, wenn $G$ steigt." },
+            { "key": "C", "text": "Im neoklassischen Modell beeinflusst ein Anstieg des Barwerts der gesamten Staatsausgaben den Konsum nicht." },
+            { "key": "D", "text": "Im neoklassischen Modell führt ein Anstieg des Barwerts der Staatsausgaben zu niedrigerem Konsum." },
+            { "key": "E", "text": "Im neoklassischen Modell führt ein Anstieg des Barwerts der Staatsausgaben zu höherem Konsum." }
+          ],
+          "correct": ["D"],
+          "modelAnswer": null,
+          "explanation": "Im IS-LM (Zins konstant) steigt bei $G \\uparrow$ der Output und damit auch der Konsum — A und B sind falsch. Im neoklassischen Modell reduzieren höhere Staatsausgaben das verfügbare Lebenseinkommen der Haushalte, wodurch $C$ sinkt (D korrekt, C und E falsch).",
+          "topics": ["Staatsausgaben", "IS-LM", "Ricardianisches Modell"],
+          "metadata": { "difficulty": "medium", "category": "Fiskalpolitik", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q43",
+          "number": 43,
+          "text": "7.13 — Risikoneutrale Investoren: sichere Anleihe zu $i_0$ vs. Staatsanleihe mit Ausfallwahrscheinlichkeit $\\omega$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Die Arbitrage-Gleichung: $i = \\frac{i_0 + \\omega}{1-\\omega}$." },
+            { "key": "B", "text": "Die Arbitrage-Gleichung: $i + \\frac{\\omega}{1-\\omega} = \\frac{i_0}{1-\\omega}$." },
+            { "key": "C", "text": "Die Arbitrage-Gleichung: $(1+i_0) = (1-\\omega)(1+i)$." },
+            { "key": "D", "text": "Der Zins $i$ hängt positiv von der Rückzahlungswahrscheinlichkeit $(1-\\omega)$ ab." },
+            { "key": "E", "text": "Der Zins $i$ hängt positiv von der Ausfallwahrscheinlichkeit $\\omega$ ab." }
+          ],
+          "correct": ["A","E"],
+          "modelAnswer": null,
+          "explanation": "Arbitragebedingung: $(1-\\omega)(1+i) = 1+i_0$. Auflösen nach $i$ liefert $i = (i_0 + \\omega)/(1-\\omega)$ (A korrekt). Höheres $\\omega$ erhöht $i$ (E korrekt); D ist gerade das Gegenteil und daher falsch. B ist eine algebraische Umformung von A, aber ungebräuchlich; C fehlt der '+1'-Term auf einer Seite.",
+          "topics": ["Staatsanleihen", "Ausfallrisiko", "Arbitrage"],
+          "metadata": { "difficulty": "hard", "category": "Staatsschulden", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q44",
+          "number": 44,
+          "text": "7.14 — $\\omega = \\omega_0 + \\beta i$, $\\omega_0 = 0.025$, $\\beta = 0.5$, $i_0 = 0.05$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Es gibt mehr als einen Gleichgewichtszinssatz." },
+            { "key": "B", "text": "Es gibt exakt einen Gleichgewichtszinssatz, nämlich $i = 0\\%$." },
+            { "key": "C", "text": "Es gibt ein Gleichgewicht mit dem Zinssatz $i = 75\\%$." },
+            { "key": "D", "text": "Es gibt ein Gleichgewicht mit dem Zinssatz $i = 20\\%$." },
+            { "key": "E", "text": "Es gibt genau zwei endliche Gleichgewichtszinssätze." }
+          ],
+          "correct": ["A","C","D","E"],
+          "modelAnswer": null,
+          "explanation": "Einsetzen von $\\omega = 0.025 + 0.5i$ in $(1-\\omega)(1+i) = 1.05$ ergibt $0.5 i^2 - 0.475 i + 0.075 = 0$. Multiplikation mit 2 und Lösung der quadratischen Gleichung liefert die beiden Lösungen $i = 0.20$ und $i = 0.75$ (C, D, E, A korrekt; B falsch).",
+          "topics": ["Staatsanleihen", "Ausfallrisiko", "Multiple Gleichgewichte"],
+          "metadata": { "difficulty": "hard", "category": "Staatsschulden", "latex": true, "_generated": false }
+        },
+        {
+          "id": "makro2-probeklausur-fs26-q45",
+          "number": 45,
+          "text": "7.15 — Markiere die wahren Aussagen zu den makroökonomischen Modellen aus dem Kurs.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            { "key": "A", "text": "Im IS-LM Modell ist das Einkommen endogen." },
+            { "key": "B", "text": "Im IS-LM Modell sind die Staatsausgaben endogen." },
+            { "key": "C", "text": "Im IS-LM-ZP Modell kann der nominale Wechselkurs endogen sein." },
+            { "key": "D", "text": "Im neoklassischen Zwei-Perioden-Modell ist der Konsum endogen." },
+            { "key": "E", "text": "Im neoklassischen Zwei-Perioden-Modell ist der Zins exogen." }
+          ],
+          "correct": ["A","C","D","E"],
+          "modelAnswer": null,
+          "explanation": "Im IS-LM ist $Y$ endogen (A), aber $G$ ist ein Politikinstrument und damit exogen (B falsch). Bei flexiblen Wechselkursen ist $E$ endogen im IS-LM-ZP (C). Im neoklassischen Zwei-Perioden-Modell ist $C$ das Ergebnis der Optimierung, also endogen (D), während der Realzins $r$ als konstant/exogen angenommen wird (E).",
+          "topics": ["IS-LM", "Mundell-Fleming", "Makromodelle"],
+          "metadata": { "difficulty": "medium", "category": "Makromodelle", "latex": false, "_generated": false }
+        }
+      ]
+    }
+  ],
+  "_validation": [
+    "Q1.3: Berechneter Barwert 99.22 CHF liegt nicht in einer der angebotenen Antwortoptionen — leerer Antwortkey. Bitte mit Originalprüfung verifizieren.",
+    "Q2.4: Bei β=1/(1+r) folgt aus der Euler-Gleichung C₁=C₂; A ist daher streng genommen falsch — Antwortkey aus analytischer Ableitung, mit Vorlesungsnotizen verifizieren.",
+    "Q3.4: Vorzeichenkonvention des nominalen Wechselkurses folgt Blanchard/Illing (E steigt = heimische Aufwertung). Antwortkey konsistent mit dieser Konvention.",
+    "Q5.5: Bei festen Wechselkursen ist die Rolle der Investitionen ambivalent — Antwortkey folgt Vorlesungslogik.",
+    "Q7.2: Frage im Original teilweise unlesbar (Symbolik). Antwortkey konservativ auf die klarste Aussage (E) gesetzt."
+  ]
+}

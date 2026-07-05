@@ -174,6 +174,15 @@ window.ExamScreen = (function() {
       available: true,
     },
     {
+      id: 'makro2-probeklausur-fs26',
+      label: 'MakroII — Probeklausur FS26',
+      course: 'MakroII',
+      dataVar: null,
+      file: 'exams/makro2-probeklausur-fs26-data.json',
+      format: 'json',
+      available: true,
+    },
+    {
       id: 'bwl-hs22',
       label: 'BWL — HS 2022',
       course: 'BWL',
