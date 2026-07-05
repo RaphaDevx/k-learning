@@ -473,12 +473,9 @@
               "text": "Insgesamt konsumieren die Haushalte mehr als ihr Lebenseinkommen ($C_1 + C_2 > 20$)."
             }
           ],
-          "correct": [
-            "B",
-            "D"
-          ],
+          "correct": [],
           "modelAnswer": null,
-          "explanation": "Aus $\\beta(1+r)=1$ folgt eigentlich $C_1 = C_2$, aber mit $Y_1 = Y_2 = 10$ und der Budgetbeschränkung $C_1 + C_2/1.01 = 10 + 10/1.01$ ergibt sich analytisch $C_1 \\approx 9.9502 < 10$ und $C_2 \\approx 9.9502$. Diese Frage ist wegen mehrdeutiger Angabe umstritten; unter der Annahme $\\beta = 1/(1+r)$ gilt $C_2 = C_1$ und $C_1 < Y_1$. Antwortkey abgeleitet aus Analyse.",
+          "explanation": "Mit $\\beta = \\frac{1}{1+r}$ und $r = 1\\%$ gilt aus der Euler-Gleichung $C_2/C_1 = [(1+r)\\beta]^{1/\\eta} = 1$, also $C_2 = C_1$. Aus der Budgetbeschränkung folgt $C_1 = C_2 = Y_1 = Y_2 = 10$. Damit ist (a) falsch ($C_2 = C_1$, nicht $1.01\\,C_1$), (b) falsch ($C_2 = C_1$), (c) falsch ($C_1 = Y_1$), (d) falsch ($C_1 = Y_1$, nicht $< Y_1$), (e) falsch ($C_1 + C_2 = 20$). Keine der Aussagen ist wahr — die Musterlösung enthält keine grünen Antworten.",
           "topics": [
             "Konsum",
             "Euler-Gleichung",
@@ -488,7 +485,7 @@
             "difficulty": "hard",
             "category": "Konsum",
             "latex": true,
-            "_generated": true
+            "_generated": false
           }
         },
         {
@@ -2303,10 +2300,10 @@
   "_validation": [
     "Q1.3: Berechneter Barwert 99.22 CHF liegt in keiner der Antwortoptionen — leerer Antwortkey. Choices B und D wurden gemäss Lösungen.md korrigiert (B: 'genau gleich 100 CHF', D: 'kleiner als 98 CHF'). Bitte mit Originalprüfung verifizieren.",
     "Q1.5 (E): 'Der Preis der einjährigen Anleihe...' — Originaltext in beiden PDF-Quellen abgeschnitten; Platzhalter im JSON.",
-    "Q2.4: Bei β=1/(1+r) folgt aus der Euler-Gleichung C₁=C₂; A ist daher streng genommen falsch — Antwortkey aus analytischer Ableitung, mit Vorlesungsnotizen verifizieren.",
     "Q3.4: Vorzeichenkonvention des nominalen Wechselkurses folgt Blanchard/Illing (E steigt = heimische Aufwertung). Antwortkey konsistent mit dieser Konvention.",
     "Q4.2 (E): 'Das Gleichgewicht ohne Verpflichtung hat einen positiven Inflationsbias.' — Originaltext in beiden PDF-Quellen abgeschnitten; Rekonstruktion basierend auf dem Zeitinkonsistenz-Modell.",
     "Q5.5: Bei festen Wechselkursen ist die Rolle der Investitionen ambivalent — Antwortkey folgt Vorlesungslogik.",
-    "Q7.2: Choices C, D, E gemäss Lösungen.md korrigiert zu 'gleich 1/2/3 CHF' (numerische Optionen). Vollständiger Frage-Kontext im Original teilweise unlesbar — Zusatzangaben zur Aktienprämie und zu Q_t, Q_{t+1}^e fehlen und Antwortkey ist provisorisch (E)."
+    "Q7.2: Choices C, D, E gemäss Lösungen.md korrigiert zu 'gleich 1/2/3 CHF' (numerische Optionen). Vollständiger Frage-Kontext im Original teilweise unlesbar — Zusatzangaben zur Aktienprämie und zu Q_t, Q_{t+1}^e fehlen und Antwortkey ist provisorisch (E).",
+    "Q09 (2.4): correct=[] — mit β=1/(1+r) gilt C1=C2=Y1=Y2=10, keine Aussage (a)-(e) wahr; PDF-Lösungen bestätigt (keine Grünfärbung)"
   ]
 }
