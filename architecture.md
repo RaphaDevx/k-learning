@@ -359,6 +359,15 @@ priority       = 1.0 + (1.0 - new_ema) * 3.0
 | **Phase 4** | `courses`-Tabelle in Supabase (Kurs-Erweiterbarkeit) | ⏳ Geplant |
 | **Phase 4** | Edge Function `get-flashcard-chunk` (25-Karten-Chunks) | ⏳ Geplant |
 | **Phase 4** | Anki-Algorithmus ins Backend verlagern | ⏳ Geplant |
+| **Phase 5** | `user_entitlements` + `billing_events` Tabellen | ✅ Schema bereit |
+| **Phase 5** | `js/billing.js` — Entitlement-Check im Frontend | ✅ Live |
+| **Phase 5** | `workers/billing/` — RevenueCat Webhook Worker | ✅ Code bereit |
+| **Phase 5** | `workers/billing/` — Stripe Webhook + Sig-Verify | ✅ Code bereit |
+| **Phase 5** | RevenueCat Dashboard konfigurieren (app_user_id = Supabase UUID) | ⏳ Offen |
+| **Phase 5** | Stripe + TWINT in CHF aktivieren | ⏳ Offen |
+| **Phase 5** | Worker deployen + Secrets setzen | ⏳ Offen |
+| **Phase 5** | Paywall-Modal (UI) statt alert() | ⏳ Offen |
+| **Phase 5** | Prepaid Credits-System (Stripe payment_intent → credits_balance) | ⏳ Offen |
 
 ---
 

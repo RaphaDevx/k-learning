@@ -1815,5 +1815,53 @@ window.FEED_CARDS = [
     video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/makro_r3_4_snb_2015.mp4",
     thumbnail_emoji: "💥",
     block: "Block 3 — Offene Volkswirtschaft"
+  },
+
+  // ── Makro II S4: Inflation & Phillipskurve ──────────────────────────────
+
+  {
+    id: "makro-r4-1-nairu",
+    type: "localvideo",
+    course: "MakroII", courseColor: "#059669",
+    emoji: "📉",
+    title: "NAIRU: Vollbeschäftigung ≠ 0%",
+    subtitle: "Strukturelle Arbeitslosigkeit — immer vorhanden",
+    description: "NAIRU erklärt: Warum Vollbeschäftigung nie 0% bedeutet, was die Phillipskurve zeigt, und warum die Zentralbank auf u* zielt. Mit Phillipskurve-Scatter (u vs. π).",
+    topics: ["NAIRU", "Phillipskurve", "Arbeitslosigkeit", "Inflation", "Geldpolitik"],
+    duration: "1:15",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/makro_r4_1_nairu.mp4",
+    thumbnail_emoji: "📉",
+    block: "Block 4 — Inflation & Phillipskurve"
+  },
+  {
+    id: "makro-r4-2-lucas-kritik",
+    type: "localvideo",
+    course: "MakroII", courseColor: "#059669",
+    emoji: "💣",
+    title: "Lucas-Kritik: Warum Modelle scheitern",
+    subtitle: "Das Modell funktionierte — bis man es benutzte",
+    description: "Lucas-Kritik (1976): Wie die Phillipskurve durch politische Nutzung zusammenbrach, warum Erwartungen endogen sind, und was die Stagflation der 70er beweist.",
+    topics: ["Lucas-Kritik", "Phillipskurve", "Erwartungen", "Stagflation", "Wirtschaftspolitik"],
+    duration: "1:32",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/makro_r4_2_lucas_kritik.mp4",
+    thumbnail_emoji: "💣",
+    block: "Block 4 — Inflation & Phillipskurve"
+  },
+  {
+    id: "makro-r4-3-seignorage",
+    type: "localvideo",
+    course: "MakroII", courseColor: "#059669",
+    emoji: "🖨️",
+    title: "Seignorage: Steuern ohne Parlament",
+    subtitle: "S = ΔM/P — der versteckte Griff in die Tasche",
+    description: "Seignorage und Inflationssteuer: Wie der Staat durch Gelddrucken Ressourcen gewinnt (ΔM/P), wer zahlt (alle Bargeldhalter), warum es regressiv ist, und was fiskalische Dominanz bedeutet.",
+    topics: ["Seignorage", "Inflationssteuer", "Geldschöpfung", "Fiskalische Dominanz", "Zimbabwe"],
+    duration: "1:27",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/makro_r4_3_seignorage.mp4",
+    thumbnail_emoji: "🖨️",
+    block: "Block 4 — Inflation & Phillipskurve"
   }
 ];

@@ -540,7 +540,7 @@ window.ReelModel = (function () {
         font-weight:600;
         flex-shrink:0;
       ">← Zurück</button>
-    <span style="font-size:0.9rem;font-weight:700;color:#fff;line-height:1.2">Zinsstrukturkurve</span>
+    <span style="font-size:0.9rem;font-weight:700;color:#fff;line-height:1.2">Erwartungshypothese</span>
     <span id="erw-shape-badge" style="
       margin-left:auto;
       font-size:0.72rem;
@@ -551,7 +551,7 @@ window.ReelModel = (function () {
       border:1px solid rgba(52,211,153,0.4);
       color:#34d399;
       flex-shrink:0;
-    ">Normal</span>
+    ">Arbitrage ✓</span>
   </div>
 
   <!-- Canvas -->
@@ -663,7 +663,7 @@ window.ReelModel = (function () {
       const dpr  = window.devicePixelRatio || 1;
       const rect = canvas.getBoundingClientRect();
       const cw   = rect.width || canvas.offsetWidth || 300;
-      const ch   = Math.round(cw * 0.62);
+      const ch   = Math.round(cw * 0.6);
       canvas.style.height = ch + 'px';
       canvas.width  = Math.round(cw * dpr);
       canvas.height = Math.round(ch * dpr);
@@ -673,115 +673,136 @@ window.ReelModel = (function () {
 
       const { i2 } = compute(i1, ie);
 
-      const pad = { top: 24, right: 20, bottom: 36, left: 52 };
-      const pw = cw - pad.left - pad.right;
-      const ph = ch - pad.top - pad.bottom;
+      const pad = { top: 30, right: 16, bottom: 30, left: 90 };
+      const pw  = cw - pad.left - pad.right;
+      const ph  = ch - pad.top - pad.bottom;
 
       ctx.clearRect(0, 0, cw, ch);
       ctx.fillStyle = '#0d0d18';
       ctx.fillRect(0, 0, cw, ch);
 
-      const allRates = [i1, i2, 0.005];
-      const yMax = Math.max(...allRates) * 1.45 || 0.08;
+      const rollTotal = i1 + ie;
+      const dirTotal  = 2 * i2;
+      const xMax      = Math.max(rollTotal, dirTotal, 0.06) * 1.28;
 
-      function toX(t) { return pad.left + ((t - 0.5) / (2.8 - 0.5)) * pw; }
-      function toY(r) { return pad.top + ph - (r / yMax) * ph; }
+      const barH = Math.round(ph * 0.31);
+      const gap  = Math.round(ph * 0.22);
+      const yOff = Math.round((ph - 2 * barH - gap) / 2);
+      const y1   = pad.top + yOff;
+      const y2   = y1 + barH + gap;
 
-      // Grid
-      ctx.strokeStyle = 'rgba(255,255,255,0.06)';
-      ctx.lineWidth = 0.8;
-      [1, 2].forEach(t => {
-        const x = toX(t);
-        ctx.beginPath(); ctx.moveTo(x, pad.top); ctx.lineTo(x, pad.top + ph); ctx.stroke();
+      function toX(v) { return pad.left + (v / xMax) * pw; }
+
+      // Hatch pattern for "Erwartung" segment
+      const pat   = document.createElement('canvas');
+      pat.width   = 8;
+      pat.height  = 8;
+      const pctx  = pat.getContext('2d');
+      pctx.fillStyle = '#c0392b';
+      pctx.fillRect(0, 0, 8, 8);
+      pctx.strokeStyle = 'rgba(255,190,190,0.55)';
+      pctx.lineWidth = 1.5;
+      [[-1, 7, 7, -1], [1, 9, 9, 1]].forEach(([ax, ay, bx, by]) => {
+        pctx.beginPath(); pctx.moveTo(ax, ay); pctx.lineTo(bx, by); pctx.stroke();
       });
-      for (let i = 1; i <= 4; i++) {
-        const y = pad.top + (i / 4) * ph;
-        ctx.beginPath(); ctx.moveTo(pad.left, y); ctx.lineTo(pad.left + pw, y); ctx.stroke();
-      }
+      const hatch = ctx.createPattern(pat, 'repeat');
 
-      // Shaded area under the curve segment
-      const grad = ctx.createLinearGradient(toX(1), 0, toX(2), 0);
-      grad.addColorStop(0, 'rgba(255,215,0,0.07)');
-      grad.addColorStop(1, 'rgba(255,112,67,0.07)');
-      ctx.beginPath();
-      ctx.moveTo(toX(1), toY(i1));
-      ctx.lineTo(toX(2), toY(i2));
-      ctx.lineTo(toX(2), toY(0));
-      ctx.lineTo(toX(1), toY(0));
-      ctx.closePath();
-      ctx.fillStyle = grad;
-      ctx.fill();
-
-      // Yield curve line
-      const lineGrad = ctx.createLinearGradient(toX(1), 0, toX(2), 0);
-      lineGrad.addColorStop(0, '#FFD700');
-      lineGrad.addColorStop(1, '#FF7043');
-      ctx.strokeStyle = lineGrad;
-      ctx.lineWidth = 3;
-      ctx.lineJoin = 'round';
-      ctx.beginPath();
-      ctx.moveTo(toX(1), toY(i1));
-      ctx.lineTo(toX(2), toY(i2));
-      ctx.stroke();
-
-      // Dashed drop lines
-      ctx.strokeStyle = 'rgba(255,255,255,0.18)';
-      ctx.lineWidth = 1;
-      ctx.setLineDash([3, 3]);
-      [[1, i1], [2, i2]].forEach(([t, r]) => {
-        ctx.beginPath(); ctx.moveTo(toX(t), toY(r)); ctx.lineTo(toX(t), toY(0)); ctx.stroke();
-        ctx.beginPath(); ctx.moveTo(toX(t), toY(r)); ctx.lineTo(pad.left, toY(r)); ctx.stroke();
-      });
-      ctx.setLineDash([]);
-
-      // Points
-      [[toX(1), toY(i1), '#FFD700'], [toX(2), toY(i2), '#FF7043']].forEach(([px, py, color]) => {
-        ctx.beginPath();
-        ctx.arc(px, py, 6, 0, Math.PI * 2);
+      function fillBar(x, y, w, h, color, roundL, roundR) {
+        if (w <= 0) return;
         ctx.fillStyle = color;
-        ctx.fill();
-        ctx.strokeStyle = '#09090f';
-        ctx.lineWidth = 1.5;
-        ctx.stroke();
-      });
-
-      // Axes
-      ctx.strokeStyle = 'rgba(255,255,255,0.35)';
-      ctx.lineWidth = 1;
-      ctx.beginPath(); ctx.moveTo(pad.left, pad.top); ctx.lineTo(pad.left, pad.top + ph + 5); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(pad.left - 5, pad.top + ph); ctx.lineTo(pad.left + pw, pad.top + ph); ctx.stroke();
-
-      ctx.fillStyle = '#888';
-      ctx.font = `${Math.round(9 * dpr) / dpr}px system-ui,sans-serif`;
-
-      // X labels
-      ctx.textAlign = 'center';
-      ctx.fillText('1J', toX(1), ch - 5);
-      ctx.fillText('2J', toX(2), ch - 5);
-
-      // Y labels
-      ctx.textAlign = 'right';
-      for (let i = 1; i <= 4; i++) {
-        const v = (i / 4) * yMax;
-        ctx.fillText((v * 100).toFixed(1) + '%', pad.left - 5, toY(v) + 4);
+        if (ctx.roundRect) {
+          ctx.beginPath();
+          ctx.roundRect(x, y, w, h, [roundL, roundR, roundR, roundL]);
+          ctx.fill();
+        } else {
+          ctx.fillRect(x, y, w, h);
+        }
       }
 
-      // Axis title
-      ctx.save();
-      ctx.translate(11, pad.top + ph / 2);
-      ctx.rotate(-Math.PI / 2);
-      ctx.textAlign = 'center';
-      ctx.fillText('Rendite', 0, 0);
-      ctx.restore();
+      // Roll-over row: i₁ₜ (blue solid) + i¹ᵉ (red hatched)
+      const w_i1 = toX(i1) - pad.left;
+      const w_ie = toX(rollTotal) - toX(i1);
+      fillBar(pad.left, y1, w_i1,        barH, '#3498db',  4, w_ie > 0 ? 0 : 4);
+      fillBar(toX(i1),  y1, Math.max(w_ie, 0), barH, hatch, 0, 4);
 
-      // Point labels
-      ctx.font = `bold ${Math.round(10 * dpr) / dpr}px system-ui,sans-serif`;
-      ctx.fillStyle = '#FFD700';
-      ctx.textAlign = 'center';
-      ctx.fillText('i₁ₜ', toX(1), toY(i1) - 11);
+      // Direktanlage row: 2×i₂ (green solid)
+      const w_2i2 = toX(dirTotal) - pad.left;
+      fillBar(pad.left, y2, Math.max(w_2i2, 0), barH, '#2ecc71', 4, 4);
 
-      ctx.fillStyle = '#FF7043';
-      ctx.fillText('i₂ₜ', toX(2), toY(i2) - 11);
+      // Value labels inside bars
+      ctx.font        = `bold ${Math.round(9 * dpr) / dpr}px system-ui,sans-serif`;
+      ctx.textBaseline = 'middle';
+      ctx.fillStyle   = 'rgba(255,255,255,0.9)';
+      ctx.textAlign   = 'center';
+      if (w_i1 > 34)         ctx.fillText((i1 * 100).toFixed(1) + '%',         pad.left + w_i1 / 2,        y1 + barH / 2);
+      if (w_ie > 34)         ctx.fillText((ie * 100).toFixed(1) + '%',          toX(i1) + w_ie / 2,         y1 + barH / 2);
+      if (w_2i2 > 34)        ctx.fillText((dirTotal * 100).toFixed(1) + '%',    pad.left + w_2i2 / 2,        y2 + barH / 2);
+
+      // Y-axis labels (two lines each)
+      ctx.font      = `${Math.round(8 * dpr) / dpr}px system-ui,sans-serif`;
+      ctx.fillStyle = '#bbb';
+      ctx.textAlign = 'right';
+      ctx.fillText('Roll-over',   pad.left - 6, y1 + barH / 2 - 7);
+      ctx.fillText('i₁ + i¹ᵉ',   pad.left - 6, y1 + barH / 2 + 7);
+      ctx.fillText('Direktanlage', pad.left - 6, y2 + barH / 2 - 7);
+      ctx.fillText('2 × i₂',      pad.left - 6, y2 + barH / 2 + 7);
+
+      // Dashed vertical comparison line at end of longer bar
+      const endRoll = toX(rollTotal);
+      const endDir  = toX(dirTotal);
+      if (Math.abs(endRoll - endDir) > 2) {
+        const xLong  = Math.max(endRoll, endDir);
+        const xShort = Math.min(endRoll, endDir);
+        ctx.strokeStyle = 'rgba(255,255,255,0.22)';
+        ctx.lineWidth   = 1;
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath(); ctx.moveTo(xLong, y1 - 3); ctx.lineTo(xLong, y2 + barH + 3); ctx.stroke();
+        ctx.setLineDash([]);
+        // Gap arrow indicator
+        ctx.strokeStyle = 'rgba(255,255,255,0.35)';
+        ctx.lineWidth   = 1;
+        const arrowY = y1 + barH / 2 + (gap + barH) / 2;
+        ctx.beginPath(); ctx.moveTo(xShort, arrowY); ctx.lineTo(xLong, arrowY); ctx.stroke();
+      }
+
+      // X-axis
+      const axY = ch - 12;
+      ctx.strokeStyle  = 'rgba(255,255,255,0.18)';
+      ctx.lineWidth    = 1;
+      ctx.beginPath(); ctx.moveTo(pad.left, axY); ctx.lineTo(pad.left + pw, axY); ctx.stroke();
+
+      ctx.fillStyle    = '#777';
+      ctx.font         = `${Math.round(7.5 * dpr) / dpr}px system-ui,sans-serif`;
+      ctx.textAlign    = 'center';
+      ctx.textBaseline = 'top';
+      for (let k = 1; k <= 4; k++) {
+        const v = (k / 4) * xMax;
+        const x = toX(v);
+        if (x <= pad.left + pw + 2) {
+          ctx.beginPath(); ctx.moveTo(x, axY); ctx.lineTo(x, axY + 3); ctx.stroke();
+          ctx.fillStyle = '#777';
+          ctx.fillText((v * 100).toFixed(1) + '%', x, axY + 4);
+        }
+      }
+
+      // Legend
+      const legY = pad.top - 14;
+      ctx.font        = `${Math.round(8 * dpr) / dpr}px system-ui,sans-serif`;
+      ctx.textBaseline = 'middle';
+      const legend = [
+        { color: '#3498db', label: 'i₁ₜ (sicher)', dx: 0 },
+        { color: hatch,     label: 'i¹ᵉ (Erwartung)', dx: 75 },
+        { color: '#2ecc71', label: '2×i₂ (Vertrag)', dx: 165 },
+      ];
+      legend.forEach(({ color, label, dx }) => {
+        const lx = pad.left + dx;
+        if (lx > pad.left + pw - 20) return;
+        ctx.fillStyle = color;
+        ctx.fillRect(lx, legY - 5, 9, 9);
+        ctx.fillStyle = '#999';
+        ctx.textAlign = 'left';
+        ctx.fillText(label, lx + 12, legY);
+      });
     }
 
     function updateAll() {
@@ -798,23 +819,11 @@ window.ReelModel = (function () {
       stratAOut.textContent = stratA.toFixed(2);
       stratBOut.textContent = stratB.toFixed(2);
 
-      // Shape badge
-      const EPS = 0.0005;
-      let shape, shapeColor, shapeBg, shapeBorder;
-      if (i2 > i1 + EPS) {
-        shape = 'Normal'; shapeColor = '#34d399';
-        shapeBg = 'rgba(52,211,153,0.15)'; shapeBorder = 'rgba(52,211,153,0.4)';
-      } else if (i2 < i1 - EPS) {
-        shape = 'Invers'; shapeColor = '#f87171';
-        shapeBg = 'rgba(248,113,113,0.15)'; shapeBorder = 'rgba(248,113,113,0.4)';
-      } else {
-        shape = 'Flach'; shapeColor = '#FFD700';
-        shapeBg = 'rgba(255,215,0,0.15)'; shapeBorder = 'rgba(255,215,0,0.4)';
-      }
-      shapeBadge.textContent = shape;
-      shapeBadge.style.color = shapeColor;
-      shapeBadge.style.background = shapeBg;
-      shapeBadge.style.border = '1px solid ' + shapeBorder;
+      // Arbitrage badge — condition always holds by construction
+      shapeBadge.textContent  = 'Arbitrage ✓';
+      shapeBadge.style.color  = '#34d399';
+      shapeBadge.style.background = 'rgba(52,211,153,0.15)';
+      shapeBadge.style.border = '1px solid rgba(52,211,153,0.4)';
 
       // Condition with numbers
       const lhs = Math.pow(1 + i2, 2);

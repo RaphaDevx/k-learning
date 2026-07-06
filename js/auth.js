@@ -11,9 +11,11 @@ window.Auth = (function () {
   async function init() {
     const { data: { session } } = await _supabase.auth.getSession();
     _setOverlay(!session);
+    if (session?.user) window.Billing?.init(session.user.id);
 
     _supabase.auth.onAuthStateChange((_event, session) => {
       _setOverlay(!session);
+      if (session?.user) window.Billing?.init(session.user.id);
       if (session && window.ProfileScreen?.refresh) window.ProfileScreen.refresh();
     });
   }
