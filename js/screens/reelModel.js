@@ -489,10 +489,10 @@ window.ReelModel = (function () {
     rIn.addEventListener('input', updateAll);
     yIn.addEventListener('input', updateAll);
 
-    // Prevent vertical scroll from triggering when dragging sliders
     [betaIn, rIn, yIn].forEach(sl => {
       sl.addEventListener('touchstart', e => e.stopPropagation(), { passive: true });
       sl.addEventListener('touchmove',  e => e.stopPropagation(), { passive: true });
+      sl.addEventListener('touchend',   e => e.stopPropagation(), { passive: true });
     });
 
     // Initial draw (after a tick so canvas has laid out)
@@ -836,6 +836,7 @@ window.ReelModel = (function () {
     [i1In, ieIn].forEach(sl => {
       sl.addEventListener('touchstart', e => e.stopPropagation(), { passive: true });
       sl.addEventListener('touchmove',  e => e.stopPropagation(), { passive: true });
+      sl.addEventListener('touchend',   e => e.stopPropagation(), { passive: true });
     });
 
     requestAnimationFrame(() => requestAnimationFrame(() => updateAll()));

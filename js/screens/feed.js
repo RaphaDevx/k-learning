@@ -330,13 +330,16 @@ window.FeedScreen = (function() {
         if (moveDir === 'h') e.preventDefault(); // block scroll-snap from stealing the gesture
       }, { passive: false });
       trackEl.addEventListener('touchend', e => {
-        if (moveDir !== 'h') return;
+        const wasH = moveDir === 'h';
+        moveDir = null; // always reset so stale state can't trigger spurious open/close
+        if (!wasH) return;
         const dx = e.changedTouches[0].clientX - tx;
         if (Math.abs(dx) > 50) {
           if (dx < 0) ReelModel.openFromCard(id);
           else        ReelModel.closeFromCard(id);
         }
       }, { passive: true });
+      trackEl.addEventListener('touchcancel', () => { moveDir = null; }, { passive: true });
     });
   }
 
