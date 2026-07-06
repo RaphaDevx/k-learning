@@ -295,10 +295,11 @@ Beantworte Fragen zu dieser Karte oder zum Kontext. Gib nie einfach die Antwort 
   width: 46px; height: 46px; border-radius: 50%; border: none;
   background: linear-gradient(135deg,#6366f1,#8b5cf6);
   color: #fff; font-size: 1.2rem; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
+  display: none; align-items: center; justify-content: center;
   box-shadow: 0 4px 18px rgba(99,102,241,.55);
-  transition: transform .2s, box-shadow .2s;
+  transition: transform .2s, box-shadow .2s, opacity .2s;
 }
+#ai-chat-fab.fab-visible { display: flex; }
 #ai-chat-fab:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(99,102,241,.7); }
 #ai-chat-fab.active { background: linear-gradient(135deg,#4f46e5,#7c3aed); }
 
@@ -423,5 +424,18 @@ Beantworte Fragen zu dieser Karte oder zum Kontext. Gib nie einfach die Antwort 
     document.head.appendChild(s);
   }
 
-  return { init, toggle, open, close, sendMessage, clearChat, getKey, setKey, setExternalContext, clearExternalContext };
+  function showFab() { document.getElementById('ai-chat-fab')?.classList.add('fab-visible'); }
+  function hideFab() {
+    document.getElementById('ai-chat-fab')?.classList.remove('fab-visible');
+    close(); // also close panel when leaving flashcard screen
+  }
+
+  function openForCard() {
+    clearExternalContext();
+    _history = [];
+    open();
+  }
+
+  return { init, toggle, open, close, sendMessage, clearChat, getKey, setKey,
+           setExternalContext, clearExternalContext, showFab, hideFab, openForCard };
 })();

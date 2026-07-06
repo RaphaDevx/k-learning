@@ -75,6 +75,11 @@ window.TabRouter = (function() {
     const screen = screens[name];
     if (screen && screen.init) screen.init();
     window.scrollTo(0, 0);
+
+    // AI chat FAB: only visible on flashcard screen
+    if (window.AIChat) {
+      name === 'flashcards' ? AIChat.showFab() : AIChat.hideFab();
+    }
   }
 
   // ── Called by bottom-nav tap buttons ──
