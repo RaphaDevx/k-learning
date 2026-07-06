@@ -57,6 +57,16 @@ window.ProfileScreen = (function () {
         <div id="ai-key-section"><p class="text-xs py-1" style="color:var(--txt-3)">Lade…</p></div>
       </div>
 
+      <!-- KI-Chat (OpenRouter BYOK) -->
+      <div class="rounded-[20px] p-4 mb-4" style="background:var(--card);border:1px solid var(--border)">
+        <div class="flex items-center justify-between mb-1">
+          <h3 class="font-semibold" style="color:var(--txt)">KI-Chat (✨ Lernkarten-Assistent)</h3>
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(99,102,241,0.15);color:#a5b4fc">OpenRouter</span>
+        </div>
+        <p class="text-xs mb-3" style="color:var(--txt-2)">Key wird nur lokal im Browser gespeichert — verlässt nie den Browser. Hol dir einen kostenlosen Key auf <strong style="color:var(--txt)">openrouter.ai</strong>.</p>
+        <div id="or-key-section"></div>
+      </div>
+
       <!-- Voice Chat (Gemini Live) -->
       <div class="rounded-[20px] p-4 mb-4" style="background:var(--card);border:1px solid var(--border)">
         <div class="flex items-center justify-between mb-1">
@@ -108,13 +118,14 @@ window.ProfileScreen = (function () {
 
       <!-- App Version -->
       <div class="text-center mt-6 pb-2">
-        <span class="text-xs font-mono px-2.5 py-1 rounded-full" style="background:rgba(99,102,241,0.12);color:var(--txt-3);border:1px solid rgba(99,102,241,0.2)">K-Learning v3.12.3</span>
+        <span class="text-xs font-mono px-2.5 py-1 rounded-full" style="background:rgba(99,102,241,0.12);color:var(--txt-3);border:1px solid rgba(99,102,241,0.2)">K-Learning v3.13.1</span>
       </div>
     `;
 
     document.getElementById('doc-upload-input').addEventListener('change', _handleUpload);
     _loadHistory(user);
     _initAiKeyUI();
+    _initORKeyUI();
     _initGeminiKeyUI();
     _renderQuizStats();
     _loadLearningProfile(user);
@@ -334,6 +345,50 @@ window.ProfileScreen = (function () {
         _showMsg(section, `Fehler: ${e.message}`, true);
       }
     });
+  }
+
+  function _initORKeyUI() {
+    const section = document.getElementById('or-key-section');
+    if (!section) return;
+    const existing = window.AIChat?.getKey?.();
+    if (existing) {
+      section.innerHTML = `
+        <div class="flex items-center gap-2">
+          <span class="text-xs font-mono px-2 py-1 rounded-lg" style="background:rgba(99,102,241,0.12);color:#a5b4fc">
+            sk-or-…${existing.slice(-6)}
+          </span>
+          <button id="or-key-del" class="text-xs text-red-400 hover:text-red-300 px-2 py-1 rounded-lg hover:bg-red-900/30 transition">Entfernen</button>
+        </div>`;
+      document.getElementById('or-key-del').addEventListener('click', () => {
+        window.AIChat?.setKey?.('');
+        _initORKeyUI();
+      });
+    } else {
+      section.innerHTML = `
+        <div class="relative mb-2">
+          <input type="password" id="or-key-input" placeholder="sk-or-…"
+            autocomplete="off" spellcheck="false"
+            class="w-full rounded-xl px-4 py-3 pr-20 text-sm font-mono"
+            style="background:#0f0f1a;border:1px solid rgba(99,102,241,0.3);color:#e2e8f0;outline:none;">
+          <button id="or-key-toggle" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 hover:text-gray-200 transition px-1">Anzeigen</button>
+        </div>
+        <button id="or-key-save" class="w-full rounded-xl py-2.5 text-sm font-bold transition"
+          style="background:#4f46e5;color:#fff;">Key speichern</button>`;
+      const inp    = document.getElementById('or-key-input');
+      const toggle = document.getElementById('or-key-toggle');
+      const save   = document.getElementById('or-key-save');
+      toggle.addEventListener('click', () => {
+        const show = inp.type === 'password';
+        inp.type = show ? 'text' : 'password';
+        toggle.textContent = show ? 'Verbergen' : 'Anzeigen';
+      });
+      save.addEventListener('click', () => {
+        const k = inp.value.trim();
+        if (!k.startsWith('sk-or-')) { alert('Kein gültiger OpenRouter-Key (muss mit sk-or- beginnen).'); return; }
+        window.AIChat?.setKey?.(k);
+        _initORKeyUI();
+      });
+    }
   }
 
   function _initGeminiKeyUI() {

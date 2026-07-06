@@ -426,6 +426,25 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
         throwOnError: false,
       });
     }
+    _scaleKatexDisplays(el);
+  }
+
+  function _scaleKatexDisplays(el) {
+    requestAnimationFrame(() => {
+      el.querySelectorAll('.katex-display').forEach(d => {
+        d.style.transform    = '';
+        d.style.marginBottom = '';
+        const containerW = el.clientWidth;
+        if (!containerW) return;
+        const formulaW = d.scrollWidth;
+        if (formulaW <= containerW) return;
+        const scale   = Math.max(0.52, containerW / formulaW);
+        const origH   = d.offsetHeight;
+        d.style.transform    = 'scale(' + scale + ')';
+        d.style.transformOrigin = 'center top';
+        d.style.marginBottom = ((scale - 1) * origH) + 'px';
+      });
+    });
   }
 
   function showCard(index) {
@@ -1500,5 +1519,7 @@ Antworte NUR in diesem JSON-Format (kein weiterer Text):
     _closeResumePrompt,
     // Card reporting
     reportCurrentCard,
+    // AI chat context
+    getCurrentCard: () => filteredCards[currentIndex] || null,
   };
 })();

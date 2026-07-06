@@ -100,6 +100,7 @@
   <script src="js/screens/lernen.js"></script>
   <script src="js/screens/profile.js"></script>
   <script src="js/screens/progress.js"></script>
+  <script src="js/ai-chat.js"></script>
 
   <style>
     /* ── Design Tokens → branding/brand.css ── */
@@ -1200,6 +1201,7 @@
   LevelSystem.init();   // lädt XP aus localStorage sofort, dann async aus Supabase
   showView('dashboard');
   Auth.init();
+  AIChat.init();
 
   // Render dynamic sidebar exam list
   (function renderSidebarExams() {

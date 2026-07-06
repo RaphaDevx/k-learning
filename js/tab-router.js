@@ -1,4 +1,4 @@
-// ── Tab Router (v3.12.3) ────────────────────────────────────────────────────
+// ── Tab Router (v3.13.1) ────────────────────────────────────────────────────
 // Persistent per-tab stacks with re-tap-to-root behavior (Apple Music style)
 
 window.TabRouter = (function() {

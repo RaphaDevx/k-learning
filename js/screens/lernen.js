@@ -1,4 +1,4 @@
-// ── Lernen Screen (v3.12.3) ─────────────────────────────────────────────────
+// ── Lernen Screen (v3.13.1) ─────────────────────────────────────────────────
 // Hub: Fächerauswahl → Karten oder Quiz → Themenstruktur
 
 window.LernenScreen = (function() {
