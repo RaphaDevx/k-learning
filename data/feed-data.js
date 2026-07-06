@@ -1757,7 +1757,7 @@ window.FEED_CARDS = [
   }
 ,
   {
-    id: "makro-r3-1-ppp",
+    id: "makro-r3-1-big-mac-ppp",
     type: "localvideo",
     course: "MakroII", courseColor: "#059669",
     emoji: "🍔",
@@ -1772,7 +1772,7 @@ window.FEED_CARDS = [
     block: "Block 3 — Offene Volkswirtschaft"
   },
   {
-    id: "makro-r3-2-uip",
+    id: "makro-r3-2-uip-wechselkurs",
     type: "localvideo",
     course: "MakroII", courseColor: "#059669",
     emoji: "🇨🇭",
@@ -1787,7 +1787,7 @@ window.FEED_CARDS = [
     block: "Block 3 — Offene Volkswirtschaft"
   },
   {
-    id: "makro-r3-3-mundell",
+    id: "makro-r3-3-mundell-fleming",
     type: "localvideo",
     course: "MakroII", courseColor: "#059669",
     emoji: "🌍",
@@ -1802,7 +1802,7 @@ window.FEED_CARDS = [
     block: "Block 3 — Offene Volkswirtschaft"
   },
   {
-    id: "makro-r3-4-snb2015",
+    id: "makro-r3-4-snb-2015",
     type: "localvideo",
     course: "MakroII", courseColor: "#059669",
     emoji: "💥",
