@@ -8,14 +8,23 @@ window.AIChat = (function () {
   const MODEL    = 'google/gemini-2.5-flash';
   const SITE_URL = 'https://k-learning.pages.dev';
 
-  let _history  = [];
-  let _isOpen   = false;
-  let _ctxCache = {};
-  let _sending  = false;
+  let _history      = [];
+  let _isOpen       = false;
+  let _ctxCache     = {};
+  let _sending      = false;
+  let _externalCtx  = null; // set by ExamScreen for review mode
 
   // ── Key management ────────────────────────────────────────────────────────
   function getKey()  { return localStorage.getItem(LS_KEY) || ''; }
   function setKey(k) { k ? localStorage.setItem(LS_KEY, k) : localStorage.removeItem(LS_KEY); }
+
+  // ── External context (exam review mode) ──────────────────────────────────
+  function setExternalContext(ctx) {
+    _externalCtx = ctx;
+    _history = []; // fresh chat per question
+    _updateContextBadge();
+  }
+  function clearExternalContext() { _externalCtx = null; }
 
   // ── Context ───────────────────────────────────────────────────────────────
   async function _loadCourseCtx(course) {
@@ -37,17 +46,34 @@ window.AIChat = (function () {
   }
 
   async function _buildSystem() {
-    const card   = _getCardContext();
-    const course = card?.course || '';
-    const ctx    = await _loadCourseCtx(course);
-
-    let sys = `Du bist ein präziser Lernassistent für Schweizer Universitätsstudenten (HSG-Niveau).
+    const base = `Du bist ein präziser Lernassistent für Schweizer Universitätsstudenten (HSG-Niveau).
 Antworte immer auf Deutsch. Sei kurz, klar, lehrreich.
 Nutze LaTeX-Notation ($...$) für inline-Formeln, ($$...$$) für Display-Formeln.
 Wenn der Student etwas nicht versteht, erkläre es anders — mit Beispiel, Analogie oder Gegenbeispiel.`;
 
-    if (ctx) sys += `\n\n## Kurskontext: ${course}\n${ctx}`;
+    // Exam review mode: external context takes priority
+    if (_externalCtx) {
+      const ctx = await _loadCourseCtx(_externalCtx.course || '');
+      let sys = base;
+      if (ctx) sys += `\n\n## Kurskontext: ${_externalCtx.course}\n${ctx}`;
+      sys += `\n\n## Prüfungskorrektur — aktuelle Frage
+**Kurs:** ${_externalCtx.course || '—'}
+**Frage:** ${_externalCtx.questionText}
+**Antwort des Studenten:** ${_externalCtx.userAnswer || '(keine Antwort)'}
+**Korrekte Antwort:** ${_externalCtx.correctAnswer}
+**Ergebnis:** ${_externalCtx.isCorrect ? '✅ Richtig' : '❌ Falsch'}
+${_externalCtx.explanation ? `**Erklärung im Skript:** ${_externalCtx.explanation}` : ''}
 
+Erkläre warum die Antwort korrekt oder falsch ist. Wenn der Student falsch lag, hilf ihm das Konzept zu verstehen. Stelle Rückfragen wenn nötig.`;
+      return sys;
+    }
+
+    // Flashcard mode
+    const card   = _getCardContext();
+    const course = card?.course || '';
+    const ctx    = await _loadCourseCtx(course);
+    let sys = base;
+    if (ctx) sys += `\n\n## Kurskontext: ${course}\n${ctx}`;
     if (card) {
       sys += `\n\n## Aktuelle Lernkarte
 **Kurs:** ${card.course}  **Thema:** ${card.topic || '—'}
@@ -56,7 +82,6 @@ Wenn der Student etwas nicht versteht, erkläre es anders — mit Beispiel, Anal
 
 Beantworte Fragen zu dieser Karte oder zum Kontext. Gib nie einfach die Antwort weg, sondern führe den Lernenden hin.`;
     }
-
     return sys;
   }
 
@@ -117,8 +142,12 @@ Beantworte Fragen zu dieser Karte oder zum Kontext. Gib nie einfach die Antwort 
   function _updateContextBadge() {
     const badge = document.getElementById('ai-chat-ctx-badge');
     if (!badge) return;
-    const card = _getCardContext();
     badge.style.display = 'inline-block';
+    if (_externalCtx) {
+      badge.textContent = `${_externalCtx.course} — Prüfungsfrage`;
+      return;
+    }
+    const card = _getCardContext();
     badge.textContent = card
       ? `${card.course} — ${card.topic || 'Aktuelle Karte'}`
       : 'Kein Kartenkontext';
@@ -394,5 +423,5 @@ Beantworte Fragen zu dieser Karte oder zum Kontext. Gib nie einfach die Antwort 
     document.head.appendChild(s);
   }
 
-  return { init, toggle, open, close, sendMessage, clearChat, getKey, setKey };
+  return { init, toggle, open, close, sendMessage, clearChat, getKey, setKey, setExternalContext, clearExternalContext };
 })();

@@ -1111,12 +1111,15 @@ window.ExamScreen = (function() {
           <div id="ai-feedback-output" class="hidden"></div>
         </div>
 
-        <div class="mt-6 flex gap-3">
-          <button onclick="ExamScreen.closeResults()" class="flex-1 bg-gray-700 hover:bg-gray-600 rounded-xl py-3 font-bold transition">
-            Zurück zur Auswahl
+        <div class="mt-6 flex gap-3 flex-wrap">
+          <button onclick="ExamScreen.closeResults()" class="flex-1 bg-gray-700 hover:bg-gray-600 rounded-xl py-3 font-bold transition" style="min-width:120px">
+            Zurück
+          </button>
+          <button onclick="ExamScreen.startReview()" class="flex-1 rounded-xl py-3 font-bold transition" style="min-width:140px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff">
+            📋 Korrektur durchgehen
           </button>
           <button onclick="ExamScreen.closeResults(); ExamScreen.showSetup('${_examData?.id || ''}')"
-            class="flex-1 bg-blue-600 hover:bg-blue-500 rounded-xl py-3 font-bold transition">
+            class="flex-1 bg-blue-600 hover:bg-blue-500 rounded-xl py-3 font-bold transition" style="min-width:120px">
             Nochmals üben
           </button>
         </div>
@@ -1125,6 +1128,9 @@ window.ExamScreen = (function() {
     overlay.innerHTML = html;
     window.LernsetEngine?.renderMathIn(overlay);
     overlay.scrollTop = 0;
+
+    // Store for review mode
+    _lastResults = results;
 
     // Clean up
     _examActive = false;
@@ -1425,6 +1431,202 @@ window.ExamScreen = (function() {
     return EXAM_REGISTRY.filter(e => e.course === courseKey);
   }
 
+  // ── Review Mode ───────────────────────────────────────────────────────────
+  let _reviewItems  = [];
+  let _reviewIdx    = 0;
+  let _reviewCourse = '';
+
+  function startReview() {
+    if (!_lastResults) return;
+    // Flatten all questions into review items
+    _reviewItems = [];
+    _reviewCourse = _currentEntry?.course || '';
+    _lastResults.sections.forEach(({ questions }) => {
+      questions.forEach(item => {
+        const { q, userAnswer, isCorrect, correct, explanation, modelAnswer } = item;
+        if (!q || q.type === 'audio_intro') return;
+        const userArr  = Array.isArray(userAnswer) ? userAnswer : (userAnswer ? [userAnswer] : []);
+        const correctLabel = _buildCorrectLabel(q, correct, modelAnswer);
+        const userLabel    = _buildUserLabel(q, userArr, userAnswer);
+        _reviewItems.push({ q, isCorrect, userLabel, correctLabel, explanation });
+      });
+    });
+    _reviewIdx = 0;
+    _renderReviewCard();
+  }
+
+  function _buildCorrectLabel(q, correct, modelAnswer) {
+    if (q.type === 'text' || q.type === 'open') return modelAnswer || '(keine Musterlösung)';
+    if (!q.choices || !correct) return correct?.join(', ') || '—';
+    return (Array.isArray(correct) ? correct : [correct])
+      .map(k => { const c = q.choices.find(x => x.key === k); return c ? `${k}) ${c.text}` : k; })
+      .join(' | ');
+  }
+
+  function _buildUserLabel(q, userArr, userAnswer) {
+    if (q.type === 'text' || q.type === 'open') return String(userAnswer || '').trim() || '(keine Antwort)';
+    if (!q.choices || !userArr.length) return userArr.join(', ') || '(keine Antwort)';
+    return userArr
+      .map(k => { const c = q.choices.find(x => x.key === k); return c ? `${k}) ${c.text}` : k; })
+      .join(' | ');
+  }
+
+  function _renderReviewCard() {
+    let overlay = document.getElementById('exam-review-overlay');
+    if (!overlay) {
+      overlay = document.createElement('div');
+      overlay.id = 'exam-review-overlay';
+      overlay.style.cssText = `
+        position:fixed;inset:0;z-index:800;
+        background:#0b0b18;overflow-y:auto;
+        display:flex;flex-direction:column;
+      `;
+      document.body.appendChild(overlay);
+      // inject review styles once
+      if (!document.getElementById('review-styles')) {
+        const s = document.createElement('style');
+        s.id = 'review-styles';
+        s.textContent = `
+          .rv-card { background:#1a1a2e; border-radius:20px; padding:1.25rem; margin-bottom:1rem; }
+          .rv-label { font-size:.7rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin-bottom:.35rem; }
+          .rv-text  { font-size:.9rem; line-height:1.55; color:#e2e8f0; }
+          .rv-correct { color:#4ade80; } .rv-wrong { color:#f87171; }
+          .rv-btn { flex:1; border:none; border-radius:14px; padding:.75rem .5rem; font-size:.85rem; font-weight:700; cursor:pointer; transition:opacity .15s; }
+          .rv-btn:hover { opacity:.85; }
+        `;
+        document.head.appendChild(s);
+      }
+    }
+
+    if (_reviewIdx >= _reviewItems.length) {
+      overlay.innerHTML = `
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:1.5rem;padding:2rem;text-align:center">
+          <div style="font-size:3.5rem">🎉</div>
+          <div style="font-size:1.2rem;font-weight:800;color:#e2e8f0">Alle ${_reviewItems.length} Fragen durchgegangen!</div>
+          <button onclick="ExamScreen.closeReview()" style="background:#4f46e5;color:#fff;border:none;border-radius:14px;padding:.8rem 2rem;font-size:1rem;font-weight:700;cursor:pointer">
+            Fertig
+          </button>
+        </div>`;
+      return;
+    }
+
+    const item  = _reviewItems[_reviewIdx];
+    const total = _reviewItems.length;
+    const pct   = Math.round((_reviewIdx / total) * 100);
+    const statusColor = item.isCorrect ? '#4ade80' : '#f87171';
+    const statusIcon  = item.isCorrect ? '✅' : '❌';
+    const statusText  = item.isCorrect ? 'Richtig' : 'Falsch';
+
+    const qText = (item.q.text || '').length > 300
+      ? item.q.text.substring(0, 300) + '…'
+      : item.q.text || '';
+
+    overlay.innerHTML = `
+      <div style="max-width:520px;margin:0 auto;padding:1rem 1rem 6rem;width:100%">
+
+        <!-- Header -->
+        <div style="display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;padding-top:.5rem">
+          <button onclick="ExamScreen.closeReview()"
+            style="background:rgba(255,255,255,.08);border:none;color:#9ca3af;border-radius:10px;padding:.4rem .7rem;cursor:pointer;font-size:.85rem">
+            ✕
+          </button>
+          <div style="flex:1">
+            <div style="display:flex;justify-content:space-between;margin-bottom:.3rem">
+              <span style="font-size:.75rem;color:#6b7280">Frage ${_reviewIdx + 1} von ${total}</span>
+              <span style="font-size:.75rem;color:#6b7280">${pct}%</span>
+            </div>
+            <div style="height:4px;background:#1f2937;border-radius:2px">
+              <div style="height:4px;background:#6366f1;border-radius:2px;width:${pct}%;transition:width .3s"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Status badge -->
+        <div style="display:inline-flex;align-items:center;gap:.4rem;background:${statusColor}18;border:1px solid ${statusColor}44;border-radius:999px;padding:.25rem .8rem;margin-bottom:1rem">
+          <span>${statusIcon}</span>
+          <span style="font-size:.75rem;font-weight:700;color:${statusColor}">${statusText}</span>
+        </div>
+
+        <!-- Question -->
+        <div class="rv-card">
+          <div class="rv-label" style="color:#6366f1">Frage</div>
+          <div class="rv-text">${qText}</div>
+        </div>
+
+        <!-- User answer -->
+        <div class="rv-card" style="border:1px solid ${item.isCorrect ? '#166534' : '#7f1d1d'}">
+          <div class="rv-label ${item.isCorrect ? 'rv-correct' : 'rv-wrong'}">Deine Antwort</div>
+          <div class="rv-text ${item.isCorrect ? 'rv-correct' : 'rv-wrong'}">${item.userLabel}</div>
+        </div>
+
+        ${!item.isCorrect ? `
+        <!-- Correct answer -->
+        <div class="rv-card" style="border:1px solid #166534">
+          <div class="rv-label rv-correct">Korrekte Antwort</div>
+          <div class="rv-text rv-correct">${item.correctLabel}</div>
+        </div>` : ''}
+
+        ${item.explanation ? `
+        <!-- Explanation -->
+        <div class="rv-card" style="background:#0f172a">
+          <div class="rv-label" style="color:#94a3b8">Erklärung</div>
+          <div class="rv-text" style="color:#94a3b8">${item.explanation}</div>
+        </div>` : ''}
+
+        <!-- Actions -->
+        <div style="display:flex;gap:.75rem;margin-top:1.5rem">
+          <button class="rv-btn" style="background:rgba(74,222,128,.15);color:#4ade80;border:1px solid rgba(74,222,128,.3)"
+            onclick="ExamScreen.reviewNext()">
+            ✅ Kapiert
+          </button>
+          <button class="rv-btn" style="background:rgba(99,102,241,.2);color:#a5b4fc;border:1px solid rgba(99,102,241,.4)"
+            onclick="ExamScreen.reviewChat()">
+            ✨ Mit KI besprechen
+          </button>
+        </div>
+
+        ${_reviewIdx > 0 ? `
+        <button onclick="ExamScreen.reviewPrev()"
+          style="display:block;width:100%;margin-top:.75rem;background:none;border:none;color:#4b5563;font-size:.8rem;cursor:pointer;padding:.5rem">
+          ← Vorherige Frage
+        </button>` : ''}
+      </div>`;
+
+    window.LernsetEngine?.renderMathIn(overlay);
+  }
+
+  function reviewNext() {
+    _reviewIdx = Math.min(_reviewIdx + 1, _reviewItems.length);
+    _renderReviewCard();
+  }
+
+  function reviewPrev() {
+    _reviewIdx = Math.max(_reviewIdx - 1, 0);
+    _renderReviewCard();
+  }
+
+  function reviewChat() {
+    const item = _reviewItems[_reviewIdx];
+    if (!item) return;
+    window.AIChat?.setExternalContext({
+      course:        _reviewCourse,
+      questionText:  item.q.text || '',
+      userAnswer:    item.userLabel,
+      correctAnswer: item.correctLabel,
+      isCorrect:     item.isCorrect,
+      explanation:   item.explanation || '',
+    });
+    window.AIChat?.open();
+  }
+
+  function closeReview() {
+    document.getElementById('exam-review-overlay')?.remove();
+    window.AIChat?.clearExternalContext?.();
+  }
+
+  // Store last results for review
+  let _lastResults = null;
+
   return {
     init, renderSelector,
     showSetup, closeSetup, startFromSetup, startExam,
@@ -1435,5 +1637,6 @@ window.ExamScreen = (function() {
     getExamsByCourse,
     playSectionAudio, stopSectionAudio, toggleTranscript,
     callAIGrader: _callAIGrader,
+    startReview, closeReview, reviewNext, reviewPrev, reviewChat,
   };
 })();
