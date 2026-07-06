@@ -1675,7 +1675,8 @@ window.FEED_CARDS = [
     level: "Prüfungsrelevant ⚡",
     video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/makro_r1_5_arbitrage_erwartungshypothese.mp4",
     thumbnail_emoji: "⚖️",
-    block: "Block 1 — Finanzmärkte & Geldpolitik"
+    block: "Block 1 — Finanzmärkte & Geldpolitik",
+    model_id: "erwartungshypothese"
   },
   {
     id: "makro-r2-1-euler",
