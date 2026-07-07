@@ -994,9 +994,14 @@
               "text": "Keine der oben genannten Antworten."
             }
           ],
-          "correct": [],
+          "correct": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
           "modelAnswer": null,
-          "explanation": "Antwortschlüssel unsicher — bitte manuell prüfen.",
+          "explanation": "A: Regierung setzt $\\pi=\\pi^*$ (Commitment). B: $y=\\bar{y}+b(\\pi-\\pi^e)=\\bar{y}$ da $\\pi=\\pi^e=\\pi^*$. C+D: Wohlfahrtsverlust kleiner als im Nash-GG ohne Bindung (kein Inflations-Bias).",
           "topics": [
             "Zeitinkonsistenz"
           ],
@@ -1038,9 +1043,12 @@
               "text": "Keine der oben genannten Antworten."
             }
           ],
-          "correct": [],
+          "correct": [
+            "A",
+            "C"
+          ],
           "modelAnswer": null,
-          "explanation": "Antwortschlüssel unsicher — bitte manuell prüfen.",
+          "explanation": "A: Bias $= b(y^*-\\bar{y})/\\alpha_{CB}$ — grösseres $\\alpha_{CB}$ → kleinerer Bias. C: Konservativere ZB reagiert auf Angebotsschocks weniger stark (stärkeres Gewicht auf Inflationsstabilisierung).",
           "topics": [
             "Zeitinkonsistenz",
             "Geldpolitik"
@@ -1133,9 +1141,13 @@
               "text": "Keine der oben genannten Antworten."
             }
           ],
-          "correct": [],
+          "correct": [
+            "A",
+            "B",
+            "C"
+          ],
           "modelAnswer": null,
-          "explanation": "Antwortschlüssel unsicher — Frage aus OCR rekonstruiert.",
+          "explanation": "A: Euler-Gleichung mit G in Nutzenfunktion. B: G erscheint direkt in u(C,G) → Nutzen steigt. C: Ausgeglichenes Budget bedeutet $\\Delta T_1 = \\Delta G_1$ → verfügbares Einkommen sinkt.",
           "topics": [
             "Intertemporale Optimierung"
           ],
@@ -1942,10 +1954,10 @@
             }
           ],
           "correct": [
-            "D"
+            "B"
           ],
           "modelAnswer": null,
-          "explanation": "$i_{CH} \\approx i_{US} + (E^e - E_t)/E_t \\Rightarrow E^e = E_t(1 + i_{CH} - i_{US}) = 1.10 \\cdot (1 + 0.0175 - 0.055) = 1.10 \\cdot 0.9625 \\approx 1.06$ USD/CHF. Antwort B.\n\nHinweis: OCR extrahierte Antwort D — bitte manuell prüfen.",
+          "explanation": "$E^e_{t+1} = E_t \\cdot (1 + i_{CH} - i_{US}) = 1.10 \\cdot (1 + 0.0175 - 0.055) = 1.10 \\cdot 0.9625 \\approx 1.06$ USD/CHF (B). Hinweis: OCR hatte D (1.14 CHF) extrahiert — wirtschaftlich korrekt ist B.",
           "topics": [
             "Wechselkurse"
           ],
@@ -1953,7 +1965,7 @@
             "difficulty": null,
             "category": null,
             "latex": true,
-            "_generated": false
+            "_generated": true
           }
         },
         {
@@ -1991,9 +2003,12 @@
               "text": "Keine der oben genannten Antworten."
             }
           ],
-          "correct": [],
+          "correct": [
+            "B",
+            "D"
+          ],
           "modelAnswer": null,
-          "explanation": "Antwortschlüssel unsicher (OCR leer) — bitte manuell prüfen.",
+          "explanation": "B: $\\epsilon_t = E_t \\cdot P_{US}/P_{CH} = 1.10 \\cdot 5.15/6.90 \\approx 0.82$. Da Preise konstant und $E^e < E_t$: $\\epsilon^e_{t+1} = 1.06 \\cdot 0.7464 \\approx 0.79 < 0.82$ → D korrekt.",
           "topics": [
             "Wechselkurse"
           ],
@@ -2001,7 +2016,7 @@
             "difficulty": null,
             "category": null,
             "latex": true,
-            "_generated": false
+            "_generated": true
           }
         },
         {
@@ -2379,9 +2394,8 @@
     }
   ],
   "_validation": [
-    "⚠ Q18 und Q19: Antwortschlüssel fehlt in OCR — bitte manuell prüfen",
-    "⚠ Q21–Q25: Fragentext und Kontext aus Kurswissen rekonstruiert (_generated=true)",
-    "⚠ Q37: OCR-Extraktion ergab D (1.14 CHF), UZP-Berechnung ergibt jedoch B (1.06 CHF) — bitte prüfen",
-    "⚠ Q38: Antwortschlüssel aus OCR leer — bitte manuell prüfen"
+    "⚠ Q18, Q19, Q21: Fragentext aus Kurswissen rekonstruiert (_generated=true), Antworten ebenfalls",
+    "⚠ Q37: OCR extrahierte D (1.14 CHF), wirtschaftlich korrekt ist B (1.06 CHF) per UZP — bitte prüfen",
+    "⚠ Q21-Q25 nicht im ecoreps-Video — Q22-Q25 aus Lösungs-OCR, Q21 rekonstruiert"
   ]
 }
