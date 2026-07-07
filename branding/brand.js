@@ -1,0 +1,70 @@
+// K-Learning — Branding Kit V2.1
+// Programmatic access to brand tokens.
+// Load before any screen JS that uses brand colors.
+
+const KBrand = Object.freeze({
+  version: '2.1',
+
+  font: {
+    family:   "'Nunito', -apple-system, system-ui, sans-serif",
+    weights:  { regular: 400, semibold: 600, bold: 700, black: 800 },
+    googleUrl:'https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap',
+  },
+
+  colors: {
+    accent:        '#6C47FF',
+    accentLight:   'rgba(108,71,255,0.15)',
+    accentBorder:  'rgba(108,71,255,0.35)',
+    accentSoft:    '#C4B5FD',
+    accentGlow:    'rgba(108,71,255,0.45)',
+    accentGrad:    'linear-gradient(90deg,#6C47FF,#A855F7)',
+    accentGrad135: 'linear-gradient(135deg,#6C47FF,#A855F7)',
+
+    success: '#3DD68C',
+    warning: '#FFB347',
+    danger:  '#FF6B6B',
+
+    dark: {
+      bg:         '#0D0D16',
+      card:       '#19172A',
+      cardRaised: '#231F3A',
+      sidebar:    '#110F1C',
+      txt:        '#F0EEFF',
+      txt2:       'rgba(240,238,255,0.55)',
+      txt3:       'rgba(240,238,255,0.28)',
+      border:     'rgba(255,255,255,0.09)',
+    },
+
+    light: {
+      bg:         '#F5F3FF',
+      card:       '#FFFFFF',
+      cardRaised: '#EDE8FF',
+      sidebar:    '#EDE9FF',
+      txt:        '#1A1640',
+      txt2:       '#6B6690',
+      txt3:       '#B0ACCC',
+      border:     'rgba(108,71,255,0.09)',
+      accent:     '#5B3EE8',
+      accentLight:'rgba(91,62,232,0.12)',
+    },
+  },
+
+  radius: {
+    sm:   '10px',
+    md:   '16px',
+    lg:   '22px',
+    xl:   '28px',
+    pill: '999px',
+  },
+
+  // Returns live accent from CSS (respects dark/light mode)
+  getAccent() {
+    return getComputedStyle(document.documentElement)
+      .getPropertyValue('--accent').trim() || this.colors.accent;
+  },
+
+  getAccentGrad135() {
+    return getComputedStyle(document.documentElement)
+      .getPropertyValue('--accent-grad-135').trim() || this.colors.accentGrad135;
+  },
+});

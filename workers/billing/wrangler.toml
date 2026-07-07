@@ -1,0 +1,14 @@
+name            = "k-billing-worker"
+main            = "src/index.ts"
+compatibility_date = "2025-01-01"
+
+[vars]
+SUPABASE_URL = "https://ifmwcgwfvunjbnfwwbtr.supabase.co"
+
+# Secrets — einmalig setzen mit:
+#   wrangler secret put REVENUECAT_WEBHOOK_SECRET
+#   wrangler secret put STRIPE_WEBHOOK_SECRET
+#   wrangler secret put SUPABASE_SERVICE_KEY
+
+# Deployment: wrangler deploy
+# Dev:        wrangler dev

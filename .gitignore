@@ -2,6 +2,7 @@
 .DS_Store
 Thumbs.db
 videos/
+videos
 sources/
 *.mp4
 *.mov
@@ -11,3 +12,8 @@ sources/
 client_secret*.json
 *oauth*.json
 private/
+# Personal / temp
+01_Inbox/
+ToDo.md
+*.bak
+native/.claude/

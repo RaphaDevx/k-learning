@@ -1,0 +1,80 @@
+/* ─────────────────────────────────────────────
+   K-Learning  —  Branding Kit V2.1
+   Single source of truth for design tokens.
+   Load this file BEFORE any inline styles.
+───────────────────────────────────────────── */
+
+/* ── Dark Mode (default) ─────────────────── */
+:root {
+  /* Backgrounds */
+  --bg:          #0D0D16;
+  --card:        #19172A;
+  --card-raised: #231F3A;
+  --sidebar-bg:  #110F1C;
+  --sidebar-w:   240px;
+
+  /* Borders */
+  --border:      rgba(255,255,255,0.09);
+  --border-h:    rgba(255,255,255,0.18);
+
+  /* Text */
+  --txt:         #F0EEFF;
+  --txt-2:       rgba(240,238,255,0.55);
+  --txt-3:       rgba(240,238,255,0.28);
+
+  /* Brand Accent — K-Violet */
+  --accent:          #6C47FF;
+  --accent-l:        rgba(108,71,255,0.15);
+  --accent-border:   rgba(108,71,255,0.35);
+  --accent-soft:     #C4B5FD;
+  --accent-glow:     rgba(108,71,255,0.45);
+  --accent-grad:     linear-gradient(90deg,  #6C47FF, #A855F7);
+  --accent-grad-135: linear-gradient(135deg, #6C47FF, #A855F7);
+
+  /* Semantic */
+  --success: #3DD68C;
+  --warning: #FFB347;
+  --danger:  #FF6B6B;
+
+  /* Typography */
+  --font-base: 'Nunito', -apple-system, system-ui, sans-serif;
+
+  /* Border Radius Scale */
+  --r-sm:   10px;
+  --r-md:   16px;
+  --r-lg:   22px;
+  --r-xl:   28px;
+  --r-pill: 999px;
+}
+
+/* ── Light Mode ──────────────────────────── */
+html.light {
+  --bg:          #F5F3FF;
+  --card:        #FFFFFF;
+  --card-raised: #EDE8FF;
+  --sidebar-bg:  #EDE9FF;
+
+  --border:      rgba(108,71,255,0.09);
+  --border-h:    rgba(108,71,255,0.20);
+
+  --txt:         #1A1640;
+  --txt-2:       #6B6690;
+  --txt-3:       #B0ACCC;
+
+  --accent:          #5B3EE8;
+  --accent-l:        rgba(91,62,232,0.12);
+  --accent-border:   rgba(91,62,232,0.30);
+  --accent-soft:     #7C6ECC;
+  --accent-glow:     rgba(91,62,232,0.35);
+  --accent-grad:     linear-gradient(90deg,  #5B3EE8, #9333EA);
+  --accent-grad-135: linear-gradient(135deg, #5B3EE8, #9333EA);
+}
+
+/* ── Base ────────────────────────────────── */
+body {
+  font-family: var(--font-base);
+  background:  var(--bg);
+  color:       var(--txt);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
