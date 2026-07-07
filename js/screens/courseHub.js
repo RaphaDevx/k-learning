@@ -6,7 +6,7 @@ window.CourseHubScreen = (function () {
   const TABS = [
     { id: 'feed',       label: '⚡ Feed',       title: 'Dynamischer Feed'    },
     { id: 'modules',    label: '📹 Module',     title: 'Modul-Katalog'       },
-    { id: 'exams',      label: '📝 Klausuren',  title: 'Probeklausuren'      },
+    { id: 'exams',      label: '📝 Prüfungen',  title: 'Prüfungen'           },
     { id: 'summaries',  label: '📄 Skripte',    title: 'Zusammenfassungen'   },
     { id: 'flashcards', label: '🃏 Lernkarten', title: 'Lernkarten'          },
   ];

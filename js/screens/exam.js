@@ -123,7 +123,7 @@ window.ExamScreen = (function() {
       course: 'MakroII',
       dataVar: 'EXAM_DATA_MAKRO_TB1_TEIL1',
       file: 'exams/makro-tb1-teil1-data.js',
-      available: true,
+      available: false,
     },
     {
       id: 'makro-tb1-teil2',
@@ -131,7 +131,7 @@ window.ExamScreen = (function() {
       course: 'MakroII',
       dataVar: 'EXAM_DATA_MAKRO_TB1_TEIL2',
       file: 'exams/makro-tb1-teil2-data.js',
-      available: true,
+      available: false,
     },
     {
       id: 'makro-tb2',
@@ -139,7 +139,7 @@ window.ExamScreen = (function() {
       course: 'MakroII',
       dataVar: 'EXAM_DATA_MAKRO_TB2',
       file: 'exams/makro-tb2-data.js',
-      available: true,
+      available: false,
     },
     {
       id: 'makro-tb3',
@@ -147,7 +147,7 @@ window.ExamScreen = (function() {
       course: 'MakroII',
       dataVar: 'EXAM_DATA_MAKRO_TB3',
       file: 'exams/makro-tb3-data.js',
-      available: true,
+      available: false,
     },
     {
       id: 'makro-tb4',
@@ -155,7 +155,7 @@ window.ExamScreen = (function() {
       course: 'MakroII',
       dataVar: 'EXAM_DATA_MAKRO_TB4',
       file: 'exams/makro-tb4-data.js',
-      available: true,
+      available: false,
     },
     {
       id: 'makro-tb5',
@@ -163,7 +163,7 @@ window.ExamScreen = (function() {
       course: 'MakroII',
       dataVar: 'EXAM_DATA_MAKRO_TB5',
       file: 'exams/makro-tb5-data.js',
-      available: true,
+      available: false,
     },
     {
       id: 'makro-tb6',
@@ -171,7 +171,7 @@ window.ExamScreen = (function() {
       course: 'MakroII',
       dataVar: 'EXAM_DATA_MAKRO_TB6',
       file: 'exams/makro-tb6-data.js',
-      available: true,
+      available: false,
     },
     {
       id: 'makro2-probeklausur-fs26',
@@ -193,7 +193,7 @@ window.ExamScreen = (function() {
     },
     {
       id: 'makro2-hs21',
-      label: 'MakroII — Klausur HS 2021',
+      label: 'MakroII — Prüfung HS 2021',
       course: 'MakroII',
       dataVar: null,
       file: 'exams/makro2-hs21-data.json',
@@ -202,7 +202,7 @@ window.ExamScreen = (function() {
     },
     {
       id: 'makro2-hs23',
-      label: 'MakroII — Klausur HS 2023',
+      label: 'MakroII — Prüfung HS 2023',
       course: 'MakroII',
       dataVar: null,
       file: 'exams/makro2-hs23-data.json',
