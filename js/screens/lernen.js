@@ -4,7 +4,7 @@
 window.LernenScreen = (function() {
 
   let _activeCourse = null;
-  let _activeMode   = 'karten'; // 'karten' | 'lernset' | 'quiz'
+  let _activeMode   = 'karten'; // 'karten' | 'lernset' | 'quiz' | 'pruefung'
 
   function init() {
     _activeCourse = AppState.get('activeCourse') || _firstEnrolled();
@@ -73,35 +73,39 @@ window.LernenScreen = (function() {
 
   // ── Mode toggle ──
   function _modeToggle() {
-    const kartenActive  = _activeMode === 'karten';
-    const lernsetActive = _activeMode === 'lernset';
-    const quizActive    = _activeMode === 'quiz';
+    const kartenActive   = _activeMode === 'karten';
+    const lernsetActive  = _activeMode === 'lernset';
+    const quizActive     = _activeMode === 'quiz';
+    const pruefungActive = _activeMode === 'pruefung';
 
     const btn = (mode, icon, label, isActive) => `
       <button onclick="LernenScreen.setMode('${mode}')"
-        class="flex-1 flex items-center justify-center gap-2 py-3 rounded-2xl font-semibold text-sm transition-all"
+        class="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-2xl font-semibold text-xs transition-all"
         style="background:${isActive ? 'rgba(99,102,241,0.18)' : 'var(--card)'};
                color:${isActive ? '#818cf8' : 'var(--txt-2)'};
                border:1px solid ${isActive ? 'rgba(99,102,241,0.4)' : 'var(--border)'}">
         ${icon} ${label}
       </button>`;
 
-    const kartenIcon  = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`;
-    const lernsetIcon = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`;
-    const quizIcon    = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
+    const kartenIcon   = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`;
+    const lernsetIcon  = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>`;
+    const quizIcon     = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>`;
+    const pruefungIcon = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="9" y1="13" x2="15" y2="13"/><line x1="9" y1="17" x2="12" y2="17"/></svg>`;
 
     return `
-      <div class="flex gap-2 mt-4 mb-4">
-        ${btn('karten',  kartenIcon,  'Lernkarten', kartenActive)}
-        ${btn('lernset', lernsetIcon, 'Lernset',    lernsetActive)}
-        ${btn('quiz',    quizIcon,    'Quiz',       quizActive)}
+      <div class="grid grid-cols-4 gap-2 mt-4 mb-4">
+        ${btn('karten',   kartenIcon,   'Karten',    kartenActive)}
+        ${btn('lernset',  lernsetIcon,  'Lernset',   lernsetActive)}
+        ${btn('quiz',     quizIcon,     'Quiz',      quizActive)}
+        ${btn('pruefung', pruefungIcon, 'Prüfungen', pruefungActive)}
       </div>`;
   }
 
   // ── Dynamic content area ──
   function _contentArea() {
-    if (_activeMode === 'karten')  return _renderKarten();
-    if (_activeMode === 'lernset') return _renderLernset();
+    if (_activeMode === 'karten')   return _renderKarten();
+    if (_activeMode === 'lernset')  return _renderLernset();
+    if (_activeMode === 'pruefung') return _renderPruefung();
     return _renderQuiz();
   }
 
@@ -279,6 +283,57 @@ window.LernenScreen = (function() {
           ${q.tag}
         </span>
       </button>`).join('');
+
+    return `<div class="space-y-2">${rows}</div>`;
+  }
+
+  // ── Themenblock-Prüfungen: TB exams per course ──
+  function _renderPruefung() {
+    if (!_activeCourse) return _empty('Wähle oben ein Fach aus.');
+
+    const registry = (window.ExamScreen?.EXAM_REGISTRY || [])
+      .filter(e => e.course === _activeCourse && e.type === 'themenblock');
+
+    if (!registry.length) {
+      return `
+        <div class="rounded-2xl p-6 text-center" style="background:var(--card);border:1px solid var(--border)">
+          <div class="text-3xl mb-2">📄</div>
+          <div class="font-semibold text-sm" style="color:var(--txt)">Keine Themenblock-Prüfungen für ${_activeCourse}</div>
+          <div class="text-xs mt-1" style="color:var(--txt-2)">Bald verfügbar</div>
+        </div>`;
+    }
+
+    const results = AppState.get('examResults') || {};
+    const courseData = (window.TOPICS_DATA || {})[_activeCourse];
+    const color = courseData?.color || '#6366f1';
+
+    const rows = registry.map(exam => {
+      const res = results[exam.id] || null;
+      const shortLabel = exam.label.replace(/^[^—]+—\s*/, '');
+      const scorePct = res?.score_pct ?? res?.scorePct ?? null;
+      const badge = scorePct != null
+        ? `<span class="text-[10px] font-bold px-2 py-0.5 rounded-full flex-shrink-0"
+                style="background:rgba(99,102,241,0.15);color:#818cf8;border:1px solid rgba(99,102,241,0.3)">
+             ${Math.round(scorePct)}%
+           </span>`
+        : '';
+
+      return `
+        <button onclick="ExamScreen.showSetup('${exam.id}')"
+          class="tap-card w-full flex items-center gap-3 rounded-2xl p-4 text-left"
+          style="background:var(--card);border:1px solid var(--border)">
+          <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 text-lg"
+               style="background:${color}18;border:1px solid ${color}30">📄</div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2">
+              <span class="font-semibold text-sm leading-snug truncate" style="color:var(--txt)">${shortLabel}</span>
+              ${badge}
+            </div>
+            <div class="text-xs mt-0.5" style="color:var(--txt-3)">${res ? 'Wiederholen' : 'Noch nicht gemacht'}</div>
+          </div>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--txt-3)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>`;
+    }).join('');
 
     return `<div class="space-y-2">${rows}</div>`;
   }

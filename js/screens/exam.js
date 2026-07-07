@@ -124,6 +124,7 @@ window.ExamScreen = (function() {
       dataVar: 'EXAM_DATA_MAKRO_TB1_TEIL1',
       file: 'exams/makro-tb1-teil1-data.js',
       available: false,
+      type: 'themenblock',
     },
     {
       id: 'makro-tb1-teil2',
@@ -132,6 +133,7 @@ window.ExamScreen = (function() {
       dataVar: 'EXAM_DATA_MAKRO_TB1_TEIL2',
       file: 'exams/makro-tb1-teil2-data.js',
       available: false,
+      type: 'themenblock',
     },
     {
       id: 'makro-tb2',
@@ -140,6 +142,7 @@ window.ExamScreen = (function() {
       dataVar: 'EXAM_DATA_MAKRO_TB2',
       file: 'exams/makro-tb2-data.js',
       available: false,
+      type: 'themenblock',
     },
     {
       id: 'makro-tb3',
@@ -148,6 +151,7 @@ window.ExamScreen = (function() {
       dataVar: 'EXAM_DATA_MAKRO_TB3',
       file: 'exams/makro-tb3-data.js',
       available: false,
+      type: 'themenblock',
     },
     {
       id: 'makro-tb4',
@@ -156,6 +160,7 @@ window.ExamScreen = (function() {
       dataVar: 'EXAM_DATA_MAKRO_TB4',
       file: 'exams/makro-tb4-data.js',
       available: false,
+      type: 'themenblock',
     },
     {
       id: 'makro-tb5',
@@ -164,6 +169,7 @@ window.ExamScreen = (function() {
       dataVar: 'EXAM_DATA_MAKRO_TB5',
       file: 'exams/makro-tb5-data.js',
       available: false,
+      type: 'themenblock',
     },
     {
       id: 'makro-tb6',
@@ -172,6 +178,7 @@ window.ExamScreen = (function() {
       dataVar: 'EXAM_DATA_MAKRO_TB6',
       file: 'exams/makro-tb6-data.js',
       available: false,
+      type: 'themenblock',
     },
     {
       id: 'makro2-probeklausur-fs26',
@@ -1662,6 +1669,7 @@ window.ExamScreen = (function() {
     submitExam, closeResults, togglePause,
     isExamActive, requestAiFeedback,
     getExamsByCourse,
+    get EXAM_REGISTRY() { return EXAM_REGISTRY; },
     playSectionAudio, stopSectionAudio, toggleTranscript,
     callAIGrader: _callAIGrader,
     startReview, closeReview, reviewNext, reviewPrev, reviewChat,
