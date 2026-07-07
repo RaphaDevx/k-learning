@@ -435,6 +435,23 @@ window.ExamScreen = (function() {
       html += '</div></div>';
     }
 
+    // ── KI-Prüfungsfragen (coming soon) ──────────────────────────────────
+    html += `
+      <div style="margin-top:2rem">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-bold text-lg" style="color:var(--txt)">🎯 KI-Probeexamen</h3>
+          <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(99,102,241,0.15);color:#a5b4fc;border:1px solid rgba(99,102,241,0.2)">Coming soon</span>
+        </div>
+        <div class="rounded-2xl p-4" style="background:var(--card-raised);border:1px dashed rgba(99,102,241,0.3)">
+          <p class="text-sm mb-2" style="color:var(--txt-2)">KI generiert individuelle Prüfungsfragen basierend auf deinen Schwachstellen.</p>
+          <div class="flex flex-wrap gap-2 mt-3">
+            <span class="text-xs px-2 py-1 rounded-full" style="background:rgba(99,102,241,0.1);color:#818cf8">📊 Notenprognose</span>
+            <span class="text-xs px-2 py-1 rounded-full" style="background:rgba(99,102,241,0.1);color:#818cf8">🎯 Schwächen-Fokus</span>
+            <span class="text-xs px-2 py-1 rounded-full" style="background:rgba(99,102,241,0.1);color:#818cf8">♻️ Adaptive Fragen</span>
+          </div>
+        </div>
+      </div>`;
+
     container.innerHTML = html;
   }
 
@@ -1249,7 +1266,9 @@ window.ExamScreen = (function() {
             is_correct: isCorrect === true,
             earned: earned,
             max_pts: maxPts,
-            user_answer: (isText && userAnswer) ? String(userAnswer) : null,
+            user_answer: isText
+              ? (userAnswer ? String(userAnswer) : null)
+              : (userAnswer ? (Array.isArray(userAnswer) ? userAnswer.join(',') : String(userAnswer)) : null),
             model_answer: isText ? (q.model_answer || null) : null,
             question_text: isText ? q.text : null,
           });
@@ -1755,9 +1774,18 @@ window.ExamScreen = (function() {
         ? (a.model_answer || q.model_answer || '(keine Musterlösung)')
         : correctArr.map(k => { const c = (q.choices||[]).find(x=>x.key===k); return c ? `${k}) ${c.text}` : k; }).join(' | ') || '—';
 
-      const userLabel = isText
-        ? (a.user_answer ? String(a.user_answer).trim() : '(keine Antwort)')
-        : '(nicht gespeichert)';
+      let userLabel;
+      if (isText) {
+        userLabel = a.user_answer ? String(a.user_answer).trim() : '(keine Antwort)';
+      } else if (a.user_answer) {
+        const userKeys = a.user_answer.split(',').map(k => k.trim()).filter(Boolean);
+        userLabel = userKeys.map(k => {
+          const c = (q.choices||[]).find(x => x.key === k);
+          return c ? `${k}) ${c.text}` : k;
+        }).join(' | ') || a.user_answer;
+      } else {
+        userLabel = '(nicht gespeichert)';
+      }
 
       const explanation = q.explanation || q.explanation_text || '';
       _reviewItems.push({ q, isCorrect: a.is_correct, userLabel, correctLabel, explanation });

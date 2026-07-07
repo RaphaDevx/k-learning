@@ -702,6 +702,26 @@ window.ProfileScreen = (function () {
 
     const detailsHtml = _weaknessProfileHtml(courseWeights) + _quizTopicBarsHtml(courseTagStats) + _videoSummaryHtml(vidData);
 
+    // Exam-Countdown: nächste Prüfung aus COURSES_CONFIG
+    const courseConf = window.COURSES_CONFIG?.find(c => c.key === courseKey);
+    const examDateStr = courseConf?.examDate;
+    let countdownHtml = '';
+    if (examDateStr) {
+      const examDate = new Date(examDateStr);
+      const now = new Date();
+      const daysLeft = Math.ceil((examDate - now) / 86400000);
+      if (daysLeft >= 0 && daysLeft <= 30) {
+        const urgCol = daysLeft <= 3 ? '#f87171' : daysLeft <= 7 ? '#fbbf24' : '#60a5fa';
+        const urgTxt = daysLeft === 0 ? 'Heute!' : daysLeft === 1 ? 'Morgen!' : `${daysLeft} Tage`;
+        countdownHtml = `
+          <div class="flex items-center justify-between px-3 py-2 rounded-xl mb-3"
+               style="background:${urgCol}11;border:1px solid ${urgCol}33">
+            <span class="text-xs font-semibold" style="color:${urgCol}">🎯 Prüfung ${examDate.toLocaleDateString('de-CH',{day:'2-digit',month:'2-digit'})}</span>
+            <span class="text-xs font-bold" style="color:${urgCol}">${urgTxt}</span>
+          </div>`;
+      }
+    }
+
     return `
       <div class="rounded-[20px] p-4" style="background:var(--card);border:1px solid var(--border)">
         <div class="flex items-center justify-between mb-3">
@@ -714,6 +734,7 @@ window.ProfileScreen = (function () {
             <div class="text-2xl font-black" style="color:${_overallColor(readiness)}">${readiness}%</div>
           </div>
         </div>
+        ${countdownHtml}
         ${_examHistoryHtml(courseExamResults)}
         <div class="space-y-2 mb-3">
           ${etappen.map(_etappeBarHtml).join('')}
@@ -804,20 +825,27 @@ window.ProfileScreen = (function () {
         ? `<span class="text-[10px] font-bold px-1.5 py-0.5 rounded-full" style="background:rgba(234,179,8,0.15);color:#fbbf24">⚠ Offen</span>`
         : '';
       return `
-        <button onclick="ProfileScreen.showExamDetail('${r.id}','${r.exam_id}')"
-          class="w-full flex items-center justify-between py-2.5 px-3 rounded-xl transition tap-card"
-          style="background:var(--card-raised);border:1px solid transparent">
-          <div class="flex items-center gap-2 min-w-0">
-            <span class="text-xs truncate font-medium" style="color:var(--txt)">${lbl}</span>
-            ${badge}
-            <span class="text-xs flex-shrink-0" style="color:var(--txt-3)">${date}</span>
-          </div>
-          <div class="flex items-center gap-2 flex-shrink-0 ml-2">
-            <span class="text-sm font-bold" style="color:${col}">${pct}%</span>
-            <span class="text-[11px] font-semibold px-1.5 py-0.5 rounded-lg" style="background:${col}18;color:${col}">Note ${grade}</span>
-            <span class="text-xs" style="color:var(--txt-3)">›</span>
-          </div>
-        </button>`;
+        <div class="flex items-center gap-1.5">
+          <button onclick="ProfileScreen.showExamDetail('${r.id}','${r.exam_id}')"
+            class="flex-1 flex items-center justify-between py-2.5 px-3 rounded-xl transition tap-card"
+            style="background:var(--card-raised);border:1px solid transparent">
+            <div class="flex items-center gap-2 min-w-0">
+              <span class="text-xs truncate font-medium" style="color:var(--txt)">${lbl}</span>
+              ${badge}
+              <span class="text-xs flex-shrink-0" style="color:var(--txt-3)">${date}</span>
+            </div>
+            <div class="flex items-center gap-2 flex-shrink-0 ml-2">
+              <span class="text-sm font-bold" style="color:${col}">${pct}%</span>
+              <span class="text-[11px] font-semibold px-1.5 py-0.5 rounded-lg" style="background:${col}18;color:${col}">Note ${grade}</span>
+            </div>
+          </button>
+          <button onclick="TabRouter.navigateTo('exam');setTimeout(()=>ExamScreen.startHistoricalReview('${r.id}'),300)"
+            title="Korrektur durchgehen"
+            class="flex-shrink-0 flex items-center justify-center rounded-xl transition"
+            style="width:36px;height:36px;background:rgba(99,102,241,0.15);border:1px solid rgba(99,102,241,0.25);color:#a5b4fc;font-size:0.9rem">
+            📋
+          </button>
+        </div>`;
     }).join('');
     return `
       <div class="mb-3">
