@@ -319,17 +319,21 @@ window.ExamScreen = (function() {
 
     // Fetch user's exam results
     let resultMap = {};
+    let allResults = [];
     try {
       const userId = await _getUserId();
       if (userId) {
         const { data } = await window.supabaseClient
           .from('exam_results')
-          .select('exam_id, score_pct, taken_at')
+          .select('id, exam_id, score_pct, taken_at')
           .eq('user_id', userId)
           .order('taken_at', { ascending: false });
-        if (data) data.forEach(r => {
-          if (!resultMap[r.exam_id]) resultMap[r.exam_id] = r; // keep latest per exam
-        });
+        if (data) {
+          allResults = data;
+          data.forEach(r => {
+            if (!resultMap[r.exam_id]) resultMap[r.exam_id] = r; // keep latest per exam
+          });
+        }
       }
     } catch(_) {}
 
@@ -394,6 +398,43 @@ window.ExamScreen = (function() {
       html += '</div></div>';
     });
     html += '</div>';
+
+    // ── Prüfungshistorie ──────────────────────────────────────────────────
+    if (allResults.length > 0) {
+      html += `
+        <div style="margin-top:2rem">
+          <h3 class="font-bold text-lg mb-3" style="color:var(--txt)">📋 Prüfungshistorie</h3>
+          <div class="space-y-2">`;
+      allResults.forEach(r => {
+        const entry = EXAM_REGISTRY.find(e => e.id === r.exam_id);
+        const label = entry ? entry.label : r.exam_id;
+        const course = entry ? entry.course : '';
+        const c = course ? getCourse(course) : null;
+        const grade = _gradeFromPct(r.score_pct);
+        const col = r.score_pct >= 60 ? '#4ade80' : r.score_pct >= 50 ? '#facc15' : '#f87171';
+        const date = new Date(r.taken_at).toLocaleDateString('de-CH', { day:'2-digit', month:'2-digit', year:'2-digit' });
+        const canReview = !!(entry);
+        html += `
+          <div class="rounded-2xl p-3 flex items-center gap-3"
+               style="background:var(--card-raised);border:1px solid var(--border)">
+            ${c ? `<span style="font-size:1.3rem;flex-shrink:0">${c.icon}</span>` : ''}
+            <div class="min-w-0 flex-1">
+              <div class="font-semibold text-sm truncate" style="color:var(--txt)">${label}</div>
+              <div class="text-xs" style="color:var(--txt-3)">${date}</div>
+            </div>
+            <div class="text-right flex-shrink-0 mr-2">
+              <div class="text-sm font-bold" style="color:${col}">Note ${grade}</div>
+              <div class="text-xs" style="color:var(--txt-3)">${r.score_pct}%</div>
+            </div>
+            ${canReview ? `
+            <button onclick="ExamScreen.startHistoricalReview('${r.id}')"
+              class="text-xs px-3 py-1.5 rounded-xl font-bold text-white flex-shrink-0 transition"
+              style="background:rgba(99,102,241,0.8)">Korrektur</button>` : ''}
+          </div>`;
+      });
+      html += '</div></div>';
+    }
+
     container.innerHTML = html;
   }
 
@@ -1653,6 +1694,82 @@ window.ExamScreen = (function() {
     window.AIChat?.open();
   }
 
+  // ── Historical Review (from Supabase) ────────────────────────────────────
+  async function startHistoricalReview(resultId) {
+    let resultRow;
+    try {
+      const userId = await _getUserId();
+      const { data } = await window.supabaseClient
+        .from('exam_results')
+        .select('exam_id, course, score_pct, taken_at, answers')
+        .eq('id', resultId)
+        .single();
+      resultRow = data;
+    } catch(e) {
+      console.warn('startHistoricalReview fetch:', e);
+      return;
+    }
+    if (!resultRow?.answers?.length) {
+      alert('Für diese Prüfung wurden keine Antwortdetails gespeichert.');
+      return;
+    }
+
+    const entry = EXAM_REGISTRY.find(e => e.id === resultRow.exam_id);
+    if (!entry) { alert('Prüfungsdaten nicht gefunden.'); return; }
+
+    // Load exam data to get questions, choices, explanations
+    let examData;
+    try {
+      if (entry.format === 'json') {
+        examData = await _loadExamJSON(entry);
+        if (examData.durationMinutes && !examData.duration_minutes) examData.duration_minutes = examData.durationMinutes;
+      } else {
+        examData = window[entry.dataVar];
+      }
+    } catch(e) {
+      console.warn('startHistoricalReview load:', e);
+    }
+
+    // Build question lookup by id
+    const qMap = {};
+    if (examData?.sections) {
+      examData.sections.forEach(sec => {
+        (sec.questions || []).forEach(q => { if (q.id) qMap[q.id] = q; });
+      });
+    }
+
+    // Rebuild review items from stored answers
+    _reviewItems = [];
+    _reviewCourse = resultRow.course || '';
+    _reviewIdx = 0;
+
+    resultRow.answers.forEach(a => {
+      const q = qMap[a.question_id];
+      if (!q || q.type === 'audio_intro') return;
+
+      const isText = q.type === 'text' || q.type === 'open';
+      const correct = q.correct_answer || q.correct || [];
+      const correctArr = Array.isArray(correct) ? correct : [correct];
+
+      const correctLabel = isText
+        ? (a.model_answer || q.model_answer || '(keine Musterlösung)')
+        : correctArr.map(k => { const c = (q.choices||[]).find(x=>x.key===k); return c ? `${k}) ${c.text}` : k; }).join(' | ') || '—';
+
+      const userLabel = isText
+        ? (a.user_answer ? String(a.user_answer).trim() : '(keine Antwort)')
+        : '(nicht gespeichert)';
+
+      const explanation = q.explanation || q.explanation_text || '';
+      _reviewItems.push({ q, isCorrect: a.is_correct, userLabel, correctLabel, explanation });
+    });
+
+    if (!_reviewItems.length) {
+      alert('Keine Fragen zum Durchgehen vorhanden.');
+      return;
+    }
+    _renderReviewCard();
+  }
+
   function closeReview() {
     document.getElementById('exam-review-overlay')?.remove();
     window.AIChat?.clearExternalContext?.();
@@ -1673,5 +1790,6 @@ window.ExamScreen = (function() {
     playSectionAudio, stopSectionAudio, toggleTranscript,
     callAIGrader: _callAIGrader,
     startReview, closeReview, reviewNext, reviewPrev, reviewChat,
+    startHistoricalReview,
   };
 })();
