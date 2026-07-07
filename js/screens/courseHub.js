@@ -196,6 +196,13 @@ window.CourseHubScreen = (function () {
 
     const colorStop = _courseColor(courseKey);
 
+    // Flat ordered playlist across all blocks (preserving block order)
+    const orderedVideos = Object.values(blocks).flat();
+    window._startModulePlaylist = function(videoId) {
+      Router.showView('feed');
+      FeedScreen.playPlaylist(orderedVideos, videoId);
+    };
+
     let html = `<div class="p-4 space-y-3">`;
     Object.entries(blocks).forEach(([blockName, vids], idx) => {
       const open = idx === 0 ? 'true' : 'false';
@@ -214,7 +221,7 @@ window.CourseHubScreen = (function () {
           <div class="${open === 'true' ? '' : 'hidden'} border-t border-gray-700 divide-y divide-gray-700/60">
             ${vids.map(v => `
               <div class="flex items-center gap-3 px-4 py-3 cursor-pointer hover:bg-gray-700/50 transition"
-                   onclick="Router.showView('feed'); FeedScreen.render('${courseKey}')">
+                   onclick="_startModulePlaylist('${(v.slug || v.id).replace(/'/g, "\\'")}')">
                 <div class="w-9 h-9 rounded-lg flex items-center justify-center text-xl flex-shrink-0"
                      style="background:${colorStop}22">${v.emoji || '🎬'}</div>
                 <div class="flex-1 min-w-0">

@@ -2,10 +2,11 @@
 // Infinite scroll video feed with 5-video preload window + SM-2 algorithm
 
 window.FeedScreen = (function() {
-  let _activeFilter = null;
-  let _isMuted      = true;
-  let _enrolledKeys = [];
-  let _observer     = null;
+  let _activeFilter  = null;
+  let _isMuted       = true;
+  let _enrolledKeys  = [];
+  let _observer      = null;
+  let _playlistMode  = false; // true = ordered module playlist, no algorithm
 
   // Queue state
   let _queue       = [];   // all fetched card objects
@@ -29,12 +30,13 @@ window.FeedScreen = (function() {
   }
 
   function _reset() {
-    _queue      = [];
-    _seenIds    = new Set(); // bei Filterwechsel neu starten
-    _currentIdx = 0;
-    _isFetching = false;
-    _exhausted  = false;
-    _cycling    = false;
+    _queue        = [];
+    _seenIds      = new Set();
+    _currentIdx   = 0;
+    _isFetching   = false;
+    _exhausted    = false;
+    _cycling      = false;
+    _playlistMode = false;
     _destroyObserver();
     const container = document.getElementById('feed-cards-container');
     if (container) container.innerHTML = _loadingSpinner();
@@ -379,8 +381,8 @@ window.FeedScreen = (function() {
 
           _updatePreloadWindow();
 
-          // Nächsten Batch laden wenn nahe am Ende
-          if (_currentIdx >= _queue.length - FETCH_AHEAD) {
+          // Nächsten Batch laden wenn nahe am Ende (nicht im Playlist-Modus)
+          if (!_playlistMode && _currentIdx >= _queue.length - FETCH_AHEAD) {
             _fetchMore();
           }
         } else {
@@ -394,6 +396,33 @@ window.FeedScreen = (function() {
 
   function _destroyObserver() {
     if (_observer) { _observer.disconnect(); _observer = null; }
+  }
+
+  // ── Playlist mode (module-ordered, no algorithm) ──────────────────────────
+
+  function playPlaylist(cards, startSlug) {
+    _reset();
+    _playlistMode = true;
+    if (!cards || !cards.length) return;
+
+    _queue.push(...cards);
+    _appendCards(cards, 0);
+    _initObserver();
+    _updatePreloadWindow();
+
+    // Scroll to the clicked video after DOM paint
+    if (startSlug) {
+      const targetIdx = cards.findIndex(c => (c.slug || c.id) === startSlug);
+      if (targetIdx > 0) {
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            const container = document.getElementById('feed-cards-container');
+            const el = document.getElementById('feed-' + targetIdx);
+            if (container && el) container.scrollTop = el.offsetTop;
+          }, 80);
+        });
+      }
+    }
   }
 
   // ── Filter ────────────────────────────────────────────────────────────────
@@ -513,5 +542,5 @@ window.FeedScreen = (function() {
   function trackVideoOpen(id) { onPlay(id, ''); }
   function togglePlay(videoId) { tapCard(videoId); }
 
-  return { init, render, load, rate, toggleMute, togglePlay, tapCard, onPlay, toggleRecall, trackVideoOpen };
+  return { init, render, load, playPlaylist, rate, toggleMute, togglePlay, tapCard, onPlay, toggleRecall, trackVideoOpen };
 })();
