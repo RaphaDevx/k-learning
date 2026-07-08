@@ -435,22 +435,35 @@ window.ExamScreen = (function() {
       html += '</div></div>';
     }
 
-    // ── KI-Prüfungsfragen (coming soon) ──────────────────────────────────
-    html += `
-      <div style="margin-top:2rem">
-        <div class="flex items-center justify-between mb-3">
-          <h3 class="font-bold text-lg" style="color:var(--txt)">🎯 KI-Probeexamen</h3>
-          <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(99,102,241,0.15);color:#a5b4fc;border:1px solid rgba(99,102,241,0.2)">Coming soon</span>
-        </div>
-        <div class="rounded-2xl p-4" style="background:var(--card-raised);border:1px dashed rgba(99,102,241,0.3)">
-          <p class="text-sm mb-2" style="color:var(--txt-2)">KI generiert individuelle Prüfungsfragen basierend auf deinen Schwachstellen.</p>
-          <div class="flex flex-wrap gap-2 mt-3">
-            <span class="text-xs px-2 py-1 rounded-full" style="background:rgba(99,102,241,0.1);color:#818cf8">📊 Notenprognose</span>
-            <span class="text-xs px-2 py-1 rounded-full" style="background:rgba(99,102,241,0.1);color:#818cf8">🎯 Schwächen-Fokus</span>
-            <span class="text-xs px-2 py-1 rounded-full" style="background:rgba(99,102,241,0.1);color:#818cf8">♻️ Adaptive Fragen</span>
+    // ── KI-Probeexamen ────────────────────────────────────────────────────
+    html += `<div style="margin-top:2rem">
+      <div class="flex items-center gap-2 mb-3">
+        <h3 class="font-bold text-lg" style="color:var(--txt)">🎯 KI-Probeexamen</h3>
+        <span class="text-xs px-2 py-0.5 rounded-full font-medium" style="background:rgba(99,102,241,0.15);color:#a5b4fc;border:1px solid rgba(99,102,241,0.2)">Beta</span>
+      </div>
+      <p class="text-sm mb-3 px-0.5" style="color:var(--txt-2)">KI generiert 12 Fragen basierend auf deinen Schwachstellen. Jeder Start erzeugt neue Fragen.</p>
+      <div class="space-y-2">`;
+
+    const enrolled2 = _enrolledCourses();
+    enrolled2.forEach(courseKey => {
+      const c = getCourse(courseKey);
+      if (!c) return;
+      html += `
+        <div class="rounded-2xl p-3 flex items-center gap-3"
+             style="background:var(--card-raised);border:1px solid rgba(99,102,241,0.2)">
+          <span style="font-size:1.3rem;flex-shrink:0">${c.icon}</span>
+          <div class="flex-1 min-w-0">
+            <div class="font-semibold text-sm" style="color:var(--txt)">${c.label}</div>
+            <div class="text-xs" style="color:var(--txt-3)">12 adaptive MC-Fragen · Notenprognose</div>
           </div>
-        </div>
-      </div>`;
+          <button onclick="ExamScreen.startAIExam('${courseKey}')"
+            class="flex-shrink-0 text-xs px-3 py-1.5 rounded-xl font-bold text-white transition"
+            style="background:linear-gradient(135deg,#6366f1,#8b5cf6)">
+            Starten
+          </button>
+        </div>`;
+    });
+    html += '</div></div>';
 
     container.innerHTML = html;
   }
@@ -520,6 +533,243 @@ window.ExamScreen = (function() {
     return r.json();
   }
 
+  // ── Shared exam start logic (after data is loaded) ────────────────────────
+  function _startExamWithData(data, entry, useTimer) {
+    _examData = data;
+    _currentEntry = entry;
+    _answers = {};
+    _useTimer = useTimer;
+    _examActive = true;
+
+    window._examBeforeUnload = e => {
+      e.preventDefault();
+      e.returnValue = 'Prüfung läuft — wirklich abbrechen?';
+    };
+    window.addEventListener('beforeunload', window._examBeforeUnload);
+
+    const overlay = document.getElementById('exam-overlay');
+    if (overlay) overlay.classList.remove('hidden');
+    _renderExamHeader();
+    _renderQuestions();
+
+    if (useTimer && data.duration_minutes) {
+      _secondsLeft = data.duration_minutes * 60;
+      _updateTimerDisplay();
+      _timerInterval = setInterval(() => {
+        _secondsLeft--;
+        _updateTimerDisplay();
+        if (_secondsLeft <= 0) { clearInterval(_timerInterval); submitExam(true); }
+      }, 1000);
+    } else {
+      const timerEl = document.getElementById('exam-timer');
+      if (timerEl) timerEl.textContent = '';
+    }
+    const scroll = document.getElementById('exam-scroll');
+    if (scroll) scroll.scrollTop = 0;
+  }
+
+  // ── KI-Probeexamen ────────────────────────────────────────────────────────
+  async function startAIExam(courseKey) {
+    const course = getCourse(courseKey);
+    if (!course) return;
+
+    const orKey = AIChat?.getKey?.();
+    if (!orKey) {
+      alert('Für das KI-Probeexamen wird ein OpenRouter-Key benötigt.\nBitte im Profil unter "KI-Chat" eintragen.');
+      return;
+    }
+
+    // Loading overlay
+    const loadOverlay = document.createElement('div');
+    loadOverlay.id = 'ai-exam-loading';
+    loadOverlay.style.cssText = 'position:fixed;inset:0;z-index:900;background:#0b0b18;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;padding:2rem';
+    loadOverlay.innerHTML = `
+      <div style="font-size:2.5rem">🎯</div>
+      <div style="font-size:1.1rem;font-weight:800;color:#e2e8f0">KI-Probeexamen wird generiert</div>
+      <div id="ai-exam-status" style="font-size:.85rem;color:#6b7280;text-align:center">Schwächenprofil wird analysiert…</div>
+      <div style="width:180px;height:3px;background:rgba(255,255,255,0.08);border-radius:2px;overflow:hidden">
+        <div id="ai-exam-bar" style="height:100%;width:0%;background:linear-gradient(90deg,#6366f1,#8b5cf6);transition:width 1s ease;border-radius:2px"></div>
+      </div>`;
+    document.body.appendChild(loadOverlay);
+
+    const setStatus = (msg, pct) => {
+      const s = document.getElementById('ai-exam-status');
+      const b = document.getElementById('ai-exam-bar');
+      if (s) s.textContent = msg;
+      if (b) b.style.width = pct + '%';
+    };
+
+    try {
+      // Fetch weak topics
+      setStatus('Schwächenprofil wird analysiert…', 15);
+      const userId = await _getUserId();
+      let weakTopics = [], allTopics = [];
+
+      const topicsData = window.TOPICS_DATA?.[courseKey];
+      if (topicsData?.topics) {
+        allTopics = topicsData.topics.map(t => ({ title: t.title, tags: t.tags || [], desc: t.desc || '' }));
+      }
+
+      if (userId) {
+        const allTags = allTopics.flatMap(t => t.tags);
+        const { data: weights } = await window.supabaseClient
+          .from('topic_weights')
+          .select('topic_tag, ema_accuracy, priority, wrong_count, correct_count')
+          .eq('user_id', userId)
+          .in('topic_tag', allTags.length ? allTags : ['__none__']);
+
+        if (weights?.length) {
+          weakTopics = weights
+            .filter(w => w.ema_accuracy != null && w.ema_accuracy < 0.6)
+            .sort((a, b) => a.ema_accuracy - b.ema_accuracy)
+            .slice(0, 5)
+            .map(w => w.topic_tag);
+        }
+      }
+
+      // Also check local quiz stats
+      const quizStats = AppState.get('quizCourseStats')?.[courseKey] || {};
+      Object.entries(quizStats).forEach(([tag, s]) => {
+        if (s.total >= 2 && s.correct / s.total < 0.5 && !weakTopics.includes(tag)) {
+          weakTopics.push(tag);
+        }
+      });
+
+      // Get past exam context for Notenprognose
+      let pastExamPct = null;
+      if (userId) {
+        const { data: pastExams } = await window.supabaseClient
+          .from('exam_results')
+          .select('score_pct')
+          .eq('user_id', userId)
+          .ilike('exam_id', courseKey.toLowerCase() + '%');
+        if (pastExams?.length) {
+          pastExamPct = Math.round(pastExams.reduce((s, r) => s + r.score_pct, 0) / pastExams.length);
+        }
+      }
+
+      setStatus('Prüfungsfragen werden generiert…', 40);
+
+      const topicSummary = allTopics.length
+        ? allTopics.map(t => `• ${t.title}: ${t.desc}`).join('\n')
+        : courseKey;
+      const weakFocus = weakTopics.length
+        ? `\nFokus auf diese Schwachstellen (mehr Fragen dazu): ${weakTopics.join(', ')}`
+        : '';
+      const courseCtx = window.COURSE_CONTEXT_MAP?.[courseKey] || '';
+
+      const prompt = `Du bist Prüfungsersteller für ${course.label} an der Universität St. Gallen (HSG).
+
+Themen des Kurses:
+${topicSummary}
+${weakFocus}
+
+${courseCtx ? `Kurskontext:\n${courseCtx.slice(0, 800)}\n` : ''}
+Erstelle genau 12 Multiple-Choice-Fragen (Einfachauswahl, A–D) auf Deutsch, HSG-Niveau.
+Verteile die Fragen sinnvoll über alle Themen. Schwachstellen-Themen bekommen 2-3 Fragen, andere 1.
+Jede Frage hat genau 4 Antwortoptionen, davon genau eine richtige.
+
+Antworte NUR mit diesem JSON (kein Text davor oder danach):
+{
+  "questions": [
+    {
+      "id": "ai_q1",
+      "text": "Frage auf Deutsch?",
+      "topic": "Themenname",
+      "choices": [
+        {"key": "A", "text": "Option A"},
+        {"key": "B", "text": "Option B"},
+        {"key": "C", "text": "Option C"},
+        {"key": "D", "text": "Option D"}
+      ],
+      "correct": ["B"],
+      "explanation": "Kurze Erklärung warum B richtig ist."
+    }
+  ]
+}`;
+
+      const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${orKey}`,
+          'Content-Type': 'application/json',
+          'HTTP-Referer': 'https://k-learning.pages.dev',
+          'X-Title': 'K-Learning',
+        },
+        body: JSON.stringify({
+          model: 'google/gemini-2.5-flash',
+          messages: [{ role: 'user', content: prompt }],
+          max_tokens: 4000,
+        }),
+      });
+
+      if (!res.ok) throw new Error('KI-Anfrage fehlgeschlagen: HTTP ' + res.status);
+      const aiData = await res.json();
+      const raw = aiData.choices?.[0]?.message?.content || '';
+
+      setStatus('Fragen werden verarbeitet…', 80);
+
+      const match = raw.match(/\{[\s\S]*\}/);
+      if (!match) throw new Error('KI hat kein gültiges JSON zurückgegeben.');
+      const parsed = JSON.parse(match[0]);
+      const questions = parsed.questions;
+      if (!questions?.length) throw new Error('Keine Fragen generiert.');
+
+      // Build exam data object
+      const examData = {
+        title: `KI-Probeexamen: ${course.label}`,
+        duration_minutes: null,
+        total_points: questions.length,
+        _isAIExam: true,
+        _courseKey: courseKey,
+        _pastExamPct: pastExamPct,
+        _weakTopics: weakTopics,
+        sections: [{
+          title: `${questions.length} KI-generierte Fragen`,
+          questions: questions.map(q => ({
+            id: q.id,
+            type: 'single',
+            text: q.text,
+            points: 1,
+            topics: q.topic ? [q.topic] : [],
+            choices: q.choices,
+            correct: q.correct,
+            explanation: q.explanation || '',
+          })),
+        }],
+      };
+
+      const virtualEntry = {
+        id: 'ai-probe-' + courseKey + '-' + Date.now(),
+        label: `KI-Probeexamen: ${course.label}`,
+        course: courseKey,
+        available: true,
+        _isAIExam: true,
+      };
+
+      setStatus('Prüfung startet…', 100);
+      await new Promise(r => setTimeout(r, 400));
+      loadOverlay.remove();
+
+      _startExamWithData(examData, virtualEntry, false);
+
+    } catch (err) {
+      loadOverlay.remove();
+      const msg = err.message.includes('Kein OpenRouter') || err.message.includes('kein') ? err.message
+        : `Fehler beim Generieren: ${err.message}`;
+      const errOverlay = document.createElement('div');
+      errOverlay.style.cssText = 'position:fixed;inset:0;z-index:900;background:rgba(0,0,0,0.85);display:flex;align-items:center;justify-content:center;padding:2rem';
+      errOverlay.innerHTML = `
+        <div class="rounded-2xl p-6 max-w-sm w-full text-center" style="background:#1a1a2e;border:1px solid rgba(239,68,68,0.3)">
+          <div style="font-size:2rem;margin-bottom:1rem">⚠️</div>
+          <p style="color:#f87171;font-size:.9rem;margin-bottom:1.5rem">${msg}</p>
+          <button onclick="this.closest('[style]').remove()"
+            style="background:#4f46e5;color:#fff;border:none;border-radius:12px;padding:.7rem 2rem;font-size:.9rem;font-weight:700;cursor:pointer">OK</button>
+        </div>`;
+      document.body.appendChild(errOverlay);
+    }
+  }
+
   // ── Start Exam ────────────────────────────────────────────────────────────
   async function startExam(examId, useTimer) {
     const entry = EXAM_REGISTRY.find(e => e.id === examId);
@@ -539,47 +789,7 @@ window.ExamScreen = (function() {
     if (data.examInfo       && !data.exam_info)       data.exam_info       = data.examInfo;
     if (data.scoringRules   && !data.scoring_rules)   data.scoring_rules   = data.scoringRules;
 
-    _examData = data;
-    _currentEntry = entry;
-    _answers = {};
-    _useTimer = useTimer;
-    _examActive = true;
-
-    // Prevent accidental browser close
-    window._examBeforeUnload = e => {
-      e.preventDefault();
-      e.returnValue = 'Prüfung läuft — wirklich abbrechen?';
-    };
-    window.addEventListener('beforeunload', window._examBeforeUnload);
-
-    // Open overlay
-    const overlay = document.getElementById('exam-overlay');
-    if (overlay) overlay.classList.remove('hidden');
-
-    // Render
-    _renderExamHeader();
-    _renderQuestions();
-
-    // Start timer
-    if (useTimer && data.duration_minutes) {
-      _secondsLeft = data.duration_minutes * 60;
-      _updateTimerDisplay();
-      _timerInterval = setInterval(() => {
-        _secondsLeft--;
-        _updateTimerDisplay();
-        if (_secondsLeft <= 0) {
-          clearInterval(_timerInterval);
-          submitExam(true);
-        }
-      }, 1000);
-    } else {
-      const timerEl = document.getElementById('exam-timer');
-      if (timerEl) timerEl.textContent = '';
-    }
-
-    // Scroll to top
-    const scroll = document.getElementById('exam-scroll');
-    if (scroll) scroll.scrollTop = 0;
+    _startExamWithData(data, entry, useTimer);
   }
 
   function _renderExamHeader() {
@@ -1203,6 +1413,8 @@ window.ExamScreen = (function() {
           <div id="ai-feedback-output" class="hidden"></div>
         </div>
 
+        ${_examData?._isAIExam ? _renderNotenprognose(pct) : ''}
+
         <div class="mt-6 flex gap-3 flex-wrap">
           <button onclick="ExamScreen.closeResults()" class="flex-1 bg-gray-700 hover:bg-gray-600 rounded-xl py-3 font-bold transition" style="min-width:120px">
             Zurück
@@ -1210,10 +1422,16 @@ window.ExamScreen = (function() {
           <button onclick="ExamScreen.startReview()" class="flex-1 rounded-xl py-3 font-bold transition" style="min-width:140px;background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff">
             📋 Korrektur durchgehen
           </button>
-          <button onclick="ExamScreen.closeResults(); ExamScreen.showSetup('${_examData?.id || ''}')"
-            class="flex-1 bg-blue-600 hover:bg-blue-500 rounded-xl py-3 font-bold transition" style="min-width:120px">
-            Nochmals üben
-          </button>
+          ${_examData?._isAIExam
+            ? `<button onclick="ExamScreen.startAIExam('${_examData._courseKey}')"
+                class="flex-1 bg-indigo-600 hover:bg-indigo-500 rounded-xl py-3 font-bold transition" style="min-width:120px">
+                🎯 Neu generieren
+               </button>`
+            : `<button onclick="ExamScreen.closeResults(); ExamScreen.showSetup('${_examData?.id || ''}')"
+                class="flex-1 bg-blue-600 hover:bg-blue-500 rounded-xl py-3 font-bold transition" style="min-width:120px">
+                Nochmals üben
+               </button>`
+          }
         </div>
       </div>`;
 
@@ -1228,8 +1446,59 @@ window.ExamScreen = (function() {
     _examActive = false;
     if (window._examBeforeUnload) window.removeEventListener('beforeunload', window._examBeforeUnload);
 
-    // Ergebnis async in Supabase speichern + Feed invalidieren
-    _saveResultToSupabase(results);
+    // Ergebnis nur für echte Prüfungen speichern
+    if (!_examData?._isAIExam) _saveResultToSupabase(results);
+  }
+
+  function _renderNotenprognose(aiPct) {
+    const pastPct = _examData?._pastExamPct;
+    const weak    = _examData?._weakTopics || [];
+    const aiGrade = (Math.round(Math.max(1, Math.min(6, 1 + 5 * (aiPct / 100))) * 2) / 2).toFixed(1);
+    const aiCol   = aiPct >= 60 ? '#4ade80' : aiPct >= 45 ? '#fbbf24' : '#f87171';
+
+    let compareHtml = '';
+    if (pastPct != null) {
+      const diff     = aiPct - pastPct;
+      const diffSign = diff >= 0 ? '+' : '';
+      const diffCol  = diff >= 5 ? '#4ade80' : diff <= -5 ? '#f87171' : '#fbbf24';
+      compareHtml = `
+        <div class="flex items-center justify-between mt-2 pt-2" style="border-top:1px solid rgba(255,255,255,0.07)">
+          <span class="text-xs" style="color:var(--txt-3)">Ø echte Prüfungen</span>
+          <span class="text-xs font-semibold" style="color:${diffCol}">${pastPct}% (${diffSign}${diff}%)</span>
+        </div>`;
+    }
+
+    const focusHtml = weak.length
+      ? `<div class="mt-3 pt-3" style="border-top:1px solid rgba(255,255,255,0.07)">
+           <p class="text-xs mb-2" style="color:var(--txt-3)">Fokus-Themen für nächste Runde:</p>
+           <div class="flex flex-wrap gap-1.5">
+             ${weak.slice(0, 4).map(t => `<span class="text-xs px-2 py-0.5 rounded-full" style="background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.2)">${t}</span>`).join('')}
+           </div>
+         </div>`
+      : '';
+
+    return `
+      <div class="rounded-2xl p-4 mt-4" style="background:rgba(99,102,241,0.08);border:1px solid rgba(99,102,241,0.25)">
+        <div class="flex items-center gap-2 mb-3">
+          <span style="font-size:1.1rem">📊</span>
+          <span class="font-semibold text-sm" style="color:#a5b4fc">Notenprognose</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="text-xs mb-0.5" style="color:var(--txt-3)">Dieses Probeexamen</div>
+            <div class="text-2xl font-black" style="color:${aiCol}">${aiPct}%</div>
+          </div>
+          <div class="text-right">
+            <div class="text-xs mb-0.5" style="color:var(--txt-3)">Prognostizierte Note</div>
+            <div class="text-2xl font-black" style="color:${aiCol}">${aiGrade}</div>
+          </div>
+        </div>
+        ${compareHtml}
+        ${focusHtml}
+        <p class="text-xs mt-3" style="color:var(--txt-3)">
+          KI-Fragen sind kein Ersatz für echte Prüfungen — aber ein starkes Signal für Schwachstellen.
+        </p>
+      </div>`;
   }
 
   function closeResults() {
@@ -1818,6 +2087,6 @@ window.ExamScreen = (function() {
     playSectionAudio, stopSectionAudio, toggleTranscript,
     callAIGrader: _callAIGrader,
     startReview, closeReview, reviewNext, reviewPrev, reviewChat,
-    startHistoricalReview,
+    startHistoricalReview, startAIExam,
   };
 })();
