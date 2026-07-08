@@ -407,7 +407,10 @@ window.ExamScreen = (function() {
           <div class="space-y-2">`;
       allResults.forEach(r => {
         const entry = EXAM_REGISTRY.find(e => e.id === r.exam_id);
-        const label = entry ? entry.label : r.exam_id;
+        const isAI  = r.exam_id?.startsWith('ai-probe-');
+        const label = isAI
+          ? '🎯 KI-Probeexamen'
+          : (entry ? entry.label : r.exam_id);
         const course = entry ? entry.course : '';
         const c = course ? getCourse(course) : null;
         const grade = _gradeFromPct(r.score_pct);
@@ -1446,8 +1449,8 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
     _examActive = false;
     if (window._examBeforeUnload) window.removeEventListener('beforeunload', window._examBeforeUnload);
 
-    // Ergebnis nur für echte Prüfungen speichern
-    if (!_examData?._isAIExam) _saveResultToSupabase(results);
+    // Ergebnis speichern (AI + echte Prüfungen); AI-Examen ohne topic_weights-Update
+    _saveResultToSupabase(results);
   }
 
   function _renderNotenprognose(aiPct) {
@@ -1525,11 +1528,12 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
       const pct = results.totalMax > 0
         ? Math.round(results.totalEarned / results.totalMax * 100) : 0;
 
+      const isAI = !!_currentEntry?._isAIExam;
       const answers = [];
       results.sections.forEach(({ questions }) => {
         questions.forEach(({ q, userAnswer, isCorrect, earned, maxPts }) => {
           const isText = q.type === 'text' || q.type === 'open';
-          answers.push({
+          const entry = {
             question_id: q.id,
             topics: q.topics || [],
             is_correct: isCorrect === true,
@@ -1540,7 +1544,15 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
               : (userAnswer ? (Array.isArray(userAnswer) ? userAnswer.join(',') : String(userAnswer)) : null),
             model_answer: isText ? (q.model_answer || null) : null,
             question_text: isText ? q.text : null,
-          });
+          };
+          // For AI exams: store full question so historical review works without a data file
+          if (isAI) {
+            entry.question_text = q.text;
+            entry.choices_json  = JSON.stringify(q.choices || []);
+            entry.correct_keys  = (q.correct || []).join(',');
+            entry.explanation   = q.explanation || '';
+          }
+          answers.push(entry);
         });
       });
 
@@ -2002,62 +2014,84 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
       return;
     }
 
+    const isAIExam = resultRow.exam_id?.startsWith('ai-probe-');
     const entry = EXAM_REGISTRY.find(e => e.id === resultRow.exam_id);
-    if (!entry) { alert('Prüfungsdaten nicht gefunden.'); return; }
+    if (!entry && !isAIExam) { alert('Prüfungsdaten nicht gefunden.'); return; }
 
-    // Load exam data to get questions, choices, explanations
-    let examData;
-    try {
-      if (entry.format === 'json') {
-        examData = await _loadExamJSON(entry);
-        if (examData.durationMinutes && !examData.duration_minutes) examData.duration_minutes = examData.durationMinutes;
-      } else {
-        examData = window[entry.dataVar];
+    // For regular exams: load data file to get question objects
+    let qMap = {};
+    if (!isAIExam && entry) {
+      let examData;
+      try {
+        if (entry.format === 'json') {
+          examData = await _loadExamJSON(entry);
+        } else {
+          examData = window[entry.dataVar];
+        }
+      } catch(e) { console.warn('startHistoricalReview load:', e); }
+      if (examData?.sections) {
+        examData.sections.forEach(sec => {
+          (sec.questions || []).forEach(q => { if (q.id) qMap[q.id] = q; });
+        });
       }
-    } catch(e) {
-      console.warn('startHistoricalReview load:', e);
     }
 
-    // Build question lookup by id
-    const qMap = {};
-    if (examData?.sections) {
-      examData.sections.forEach(sec => {
-        (sec.questions || []).forEach(q => { if (q.id) qMap[q.id] = q; });
-      });
-    }
-
-    // Rebuild review items from stored answers
+    // Rebuild review items
     _reviewItems = [];
     _reviewCourse = resultRow.course || '';
     _reviewIdx = 0;
 
     resultRow.answers.forEach(a => {
-      const q = qMap[a.question_id];
-      if (!q || q.type === 'audio_intro') return;
+      if (isAIExam) {
+        // AI exams: reconstruct question from stored JSONB fields
+        if (!a.question_text) return;
+        const choices = a.choices_json ? (() => { try { return JSON.parse(a.choices_json); } catch { return []; } })() : [];
+        const correctArr = a.correct_keys ? a.correct_keys.split(',').map(k => k.trim()) : [];
+        const q = { id: a.question_id, type: 'single', text: a.question_text, choices, correct: correctArr };
 
-      const isText = q.type === 'text' || q.type === 'open';
-      const correct = q.correct_answer || q.correct || [];
-      const correctArr = Array.isArray(correct) ? correct : [correct];
-
-      const correctLabel = isText
-        ? (a.model_answer || q.model_answer || '(keine Musterlösung)')
-        : correctArr.map(k => { const c = (q.choices||[]).find(x=>x.key===k); return c ? `${k}) ${c.text}` : k; }).join(' | ') || '—';
-
-      let userLabel;
-      if (isText) {
-        userLabel = a.user_answer ? String(a.user_answer).trim() : '(keine Antwort)';
-      } else if (a.user_answer) {
-        const userKeys = a.user_answer.split(',').map(k => k.trim()).filter(Boolean);
-        userLabel = userKeys.map(k => {
-          const c = (q.choices||[]).find(x => x.key === k);
+        const correctLabel = correctArr.map(k => {
+          const c = choices.find(x => x.key === k);
           return c ? `${k}) ${c.text}` : k;
-        }).join(' | ') || a.user_answer;
-      } else {
-        userLabel = '(nicht gespeichert)';
-      }
+        }).join(' | ') || '—';
 
-      const explanation = q.explanation || q.explanation_text || '';
-      _reviewItems.push({ q, isCorrect: a.is_correct, userLabel, correctLabel, explanation });
+        let userLabel = '(keine Antwort)';
+        if (a.user_answer) {
+          const userKeys = a.user_answer.split(',').map(k => k.trim()).filter(Boolean);
+          userLabel = userKeys.map(k => {
+            const c = choices.find(x => x.key === k);
+            return c ? `${k}) ${c.text}` : k;
+          }).join(' | ') || a.user_answer;
+        }
+
+        _reviewItems.push({ q, isCorrect: a.is_correct, userLabel, correctLabel, explanation: a.explanation || '' });
+      } else {
+        // Regular exams: use data file lookup
+        const q = qMap[a.question_id];
+        if (!q || q.type === 'audio_intro') return;
+
+        const isText = q.type === 'text' || q.type === 'open';
+        const correct = q.correct_answer || q.correct || [];
+        const correctArr = Array.isArray(correct) ? correct : [correct];
+
+        const correctLabel = isText
+          ? (a.model_answer || q.model_answer || '(keine Musterlösung)')
+          : correctArr.map(k => { const c = (q.choices||[]).find(x=>x.key===k); return c ? `${k}) ${c.text}` : k; }).join(' | ') || '—';
+
+        let userLabel;
+        if (isText) {
+          userLabel = a.user_answer ? String(a.user_answer).trim() : '(keine Antwort)';
+        } else if (a.user_answer) {
+          const userKeys = a.user_answer.split(',').map(k => k.trim()).filter(Boolean);
+          userLabel = userKeys.map(k => {
+            const c = (q.choices||[]).find(x => x.key === k);
+            return c ? `${k}) ${c.text}` : k;
+          }).join(' | ') || a.user_answer;
+        } else {
+          userLabel = '(nicht gespeichert)';
+        }
+
+        _reviewItems.push({ q, isCorrect: a.is_correct, userLabel, correctLabel, explanation: q.explanation || q.explanation_text || '' });
+      }
     });
 
     if (!_reviewItems.length) {
