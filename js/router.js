@@ -11,8 +11,12 @@ window.Router = (function() {
     return window.TabRouter ? TabRouter.currentView() : 'dashboard';
   }
 
-  // Keyboard shortcuts (desktop)
+  // Keyboard shortcuts (desktop) — nie in Inputs/Textareas feuern
   document.addEventListener('keydown', e => {
+    const tag = document.activeElement?.tagName;
+    const editable = document.activeElement?.isContentEditable;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || editable) return;
+
     const cv = current();
     if (cv === 'flashcards' && window.FlashcardsScreen) {
       if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); FlashcardsScreen.flipCard(); }
