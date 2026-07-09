@@ -1813,17 +1813,15 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
 
   function startReview() {
     if (!_lastResults) return;
-    // Flatten all questions into review items
     _reviewItems = [];
     _reviewCourse = _currentEntry?.course || '';
-    _lastResults.sections.forEach(({ questions }) => {
+    _lastResults.sections.forEach(({ questions, context }) => {
       questions.forEach(item => {
         const { q, userAnswer, isCorrect, correct, explanation, modelAnswer } = item;
         if (!q || q.type === 'audio_intro') return;
-        const userArr  = Array.isArray(userAnswer) ? userAnswer : (userAnswer ? [userAnswer] : []);
-        const correctLabel = _buildCorrectLabel(q, correct, modelAnswer);
-        const userLabel    = _buildUserLabel(q, userArr, userAnswer);
-        _reviewItems.push({ q, isCorrect, userLabel, correctLabel, explanation });
+        const userKeys   = Array.isArray(userAnswer) ? userAnswer : (userAnswer ? String(userAnswer).split(',').map(k=>k.trim()).filter(Boolean) : []);
+        const correctKeys = Array.isArray(correct) ? correct : (correct ? [correct] : []);
+        _reviewItems.push({ q, isCorrect, userKeys, correctKeys, explanation, modelAnswer, context: context || '' });
       });
     });
     _reviewIdx = 0;
@@ -1888,13 +1886,56 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
     const item  = _reviewItems[_reviewIdx];
     const total = _reviewItems.length;
     const pct   = Math.round((_reviewIdx / total) * 100);
-    const statusColor = item.isCorrect ? '#4ade80' : '#f87171';
-    const statusIcon  = item.isCorrect ? '✅' : '❌';
-    const statusText  = item.isCorrect ? 'Richtig' : 'Falsch';
+    const { q, isCorrect, userKeys = [], correctKeys = [], explanation, modelAnswer, context } = item;
 
-    const qText = (item.q.text || '').length > 300
-      ? item.q.text.substring(0, 300) + '…'
-      : item.q.text || '';
+    const statusColor = isCorrect ? '#4ade80' : '#f87171';
+    const statusIcon  = isCorrect ? '✅' : '❌';
+    const statusText  = isCorrect ? 'Richtig' : 'Falsch';
+    const isTextQ     = q.type === 'text' || q.type === 'open';
+    const hasChoices  = !isTextQ && q.choices && q.choices.length > 0;
+
+    // Choices mit Farb-Highlight
+    const choicesHtml = hasChoices ? q.choices.map(c => {
+      const sel  = userKeys.includes(c.key);
+      const corr = correctKeys.includes(c.key);
+      let bg, border, icon, tc;
+      if (sel && corr)       { bg='rgba(74,222,128,.15)'; border='#4ade80'; icon='✓'; tc='#4ade80'; }
+      else if (sel && !corr) { bg='rgba(248,113,113,.15)'; border='#f87171'; icon='✗'; tc='#f87171'; }
+      else if (!sel && corr) { bg='rgba(74,222,128,.05)'; border='rgba(74,222,128,.4)'; icon=''; tc='#86efac'; }
+      else                   { bg='rgba(255,255,255,.03)'; border='rgba(255,255,255,.08)'; icon=''; tc='#6b7280'; }
+      return `<div style="display:flex;align-items:flex-start;gap:.6rem;padding:.65rem .9rem;border-radius:10px;
+        background:${bg};border:1.5px solid ${border};margin-bottom:.4rem">
+        <span style="font-weight:800;min-width:1.1rem;color:${tc};font-size:.85rem;flex-shrink:0">${c.key}</span>
+        <span style="font-size:.85rem;line-height:1.5;color:${tc};flex:1">${c.text}</span>
+        ${icon ? `<span style="font-weight:700;color:${tc};flex-shrink:0">${icon}</span>` : ''}
+      </div>`;
+    }).join('') : '';
+
+    // Kontext-Block klappbar
+    const contextHtml = context ? `
+      <details style="margin-bottom:.75rem">
+        <summary style="cursor:pointer;font-size:.75rem;font-weight:700;color:#818cf8;
+          padding:.45rem .75rem;background:rgba(99,102,241,.1);border-radius:8px;
+          list-style:none;display:flex;align-items:center;gap:.4rem;user-select:none">
+          ▶ Kontext anzeigen
+        </summary>
+        <div style="margin-top:.4rem;padding:.75rem;background:rgba(99,102,241,.06);
+          border-left:2px solid rgba(99,102,241,.4);border-radius:0 8px 8px 0;
+          font-size:.8rem;line-height:1.65;color:#94a3b8">
+          ${context.replace(/\n/g,'<br>')}
+        </div>
+      </details>` : '';
+
+    // Freitext-Antwort
+    const textHtml = isTextQ ? `
+      <div class="rv-card" style="border:1px solid ${isCorrect?'#166534':'#7f1d1d'}">
+        <div class="rv-label ${isCorrect?'rv-correct':'rv-wrong'}">Deine Antwort</div>
+        <div class="rv-text ${isCorrect?'rv-correct':'rv-wrong'}">${userKeys.join('') || '(keine Antwort)'}</div>
+      </div>
+      ${modelAnswer ? `<div class="rv-card" style="border:1px solid #166534">
+        <div class="rv-label rv-correct">Musterlösung</div>
+        <div class="rv-text rv-correct">${modelAnswer}</div>
+      </div>` : ''}` : '';
 
     overlay.innerHTML = `
       <div style="max-width:520px;margin:0 auto;padding:1rem 1rem 6rem;width:100%">
@@ -1917,53 +1958,44 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
         </div>
 
         <!-- Status badge -->
-        <div style="display:inline-flex;align-items:center;gap:.4rem;background:${statusColor}18;border:1px solid ${statusColor}44;border-radius:999px;padding:.25rem .8rem;margin-bottom:1rem">
+        <div style="display:inline-flex;align-items:center;gap:.4rem;background:${statusColor}18;
+          border:1px solid ${statusColor}44;border-radius:999px;padding:.25rem .8rem;margin-bottom:.75rem">
           <span>${statusIcon}</span>
           <span style="font-size:.75rem;font-weight:700;color:${statusColor}">${statusText}</span>
         </div>
 
-        <!-- Question -->
-        <div class="rv-card">
-          <div class="rv-label" style="color:#6366f1">Frage</div>
-          <div class="rv-text">${qText}</div>
+        <!-- Kontext (klappbar) -->
+        ${contextHtml}
+
+        <!-- Frage -->
+        <div class="rv-card" style="margin-bottom:.65rem">
+          ${q.number != null ? `<div class="rv-label" style="color:#6366f1">Aufgabe ${q.number}</div>` : ''}
+          <div class="rv-text">${q.text || ''}</div>
         </div>
 
-        <!-- User answer -->
-        <div class="rv-card" style="border:1px solid ${item.isCorrect ? '#166534' : '#7f1d1d'}">
-          <div class="rv-label ${item.isCorrect ? 'rv-correct' : 'rv-wrong'}">Deine Antwort</div>
-          <div class="rv-text ${item.isCorrect ? 'rv-correct' : 'rv-wrong'}">${item.userLabel}</div>
-        </div>
+        <!-- Antwortmöglichkeiten (MC) oder Freitext -->
+        ${hasChoices ? `<div style="margin-bottom:.5rem">${choicesHtml}</div>` : textHtml}
 
-        ${!item.isCorrect ? `
-        <!-- Correct answer -->
-        <div class="rv-card" style="border:1px solid #166534">
-          <div class="rv-label rv-correct">Korrekte Antwort</div>
-          <div class="rv-text rv-correct">${item.correctLabel}</div>
-        </div>` : ''}
-
-        ${item.explanation ? `
-        <!-- Explanation -->
-        <div class="rv-card" style="background:#0f172a">
+        <!-- Erklärung -->
+        ${explanation ? `
+        <div class="rv-card" style="background:#0f172a;margin-top:.5rem">
           <div class="rv-label" style="color:#94a3b8">Erklärung</div>
-          <div class="rv-text" style="color:#94a3b8">${item.explanation}</div>
+          <div class="rv-text" style="color:#94a3b8">${explanation}</div>
         </div>` : ''}
 
-        <!-- Actions -->
-        <div style="display:flex;gap:.75rem;margin-top:1.5rem">
+        <!-- Aktionen -->
+        <div style="display:flex;gap:.75rem;margin-top:1.25rem">
           <button class="rv-btn" style="background:rgba(74,222,128,.15);color:#4ade80;border:1px solid rgba(74,222,128,.3)"
-            onclick="ExamScreen.reviewNext()">
-            ✅ Kapiert
-          </button>
+            onclick="ExamScreen.reviewNext()">Weiter →</button>
           <button class="rv-btn" style="background:rgba(99,102,241,.2);color:#a5b4fc;border:1px solid rgba(99,102,241,.4)"
-            onclick="ExamScreen.reviewChat()">
-            ✨ Mit KI besprechen
-          </button>
+            onclick="ExamScreen.reviewChat()">✨ KI fragen</button>
         </div>
 
         ${_reviewIdx > 0 ? `
         <button onclick="ExamScreen.reviewPrev()"
-          style="display:block;width:100%;margin-top:.75rem;background:none;border:none;color:#4b5563;font-size:.8rem;cursor:pointer;padding:.5rem">
-          ← Vorherige Frage
+          style="display:block;width:100%;margin-top:.6rem;background:none;border:none;
+            color:#4b5563;font-size:.8rem;cursor:pointer;padding:.5rem">
+          ← Zurück
         </button>` : ''}
       </div>`;
 
@@ -1983,13 +2015,18 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
   function reviewChat() {
     const item = _reviewItems[_reviewIdx];
     if (!item) return;
+    const { q, isCorrect, userKeys = [], correctKeys = [], explanation, modelAnswer } = item;
+    const isTextQ = q.type === 'text' || q.type === 'open';
+    const fmtKeys = (keys) => isTextQ ? keys.join('') : keys.map(k => {
+      const c = (q.choices||[]).find(x=>x.key===k); return c ? `${k}) ${c.text}` : k;
+    }).join(' | ') || '—';
     window.AIChat?.setExternalContext({
       course:        _reviewCourse,
-      questionText:  item.q.text || '',
-      userAnswer:    item.userLabel,
-      correctAnswer: item.correctLabel,
-      isCorrect:     item.isCorrect,
-      explanation:   item.explanation || '',
+      questionText:  q.text || '',
+      userAnswer:    fmtKeys(userKeys) || '(keine Antwort)',
+      correctAnswer: isTextQ ? (modelAnswer || '(keine Musterlösung)') : fmtKeys(correctKeys),
+      isCorrect,
+      explanation:   explanation || '',
     });
     window.AIChat?.open();
   }
@@ -2018,8 +2055,9 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
     const entry = EXAM_REGISTRY.find(e => e.id === resultRow.exam_id);
     if (!entry && !isAIExam) { alert('Prüfungsdaten nicht gefunden.'); return; }
 
-    // For regular exams: load data file to get question objects
+    // For regular exams: load data file to get question objects + context
     let qMap = {};
+    let contextMap = {};
     if (!isAIExam && entry) {
       let examData;
       try {
@@ -2031,7 +2069,12 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
       } catch(e) { console.warn('startHistoricalReview load:', e); }
       if (examData?.sections) {
         examData.sections.forEach(sec => {
-          (sec.questions || []).forEach(q => { if (q.id) qMap[q.id] = q; });
+          (sec.questions || []).forEach(q => {
+            if (q.id) {
+              qMap[q.id] = q;
+              contextMap[q.id] = sec.context || '';
+            }
+          });
         });
       }
     }
@@ -2043,54 +2086,27 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
 
     resultRow.answers.forEach(a => {
       if (isAIExam) {
-        // AI exams: reconstruct question from stored JSONB fields
         if (!a.question_text) return;
-        const choices = a.choices_json ? (() => { try { return JSON.parse(a.choices_json); } catch { return []; } })() : [];
-        const correctArr = a.correct_keys ? a.correct_keys.split(',').map(k => k.trim()) : [];
-        const q = { id: a.question_id, type: 'single', text: a.question_text, choices, correct: correctArr };
-
-        const correctLabel = correctArr.map(k => {
-          const c = choices.find(x => x.key === k);
-          return c ? `${k}) ${c.text}` : k;
-        }).join(' | ') || '—';
-
-        let userLabel = '(keine Antwort)';
-        if (a.user_answer) {
-          const userKeys = a.user_answer.split(',').map(k => k.trim()).filter(Boolean);
-          userLabel = userKeys.map(k => {
-            const c = choices.find(x => x.key === k);
-            return c ? `${k}) ${c.text}` : k;
-          }).join(' | ') || a.user_answer;
-        }
-
-        _reviewItems.push({ q, isCorrect: a.is_correct, userLabel, correctLabel, explanation: a.explanation || '' });
+        const choices    = a.choices_json ? (() => { try { return JSON.parse(a.choices_json); } catch { return []; } })() : [];
+        const correctKeys = a.correct_keys ? a.correct_keys.split(',').map(k => k.trim()) : [];
+        const userKeys    = a.user_answer ? a.user_answer.split(',').map(k => k.trim()).filter(Boolean) : [];
+        const q = { id: a.question_id, type: 'single', text: a.question_text, choices };
+        _reviewItems.push({ q, isCorrect: a.is_correct, userKeys, correctKeys, explanation: a.explanation || '', modelAnswer: '', context: '' });
       } else {
-        // Regular exams: use data file lookup
         const q = qMap[a.question_id];
         if (!q || q.type === 'audio_intro') return;
-
-        const isText = q.type === 'text' || q.type === 'open';
-        const correct = q.correct_answer || q.correct || [];
-        const correctArr = Array.isArray(correct) ? correct : [correct];
-
-        const correctLabel = isText
-          ? (a.model_answer || q.model_answer || '(keine Musterlösung)')
-          : correctArr.map(k => { const c = (q.choices||[]).find(x=>x.key===k); return c ? `${k}) ${c.text}` : k; }).join(' | ') || '—';
-
-        let userLabel;
-        if (isText) {
-          userLabel = a.user_answer ? String(a.user_answer).trim() : '(keine Antwort)';
-        } else if (a.user_answer) {
-          const userKeys = a.user_answer.split(',').map(k => k.trim()).filter(Boolean);
-          userLabel = userKeys.map(k => {
-            const c = (q.choices||[]).find(x => x.key === k);
-            return c ? `${k}) ${c.text}` : k;
-          }).join(' | ') || a.user_answer;
-        } else {
-          userLabel = '(nicht gespeichert)';
-        }
-
-        _reviewItems.push({ q, isCorrect: a.is_correct, userLabel, correctLabel, explanation: q.explanation || q.explanation_text || '' });
+        const isText     = q.type === 'text' || q.type === 'open';
+        const correct    = q.correct_answer || q.correct || [];
+        const correctKeys = Array.isArray(correct) ? correct : (correct ? [correct] : []);
+        const userKeys    = isText
+          ? [a.user_answer ? String(a.user_answer).trim() : '']
+          : (a.user_answer ? a.user_answer.split(',').map(k => k.trim()).filter(Boolean) : []);
+        _reviewItems.push({
+          q, isCorrect: a.is_correct, userKeys, correctKeys,
+          explanation: q.explanation || q.explanation_text || '',
+          modelAnswer: a.model_answer || q.model_answer || '',
+          context: contextMap[a.question_id] || ''
+        });
       }
     });
 
