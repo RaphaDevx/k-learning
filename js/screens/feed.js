@@ -9,12 +9,13 @@ window.FeedScreen = (function() {
   let _playlistMode  = false; // true = ordered module playlist, no algorithm
 
   // Queue state
-  let _queue       = [];   // all fetched card objects
-  let _seenIds     = new Set(); // IDs gesehen in dieser Filter-Session
-  let _currentIdx  = 0;   // index of card currently in view
+  let _queue       = [];          // all fetched card objects (grows across cycles)
+  let _queueIds    = new Set();   // dedup within current cycle; cleared on cycle-reset
+  let _recentIds   = [];          // ring buffer: last 20 watched IDs (Supabase exclude)
+  let _currentIdx  = 0;           // index of card currently in view
   let _isFetching  = false;
-  let _exhausted   = false; // no more videos to fetch
-  let _cycling     = false; // verhindert endlose Cycling-Schleife
+  let _exhausted   = false;
+  let _cycling     = false;       // one-shot guard: prevents empty→cycle→empty loop
 
   const FETCH_LIMIT   = 15;
   const PRELOAD_AHEAD = 2;  // preload current + 2 next
@@ -31,7 +32,8 @@ window.FeedScreen = (function() {
 
   function _reset() {
     _queue        = [];
-    _seenIds      = new Set();
+    _queueIds     = new Set();
+    _recentIds    = [];
     _currentIdx   = 0;
     _isFetching   = false;
     _exhausted    = false;
@@ -77,7 +79,8 @@ window.FeedScreen = (function() {
       if (userId) {
         // Gemeldete IDs bei jedem Fetch frisch holen (Cache in ReportSystem, invalidiert nach Submit)
         const reportedIds = await (window.ReportSystem?.getReportedIds('video') ?? Promise.resolve(new Set()));
-        const excludeIds = [..._seenIds, ...reportedIds].filter(id => id && id.length > 10);
+        // Nur die letzten 20 gesehenen ausschliessen — älteren kommen mit tiefem Score von hinten zurück
+        const excludeIds = [..._recentIds, ...reportedIds].filter(id => id && id.length > 10);
         const { data, error } = await window.supabaseClient.rpc('get_user_feed', {
           p_user_id:     userId,
           p_course:      _activeFilter || null,
@@ -95,25 +98,26 @@ window.FeedScreen = (function() {
         newCards = newCards.filter(c => !c.course || _enrolledKeys.includes(c.course));
       }
 
-      // Safety-Dedup: bereits in Queue vorhandene rauswerfen
-      const existing = new Set(_queue.map(c => c.id));
-      newCards = newCards.filter(c => !existing.has(c.id));
+      // Dedup: keine Videos die bereits im aktuellen Zyklus in der Queue sind
+      newCards = newCards.filter(c => !_queueIds.has(c.id));
 
       if (!newCards.length) {
-        // Exhausted — wenn noch nicht gecyclet und Videos gesehen wurden: einmal recyclen
-        if (!_cycling && _seenIds.size > 0) {
-          _cycling = true;
-          _seenIds = new Set(); // alle gesehenen freigeben → nächster Fetch bringt sie zurück
+        // Alle Videos wurden in diesem Zyklus gezeigt → Zyklus-Reset (kein harter Stop)
+        if (!_cycling) {
+          _cycling  = true;
+          _queueIds = new Set(); // Dedup für neuen Zyklus freigeben
+          _recentIds = [];       // Exclusion-Fenster leeren → Score-Algorithmus übernimmt
           _exhausted = false;
           _isFetching = false;
           await _fetchMore();
           return;
         }
-        // Wirklich alles gesehen → End-Card zeigen
+        // Nur wenn wirklich gar nichts vorhanden (z.B. kein Kurs eingeschrieben)
         _exhausted = true;
         _showExhaustedCard();
       } else {
-        _cycling = false; // neuer Inhalt verfügbar → Cycling-Guard zurücksetzen
+        _cycling = false;
+        newCards.forEach(c => _queueIds.add(c.id));
         const startIdx = _queue.length;
         _queue.push(...newCards);
         _appendCards(newCards, startIdx);
@@ -146,7 +150,7 @@ window.FeedScreen = (function() {
     } else {
       cards = cards.filter(c => !c.course || _enrolledKeys.includes(c.course));
     }
-    cards = cards.filter(c => !_seenIds.has(c.id));
+    cards = cards.filter(c => !_recentIds.includes(c.id));
     return cards.filter(c => c.type === 'localvideo');
   }
 
@@ -375,9 +379,11 @@ window.FeedScreen = (function() {
           vid.muted = _isMuted;
           vid.play().catch(() => { vid.muted = true; vid.play(); });
 
-          // Als gesehen markieren (für exclude_ids beim nächsten Fetch)
+          // Letzten 20 gesehenen tracken (Supabase-Exclusion-Fenster)
           const dbId = card.dataset.dbId;
-          if (dbId) _seenIds.add(dbId);
+          if (dbId) {
+            _recentIds = [dbId, ..._recentIds.filter(x => x !== dbId)].slice(0, 20);
+          }
 
           _updatePreloadWindow();
 
@@ -467,7 +473,11 @@ window.FeedScreen = (function() {
       if (!userId) return;
       await window.supabaseClient
         .from('video_progress')
-        .upsert({ user_id: userId, video_id: dbId }, { onConflict: 'user_id,video_id', ignoreDuplicates: true });
+        .upsert({
+          user_id:    userId,
+          video_id:   dbId,
+          updated_at: new Date().toISOString(),  // track last-watched for feed score
+        }, { onConflict: 'user_id,video_id' });
     } catch { /* silent */ }
   }
 
