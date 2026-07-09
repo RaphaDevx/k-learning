@@ -253,6 +253,76 @@ window.LERNSET_DATA = [
 
 
 // ════════════════════════════════════════════════════════════════
+// MAKROII — Redo: Probeklausur HS21 (8. Juli)
+// Schwierige Fragen nochmals lösen bevor der Makro II Termin (13.7.)
+// ════════════════════════════════════════════════════════════════
+
+{
+  id: "makroredo-multi-01", type: "multiple", course: "MakroII",
+  topic: "Zeitinkonsistenz", difficulty: 3,
+  tags: ["Zeitinkonsistenz", "Inflationsbias", "Reaktionsfunktion", "Numerisch"],
+  question: "⟳ Redo Q4.3 — Zeitinkonsistenz ohne Verpflichtung: $a = 3$, $b = 1$, $y^* = 1.04$, $\\bar{y} = 1.01$, $\\pi^* = 0.02$. Markiere alle wahren Aussagen:",
+  options: [
+    "A) Die Steigung der geldpolitischen Reaktionsfunktion $\\pi(\\pi^e)$ ist $0.25$.",
+    "B) Die Steigung der geldpolitischen Reaktionsfunktion $\\pi(\\pi^e)$ ist $0.5$.",
+    "C) Die Steigung der geldpolitischen Reaktionsfunktion $\\pi(\\pi^e)$ ist $4$.",
+    "D) Im Gleichgewicht ist $\\pi = 0.03$.",
+    "E) Im Gleichgewicht ist $\\pi = \\pi^* + 9\\%$ (9 Prozentpunkte über Ziel)."
+  ],
+  correctIndices: [0, 3],
+  explanation: "Reaktionsfunktion der CB: $\\pi = \\frac{b^2 \\pi^e + b(y^*-\\bar{y}) + a\\pi^*}{b^2+a}$. Mit $b=1$, $a=3$: Nenner $= 1+3 = 4$.\n\nSteigung $= b^2/(b^2+a) = 1/4 = 0.25$ → A wahr.\n\nGleichgewicht ($\\pi = \\pi^e$): $\\pi^* = \\pi^* + b(y^*-\\bar{y})/a = 0.02 + 1\\times 0.03/3 = 0.02 + 0.01 = 0.03$ → D wahr.\n\nE falsch: Abweichung ist nur 0.01 = 1 Prozentpunkt, nicht 9%."
+},
+
+{
+  id: "makroredo-single-01", type: "single", course: "MakroII",
+  topic: "Seignorage", difficulty: 2,
+  tags: ["Seignorage", "Geldmengenformel", "Numerisch"],
+  question: "⟳ Redo Q4.4 — Seignorage: Der Staat finanziert ein Defizit von 10% des BIP vollständig durch Seignorage. Das Verhältnis Zentralbankgeld/BIP beträgt 2. Wie gross ist $\\mu$ (Wachstumsrate Geldmenge)?",
+  options: [
+    "A) 2%",
+    "B) 5%",
+    "C) −5%",
+    "D) 20%",
+    "E) 10%"
+  ],
+  correctIndex: 1,
+  explanation: "Seignorage-Formel: $S/Y = \\mu \\cdot (M/Y)$. Einsetzen: $10\\% = \\mu \\times 2$, also $\\mu = 5\\%$. → B"
+},
+
+{
+  id: "makroredo-multi-02", type: "multiple", course: "MakroII",
+  topic: "Barwert & Anleihen", difficulty: 3,
+  tags: ["Barwert", "Diskontierung", "Numerisch", "Prüfungsfalle"],
+  question: "⟳ Redo Q1.3 — Barwert (Numerisch): $z_t = 1$ CHF, $z_{t+1}^e = 10$ CHF, $z_{t+2}^e = 100$ CHF, $i_t = 10\\%$, $i_{t+1}^e = 2\\%$. Markiere alle wahren Aussagen zum Barwert $V_t$:",
+  options: [
+    "A) $V_t > 100$ CHF",
+    "B) $V_t > 99$ CHF",
+    "C) $V_t < 99$ CHF",
+    "D) $V_t > 97$ CHF",
+    "E) $V_t < 97$ CHF"
+  ],
+  correctIndices: [1, 3],
+  explanation: "Formel: $V_t = z_t + \\frac{z_{t+1}^e}{1+i_t} + \\frac{z_{t+2}^e}{(1+i_t)(1+i_{t+1}^e)}$\n\n$= 1 + \\frac{10}{1.10} + \\frac{100}{1.10 \\times 1.02} = 1 + 9.09 + 89.12 \\approx 99.21$ CHF\n\nDamit: $99 < V_t < 100$. → B ($V_t > 99$) wahr, D ($V_t > 97$) wahr.\nA ($V_t > 100$) falsch. C ($V_t < 99$) falsch. E ($V_t < 97$) falsch.\n\nMerke den exakten Wert: $V_t \\approx 99.21$ CHF."
+},
+
+{
+  id: "makroredo-multi-03", type: "multiple", course: "MakroII",
+  topic: "Konsum & Sparen", difficulty: 3,
+  tags: ["Euler-Gleichung", "CRRA", "Prüfungsfalle", "Alles-falsch"],
+  question: "⟳ Redo Q2.4 — Prüfungsfalle! $u(C) = \\frac{C^{1-\\eta}-1}{1-\\eta}$, $\\beta = \\frac{1}{1+r}$, $r = 1\\%$, $Y_1 = Y_2 = 10$. Markiere alle wahren Aussagen (könnten 0, 1 oder mehrere sein):",
+  options: [
+    "A) Die Euler-Gleichung ergibt $C_2 = 1.01 \\cdot C_1$.",
+    "B) Die Haushalte konsumieren mehr in Periode 2: $C_2 > C_1$.",
+    "C) Die Haushalte konsumieren mehr als ihr Einkommen in Periode 1: $C_1 > Y_1 = 10$.",
+    "D) Die Haushalte sparen in Periode 1: $C_1 < Y_1 = 10$.",
+    "E) Insgesamt: $C_1 + C_2 > 20$ (mehr als Lebenseinkommen)."
+  ],
+  correctIndices: [],
+  explanation: "Prüfungsfalle — keine Aussage ist wahr!\n\nMit $\\beta = 1/(1+r)$ gilt $(1+r)\\beta = 1$, also Konsumwachstum $C_2/C_1 = [(1+r)\\beta]^{1/\\eta} = 1^{1/\\eta} = 1$, d.h. $C_1 = C_2$.\n\nA falsch: $C_2 = C_1$, nicht $1.01 C_1$.\nB falsch: $C_2 = C_1$ (gleich, nicht mehr).\nIntertemporal: $C_1 + C_2/(1+r) = Y_1 + Y_2/(1+r)$, mit $C_1=C_2$ und $Y_1=Y_2=10$: $C_1 = Y_1 = 10$ exakt.\nC falsch: $C_1 = 10 = Y_1$, nicht grösser.\nD falsch: $C_1 = Y_1$, kein Sparen.\nE falsch: $C_1 + C_2 = 20 = Y_1 + Y_2$, nicht grösser."
+},
+
+
+// ════════════════════════════════════════════════════════════════
 // OM — Block 3/4: Bootstrapping & Supply Chain Management
 // ════════════════════════════════════════════════════════════════
 
