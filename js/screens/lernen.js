@@ -47,7 +47,32 @@ window.LernenScreen = (function() {
     const enrolled = AppState.get('enrolledCourses') || (window.COURSES_CONFIG || []).map(c => c.key);
     const courses  = (window.COURSES_CONFIG || []).filter(c => enrolled.includes(c.key));
 
-    el.innerHTML = _courseSlider(courses) + _modeToggle() + _contentArea();
+    el.innerHTML = _repetitionBanner() + _courseSlider(courses) + _modeToggle() + _contentArea();
+
+    // Async: lade Zähler nach und update Badge
+    if (window.RepetitionScreen) {
+      RepetitionScreen.getPendingCount().then(n => {
+        const badge = document.getElementById('rep-banner-count');
+        if (badge) {
+          badge.textContent = n ? `${n} ausstehend` : 'Alle erledigt';
+          badge.style.color = n ? '#fb923c' : '#4ade80';
+        }
+      });
+    }
+  }
+
+  function _repetitionBanner() {
+    return `
+      <button onclick="TabRouter.navigateTo('repetition')"
+        class="tap-card w-full flex items-center gap-3 rounded-2xl mb-4"
+        style="padding:.85rem 1rem;background:rgba(99,102,241,.1);border:1.5px solid rgba(99,102,241,.25);text-align:left">
+        <div style="font-size:1.4rem;flex-shrink:0">📌</div>
+        <div style="flex:1;min-width:0">
+          <div class="font-semibold text-sm" style="color:#e2e8f0">Wiederholungen</div>
+          <div id="rep-banner-count" style="font-size:.72rem;font-weight:700;color:#fb923c">Wird geladen…</div>
+        </div>
+        <div style="font-size:1rem;color:rgba(99,102,241,.6)">›</div>
+      </button>`;
   }
 
   // ── Course slider ──

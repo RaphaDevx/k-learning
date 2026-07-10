@@ -1989,6 +1989,8 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
             onclick="ExamScreen.reviewNext()">Weiter →</button>
           <button class="rv-btn" style="background:rgba(99,102,241,.2);color:#a5b4fc;border:1px solid rgba(99,102,241,.4)"
             onclick="ExamScreen.reviewChat()">✨ KI fragen</button>
+          <button class="rv-btn" style="background:rgba(251,146,60,.12);color:#fb923c;border:1px solid rgba(251,146,60,.3);flex:0 0 auto;padding:.75rem .9rem"
+            onclick="ExamScreen.saveToRepetition()" title="Zur Wiederholung speichern">📌</button>
         </div>
 
         ${_reviewIdx > 0 ? `
@@ -2117,6 +2119,29 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
     _renderReviewCard();
   }
 
+  async function saveToRepetition() {
+    const item = _reviewItems[_reviewIdx];
+    if (!item || !window.RepetitionScreen) return;
+    const { q, correctKeys = [], explanation, modelAnswer, context } = item;
+    const btn = document.querySelector('[onclick="ExamScreen.saveToRepetition()"]');
+    if (btn) { btn.textContent = '⏳'; btn.disabled = true; }
+    const ok = await RepetitionScreen.saveItem({
+      type:      'question',
+      course:    _reviewCourse,
+      title:     q.number ? `Aufgabe ${q.number}: ${(q.text||'').slice(0,60)}…` : (q.text||'').slice(0,70),
+      content:   {
+        question_text: q.text || '',
+        choices:       q.choices || [],
+        correct_keys:  correctKeys,
+        explanation:   explanation || modelAnswer || '',
+        context:       context || '',
+      },
+      source:    'exam',
+      source_id: _currentEntry?.id || '',
+    });
+    if (btn) { btn.textContent = ok ? '✅' : '❌'; setTimeout(() => { if(btn) { btn.textContent='📌'; btn.disabled=false; }}, 1500); }
+  }
+
   function closeReview() {
     document.getElementById('exam-review-overlay')?.remove();
     window.AIChat?.clearExternalContext?.();
@@ -2136,7 +2161,7 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
     get EXAM_REGISTRY() { return EXAM_REGISTRY; },
     playSectionAudio, stopSectionAudio, toggleTranscript,
     callAIGrader: _callAIGrader,
-    startReview, closeReview, reviewNext, reviewPrev, reviewChat,
+    startReview, closeReview, reviewNext, reviewPrev, reviewChat, saveToRepetition,
     startHistoricalReview, startAIExam,
   };
 })();

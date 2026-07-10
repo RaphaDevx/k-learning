@@ -97,6 +97,7 @@
   <script src="js/screens/quiz.js?v=3132"></script>
   <script src="js/screens/tutor.js?v=3132"></script>
   <script src="js/screens/lernset.js?v=3132"></script>
+  <script src="js/screens/repetition.js?v=3132"></script>
   <script src="js/screens/lernen.js?v=3132"></script>
   <script src="js/screens/profile.js?v=3132"></script>
   <script src="js/screens/progress.js?v=3132"></script>
@@ -113,10 +114,13 @@
     .card-back { transform: rotateY(180deg); }
 
     /* Flashcard back: only vertical scroll, no horizontal */
-    .fc-back-scroll { overflow-y: auto; overflow-x: hidden; touch-action: pan-y; }
+    /* min-height:0 is critical — without it a flex-1 child expands to content height and never scrolls */
+    .fc-back-scroll { overflow-y: auto; overflow-x: hidden; touch-action: pan-y; min-height: 0; }
 
-    /* KaTeX display: allow JS scale transform without layout side-effects */
-    .katex-display { transform-origin: center top; transition: none !important; }
+    /* KaTeX display: scale transform origin + let overflow auto on element level for fallback */
+    .katex-display { transform-origin: left top; transition: none !important; }
+    /* Wide KaTeX inner span: allow it to wrap or clip within the scaled box */
+    .katex-display > .katex { display: block; overflow-x: auto; overflow-y: hidden; }
 
     /* ── Animations ── */
     @keyframes fadeUp { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
@@ -737,7 +741,7 @@
                         style="background:rgba(255,255,255,0.07);color:var(--txt-3)" onmouseenter="this.style.background='rgba(239,68,68,0.15)';this.style.color='#f87171'" onmouseleave="this.style.background='rgba(255,255,255,0.07)';this.style.color='var(--txt-3)'">⚑</button>
                     </div>
                   </div>
-                  <div class="fc-back-scroll flex-1 flex items-start justify-center py-1">
+                  <div class="fc-back-scroll flex-1 py-1">
                     <div class="fc-back-text text-base leading-relaxed w-full" style="white-space:pre-line"></div>
                   </div>
                 </div>
@@ -773,7 +777,7 @@
                         style="background:rgba(255,255,255,0.07);color:var(--txt-3)" onmouseenter="this.style.background='rgba(239,68,68,0.15)';this.style.color='#f87171'" onmouseleave="this.style.background='rgba(255,255,255,0.07)';this.style.color='var(--txt-3)'">⚑</button>
                     </div>
                   </div>
-                  <div class="fc-back-scroll flex-1 flex items-start justify-center py-1">
+                  <div class="fc-back-scroll flex-1 py-1">
                     <div class="fc-back-text text-base leading-relaxed w-full" style="white-space:pre-line"></div>
                   </div>
                 </div>
@@ -892,6 +896,11 @@
       <div class="hidden lg:block mb-6"><h2 class="text-2xl font-bold">Prüfungen</h2></div>
       <div id="exam-content" class="space-y-3"></div>
     </div>
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- WIEDERHOLUNGEN                                       -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <div id="view-repetition" class="hidden py-4"></div>
 
     <!-- ══════════════════════════════════════════════════════ -->
     <!-- LERNPFAD / PROGRESS                                  -->
