@@ -181,6 +181,15 @@ window.ExamScreen = (function() {
       type: 'themenblock',
     },
     {
+      id: 'makro2-probeklausur-b',
+      label: 'MakroII — Probeklausur B (Juli 2026)',
+      course: 'MakroII',
+      dataVar: null,
+      file: 'exams/makro2-probeklausur-b-data.json',
+      format: 'json',
+      available: true,
+    },
+    {
       id: 'makro2-probeklausur-fs26',
       label: 'MakroII — Probeklausur FS26',
       course: 'MakroII',
