@@ -1,0 +1,914 @@
+{
+  "_meta": {
+    "schemaVersion": "1",
+    "sourceFile": "KI-generiert (Claude Sonnet 4.6, 2026-07-12)",
+    "createdAt": "2026-07-12",
+    "promptVersion": "create-exam-v3",
+    "status": "draft"
+  },
+  "id": "makro2-ki-exam-01",
+  "title": "Makro II — KI-Prüfung 01",
+  "course": "MakroII",
+  "courseColor": "#059669",
+  "durationMinutes": 40,
+  "totalPoints": 40,
+  "resourceLink": null,
+  "examInfo": {
+    "date": "KI-Prüfung FS26",
+    "duration": "40 Minuten",
+    "format": "20 Multiple Choice (Markiere alle wahren Aussagen)",
+    "allowedAids": "Keine",
+    "grading": "Note 6.0: ≥85%, Note 5.5: ≥75%, Note 5.0: ≥65%, Note 4.5: ≥55%, Note 4.0: ≥45%"
+  },
+  "scoringRules": {
+    "single_choice": { "correct": 2, "wrong": 0, "blank": 0 },
+    "multiple_choice": { "allCorrect": 2, "anyWrong": 0, "blank": 0 }
+  },
+  "telemetry": null,
+  "sections": [
+    {
+      "id": "s1",
+      "title": "1 — IS-LM Modell (10 Punkte)",
+      "description": "Markiere in jeder Teilfrage alle wahren Aussagen.",
+      "context": "Betrachte für die nächsten fünf Fragen (1.1–1.5) eine geschlossene Volkswirtschaft im IS-LM-Modell. Die IS-Kurve ergibt sich aus dem Gütermarktgleichgewicht $Y = C(Y-T) + I(Y,i) + G$, wobei die Konsumfunktion $C(Y-T) = c_0 + c_1(Y-T)$ mit $c_1 \\in (0,1)$ und die Investitionsfunktion $I(Y,i) = b_0 + b_1 Y - b_2 i$ mit $b_1 \\in (0,1-c_1)$ und $b_2 > 0$ gilt. Die LM-Kurve beschreibt das Geldmarktgleichgewicht $M/P = Y \\cdot l(i)$ mit $l'(i) < 0$. (Fragen 1.2 und 1.4 haben einen eigenen numerischen Kontext, der in der jeweiligen Frage angegeben ist.)",
+      "points": 10,
+      "question_type": "multiple_choice",
+      "questions": [
+        {
+          "id": "makro2-ki-exam-01-q01",
+          "number": 1,
+          "text": "1.1 — Die IS-Kurve im $(Y,i)$-Diagramm (Einkommen $Y$ auf der Abszisse, Zinssatz $i$ auf der Ordinate) hat folgende Eigenschaften. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Die IS-Kurve ist negativ geneigt, weil ein höherer Zins $i$ die Investitionen $I$ verringert und damit das Gleichgewichtseinkommen $Y$ sinkt."
+            },
+            {
+              "key": "B",
+              "text": "Die IS-Kurve ist umso flacher (im Absolutbetrag der Steigung), je grösser $b_2$ ist, weil Investitionen dann stärker auf Zinsänderungen reagieren und damit jede Zinsänderung eine grössere Einkommensänderung auslöst."
+            },
+            {
+              "key": "C",
+              "text": "Die IS-Kurve ist umso steiler (im Absolutbetrag), je grösser $c_1$ ist, weil der Multiplikatoreffekt stärker wirkt."
+            },
+            {
+              "key": "D",
+              "text": "Eine Erhöhung der Staatsausgaben $\\Delta G > 0$ verschiebt die IS-Kurve nach rechts um genau $\\Delta G$."
+            },
+            {
+              "key": "E",
+              "text": "Eine Erhöhung der Staatsausgaben $\\Delta G > 0$ verschiebt die IS-Kurve nach rechts um $\\frac{\\Delta G}{1 - c_1 - b_1} > \\Delta G$."
+            }
+          ],
+          "correct": ["A", "B", "E"],
+          "modelAnswer": null,
+          "explanation": "A ist korrekt: negative Steigung der IS-Kurve folgt direkt aus $\\partial I / \\partial i = -b_2 < 0$ und dem Multiplikatorprozess. B ist korrekt: ein grösseres $b_2$ bedeutet, dass eine gegebene Zinssenkung eine grössere Investitionserhöhung auslöst und damit über den Multiplikator ein grösseres $\\Delta Y$ erzeugt — die IS-Kurve wird flacher. C ist falsch: ein grösseres $c_1$ erhöht den Multiplikator $1/(1-c_1-b_1)$, was die IS-Kurve ebenfalls flacher macht (jede Nachfrageänderung löst eine grössere Einkommensänderung aus), nicht steiler. D ist falsch: die Verschiebung beträgt $\\Delta G \\cdot \\frac{1}{1-c_1-b_1} > \\Delta G$. E ist korrekt: der Multiplikator $\\frac{1}{1-c_1-b_1} > 1$ da $c_1 + b_1 < 1$.",
+          "topics": ["IS-LM", "Multiplikator", "Fiskalpolitik"],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "IS-LM",
+            "latex": true,
+            "_generated": true
+          }
+        },
+        {
+          "id": "makro2-ki-exam-01-q02",
+          "number": 2,
+          "text": "1.2 — Nimm an, dass $c_1 = 0.6$, $b_1 = 0.2$, $T = 0$ und der Zinssatz wird durch die Geldpolitik konstant gehalten. Die Staatsausgaben steigen um $\\Delta G = 100$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Der Gütermarktmultiplikator beträgt $\\frac{1}{1-c_1} = 2.5$."
+            },
+            {
+              "key": "B",
+              "text": "Der Gütermarktmultiplikator beträgt $\\frac{1}{1-c_1-b_1} = 5$."
+            },
+            {
+              "key": "C",
+              "text": "Das Gleichgewichtseinkommen steigt um $\\Delta Y = 500$."
+            },
+            {
+              "key": "D",
+              "text": "Das Gleichgewichtseinkommen steigt um weniger als 500, da der Zinsanstieg die Investitionen teilweise verdrängt."
+            },
+            {
+              "key": "E",
+              "text": "Wenn stattdessen die Steuern um $\\Delta T = 100$ gesenkt werden (bei $\\Delta G = 0$), steigt das Gleichgewichtseinkommen um $\\frac{c_1}{1-c_1-b_1} \\cdot 100 = 300$."
+            }
+          ],
+          "correct": ["B", "C", "E"],
+          "modelAnswer": null,
+          "explanation": "Der Multiplikator lautet $\\frac{1}{1-c_1-b_1} = \\frac{1}{1-0.6-0.2} = \\frac{1}{0.2} = 5$ (B korrekt). A ist falsch, weil $b_1 = 0.2$ den Multiplikator erhöht und nicht ignoriert werden darf. Da der Zins fixiert ist, findet kein Crowding-out statt: $\\Delta Y = 5 \\times 100 = 500$ (C korrekt, D falsch). Für eine Steuersenkung: der Steuermultiplikator ist $\\frac{c_1}{1-c_1-b_1} = \\frac{0.6}{0.2} = 3$, also $\\Delta Y = 3 \\times 100 = 300$ (E korrekt). Der Steuermultiplikator ist kleiner als der Ausgabenmultiplikator, weil ein Teil der Steuersenkung gespart wird.",
+          "topics": ["IS-LM", "Multiplikator", "Fiskalpolitik"],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "IS-LM",
+            "latex": true,
+            "_generated": true
+          }
+        },
+        {
+          "id": "makro2-ki-exam-01-q03",
+          "number": 3,
+          "text": "1.3 — Betrachte nun den Fall ohne geldpolitische Intervention (die Geldmenge $M$ ist fix, die LM-Kurve hat normale negative Steigung im $Y$-$i$-Diagramm). Die Staatsausgaben steigen um $\\Delta G > 0$. Markiere die wahren Aussagen zum Crowding-out-Effekt.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Der Einkommensanstieg $\\Delta Y$ ist grösser als bei konstantem Zinssatz, weil höheres Einkommen die Geldnachfrage erhöht."
+            },
+            {
+              "key": "B",
+              "text": "Der Gleichgewichtszins $i^*$ steigt, weil ein höheres $Y$ bei fixem $M$ die Geldnachfrage erhöht."
+            },
+            {
+              "key": "C",
+              "text": "Die Privatinvestitionen $I$ nehmen im neuen Gleichgewicht ab, weil der höhere Zins $i$ sie verdrängt."
+            },
+            {
+              "key": "D",
+              "text": "Der Einkommensanstieg $\\Delta Y$ ist kleiner als $\\frac{\\Delta G}{1-c_1-b_1}$."
+            },
+            {
+              "key": "E",
+              "text": "Vollständiges Crowding-out ($\\Delta Y = 0$) tritt auf, wenn die LM-Kurve senkrecht (vollkommen zinsinelastisch) ist."
+            }
+          ],
+          "correct": ["B", "C", "D", "E"],
+          "modelAnswer": null,
+          "explanation": "A ist falsch: bei fixem $M$ muss der Zins steigen, um den Geldmarkt zu räumen — der Einkommensanstieg ist kleiner als mit konstantem $i$. B ist korrekt: höheres $Y$ erhöht die Geldnachfrage $Y \\cdot l(i)$; da $M/P$ fix ist, muss $i$ steigen, damit $l(i)$ fällt und der Markt geräumt wird. C ist korrekt: höheres $i$ reduziert $I = b_0 + b_1 Y - b_2 i$ über den Zinskanal. D ist korrekt: der tatsächliche Multiplikator ist kleiner als der Gütermarktmultiplikator, weil der Zinsanstieg einen Teil der Nachfrage verdrängt. E ist korrekt: bei senkrechter LM-Kurve ist $Y$ fest determiniert — jede Verschiebung der IS-Kurve erhöht nur den Zins, nicht das Einkommen.",
+          "topics": ["IS-LM", "Crowding-out", "Geldpolitik"],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "IS-LM",
+            "latex": true,
+            "_generated": true
+          }
+        },
+        {
+          "id": "makro2-ki-exam-01-q04",
+          "number": 4,
+          "text": "1.4 — Die Zentralbank betreibt eine expansive Geldpolitik (Erhöhung von $M$) bei unveränderter Fiskalpolitik. Der Zinssatz liegt deutlich über der Nullzinsgrenze ($i > 0$). Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Die LM-Kurve verschiebt sich nach rechts (bzw. nach unten), weil bei gegebenem $Y$ ein niedrigerer Zins den Geldmarkt räumt."
+            },
+            {
+              "key": "B",
+              "text": "Der Gleichgewichtszins $i^*$ steigt im neuen IS-LM-Gleichgewicht."
+            },
+            {
+              "key": "C",
+              "text": "Das Gleichgewichtseinkommen $Y^*$ steigt, weil der niedrigere Zins die Investitionen $I$ stimuliert."
+            },
+            {
+              "key": "D",
+              "text": "Die Wirksamkeit der Geldpolitik auf $Y^*$ ist umso grösser, je grösser $b_2$ ist (je stärker Investitionen auf den Zins reagieren)."
+            },
+            {
+              "key": "E",
+              "text": "In der Liquiditätsfalle ($i = 0$, LM-Kurve horizontal) ist eine Erhöhung von $M$ wirkungslos, weil die zusätzliche Liquidität als Kassenhaltung absorbiert wird und den Zins nicht weiter senken kann."
+            }
+          ],
+          "correct": ["A", "C", "D", "E"],
+          "modelAnswer": null,
+          "explanation": "A ist korrekt: ein höheres $M/P$ bedeutet, dass bei gegebenem $Y$ der Zins sinken muss, damit die Geldnachfrage $Y \\cdot l(i)$ steigt und der Markt geräumt wird — die LM-Kurve verschiebt sich nach rechts/unten. B ist falsch: expansive Geldpolitik senkt $i^*$. C ist korrekt: niedrigerer $i$ → höheres $I = b_0 + b_1 Y - b_2 i$ → IS-LM Gleichgewicht bei höherem $Y^*$. D ist korrekt: je grösser $b_2$, desto stärker reagieren Investitionen auf Zinssenkungen — die IS-Kurve ist flacher, und eine gegebene LM-Rechtsverschiebung erzeugt ein grösseres $\\Delta Y^*$. E ist korrekt: in der Liquiditätsfalle ist die Geldnachfrage vollkommen zinselastisch — zusätzliches Geld wird gehalten statt ausgegeben.",
+          "topics": ["IS-LM", "Geldpolitik", "Liquiditätsfalle"],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "IS-LM",
+            "latex": true,
+            "_generated": true
+          }
+        },
+        {
+          "id": "makro2-ki-exam-01-q05",
+          "number": 5,
+          "text": "1.5 — Nimm an, dass der nominale Zinssatz die Nullzinsgrenze erreicht hat ($i = 0$) und die Geldnachfrage vollkommen zinselastisch ist (Keynesianische Liquiditätsfalle). Die Regierung erhöht die Staatsausgaben um $\\Delta G > 0$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Die LM-Kurve ist horizontal bei $i = 0$ im relevanten Bereich."
+            },
+            {
+              "key": "B",
+              "text": "Das Gleichgewichtseinkommen steigt um genau $\\frac{\\Delta G}{1-c_1-b_1}$, weil kein Zinsanstieg stattfindet und damit kein Crowding-out auftritt."
+            },
+            {
+              "key": "C",
+              "text": "Der Zins $i^*$ steigt im neuen Gleichgewicht, weil die höhere Staatsnachfrage den Geldmarkt unter Druck setzt."
+            },
+            {
+              "key": "D",
+              "text": "Fiskalpolitik ist in der Liquiditätsfalle wirksamer als unter normalen Umständen, weil der vollständige Multiplikator wirkt."
+            },
+            {
+              "key": "E",
+              "text": "Ein Anstieg der Inflationserwartungen $\\pi^e$ kann in der Liquiditätsfalle stimulierend wirken, weil er den Realzins $r = i - \\pi^e$ senkt."
+            }
+          ],
+          "correct": ["A", "B", "D", "E"],
+          "modelAnswer": null,
+          "explanation": "A ist korrekt: in der Liquiditätsfalle ist jede Erhöhung von $M$ wirkungslos — Agenten halten zusätzliche Liquidität statt sie einzusetzen, daher liegt die LM-Kurve horizontal bei $i = 0$. B ist korrekt: da der Zins bei $i = 0$ verankert bleibt, tritt kein Crowding-out auf — das Einkommen steigt um den vollen Multiplikator. C ist falsch: die horizontale LM-Kurve verhindert jeden Zinsanstieg. D ist korrekt: unter normalen Umständen verdrängt ein Zinsanstieg einen Teil der Investitionen; in der Liquiditätsfalle fehlt dieser Dämpfungseffekt. E ist korrekt: der Realzins $r = i - \\pi^e$ kann bei fixem $i = 0$ durch höhere Inflationserwartungen $\\pi^e$ sinken — ein Instrument der Zentralbankkommunikation (Forward Guidance).",
+          "topics": ["IS-LM", "Liquiditätsfalle", "Fiskalpolitik"],
+          "metadata": {
+            "difficulty": "hard",
+            "category": "IS-LM",
+            "latex": true,
+            "_generated": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "s2",
+      "title": "2 — Offene Volkswirtschaft & Wechselkurse (10 Punkte)",
+      "description": "Markiere in jeder Teilfrage alle wahren Aussagen.",
+      "context": "Betrachte für die nächsten fünf Fragen (2.1–2.5) eine kleine offene Volkswirtschaft im Mundell-Fleming-Modell mit vollständiger Kapitalmobilität. Der nominale Wechselkurs $E$ ist definiert als Einheiten inländischer Währung pro Einheit ausländischer Währung — ein Anstieg von $E$ entspricht einer Abwertung der inländischen Währung. Der reale Wechselkurs ist $\\varepsilon = EP^*/P$. Die Leistungsbilanz lautet $NX(\\varepsilon) = X(\\varepsilon) - \\varepsilon \\cdot IM(\\varepsilon)$ mit $\\partial X / \\partial \\varepsilon > 0$ und $\\partial IM / \\partial \\varepsilon < 0$. Die ausländische Inflationsrate $\\pi^*$ und der ausländische Zinssatz $i^*$ sind exogen gegeben. (Frage 2.1 hat einen eigenen numerischen Kontext.)",
+      "points": 10,
+      "question_type": "multiple_choice",
+      "questions": [
+        {
+          "id": "makro2-ki-exam-01-q06",
+          "number": 6,
+          "text": "2.1 — Die ungedeckte Zinsparität (UIP) lautet im Gleichgewicht $i_t = i_t^* + \\frac{E_{t+1}^e - E_t}{E_t}$. Nimm an, dass $i^* = 3\\%$, der heutige Wechselkurs $E_t = 1.00$ und der erwartete künftige Wechselkurs $E_{t+1}^e = 1.02$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Der inländische Gleichgewichtszins muss $i_t = 5\\%$ betragen, damit die UIP erfüllt ist."
+            },
+            {
+              "key": "B",
+              "text": "Der inländische Gleichgewichtszins muss $i_t = 1\\%$ betragen, damit die UIP erfüllt ist."
+            },
+            {
+              "key": "C",
+              "text": "Erwarten Investoren eine Aufwertung der inländischen Währung (d.h. $E_{t+1}^e < E_t$), so muss der inländische Zins $i_t$ ceteris paribus unter dem ausländischen Zins $i^*$ liegen."
+            },
+            {
+              "key": "D",
+              "text": "Eine Erhöhung des erwarteten künftigen Wechselkurses $E_{t+1}^e$ (bei unverändertem $E_t$ und $i^*$) erhöht den inländischen Gleichgewichtszins $i_t$."
+            },
+            {
+              "key": "E",
+              "text": "Bei $E_{t+1}^e = E_t$ (keine erwartete Wechselkursänderung) muss $i_t = i_t^*$ gelten."
+            }
+          ],
+          "correct": ["A", "C", "D", "E"],
+          "modelAnswer": null,
+          "explanation": "Die UIP ergibt: $i_t = i^* + \\frac{E_{t+1}^e - E_t}{E_t} = 3\\% + \\frac{1.02 - 1.00}{1.00} = 3\\% + 2\\% = 5\\%$ (A korrekt, B falsch). C ist korrekt: $E_{t+1}^e < E_t$ bedeutet erwartete Aufwertung, d.h. der zweite Term ist negativ — inländische Anlagen bieten bereits einen Renditevorteil durch die Aufwertungserwartung, weshalb $i_t < i^*$. D ist korrekt: höheres $E_{t+1}^e$ erhöht den Abwertungsterm, sodass $i_t$ steigen muss. E ist korrekt: bei $E_{t+1}^e = E_t$ fällt der Wechselkursterm weg, und $i_t = i^*$ muss gelten.",
+          "topics": ["Offene VW", "UIP", "Wechselkurse"],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Wechselkurse",
+            "latex": true,
+            "_generated": true
+          }
+        },
+        {
+          "id": "makro2-ki-exam-01-q07",
+          "number": 7,
+          "text": "2.2 — Die Marshall-Lerner-Bedingung lautet $|\\varepsilon_X| + |\\varepsilon_{IM}| > 1$, wobei $\\varepsilon_X = \\frac{\\partial X}{\\partial \\varepsilon} \\cdot \\frac{\\varepsilon}{X} > 0$ die Preiselastizität der Exporte und $\\varepsilon_{IM} = \\frac{\\partial IM}{\\partial \\varepsilon} \\cdot \\frac{\\varepsilon}{IM} < 0$ die Preiselastizität der Importe (in Einheiten ausländischer Güter) bezeichnet. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Wenn die Marshall-Lerner-Bedingung erfüllt ist, verbessert eine reale Abwertung ($\\Delta \\varepsilon > 0$) die Leistungsbilanz $NX$."
+            },
+            {
+              "key": "B",
+              "text": "Wenn die Marshall-Lerner-Bedingung nicht erfüllt ist, verschlechtert eine reale Abwertung die Leistungsbilanz $NX$."
+            },
+            {
+              "key": "C",
+              "text": "Der J-Kurven-Effekt beschreibt das Phänomen, dass sich die Leistungsbilanz unmittelbar nach einer Abwertung zunächst verschlechtert (weil Mengen kurzfristig starr sind), bevor sie sich mittel- bis langfristig verbessert."
+            },
+            {
+              "key": "D",
+              "text": "Bei vollkommen unelastischen Importen ($|\\varepsilon_{IM}| = 0$) ist die Marshall-Lerner-Bedingung genau dann erfüllt, wenn $\\varepsilon_X > 1$."
+            },
+            {
+              "key": "E",
+              "text": "Eine reale Aufwertung ($\\Delta \\varepsilon < 0$) verbessert immer die Leistungsbilanz, unabhängig davon, ob die Marshall-Lerner-Bedingung gilt."
+            }
+          ],
+          "correct": ["A", "B", "C", "D"],
+          "modelAnswer": null,
+          "explanation": "A ist korrekt: das ist die Definition der Marshall-Lerner-Bedingung — höheres $\\varepsilon$ erhöht $X$ und senkt den Importwert $\\varepsilon \\cdot IM$, falls die Bedingung erfüllt ist. B ist korrekt: bei $|\\varepsilon_X| + |\\varepsilon_{IM}| < 1$ überwiegt der Bewertungseffekt (Importe kosten mehr in inländischer Währung) den Mengeneffekt — $NX$ verschlechtert sich. C ist korrekt: kurzfristig sind Handelsmengen starr (Verträge, Anpassungsfristen) — der J-Kurven-Effekt beschreibt diese Verzögerung. D ist korrekt: bei $|\\varepsilon_{IM}| = 0$ reduziert sich die Bedingung auf $\\varepsilon_X > 1$. E ist falsch: eine Aufwertung ($\\Delta \\varepsilon < 0$) senkt $X$ und erhöht den Importwert in inländischer Währung; bei erfüllter Marshall-Lerner-Bedingung verschlechtert eine Aufwertung die Leistungsbilanz.",
+          "topics": ["Offene VW", "Marshall-Lerner", "Wechselkurse"],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Wechselkurse",
+            "latex": true,
+            "_generated": true
+          }
+        },
+        {
+          "id": "makro2-ki-exam-01-q08",
+          "number": 8,
+          "text": "2.3 — Betrachte das Mundell-Fleming-Modell bei festem Wechselkurs ($E = \\bar{E}$) und vollständiger Kapitalmobilität. Die Zentralbank erhöht die Geldmenge $M$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Die expansive Geldpolitik ist wirkungslos: die LM-Kurve verschiebt sich zunächst nach rechts, was den Zins unter $i^*$ drückt, was Kapitalabflüsse und Abwertungsdruck auf die inländische Währung auslöst, woraufhin die Zentralbank Devisen kauft und die Geldmenge wieder auf das Ausgangsniveau kontrahiert."
+            },
+            {
+              "key": "B",
+              "text": "Fiskalpolitik (Erhöhung von $G$) ist bei festem Wechselkurs vollständig wirksam, weil kein Wechselkurs-Crowding-out stattfindet und der Zins nicht steigen kann."
+            },
+            {
+              "key": "C",
+              "text": "Bei festem Wechselkurs und vollständiger Kapitalmobilität ist $i = i^*$ im Gleichgewicht erzwungen."
+            },
+            {
+              "key": "D",
+              "text": "Eine expansive Geldpolitik bei festem Wechselkurs führt dauerhaft zu einem niedrigeren Inlandszins $i < i^*$."
+            },
+            {
+              "key": "E",
+              "text": "Das Trilemma der offenen Volkswirtschaft besagt, dass ein Land nicht gleichzeitig feste Wechselkurse, vollständige Kapitalmobilität und eine autonome Geldpolitik aufrechterhalten kann."
+            }
+          ],
+          "correct": ["A", "B", "C", "E"],
+          "modelAnswer": null,
+          "explanation": "A ist korrekt: der Mechanismus ist: $M\\uparrow$ → $i\\downarrow$ unter $i^*$ → Kapitalabfluss → Abwertungsdruck auf inländische Währung → Zentralbank kauft inländische Währung (verkauft Devisen) → $M$ sinkt zurück → $i$ kehrt zu $i^*$ zurück. Netto: $\\Delta M = 0$, $\\Delta Y = 0$. B ist korrekt: Fiskalpolitik verschiebt IS nach rechts; da $i = i^*$ erzwungen ist (Kapitalzuflüsse verhindern Zinsanstieg) und $E = \\bar{E}$, steigt $Y^*$ um den vollen Multiplikator ohne Crowding-out. C ist korrekt: UIP mit $E_{t+1}^e = E_t = \\bar{E}$ ergibt $i = i^*$. D ist falsch: der Arbitragemechanismus stellt $i = i^*$ sicher — ein dauerhaftes $i < i^*$ ist unmöglich. E ist korrekt: das Trilemma (Impossible Trinity) nach Mundell und Fleming.",
+          "topics": ["Offene VW", "Mundell-Fleming", "Trilemma"],
+          "metadata": {
+            "difficulty": "hard",
+            "category": "Mundell-Fleming",
+            "latex": true,
+            "_generated": true
+          }
+        },
+        {
+          "id": "makro2-ki-exam-01-q09",
+          "number": 9,
+          "text": "2.4 — Betrachte nun das Mundell-Fleming-Modell bei flexiblem Wechselkurs und vollständiger Kapitalmobilität. Die Staatsausgaben steigen um $\\Delta G > 0$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Die IS-Kurve verschiebt sich zunächst nach rechts."
+            },
+            {
+              "key": "B",
+              "text": "Der inländische Zins steigt vorübergehend über $i^*$, was Kapitalzuflüsse auslöst."
+            },
+            {
+              "key": "C",
+              "text": "Die inländische Währung wertet ab (d.h. $E$ steigt), weil Kapitalzuflüsse die Nachfrage nach inländischer Währung erhöhen."
+            },
+            {
+              "key": "D",
+              "text": "Die Aufwertung der inländischen Währung verschlechtert die Leistungsbilanz $NX$ und verschiebt die IS-Kurve wieder zurück nach links, bis $\\Delta Y = 0$."
+            },
+            {
+              "key": "E",
+              "text": "Im neuen Gleichgewicht ist $\\Delta Y = 0$, weil der Rückgang der Nettoexporte $\\Delta NX = -\\Delta G$ die Staatsausgabenerhöhung vollständig kompensiert."
+            }
+          ],
+          "correct": ["A", "B", "D", "E"],
+          "modelAnswer": null,
+          "explanation": "A ist korrekt: $\\Delta G > 0$ verschiebt die IS-Kurve nach rechts — das ist der direkte Nachfrageeffekt. B ist korrekt: der Zinsanstieg über $i^*$ löst Kapitalzuflüsse aus (Arbitrage). C ist falsch: Kapitalzuflüsse erhöhen die Nachfrage nach inländischer Währung → inländische Währung wertet AUF, d.h. $E$ sinkt (bei unserer Konvention: Einheiten Inland pro Ausland). D ist korrekt: Aufwertung → $\\varepsilon = EP^*/P$ sinkt → $NX$ verschlechtert sich → IS verschiebt sich zurück nach links. E ist korrekt: im Mundell-Fleming-Gleichgewicht mit flexiblem Wechselkurs und vollständiger Kapitalmobilität ist Fiskalpolitik vollständig unwirksam — das vollständige Crowding-out erfolgt über den Wechselkurskanal.",
+          "topics": ["Offene VW", "Mundell-Fleming", "Wechselkurse"],
+          "metadata": {
+            "difficulty": "hard",
+            "category": "Mundell-Fleming",
+            "latex": true,
+            "_generated": true
+          }
+        },
+        {
+          "id": "makro2-ki-exam-01-q10",
+          "number": 10,
+          "text": "2.5 — Die absolute Kaufkraftparität (KKP) besagt $E = P/P^*$. Nimm an, dass $P = 120$ und $P^* = 100$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Der nominale Gleichgewichtswechselkurs gemäss absoluter KKP beträgt $E = 1.2$."
+            },
+            {
+              "key": "B",
+              "text": "Der reale Wechselkurs $\\varepsilon = EP^*/P$ beträgt bei absoluter KKP genau 1."
+            },
+            {
+              "key": "C",
+              "text": "Die relative KKP besagt, dass die prozentuale Änderungsrate des nominalen Wechselkurses näherungsweise der Differenz der Inflationsraten entspricht: $\\hat{E} \\approx \\pi - \\pi^*$."
+            },
+            {
+              "key": "D",
+              "text": "Wenn $E = 1.0$ (inländische Währung überbewertet bei $P = 120$, $P^* = 100$), so ist der reale Wechselkurs $\\varepsilon < 1$."
+            },
+            {
+              "key": "E",
+              "text": "Gemäss relativer KKP führt eine höhere inländische Inflationsrate ($\\pi > \\pi^*$) zu einer realen Abwertung der inländischen Währung."
+            }
+          ],
+          "correct": ["A", "B", "C", "D"],
+          "modelAnswer": null,
+          "explanation": "A ist korrekt: $E = P/P^* = 120/100 = 1.2$. B ist korrekt: $\\varepsilon = EP^*/P = (P/P^*)(P^*/P) = 1$ — bei absoluter KKP ist der reale Wechselkurs per Definition gleich 1. C ist korrekt: logarithmische Differentiation von $E = P/P^*$ ergibt $\\hat{E} = \\pi - \\pi^*$ (relative KKP). D ist korrekt: $\\varepsilon = 1.0 \\times 100 / 120 = 0.833 < 1$ — bei $E < P/P^*$ ist die inländische Währung real überbewertet. E ist falsch: gemäss relativer KKP führt $\\pi > \\pi^*$ zu $\\hat{E} > 0$, also nominaler Abwertung, aber der reale Wechselkurs $\\varepsilon$ bleibt konstant (genau das besagt die relative KKP — der reale Kurs ist stabil, nicht abwertend).",
+          "topics": ["Offene VW", "KKP", "Wechselkurse"],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Wechselkurse",
+            "latex": true,
+            "_generated": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "s3",
+      "title": "3 — Phillipskurve & Inflation (10 Punkte)",
+      "description": "Markiere in jeder Teilfrage alle wahren Aussagen.",
+      "context": "Betrachte für die nächsten fünf Fragen (3.1–3.5) die modifizierte Phillipskurve in der Formulierung von Blanchard/Illing: $\\pi_t = \\pi_t^e + (m + z) - \\alpha u_t$, wobei $\\pi_t$ die Inflationsrate in Periode $t$, $\\pi_t^e$ die erwartete Inflationsrate, $m > 0$ der Preisaufschlag (Mark-up) der Unternehmen, $z > 0$ ein Sammelparameter für Lohnverhandlungsmacht und institutionelle Arbeitsmarktbedingungen, $u_t$ die Arbeitslosenquote und $\\alpha > 0$ die Stärke des Effekts der Arbeitslosigkeit auf die Inflation ist. (Fragen 3.4–3.5 haben je einen eigenen numerischen Kontext.)",
+      "points": 10,
+      "question_type": "multiple_choice",
+      "questions": [
+        {
+          "id": "makro2-ki-exam-01-q11",
+          "number": 11,
+          "text": "3.1 — Markiere die wahren Aussagen zur Phillipskurve $\\pi_t = \\pi_t^e + (m + z) - \\alpha u_t$.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Ceteris paribus führt ein Anstieg der Arbeitslosenquote $u_t$ zu einem Rückgang der Inflationsrate $\\pi_t$."
+            },
+            {
+              "key": "B",
+              "text": "Ceteris paribus führt ein Anstieg des Mark-up $m$ (z.B. durch gesunkenen Wettbewerb) zu einem Rückgang der Inflationsrate $\\pi_t$."
+            },
+            {
+              "key": "C",
+              "text": "Die natürliche Arbeitslosenquote (NAIRU) ist definiert als diejenige Arbeitslosenquote $u_n$, bei der $\\pi_t = \\pi_t^e$ gilt."
+            },
+            {
+              "key": "D",
+              "text": "Die natürliche Arbeitslosenquote beträgt $u_n = \\frac{m + z}{\\alpha}$."
+            },
+            {
+              "key": "E",
+              "text": "Bei adaptiven Erwartungen ($\\pi_t^e = \\pi_{t-1}$) gilt $\\pi_t > \\pi_{t-1}$ genau dann, wenn $u_t < u_n$."
+            }
+          ],
+          "correct": ["A", "C", "D", "E"],
+          "modelAnswer": null,
+          "explanation": "A ist korrekt: $\\partial \\pi_t / \\partial u_t = -\\alpha < 0$. B ist falsch: ein höherer Mark-up $m$ erhöht die Lohnforderungen der Unternehmen — $\\pi_t$ steigt, ceteris paribus. C ist korrekt: bei $\\pi_t = \\pi_t^e$ folgt $0 = (m+z) - \\alpha u_n$, d.h. $u_n = (m+z)/\\alpha$ — die Definition der NAIRU. D ist korrekt: algebraisch aus C. E ist korrekt: mit $\\pi_t^e = \\pi_{t-1}$ gilt $\\pi_t - \\pi_{t-1} = (m+z) - \\alpha u_t = \\alpha(u_n - u_t)$, was positiv ist genau dann wenn $u_t < u_n$.",
+          "topics": ["Phillipskurve", "NAIRU", "Inflation"],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Phillipskurve",
+            "latex": true,
+            "_generated": true
+          }
+        },
+        {
+          "id": "makro2-ki-exam-01-q12",
+          "number": 12,
+          "text": "3.2 — Markiere die wahren Aussagen zur natürlichen Arbeitslosenquote (NAIRU).",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Ein Anstieg des Mark-up $m$ (z.B. durch gesunkenen Produktwettbewerb) erhöht die NAIRU $u_n$."
+            },
+            {
+              "key": "B",
+              "text": "Stärkere Gewerkschaftsmacht (höheres $z$) senkt die NAIRU, weil Arbeitnehmer höhere Löhne durchsetzen können."
+            },
+            {
+              "key": "C",
+              "text": "Bei der NAIRU ist die Inflationsrate konstant (nicht notwendigerweise null)."
+            },
+            {
+              "key": "D",
+              "text": "Expansive Nachfragepolitik (z.B. Fiskalpolitik) kann die NAIRU dauerhaft senken."
+            },
+            {
+              "key": "E",
+              "text": "Die NAIRU kann durch angebotsseitige Reformen (z.B. Senkung von Kündigungsschutzbestimmungen oder Reduktion von $z$) dauerhaft gesenkt werden."
+            }
+          ],
+          "correct": ["A", "C", "E"],
+          "modelAnswer": null,
+          "explanation": "A ist korrekt: $u_n = (m+z)/\\alpha$ — ein höheres $m$ erhöht $u_n$ direkt. B ist falsch: höheres $z$ erhöht die Lohnforderungen im Gleichgewicht, was $u_n = (m+z)/\\alpha$ erhöht — die NAIRU steigt, nicht sinkt. C ist korrekt: NAIRU ist die Arbeitslosigkeit, bei der die Inflationsrate konstant bleibt ($\\pi_t = \\pi_{t-1}$ bei adaptiven Erwartungen) — nicht notwendigerweise bei $\\pi = 0$. D ist falsch: Nachfragepolitik kann $u$ temporär unter $u_n$ drücken, aber langfristig kehrt die Wirtschaft zur NAIRU zurück — Nachfragepolitik ändert die Struktur des Arbeitsmarkts nicht. E ist korrekt: Massnahmen, die $z$ (Lohnverhandlungsmacht, Arbeitslosenunterstützung, Kündigungsschutz) oder $m$ senken, reduzieren $u_n$ dauerhaft.",
+          "topics": ["NAIRU", "Phillipskurve", "Angebotspolitik"],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "NAIRU",
+            "latex": true,
+            "_generated": true
+          }
+        },
+        {
+          "id": "makro2-ki-exam-01-q13",
+          "number": 13,
+          "text": "3.3 — Betrachte die kurz- und langfristige Phillipskurve bei adaptiven Erwartungen ($\\pi_t^e = \\pi_{t-1}$) im $(u, \\pi)$-Diagramm (Arbeitslosenquote $u$ auf der Abszisse, Inflationsrate $\\pi$ auf der Ordinate). Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Die kurzfristige Phillipskurve ist negativ geneigt: bei gegebenen Inflationserwartungen führt niedrigere Arbeitslosigkeit zu höherer Inflation."
+            },
+            {
+              "key": "B",
+              "text": "Die langfristige Phillipskurve ist senkrecht bei der NAIRU $u_n$: dauerhaft lässt sich die Arbeitslosigkeit nicht unter $u_n$ drücken, ohne beschleunigte Inflation zu erzeugen."
+            },
+            {
+              "key": "C",
+              "text": "Stimuliert die Regierung dauerhaft die Nachfrage, um $u_t < u_n$ zu halten, bleibt $\\pi_t$ auf einem erhöhten, aber konstanten Niveau."
+            },
+            {
+              "key": "D",
+              "text": "Stimuliert die Regierung dauerhaft die Nachfrage, um $u_t < u_n$ zu halten, steigt $\\pi_t$ in jeder Periode weiter an (beschleunigte Inflation)."
+            },
+            {
+              "key": "E",
+              "text": "Der Übergang von der kurz- zur langfristigen Phillipskurve erfolgt, weil Inflationserwartungen sich nach oben anpassen: $\\pi_t^e = \\pi_{t-1}$ steigt mit jeder Periode, in der $u_t < u_n$ gilt."
+            }
+          ],
+          "correct": ["A", "B", "D", "E"],
+          "modelAnswer": null,
+          "explanation": "A ist korrekt: die kurzfristige PC (bei gegebenen $\\pi^e$) hat Steigung $-\\alpha < 0$. B ist korrekt: die langfristige PC ist senkrecht bei $u_n$ — jede dauerhafte Abweichung führt zu beschleunigter Inflation oder Deflation. C ist falsch: dauerhaftes $u_t < u_n$ bedeutet $\\pi_t - \\pi_{t-1} = \\alpha(u_n - u_t) > 0$ in jeder Periode — die Inflation steigt kontinuierlich, bleibt nicht konstant. D ist korrekt: das ist der Kern des Erwartungs-Augmented-Phillipskurven-Modells nach Phelps und Friedman. E ist korrekt: adaptives Lernen treibt $\\pi_t^e = \\pi_{t-1}$ nach oben, was die kurzfristige PC nach oben verschiebt.",
+          "topics": ["Phillipskurve", "NAIRU", "Inflation"],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Phillipskurve",
+            "latex": true,
+            "_generated": true
+          }
+        },
+        {
+          "id": "makro2-ki-exam-01-q14",
+          "number": 14,
+          "text": "3.4 — Nimm an, dass $\\alpha = 0.5$ und Inflationserwartungen sind adaptiv ($\\pi_t^e = \\pi_{t-1}$). Die Zentralbank möchte die Inflationsrate dauerhaft von $\\pi_0 = 6\\%$ auf $\\pi^* = 2\\%$ senken (Disinflation um $4$ Prozentpunkte). Sie erhöht die Arbeitslosenquote für genau eine Periode auf $u_1 = u_n + \\delta$, danach gilt wieder $u_t = u_n$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Die nötige Überarbeitslosigkeit in Periode 1 beträgt $\\delta = u_1 - u_n = 8$ Prozentpunkte."
+            },
+            {
+              "key": "B",
+              "text": "Die nötige Überarbeitslosigkeit in Periode 1 beträgt $\\delta = u_1 - u_n = 2$ Prozentpunkte."
+            },
+            {
+              "key": "C",
+              "text": "Das Opferverhältnis (Sacrifice Ratio) — definiert als kumulierter Prozentpunkt-Überschuss der Arbeitslosenquote über $u_n$ pro Prozentpunkt Disinflation — beträgt $2$."
+            },
+            {
+              "key": "D",
+              "text": "Das Opferverhältnis wäre kleiner, wenn $\\alpha$ grösser wäre, weil dann für eine gegebene Disinflation weniger Überarbeitslosigkeit nötig ist."
+            },
+            {
+              "key": "E",
+              "text": "Das Opferverhältnis ist unabhängig davon, ob die Disinflation in einer oder mehreren Perioden durchgeführt wird."
+            }
+          ],
+          "correct": ["A", "C", "D", "E"],
+          "modelAnswer": null,
+          "explanation": "Die Änderungsgleichung lautet $\\pi_t - \\pi_{t-1} = -\\alpha(u_t - u_n)$. Für eine Disinflation von $4$ Prozentpunkten in einer Periode: $-4\\% = -0.5 \\cdot \\delta$, also $\\delta = 8$ Prozentpunkte (A korrekt, B falsch). Das Opferverhältnis ist $\\text{SR} = \\delta / |\\Delta \\pi| = 8 / 4 = 2$ (C korrekt). D ist korrekt: $\\delta = |\\Delta \\pi| / \\alpha$; grösseres $\\alpha$ ergibt kleineres $\\delta$ pro Prozentpunkt Disinflation — SR $= 1/\\alpha$ sinkt. E ist korrekt: bei adaptiven Erwartungen ist das Opferverhältnis $1/\\alpha$ unabhängig vom Tempo der Disinflation — ob man $8$ PP Überarbeitslosigkeit in einer Periode trägt oder z.B. $4$ PP über zwei Perioden, bleibt SR konstant bei $2$.",
+          "topics": ["Phillipskurve", "Disinflation", "Opferverhältnis"],
+          "metadata": {
+            "difficulty": "hard",
+            "category": "Disinflation",
+            "latex": true,
+            "_generated": true
+          }
+        },
+        {
+          "id": "makro2-ki-exam-01-q15",
+          "number": 15,
+          "text": "3.5 — Vergleiche adaptive Erwartungen ($\\pi_t^e = \\pi_{t-1}$) mit rationalen Erwartungen bei der Analyse der Kosten einer Disinflation. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Bei glaubwürdiger Ankündigung einer Disinflation unter rationalen Erwartungen können die Inflationserwartungen sofort sinken, was eine kostenlose (oder kostengünstigere) Disinflation ermöglicht."
+            },
+            {
+              "key": "B",
+              "text": "Bei adaptiven Erwartungen ist das Opferverhältnis typischerweise grösser als bei rationalen Erwartungen, weil Inflationserwartungen langsamer auf die neue Geldpolitik reagieren."
+            },
+            {
+              "key": "C",
+              "text": "Bei rationalen Erwartungen bilden Agenten ihre Inflationserwartungen als besten Schätzer der tatsächlichen künftigen Inflation auf Basis aller verfügbaren Informationen, was systematische Prognosefehler ausschliesst."
+            },
+            {
+              "key": "D",
+              "text": "Die Glaubwürdigkeit der Zentralbank ist unter rationalen Erwartungen irrelevant, weil Agenten die tatsächliche Inflation immer korrekt vorhersagen."
+            },
+            {
+              "key": "E",
+              "text": "Die Lucas-Kritik besagt, dass ökonometrische Schätzungen der Phillipskurve auf Basis historischer Daten nach einem Wechsel des geldpolitischen Regimes ihre Vorhersagekraft verlieren können."
+            }
+          ],
+          "correct": ["A", "B", "C", "E"],
+          "modelAnswer": null,
+          "explanation": "A ist korrekt: unter rationalen Erwartungen und glaubwürdiger Geldpolitik können $\\pi_t^e$ sofort auf das neue Ziel sinken — im Extremfall ist Disinflation ohne Arbeitslosigkeit möglich (Sargent, 1982). B ist korrekt: adaptive Erwartungen reagieren rückwärtsgewandt ($\\pi_t^e = \\pi_{t-1}$) — selbst wenn die Geldpolitik sich sofort ändert, bleibt $\\pi_t^e$ hoch, was höhere Kosten verursacht. C ist korrekt: das ist die Definition rationaler Erwartungen (Muth 1961) — keine systematischen Fehler, aber zufällige Irrtümer bleiben möglich. D ist falsch: Glaubwürdigkeit ist gerade unter rationalen Erwartungen entscheidend — nur wenn Agenten der Ankündigung glauben, passen sie $\\pi_t^e$ sofort an; ohne Glaubwürdigkeit verhalten sie sich wie bei adaptiven Erwartungen. E ist korrekt: die Lucas-Kritik (1976) warnt, dass Verhaltensparameter (inkl. die PC-Koeffizienten) sich nach Politikwechseln ändern, weil Erwartungsbildung endogen ist.",
+          "topics": ["Phillipskurve", "Erwartungen", "Lucas-Kritik"],
+          "metadata": {
+            "difficulty": "hard",
+            "category": "Erwartungen",
+            "latex": true,
+            "_generated": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "s4",
+      "title": "4 — Staatsverschuldung & Fiskalpolitik (10 Punkte)",
+      "description": "Markiere in jeder Teilfrage alle wahren Aussagen.",
+      "context": "Betrachte für die nächsten fünf Fragen (4.1–4.5) die Staatsverschuldungsdynamik. Sei $B_t$ der nominale Schuldenstand am Ende von Periode $t$, $Y_t$ das nominale BIP, $b_t = B_t / Y_t$ die Schuldenquote, $i$ der konstante nominale Zinssatz, $g_Y = g + \\pi$ die nominale BIP-Wachstumsrate (mit $g$ dem realen Wachstum und $\\pi$ der Inflationsrate), und $ps_t = (T_t - G_t)/Y_t$ der Primärüberschuss in Prozent des BIP (positiv bei Überschuss). Die Bewegungsgleichung für die Schuldenquote lautet näherungsweise: $b_t \\approx (1 + i - g_Y) \\cdot b_{t-1} - ps_t$, d.h. $b_t - b_{t-1} \\approx (i - g_Y) \\cdot b_{t-1} - ps_t$. (Frage 4.2 hat einen eigenen numerischen Kontext.)",
+      "points": 10,
+      "question_type": "multiple_choice",
+      "questions": [
+        {
+          "id": "makro2-ki-exam-01-q16",
+          "number": 16,
+          "text": "4.1 — Markiere die wahren Aussagen zur Schuldendynamik $b_t - b_{t-1} \\approx (i - g_Y) \\cdot b_{t-1} - ps_t$.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Wenn $i > g_Y$ und $ps_t = 0$ (ausgeglichener Primärsaldo), steigt die Schuldenquote $b_t$ automatisch."
+            },
+            {
+              "key": "B",
+              "text": "Der für eine konstante Schuldenquote ($b_t = b_{t-1}$) nötige Primärüberschuss beträgt $ps^* = (i - g_Y) \\cdot b_{t-1}$."
+            },
+            {
+              "key": "C",
+              "text": "Wenn $i < g_Y$ (Wachstum übersteigt Zinssatz), kann ein Staat dauerhaft einen Primärüberschuss von null aufrechterhalten, ohne dass die Schuldenquote explodiert."
+            },
+            {
+              "key": "D",
+              "text": "Ein höheres BIP-Wachstum $g_Y$ erhöht den für Schuldenstabilisierung nötigen Primärüberschuss $ps^*$."
+            },
+            {
+              "key": "E",
+              "text": "Die Schuldendynamik ist linear im aktuellen Schuldenstand $b_{t-1}$: ein doppelt so hoher Schuldenstand erfordert ceteris paribus einen doppelt so hohen Primärüberschuss zur Stabilisierung."
+            }
+          ],
+          "correct": ["A", "B", "C", "E"],
+          "modelAnswer": null,
+          "explanation": "A ist korrekt: $b_t - b_{t-1} = (i-g_Y) \\cdot b_{t-1} > 0$ wenn $i > g_Y$ und $ps = 0$ — die Schuldenquote wächst durch den Zins-Wachstums-Differential. B ist korrekt: Stabilisierung erfordert $0 = (i-g_Y)b_{t-1} - ps^*$, also $ps^* = (i-g_Y)b_{t-1}$. C ist korrekt: bei $i < g_Y$ ist $(i-g_Y) < 0$ — selbst ohne Primärüberschuss sinkt $b_t$ automatisch. Blanchard (2019) argumentiert, dass diese Situation in den 2010er Jahren für viele OECD-Länder galt. D ist falsch: höheres $g_Y$ senkt $(i-g_Y)$ und damit $ps^*$ — grösseres Wachstum erleichtert Schuldenabbau. E ist korrekt: $ps^* = (i-g_Y) \\cdot b_{t-1}$ ist linear in $b_{t-1}$.",
+          "topics": ["Staatsverschuldung", "Schuldendynamik", "Fiskalpolitik"],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Staatsverschuldung",
+            "latex": true,
+            "_generated": true
+          }
+        },
+        {
+          "id": "makro2-ki-exam-01-q17",
+          "number": 17,
+          "text": "4.2 — Nimm an, dass der aktuelle Schuldenstand $b_{t-1} = 90\\%$ des BIP beträgt, der Nominalzins $i = 4\\%$ und die nominale BIP-Wachstumsrate $g_Y = 2\\%$. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Der für Schuldenstabilisierung nötige Primärüberschuss beträgt $ps^* = 1.8\\%$ des BIP."
+            },
+            {
+              "key": "B",
+              "text": "Der für Schuldenstabilisierung nötige Primärüberschuss beträgt $ps^* = 3.6\\%$ des BIP."
+            },
+            {
+              "key": "C",
+              "text": "Wenn die Regierung nur einen Primärüberschuss von $ps = 1\\%$ erreicht, steigt die Schuldenquote."
+            },
+            {
+              "key": "D",
+              "text": "Wenn das BIP-Wachstum auf $g_Y = 4\\%$ steigt (bei konstantem $i = 4\\%$) und $ps = 0$, bleibt die Schuldenquote konstant."
+            },
+            {
+              "key": "E",
+              "text": "Wenn das BIP-Wachstum auf $g_Y = 5\\%$ steigt (bei konstantem $i = 4\\%$) und $ps = 0$, sinkt die Schuldenquote."
+            }
+          ],
+          "correct": ["A", "C", "D", "E"],
+          "modelAnswer": null,
+          "explanation": "$ps^* = (i - g_Y) \\cdot b_{t-1} = (4\\% - 2\\%) \\times 90\\% = 2\\% \\times 90\\% = 1.8\\%$ (A korrekt, B falsch). C ist korrekt: $ps = 1\\% < ps^* = 1.8\\%$, also $b_t - b_{t-1} = (2\\%) \\cdot 90\\% - 1\\% = 1.8\\% - 1\\% = 0.8\\% > 0$ — die Schuldenquote steigt. D ist korrekt: bei $g_Y = i = 4\\%$ gilt $(i-g_Y) = 0$, also $b_t - b_{t-1} = 0 - 0 = 0$ — die Schuldenquote bleibt konstant. E ist korrekt: bei $g_Y = 5\\% > i = 4\\%$ gilt $(i-g_Y) = -1\\% < 0$, also $b_t - b_{t-1} = (-1\\%) \\times 90\\% - 0 = -0.9\\% < 0$ — die Schuldenquote sinkt automatisch.",
+          "topics": ["Staatsverschuldung", "Schuldendynamik", "Primärüberschuss"],
+          "metadata": {
+            "difficulty": "medium",
+            "category": "Staatsverschuldung",
+            "latex": true,
+            "_generated": true
+          }
+        },
+        {
+          "id": "makro2-ki-exam-01-q18",
+          "number": 18,
+          "text": "4.3 — Das Ricardianische Äquivalenztheorem (Barro 1974) besagt, dass unter bestimmten Bedingungen eine Steuersenkung heute, finanziert durch höhere Staatsverschuldung (bei unverändertem $G$), keinen Effekt auf den privaten Konsum hat. Markiere die wahren Aussagen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Das Theorem erfordert, dass Haushalte nicht kreditbeschränkt sind und einen unendlichen (oder altruistisch verlängerten) Zeithorizont haben."
+            },
+            {
+              "key": "B",
+              "text": "Das Theorem impliziert, dass Haushalte die heutige Steuersenkung als zukünftige Steuererhöhung antizipieren und genau die Steuersenkung sparen."
+            },
+            {
+              "key": "C",
+              "text": "Empirisch ist das Theorem vollständig bestätigt: Steuersenkungen erhöhen den privaten Konsum nachweislich nie."
+            },
+            {
+              "key": "D",
+              "text": "Wenn ein erheblicher Teil der Haushalte kreditbeschränkt ist, erhöht eine Steuersenkung den privaten Konsum, selbst wenn alle übrigen Bedingungen des Theorems erfüllt sind."
+            },
+            {
+              "key": "E",
+              "text": "Das Theorem impliziert, dass der Fiskalmultiplikator einer schuldenfinanzierten Steuersenkung gleich null ist."
+            }
+          ],
+          "correct": ["A", "B", "D", "E"],
+          "modelAnswer": null,
+          "explanation": "A ist korrekt: Liquiditätsbeschränkungen und endlicher Zeithorizont sind die wichtigsten Annahmen, deren Verletzung das Theorem zunichte macht. B ist korrekt: rationelle Haushalte mit vollkommenen Kapitalmärkten und infinitem Horizont sparen exakt $\\Delta T$, weil der Barwert aller künftigen Steuern unverändert bleibt. C ist falsch: das Theorem ist empirisch kontrovers und nicht vollständig bestätigt — viele Studien zeigen, dass Steuersenkungen kurzfristig den Konsum erhöhen (insbesondere bei kreditbeschränkten Haushalten). D ist korrekt: kreditbeschränkte Haushalte können nicht gegen künftige Einkommen borgen — eine Steuersenkung erhöht ihr verfügbares Einkommen sofort und damit ihren Konsum. E ist korrekt: bei vollständiger Ricardianischer Äquivalenz ändert sich der Konsum nicht → $\\Delta Y = \\Delta G = 0$ (bei konstantem $G$) → Multiplikator = 0.",
+          "topics": ["Ricardianische Äquivalenz", "Staatsverschuldung", "Fiskalpolitik"],
+          "metadata": {
+            "difficulty": "hard",
+            "category": "Ricardianische Äquivalenz",
+            "latex": true,
+            "_generated": true
+          }
+        },
+        {
+          "id": "makro2-ki-exam-01-q19",
+          "number": 19,
+          "text": "4.4 — In der wirtschaftspolitischen Debatte wird häufig auf die Relation $i$ vs. $g_Y$ Bezug genommen. Markiere die wahren Aussagen zu den Konsequenzen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Wenn $i > g_Y$, ist der Schuldenstand eines hoch verschuldeten Staates bei ausgeglichenem Primärsaldo automatisch explosiv."
+            },
+            {
+              "key": "B",
+              "text": "Wenn $i < g_Y$ ('günstiger Wachstumspfad' nach Blanchard 2019), kann ein Staat ceteris paribus mit einem dauerhaften Primärdefizit ($ps < 0$) eine stabile Schuldenquote aufrechterhalten."
+            },
+            {
+              "key": "C",
+              "text": "Die Situation $i < g_Y$ war in den meisten OECD-Ländern während der Niedrigzinsphase der 2010er Jahre typischerweise gegeben."
+            },
+            {
+              "key": "D",
+              "text": "Wenn $i < g_Y$, entfällt jede fiskalische Budgetbeschränkung — ein Staat kann in dieser Situation beliebig viele Schulden akkumulieren, ohne je auf Rückzahlungsprobleme zu stossen."
+            },
+            {
+              "key": "E",
+              "text": "Selbst wenn aktuell $i < g_Y$ gilt, kann ein sprunghafter Anstieg der Risikoprämien (z.B. durch einen Vertrauensverlust der Märkte) zu $i > g_Y$ führen und die Schuldendynamik destabilisieren."
+            }
+          ],
+          "correct": ["A", "B", "C", "E"],
+          "modelAnswer": null,
+          "explanation": "A ist korrekt: $b_t - b_{t-1} = (i-g_Y) b_{t-1} > 0$ bei $i > g_Y$ und $ps=0$ — die Schuldenquote wächst unbegrenzt. B ist korrekt: bei $i < g_Y$ kann $b_t - b_{t-1} = (i-g_Y) b_{t-1} - ps_t < 0$ auch bei $ps_t < 0$ gelten, sofern der Zins-Wachstums-Vorteil überwiegt. C ist korrekt: die historisch niedrigen Zinsen der 2010er Jahre liessen $g_Y > i$ in vielen Ländern zu. D ist falsch: auch bei $i < g_Y$ bestehen fiskalische Grenzen — die Bedingung kann sich ändern (E), und Märkte können das Vertrauen verlieren, sobald die Schuldenquote sehr hoch wird. E ist korrekt: der Wechsel von $i < g_Y$ zu $i > g_Y$ (z.B. durch steigende Risikoprämien) macht aus einer stabilen Schuldendynamik eine explosive — genau das wurde in der Eurokrise (Griechenland, Italien) beobachtet.",
+          "topics": ["Staatsverschuldung", "Schuldendynamik", "Fiskalpolitik"],
+          "metadata": {
+            "difficulty": "hard",
+            "category": "Staatsverschuldung",
+            "latex": true,
+            "_generated": true
+          }
+        },
+        {
+          "id": "makro2-ki-exam-01-q20",
+          "number": 20,
+          "text": "4.5 — Markiere die wahren Aussagen zur Wirksamkeit der Fiskalpolitik unter verschiedenen makroökonomischen Bedingungen.",
+          "type": "multiple_choice",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Der Fiskalmultiplikator ist an der Nullzinsgrenze (ZLB) typischerweise grösser als unter normalen geldpolitischen Bedingungen, weil die Zentralbank den Zinsanstieg infolge der Fiskalpolitik nicht kompensieren muss."
+            },
+            {
+              "key": "B",
+              "text": "In einer offenen Volkswirtschaft mit flexiblem Wechselkurs und vollständiger Kapitalmobilität ist der Fiskalmultiplikator im Mundell-Fleming-Modell gleich null."
+            },
+            {
+              "key": "C",
+              "text": "Gemäss dem Theorem des balancierten Budgets (Haavelmo-Theorem) ist der Fiskalmultiplikator einer simultanen Erhöhung von $G$ und $T$ um den gleichen Betrag $\\Delta$ gleich 1."
+            },
+            {
+              "key": "D",
+              "text": "Je grösser die marginale Konsumneigung $c_1$, desto grösser ist ceteris paribus der Fiskalmultiplikator in einer geschlossenen Volkswirtschaft."
+            },
+            {
+              "key": "E",
+              "text": "Ein temporärer Anstieg der Staatsausgaben hat bei rationalen Erwartungen typischerweise einen grösseren Multiplikatoreffekt als ein permanenter Anstieg, weil Haushalte permanente Erhöhungen durch Sparen antizipieren."
+            }
+          ],
+          "correct": ["A", "B", "C", "D"],
+          "modelAnswer": null,
+          "explanation": "A ist korrekt: an der ZLB hält die Zentralbank $i = 0$ — Fiskalpolitik löst keinen Zinsanstieg aus, sodass kein Crowding-out über den Zinskanal entsteht; zusätzlich senkt steigende Inflation den Realzins und stimuliert private Nachfrage. B ist korrekt: bei flexiblem Wechselkurs und vollständiger Kapitalmobilität (Mundell-Fleming) führt jede Staatsausgabenerhöhung zu Aufwertung und gleichwertiger NX-Verschlechterung — vollständiges Crowding-out über den Wechselkurskanal. C ist korrekt: das Haavelmo-Theorem (1945) zeigt, dass bei $\\Delta G = \\Delta T$ der Multiplikator genau 1 ist — $\\Delta Y = \\Delta G = \\Delta T$: die Steuererhöhung senkt verfügbares Einkommen um $\\Delta T$, aber da $c_1 < 1$ reduziert sich der Konsum nur um $c_1 \\Delta T < \\Delta T$, sodass netto $\\Delta Y = \\Delta G - c_1 \\Delta T = (1-c_1) \\Delta G / (1-c_1) = \\Delta G$. D ist korrekt: der Multiplikator $\\frac{1}{1-c_1-b_1}$ steigt mit $c_1$ (bei konstantem $b_1$). E ist falsch: unter rationalen Erwartungen haben permanente Staatsausgabenerhöhungen einen GRÖSSEREN Multiplikatoreffekt als temporäre — bei temporären Erhöhungen sparen Haushalte mehr, um den künftigen Wegfall zu antizipieren, was den Multiplikator dämpft.",
+          "topics": ["Fiskalmultiplikator", "Fiskalpolitik", "ZLB"],
+          "metadata": {
+            "difficulty": "hard",
+            "category": "Fiskalpolitik",
+            "latex": true,
+            "_generated": true
+          }
+        }
+      ]
+    }
+  ],
+  "_validation": [
+    "Alle Fragen KI-generiert — inhaltlich auf Basis Blanchard/Illing Makroökonomik-Lehrbuch und Mundell-Fleming-Modell. Vor Prüfungseinsatz manuell prüfen.",
+    "Frage 2.4 C: Wechselkurskonvention (E = Inland/Ausland, Anstieg = Abwertung) beachten."
+  ]
+}

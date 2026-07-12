@@ -199,6 +199,15 @@ window.ExamScreen = (function() {
       available: true,
     },
     {
+      id: 'makro2-ki-exam-01',
+      label: 'MakroII — KI-Prüfung 01 (IS-LM · Offene VW · PC · Schulden)',
+      course: 'MakroII',
+      dataVar: null,
+      file: 'exams/makro2-ki-exam-01-data.json',
+      format: 'json',
+      available: true,
+    },
+    {
       id: 'makro2-probeklausur-21',
       label: 'MakroII — Probeklausur 2021',
       course: 'MakroII',
