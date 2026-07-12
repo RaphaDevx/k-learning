@@ -422,7 +422,7 @@ window.ProfileScreen = (function () {
     section.innerHTML = `
       <p class="text-xs mb-3" style="color:var(--txt-3)">Noch kein Gemini API-Key hinterlegt. Ohne Key wird der Browser-Fallback verwendet.</p>
       <div class="relative mb-3">
-        <input type="password" id="gemini-key-input" placeholder="AIzaSy…"
+        <input type="password" id="gemini-key-input" placeholder="AIzaSy… oder AQ.…"
           autocomplete="off" spellcheck="false"
           class="w-full rounded-xl px-4 py-3 pr-20 text-sm font-mono" style="background:var(--card-raised);color:var(--txt);border:1px solid var(--border)">
         <button id="gemini-key-toggle" class="absolute right-3 top-1/2 -translate-y-1/2 text-xs transition px-1" style="color:var(--txt-3)">Anzeigen</button>
@@ -442,7 +442,7 @@ window.ProfileScreen = (function () {
 
     save.addEventListener('click', () => {
       const k = input.value.trim();
-      if (!k || !k.startsWith('AIza')) {
+      if (!k || (!k.startsWith('AIza') && !k.startsWith('AQ.'))) {
         input.style.borderColor = '#ef4444';
         setTimeout(() => input.style.borderColor = '', 2000);
         return;
