@@ -1863,5 +1863,86 @@ window.FEED_CARDS = [
     video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/makro_r4_3_seignorage.mp4",
     thumbnail_emoji: "🖨️",
     block: "Block 4 — Inflation & Phillipskurve"
+  },
+
+  // ── Makro II S5: Staatsausgaben & Fiskalpolitik ─────────────────────────
+
+  {
+    id: "makro-r5-1-ricardian",
+    type: "localvideo",
+    course: "MakroII", courseColor: "#059669",
+    emoji: "🤔",
+    title: "Ricardianische Äquivalenz",
+    subtitle: "Steuersenkung hilft nicht — wenn du rational bist",
+    description: "Ricardianische Äquivalenz: Warum rationale Haushalte eine Steuersenkung vollständig sparen, die Gleichung ΔS_priv = −ΔB_staat, wann sie gilt (und wann nicht), und die Rolle von Liquiditätsbeschränkungen.",
+    topics: ["Ricardianische Äquivalenz", "Fiskalpolitik", "Ersparnisse", "Liquiditätsbeschränkungen", "Staatsdefizit"],
+    duration: "1:22",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/makro_r5_1_ricardian.mp4",
+    thumbnail_emoji: "🤔",
+    block: "Block 5 — Staatsausgaben & Fiskalpolitik"
+  },
+  {
+    id: "makro-r5-2-uk-krise",
+    type: "localvideo",
+    course: "MakroII", courseColor: "#059669",
+    emoji: "💥",
+    title: "UK-Krise 2022: Märkte vs. Regierung",
+    subtitle: "45 Tage — dann war sie weg",
+    description: "UK Mini-Budget 2022: Truss/Kwarteng kündigen 45 Mrd. unfinanzierte Steuersenkungen an, Gilt-Renditen +1.5% in 3 Tagen, Pensionsfonds-Krise, BoE-Intervention. Lektion: Fiskalische Glaubwürdigkeit ist nicht optional.",
+    topics: ["UK-Krise 2022", "Gilt-Renditen", "Fiskalische Glaubwürdigkeit", "Truss", "LDI-Strategie"],
+    duration: "1:31",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/makro_r5_2_uk_krise.mp4",
+    thumbnail_emoji: "💥",
+    block: "Block 5 — Staatsausgaben & Fiskalpolitik"
+  },
+
+  // ── Makro II S6: Staatsverschuldung ────────────────────────────────────
+
+  {
+    id: "makro-r6-1-r-kleiner-g",
+    type: "localvideo",
+    course: "MakroII", courseColor: "#059669",
+    emoji: "🇯🇵",
+    title: "r < g: Die Regel die Japan rettet",
+    subtitle: "260% Schulden — niemand panikiert. Warum?",
+    description: "Blanchard-Bedingung: Wenn r < g, stabilisieren sich Schulden ohne Primärüberschuss. Historisch war r < g der Normalfall. Japan als Beweis. Formel: Δb ≈ (r−g)·b − s.",
+    topics: ["r < g", "Blanchard", "Schuldenquote", "Japan", "Tragbarkeit"],
+    duration: "1:34",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/makro_r6_1_r_kleiner_g.mp4",
+    thumbnail_emoji: "🇯🇵",
+    block: "Block 6 — Staatsverschuldung"
+  },
+  {
+    id: "makro-r6-2-schuldenbremse",
+    type: "localvideo",
+    course: "MakroII", courseColor: "#059669",
+    emoji: "🛑",
+    title: "Schuldenbremse: Nulldefizit oder nicht?",
+    subtitle: "Strukturell = null — zyklisch darf schwanken",
+    description: "Schweizer Schuldenbremse erklärt: Struktureller vs. zyklischer Haushalt, CH-Schuldenquote 56% → 27%, Ausnahmeklausel COVID, und warum Schuldenbremse ≠ Null-Schulden bedeutet.",
+    topics: ["Schuldenbremse", "Schweiz", "Strukturelles Defizit", "Zyklisch", "Fiskalpolitik"],
+    duration: "1:25",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/makro_r6_2_schuldenbremse.mp4",
+    thumbnail_emoji: "🛑",
+    block: "Block 6 — Staatsverschuldung"
+  },
+  {
+    id: "makro-r6-3-schulden-dynamik",
+    type: "localvideo",
+    course: "MakroII", courseColor: "#059669",
+    emoji: "💣",
+    title: "Schuldenquoten-Dynamik: Wann explodieren Schulden?",
+    subtitle: "Δb = (r−g)·b − s — drei Faktoren, eine Entscheidung",
+    description: "Schuldenquoten-Dynamik vollständig: Δb = (r−g)·b − s, Szenario A (r > g, explodierend) vs. B (r < g, stabil), nötiger Primärüberschuss s* = (r−g)·b, Zinsschock-Sensitivität.",
+    topics: ["Schuldenquoten-Dynamik", "Primärüberschuss", "r vs g", "Zinsschock", "Tragbarkeit"],
+    duration: "1:43",
+    level: "Prüfungsrelevant ⚡",
+    video_src: "https://ifmwcgwfvunjbnfwwbtr.supabase.co/storage/v1/object/public/videos/makro_r6_3_schulden_dynamik.mp4",
+    thumbnail_emoji: "💣",
+    block: "Block 6 — Staatsverschuldung"
   }
 ];

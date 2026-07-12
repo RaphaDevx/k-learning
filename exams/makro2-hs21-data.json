@@ -1070,10 +1070,9 @@
           ],
           "correct": [
             "B",
-            "C",
-            "E"
+            "C"
           ],
-          "explanation": "Die dynamische Staatsschuldengleichung lautet $\\Delta b = (i-g) \\cdot b - (t-s)$. B: Richtig — die Steigung der Phasenlinie $d(\\Delta b)/db = (i-g) > 0$ wenn $i > g$. C: Richtig — positive Steigung der Phasenlinie impliziert Instabilität des Gleichgewichts. E: Die Phasenlinie ist eine Gerade (linear in b), nicht horizontal — Aussage E ist gemäss Antwortschlüssel korrekt (möglicherweise bezieht sich die Frage auf eine spezifischere Darstellung). Hinweis: Antwortschlüssel ['B','C','E'] aus OCR — bitte manuell verifizieren.",
+          "explanation": "Die dynamische Staatsschuldengleichung lautet $\\Delta b = (i-g) \\cdot b - (t-s)$. B: Richtig — die Steigung der Phasenlinie $d(\\Delta b)/db = (i-g) > 0$ wenn $i > g$. C: Richtig — positive Steigung der Phasenlinie impliziert Instabilität des Gleichgewichts. E ist falsch: Die Phasenlinie ist linear in $b$ mit Steigung $(i-g) \\neq 0$, also keine horizontale Gerade. Hinweis: Originalschlüssel (OCR) enthielt fälschlicherweise E.",
           "topics": [
             "Staatsschulden",
             "Dynamik",
@@ -1588,11 +1587,9 @@
             }
           ],
           "correct": [
-            "B",
-            "C",
-            "D"
+            "F"
           ],
-          "explanation": "$Q_t = \\frac{100 + 4}{1 + 0.05 + 0.02} = \\frac{104}{1.07} \\approx 97.20$ CHF. B) 97.20 ≠ 98, daher falsch. C) 97.20 < 97? Falsch. D) 97.20 < 96? Falsch. Gemäss Schlüssel [B,C,D] — die Lösungsdatei bestätigt: 'Der Barwert beträgt ca. 97.20 CHF' und F) Richtig. Hinweis: Schlüssel aus OCR lautet [B,C,D]; die rechnerisch korrekte Antwort wäre F (keine der genannten, da 97.20 weder = 98 noch < 97 noch < 96). Bitte manuell prüfen.",
+          "explanation": "$Q_t = \\frac{100 + 4}{1 + 0.05 + 0.02} = \\frac{104}{1.07} \\approx 97.20$ CHF. A) 97.20 > 98? Falsch. B) 97.20 = 98? Falsch. C) 97.20 < 97? Falsch. D) 97.20 < 96? Falsch. E) 97.20 = 99? Falsch. Da keine der Aussagen A–E zutrifft, ist F korrekt. Hinweis: Originalschlüssel (OCR) enthielt fälschlicherweise [B,C,D].",
           "topics": [
             "Finanzmärkte",
             "Aktien",
@@ -1765,9 +1762,10 @@
           "correct": [
             "A",
             "B",
-            "C"
+            "C",
+            "D"
           ],
-          "explanation": "Der Barwert: $V_t = z_t + \\frac{z^e_{t+1}}{1+i_t} + \\frac{z^e_{t+2}}{(1+i_t)(1+i^e_{t+1})}$. A: Richtig — steigt $i_t$, werden beide Brüche kleiner. B: Richtig — steigt $i^e_{t+1}$, wird der zweite Bruch kleiner. C: Richtig — steigt $z^e_{t+2}$, steigt der zweite Bruch. D: Richtig ökonomisch, aber laut Schlüssel nicht im Ergebnis. E: $\\partial V_t/\\partial z_t = 1$ (unabhängig von $i_t$), daher Kreuzableitung = 0, nicht negativ. E ist falsch.",
+          "explanation": "Der Barwert: $V_t = z_t + \\frac{z^e_{t+1}}{1+i_t} + \\frac{z^e_{t+2}}{(1+i_t)(1+i^e_{t+1})}$. A: Richtig — steigt $i_t$, werden beide Brüche kleiner. B: Richtig — steigt $i^e_{t+1}$, wird der zweite Bruch kleiner. C: Richtig — steigt $z^e_{t+2}$, steigt der zweite Bruch. D: Richtig — steigt $z^e_{t+1}$, steigt der erste Bruch, also $\\partial V_t / \\partial z^e_{t+1} > 0$. E: $\\partial V_t/\\partial z_t = 1$ (unabhängig von $i_t$), daher Kreuzableitung = 0, nicht negativ — E ist falsch.",
           "topics": [
             "Finanzmärkte",
             "Barwert",
@@ -1815,11 +1813,11 @@
             }
           ],
           "correct": [
-            "B",
-            "C",
-            "D"
+            "A",
+            "D",
+            "E"
           ],
-          "explanation": "$V_t = 100 + \\frac{10}{1.05} + \\frac{1}{1.05 \\times 1.02} = 100 + 9.524 + 0.934 \\approx 110.46$ CHF. A: 110.46 > 110, richtig. B: ≠ 110, falsch. C: 110.46 < 110? Falsch. D: 110.46 > 109, richtig. E: 110.46 < 111, richtig. Gemäss Schlüssel [B,C,D] — rechnerisch wären A, D, E korrekt. Hinweis: OCR-Schlüssel weicht vom Rechenergebnis ab. Bitte manuell prüfen.",
+          "explanation": "$V_t = 100 + \\frac{10}{1.05} + \\frac{1}{1.05 \\times 1.02} = 100 + 9.524 + 0.934 \\approx 110.46$ CHF. A: $110.46 > 110$ → richtig. B: $110.46 \\neq 110$ → falsch. C: $110.46 < 110$? → falsch. D: $110.46 > 109$ → richtig. E: $110.46 < 111$ → richtig. Hinweis: Originalschlüssel (OCR) enthielt fälschlicherweise [B,C,D].",
           "topics": [
             "Finanzmärkte",
             "Barwert",
@@ -2041,10 +2039,10 @@
             }
           ],
           "correct": [
-            "C",
-            "E"
+            "A",
+            "C"
           ],
-          "explanation": "Aus $\\sigma = \\mu \\cdot L(i)$: $0.04 = 0.08 \\cdot L(i)$, daher $L(i) = 0.04/0.08 = 0.5 = 50\\%$. C: Richtig ($L(i) = M/PY = 50\\%$). A: Auch 50%, aber laut Schlüssel nicht die korrekte Formulierung. E: 200%? Nicht konsistent — laut Schlüssel [C,E]. Mögliche Interpretation: E könnte sich auf eine andere Grösse beziehen. Bitte manuell prüfen.",
+          "explanation": "Aus $\\sigma = \\mu \\cdot L(i)$: $0.04 = 0.08 \\cdot L(i)$, daher $L(i) = M/PY = 0.04/0.08 = 0.5 = 50\\%$. A und C sind beide korrekt (beide drücken dasselbe Ergebnis aus). B: 32% — falsch. D: Inflationsrate 8% wäre nur korrekt, wenn reales Wachstum = 0, was nicht gegeben. E: 200% — falsch ($0.5 \\neq 2.0$). Hinweis: Originalschlüssel (OCR) enthielt fälschlicherweise [C,E].",
           "topics": [
             "Seignorage",
             "Geldnachfrage",
@@ -2092,10 +2090,9 @@
             }
           ],
           "correct": [
-            "D",
-            "E"
+            "D"
           ],
-          "explanation": "Mit $u(C,G) = G + \\ln(C)$: D: Richtig — die Euler-Gleichung für $C$ leitet sich aus $\\ln(C)$ ab: $u'_C(C_1) = \\beta(1+r)u'_C(C_2)$, also $1/C_1 = \\beta(1+r)/C_2$. E: Gemäss Schlüssel korrekt — möglicherweise bezieht sich E auf eine Bedingung im spezifischen Modellkontext (z.B. bei Budgetbeschränkung $C + G = Y$ und $G$ exogen hoch → $C$ klein). A, B, C: Ökonomisch plausibel, aber laut Schlüssel nicht in der Auswahl.",
+          "explanation": "Mit $u(C,G) = G + \\ln(C)$: D: Richtig — die Euler-Gleichung für $C$ leitet sich aus $\\ln(C)$ ab: $u'_C(C_1) = \\beta(1+r)u'_C(C_2)$, also $1/C_1 = \\beta(1+r)/C_2$. E ist falsch: Da $\\ln(C) \\to -\\infty$ für $C \\to 0$, ist der Grenznutzen $1/C > 0$ für alle $C > 0$. Es ist nie optimal, $C = 0$ zu wählen — unabhängig von der Höhe der Staatsausgaben. Hinweis: Originalschlüssel (OCR) enthielt fälschlicherweise [D,E].",
           "topics": [
             "Konsum",
             "Staatsausgaben",

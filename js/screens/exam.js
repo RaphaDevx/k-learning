@@ -1229,18 +1229,30 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
           isCorrect = correctCount === gaps.length;
         } else {
           const correct = q.correct || [];
+          // hasRealChoices distinguishes "none are correct" from placeholder questions (choices = "—")
+          const hasRealChoices = (q.choices || []).some(c => c.text && c.text.trim() !== '—' && c.text.trim() !== '-' && c.text.trim() !== '');
           if (!userAnswer || (Array.isArray(userAnswer) && userAnswer.length === 0)) {
-            earned = rules.blank || 0;
-          } else {
-            const userArr = Array.isArray(userAnswer) ? userAnswer : [userAnswer];
-            const isFullyCorrect = correct.length === userArr.length
-              && correct.every(k => userArr.includes(k));
-            if (isFullyCorrect) {
-              earned = maxPts; // full points for correct
+            if (correct.length === 0 && hasRealChoices) {
+              earned = maxPts; // "none are correct" question — blank is the right answer
               isCorrect = true;
             } else {
-              earned = 0; // standard: wrong = 0
+              earned = rules.blank || 0;
+            }
+          } else {
+            const userArr = Array.isArray(userAnswer) ? userAnswer : [userAnswer];
+            if (correct.length === 0) {
+              earned = 0; // should have selected nothing
               isCorrect = false;
+            } else {
+              const isFullyCorrect = correct.length === userArr.length
+                && correct.every(k => userArr.includes(k));
+              if (isFullyCorrect) {
+                earned = maxPts; // full points for correct
+                isCorrect = true;
+              } else {
+                earned = 0; // standard: wrong = 0
+                isCorrect = false;
+              }
             }
           }
         }

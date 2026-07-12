@@ -1089,10 +1089,11 @@
           ],
           "correct": [
             "A",
-            "B"
+            "B",
+            "D"
           ],
           "modelAnswer": null,
-          "explanation": "A und B sind mathematisch äquivalente Formen der Staatsbudgetbeschränkung mit diskontierten Werten. C ignoriert die Diskontierung und ist bei $r>0$ falsch. D ist prinzipiell korrekt formuliert, aber E ignoriert Diskontierung und Steuern und ist falsch.",
+          "explanation": "A und B sind mathematisch äquivalente Formen der Staatsbudgetbeschränkung mit diskontierten Werten. C ignoriert die Diskontierung und ist bei $r>0$ falsch. D ist korrekt: $C_1 + C_2/(1+r) = Y_1 + Y_2/(1+r) - T_1 - T_2/(1+r)$ ist die intertemporale Budgetbeschränkung des Haushalts mit Steuern. E ignoriert Diskontierung und Steuern und ist falsch.",
           "topics": [
             "Staatsausgaben",
             "Intertemporale Optimierung",

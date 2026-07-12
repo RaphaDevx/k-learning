@@ -157,7 +157,7 @@
           "choices": [
             {
               "key": "A",
-              "text": "Der Barwert $V_t$ ist grösser als 100 CHF."
+              "text": "Der Barwert $V_t$ ist grösser als 99 CHF."
             },
             {
               "key": "B",
@@ -173,14 +173,15 @@
             },
             {
               "key": "E",
-              "text": "Der Barwert $V_t$ ist kleiner als 97 CHF."
+              "text": "Der Barwert $V_t$ ist grösser als 97 CHF."
             }
           ],
           "correct": [
-            "C"
+            "A",
+            "E"
           ],
           "modelAnswer": null,
-          "explanation": "$V_t = 1 + \\frac{10}{1.10} + \\frac{100}{1.10 \\times 1.02} \\approx 1 + 9.09 + 89.12 \\approx 99.21$ CHF. Damit ist $V_t < 99$ CHF (Option C). Lösungsquelle: ecoreps-Video OCR.",
+          "explanation": "$V_t = 1 + \\frac{10}{1.10} + \\frac{100}{1.10 \\times 1.02} \\approx 1 + 9.09 + 89.12 \\approx 99.21$ CHF. Da $99.21 > 99$ ist A korrekt. Da $99.21 > 97$ ist E korrekt. B ist falsch ($99.21 \\neq 100$), C ist falsch ($99.21 > 99$), D ist falsch ($99.21 > 98$). Hinweis: Originalschlüssel (OCR) enthielt C, was rechnerisch falsch ist.",
           "topics": [
             "Finanzmärkte",
             "Barwert",

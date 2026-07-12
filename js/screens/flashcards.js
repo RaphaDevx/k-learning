@@ -430,7 +430,8 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
   }
 
   function _scaleKatexDisplays(el) {
-    requestAnimationFrame(() => {
+    // Double-rAF: first frame commits layout after DOM write; second frame measures with stable dims.
+    requestAnimationFrame(() => requestAnimationFrame(() => {
       el.querySelectorAll('.katex-display').forEach(d => {
         d.style.transform    = '';
         d.style.marginBottom = '';
@@ -438,13 +439,14 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
         if (!containerW) return;
         const formulaW = d.scrollWidth;
         if (formulaW <= containerW) return;
-        const scale   = Math.max(0.52, containerW / formulaW);
-        const origH   = d.offsetHeight;
+        const scale  = Math.max(0.48, containerW / formulaW);
+        const origH  = d.offsetHeight;
         d.style.transform    = 'scale(' + scale + ')';
-        d.style.transformOrigin = 'center top';
-        d.style.marginBottom = ((scale - 1) * origH) + 'px';
+        d.style.transformOrigin = 'left top';
+        // With left-top origin, scale shrinks downward: remove phantom space = (1-scale)*origH
+        d.style.marginBottom = (-(1 - scale) * origH) + 'px';
       });
-    });
+    }));
   }
 
   function showCard(index) {
@@ -509,6 +511,11 @@ Sei prägnant, direkt und motivierend. Antworte ausschließlich auf Deutsch.`;
     if (!inner) return;
     inner.classList.toggle('flipped', isFlipped);
     playSound('flip');
+    // Re-run scaling after flip so formulas are measured with the back side's visible dimensions.
+    if (isFlipped) {
+      const backTxt = _currEl()?.querySelector('.card-back .fc-back-text');
+      if (backTxt) _scaleKatexDisplays(backTxt);
+    }
   }
 
   // ══════════════════════════════════════════════════════════
