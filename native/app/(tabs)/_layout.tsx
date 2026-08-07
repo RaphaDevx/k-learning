@@ -46,6 +46,13 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="exam"
+        options={{
+          title: 'Prüfungen',
+          tabBarIcon: ({ focused }) => <TabIcon emoji="📝" label="Prüfungen" focused={focused} />,
+        }}
+      />
+      <Tabs.Screen
         name="profile"
         options={{
           title: 'Profil',

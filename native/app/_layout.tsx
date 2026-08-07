@@ -29,7 +29,7 @@ export default function RootLayout() {
         const { data, error } = await supabase.auth.exchangeCodeForSession(
           url.split('?')[1] ?? ''
         );
-        if (!error && data.session) router.replace('/(tabs)/');
+        if (!error && data.session) router.replace('/(tabs)/' as any);
       }
     };
 
@@ -41,9 +41,9 @@ export default function RootLayout() {
   useEffect(() => {
     if (!ready) return;
     if (session) {
-      router.replace('/(tabs)/');
+      router.replace('/(tabs)/' as any);
     } else {
-      router.replace('/(auth)/login');
+      router.replace('/(auth)/login' as any);
     }
   }, [ready, session]);
 
@@ -53,6 +53,7 @@ export default function RootLayout() {
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(auth)" />
         <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="exam" options={{ presentation: 'fullScreenModal' }} />
       </Stack>
     </>
   );

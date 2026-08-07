@@ -9,13 +9,17 @@
     "userInterfaceStyle": "dark",
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.raphael.klearning"
+      "bundleIdentifier": "com.raphael.klearning",
+      "buildNumber": "1",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "package": "com.raphael.klearning",
       "adaptiveIcon": {
         "backgroundColor": "#111827",
-        "foregroundImage": "./assets/adaptive-icon.png"
+        "foregroundImage": "./assets/android-icon-foreground.png"
       },
       "predictiveBackGestureEnabled": false
     },
@@ -28,6 +32,13 @@
     ],
     "experiments": {
       "typedRoutes": false
-    }
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "2cf9754e-d26d-4455-a0af-b2af77a4a068"
+      }
+    },
+    "owner": "raphadevx"
   }
 }

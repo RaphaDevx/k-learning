@@ -75,12 +75,17 @@ window.CoursesDB = (function () {
     let rows = null;
 
     if (sb) {
+      const user = await _getUser();
       const { data, error } = await sb
         .from('k_courses')
         .select('*')
         .eq('active', true)
         .order('sort_order');
-      if (!error && data && data.length > 0) rows = data;
+      if (!error && data && data.length > 0) {
+        // Filter: show global courses (no user: prefix) + own user courses
+        const myPrefix = user ? `user:${user.id}` : null;
+        rows = data.filter(r => !r.data_dir?.startsWith('user:') || r.data_dir === myPrefix);
+      }
     }
 
     if (!rows) {
@@ -138,6 +143,46 @@ window.CoursesDB = (function () {
     };
   }
 
+  // ── Public: create a new personal course via Pages Function ─────────────
+  async function createCourse({ label, icon, color }) {
+    const { data: { session } } = await window.supabaseClient.auth.getSession();
+    if (!session) throw new Error('Nicht eingeloggt');
+
+    const resp = await fetch('/api/create-course', {
+      method:  'POST',
+      headers: {
+        'Authorization': `Bearer ${session.access_token}`,
+        'Content-Type':  'application/json',
+      },
+      body: JSON.stringify({ label, icon, color }),
+    });
+
+    const result = await resp.json();
+    if (!resp.ok) throw new Error(result.error || 'Fehler beim Erstellen');
+
+    _catalog  = null;
+    _enrolled = null;
+    return _mergeRow(result.course);
+  }
+
+  // ── Public: delete a personal course via Pages Function ──────────────────
+  async function deleteCourse(courseKey) {
+    const { data: { session } } = await window.supabaseClient.auth.getSession();
+    if (!session) throw new Error('Nicht eingeloggt');
+
+    const resp = await fetch(`/api/create-course?key=${encodeURIComponent(courseKey)}`, {
+      method:  'DELETE',
+      headers: { 'Authorization': `Bearer ${session.access_token}` },
+    });
+
+    if (!resp.ok) {
+      const r = await resp.json();
+      throw new Error(r.error || 'Löschen fehlgeschlagen');
+    }
+    _catalog  = null;
+    _enrolled = null;
+  }
+
   async function _getUser() {
     try {
       if (window.Auth && Auth.getUser) return await Auth.getUser();
@@ -146,5 +191,5 @@ window.CoursesDB = (function () {
     } catch { return null; }
   }
 
-  return { getAvailableCourses, getEnrolledKeys, saveEnrollment, reset };
+  return { getAvailableCourses, getEnrolledKeys, saveEnrollment, createCourse, deleteCourse, reset };
 })();

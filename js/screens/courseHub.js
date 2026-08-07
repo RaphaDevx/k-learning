@@ -294,47 +294,120 @@ window.CourseHubScreen = (function () {
   async function _renderSummaries(container) {
     const courseKey = AppState.get('activeCourse');
 
+    // Upload zone header
+    const uploadZone = `
+      <div class="px-4 pt-4 pb-2">
+        <label id="ch-upload-label"
+          class="flex items-center gap-3 rounded-2xl px-4 py-3 cursor-pointer transition"
+          style="background:var(--card);border:1.5px dashed var(--border)">
+          <span class="text-2xl">📤</span>
+          <div class="flex-1">
+            <div class="text-sm font-semibold" style="color:var(--txt)">Unterlagen hochladen</div>
+            <div class="text-xs" style="color:var(--txt-2)">PDF · DOCX · PPTX — max. 50 MB</div>
+          </div>
+          <input type="file" id="ch-upload-input" accept=".pdf,.docx,.pptx,.doc,.ppt" class="hidden">
+        </label>
+        <div id="ch-upload-status" class="hidden mt-2 px-4 py-2.5 rounded-xl text-sm"></div>
+      </div>`;
+
     // Try to load from Supabase documents table
     let docs = [];
     try {
       if (window._supabase) {
         const { data } = await window._supabase
           .from('documents')
-          .select('id, title, description, file_url, created_at')
+          .select('id, title, description, file_url, created_at, doc_type')
           .eq('course', courseKey)
           .order('created_at', { ascending: false });
         if (data) docs = data;
       }
     } catch (_) {}
 
-    if (docs.length === 0) {
-      container.innerHTML = `
-        <div class="p-4 text-center py-16">
-          <div class="text-4xl mb-3">📄</div>
-          <p class="text-gray-400 text-sm">Noch keine Skripte für diesen Kurs.</p>
-          <p class="text-gray-600 text-xs mt-2">Dokumente können über das Admin-Panel hochgeladen werden.</p>
-        </div>`;
+    const docTypeIcon = { exam: '📝', lecture: '📖', exercise: '✏️', solution: '✅', other: '📄' };
+
+    const docList = docs.length === 0
+      ? `<div class="text-center py-10">
+           <div class="text-4xl mb-2">📂</div>
+           <p class="text-sm" style="color:var(--txt-3)">Noch keine Unterlagen hochgeladen.</p>
+         </div>`
+      : `<div class="px-4 space-y-2 pb-6">` + docs.map(doc => `
+          <div class="rounded-2xl p-4 flex items-start gap-3" style="background:var(--card);border:1px solid var(--border)">
+            <div class="text-2xl flex-shrink-0">${docTypeIcon[doc.doc_type] || '📄'}</div>
+            <div class="flex-1 min-w-0">
+              <div class="font-semibold text-sm leading-snug" style="color:var(--txt)">${doc.title || doc.doc_type || 'Dokument'}</div>
+              ${doc.description ? `<div class="text-xs mt-0.5 line-clamp-2" style="color:var(--txt-2)">${doc.description}</div>` : ''}
+            </div>
+            ${doc.file_url ? `
+            <a href="${doc.file_url}" target="_blank" rel="noopener"
+              class="flex-shrink-0 rounded-xl px-3 py-1.5 text-xs font-bold transition"
+              style="background:var(--card-raised);border:1px solid var(--border);color:var(--txt)">
+              Öffnen
+            </a>` : ''}
+          </div>`).join('') + `</div>`;
+
+    container.innerHTML = uploadZone + docList;
+
+    // Wire up upload handler
+    document.getElementById('ch-upload-input')?.addEventListener('change', (e) => _handleUpload(e, courseKey));
+  }
+
+  async function _handleUpload(e, courseKey) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const status = document.getElementById('ch-upload-status');
+    status.classList.remove('hidden');
+    status.className = 'mt-2 px-4 py-2.5 rounded-xl text-sm bg-gray-700 text-gray-300';
+    status.textContent = `Lade hoch: ${file.name} …`;
+
+    const sb = window._supabase || window.supabaseClient;
+    if (!sb) { status.textContent = 'Fehler: Supabase nicht initialisiert.'; return; }
+
+    const { data: { user } } = await sb.auth.getUser();
+    if (!user) { status.textContent = 'Fehler: Nicht eingeloggt.'; return; }
+
+    const path = `${user.id}/${Date.now()}_${file.name}`;
+
+    const { error: uploadError } = await sb.storage.from('documents').upload(path, file);
+    if (uploadError) {
+      status.className = 'mt-2 px-4 py-2.5 rounded-xl text-sm bg-red-900 text-red-300';
+      status.textContent = `Upload-Fehler: ${uploadError.message}`;
+      e.target.value = '';
       return;
     }
 
-    let html = `<div class="p-4 space-y-3">`;
-    docs.forEach(doc => {
-      html += `
-        <div class="bg-gray-800 rounded-2xl p-4 flex items-start gap-3">
-          <div class="text-3xl flex-shrink-0">📄</div>
-          <div class="flex-1 min-w-0">
-            <div class="font-bold text-sm">${doc.title || 'Dokument'}</div>
-            ${doc.description ? `<div class="text-xs text-gray-400 mt-0.5 line-clamp-2">${doc.description}</div>` : ''}
-          </div>
-          ${doc.file_url ? `
-          <a href="${doc.file_url}" target="_blank" rel="noopener"
-            class="flex-shrink-0 bg-gray-700 hover:bg-gray-600 rounded-xl px-3 py-1.5 text-xs font-bold transition">
-            Öffnen
-          </a>` : ''}
-        </div>`;
-    });
-    html += `</div>`;
-    container.innerHTML = html;
+    status.textContent = '✓ Hochgeladen — OCR läuft…';
+
+    try {
+      const { data: { session } } = await sb.auth.getSession();
+      const resp = await fetch(
+        'https://ifmwcgwfvunjbnfwwbtr.supabase.co/functions/v1/queue-document',
+        {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${session.access_token}`,
+            'Content-Type':  'application/json',
+          },
+          body: JSON.stringify({
+            file_path:     path,
+            original_name: file.name,
+            file_size:     file.size,
+            mime_type:     file.type || 'application/pdf',
+            course:        courseKey,
+          }),
+        }
+      );
+      const result = await resp.json();
+      if (!resp.ok) throw new Error(result.error || 'Queue-Fehler');
+
+      status.className = 'mt-2 px-4 py-2.5 rounded-xl text-sm bg-green-900 text-green-300';
+      status.textContent = `✓ ${file.name} wird verarbeitet — erscheint hier sobald OCR fertig ist.`;
+    } catch (qErr) {
+      status.className = 'mt-2 px-4 py-2.5 rounded-xl text-sm bg-yellow-900 text-yellow-300';
+      status.textContent = `✓ Hochgeladen, Queue-Fehler: ${qErr.message}`;
+    }
+
+    e.target.value = '';
   }
 
   // ── Tab 5: Lernkarten ─────────────────────────────────────────────────────
