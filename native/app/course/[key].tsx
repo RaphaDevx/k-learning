@@ -86,10 +86,12 @@ export default function CourseLernenScreen() {
     try {
       const now = new Date();
 
-      const [courseRes, cardsRes, videosRes, examsRes, userRes] = await Promise.all([
+      const { data: { user } } = await supabase.auth.getUser();
+
+      const [courseRes, cardsRes, videosRes, examsRes, progressRes] = await Promise.all([
         supabase.from('k_courses').select('key,label,icon,hex,exam_date').eq('key', key).single(),
         supabase.from('deck_cards')
-          .select('id,topic,next_review_at')
+          .select('id,topic')
           .eq('course', key)
           .is('deleted_at', null),
         supabase.from('videos')
@@ -102,7 +104,9 @@ export default function CourseLernenScreen() {
           .eq('course', key)
           .eq('active', true)
           .order('sort_order'),
-        supabase.auth.getUser(),
+        user ? supabase.from('user_card_progress')
+          .select('card_id,next_review_at')
+          .eq('user_id', user.id) : Promise.resolve({ data: [] }),
       ]);
 
       if (courseRes.data) setCourse(courseRes.data);
@@ -110,12 +114,14 @@ export default function CourseLernenScreen() {
       const cards = cardsRes.data ?? [];
       setTotalCards(cards.length);
 
+      const progressMap = new Map((progressRes.data ?? []).map(p => [p.card_id, p.next_review_at]));
       const topicMap: Record<string, TopicStats> = {};
       let due = 0;
       for (const c of cards) {
         if (!topicMap[c.topic]) topicMap[c.topic] = { topic: c.topic, total: 0, due: 0 };
         topicMap[c.topic].total++;
-        const isDue = !c.next_review_at || new Date(c.next_review_at) <= now;
+        const nr = progressMap.get(c.id);
+        const isDue = !nr || new Date(nr) <= now;
         if (isDue) { topicMap[c.topic].due++; due++; }
       }
       setTopics(Object.values(topicMap).sort((a, b) => b.due - a.due));
@@ -124,7 +130,6 @@ export default function CourseLernenScreen() {
       setVideos(videosRes.data ?? []);
       setExams(examsRes.data ?? []);
 
-      const user = userRes.data.user;
       if (user && examsRes.data?.length) {
         const { data: resultsData } = await supabase
           .from('exam_results')
