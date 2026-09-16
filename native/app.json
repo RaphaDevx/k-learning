@@ -2,15 +2,16 @@
   "expo": {
     "name": "K-Learning",
     "slug": "k-learning",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "scheme": "k-learning",
-    "userInterfaceStyle": "dark",
+    "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": false,
+      "usesAppleSignIn": true,
       "bundleIdentifier": "com.raphael.klearning",
-      "buildNumber": "2",
+      "buildNumber": "9",
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       }
@@ -29,7 +30,14 @@
     "plugins": [
       "expo-router",
       "expo-video",
-      "expo-apple-authentication"
+      "expo-apple-authentication",
+      "expo-sharing",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "K-Learning benötigt die Kamera um QR-Codes zu scannen."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": false
