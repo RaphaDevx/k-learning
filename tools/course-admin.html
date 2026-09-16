@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>K-Learning — Course Admin</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg:        #FBF9F5;
+      --surface:   #FFFFFF;
+      --surface2:  #F5F2EC;
+      --border:    #EFECE6;
+      --border2:   #E5E1DA;
+      --text:      #161618;
+      --text-sub:  #82807A;
+      --text-muted:#B8B4AC;
+      --accent:    #7A1C30;
+      --accent-lt: #9B2840;
+      --green:     #4A7A5A;
+      --red:       #B33A2D;
+      --blue:      #2B5FA3;
+    }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      font-size: 14px; min-height: 100vh;
+      display: grid; grid-template-columns: 260px 1fr; grid-template-rows: 56px 1fr;
+    }
+
+    /* Header */
+    header {
+      grid-column: 1 / -1;
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; padding: 0 20px; gap: 12px;
+      position: sticky; top: 0; z-index: 50;
+    }
+    header h1 { font-size: 15px; font-weight: 800; color: var(--accent); }
+    header span { color: var(--text-muted); font-size: 12px; margin-left: auto; }
+    .hdr-env {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 4px 10px; font-size: 12px; color: var(--text-sub); font-weight: 600;
+    }
+
+    /* Sidebar */
+    aside {
+      background: var(--surface); border-right: 1px solid var(--border);
+      padding: 16px 0; overflow-y: auto;
+    }
+    .sidebar-title {
+      padding: 0 16px 8px; color: var(--text-muted);
+      font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+    }
+    .course-btn {
+      display: flex; align-items: center; gap: 10px;
+      width: 100%; padding: 10px 16px;
+      background: none; border: none; cursor: pointer; text-align: left;
+      border-left: 3px solid transparent;
+    }
+    .course-btn:hover { background: var(--surface2); }
+    .course-btn.active { border-left-color: var(--accent); background: var(--accent)08; }
+    .course-emoji { font-size: 18px; flex-shrink: 0; }
+    .course-name { font-size: 13px; font-weight: 600; color: var(--text); }
+    .course-key { font-size: 11px; color: var(--text-muted); }
+
+    /* Main */
+    main {
+      padding: 24px; overflow-y: auto;
+    }
+    #placeholder {
+      display: flex; align-items: center; justify-content: center;
+      height: 60vh; flex-direction: column; gap: 12px;
+    }
+    #placeholder .ico { font-size: 48px; }
+    #placeholder p { color: var(--text-muted); font-size: 14px; }
+
+    /* Tabs within main */
+    .tab-bar {
+      display: flex; gap: 2px; margin-bottom: 20px;
+      background: var(--surface2); border-radius: 10px; padding: 4px;
+      border: 1px solid var(--border);
+    }
+    .tab-bar button {
+      flex: 1; padding: 8px 12px; border: none; background: none; cursor: pointer;
+      border-radius: 8px; font-size: 12px; font-weight: 700; color: var(--text-muted);
+    }
+    .tab-bar button.active { background: var(--surface); color: var(--text); box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+
+    /* Sections */
+    .section { margin-bottom: 24px; }
+    .section-title {
+      font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+      color: var(--text-muted); margin-bottom: 10px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 14px; margin-bottom: 8px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .card-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .card-info { flex: 1; }
+    .card-title { font-size: 14px; font-weight: 600; color: var(--text); }
+    .card-meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .card-badge {
+      font-size: 11px; font-weight: 700; border-radius: 6px;
+      padding: 3px 8px; background: var(--surface2); color: var(--text-sub);
+    }
+    .card-badge.ok { background: #4A7A5A18; color: var(--green); }
+    .card-badge.pending { background: #B33A2D18; color: var(--red); }
+
+    /* Stats grid */
+    .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px; }
+    .stat { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px; text-align: center; }
+    .stat-val { font-size: 24px; font-weight: 800; color: var(--accent); }
+    .stat-lbl { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 2px; }
+
+    /* Upload area */
+    .upload-zone {
+      border: 2px dashed var(--border2); border-radius: 12px;
+      padding: 24px; text-align: center; cursor: pointer;
+      background: var(--surface2); transition: border-color .2s;
+    }
+    .upload-zone:hover, .upload-zone.drag { border-color: var(--accent); }
+    .upload-zone .icon { font-size: 32px; margin-bottom: 8px; }
+    .upload-zone p { color: var(--text-sub); font-size: 13px; }
+    .upload-zone strong { color: var(--accent); }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 9px 16px; border-radius: 8px; font-size: 13px; font-weight: 700;
+      border: none; cursor: pointer; transition: opacity .15s;
+    }
+    .btn:hover { opacity: .85; }
+    .btn:disabled { opacity: .4; cursor: not-allowed; }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-secondary { background: var(--surface2); color: var(--text); border: 1px solid var(--border); }
+    .btn-danger { background: var(--red); color: #fff; }
+    .btn-row { display: flex; gap: 8px; margin-top: 12px; }
+
+    /* Topic row */
+    .topic-row {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 14px; margin-bottom: 6px;
+    }
+    .topic-name { flex: 1; font-size: 13px; font-weight: 600; }
+    .topic-count { font-size: 12px; color: var(--text-muted); }
+    .due-badge {
+      font-size: 11px; font-weight: 800; border-radius: 6px; padding: 2px 8px;
+      background: var(--red); color: #fff;
+    }
+
+    /* Exam row */
+    .exam-row {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 14px; margin-bottom: 6px;
+    }
+    .exam-info { flex: 1; }
+    .exam-title { font-size: 13px; font-weight: 600; }
+    .exam-meta { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .status-dot.ok { background: var(--green); }
+    .status-dot.missing { background: var(--text-muted); }
+
+    /* Input */
+    input[type="text"], input[type="number"], select {
+      background: var(--surface2); border: 1px solid var(--border);
+      color: var(--text); border-radius: 8px; padding: 8px 12px;
+      font-size: 13px; font-family: inherit; outline: none;
+    }
+    input:focus, select:focus { border-color: var(--accent); }
+    label { display: block; font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 4px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .form-full { margin-bottom: 12px; }
+
+    /* Loading */
+    .loading { text-align: center; padding: 40px; color: var(--text-muted); }
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: var(--text); color: #fff;
+      padding: 10px 16px; border-radius: 10px;
+      font-size: 13px; font-weight: 600; z-index: 100;
+      animation: fadein .2s ease;
+    }
+    .toast.ok { background: var(--green); }
+    .toast.err { background: var(--red); }
+    @keyframes fadein { from { opacity:0; transform:translateY(8px) } to { opacity:1; transform:none } }
+  </style>
+</head>
+<body>
+
+<header>
+  <span style="font-size:20px">📚</span>
+  <h1>K-Learning Course Admin</h1>
+  <span class="hdr-env" id="env-label">Verbinde…</span>
+  <span id="user-label">—</span>
+</header>
+
+<aside>
+  <div class="sidebar-title">Kurse</div>
+  <div id="course-list"><div class="loading">Lädt…</div></div>
+</aside>
+
+<main id="main-content">
+  <div id="placeholder">
+    <div class="ico">📂</div>
+    <p>Wähle einen Kurs aus der linken Leiste</p>
+  </div>
+  <div id="course-panel" style="display:none"></div>
+</main>
+
+<script>
+const SUPABASE_URL     = 'https://ifmwcgwfvunjbnfwwbtr.supabase.co';
+const SUPABASE_ANON    = 'sb_publishable__h4cSWEEpNBjY3XGPvh0_A_ipyoeEjO';
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON);
+
+let _activeCourse = null;
+let _activeTab = 'overview';
+
+// ── Init ──────────────────────────────────────────────────────────────────────
+
+async function init() {
+  const { data: { user } } = await sb.auth.getUser();
+  if (!user) {
+    document.getElementById('user-label').textContent = 'Nicht angemeldet';
+    document.getElementById('env-label').textContent = '⚠ Kein Auth';
+    document.getElementById('env-label').style.color = 'var(--red)';
+  } else {
+    document.getElementById('user-label').textContent = user.email || user.id.slice(0, 8);
+    document.getElementById('env-label').textContent = 'Lumin · Prod';
+  }
+  await loadCourseList();
+}
+
+async function loadCourseList() {
+  const { data } = await sb.from('k_courses')
+    .select('key,label,icon,hex,exam_date,is_secret')
+    .eq('active', true)
+    .order('sort_order');
+
+  const el = document.getElementById('course-list');
+  if (!data || !data.length) { el.innerHTML = '<div class="loading">Keine Kurse</div>'; return; }
+
+  el.innerHTML = data.map(c => `
+    <button class="course-btn" onclick="selectCourse('${c.key}')" id="cb-${c.key}">
+      <span class="course-emoji">${c.icon}</span>
+      <div>
+        <div class="course-name">${c.label}</div>
+        <div class="course-key">${c.key}</div>
+      </div>
+    </button>
+  `).join('');
+}
+
+async function selectCourse(key) {
+  _activeCourse = key;
+  _activeTab = 'overview';
+  document.querySelectorAll('.course-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('cb-' + key)?.classList.add('active');
+  document.getElementById('placeholder').style.display = 'none';
+  await renderPanel();
+}
+
+// ── Panel ─────────────────────────────────────────────────────────────────────
+
+async function renderPanel() {
+  const panel = document.getElementById('course-panel');
+  panel.style.display = 'block';
+  panel.innerHTML = `
+    <div class="tab-bar">
+      <button onclick="switchTab('overview')" id="t-overview" class="${_activeTab==='overview'?'active':''}">Übersicht</button>
+      <button onclick="switchTab('flashcards')" id="t-flashcards" class="${_activeTab==='flashcards'?'active':''}">Flashcards</button>
+      <button onclick="switchTab('exams')" id="t-exams" class="${_activeTab==='exams'?'active':''}">Prüfungen</button>
+      <button onclick="switchTab('upload')" id="t-upload" class="${_activeTab==='upload'?'active':''}">Upload</button>
+    </div>
+    <div id="tab-content"><div class="loading">Lädt…</div></div>
+  `;
+  await loadTab(_activeTab);
+}
+
+function switchTab(tab) {
+  _activeTab = tab;
+  document.querySelectorAll('.tab-bar button').forEach(b => b.classList.remove('active'));
+  document.getElementById('t-' + tab)?.classList.add('active');
+  loadTab(tab);
+}
+
+async function loadTab(tab) {
+  const el = document.getElementById('tab-content');
+  el.innerHTML = '<div class="loading">Lädt…</div>';
+  if (tab === 'overview')   await renderOverview(el);
+  if (tab === 'flashcards') await renderFlashcards(el);
+  if (tab === 'exams')      await renderExams(el);
+  if (tab === 'upload')     renderUpload(el);
+}
+
+// ── Overview ──────────────────────────────────────────────────────────────────
+
+async function renderOverview(el) {
+  const [courseRes, cardsRes, examsRes, resultsRes] = await Promise.all([
+    sb.from('k_courses').select('*').eq('key', _activeCourse).single(),
+    sb.from('deck_cards').select('id,topic,next_review_at').eq('course', _activeCourse).is('deleted_at', null),
+    sb.from('k_exams').select('id,title,storage_path,active').eq('course', _activeCourse),
+    sb.from('exam_results').select('exam_id').eq('exam_id', 'dummy').limit(0), // just warming
+  ]);
+
+  const course = courseRes.data;
+  const cards  = cardsRes.data ?? [];
+  const exams  = examsRes.data ?? [];
+  const now = new Date();
+  const dueCount = cards.filter(c => !c.next_review_at || new Date(c.next_review_at) <= now).length;
+  const topics = [...new Set(cards.map(c => c.topic))].length;
+  const examsReady = exams.filter(e => e.storage_path || e.id.startsWith('makro2')).length;
+
+  el.innerHTML = `
+    <div class="stats-grid">
+      <div class="stat"><div class="stat-val">${cards.length}</div><div class="stat-lbl">Flashcards</div></div>
+      <div class="stat"><div class="stat-val">${dueCount}</div><div class="stat-lbl">Fällig</div></div>
+      <div class="stat"><div class="stat-val">${topics}</div><div class="stat-lbl">Themen</div></div>
+      <div class="stat"><div class="stat-val">${examsReady}/${exams.length}</div><div class="stat-lbl">Prüfungen</div></div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">Kurs-Metadaten</div>
+      <div class="card">
+        <span style="font-size:28px">${course?.icon ?? '📚'}</span>
+        <div class="card-info">
+          <div class="card-title">${course?.label ?? _activeCourse}</div>
+          <div class="card-meta">
+            Key: ${_activeCourse} ·
+            ${course?.hex ? `Farbe: ${course.hex}` : ''} ·
+            ${course?.exam_date ? `Prüfung: ${course.exam_date}` : 'Kein Prüfungsdatum'}
+            ${course?.is_secret ? ' · 🔒 Privat' : ''}
+          </div>
+        </div>
+        <button class="btn btn-secondary" onclick="switchTab('upload')">Inhalte hochladen</button>
+      </div>
+    </div>
+  `;
+}
+
+// ── Flashcards ────────────────────────────────────────────────────────────────
+
+async function renderFlashcards(el) {
+  const { data } = await sb.from('deck_cards')
+    .select('id,topic,next_review_at')
+    .eq('course', _activeCourse)
+    .is('deleted_at', null)
+    .order('topic');
+
+  if (!data) { el.innerHTML = '<div class="loading">Fehler beim Laden</div>'; return; }
+
+  const now = new Date();
+  const topicMap = {};
+  for (const c of data) {
+    if (!topicMap[c.topic]) topicMap[c.topic] = { total: 0, due: 0 };
+    topicMap[c.topic].total++;
+    if (!c.next_review_at || new Date(c.next_review_at) <= now) topicMap[c.topic].due++;
+  }
+
+  const topicRows = Object.entries(topicMap)
+    .sort((a, b) => b[1].due - a[1].due)
+    .map(([topic, s]) => `
+      <div class="topic-row">
+        <div class="topic-name">${topic}</div>
+        <div class="topic-count">${s.total} Karten</div>
+        ${s.due > 0 ? `<span class="due-badge">${s.due} fällig</span>` : '<span style="color:var(--green);font-size:14px">✓</span>'}
+      </div>
+    `).join('');
+
+  el.innerHTML = `
+    <div class="section">
+      <div class="section-title">${data.length} Karten in ${Object.keys(topicMap).length} Themen</div>
+      ${topicRows || '<div class="loading">Noch keine Karten</div>'}
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="switchTab('upload')">Karten importieren</button>
+    </div>
+  `;
+}
+
+// ── Exams ─────────────────────────────────────────────────────────────────────
+
+async function renderExams(el) {
+  const { data } = await sb.from('k_exams')
+    .select('*')
+    .eq('course', _activeCourse)
+    .order('sort_order');
+
+  const examRows = (data ?? []).map(exam => {
+    const hasData = !!exam.storage_path || exam.id.startsWith('makro2');
+    return `
+      <div class="exam-row">
+        <div class="status-dot ${hasData ? 'ok' : 'missing'}"></div>
+        <div class="exam-info">
+          <div class="exam-title">${exam.title}</div>
+          <div class="exam-meta">
+            ${exam.duration_minutes} Min · ${exam.total_points} Pkt ·
+            ${hasData ? '✓ Daten verfügbar' : '⚠ Kein JSON hochgeladen'}
+            ${exam.storage_path ? ` · ${exam.storage_path}` : ''}
+          </div>
+        </div>
+        <button class="btn btn-secondary" onclick="uploadExamFor('${exam.id}')">JSON upload</button>
+      </div>
+    `;
+  }).join('');
+
+  el.innerHTML = `
+    <div class="section">
+      <div class="section-title">${(data ?? []).length} Prüfungen</div>
+      ${examRows || '<div class="loading">Keine Prüfungen in k_exams für diesen Kurs. Erst Migration ausführen.</div>'}
+    </div>
+    <div class="section">
+      <div class="section-title">Neue Prüfung anlegen</div>
+      <div class="form-grid">
+        <div><label>ID</label><input type="text" id="new-exam-id" placeholder="kurs-pk1" style="width:100%"></div>
+        <div><label>Titel</label><input type="text" id="new-exam-title" placeholder="Probeklausur 1" style="width:100%"></div>
+        <div><label>Dauer (Min)</label><input type="number" id="new-exam-dur" value="90" style="width:100%"></div>
+        <div><label>Punkte</label><input type="number" id="new-exam-pts" value="60" style="width:100%"></div>
+      </div>
+      <button class="btn btn-primary" onclick="createExam()">Prüfung anlegen</button>
+    </div>
+  `;
+}
+
+async function uploadExamFor(examId) {
+  const input = document.createElement('input');
+  input.type = 'file'; input.accept = '.json';
+  input.onchange = async () => {
+    const file = input.files[0];
+    if (!file) return;
+    const text = await file.text();
+    try {
+      JSON.parse(text); // validate
+    } catch {
+      toast('Ungültiges JSON', 'err'); return;
+    }
+    const path = `${examId}.json`;
+    const { error } = await sb.storage.from('exams').upload(path, new Blob([text], { type: 'application/json' }), { upsert: true });
+    if (error) { toast('Upload fehlgeschlagen: ' + error.message, 'err'); return; }
+
+    // Update storage_path in k_exams
+    await sb.from('k_exams').update({ storage_path: path }).eq('id', examId);
+    toast(`${examId}.json hochgeladen`, 'ok');
+    await loadTab('exams');
+  };
+  input.click();
+}
+
+async function createExam() {
+  const id    = document.getElementById('new-exam-id').value.trim();
+  const title = document.getElementById('new-exam-title').value.trim();
+  const dur   = parseInt(document.getElementById('new-exam-dur').value);
+  const pts   = parseInt(document.getElementById('new-exam-pts').value);
+  if (!id || !title) { toast('ID und Titel sind Pflicht', 'err'); return; }
+
+  const { data: course } = await sb.from('k_courses').select('hex').eq('key', _activeCourse).single();
+
+  const { error } = await sb.from('k_exams').insert({
+    id, title, course: _activeCourse,
+    course_color: course?.hex ?? '#6366f1',
+    duration_minutes: dur, total_points: pts,
+    sort_order: 99,
+  });
+  if (error) { toast('Fehler: ' + error.message, 'err'); return; }
+  toast('Prüfung angelegt', 'ok');
+  await loadTab('exams');
+}
+
+// ── Upload ────────────────────────────────────────────────────────────────────
+
+function renderUpload(el) {
+  el.innerHTML = `
+    <div class="section">
+      <div class="section-title">Flashcards importieren (JSON)</div>
+      <div class="upload-zone" id="fc-zone" ondragover="dragOver(event)" ondrop="dropFile(event,'flashcards')">
+        <div class="icon">🃏</div>
+        <p>JSON-Datei hier ablegen oder <strong>klicken zum Auswählen</strong></p>
+        <p style="margin-top:6px;font-size:11px;color:var(--text-muted)">
+          Format: <code>[{"front":"…","back":"…","course":"${_activeCourse}","topic":"Thema"}]</code>
+        </p>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="pickFile('flashcards')">Datei wählen</button>
+      </div>
+      <div id="fc-preview" style="margin-top:12px"></div>
+    </div>
+
+    <div class="section" style="margin-top:24px">
+      <div class="section-title">Prüfung hochladen (JSON)</div>
+      <div class="form-full">
+        <label>Prüfungs-ID (muss in k_exams existieren)</label>
+        <select id="exam-select" style="width:100%">
+          <option value="">— Prüfung wählen —</option>
+        </select>
+      </div>
+      <div class="upload-zone" id="ex-zone" ondragover="dragOver(event)" ondrop="dropFile(event,'exam')">
+        <div class="icon">📝</div>
+        <p>Prüfungs-JSON hier ablegen oder <strong>klicken zum Auswählen</strong></p>
+        <p style="margin-top:6px;font-size:11px;color:var(--text-muted)">
+          Format: ExamData JSON (id, title, course, sections, scoringRules)
+        </p>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="pickFile('exam')">Datei wählen</button>
+      </div>
+      <div id="ex-preview" style="margin-top:12px"></div>
+    </div>
+  `;
+
+  // Populate exam select
+  sb.from('k_exams').select('id,title').eq('course', _activeCourse).order('sort_order')
+    .then(({ data }) => {
+      const sel = document.getElementById('exam-select');
+      (data ?? []).forEach(e => {
+        const opt = document.createElement('option');
+        opt.value = e.id; opt.textContent = e.title;
+        sel.appendChild(opt);
+      });
+    });
+
+  document.getElementById('fc-zone').onclick  = () => pickFile('flashcards');
+  document.getElementById('ex-zone').onclick   = () => pickFile('exam');
+}
+
+function dragOver(e) { e.preventDefault(); e.currentTarget.classList.add('drag'); }
+
+function dropFile(e, type) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag');
+  const file = e.dataTransfer.files[0];
+  if (file) processFile(file, type);
+}
+
+function pickFile(type) {
+  const input = document.createElement('input');
+  input.type = 'file'; input.accept = '.json,.csv';
+  input.onchange = () => { if (input.files[0]) processFile(input.files[0], type); };
+  input.click();
+}
+
+async function processFile(file, type) {
+  const text = await file.text();
+  let parsed;
+  try { parsed = JSON.parse(text); } catch { toast('Ungültiges JSON', 'err'); return; }
+
+  if (type === 'flashcards') {
+    if (!Array.isArray(parsed)) { toast('Erwartet: JSON-Array', 'err'); return; }
+    const valid = parsed.filter(c => c.front && c.back);
+    document.getElementById('fc-preview').innerHTML = `
+      <div class="card">
+        <div class="card-info">
+          <div class="card-title">${valid.length} gültige Karten erkannt</div>
+          <div class="card-meta">Kurs: ${_activeCourse}</div>
+        </div>
+        <button class="btn btn-primary" onclick="importFlashcards(${JSON.stringify(valid).replace(/"/g,'&quot;')})">Importieren</button>
+      </div>
+    `;
+    // Store for use
+    window._pendingCards = valid;
+    document.querySelector('#fc-preview .btn').onclick = () => importFlashcards(valid);
+  }
+
+  if (type === 'exam') {
+    const examId = document.getElementById('exam-select')?.value;
+    if (!examId) { toast('Wähle zuerst eine Prüfung', 'err'); return; }
+    const preview = `${parsed.id || examId} · ${(parsed.sections || []).length} Abschnitte`;
+    document.getElementById('ex-preview').innerHTML = `
+      <div class="card">
+        <div class="card-info">
+          <div class="card-title">${preview}</div>
+          <div class="card-meta">${file.name}</div>
+        </div>
+        <button class="btn btn-primary" id="upload-exam-btn">Hochladen</button>
+      </div>
+    `;
+    document.getElementById('upload-exam-btn').onclick = () => uploadExamJson(examId, text);
+  }
+}
+
+async function importFlashcards(cards) {
+  const { data: { user } } = await sb.auth.getUser();
+  const rows = cards.map(c => ({
+    front: c.front, back: c.back,
+    course: c.course ?? _activeCourse,
+    topic: c.topic ?? 'Allgemein',
+    user_id: user?.id,
+  }));
+  const { error } = await sb.from('deck_cards').insert(rows);
+  if (error) { toast('Import fehlgeschlagen: ' + error.message, 'err'); return; }
+  toast(`${rows.length} Karten importiert`, 'ok');
+  document.getElementById('fc-preview').innerHTML = '';
+}
+
+async function uploadExamJson(examId, jsonText) {
+  const path = `${examId}.json`;
+  const { error } = await sb.storage.from('exams').upload(path, new Blob([jsonText], { type: 'application/json' }), { upsert: true });
+  if (error) { toast('Upload fehlgeschlagen: ' + error.message, 'err'); return; }
+  await sb.from('k_exams').update({ storage_path: path }).eq('id', examId);
+  toast(`${examId}.json hochgeladen`, 'ok');
+  document.getElementById('ex-preview').innerHTML = '';
+}
+
+// ── Toast ─────────────────────────────────────────────────────────────────────
+
+function toast(msg, type = '') {
+  const el = document.createElement('div');
+  el.className = 'toast ' + type;
+  el.textContent = msg;
+  document.body.appendChild(el);
+  setTimeout(() => el.remove(), 3000);
+}
+
+init();
+</script>
+</body>
+</html>

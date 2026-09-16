@@ -1,17 +1,9 @@
 import type { ExamMeta } from '../types/exam';
+import { supabase } from '../lib/supabase';
+import { isExamBundled } from './examLoader';
 
-export const COURSE_CONFIG: Record<string, { label: string; color: string }> = {
-  MakroII:    { label: 'Makro II',    color: '#059669' },
-  OM:         { label: 'Operations Management', color: '#7c3aed' },
-  Statistik:  { label: 'Statistik',   color: '#0284c7' },
-  ESF:        { label: 'ESF',         color: '#dc2626' },
-  BWL:        { label: 'BWL',         color: '#ea580c' },
-  EnglischC1: { label: 'Englisch C1', color: '#0891b2' },
-  IPR:        { label: 'Internat. Privatrecht', color: '#4f46e5' },
-};
-
-export const EXAM_REGISTRY: ExamMeta[] = [
-  // MakroII — bundled JSON available
+// Fallback registry — used when Supabase is unavailable
+const FALLBACK_REGISTRY: ExamMeta[] = [
   {
     id: 'makro2-probeklausur-fs26',
     title: 'Probeklausur FS26',
@@ -32,7 +24,6 @@ export const EXAM_REGISTRY: ExamMeta[] = [
     available: true,
     bundled: true,
   },
-  // OM
   {
     id: 'om-fs26',
     title: 'Probeprüfung FS 2026',
@@ -63,7 +54,6 @@ export const EXAM_REGISTRY: ExamMeta[] = [
     available: true,
     bundled: false,
   },
-  // Statistik
   {
     id: 'stat-pk1',
     title: 'Probeklausur 1',
@@ -84,7 +74,6 @@ export const EXAM_REGISTRY: ExamMeta[] = [
     available: true,
     bundled: false,
   },
-  // BWL
   {
     id: 'bwl-b-fs25',
     title: 'BWL B — FS 2025',
@@ -97,13 +86,54 @@ export const EXAM_REGISTRY: ExamMeta[] = [
   },
 ];
 
-export function getExamMeta(id: string): ExamMeta | undefined {
-  return EXAM_REGISTRY.find(e => e.id === id);
+// Course config used for section headers in the exam tab
+export const COURSE_CONFIG: Record<string, { label: string; color: string }> = {
+  MakroII:    { label: 'Makro II',              color: '#059669' },
+  OM:         { label: 'Operations Management', color: '#7c3aed' },
+  Statistik:  { label: 'Statistik',             color: '#0284c7' },
+  ESF:        { label: 'ESF',                   color: '#dc2626' },
+  BWL:        { label: 'BWL',                   color: '#ea580c' },
+  EnglischC1: { label: 'Englisch C1',           color: '#0891b2' },
+  IPR:        { label: 'Internat. Privatrecht',  color: '#4f46e5' },
+};
+
+// Load exam list from Supabase k_exams table.
+// Falls back to FALLBACK_REGISTRY when unavailable.
+export async function loadExamRegistry(): Promise<ExamMeta[]> {
+  try {
+    const { data, error } = await supabase
+      .from('k_exams')
+      .select('id,title,course,course_color,duration_minutes,total_points,storage_path,active')
+      .eq('active', true)
+      .order('sort_order');
+
+    if (error || !data || data.length === 0) return FALLBACK_REGISTRY;
+
+    return data.map(row => ({
+      id:              row.id,
+      title:           row.title,
+      course:          row.course,
+      courseColor:     row.course_color,
+      durationMinutes: row.duration_minutes,
+      totalPoints:     row.total_points,
+      available:       true,
+      bundled:         isExamBundled(row.id) || !row.storage_path,
+    }));
+  } catch {
+    return FALLBACK_REGISTRY;
+  }
 }
 
-export function getExamsByCategory(): Record<string, ExamMeta[]> {
+// Synchronous fallback for screens that can't await (use sparingly)
+export const EXAM_REGISTRY = FALLBACK_REGISTRY;
+
+export function getExamMeta(id: string): ExamMeta | undefined {
+  return FALLBACK_REGISTRY.find(e => e.id === id);
+}
+
+export function getExamsByCategory(registry = FALLBACK_REGISTRY): Record<string, ExamMeta[]> {
   const grouped: Record<string, ExamMeta[]> = {};
-  for (const exam of EXAM_REGISTRY) {
+  for (const exam of registry) {
     if (!grouped[exam.course]) grouped[exam.course] = [];
     grouped[exam.course].push(exam);
   }

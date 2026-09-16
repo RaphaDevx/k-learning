@@ -1,64 +1,84 @@
+import React, { createContext, useContext } from 'react';
 import { Tabs } from 'expo-router';
-import { Text } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { C } from '../../constants/theme';
 
-function TabIcon({ emoji, label, focused }: { emoji: string; label: string; focused: boolean }) {
-  return (
-    <Text style={{ fontSize: focused ? 22 : 20, opacity: focused ? 1 : 0.5 }}>{emoji}</Text>
-  );
-}
+type ScrollCtx = { onScroll: (dy: number) => void };
+const ScrollContext = createContext<ScrollCtx>({ onScroll: () => {} });
+export const useScrollContext = () => useContext(ScrollContext);
 
 export default function TabLayout() {
+  const insets = useSafeAreaInsets();
+  const bottomPad = insets.bottom > 0 ? insets.bottom : 8;
+
   return (
-    <Tabs
-      screenOptions={{
-        headerShown: false,
-        tabBarStyle: {
-          backgroundColor: '#111827',
-          borderTopColor: '#1f2937',
-          borderTopWidth: 1,
-          height: 60,
-          paddingBottom: 8,
-        },
-        tabBarActiveTintColor: '#fff',
-        tabBarInactiveTintColor: '#6b7280',
-        tabBarLabelStyle: { fontSize: 10, fontWeight: '600' },
-      }}
-    >
-      <Tabs.Screen
-        name="index"
-        options={{
+    <ScrollContext.Provider value={{ onScroll: () => {} }}>
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          tabBarActiveTintColor: C.accentLight,
+          tabBarInactiveTintColor: C.textMuted,
+          tabBarStyle: {
+            backgroundColor: 'rgba(251,249,245,0.97)',
+            borderTopWidth: 1,
+            borderTopColor: C.border,
+            height: 64,
+            paddingBottom: bottomPad,
+            paddingTop: 6,
+            position: 'absolute',
+            elevation: 0,
+          },
+          tabBarLabelStyle: {
+            fontSize: 10,
+            fontWeight: '600' as const,
+            letterSpacing: 0.2,
+          },
+        }}
+      >
+        {/* 1 — Home: Kursübersicht */}
+        <Tabs.Screen name="home" options={{
+          title: 'Home',
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'home' : 'home-outline'} size={22} color={color} />
+          ),
+        }} />
+
+        {/* 2 — Feed: Video-Reel */}
+        <Tabs.Screen name="index" options={{
           title: 'Feed',
-          tabBarIcon: ({ focused }) => <TabIcon emoji="⚡" label="Feed" focused={focused} />,
-        }}
-      />
-      <Tabs.Screen
-        name="dashboard"
-        options={{
-          title: 'Lernen',
-          tabBarIcon: ({ focused }) => <TabIcon emoji="📚" label="Lernen" focused={focused} />,
-        }}
-      />
-      <Tabs.Screen
-        name="flashcards"
-        options={{
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'flash' : 'flash-outline'} size={22} color={color} />
+          ),
+        }} />
+
+        {/* 3 — Karten: Flashcard-Decks */}
+        <Tabs.Screen name="flashcards" options={{
           title: 'Karten',
-          tabBarIcon: ({ focused }) => <TabIcon emoji="🃏" label="Karten" focused={focused} />,
-        }}
-      />
-      <Tabs.Screen
-        name="exam"
-        options={{
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'albums' : 'albums-outline'} size={22} color={color} />
+          ),
+        }} />
+
+        {/* 4 — Prüfungen */}
+        <Tabs.Screen name="exam" options={{
           title: 'Prüfungen',
-          tabBarIcon: ({ focused }) => <TabIcon emoji="📝" label="Prüfungen" focused={focused} />,
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'document-text' : 'document-text-outline'} size={22} color={color} />
+          ),
+        }} />
+
+        {/* 5 — Profil */}
+        <Tabs.Screen name="profile" options={{
           title: 'Profil',
-          tabBarIcon: ({ focused }) => <TabIcon emoji="👤" label="Profil" focused={focused} />,
-        }}
-      />
-    </Tabs>
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons name={focused ? 'person' : 'person-outline'} size={22} color={color} />
+          ),
+        }} />
+
+        {/* dashboard nicht mehr als Tab — bleibt für direkte Navigation */}
+        <Tabs.Screen name="dashboard" options={{ href: null }} />
+      </Tabs>
+    </ScrollContext.Provider>
   );
 }
