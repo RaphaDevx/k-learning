@@ -1,3 +1,7 @@
 # Supabase publishable key is intentionally public (designed for frontend use)
 js/auth.js:generic-api-key:4
 native/lib/supabase.ts:generic-api-key:6
+# K-Dev Phase 1: geprueft, keine Secrets (ASC Issuer-ID ist nicht geheim; gebuendelte Minified-JS-Bibliothek in generierten graphify-Artefakten)
+native/eas.json:generic-api-key:42
+graphify-out/app_map.html:generic-api-key:324
+graphify-out/graph_offline.html:generic-api-key:39

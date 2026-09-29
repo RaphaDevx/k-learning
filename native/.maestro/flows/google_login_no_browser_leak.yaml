@@ -1,0 +1,27 @@
+appId: com.raphael.klearning
+---
+# Test: Google Login öffnet das native ASWebAuthenticationSession-Sheet
+# und kein externer Safari/WebView bleibt zurück
+
+- launchApp:
+    clearState: true
+
+- assertVisible:
+    text: "Mit Google anmelden"
+
+# Google-Button tippen
+- tapOn:
+    text: "Mit Google anmelden"
+
+# Native OAuth-Sheet erscheint (nicht ein echter Safari-Tab)
+# Wir warten kurz und brechen dann ab — kein Crash = kein echter Browser geöffnet
+- waitForAnimationToEnd
+
+# Zurück-Button des System-Sheets
+- pressKey: Back
+
+# App ist noch da (kein Crash, kein Browser-Leak)
+- assertVisible:
+    text: "Mit Google anmelden"
+
+- takeScreenshot: after_google_cancel

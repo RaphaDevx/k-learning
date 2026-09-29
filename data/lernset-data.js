@@ -3856,5 +3856,226 @@ window.LERNSET_DATA = [
   ]
 }
 
+,
+
+// ════════════════════════════════════════════════════════════════════════════
+// FRANÇAIS B2 — HS26
+// ════════════════════════════════════════════════════════════════════════════
+
+// ── Lektion 02 · Passé composé ───────────────────────────────────────────
+
+{
+  id: "frz-pc-tf-01", type: "truefalse", course: "French",
+  topic: "Passé composé — Auxiliaire être vs. avoir", difficulty: 2,
+  tags: ["Passé composé", "Auxiliaire", "Verbes pronominaux"],
+  prompt: "Auxiliaire au passé composé — vrai ou faux?",
+  statements: [
+    { text: "'s'orienter' (je) → je me suis orienté(e)", isTrue: true,  explanation: "Wahr — alle pronominalen/reflexiven Verben bilden den passé composé mit ÊTRE, nicht avoir." },
+    { text: "'suivre' (je) → je suis suivi", isTrue: false, explanation: "Falsch — 'suivre' ist nicht pronominal. Korrekt: j'ai suivi (Auxiliar: avoir)." },
+    { text: "'s'attacher' (je) → je me suis attaché(e)", isTrue: true,  explanation: "Wahr — pronominal → être. Das participe passé stimmt ggf. mit dem Subjekt überein: attaché(e)." },
+    { text: "'vivre' (je) → je suis vécu", isTrue: false, explanation: "Falsch — 'vivre' ist nicht pronominal und kein être-Verb. Korrekt: j'ai vécu (avoir)." },
+    { text: "'acquérir' (je) → j'ai acquis", isTrue: true,  explanation: "Wahr — 'acquérir' verwendet avoir. Participe passé irrégulier: acquis." }
+  ]
+},
+
+{
+  id: "frz-pc-tf-02", type: "truefalse", course: "French",
+  topic: "Passé composé — Participe passé irrégulier", difficulty: 2,
+  tags: ["Passé composé", "Participe passé", "Irrégulier"],
+  prompt: "Participe passé irrégulier — vrai ou faux?",
+  statements: [
+    { text: "pouvoir → pu", isTrue: true,  explanation: "Wahr — 'pouvoir' hat irreguläres Partizip: pu. Häufiger Fehler: 'pouvé'." },
+    { text: "vivre → vivé", isTrue: false, explanation: "Falsch — 'vivre' hat irreguläres Partizip: vécu. Nicht 'vivé'." },
+    { text: "acquérir → acquéri", isTrue: false, explanation: "Falsch — 'acquérir' hat irreguläres Partizip: acquis. Nicht 'acquéri'." },
+    { text: "permettre → permis", isTrue: true,  explanation: "Wahr — alle Verben auf -mettre bilden das Partizip mit -mis: permettre → permis, mettre → mis." },
+    { text: "élaborer → élaboré", isTrue: true,  explanation: "Wahr — 'élaborer' ist regulär (1. Gruppe), Partizip: élaboré." },
+    { text: "suivre → suivi", isTrue: true,  explanation: "Wahr — 'suivre' hat irreguläres Partizip suivi (nicht 'suivé')." }
+  ]
+},
+
+{
+  id: "frz-pc-single-01", type: "single", course: "French",
+  topic: "Passé composé — Participe passé irrégulier", difficulty: 2,
+  tags: ["Passé composé", "Irrégulier", "acquérir"],
+  question: "Quelle est la forme correcte du passé composé de 'acquérir' (je)?",
+  options: ["j'ai acquéri", "j'ai acquis", "je suis acquis", "j'ai acquiert"],
+  correctIndex: 1,
+  explanation: "'acquérir' bildet den passé composé mit avoir. Participe passé irrégulier: acquis (nicht 'acquéri' — häufiger Fehler)."
+},
+
+{
+  id: "frz-pc-single-02", type: "single", course: "French",
+  topic: "Passé composé — Verbes pronominaux", difficulty: 2,
+  tags: ["Passé composé", "Verbes pronominaux", "être"],
+  question: "Quelle est la forme correcte du passé composé de 's'orienter' (je)?",
+  options: ["j'ai orienté", "je me suis orienté(e)", "je suis orienté", "j'ai m'orienté"],
+  correctIndex: 1,
+  explanation: "Pronominale Verben bilden den passé composé immer mit ÊTRE: je me suis orienté(e). Das Partizip orienté stimmt ggf. mit dem Subjekt überein (Femininum: orientée)."
+},
+
+{
+  id: "frz-pc-single-03", type: "single", course: "French",
+  topic: "Passé composé — Accord & COI", difficulty: 3,
+  tags: ["Passé composé", "permettre", "3. Person Singular", "Prüfungsfalle"],
+  question: "Welche Form ist korrekt? 'Mon parcours professionnel ___ de me familiariser avec les logiciels IA.' (permettre)",
+  options: ["a permis", "m'a permi", "m'a permis", "a permi"],
+  correctIndex: 2,
+  explanation: "Korrekt: m'a permis. Subjekt 'mon parcours' → 3. Sg. → a. Das Objekt 'me' gehört zum Verb (me permettre → 'mir erlaubt'). Partizip von 'permettre' ist irrégulier: permis (nicht 'permi' ohne -s)."
+},
+
+{
+  id: "frz-pc-multi-01", type: "multiple", course: "French",
+  topic: "Passé composé — Auxiliaire être vs. avoir", difficulty: 2,
+  tags: ["Passé composé", "Auxiliaire être", "Verbes pronominaux"],
+  question: "Welche der folgenden Formen bilden den passé composé (je) mit ÊTRE? (Mehrfachauswahl)",
+  options: [
+    "suivre → j'ai suivi",
+    "s'orienter → je me suis orienté(e)",
+    "effectuer → j'ai effectué",
+    "s'attacher → je me suis attaché(e)",
+    "acquérir → j'ai acquis",
+    "vivre → j'ai vécu"
+  ],
+  correctIndices: [1, 3],
+  explanation: "Nur pronominale/reflexive Verben verwenden être: s'orienter und s'attacher. Alle anderen (suivre, effectuer, acquérir, vivre) bilden den passé composé mit avoir."
+},
+
+{
+  id: "frz-pc-multi-02", type: "multiple", course: "French",
+  topic: "Passé composé — Participe passé irrégulier", difficulty: 2,
+  tags: ["Passé composé", "Participe passé", "Irrégulier"],
+  question: "Welche participes passés sind IRRÉGULIER (nicht durch -é oder reguläres -i gebildet)? (Mehrfachauswahl)",
+  options: ["effectué", "acquis", "assuré", "vécu", "élaboré", "pu", "suivi"],
+  correctIndices: [1, 3, 5, 6],
+  explanation: "Irrégulier: acquis (acquérir), vécu (vivre), pu (pouvoir), suivi (suivre). Régulier 1. Gruppe → -é: effectué, assuré, élaboré."
+}
+
+,
+
+// ── Lektion 02 · Passé composé — Le franc fort (Übung 3) ─────────────────
+
+{
+  id: "frz-pc2-tf-01", type: "truefalse", course: "French",
+  topic: "Passé composé — être-Verben (Fallen)", difficulty: 3,
+  tags: ["Passé composé", "Auxiliaire être", "Prüfungsfalle", "devenir", "repartir"],
+  prompt: "Auxiliaire au passé composé — vrai ou faux? (Attention aux pièges!)",
+  statements: [
+    { text: "'devenir' (leurs produits) → ont devenu", isTrue: false, explanation: "Falsch — 'devenir' gehört zu den être-Verben (DR MRS VANDERTRAMP). Korrekt: sont devenus. Accord: produits = masc. pl. → devenus." },
+    { text: "'repartir' (les marges bénéficiaires) → sont reparties", isTrue: true, explanation: "Wahr — 'repartir' (= wieder aufbrechen/steigen) verwendet être. Accord: marges bénéficiaires = fém. pl. → reparties." },
+    { text: "'subir' (les entreprises) → ont subi", isTrue: true, explanation: "Wahr — 'subir' ist ein normales 2. Gruppe-Verb, Auxiliar avoir. Participe passé: subi." },
+    { text: "'se restructurer' (d'autres) → se sont restructuré", isTrue: false, explanation: "Falsch — pronominal → être. Ausserdem fehlt der Accord: 'd'autres' bezieht sich auf usines (fém. pl.) → restructurées." },
+    { text: "'s'apprécier' (le franc suisse) → s'est apprécié", isTrue: true, explanation: "Wahr — pronominal → être. Accord: le franc = masc. sg. → apprécié (kein -e)." },
+    { text: "'faire' (l'économie suisse) → est fait", isTrue: false, explanation: "Falsch — 'faire' ist kein être-Verb. Korrekt: a fait (avoir). Participe irrégulier: fait." }
+  ]
+},
+
+{
+  id: "frz-pc2-tf-02", type: "truefalse", course: "French",
+  topic: "Passé composé — Participes passés irréguliers", difficulty: 2,
+  tags: ["Passé composé", "Participe passé", "Irrégulier", "Prüfungsfalle"],
+  prompt: "Passé composé — franc fort. Participes passés irréguliers — vrai ou faux?",
+  statements: [
+    { text: "devoir → dû", isTrue: true, explanation: "Wahr — 'devoir' hat irreguläres Partizip dû (mit Zirkumflex, um es von 'du' Artikel zu unterscheiden). j'ai dû / ils ont dû." },
+    { text: "réduire → réduit", isTrue: true, explanation: "Wahr — alle Verben auf -uire haben Partizip auf -uit: réduire→réduit, produire→produit, conduire→conduit." },
+    { text: "produire → produit", isTrue: true, explanation: "Wahr — produire gehört zur -uire Gruppe → produit." },
+    { text: "abolir → aboli", isTrue: true, explanation: "Wahr — 'abolir' ist 2. Gruppe (-ir), regelmässiges Partizip: aboli." },
+    { text: "perdre → perdu", isTrue: true, explanation: "Wahr — 'perdre' (3. Gruppe -re), Partizip: perdu." },
+    { text: "faire → faisé", isTrue: false, explanation: "Falsch — 'faire' hat irreguläres Partizip fait. Nicht 'faisé' — das existiert nicht." }
+  ]
+},
+
+{
+  id: "frz-pc2-single-01", type: "single", course: "French",
+  topic: "Passé composé — Accord du participe passé (être)", difficulty: 3,
+  tags: ["Passé composé", "Accord", "être", "Prüfungsfalle"],
+  question: "Welche Form ist korrekt? 'Les marges bénéficiaires ___ à la hausse.' (repartir)",
+  options: ["ont reparti", "sont reparti", "sont repartis", "sont reparties"],
+  correctIndex: 3,
+  explanation: "Korrekt: sont reparties. 'Repartir' → être. Accord mit Subjekt 'les marges bénéficiaires' (féminin pluriel) → -ies. Häufige Fehler: faux auxiliaire (ont) oder fehlender Accord."
+},
+
+{
+  id: "frz-pc2-single-02", type: "single", course: "French",
+  topic: "Passé composé — Accord du participe passé (être)", difficulty: 3,
+  tags: ["Passé composé", "Accord", "devenir", "Prüfungsfalle"],
+  question: "Welche Form ist korrekt? 'Leurs produits ___ beaucoup plus chers.' (devenir)",
+  options: ["ont devenu", "sont devenu", "sont devenus", "ont devenus"],
+  correctIndex: 2,
+  explanation: "Korrekt: sont devenus. 'Devenir' → être. Accord mit 'produits' (masculin pluriel) → -s. Participe: devenu. Fehler 1: ont (falsches Auxiliar). Fehler 2: kein -s (fehlender Accord)."
+},
+
+{
+  id: "frz-pc2-multi-01", type: "multiple", course: "French",
+  topic: "Passé composé — être-Verben im Wirtschaftstext", difficulty: 3,
+  tags: ["Passé composé", "Auxiliaire être", "Wirtschaftsvokabular"],
+  question: "Welche Verben bilden im Text 'Le défi du franc fort' den passé composé mit ÊTRE? (Mehrfachauswahl)",
+  options: [
+    "abolir → a aboli",
+    "s'apprécier → s'est apprécié",
+    "subir → ont subi",
+    "devenir → sont devenus",
+    "devoir → ont dû",
+    "se restructurer → se sont restructurées",
+    "repartir → sont reparties"
+  ],
+  correctIndices: [1, 3, 5, 6],
+  explanation: "Mit être: s'apprécier (pronominal), devenir (DR MRS VANDERTRAMP), se restructurer (pronominal), repartir (Bewegungsverb → être). Mit avoir: abolir, subir, devoir — diese sind keine Bewegungs- oder Pronominalverben."
+}
+
+,
+
+// ── Lektion 02 · PC vs. Imparfait — Sylvie au supermarché ────────────────
+
+{
+  id: "frz-pci-tf-01", type: "truefalse", course: "French",
+  topic: "Passé composé vs. Imparfait — Règles", difficulty: 2,
+  tags: ["Passé composé", "Imparfait", "PC vs IMP", "Prüfungsfalle"],
+  prompt: "Passé composé ou Imparfait? — vrai ou faux?",
+  statements: [
+    { text: "'Puisqu'elle n'avait pas d'articles' — Imparfait ist korrekt, weil 'puisque' einen Hintergrundgrund einleitet.", isTrue: true,  explanation: "Wahr — 'puisque' und 'comme' leiten oft Zustände/Gründe ein → Imparfait. Handlungen, die die Geschichte vorantreiben → Passé composé." },
+    { text: "'Il y avait des morceaux de verre' — Imparfait, weil es eine Zustandsbeschreibung ist.", isTrue: true,  explanation: "Wahr — 'il y avait' (IMP) beschreibt den resultierenden Zustand. 'Il y a eu' wäre grammatisch, aber unnatürlich für eine Szenenbeschreibung." },
+    { text: "'Elle est allée' — Imparfait wäre hier auch korrekt ('elle allait').", isTrue: false, explanation: "Falsch — 'aller au supermarché' ist die Haupthandlung die die Geschichte beginnt → Passé composé: est allée." },
+    { text: "'Comme elle ne trouvait pas le rayon' — Imparfait, weil 'comme' eine andauernde Situation als Grund einführt.", isTrue: true,  explanation: "Wahr — sie konnte den Weingang dauerhaft nicht finden (Zustand) → Imparfait. 'Comme' + Dauersituation = IMP." },
+    { text: "'Les bouteilles lui ont glissé' — Passé composé für ein plötzliches, abgeschlossenes Ereignis.", isTrue: true,  explanation: "Wahr — das Herausfallen ist ein plötzliches, punktuelles Ereignis → Passé composé." }
+  ]
+},
+
+{
+  id: "frz-pci-single-01", type: "single", course: "French",
+  topic: "Passé composé — Accord avec être (féminin)", difficulty: 2,
+  tags: ["Passé composé", "Accord", "être", "Féminin", "aller"],
+  question: "Welche Form ist korrekt? 'Hier, mon amie Sylvie ___ au supermarché.' (aller)",
+  options: ["a allé", "est allé", "est allée", "a allée"],
+  correctIndex: 2,
+  explanation: "Korrekt: est allée. 'Aller' → être. Accord mit Subjekt 'mon amie Sylvie' (féminin singulier) → allée (mit -e). Häufiger Fehler: 'est allé' ohne -e, oder falsches Auxiliar 'a'."
+},
+
+{
+  id: "frz-pci-single-02", type: "single", course: "French",
+  topic: "Passé composé — Position de 'tout'", difficulty: 3,
+  tags: ["Passé composé", "Adverbe tout", "Word order", "Prüfungsfalle"],
+  question: "Welche Wortstellung ist korrekt? '... un employé ___ tout ___.' (nettoyer, PC)",
+  options: ["a nettoyé tout", "tout a nettoyé", "a tout nettoyé", "nettoyé tout a"],
+  correctIndex: 2,
+  explanation: "Korrekt: a tout nettoyé. Adverbien (tout, bien, mal, vite, déjà) stehen im passé composé zwischen Auxiliar und Participe passé: auxiliaire + adverbe + participe. Nicht nach dem Partizip."
+},
+
+{
+  id: "frz-pci-multi-01", type: "multiple", course: "French",
+  topic: "PC vs. Imparfait — Sylvie au supermarché", difficulty: 3,
+  tags: ["Passé composé", "Imparfait", "PC vs IMP"],
+  question: "Welche der folgenden Formen stehen korrekt im IMPARFAIT (nicht PC)? (Mehrfachauswahl)",
+  options: [
+    "aller (Sylvie) → est allée",
+    "avoir (elle n'... pas d'articles) → n'avait pas",
+    "décider (elle) → a décidé",
+    "trouver (elle ne... pas) → ne trouvait pas",
+    "glisser (les bouteilles) → ont glissé",
+    "avoir — il y ... des morceaux → il y avait"
+  ],
+  correctIndices: [1, 3, 5],
+  explanation: "Imparfait: n'avait pas (Hintergrundgrund 'puisque'), ne trouvait pas (andauernder Zustand 'comme'), il y avait (Szenenbeschreibung). Passé composé: est allée (Haupthandlung), a décidé (Entscheidung), ont glissé (plötzliches Ereignis)."
+}
+
 ];
 })();

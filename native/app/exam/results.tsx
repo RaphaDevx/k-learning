@@ -4,11 +4,12 @@ import { useLocalSearchParams, router } from 'expo-router';
 import { supabase } from '../../lib/supabase';
 import { loadExam } from '../../data/examLoader';
 import type { AnswerMap } from '../../types/exam';
+import { C, R, F } from '../../constants/theme';
 
 function gradeColor(pct: number): string {
-  if (pct >= 65) return '#4ade80';
-  if (pct >= 55) return '#facc15';
-  return '#f87171';
+  if (pct >= 65) return C.green;
+  if (pct >= 55) return C.yellow;
+  return C.red;
 }
 
 function gradeLabel(pct: number): string {
@@ -148,40 +149,40 @@ export default function ResultsScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#111827' },
+  container: { flex: 1, backgroundColor: C.bg },
   content: { padding: 24, paddingTop: 64, paddingBottom: 48, gap: 16 },
 
   scoreCard: {
-    backgroundColor: '#1f2937', borderRadius: 20,
+    backgroundColor: C.surface, borderRadius: R.xl,
     padding: 32, alignItems: 'center', borderWidth: 2, gap: 6,
   },
   gradeText: { fontSize: 56, fontWeight: '900', lineHeight: 64 },
   scorePct: { fontSize: 24, fontWeight: '800' },
-  gradeLabel: { color: '#9ca3af', fontSize: 15, marginTop: 4 },
-  divider: { height: 1, backgroundColor: '#374151', width: '100%', marginVertical: 12 },
-  points: { color: '#e5e7eb', fontSize: 16, fontWeight: '600' },
-  duration: { color: '#6b7280', fontSize: 13 },
+  gradeLabel: { color: C.textSub, fontSize: F.base, marginTop: 4 },
+  divider: { height: 1, backgroundColor: C.border, width: '100%', marginVertical: 12 },
+  points: { color: C.text, fontSize: F.base, fontWeight: '600' },
+  duration: { color: C.textMuted, fontSize: F.sm },
 
-  infoCard: { backgroundColor: '#1f2937', borderRadius: 14, padding: 16 },
-  infoTitle: { color: '#f9fafb', fontSize: 16, fontWeight: '700' },
-  infoCourse: { color: '#9ca3af', fontSize: 13, marginTop: 4 },
-  infoDate: { color: '#6b7280', fontSize: 12, marginTop: 4 },
+  infoCard: { backgroundColor: C.surface, borderRadius: R.lg, padding: 16, borderWidth: 1, borderColor: C.border },
+  infoTitle: { color: C.text, fontSize: F.base, fontWeight: '700' },
+  infoCourse: { color: C.textSub, fontSize: F.sm, marginTop: 4 },
+  infoDate: { color: C.textMuted, fontSize: F.xs, marginTop: 4 },
 
   reviewBtn: {
-    backgroundColor: '#374151', borderRadius: 14,
+    backgroundColor: C.surface, borderRadius: R.lg, borderWidth: 1, borderColor: C.border,
     paddingVertical: 16, alignItems: 'center',
   },
-  reviewBtnText: { color: '#e5e7eb', fontWeight: '600', fontSize: 15 },
+  reviewBtnText: { color: C.text, fontWeight: '600', fontSize: F.base },
 
   retryBtn: {
-    backgroundColor: '#4f46e5', borderRadius: 14,
+    backgroundColor: C.accent, borderRadius: R.lg,
     paddingVertical: 16, alignItems: 'center',
   },
-  retryBtnText: { color: '#fff', fontWeight: '700', fontSize: 15 },
+  retryBtnText: { color: '#fff', fontWeight: '700', fontSize: F.base },
 
   homeBtn: {
-    backgroundColor: 'transparent', borderRadius: 14,
+    backgroundColor: 'transparent', borderRadius: R.lg,
     paddingVertical: 16, alignItems: 'center',
   },
-  homeBtnText: { color: '#6b7280', fontWeight: '600', fontSize: 15 },
+  homeBtnText: { color: C.textMuted, fontWeight: '600', fontSize: F.base },
 });

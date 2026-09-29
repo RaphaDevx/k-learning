@@ -80,6 +80,32 @@ window.COURSES_CONFIG = [
     notebookId: null,
     dataDir: 'EnglischC1',
   },
+  {
+    key: 'French',
+    label: 'Français B2',
+    icon: '🇫🇷',
+    color: 'red',
+    tailwind: { bg: 'bg-red-900', hover: 'hover:bg-red-800', bar: 'bg-red-700', fill: 'bg-red-300', text: 'text-red-300' },
+    hex: '#dc2626',
+    examDate: null,
+    examRoom: null,
+    examFormat: 'Mündlich (50%) + Schriftlich 120min (50%)',
+    notebookId: null,
+    dataDir: 'French',
+  },
+  {
+    key: 'ZofingBP',
+    label: 'Zofingia BP',
+    icon: '🍺',
+    color: 'amber',
+    hex: '#d97706',
+    examDate: '2026-09-04',
+    examRoom: null,
+    examFormat: 'Mündliche Prüfung',
+    notebookId: null,
+    dataDir: 'ZofingBP',
+    hidden: true,  // nur via CoursesDB.unlockCourse('ZofingBP') in der Konsole zugänglich
+  },
 ];
 
 // Helper: get course by key

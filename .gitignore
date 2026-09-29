@@ -17,3 +17,32 @@ private/
 ToDo.md
 *.bak
 native/.claude/
+
+# --- K-Dev Phase 1: Standard-Ausschluesse ---
+node_modules/
+dist/
+build/
+release/
+*.dmg
+*.ipa
+*.apk
+*.aab
+.expo/
+ios/build/
+android/build/
+target/
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+!.env.template
+*.p8
+*.p12
+*.pem
+*.key
+.DS_Store
+*.log
+# --- Ende K-Dev Phase 1 ---

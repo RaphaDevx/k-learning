@@ -1,0 +1,1205 @@
+{
+  "communities": {
+    "0": [
+      "js_screens_flashcards",
+      "js_screens_flashcards_addreportedcard",
+      "js_screens_flashcards_audioctx",
+      "js_screens_flashcards_autostartrecognition",
+      "js_screens_flashcards_closeresumeprompt",
+      "js_screens_flashcards_clozefront",
+      "js_screens_flashcards_commitswipe",
+      "js_screens_flashcards_currel",
+      "js_screens_flashcards_ensurecardsloaded",
+      "js_screens_flashcards_ensuremic",
+      "js_screens_flashcards_enterbrowserspeechmode",
+      "js_screens_flashcards_entergeminimode",
+      "js_screens_flashcards_enterspeechmode",
+      "js_screens_flashcards_eschtml",
+      "js_screens_flashcards_evaluateanswer",
+      "js_screens_flashcards_exitspeechmode",
+      "js_screens_flashcards_filtercards",
+      "js_screens_flashcards_flashborder",
+      "js_screens_flashcards_flipcard",
+      "js_screens_flashcards_gemininextcard",
+      "js_screens_flashcards_geminiparseverdictfromtext",
+      "js_screens_flashcards_geminisendcard",
+      "js_screens_flashcards_getmiclevel",
+      "js_screens_flashcards_getvoices",
+      "js_screens_flashcards_handleswipe",
+      "js_screens_flashcards_init",
+      "js_screens_flashcards_loadslot",
+      "js_screens_flashcards_nextcard",
+      "js_screens_flashcards_nextel",
+      "js_screens_flashcards_ondragend",
+      "js_screens_flashcards_ondragmove",
+      "js_screens_flashcards_ondragstart",
+      "js_screens_flashcards_opencarddirect",
+      "js_screens_flashcards_openfortopic",
+      "js_screens_flashcards_playsound",
+      "js_screens_flashcards_prevcard",
+      "js_screens_flashcards_ratecard",
+      "js_screens_flashcards_rendercontent",
+      "js_screens_flashcards_rendercontentinel",
+      "js_screens_flashcards_renderdecklist",
+      "js_screens_flashcards_renderfilterbuttons",
+      "js_screens_flashcards_reportcurrentcard",
+      "js_screens_flashcards_reportedcardids",
+      "js_screens_flashcards_rereadquestion",
+      "js_screens_flashcards_resetoverlayopacities",
+      "js_screens_flashcards_restartsaved",
+      "js_screens_flashcards_resumesaved",
+      "js_screens_flashcards_saverating",
+      "js_screens_flashcards_scalekatexdisplays",
+      "js_screens_flashcards_setdeckfilter",
+      "js_screens_flashcards_setstatus",
+      "js_screens_flashcards_settxt",
+      "js_screens_flashcards_setupdraghandlers",
+      "js_screens_flashcards_showcard",
+      "js_screens_flashcards_showdeckselector",
+      "js_screens_flashcards_showsessioncomplete",
+      "js_screens_flashcards_showspeechfeedback",
+      "js_screens_flashcards_showsuccessanim",
+      "js_screens_flashcards_speaktext",
+      "js_screens_flashcards_speaktextvad",
+      "js_screens_flashcards_speechexplainagain",
+      "js_screens_flashcards_speechnextcard",
+      "js_screens_flashcards_startdeck",
+      "js_screens_flashcards_startinterruptvad",
+      "js_screens_flashcards_startlistening",
+      "js_screens_flashcards_startnextsession",
+      "js_screens_flashcards_startset",
+      "js_screens_flashcards_stopinterruptvad",
+      "js_screens_flashcards_togglespeechmode",
+      "js_screens_flashcards_tone",
+      "js_screens_flashcards_uneschtml",
+      "js_screens_flashcards_updateallcount",
+      "js_screens_flashcards_updateshadows",
+      "js_screens_flashcards_updatespeechpanel"
+    ],
+    "1": [
+      "js_screens_exam",
+      "js_screens_exam_abortexam",
+      "js_screens_exam_buildcorrectlabel",
+      "js_screens_exam_builduserlabel",
+      "js_screens_exam_callaigrader",
+      "js_screens_exam_cancelabort",
+      "js_screens_exam_closeresults",
+      "js_screens_exam_closereview",
+      "js_screens_exam_closesetup",
+      "js_screens_exam_confirmabort",
+      "js_screens_exam_enrolledcourses",
+      "js_screens_exam_exam_registry",
+      "js_screens_exam_getexamsbycourse",
+      "js_screens_exam_getuserid",
+      "js_screens_exam_gradefrompct",
+      "js_screens_exam_gradeopenquestionswithai",
+      "js_screens_exam_init",
+      "js_screens_exam_isexamactive",
+      "js_screens_exam_loadexamjson",
+      "js_screens_exam_persistaigrades",
+      "js_screens_exam_playsectionaudio",
+      "js_screens_exam_recalculatetotalscoreui",
+      "js_screens_exam_renderexamheader",
+      "js_screens_exam_rendergappeddropdown",
+      "js_screens_exam_rendergappedinput",
+      "js_screens_exam_rendermcq",
+      "js_screens_exam_rendernotenprognose",
+      "js_screens_exam_renderquestions",
+      "js_screens_exam_renderresults",
+      "js_screens_exam_renderreviewcard",
+      "js_screens_exam_rendersectionaudio",
+      "js_screens_exam_renderselector",
+      "js_screens_exam_rendertextq",
+      "js_screens_exam_requestaifeedback",
+      "js_screens_exam_resetpause",
+      "js_screens_exam_resultbadge",
+      "js_screens_exam_reviewchat",
+      "js_screens_exam_reviewnext",
+      "js_screens_exam_reviewprev",
+      "js_screens_exam_saveresulttosupabase",
+      "js_screens_exam_savetorepetition",
+      "js_screens_exam_scoreexam",
+      "js_screens_exam_selectchoice",
+      "js_screens_exam_setgapanswer",
+      "js_screens_exam_settextanswer",
+      "js_screens_exam_showsetup",
+      "js_screens_exam_startaiexam",
+      "js_screens_exam_startexam",
+      "js_screens_exam_startexamwithdata",
+      "js_screens_exam_startfromsetup",
+      "js_screens_exam_starthistoricalreview",
+      "js_screens_exam_startreview",
+      "js_screens_exam_stopsectionaudio",
+      "js_screens_exam_stoptimer",
+      "js_screens_exam_submitexam",
+      "js_screens_exam_togglepause",
+      "js_screens_exam_toggletranscript",
+      "js_screens_exam_updatechoiceui",
+      "js_screens_exam_updateopenquestiongradeui",
+      "js_screens_exam_updateprogress",
+      "js_screens_exam_updatetimerdisplay"
+    ],
+    "2": [
+      "expo",
+      "expo_auth_session",
+      "expo_linking",
+      "expo_router",
+      "expo_status_bar",
+      "expo_system_ui",
+      "expo_video",
+      "expo_web_browser",
+      "native_package",
+      "native_package_dependencies",
+      "native_package_dependencies_expo",
+      "native_package_dependencies_expo_auth_session",
+      "native_package_dependencies_expo_linking",
+      "native_package_dependencies_expo_router",
+      "native_package_dependencies_expo_status_bar",
+      "native_package_dependencies_expo_system_ui",
+      "native_package_dependencies_expo_video",
+      "native_package_dependencies_expo_web_browser",
+      "native_package_dependencies_react",
+      "native_package_dependencies_react_native",
+      "native_package_dependencies_react_native_async_storage_async_storage",
+      "native_package_dependencies_react_native_url_polyfill",
+      "native_package_dependencies_supabase_supabase_js",
+      "native_package_devdependencies",
+      "native_package_devdependencies_types_react",
+      "native_package_devdependencies_typescript",
+      "native_package_json_typescript",
+      "native_package_main",
+      "native_package_name",
+      "native_package_private",
+      "native_package_scripts",
+      "native_package_scripts_android",
+      "native_package_scripts_ios",
+      "native_package_scripts_start",
+      "native_package_version",
+      "react",
+      "react_native",
+      "react_native_async_storage_async_storage",
+      "react_native_url_polyfill",
+      "supabase_supabase_js",
+      "types_react"
+    ],
+    "3": [
+      "js_screens_profile",
+      "js_screens_profile_detailstogglehtml",
+      "js_screens_profile_etappebarhtml",
+      "js_screens_profile_etappepct",
+      "js_screens_profile_exambannerhtml",
+      "js_screens_profile_examhistoryhtml",
+      "js_screens_profile_examidtocourse",
+      "js_screens_profile_gradefrompct",
+      "js_screens_profile_handleupload",
+      "js_screens_profile_init",
+      "js_screens_profile_initaikeyui",
+      "js_screens_profile_initgeminikeyui",
+      "js_screens_profile_initorkeyui",
+      "js_screens_profile_loadadminreports",
+      "js_screens_profile_loadhistory",
+      "js_screens_profile_loadlearningprofile",
+      "js_screens_profile_overallcolor",
+      "js_screens_profile_quiztopicbarshtml",
+      "js_screens_profile_readinessscore",
+      "js_screens_profile_refresh",
+      "js_screens_profile_regradeexam",
+      "js_screens_profile_render",
+      "js_screens_profile_rendercoursecard",
+      "js_screens_profile_rendergeminikeyinput",
+      "js_screens_profile_rendergeminikeyset",
+      "js_screens_profile_renderkeyinput",
+      "js_screens_profile_renderkeyset",
+      "js_screens_profile_renderquizstats",
+      "js_screens_profile_rendersimplecoursecard",
+      "js_screens_profile_resolvereport",
+      "js_screens_profile_reviewexamdraft",
+      "js_screens_profile_saveexamcorrections",
+      "js_screens_profile_showexamdetail",
+      "js_screens_profile_showmsg",
+      "js_screens_profile_toggledetails",
+      "js_screens_profile_topicweightaccuracy",
+      "js_screens_profile_updatepts",
+      "js_screens_profile_videosummaryhtml",
+      "js_screens_profile_weaknessprofilehtml",
+      "js_screens_profile_wirekeyinput"
+    ],
+    "4": [
+      "native_app_auth_login",
+      "native_app_auth_login_loginscreen",
+      "native_app_auth_login_styles",
+      "native_app_expo_plugins",
+      "native_app_layout",
+      "native_app_layout_rootlayout",
+      "native_app_tabs_dashboard",
+      "native_app_tabs_dashboard_dashboardscreen",
+      "native_app_tabs_dashboard_statcard",
+      "native_app_tabs_dashboard_stats",
+      "native_app_tabs_dashboard_styles",
+      "native_app_tabs_index",
+      "native_app_tabs_index_feedscreen",
+      "native_app_tabs_index_height_screen_height",
+      "native_app_tabs_index_styles",
+      "native_app_tabs_layout",
+      "native_app_tabs_layout_tabicon",
+      "native_app_tabs_layout_tablayout",
+      "native_app_tabs_profile",
+      "native_app_tabs_profile_profilescreen",
+      "native_app_tabs_profile_styles",
+      "native_components_videocard",
+      "native_components_videocard_feedcard",
+      "native_components_videocard_height_screen_height_width_screen_width",
+      "native_components_videocard_props",
+      "native_components_videocard_styles",
+      "native_components_videocard_videocard",
+      "native_lib_supabase",
+      "native_lib_supabase_supabase",
+      "ref_expo_router",
+      "ref_expo_video"
+    ],
+    "5": [
+      "js_screens_lernset",
+      "js_screens_lernset_close",
+      "js_screens_lernset_closeresumeprompt",
+      "js_screens_lernset_handleaction",
+      "js_screens_lernset_init",
+      "js_screens_lernset_openaicheck",
+      "js_screens_lernset_openreport",
+      "js_screens_lernset_openskip",
+      "js_screens_lernset_render",
+      "js_screens_lernset_rendermultiple",
+      "js_screens_lernset_renderopen",
+      "js_screens_lernset_renderorder",
+      "js_screens_lernset_rendersingle",
+      "js_screens_lernset_rendertruefalse",
+      "js_screens_lernset_restartsaved",
+      "js_screens_lernset_resumesaved",
+      "js_screens_lernset_saveprogress",
+      "js_screens_lernset_selectset",
+      "js_screens_lernset_setactionbtn",
+      "js_screens_lernset_settitle",
+      "js_screens_lernset_settxt",
+      "js_screens_lernset_showexercise",
+      "js_screens_lernset_showfeedback",
+      "js_screens_lernset_showopenresult",
+      "js_screens_lernset_showopenskipped",
+      "js_screens_lernset_showsuccessanim",
+      "js_screens_lernset_startdeck",
+      "js_screens_lernset_startnewset"
+    ],
+    "6": [
+      "js_screens_feed",
+      "js_screens_feed_appendcards",
+      "js_screens_feed_destroyobserver",
+      "js_screens_feed_fetchmore",
+      "js_screens_feed_flashindicator",
+      "js_screens_feed_getuserid",
+      "js_screens_feed_init",
+      "js_screens_feed_initmodelcards",
+      "js_screens_feed_initobserver",
+      "js_screens_feed_load",
+      "js_screens_feed_loadingspinner",
+      "js_screens_feed_onplay",
+      "js_screens_feed_playplaylist",
+      "js_screens_feed_rate",
+      "js_screens_feed_render",
+      "js_screens_feed_renderfilterbar",
+      "js_screens_feed_rendervideocard",
+      "js_screens_feed_reset",
+      "js_screens_feed_showexhaustedcard",
+      "js_screens_feed_staticfallback",
+      "js_screens_feed_tapcard",
+      "js_screens_feed_togglemute",
+      "js_screens_feed_toggleplay",
+      "js_screens_feed_togglerecall",
+      "js_screens_feed_trackvideoopen",
+      "js_screens_feed_updatefilterbuttons",
+      "js_screens_feed_updatepreloadwindow"
+    ],
+    "7": [
+      "js_ai_chat",
+      "js_ai_chat_appendmsg",
+      "js_ai_chat_appendthinking",
+      "js_ai_chat_buildsystem",
+      "js_ai_chat_callor",
+      "js_ai_chat_clearchat",
+      "js_ai_chat_clearexternalcontext",
+      "js_ai_chat_close",
+      "js_ai_chat_getcardcontext",
+      "js_ai_chat_getkey",
+      "js_ai_chat_hidefab",
+      "js_ai_chat_init",
+      "js_ai_chat_injectdom",
+      "js_ai_chat_injectstyles",
+      "js_ai_chat_loadcoursectx",
+      "js_ai_chat_md",
+      "js_ai_chat_open",
+      "js_ai_chat_openforcard",
+      "js_ai_chat_sendmessage",
+      "js_ai_chat_setexternalcontext",
+      "js_ai_chat_setkey",
+      "js_ai_chat_showfab",
+      "js_ai_chat_toggle",
+      "js_ai_chat_updatecontextbadge"
+    ],
+    "8": [
+      "js_screens_quiz",
+      "js_screens_quiz_applychoicecolor",
+      "js_screens_quiz_bindswipe",
+      "js_screens_quiz_choicestyle",
+      "js_screens_quiz_close",
+      "js_screens_quiz_closeresumeprompt",
+      "js_screens_quiz_closeselector",
+      "js_screens_quiz_feedbackhtml",
+      "js_screens_quiz_gettopicstats",
+      "js_screens_quiz_getweaktopics",
+      "js_screens_quiz_init",
+      "js_screens_quiz_launch",
+      "js_screens_quiz_nextquestion",
+      "js_screens_quiz_previousquestion",
+      "js_screens_quiz_renderquestion",
+      "js_screens_quiz_resetchoicestyle",
+      "js_screens_quiz_restartsaved",
+      "js_screens_quiz_resumesaved",
+      "js_screens_quiz_showresults",
+      "js_screens_quiz_showselector",
+      "js_screens_quiz_submitanswer",
+      "js_screens_quiz_togglechoice",
+      "js_screens_quiz_updatestate"
+    ],
+    "9": [
+      "native_app_adaptiveicon_backgroundcolor",
+      "native_app_adaptiveicon_foregroundimage",
+      "native_app_android_adaptiveicon",
+      "native_app_android_package",
+      "native_app_android_predictivebackgestureenabled",
+      "native_app_experiments_typedroutes",
+      "native_app_expo",
+      "native_app_expo_android",
+      "native_app_expo_experiments",
+      "native_app_expo_icon",
+      "native_app_expo_ios",
+      "native_app_expo_name",
+      "native_app_expo_orientation",
+      "native_app_expo_scheme",
+      "native_app_expo_slug",
+      "native_app_expo_userinterfacestyle",
+      "native_app_expo_version",
+      "native_app_expo_web",
+      "native_app_ios_bundleidentifier",
+      "native_app_ios_supportstablet",
+      "native_app_json_native_app",
+      "native_app_web_favicon"
+    ],
+    "10": [
+      "js_screens_repetition",
+      "js_screens_repetition_closereview",
+      "js_screens_repetition_deleteitem",
+      "js_screens_repetition_filtered",
+      "js_screens_repetition_getpendingcount",
+      "js_screens_repetition_init",
+      "js_screens_repetition_keepandnext",
+      "js_screens_repetition_loaditems",
+      "js_screens_repetition_markdone",
+      "js_screens_repetition_render",
+      "js_screens_repetition_renderreviewcard",
+      "js_screens_repetition_reviewprev",
+      "js_screens_repetition_saveitem",
+      "js_screens_repetition_selftestselect",
+      "js_screens_repetition_setfilter",
+      "js_screens_repetition_showaddformula",
+      "js_screens_repetition_startreview",
+      "js_screens_repetition_submitadd",
+      "js_screens_repetition_timeago",
+      "js_screens_repetition_uid"
+    ],
+    "11": [
+      "workers_billing_src_index",
+      "workers_billing_src_index_fetch",
+      "workers_billing_src_revenuecat",
+      "workers_billing_src_revenuecat_handlerevenuecat",
+      "workers_billing_src_revenuecat_mapentitlements",
+      "workers_billing_src_revenuecat_mapevent",
+      "workers_billing_src_revenuecat_revenuecatevent",
+      "workers_billing_src_revenuecat_revenuecatpayload",
+      "workers_billing_src_revenuecat_storetosource",
+      "workers_billing_src_stripe",
+      "workers_billing_src_stripe_handleprepaidtopup",
+      "workers_billing_src_stripe_handlestripe",
+      "workers_billing_src_stripe_rationale_76",
+      "workers_billing_src_stripe_verifystripesignature",
+      "workers_billing_src_supabase",
+      "workers_billing_src_supabase_entitlementupdate",
+      "workers_billing_src_supabase_env",
+      "workers_billing_src_supabase_logbillingevent",
+      "workers_billing_src_supabase_upsertentitlement"
+    ],
+    "12": [
+      "js_lernset_engine",
+      "js_lernset_engine_checkmultiple",
+      "js_lernset_engine_checkorder",
+      "js_lernset_engine_checksingle",
+      "js_lernset_engine_checktruefalse",
+      "js_lernset_engine_eschtml",
+      "js_lernset_engine_feedbackbadge",
+      "js_lernset_engine_rendercontent",
+      "js_lernset_engine_rendermathin",
+      "js_lernset_engine_renderoptionslist",
+      "js_lernset_engine_renderorderlist",
+      "js_lernset_engine_rendertflist",
+      "js_lernset_engine_shuffledindices",
+      "js_lernset_engine_uneschtml",
+      "js_lernset_engine_updatemultiselection",
+      "js_lernset_engine_updatesingleselection",
+      "js_lernset_engine_updatetfbuttons",
+      "js_lernset_engine_verdict"
+    ],
+    "13": [
+      "js_gemini_live",
+      "js_gemini_live_connect",
+      "js_gemini_live_disconnect",
+      "js_gemini_live_getkey",
+      "js_gemini_live_isavailable",
+      "js_gemini_live_isplaying",
+      "js_gemini_live_pcmplayer",
+      "js_gemini_live_pcmplayer_close",
+      "js_gemini_live_pcmplayer_constructor",
+      "js_gemini_live_pcmplayer_enqueue",
+      "js_gemini_live_pcmplayer_isplaying",
+      "js_gemini_live_pcmplayer_stop",
+      "js_gemini_live_savekey",
+      "js_gemini_live_sendtext",
+      "js_gemini_live_startmic",
+      "js_gemini_live_stopmic",
+      "js_gemini_live_stopplayback"
+    ],
+    "14": [
+      "js_screens_coursehub",
+      "js_screens_coursehub_back",
+      "js_screens_coursehub_coursecolor",
+      "js_screens_coursehub_examcountdown",
+      "js_screens_coursehub_getcourse",
+      "js_screens_coursehub_init",
+      "js_screens_coursehub_open",
+      "js_screens_coursehub_render",
+      "js_screens_coursehub_renderexams",
+      "js_screens_coursehub_renderfeed",
+      "js_screens_coursehub_renderflashcards",
+      "js_screens_coursehub_rendermodules",
+      "js_screens_coursehub_rendersummaries",
+      "js_screens_coursehub_rendertabbar",
+      "js_screens_coursehub_rendertabbarhtml",
+      "js_screens_coursehub_rendertabcontent",
+      "js_screens_coursehub_showtab"
+    ],
+    "15": [
+      "js_level_system",
+      "js_level_system_award",
+      "js_level_system_debouncedsync",
+      "js_level_system_getdailyinfo",
+      "js_level_system_getlevelinfo",
+      "js_level_system_getuserid",
+      "js_level_system_init",
+      "js_level_system_rawaddxp",
+      "js_level_system_render",
+      "js_level_system_showbanner",
+      "js_level_system_showdailygoalreached",
+      "js_level_system_showlevelup",
+      "js_level_system_streak",
+      "js_level_system_synctosupabase",
+      "js_level_system_updatestreak",
+      "js_level_system_xp"
+    ],
+    "16": [
+      "js_screens_lernen",
+      "js_screens_lernen_contentarea",
+      "js_screens_lernen_courseslider",
+      "js_screens_lernen_empty",
+      "js_screens_lernen_firstenrolled",
+      "js_screens_lernen_getactivemode",
+      "js_screens_lernen_init",
+      "js_screens_lernen_modetoggle",
+      "js_screens_lernen_render",
+      "js_screens_lernen_renderkarten",
+      "js_screens_lernen_renderlernset",
+      "js_screens_lernen_renderpruefung",
+      "js_screens_lernen_renderquiz",
+      "js_screens_lernen_repetitionbanner",
+      "js_screens_lernen_selectcourse",
+      "js_screens_lernen_setmode"
+    ],
+    "17": [
+      "cloudflare_workers_types",
+      "workers_billing_package",
+      "workers_billing_package_devdependencies",
+      "workers_billing_package_devdependencies_cloudflare_workers_types",
+      "workers_billing_package_devdependencies_typescript",
+      "workers_billing_package_devdependencies_wrangler",
+      "workers_billing_package_json_typescript",
+      "workers_billing_package_name",
+      "workers_billing_package_private",
+      "workers_billing_package_scripts",
+      "workers_billing_package_scripts_deploy",
+      "workers_billing_package_scripts_dev",
+      "workers_billing_package_scripts_typecheck",
+      "workers_billing_package_version",
+      "wrangler"
+    ],
+    "18": [
+      "anthropic",
+      "path",
+      "tools_archived_k_ocr_pipeline_pipeline",
+      "tools_archived_k_ocr_pipeline_pipeline_deploy_reels",
+      "tools_archived_k_ocr_pipeline_pipeline_generate_flashcards",
+      "tools_archived_k_ocr_pipeline_pipeline_generate_reel_script",
+      "tools_archived_k_ocr_pipeline_pipeline_git_commit",
+      "tools_archived_k_ocr_pipeline_pipeline_insert_flashcards_into_file",
+      "tools_archived_k_ocr_pipeline_pipeline_load_course",
+      "tools_archived_k_ocr_pipeline_pipeline_read_module_content",
+      "tools_archived_k_ocr_pipeline_pipeline_render_reels",
+      "tools_archived_k_ocr_pipeline_pipeline_run_pipeline",
+      "tools_archived_k_ocr_pipeline_pipeline_write_reel_script"
+    ],
+    "19": [
+      "ref_cloudflare_workers_types",
+      "ref_es2022",
+      "ref_src",
+      "workers_billing_tsconfig",
+      "workers_billing_tsconfig_compileroptions",
+      "workers_billing_tsconfig_compileroptions_lib",
+      "workers_billing_tsconfig_compileroptions_module",
+      "workers_billing_tsconfig_compileroptions_moduleresolution",
+      "workers_billing_tsconfig_compileroptions_noemit",
+      "workers_billing_tsconfig_compileroptions_strict",
+      "workers_billing_tsconfig_compileroptions_target",
+      "workers_billing_tsconfig_compileroptions_types",
+      "workers_billing_tsconfig_include"
+    ],
+    "20": [
+      "js_gamification",
+      "js_gamification_addxp",
+      "js_gamification_cardeasy",
+      "js_gamification_cardhard",
+      "js_gamification_cardmedium",
+      "js_gamification_getlevel",
+      "js_gamification_lerncorrect",
+      "js_gamification_lernpartial",
+      "js_gamification_lernwrong",
+      "js_gamification_render",
+      "js_gamification_topiccompleted",
+      "js_gamification_updatestreak"
+    ],
+    "21": [
+      "js_state",
+      "js_state_get",
+      "js_state_getcardprogress",
+      "js_state_getlernsetprogress",
+      "js_state_getlernsettopicprogress",
+      "js_state_gettopicprogress",
+      "js_state_load",
+      "js_state_save",
+      "js_state_set",
+      "js_state_setcardprogress",
+      "js_state_setlernsetprogress",
+      "js_state_update"
+    ],
+    "22": [
+      "js_screens_reelmodel",
+      "js_screens_reelmodel_closefromcard",
+      "js_screens_reelmodel_hasmodel",
+      "js_screens_reelmodel_initerwartungspanel",
+      "js_screens_reelmodel_initeulerpanel",
+      "js_screens_reelmodel_initpanel",
+      "js_screens_reelmodel_openfromcard",
+      "js_screens_reelmodel_rendererwartungspanel",
+      "js_screens_reelmodel_rendereulerpanel",
+      "js_screens_reelmodel_renderpanel",
+      "js_screens_reelmodel_toggletip"
+    ],
+    "23": [
+      "native_tsconfig",
+      "native_tsconfig_compileroptions",
+      "native_tsconfig_compileroptions_paths",
+      "native_tsconfig_compileroptions_strict",
+      "native_tsconfig_extends",
+      "native_tsconfig_include",
+      "ref_expo_tsconfig_base",
+      "ref_expo_types_d_ts",
+      "ref_ts",
+      "ref_tsx"
+    ],
+    "24": [
+      "js_billing",
+      "js_billing_canuseai",
+      "js_billing_getentitlement",
+      "js_billing_getplan",
+      "js_billing_hasbyok",
+      "js_billing_init",
+      "js_billing_ispro",
+      "js_billing_requireai",
+      "js_billing_showpaywall"
+    ],
+    "25": [
+      "js_courses_db",
+      "js_courses_db_getavailablecourses",
+      "js_courses_db_getenrolledkeys",
+      "js_courses_db_getuser",
+      "js_courses_db_loadcatalog",
+      "js_courses_db_loadenrolled",
+      "js_courses_db_mergerow",
+      "js_courses_db_reset",
+      "js_courses_db_saveenrollment"
+    ],
+    "26": [
+      "js_report_system",
+      "js_report_system_close",
+      "js_report_system_dotsbtncard",
+      "js_report_system_dotsbtndark",
+      "js_report_system_fetchallreported",
+      "js_report_system_getreportedids",
+      "js_report_system_open",
+      "js_report_system_selectreason",
+      "js_report_system_submit"
+    ],
+    "27": [
+      "js_screens_dashboard",
+      "js_screens_dashboard_daysuntil",
+      "js_screens_dashboard_init",
+      "js_screens_dashboard_rendercoursegrid",
+      "js_screens_dashboard_renderduetoday",
+      "js_screens_dashboard_savecourses",
+      "js_screens_dashboard_showcoursemanager",
+      "js_screens_dashboard_staggercards",
+      "js_screens_dashboard_updategreeting"
+    ],
+    "28": [
+      "js_tab_router",
+      "js_tab_router_back",
+      "js_tab_router_currenttab",
+      "js_tab_router_currentview",
+      "js_tab_router_highlightnav",
+      "js_tab_router_navigateto",
+      "js_tab_router_render",
+      "js_tab_router_taptab"
+    ],
+    "29": [
+      "js_screens_learnpath",
+      "js_screens_learnpath_buildnodes",
+      "js_screens_learnpath_enrolledcourses",
+      "js_screens_learnpath_init",
+      "js_screens_learnpath_nodehtml",
+      "js_screens_learnpath_render",
+      "js_screens_learnpath_rendercoursesection"
+    ],
+    "30": [
+      "js_screens_progress",
+      "js_screens_progress_init",
+      "js_screens_progress_render",
+      "js_screens_progress_renderdailygoal",
+      "js_screens_progress_renderleveltree",
+      "js_screens_progress_renderstudiengang",
+      "js_screens_progress_rendertodos"
+    ],
+    "31": [
+      "js_session_sync",
+      "js_session_sync_clear",
+      "js_session_sync_load",
+      "js_session_sync_resumeprompthtml",
+      "js_session_sync_save",
+      "js_session_sync_sessionsize",
+      "js_session_sync_userid"
+    ],
+    "32": [
+      "js_ai_service",
+      "js_ai_service_ask",
+      "js_ai_service_askviaopenrouter",
+      "js_ai_service_extracttext",
+      "js_ai_service_getkeyinfo",
+      "js_ai_service_savekey"
+    ],
+    "33": [
+      "js_auth",
+      "js_auth_getuser",
+      "js_auth_init",
+      "js_auth_setoverlay",
+      "js_auth_signinwithgoogle",
+      "js_auth_signout"
+    ],
+    "34": [
+      "tools_reels_esf_deploy",
+      "tools_reels_esf_deploy_build_entry",
+      "tools_reels_esf_deploy_get_duration",
+      "tools_reels_esf_deploy_main",
+      "tools_reels_esf_deploy_update_feed",
+      "tools_reels_esf_deploy_upload_video"
+    ],
+    "35": [
+      "tools_reels_statistik_deploy",
+      "tools_reels_statistik_deploy_build_entry",
+      "tools_reels_statistik_deploy_get_duration",
+      "tools_reels_statistik_deploy_main",
+      "tools_reels_statistik_deploy_update_feed",
+      "tools_reels_statistik_deploy_upload_video"
+    ],
+    "36": [
+      "js_screens_topics",
+      "js_screens_topics_init",
+      "js_screens_topics_opentopic",
+      "js_screens_topics_render",
+      "js_screens_topics_selectcourse"
+    ],
+    "37": [
+      "scripts_migrate_to_r2",
+      "scripts_migrate_to_r2_phase1_download",
+      "scripts_migrate_to_r2_phase2_upload",
+      "scripts_migrate_to_r2_phase3_patch_urls",
+      "scripts_migrate_to_r2_sh__entry"
+    ],
+    "38": [
+      "native_app_app",
+      "native_app_styles",
+      "native_app_tsx_native_app",
+      "native_index"
+    ],
+    "39": [
+      "js_router",
+      "js_router_current",
+      "js_router_showview"
+    ],
+    "40": [
+      "js_screens_tutor",
+      "js_screens_tutor_init",
+      "js_screens_tutor_submit"
+    ],
+    "41": [
+      "native_app_tabs_flashcards",
+      "native_app_tabs_flashcards_flashcardsscreen",
+      "native_app_tabs_flashcards_styles"
+    ],
+    "42": [
+      "tools_reels_esf_run",
+      "tools_reels_esf_run_run_session",
+      "tools_reels_esf_run_sh__entry"
+    ],
+    "43": [
+      "branding_brand",
+      "branding_brand_kbrand"
+    ],
+    "44": [
+      "tools_reels_esf_overview_reels",
+      "tools_reels_esf_overview_reels_main"
+    ],
+    "45": [
+      "tools_reels_esf_s2_reels",
+      "tools_reels_esf_s2_reels_main"
+    ],
+    "46": [
+      "tools_reels_esf_s3_reels",
+      "tools_reels_esf_s3_reels_main"
+    ],
+    "47": [
+      "tools_reels_esf_s4_reels",
+      "tools_reels_esf_s4_reels_main"
+    ],
+    "48": [
+      "tools_reels_esf_s5_reels",
+      "tools_reels_esf_s5_reels_main"
+    ],
+    "49": [
+      "tools_reels_esf_s6_reels",
+      "tools_reels_esf_s6_reels_main"
+    ],
+    "50": [
+      "tools_transcode_hls",
+      "tools_transcode_hls_sh__entry"
+    ],
+    "51": [
+      "tools_upload_r2",
+      "tools_upload_r2_sh__entry"
+    ],
+    "52": [
+      "archive_feed_data"
+    ],
+    "53": [
+      "data_courses_config"
+    ],
+    "54": [
+      "data_feed_data"
+    ],
+    "55": [
+      "data_lernset_data"
+    ],
+    "56": [
+      "data_level_config"
+    ],
+    "57": [
+      "data_makro_uebungen_open"
+    ],
+    "58": [
+      "data_topics_data"
+    ],
+    "59": [
+      "data_topics_tags"
+    ],
+    "60": [
+      "exams_bwl_hs22_data"
+    ],
+    "61": [
+      "exams_englischc1_hs22_data"
+    ],
+    "62": [
+      "exams_esf_eigenklausur_data"
+    ],
+    "63": [
+      "exams_esf_hs22_data"
+    ],
+    "64": [
+      "exams_esf_hs22_new_data"
+    ],
+    "65": [
+      "exams_esf_hs23_data"
+    ],
+    "66": [
+      "exams_esf_quiz_s1_data"
+    ],
+    "67": [
+      "exams_esf_quiz_s2_data"
+    ],
+    "68": [
+      "exams_esf_quiz_s3_data"
+    ],
+    "69": [
+      "exams_esf_quiz_s4_data"
+    ],
+    "70": [
+      "exams_esf_sitzung1_data"
+    ],
+    "71": [
+      "exams_esf_sitzung2_data"
+    ],
+    "72": [
+      "exams_esf_sitzung3_data"
+    ],
+    "73": [
+      "exams_esf_sitzung4_data"
+    ],
+    "74": [
+      "exams_esf_sitzung5_data"
+    ],
+    "75": [
+      "exams_esf_sitzung6_data"
+    ],
+    "76": [
+      "exams_esf_uebung23_data"
+    ],
+    "77": [
+      "exams_makro_tb1_teil1_data"
+    ],
+    "78": [
+      "exams_makro_tb1_teil2_data"
+    ],
+    "79": [
+      "exams_makro_tb2_data"
+    ],
+    "80": [
+      "exams_makro_tb3_data"
+    ],
+    "81": [
+      "exams_makro_tb4_data"
+    ],
+    "82": [
+      "exams_makro_tb5_data"
+    ],
+    "83": [
+      "exams_makro_tb6_data"
+    ],
+    "84": [
+      "exams_om_fs20_data"
+    ],
+    "85": [
+      "exams_om_fs21_data"
+    ],
+    "86": [
+      "exams_om_fs26_data"
+    ],
+    "87": [
+      "exams_om_hs20_data"
+    ],
+    "88": [
+      "exams_om_hs23_data"
+    ],
+    "89": [
+      "exams_om_hs24_data"
+    ],
+    "90": [
+      "exams_statistik_pk1_data"
+    ],
+    "91": [
+      "exams_statistik_pk2_data"
+    ],
+    "92": [
+      "exams_statistik_topic1_data"
+    ],
+    "93": [
+      "exams_statistik_topic2_data"
+    ],
+    "94": [
+      "exams_statistik_topic3_data"
+    ],
+    "95": [
+      "exams_statistik_topic4_data"
+    ],
+    "96": [
+      "exams_statistik_topic5_data"
+    ],
+    "97": [
+      "exams_statistik_topic6_data"
+    ]
+  },
+  "cohesion": {
+    "0": 0.06886338393187708,
+    "1": 0.060109289617486336,
+    "2": 0.04878048780487805,
+    "3": 0.11538461538461539,
+    "4": 0.08817204301075268,
+    "5": 0.15343915343915343,
+    "6": 0.15384615384615385,
+    "7": 0.15217391304347827,
+    "8": 0.15019762845849802,
+    "9": 0.09090909090909091,
+    "10": 0.2,
+    "11": 0.23391812865497075,
+    "12": 0.1568627450980392,
+    "13": 0.20588235294117646,
+    "14": 0.2426470588235294,
+    "15": 0.3,
+    "16": 0.25833333333333336,
+    "17": 0.13333333333333333,
+    "18": 0.3717948717948718,
+    "19": 0.15384615384615385,
+    "20": 0.16666666666666666,
+    "21": 0.22727272727272727,
+    "22": 0.18181818181818182,
+    "23": 0.2,
+    "24": 0.3333333333333333,
+    "25": 0.3611111111111111,
+    "26": 0.2777777777777778,
+    "27": 0.4166666666666667,
+    "28": 0.39285714285714285,
+    "29": 0.5238095238095238,
+    "30": 0.5238095238095238,
+    "31": 0.42857142857142855,
+    "32": 0.4,
+    "33": 0.4,
+    "34": 0.6,
+    "35": 0.6,
+    "36": 0.6,
+    "37": 0.7,
+    "38": 0.5,
+    "39": 0.6666666666666666,
+    "40": 0.6666666666666666,
+    "41": 0.6666666666666666,
+    "42": 1.0,
+    "43": 1.0,
+    "44": 1.0,
+    "45": 1.0,
+    "46": 1.0,
+    "47": 1.0,
+    "48": 1.0,
+    "49": 1.0,
+    "50": 1.0,
+    "51": 1.0,
+    "52": 1.0,
+    "53": 1.0,
+    "54": 1.0,
+    "55": 1.0,
+    "56": 1.0,
+    "57": 1.0,
+    "58": 1.0,
+    "59": 1.0,
+    "60": 1.0,
+    "61": 1.0,
+    "62": 1.0,
+    "63": 1.0,
+    "64": 1.0,
+    "65": 1.0,
+    "66": 1.0,
+    "67": 1.0,
+    "68": 1.0,
+    "69": 1.0,
+    "70": 1.0,
+    "71": 1.0,
+    "72": 1.0,
+    "73": 1.0,
+    "74": 1.0,
+    "75": 1.0,
+    "76": 1.0,
+    "77": 1.0,
+    "78": 1.0,
+    "79": 1.0,
+    "80": 1.0,
+    "81": 1.0,
+    "82": 1.0,
+    "83": 1.0,
+    "84": 1.0,
+    "85": 1.0,
+    "86": 1.0,
+    "87": 1.0,
+    "88": 1.0,
+    "89": 1.0,
+    "90": 1.0,
+    "91": 1.0,
+    "92": 1.0,
+    "93": 1.0,
+    "94": 1.0,
+    "95": 1.0,
+    "96": 1.0,
+    "97": 1.0
+  },
+  "gods": [
+    {
+      "id": "js_screens_lernset_showexercise",
+      "label": "showExercise()",
+      "degree": 13
+    },
+    {
+      "id": "js_screens_profile_rendercoursecard",
+      "label": "_renderCourseCard()",
+      "degree": 13
+    },
+    {
+      "id": "native_app_expo",
+      "label": "expo",
+      "degree": 13
+    },
+    {
+      "id": "js_screens_flashcards_settxt",
+      "label": "_setTxt()",
+      "degree": 12
+    },
+    {
+      "id": "js_screens_flashcards_commitswipe",
+      "label": "_commitSwipe()",
+      "degree": 12
+    },
+    {
+      "id": "js_screens_profile_render",
+      "label": "_render()",
+      "degree": 11
+    },
+    {
+      "id": "js_screens_feed_fetchmore",
+      "label": "_fetchMore()",
+      "degree": 10
+    },
+    {
+      "id": "js_screens_flashcards_showcard",
+      "label": "showCard()",
+      "degree": 10
+    },
+    {
+      "id": "js_screens_flashcards_entergeminimode",
+      "label": "_enterGeminiMode()",
+      "degree": 10
+    },
+    {
+      "id": "tools_archived_k_ocr_pipeline_pipeline_run_pipeline",
+      "label": "run_pipeline()",
+      "degree": 10
+    }
+  ],
+  "surprises": [
+    {
+      "source": "fetch()",
+      "target": "handleRevenueCat()",
+      "source_files": [
+        "workers/billing/src/index.ts",
+        "workers/billing/src/revenuecat.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "fetch()",
+      "target": "handleStripe()",
+      "source_files": [
+        "workers/billing/src/index.ts",
+        "workers/billing/src/stripe.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "handleRevenueCat()",
+      "target": "logBillingEvent()",
+      "source_files": [
+        "workers/billing/src/revenuecat.ts",
+        "workers/billing/src/supabase.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "handleRevenueCat()",
+      "target": "upsertEntitlement()",
+      "source_files": [
+        "workers/billing/src/revenuecat.ts",
+        "workers/billing/src/supabase.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    },
+    {
+      "source": "handleStripe()",
+      "target": "logBillingEvent()",
+      "source_files": [
+        "workers/billing/src/stripe.ts",
+        "workers/billing/src/supabase.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "cross-file semantic connection"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `expo` connect `expo` to `VideoCard.tsx`?",
+      "why": "High betweenness centrality (0.003) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `plugins` connect `VideoCard.tsx` to `expo`?",
+      "why": "High betweenness centrality (0.002) - this node is a cross-community bridge."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 2 inferred relationships involving `_renderCourseCard()` (e.g. with `_etappeBarHtml()` and `_topicWeightAccuracy()`) actually correct?",
+      "why": "`_renderCourseCard()` has 2 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `KBrand`, `styles`, `name` to the rest of the system?",
+      "why": "77 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `flashcards.js` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.06886338393187708 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `exam.js` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.060109289617486336 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `dependencies` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.04878048780487805 - nodes in this community are weakly interconnected."
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+flows:
+  - flows/auth_flow.yaml
+  - flows/google_login_no_browser_leak.yaml
+  - flows/post_auth_navigation.yaml

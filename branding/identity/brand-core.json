@@ -1,0 +1,35 @@
+{
+  "version": "1.0",
+  "app": {
+    "name": "K-Learning",
+    "tagline": "Dein smarter Lernbegleiter",
+    "category": "Education / Academic"
+  },
+  "mission": "Akademische Lerninhalte — Statistik, Makro, OM, Sprachen — so aufbereiten, dass sie sitzen. Nicht Lernen für die Prüfung, sondern Verstehen.",
+  "audience": {
+    "primary": "Studierende an Universitäten und FH (18–28)",
+    "secondary": "Selbstlernende, die akademische Inhalte strukturiert durcharbeiten wollen",
+    "techAffinity": "mittel bis hoch — gewohnt an Apps, aber kein Dev-Background"
+  },
+  "personality": {
+    "adjectives": ["intelligent", "klar", "motivierend", "ruhig", "fokussiert"],
+    "not": ["verspielt", "laut", "gamifiziert um des Gamifizierens willen", "generisch"],
+    "toneOfVoice": "Direkt, präzise, freundlich. Wie ein guter Tutor — erklärt, fragt, gibt Feedback. Kein Marketing-Slang."
+  },
+  "visualIdentity": {
+    "style": "Dark-first, akademisch-modern",
+    "primaryColor": "#6C47FF",
+    "colorPersonality": "K-Violet steht für Intelligenz, Kreativität, Tiefe — differenziert von Duolingo-Grün und Quizlet-Blau",
+    "typography": {
+      "ui": "Nunito — freundlich, sehr lesbar, nicht steif",
+      "content": "Latin Modern Roman — akademisch, harmoniert mit KaTeX/Computer Modern",
+      "mono": "JetBrains Mono — klar, unterscheidbar (l/1/I, 0/O)"
+    },
+    "designPrinciples": [
+      "Klarheit vor Dekoration",
+      "Jeder Screen hat ein primäres Ziel — kein Clutter",
+      "Formeln und Lerninhalte verdienen typografischen Respekt (Serif)",
+      "Dark Mode ist Standard — konzentriert, augenfreundlich beim Lernen"
+    ]
+  }
+}

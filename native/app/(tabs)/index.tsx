@@ -3,9 +3,12 @@ import {
   View, FlatList, Dimensions, TouchableOpacity, Text,
   StyleSheet, ActivityIndicator, ViewToken,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from 'expo-router';
 import { supabase } from '../../lib/supabase';
+import { useCourse } from '../../lib/courseContext';
 import VideoCard, { FeedCard } from '../../components/VideoCard';
+import { C } from '../../constants/theme';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -14,11 +17,12 @@ export default function FeedScreen() {
   const [loading, setLoading] = useState(true);
   const [visibleIndex, setVisibleIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
+  const { activeCourse } = useCourse();
 
   useFocusEffect(
     useCallback(() => {
       loadFeed();
-    }, [])
+    }, [activeCourse])
   );
 
   async function loadFeed() {
@@ -28,13 +32,15 @@ export default function FeedScreen() {
       if (user) {
         const { data, error } = await supabase.rpc('get_user_feed', {
           p_user_id: user.id,
-          p_course: null,
+          p_course: activeCourse ?? null,
           p_limit: 30,
         });
         if (!error && data) { setCards(data); return; }
       }
-      // Fallback: load all videos
-      const { data } = await supabase.from('videos').select('*').order('sort_order');
+      // Fallback
+      let query = supabase.from('videos').select('*').order('sort_order');
+      if (activeCourse) query = query.eq('course', activeCourse);
+      const { data } = await query;
       setCards(data ?? []);
     } catch (e) {
       console.warn('Feed load error:', e);
@@ -72,7 +78,7 @@ export default function FeedScreen() {
   if (loading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator size="large" color="#7c3aed" />
+        <ActivityIndicator size="large" color={C.accent} />
       </View>
     );
   }
@@ -88,6 +94,12 @@ export default function FeedScreen() {
 
   return (
     <View style={styles.container}>
+      {activeCourse && (
+        <View style={styles.courseChip} pointerEvents="none">
+          <Ionicons name="filter" size={12} color="#fff" />
+          <Text style={styles.courseChipText}>{activeCourse}</Text>
+        </View>
+      )}
       <FlatList
         data={cards}
         keyExtractor={item => item.id}
@@ -127,11 +139,11 @@ export default function FeedScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: '#000', // video player stays black
   },
   center: {
     flex: 1,
-    backgroundColor: '#111827',
+    backgroundColor: C.bg,
     alignItems: 'center',
     justifyContent: 'center',
     gap: 12,
@@ -140,7 +152,7 @@ const styles = StyleSheet.create({
     fontSize: 48,
   },
   emptyText: {
-    color: '#9ca3af',
+    color: C.textSub,
     fontSize: 16,
   },
   muteBtn: {
@@ -157,4 +169,11 @@ const styles = StyleSheet.create({
   muteIcon: {
     fontSize: 20,
   },
+  courseChip: {
+    position: 'absolute', top: 56, left: 16, zIndex: 10,
+    flexDirection: 'row', alignItems: 'center', gap: 5,
+    backgroundColor: 'rgba(0,0,0,0.55)',
+    borderRadius: 20, paddingHorizontal: 10, paddingVertical: 5,
+  },
+  courseChipText: { color: '#fff', fontSize: 12, fontWeight: '700' },
 });

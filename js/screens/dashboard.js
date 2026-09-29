@@ -140,7 +140,7 @@ window.DashboardScreen = (function() {
 
   async function showCourseManager() {
     // Always fetch fresh catalog from Supabase
-    const all = await CoursesDB.getAvailableCourses();
+    const all = (await CoursesDB.getAvailableCourses()).filter(c => !c.hidden);
     const enrolled = await CoursesDB.getEnrolledKeys();
 
     // Remove existing modal if open

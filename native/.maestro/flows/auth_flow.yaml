@@ -1,0 +1,29 @@
+appId: com.raphael.klearning
+---
+# Test: Login-Screen lädt korrekt und beide Auth-Buttons sind vorhanden
+
+- launchApp:
+    clearState: true
+
+# Sicherstellen, dass die App auf dem Login-Screen ist
+- assertVisible:
+    text: "K-Learning"
+
+- assertVisible:
+    text: "HSG · Lern wie auf Instagram"
+
+# Google-Button vorhanden
+- assertVisible:
+    text: "Mit Google anmelden"
+
+# Apple-Button — nur auf iOS sichtbar (nativer Button ohne Text-Assertion möglich)
+# Der Apple-Button ist ein natives UI-Element; wir prüfen per Accessibility-Label
+- assertVisible:
+    id: "Sign in with Apple"
+
+# Hint-Text vorhanden
+- assertVisible:
+    text: "Nur für HSG-Studenten"
+
+# Kein Browser/WebView geöffnet (Screenshot zum Verifizieren)
+- takeScreenshot: login_screen

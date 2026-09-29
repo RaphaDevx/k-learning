@@ -7,6 +7,7 @@ import { useLocalSearchParams, router } from 'expo-router';
 import { loadExam } from '../../data/examLoader';
 import { getExamMeta } from '../../data/examRegistry';
 import type { ExamData, ExamQuestion, ExamSection, AnswerMap } from '../../types/exam';
+import { C, R, F } from '../../constants/theme';
 
 function scoreExam(data: ExamData, answers: AnswerMap): { earned: number; total: number; pct: number } {
   const rules = data.scoringRules;
@@ -204,7 +205,7 @@ export default function ExamScreen() {
   if (loading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator color="#6366f1" size="large" />
+        <ActivityIndicator color={C.accent} size="large" />
         <Text style={styles.loadingText}>Prüfung wird geladen…</Text>
       </View>
     );
@@ -313,70 +314,70 @@ export default function ExamScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#111827' },
-  center: { flex: 1, backgroundColor: '#111827', alignItems: 'center', justifyContent: 'center', gap: 12 },
-  loadingText: { color: '#9ca3af', fontSize: 15 },
+  container: { flex: 1, backgroundColor: C.bg },
+  center: { flex: 1, backgroundColor: C.bg, alignItems: 'center', justifyContent: 'center', gap: 12 },
+  loadingText: { color: C.textSub, fontSize: F.base },
 
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     paddingHorizontal: 16, paddingTop: 56, paddingBottom: 12,
   },
-  closeBtn: { color: '#9ca3af', fontSize: 20, width: 36 },
-  progressText: { color: '#9ca3af', fontSize: 13 },
-  timer: { color: '#e5e7eb', fontSize: 16, fontWeight: '700', minWidth: 50, textAlign: 'right' },
-  timerWarn: { color: '#f87171' },
+  closeBtn: { color: C.textSub, fontSize: 20, width: 36 },
+  progressText: { color: C.textSub, fontSize: F.sm },
+  timer: { color: C.text, fontSize: F.base, fontWeight: '700', minWidth: 50, textAlign: 'right' },
+  timerWarn: { color: C.red },
 
-  progressBar: { height: 3, backgroundColor: '#1f2937', marginHorizontal: 16 },
-  progressFill: { height: 3, backgroundColor: '#6366f1', borderRadius: 2 },
+  progressBar: { height: 3, backgroundColor: C.border, marginHorizontal: 16 },
+  progressFill: { height: 3, backgroundColor: C.accent, borderRadius: 2 },
 
   scroll: { flex: 1 },
   scrollContent: { padding: 16, paddingBottom: 32 },
 
   contextBox: {
-    backgroundColor: '#1e3a5f', borderRadius: 10, padding: 12, marginBottom: 16,
-    borderLeftWidth: 3, borderLeftColor: '#3b82f6',
+    backgroundColor: C.accentGlow, borderRadius: R.md, padding: 12, marginBottom: 16,
+    borderLeftWidth: 3, borderLeftColor: C.accent,
   },
-  contextText: { color: '#bfdbfe', fontSize: 13, lineHeight: 20 },
+  contextText: { color: C.textSub, fontSize: F.sm, lineHeight: 20 },
 
-  sectionLabel: { color: '#6b7280', fontSize: 12, fontWeight: '600', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 0.5 },
-  questionText: { color: '#f9fafb', fontSize: 16, lineHeight: 24, fontWeight: '600', marginBottom: 6 },
-  questionMeta: { color: '#6b7280', fontSize: 12, marginBottom: 20 },
+  sectionLabel: { color: C.textMuted, fontSize: F.xs, fontWeight: '600', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 0.5 },
+  questionText: { color: C.text, fontSize: F.base, lineHeight: 24, fontWeight: '600', marginBottom: 6 },
+  questionMeta: { color: C.textMuted, fontSize: F.xs, marginBottom: 20 },
 
   choices: { gap: 10 },
   choice: {
     flexDirection: 'row', alignItems: 'flex-start', gap: 12,
-    backgroundColor: '#1f2937', borderRadius: 12, padding: 14,
-    borderWidth: 1, borderColor: 'transparent',
+    backgroundColor: C.surface, borderRadius: R.md, padding: 14,
+    borderWidth: 1, borderColor: C.border,
   },
-  choiceSelected: { borderColor: '#6366f1', backgroundColor: '#1e1b4b' },
+  choiceSelected: { borderColor: C.accent, backgroundColor: C.accentGlow },
   choiceKey: {
-    width: 28, height: 28, borderRadius: 8,
-    backgroundColor: '#374151', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+    width: 28, height: 28, borderRadius: R.sm,
+    backgroundColor: C.surfaceHigh, alignItems: 'center', justifyContent: 'center', flexShrink: 0,
   },
-  choiceKeySelected: { backgroundColor: '#6366f1' },
-  choiceKeyText: { color: '#9ca3af', fontSize: 13, fontWeight: '700' },
+  choiceKeySelected: { backgroundColor: C.accent },
+  choiceKeyText: { color: C.textSub, fontSize: F.sm, fontWeight: '700' },
   choiceKeyTextSelected: { color: '#fff' },
-  choiceText: { color: '#d1d5db', fontSize: 14, lineHeight: 20, flex: 1, paddingTop: 4 },
-  choiceTextSelected: { color: '#fff' },
+  choiceText: { color: C.textSub, fontSize: 14, lineHeight: 20, flex: 1, paddingTop: 4 },
+  choiceTextSelected: { color: C.text },
 
   nav: {
     flexDirection: 'row', gap: 12, padding: 16, paddingBottom: 32,
-    borderTopWidth: 1, borderTopColor: '#1f2937',
+    borderTopWidth: 1, borderTopColor: C.border,
   },
   navBtn: {
-    flex: 1, paddingVertical: 14, borderRadius: 12,
-    backgroundColor: '#1f2937', alignItems: 'center',
+    flex: 1, paddingVertical: 14, borderRadius: R.md,
+    backgroundColor: C.surface, borderWidth: 1, borderColor: C.border, alignItems: 'center',
   },
   navBtnDisabled: { opacity: 0.3 },
-  navBtnText: { color: '#9ca3af', fontWeight: '600', fontSize: 15 },
+  navBtnText: { color: C.textSub, fontWeight: '600', fontSize: F.base },
   navBtnNext: {
-    flex: 2, paddingVertical: 14, borderRadius: 12,
-    backgroundColor: '#4f46e5', alignItems: 'center',
+    flex: 2, paddingVertical: 14, borderRadius: R.md,
+    backgroundColor: C.accent, alignItems: 'center',
   },
-  navBtnNextText: { color: '#fff', fontWeight: '700', fontSize: 15 },
+  navBtnNextText: { color: '#fff', fontWeight: '700', fontSize: F.base },
   submitBtn: {
-    flex: 2, paddingVertical: 14, borderRadius: 12,
-    backgroundColor: '#059669', alignItems: 'center',
+    flex: 2, paddingVertical: 14, borderRadius: R.md,
+    backgroundColor: C.green, alignItems: 'center',
   },
-  submitBtnText: { color: '#fff', fontWeight: '700', fontSize: 15 },
+  submitBtnText: { color: '#fff', fontWeight: '700', fontSize: F.base },
 });

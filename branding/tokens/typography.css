@@ -1,0 +1,123 @@
+/* ─────────────────────────────────────────────────────────────
+   K-Learning — Typography System
+   Drei Rollen, drei Fonts, klar getrennt.
+
+   ROLE 1 · UI          → Nunito       (Navigation, Buttons, Labels)
+   ROLE 2 · CONTENT     → Latin Modern Roman  (Lerntexte, Erklärungen)
+   ROLE 3 · MONO/MATH   → JetBrains Mono + KaTeX (Code, Formeln)
+───────────────────────────────────────────────────────────── */
+
+/* ── ROLE 2: Latin Modern Roman (CDN via CDNJS / jsDelivr) ── */
+/* Latin Modern harmoniert mit KaTeX Computer Modern — gleiche Schriftfamilie */
+@import url('https://cdn.jsdelivr.net/npm/lm-fonts@1.0.2/css/lm-roman.css');
+
+/* ── ROLE 3: JetBrains Mono (Google Fonts) ─────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+/* ── CSS Custom Properties ──────────────────────────────────── */
+:root {
+  /* Rolle 1: UI — Buttons, Navigation, Labels, Badges */
+  --font-ui:      'Nunito', -apple-system, system-ui, sans-serif;
+
+  /* Rolle 2: Academic Content — Lerntexte, Erklärungen, Definitionen */
+  --font-content: 'Latin Modern Roman', 'Computer Modern', Georgia, serif;
+
+  /* Rolle 3: Monospace — Code-Blöcke, Inline-Code, Daten */
+  --font-mono:    'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+
+  /* KaTeX überschreibt seine eigenen Fonts intern — kein Eingriff nötig */
+}
+
+/* ── Utility-Klassen ─────────────────────────────────────────── */
+
+/* Explizite Zuweisung wenn nötig */
+.font-ui      { font-family: var(--font-ui); }
+.font-content { font-family: var(--font-content); }
+.font-mono    { font-family: var(--font-mono); }
+
+/* ── Prose: Akademische Lerninhalte ──────────────────────────── */
+/*   Anwenden auf Container die Lerntexte/Erklärungen enthalten  */
+.prose {
+  font-family:  var(--font-content);
+  font-size:    1rem;
+  line-height:  1.8;
+  font-weight:  400;
+  letter-spacing: 0.01em;
+}
+.prose p        { margin-bottom: 1em; }
+.prose strong   { font-weight: 700; }
+.prose em       { font-style: italic; }
+
+/* Definitionen / Theoreme (wie in Büchern) */
+.definition,
+.theorem,
+.example-block {
+  font-family: var(--font-content);
+  font-size:   0.9375rem;
+  line-height: 1.75;
+  padding:     16px 20px;
+  border-left: 3px solid var(--accent);
+  background:  var(--accent-l);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+  margin:      1.25em 0;
+}
+.definition .label,
+.theorem    .label {
+  font-family: var(--font-ui);
+  font-size:   0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-soft);
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* ── Code Blocks ──────────────────────────────────────────────── */
+code, pre, .code-block {
+  font-family: var(--font-mono);
+  font-size:   0.875em;
+  font-variant-ligatures: none;
+}
+code {
+  background:    var(--card-raised);
+  border:        1px solid var(--border);
+  border-radius: var(--r-xs);
+  padding:       2px 6px;
+  color:         var(--accent-soft);
+}
+pre {
+  background:    var(--card-raised);
+  border:        1px solid var(--border);
+  border-radius: var(--r-md);
+  padding:       16px 20px;
+  overflow-x:    auto;
+  line-height:   1.6;
+}
+pre code {
+  background: none;
+  border:     none;
+  padding:    0;
+  color:      var(--txt);
+}
+
+/* ── KaTeX Display-Mode Verbesserungen ───────────────────────── */
+.katex-display {
+  margin:    1.25em 0;
+  padding:   12px 16px;
+  background: var(--card-raised);
+  border:    1px solid var(--border);
+  border-radius: var(--r-sm);
+  overflow-x: auto;
+}
+/* Inline KaTeX bleibt unangetastet — KaTeX steuert eigene Fonts */
+.katex { color: inherit !important; }
+
+/* ── Flashcard / Lernkarten: Content-Font für Frage & Antwort ── */
+.flashcard-question,
+.flashcard-answer {
+  font-family: var(--font-content);
+  font-size:   1.0625rem;
+  line-height: 1.7;
+}
+/* UI-Font für Metadaten (Kategorie, Progress) bleibt Nunito via inherit */

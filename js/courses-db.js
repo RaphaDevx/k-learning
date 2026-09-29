@@ -21,6 +21,7 @@ window.CoursesDB = (function () {
     teal:   { bg:'bg-teal-900',   hover:'hover:bg-teal-800',   bar:'bg-teal-700',   fill:'bg-teal-300',   text:'text-teal-300',   rgb:'13,148,136'  },
     red:    { bg:'bg-red-900',    hover:'hover:bg-red-800',    bar:'bg-red-700',    fill:'bg-red-300',    text:'text-red-300',    rgb:'220,38,38'   },
     rose:   { bg:'bg-rose-900',   hover:'hover:bg-rose-800',   bar:'bg-rose-700',   fill:'bg-rose-300',   text:'text-rose-300',   rgb:'225,29,72'   },
+    amber:  { bg:'bg-amber-900',  hover:'hover:bg-amber-800',  bar:'bg-amber-700',  fill:'bg-amber-300',  text:'text-amber-300',  rgb:'217,119,6'   },
   };
 
   // ── Public: get available courses (catalog) ────────────────────────────
@@ -94,6 +95,7 @@ window.CoursesDB = (function () {
         key: c.key, label: c.label, icon: c.icon, color: c.color, hex: c.hex,
         exam_date: c.examDate, exam_room: c.examRoom, exam_format: c.examFormat,
         notebook_id: c.notebookId, data_dir: c.dataDir, active: true, sort_order: i,
+        hidden: c.hidden || false,
       }));
     }
 
@@ -138,6 +140,7 @@ window.CoursesDB = (function () {
       examFormat: r.exam_format || null,
       notebookId: r.notebook_id || null,
       dataDir:    r.data_dir    || r.key,
+      hidden:     r.hidden      || false,
       tailwind:   tw,
       rgb:        tw.rgb,
     };
@@ -191,5 +194,19 @@ window.CoursesDB = (function () {
     } catch { return null; }
   }
 
-  return { getAvailableCourses, getEnrolledKeys, saveEnrollment, createCourse, deleteCourse, reset };
+  // ── Public: unlock a hidden course from the browser console ──────────────
+  async function unlockCourse(key) {
+    const catalog = await getAvailableCourses();
+    if (!catalog.find(c => c.key === key)) {
+      console.warn(`unlockCourse: Kurs "${key}" nicht gefunden.`);
+      return false;
+    }
+    const enrolled = await getEnrolledKeys();
+    if (enrolled.includes(key)) { console.log(`"${key}" ist bereits eingeschrieben.`); return true; }
+    await saveEnrollment([...enrolled, key]);
+    console.log(`✓ "${key}" freigeschaltet. Seite neu laden.`);
+    return true;
+  }
+
+  return { getAvailableCourses, getEnrolledKeys, saveEnrollment, createCourse, deleteCourse, reset, unlockCourse };
 })();

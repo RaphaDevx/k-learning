@@ -1,0 +1,32 @@
+appId: com.raphael.klearning
+---
+# Test: Nach erfolgreichem Login wird der User auf den Tab-Screen weitergeleitet
+# Setzt einen bereits eingeloggten User voraus (oder wird nach auth_flow ausgeführt)
+# Hinweis: Apple Sign-In kann im Simulator nicht getestet werden (nur auf echtem Gerät)
+
+- launchApp:
+    clearState: false  # bestehende Session beibehalten
+
+# Entweder: Login-Screen (nicht eingeloggt) ODER Tab-Bar (eingeloggt)
+- runFlow:
+    when:
+      visible: "Mit Google anmelden"
+    file: ./auth_flow.yaml
+
+# Wenn eingeloggt: Tab-Bar muss sichtbar sein
+- assertVisible:
+    text: "Feed"
+
+- assertVisible:
+    text: "Lernen"
+
+- assertVisible:
+    text: "Karten"
+
+- assertVisible:
+    text: "Prüfungen"
+
+- assertVisible:
+    text: "Profil"
+
+- takeScreenshot: tab_bar_visible

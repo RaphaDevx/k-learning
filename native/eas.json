@@ -4,6 +4,11 @@
     "appVersionSource": "local"
   },
   "build": {
+    "local": {
+      "ios": {
+        "simulator": true
+      }
+    },
     "development": {
       "developmentClient": true,
       "distribution": "internal",
@@ -19,8 +24,9 @@
       }
     },
     "production": {
+      "credentialsSource": "local",
       "ios": {
-        "resourceClass": "m-medium"
+        "simulator": false
       },
       "android": {
         "buildType": "app-bundle"
@@ -30,7 +36,12 @@
   "submit": {
     "production": {
       "ios": {
-        "appleId": "raphael.m.kaufmann@gmail.com"
+        "appleId": "raphaelk01@outlook.de",
+        "ascAppId": "6800736557",
+        "appleTeamId": "H6X9JDXF96",
+        "ascApiKeyIssuerId": "574f04c9-0353-4156-9ad6-28ffe3f42850",
+        "ascApiKeyId": "56XGD2G938",
+        "ascApiKeyPath": "/Users/Builder/private/AuthKey_56XGD2G938.p8"
       }
     }
   }

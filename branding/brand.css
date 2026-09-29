@@ -1,8 +1,16 @@
 /* ─────────────────────────────────────────────
-   K-Learning  —  Branding Kit V2.1
+   K-Learning  —  Branding Kit V3.0
    Single source of truth for design tokens.
    Load this file BEFORE any inline styles.
+
+   Typography-System (3 Rollen):
+   --font-ui      → Nunito        (UI, Navigation, Controls)
+   --font-content → Latin Modern  (Lerntexte, akademischer Inhalt)
+   --font-mono    → JetBrains Mono (Code, Daten)
+   Details: branding/tokens/typography.css
 ───────────────────────────────────────────── */
+
+@import url('tokens/typography.css');
 
 /* ── Dark Mode (default) ─────────────────── */
 :root {
@@ -36,8 +44,11 @@
   --warning: #FFB347;
   --danger:  #FF6B6B;
 
-  /* Typography */
-  --font-base: 'Nunito', -apple-system, system-ui, sans-serif;
+  /* Typography — 3-Rollen-System */
+  --font-base:    'Nunito', -apple-system, system-ui, sans-serif; /* Legacy alias */
+  --font-ui:      'Nunito', -apple-system, system-ui, sans-serif;
+  --font-content: 'Latin Modern Roman', 'Computer Modern', Georgia, serif;
+  --font-mono:    'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
 
   /* Border Radius Scale */
   --r-sm:   10px;
