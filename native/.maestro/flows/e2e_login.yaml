@@ -1,0 +1,49 @@
+appId: com.raphael.klearning
+---
+# Test + Unterflow: Login mit dem Supabase-Testuser (nur Builds mit capability "e2e_login").
+# Credentials nur zur Laufzeit als Env MAESTRO_E2E_EMAIL / MAESTRO_E2E_PASSWORD
+# (Maestro reicht Shell-Env mit Prefix MAESTRO_ an Flows durch, nie als CLI-Argument).
+# Nie in Dateien eintragen.
+
+- launchApp:
+    clearState: true
+
+- extendedWaitUntil:
+    visible: "K-Learning"
+    timeout: 30000
+
+- tapOn:
+    id: "e2e-email"
+
+# Auf frisch zurückgesetzten Simulatoren blendet iOS beim ersten Tippen den Hinweis
+# "Slide to Type" ein, der die Tastatur blockiert
+- runFlow:
+    when:
+      visible: "Continue"
+    commands:
+      - tapOn: "Continue"
+
+- inputText: ${MAESTRO_E2E_EMAIL}
+
+# Die Tastatur verdeckt sonst Passwortfeld und Login-Button; die Return-Taste schliesst sie
+- tapOn:
+    id: "Return"
+
+- tapOn:
+    id: "e2e-password"
+
+- inputText: ${MAESTRO_E2E_PASSWORD}
+
+- tapOn:
+    id: "Return"
+
+- tapOn:
+    id: "e2e-login"
+
+# Erfolg: Router wechselt auf die Tab-Bar (Label z. B. "Feed, tab, 2 of 6")
+- extendedWaitUntil:
+    visible: "Feed, tab.*"
+    timeout: 30000
+
+- assertNotVisible:
+    id: "e2e-error"

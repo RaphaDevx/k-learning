@@ -5,9 +5,11 @@ import * as Linking from 'expo-linking';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { supabase } from '../lib/supabase';
 import { CourseProvider } from '../lib/courseContext';
+import { useColors } from '../constants/theme';
 import type { Session } from '@supabase/supabase-js';
 
 export default function RootLayout() {
+  const c = useColors();
   const [session, setSession] = useState<Session | null | undefined>(undefined);
   const router = useRouter();
   const segments = useSegments();
@@ -57,8 +59,8 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <CourseProvider>
-        <StatusBar style="dark" />
-        <Stack screenOptions={{ headerShown: false }}>
+        <StatusBar style="auto" />
+        <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: c.bg } }}>
           <Stack.Screen name="(auth)" />
           <Stack.Screen name="(tabs)" />
           <Stack.Screen name="exam" options={{ presentation: 'fullScreenModal' }} />

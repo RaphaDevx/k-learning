@@ -1,0 +1,37 @@
+appId: com.raphael.klearning
+---
+# Test: Prüfungen-Tab listet Prüfungen; eine Prüfung startet, Antwort wählen, Weiter, Abbrechen
+# Nicht-destruktiv: Abbruch über "Prüfung abbrechen?" verwirft nur den laufenden Versuch, es wird nichts abgegeben
+
+- runFlow: e2e_login.yaml
+
+- tapOn: "Prüfungen, tab.*"
+- assertVisible: "Makro II"
+- assertVisible: "Probeklausur FS26.*"
+
+- tapOn: "Probeklausur FS26.*"
+
+# Prüfungs-Runner: Fortschritt, Timer, Frage mit Antwortoptionen
+- extendedWaitUntil:
+    visible: "1 / [0-9]+"
+    timeout: 20000
+- assertVisible: "A, .*"
+
+# Antwort wählen, weiter zur nächsten Frage
+- tapOn: "A, .*"
+- tapOn: "Weiter"
+- extendedWaitUntil:
+    visible: "2 / [0-9]+"
+    timeout: 10000
+
+- takeScreenshot: exam_question_2
+
+# Abbrechen (Bestätigungsdialog), zurück auf die Prüfungsliste
+- tapOn: "✕"
+- extendedWaitUntil:
+    visible: "Prüfung abbrechen\\?"
+    timeout: 10000
+- tapOn: "Abbrechen|Cancel"
+- extendedWaitUntil:
+    visible: "Makro II"
+    timeout: 10000

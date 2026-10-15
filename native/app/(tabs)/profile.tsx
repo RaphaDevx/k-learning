@@ -1,6 +1,7 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useMemo } from 'react';
+import type { ComponentProps } from 'react';
 import {
-  View, Text, TouchableOpacity, StyleSheet, Image,
+  View, Text, Pressable, StyleSheet, Image,
   ScrollView, ActivityIndicator, Platform, Alert,
 } from 'react-native';
 import * as WebBrowser from 'expo-web-browser';
@@ -10,7 +11,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { supabase } from '../../lib/supabase';
 import { useScrollContext } from './_layout';
-import { C, R, F } from '../../constants/theme';
+import { useColors, T, S, R, GUTTER, HIT, MAX_SCALE_CHROME } from '../../constants/theme';
+import type { ColorTokens } from '../../constants/theme';
 import type { User } from '@supabase/supabase-js';
 
 WebBrowser.maybeCompleteAuthSession();
@@ -25,6 +27,8 @@ interface ProfileStats {
 }
 
 export default function ProfileScreen() {
+  const c = useColors();
+  const styles = useMemo(() => makeStyles(c), [c]);
   const insets = useSafeAreaInsets();
   const { onScroll } = useScrollContext();
   const lastY = useRef(0);
@@ -112,6 +116,17 @@ export default function ProfileScreen() {
     }
   }
 
+  function confirmSignOut() {
+    Alert.alert(
+      'Abmelden?',
+      'Du musst dich danach erneut anmelden.',
+      [
+        { text: 'Abbrechen', style: 'cancel' },
+        { text: 'Abmelden', style: 'destructive', onPress: signOut },
+      ],
+    );
+  }
+
   async function signOut() {
     await supabase.auth.signOut();
     router.replace('/(auth)/login');
@@ -125,16 +140,28 @@ export default function ProfileScreen() {
 
   if (loading) {
     return (
-      <View style={[styles.center, { backgroundColor: C.bg }]}>
-        <ActivityIndicator color={C.accentLight} size="large" />
+      <View style={[styles.center, { backgroundColor: c.bg }]}>
+        <ActivityIndicator color={c.textSub} size="large" />
       </View>
     );
   }
 
+  const statRows: { icon: IconName; label: string; value: string }[] = [
+    { icon: 'eye-outline', label: 'Videos gesehen', value: String(stats.watched) },
+    { icon: 'albums-outline', label: 'Karten', value: String(stats.totalCards) },
+    { icon: 'refresh-outline', label: 'Fällige Karten', value: String(stats.dueCards) },
+    { icon: 'document-text-outline', label: 'Prüfungen abgeschlossen', value: String(stats.examsCompleted) },
+    ...(stats.examsCompleted > 0 ? [
+      { icon: 'trending-up-outline' as IconName, label: 'Durchschnittliche Punktzahl', value: `${stats.avgExamScore} %` },
+      { icon: 'trophy-outline' as IconName, label: 'Beste Punktzahl', value: `${stats.bestExamScore} %` },
+    ] : []),
+  ];
+
   return (
     <ScrollView
-      style={[styles.container, { backgroundColor: C.bg }]}
-      contentContainerStyle={[styles.content, { paddingTop: insets.top + 16, paddingBottom: 100 }]}
+      style={[styles.container, { backgroundColor: c.bg }]}
+      contentContainerStyle={[styles.content, { paddingTop: insets.top + S.sm, paddingBottom: 100 }]}
+      contentInsetAdjustmentBehavior="automatic"
       scrollEventThrottle={16}
       onScroll={({ nativeEvent }) => {
         const dy = nativeEvent.contentOffset.y - lastY.current;
@@ -142,79 +169,76 @@ export default function ProfileScreen() {
         onScroll(dy);
       }}
     >
-      {/* Hero */}
-      <View style={styles.hero}>
-        <View style={styles.avatarRing}>
+      <Text style={styles.largeTitle} accessibilityRole="header">Profil</Text>
+
+      {/* Account */}
+      <View style={styles.group}>
+        <View style={styles.accountRow}>
           {avatarUrl ? (
-            <Image source={{ uri: avatarUrl }} style={styles.avatar} />
+            <Image source={{ uri: avatarUrl }} style={styles.avatar} accessibilityIgnoresInvertColors />
           ) : (
             <View style={styles.avatarPlaceholder}>
               <Text style={styles.avatarInitials}>{initials}</Text>
             </View>
           )}
-        </View>
-        <Text style={styles.name}>{name}</Text>
-        <Text style={styles.email}>{email}</Text>
-        <View style={styles.badge}>
-          <Ionicons name="school-outline" size={12} color={C.accentLight} />
-          <Text style={styles.badgeText}>HSG Student</Text>
+          <View style={styles.accountText}>
+            <Text style={styles.name} numberOfLines={2}>{name}</Text>
+            <Text style={styles.email} numberOfLines={1}>{email}</Text>
+          </View>
         </View>
       </View>
 
-      {/* Stats horizontal scroll */}
-      <Text style={styles.sectionTitle}>Lernstatistik</Text>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.statsScroll}
-      >
-        <StatPill icon="eye-outline" value={stats.watched} label="Videos" accent={C.accent} />
-        <StatPill icon="albums-outline" value={stats.totalCards} label="Karten" accent={C.blue} />
-        <StatPill icon="refresh-outline" value={stats.dueCards} label="Fällig" accent={C.red} />
-        <StatPill icon="document-text-outline" value={stats.examsCompleted} label="Prüfungen" accent={C.green} />
-        {stats.examsCompleted > 0 && (
-          <StatPill icon="trending-up-outline" value={stats.avgExamScore} label="Ø Score %" accent={C.yellow} />
-        )}
-        {stats.examsCompleted > 0 && (
-          <StatPill icon="trophy-outline" value={stats.bestExamScore} label="Best %" accent={C.accentLight} />
-        )}
-      </ScrollView>
+      {/* Stats */}
+      <Text style={styles.sectionTitle} accessibilityRole="header">Lernstatistik</Text>
+      <View style={styles.group}>
+        {statRows.map((r, i) => (
+          <View key={r.label}>
+            {i > 0 && <View style={styles.separator} />}
+            <View style={styles.row} accessible accessibilityLabel={`${r.label}: ${r.value}`}>
+              <Ionicons name={r.icon} size={22} color={c.textSub} />
+              <Text style={styles.rowLabel}>{r.label}</Text>
+              <Text style={styles.rowValue}>{r.value}</Text>
+            </View>
+          </View>
+        ))}
+      </View>
 
-      {/* Settings-style action rows */}
-      <Text style={styles.sectionTitle}>Aktionen</Text>
-      <View style={styles.settingsList}>
-        <SettingsRow
+      {/* Actions */}
+      <Text style={styles.sectionTitle} accessibilityRole="header">Aktionen</Text>
+      <View style={styles.group}>
+        <NavRow
+          styles={styles} c={c}
           icon="flash-outline"
           label="Fällige Karten lernen"
-          accent={C.accent}
           onPress={() => router.push('/(tabs)/flashcards' as any)}
         />
-        <View style={styles.settingsDivider} />
-        <SettingsRow
+        <View style={styles.separator} />
+        <NavRow
+          styles={styles} c={c}
           icon="document-text-outline"
           label="Prüfung starten"
-          accent={C.green}
           onPress={() => router.push('/(tabs)/exam' as any)}
         />
       </View>
 
       {/* Linked accounts */}
-      <Text style={styles.sectionTitle}>Verknüpfte Accounts</Text>
-      <View style={styles.settingsList}>
+      <Text style={styles.sectionTitle} accessibilityRole="header">Verknüpfte Accounts</Text>
+      <View style={styles.group}>
         {linkedProviders.map((provider, i) => (
           <View key={provider}>
-            {i > 0 && <View style={styles.settingsDivider} />}
-            <View style={styles.settingsRow}>
-              <View style={[styles.settingsIconBox, { backgroundColor: provider === 'google' ? '#EA433520' : '#00000020' }]}>
-                <Text style={styles.providerIcon}>{provider === 'google' ? 'G' : ''}</Text>
-                {provider === 'apple' && <Ionicons name="logo-apple" size={18} color={C.text} />}
-              </View>
-              <Text style={styles.settingsLabel}>
+            {i > 0 && <View style={styles.separator} />}
+            <View style={styles.row}>
+              {provider === 'google'
+                ? <Ionicons name="logo-google" size={22} color={c.textSub} />
+                : provider === 'apple'
+                  ? <Ionicons name="logo-apple" size={22} color={c.textSub} />
+                  : <Ionicons name="person-circle-outline" size={22} color={c.textSub} />}
+              <Text style={styles.rowLabel}>
                 {provider === 'google' ? 'Google' : provider === 'apple' ? 'Apple ID' : provider}
               </Text>
               <View style={styles.linkedBadge}>
-                <Ionicons name="checkmark-circle" size={16} color={C.green} />
-                <Text style={styles.linkedBadgeText}>Verknüpft</Text>
+                <Ionicons name="checkmark-circle" size={18} color={c.green} />
+                <Text style={styles.linkedBadgeText} maxFontSizeMultiplier={MAX_SCALE_CHROME}>Verknüpft</Text>
               </View>
             </View>
           </View>
@@ -222,179 +246,117 @@ export default function ProfileScreen() {
 
         {!linkedProviders.includes('apple') && Platform.OS === 'ios' && (
           <>
-            {linkedProviders.length > 0 && <View style={styles.settingsDivider} />}
-            <TouchableOpacity
-              style={styles.settingsRow}
+            {linkedProviders.length > 0 && <View style={styles.separator} />}
+            <Pressable
+              style={({ pressed }) => [styles.row, pressed && styles.pressedRow]}
               onPress={linkAppleIdentity}
               disabled={loadingLink}
-              activeOpacity={0.7}
+              accessibilityRole="button"
+              accessibilityLabel="Apple ID verknüpfen"
             >
-              <View style={[styles.settingsIconBox, { backgroundColor: '#00000014' }]}>
-                {loadingLink
-                  ? <ActivityIndicator size="small" color={C.text} />
-                  : <Ionicons name="logo-apple" size={18} color={C.text} />
-                }
-              </View>
-              <Text style={styles.settingsLabel}>Apple ID verknüpfen</Text>
-              <Ionicons name="add-circle-outline" size={16} color={C.accentLight} />
-            </TouchableOpacity>
+              {loadingLink
+                ? <ActivityIndicator size="small" color={c.textSub} />
+                : <Ionicons name="logo-apple" size={22} color={c.textSub} />}
+              <Text style={[styles.rowLabel, { color: c.accent }]}>Apple ID verknüpfen</Text>
+            </Pressable>
           </>
         )}
       </View>
 
-      {/* Sign out — red row */}
-      <View style={styles.settingsList}>
-        <TouchableOpacity style={styles.signOutRow} onPress={signOut} activeOpacity={0.7}>
-          <View style={[styles.settingsIconBox, { backgroundColor: C.red + '18' }]}>
-            <Ionicons name="log-out-outline" size={18} color={C.red} />
-          </View>
-          <Text style={styles.signOutLabel}>Abmelden</Text>
-          <Ionicons name="chevron-forward" size={16} color={C.textMuted} />
-        </TouchableOpacity>
+      {/* Sign out — destructive row, confirmed via alert */}
+      <View style={styles.group}>
+        <Pressable
+          style={({ pressed }) => [styles.row, pressed && styles.pressedRow]}
+          onPress={confirmSignOut}
+          accessibilityRole="button"
+          accessibilityLabel="Abmelden"
+        >
+          <Ionicons name="log-out-outline" size={22} color={c.red} />
+          <Text style={[styles.rowLabel, { color: c.red }]}>Abmelden</Text>
+        </Pressable>
       </View>
     </ScrollView>
   );
 }
 
-function StatPill({
-  icon, value, label, accent,
+type IconName = ComponentProps<typeof Ionicons>['name'];
+type Styles = ReturnType<typeof makeStyles>;
+
+function NavRow({
+  icon, label, onPress, styles, c,
 }: {
-  icon: string; value: number; label: string; accent: string;
+  icon: IconName; label: string; onPress: () => void; styles: Styles; c: ColorTokens;
 }) {
   return (
-    <View style={[styles.statPill, { borderColor: accent + '40' }]}>
-      <View style={[styles.statPillIcon, { backgroundColor: accent + '18' }]}>
-        <Ionicons name={icon as any} size={16} color={accent} />
-      </View>
-      <Text style={[styles.statPillValue, { color: accent }]}>{value}</Text>
-      <Text style={styles.statPillLabel}>{label}</Text>
-    </View>
+    <Pressable
+      style={({ pressed }) => [styles.row, pressed && styles.pressedRow]}
+      onPress={onPress}
+      accessibilityRole="button"
+    >
+      <Ionicons name={icon} size={22} color={c.accent} />
+      <Text style={styles.rowLabel}>{label}</Text>
+      <Ionicons name="chevron-forward" size={18} color={c.textMuted} />
+    </Pressable>
   );
 }
 
-function SettingsRow({
-  icon, label, accent, onPress,
-}: {
-  icon: string; label: string; accent: string; onPress: () => void;
-}) {
-  return (
-    <TouchableOpacity style={styles.settingsRow} onPress={onPress} activeOpacity={0.7}>
-      <View style={[styles.settingsIconBox, { backgroundColor: accent + '18' }]}>
-        <Ionicons name={icon as any} size={18} color={accent} />
-      </View>
-      <Text style={styles.settingsLabel}>{label}</Text>
-      <Ionicons name="chevron-forward" size={16} color={C.textMuted} />
-    </TouchableOpacity>
-  );
-}
-
-const styles = StyleSheet.create({
+const makeStyles = (c: ColorTokens) => StyleSheet.create({
   container: { flex: 1 },
-  content: { paddingHorizontal: 20, gap: 16 },
+  content: { paddingHorizontal: GUTTER, gap: S.sm },
   center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
 
-  // Hero
-  hero: { alignItems: 'center', gap: 6, paddingVertical: 12 },
-  avatarRing: {
-    padding: 3,
-    borderRadius: R.full,
-    borderWidth: 3,
-    borderColor: C.accentLight,
-    marginBottom: 8,
-  },
-  avatar: { width: 84, height: 84, borderRadius: 42 },
-  avatarPlaceholder: {
-    width: 84,
-    height: 84,
-    borderRadius: 42,
-    backgroundColor: C.accent + '44',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  avatarInitials: { color: C.accentLight, fontSize: F.xl, fontWeight: '800' },
-  name: { color: C.text, fontSize: F.xl, fontWeight: '800' },
-  email: { color: C.textSub, fontSize: F.sm },
-  badge: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    backgroundColor: C.accent + '22',
-    borderRadius: R.full,
-    paddingHorizontal: 12,
-    paddingVertical: 5,
-    marginTop: 4,
-    borderWidth: 1,
-    borderColor: C.accent + '44',
-  },
-  badgeText: { color: C.accentLight, fontSize: F.xs, fontWeight: '700' },
+  largeTitle: { ...T.largeTitle, color: c.text, marginBottom: S.sm },
 
-  // Section titles
   sectionTitle: {
-    color: C.textSub,
-    fontSize: F.xs,
-    fontWeight: '700',
+    ...T.footnote,
+    color: c.textSub,
     textTransform: 'uppercase',
-    letterSpacing: 1,
+    marginTop: S.lg,
+    paddingHorizontal: S.lg,
   },
 
-  // Stats horizontal scroll
-  statsScroll: { gap: 10, paddingRight: 4 },
-  statPill: {
-    backgroundColor: C.surface,
-    borderRadius: R.lg,
-    padding: 14,
-    alignItems: 'center',
-    gap: 6,
-    borderWidth: 1,
-    minWidth: 88,
-  },
-  statPillIcon: {
-    width: 34,
-    height: 34,
-    borderRadius: R.sm,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  statPillValue: { fontSize: F.lg, fontWeight: '800' },
-  statPillLabel: { color: C.textSub, fontSize: F.xs, fontWeight: '600' },
-
-  // Settings list
-  settingsList: {
-    backgroundColor: C.surface,
-    borderRadius: R.lg,
-    borderWidth: 1,
-    borderColor: C.border,
+  group: {
+    backgroundColor: c.surface,
+    borderRadius: R.md,
     overflow: 'hidden',
   },
-  settingsRow: {
+  row: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 14,
-    paddingHorizontal: 16,
-    gap: 12,
+    minHeight: HIT + 4,
+    paddingVertical: S.sm + 2,
+    paddingHorizontal: S.lg,
+    gap: S.md,
   },
-  settingsIconBox: {
-    width: 36,
-    height: 36,
-    borderRadius: R.sm,
+  pressedRow: { backgroundColor: c.surfaceHigh },
+  rowLabel: { ...T.body, color: c.text, flex: 1 },
+  rowValue: { ...T.body, color: c.textSub },
+  separator: {
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: c.separator,
+    marginLeft: S.lg + 22 + S.md,
+  },
+
+  accountRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: S.lg,
+    padding: S.lg,
+  },
+  accountText: { flex: 1, gap: S.xxs },
+  avatar: { width: 64, height: 64, borderRadius: R.full },
+  avatarPlaceholder: {
+    width: 64,
+    height: 64,
+    borderRadius: R.full,
+    backgroundColor: c.accentSoft,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  settingsLabel: { color: C.text, fontSize: F.base, fontWeight: '600', flex: 1 },
-  settingsDivider: { height: 1, backgroundColor: C.border, marginLeft: 64 },
+  avatarInitials: { ...T.title2, color: c.accent },
+  name: { ...T.title3, color: c.text },
+  email: { ...T.subhead, color: c.textSub },
 
-  // Provider icons
-  providerIcon: { color: '#EA4335', fontWeight: '800', fontSize: 16 },
-  linkedBadge: { flexDirection: 'row', alignItems: 'center', gap: 4 },
-  linkedBadgeText: { color: C.green, fontSize: F.xs, fontWeight: '700' },
-
-  // Sign out
-  signOutRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: 14,
-    paddingHorizontal: 16,
-    gap: 12,
-  },
-  signOutLabel: { color: C.red, fontSize: F.base, fontWeight: '600', flex: 1 },
+  linkedBadge: { flexDirection: 'row', alignItems: 'center', gap: S.xs },
+  linkedBadgeText: { ...T.footnote, color: c.green },
 });

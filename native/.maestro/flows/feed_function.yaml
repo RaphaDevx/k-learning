@@ -1,0 +1,28 @@
+appId: com.raphael.klearning
+---
+# Test: Feed lädt Video-Einträge mit Bewertungs-Buttons und lässt sich vertikal durchwischen
+# Nicht-destruktiv: es wird weder "Kapiert" noch "Nochmal" getippt (kein Lernfortschritt)
+
+- runFlow: e2e_login.yaml
+
+- tapOn: "Feed, tab.*"
+
+# Eintrag geladen: Titel-Overlay mit Bewertungs-Buttons
+- extendedWaitUntil:
+    visible: "✅ Kapiert"
+    timeout: 30000
+- assertVisible: "🔁 Nochmal"
+
+- takeScreenshot: feed_entry_1
+
+# Zum nächsten Eintrag wischen: wieder ein vollständiger Eintrag mit Buttons
+- swipe:
+    direction: UP
+    duration: 400
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: "✅ Kapiert"
+    timeout: 15000
+- assertVisible: "🔁 Nochmal"
+
+- takeScreenshot: feed_entry_2

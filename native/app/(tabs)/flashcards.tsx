@@ -1,6 +1,6 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import {
-  View, Text, TouchableOpacity, StyleSheet,
+  View, Text, Pressable, StyleSheet,
   ActivityIndicator, ScrollView, Dimensions,
   TextInput, Alert, KeyboardAvoidingView, Platform,
 } from 'react-native';
@@ -16,6 +16,9 @@ import * as FileSystem from 'expo-file-system/legacy';
 import * as Sharing from 'expo-sharing';
 import * as DocumentPicker from 'expo-document-picker';
 import { supabase } from '../../lib/supabase';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useColors, T, S, R, GUTTER, HIT, HIT_SLOP, MAX_SCALE_CHROME } from '../../constants/theme';
+import type { ColorTokens } from '../../constants/theme';
 
 const { width: SCREEN_W } = Dimensions.get('window');
 const SWIPE_THRESHOLD = SCREEN_W * 0.35;
@@ -55,6 +58,9 @@ function sm2Next(quality: 0 | 1 | 2): string {
 }
 
 export default function FlashcardsScreen() {
+  const c = useColors();
+  const insets = useSafeAreaInsets();
+  const s = useMemo(() => makeStyles(c, insets.top + S.xs), [c, insets.top]);
   const [screen, setScreen] = useState<Screen>('selector');
   const [decks, setDecks] = useState<DeckMeta[]>([]);
   const [cards, setCards] = useState<DeckCard[]>([]);
@@ -407,27 +413,41 @@ export default function FlashcardsScreen() {
     opacity: interpolate(translateX.value, [-SWIPE_THRESHOLD * 0.7, 0], [1, 0], Extrapolation.CLAMP),
   }));
 
+  // Zurück-Button (44pt, Chevron + Wort)
+  const renderBack = (onPress: () => void, label = 'Zurück') => (
+    <Pressable
+      onPress={onPress}
+      accessibilityRole="button"
+      accessibilityLabel={label}
+      hitSlop={HIT_SLOP}
+      style={({ pressed }) => [s.backButton, pressed && s.pressed]}
+    >
+      <Ionicons name="chevron-back" size={24} color={c.accent} />
+      <Text style={s.backButtonText}>{label}</Text>
+    </Pressable>
+  );
+
+  const renderLoading = () => (
+    <View style={s.center}><ActivityIndicator color={c.textSub} size="large" /></View>
+  );
+
   // ── CHANGELOG SCREEN ──
   if (screen === 'changelog') {
     return (
       <View style={s.container}>
         <View style={s.navHeader}>
-          <TouchableOpacity onPress={() => setScreen('browser')} hitSlop={16}>
-            <Ionicons name="arrow-back" size={22} color="#9ca3af" />
-          </TouchableOpacity>
-          <View style={{ flex: 1, marginLeft: 12 }}>
-            <Text style={s.navTitle}>Änderungsverlauf</Text>
+          {renderBack(() => setScreen('browser'))}
+          <View style={s.navTitleWrap}>
+            <Text style={s.navTitle} numberOfLines={1}>Änderungsverlauf</Text>
             <Text style={s.navSub} numberOfLines={1}>{changelogCard?.front?.slice(0, 40)}</Text>
           </View>
         </View>
 
-        {changelogLoading ? (
-          <View style={s.center}><ActivityIndicator color="#6366f1" size="large" /></View>
-        ) : changelog.length === 0 ? (
+        {changelogLoading ? renderLoading() : changelog.length === 0 ? (
           <View style={s.center}>
-            <Ionicons name="time-outline" size={44} color="#374151" />
-            <Text style={s.emptyText}>Noch keine Änderungen</Text>
-            <Text style={s.emptyHint}>Edits werden ab jetzt gespeichert</Text>
+            <Ionicons name="time-outline" size={44} color={c.textSub} />
+            <Text style={s.emptyTitle}>Noch keine Änderungen</Text>
+            <Text style={s.emptyText}>Änderungen werden ab jetzt gespeichert.</Text>
           </View>
         ) : (
           <ScrollView contentContainerStyle={s.browserContent}>
@@ -442,14 +462,14 @@ export default function FlashcardsScreen() {
               return (
                 <View key={entry.id} style={s.changelogEntry}>
                   <View style={s.changelogMeta}>
-                    <Ionicons name="time-outline" size={13} color="#4b5563" />
+                    <Ionicons name="time-outline" size={14} color={c.textSub} />
                     <Text style={s.changelogDate}>{label}</Text>
                   </View>
                   {frontChanged && (
                     <View style={s.changelogDiff}>
                       <Text style={s.changelogField}>Vorderseite</Text>
                       <Text style={s.changelogOld} numberOfLines={2}>{entry.old_front}</Text>
-                      <Text style={s.changelogArrow}>↓</Text>
+                      <Ionicons name="arrow-down" size={14} color={c.textSub} />
                       <Text style={s.changelogNew} numberOfLines={2}>{entry.new_front}</Text>
                     </View>
                   )}
@@ -457,7 +477,7 @@ export default function FlashcardsScreen() {
                     <View style={s.changelogDiff}>
                       <Text style={s.changelogField}>Rückseite</Text>
                       <Text style={s.changelogOld} numberOfLines={2}>{entry.old_back}</Text>
-                      <Text style={s.changelogArrow}>↓</Text>
+                      <Ionicons name="arrow-down" size={14} color={c.textSub} />
                       <Text style={s.changelogNew} numberOfLines={2}>{entry.new_back}</Text>
                     </View>
                   )}
@@ -477,38 +497,46 @@ export default function FlashcardsScreen() {
     return (
       <KeyboardAvoidingView style={s.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <View style={s.navHeader}>
-          <TouchableOpacity onPress={() => setScreen('browser')} hitSlop={16}>
-            <Ionicons name="arrow-back" size={22} color="#9ca3af" />
-          </TouchableOpacity>
-          <Text style={s.navTitle}>{isNew ? 'Neue Karte' : 'Karte bearbeiten'}</Text>
-          <TouchableOpacity onPress={saveCard} disabled={saving} hitSlop={16}>
+          {renderBack(() => setScreen('browser'))}
+          <View style={s.navTitleWrap}>
+            <Text style={s.navTitle} numberOfLines={1}>{isNew ? 'Neue Karte' : 'Karte bearbeiten'}</Text>
+          </View>
+          <Pressable
+            onPress={saveCard}
+            disabled={saving}
+            accessibilityRole="button"
+            accessibilityLabel="Karte speichern"
+            style={({ pressed }) => [s.iconBtn, s.textBtn, pressed && s.pressed]}
+          >
             {saving
-              ? <ActivityIndicator size="small" color="#6366f1" />
+              ? <ActivityIndicator size="small" color={c.accent} />
               : <Text style={s.saveBtn}>Speichern</Text>
             }
-          </TouchableOpacity>
+          </Pressable>
         </View>
 
         <ScrollView style={{ flex: 1 }} contentContainerStyle={s.editContent} keyboardShouldPersistTaps="handled">
-          <Text style={s.editLabel}>VORDERSEITE</Text>
+          <Text style={s.editLabel}>Vorderseite</Text>
           <TextInput
             style={s.editInput}
             value={editFront}
             onChangeText={setEditFront}
-            placeholder="Frage oder Begriff..."
-            placeholderTextColor="#4b5563"
+            placeholder="Frage oder Begriff…"
+            placeholderTextColor={c.textMuted}
             multiline
             autoFocus={isNew}
+            accessibilityLabel="Vorderseite"
           />
 
-          <Text style={[s.editLabel, { marginTop: 20 }]}>RÜCKSEITE</Text>
+          <Text style={[s.editLabel, { marginTop: S.xl }]}>Rückseite</Text>
           <TextInput
-            style={[s.editInput, s.editInputBack]}
+            style={s.editInput}
             value={editBack}
             onChangeText={setEditBack}
-            placeholder="Antwort oder Erklärung..."
-            placeholderTextColor="#4b5563"
+            placeholder="Antwort oder Erklärung…"
+            placeholderTextColor={c.textMuted}
             multiline
+            accessibilityLabel="Rückseite"
           />
         </ScrollView>
       </KeyboardAvoidingView>
@@ -520,37 +548,49 @@ export default function FlashcardsScreen() {
     return (
       <View style={s.container}>
         <View style={s.navHeader}>
-          <TouchableOpacity onPress={() => { setScreen('selector'); loadDecks(); }} hitSlop={16}>
-            <Ionicons name="arrow-back" size={22} color="#9ca3af" />
-          </TouchableOpacity>
-          <View style={{ flex: 1, marginLeft: 12 }}>
-            <Text style={s.navTitle}>{activeDeck?.topic}</Text>
-            <Text style={s.navSub}>{activeDeck?.course}</Text>
+          {renderBack(() => { setScreen('selector'); loadDecks(); })}
+          <View style={s.navTitleWrap}>
+            <Text style={s.navTitle} numberOfLines={1}>{activeDeck?.topic}</Text>
+            <Text style={s.navSub} numberOfLines={1}>{activeDeck?.course}</Text>
           </View>
-          <TouchableOpacity onPress={downloadDeck} hitSlop={12} style={s.headerIcon}>
-            <Ionicons name="download-outline" size={22} color="#9ca3af" />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => openEdit()} hitSlop={12} style={s.headerIcon}>
-            <Ionicons name="add" size={24} color="#6366f1" />
-          </TouchableOpacity>
+          <Pressable
+            onPress={downloadDeck}
+            accessibilityRole="button"
+            accessibilityLabel="Stapel exportieren"
+            style={({ pressed }) => [s.iconBtn, pressed && s.pressed]}
+          >
+            <Ionicons name="share-outline" size={24} color={c.accent} />
+          </Pressable>
+          <Pressable
+            onPress={() => openEdit()}
+            accessibilityRole="button"
+            accessibilityLabel="Neue Karte hinzufügen"
+            style={({ pressed }) => [s.iconBtn, pressed && s.pressed]}
+          >
+            <Ionicons name="add-circle" size={26} color={c.accent} />
+          </Pressable>
         </View>
 
-        {browserLoading ? (
-          <View style={s.center}><ActivityIndicator color="#6366f1" size="large" /></View>
-        ) : (
+        {browserLoading ? renderLoading() : (
           <ScrollView contentContainerStyle={s.browserContent}>
             {browserCards.length === 0 && (
               <View style={s.emptyState}>
-                <Ionicons name="albums-outline" size={44} color="#374151" />
-                <Text style={s.emptyText}>Keine Karten</Text>
-                <TouchableOpacity style={s.addCardBtn} onPress={() => openEdit()}>
-                  <Ionicons name="add" size={18} color="#fff" />
-                  <Text style={s.addCardBtnText}>Erste Karte erstellen</Text>
-                </TouchableOpacity>
+                <Ionicons name="albums-outline" size={44} color={c.textSub} />
+                <Text style={s.emptyTitle}>Keine Karten</Text>
+                <Text style={s.emptyText}>Dieser Stapel ist noch leer.</Text>
+                <Pressable
+                  style={({ pressed }) => [s.primaryBtn, pressed && s.pressed]}
+                  onPress={() => openEdit()}
+                  accessibilityRole="button"
+                  accessibilityLabel="Erste Karte erstellen"
+                >
+                  <Ionicons name="add" size={20} color={c.onAccent} />
+                  <Text style={s.primaryBtnText}>Erste Karte erstellen</Text>
+                </Pressable>
               </View>
             )}
 
-            {browserCards.map((card, i) => (
+            {browserCards.map((card) => (
               <View key={card.id} style={s.browserCard}>
                 <View style={s.browserCardBody}>
                   <Text style={s.browserFront} numberOfLines={2}>{card.front}</Text>
@@ -558,15 +598,30 @@ export default function FlashcardsScreen() {
                   <Text style={s.browserBack} numberOfLines={2}>{card.back}</Text>
                 </View>
                 <View style={s.browserActions}>
-                  <TouchableOpacity onPress={() => openChangelog(card)} hitSlop={10} style={s.browserAction}>
-                    <Ionicons name="time-outline" size={18} color="#4b5563" />
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => openEdit(card)} hitSlop={10} style={s.browserAction}>
-                    <Ionicons name="pencil-outline" size={18} color="#6366f1" />
-                  </TouchableOpacity>
-                  <TouchableOpacity onPress={() => deleteCard(card)} hitSlop={10} style={s.browserAction}>
-                    <Ionicons name="trash-outline" size={18} color="#ef4444" />
-                  </TouchableOpacity>
+                  <Pressable
+                    onPress={() => openChangelog(card)}
+                    accessibilityRole="button"
+                    accessibilityLabel="Änderungsverlauf anzeigen"
+                    style={({ pressed }) => [s.iconBtn, pressed && s.pressed]}
+                  >
+                    <Ionicons name="time-outline" size={22} color={c.textSub} />
+                  </Pressable>
+                  <Pressable
+                    onPress={() => openEdit(card)}
+                    accessibilityRole="button"
+                    accessibilityLabel="Karte bearbeiten"
+                    style={({ pressed }) => [s.iconBtn, pressed && s.pressed]}
+                  >
+                    <Ionicons name="pencil" size={22} color={c.accent} />
+                  </Pressable>
+                  <Pressable
+                    onPress={() => deleteCard(card)}
+                    accessibilityRole="button"
+                    accessibilityLabel="Karte löschen"
+                    style={({ pressed }) => [s.iconBtn, pressed && s.pressed]}
+                  >
+                    <Ionicons name="trash-outline" size={22} color={c.red} />
+                  </Pressable>
                 </View>
               </View>
             ))}
@@ -580,20 +635,25 @@ export default function FlashcardsScreen() {
 
   // ── SELECTOR ──
   if (screen === 'selector') {
-    if (loading) return <View style={s.center}><ActivityIndicator color="#6366f1" size="large" /></View>;
+    if (loading) return renderLoading();
 
     const courses = [...new Set(decks.map(d => d.course))];
     return (
       <ScrollView style={s.container} contentContainerStyle={s.listContent}>
         <View style={s.selectorHeader}>
-          <View>
-            <Text style={s.heading}>Flashcards</Text>
-            <Text style={s.hint}>← Nicht gewusst · Wischen · Gewusst →</Text>
+          <View style={{ flex: 1 }}>
+            <Text style={s.heading} accessibilityRole="header">Flashcards</Text>
+            <Text style={s.hint}>Wische nach rechts, wenn du die Antwort wusstest, nach links für nochmal.</Text>
           </View>
-          <TouchableOpacity onPress={uploadDeck} style={s.uploadBtn} hitSlop={8}>
-            <Ionicons name="cloud-upload-outline" size={20} color="#6366f1" />
-            <Text style={s.uploadBtnText}>Import</Text>
-          </TouchableOpacity>
+          <Pressable
+            onPress={uploadDeck}
+            style={({ pressed }) => [s.secondaryBtn, pressed && s.pressed]}
+            accessibilityRole="button"
+            accessibilityLabel="Stapel aus JSON-Datei importieren"
+          >
+            <Ionicons name="cloud-upload-outline" size={20} color={c.accent} />
+            <Text style={s.secondaryBtnText}>Import</Text>
+          </Pressable>
         </View>
 
         {courses.map(course => {
@@ -603,44 +663,74 @@ export default function FlashcardsScreen() {
             <View key={course} style={s.section}>
               <View style={s.sectionRow}>
                 <Text style={s.sectionTitle}>{course}</Text>
-                {totalDue > 0 && <View style={s.badge}><Text style={s.badgeText}>{totalDue} fällig</Text></View>}
+                {totalDue > 0 && (
+                  <View style={s.badge}>
+                    <Text style={s.badgeText} maxFontSizeMultiplier={MAX_SCALE_CHROME}>{totalDue} fällig</Text>
+                  </View>
+                )}
               </View>
-              {courseDecks.map(deck => (
-                <View key={`${deck.course}::${deck.topic}`} style={s.deckCard}>
-                  <TouchableOpacity
-                    style={s.deckInfo}
-                    onPress={() => startDeck(deck.course, deck.topic)}
-                    activeOpacity={0.7}
-                  >
-                    <Text style={s.deckTopic}>{deck.topic}</Text>
-                    <Text style={s.deckMeta}>{deck.total} Karten · {deck.due} fällig</Text>
-                  </TouchableOpacity>
+              <View style={s.group}>
+                {courseDecks.map((deck, idx) => (
+                  <View key={`${deck.course}::${deck.topic}`}>
+                    {idx > 0 && <View style={s.rowSeparator} />}
+                    <View style={s.deckRow}>
+                      <Pressable
+                        style={({ pressed }) => [s.deckInfo, pressed && s.pressed]}
+                        onPress={() => startDeck(deck.course, deck.topic)}
+                        accessibilityRole="button"
+                        accessibilityLabel={`${deck.topic} lernen, ${deck.total} Karten, ${deck.due} fällig`}
+                      >
+                        <Text style={s.deckTopic}>{deck.topic}</Text>
+                        <Text style={s.deckMeta}>{deck.total} Karten · {deck.due} fällig</Text>
+                      </Pressable>
 
-                  <TouchableOpacity
-                    onPress={() => openBrowser(deck.course, deck.topic)}
-                    hitSlop={8}
-                    style={s.deckEditBtn}
-                  >
-                    <Ionicons name="pencil-outline" size={16} color="#4b5563" />
-                  </TouchableOpacity>
+                      <Pressable
+                        onPress={() => openBrowser(deck.course, deck.topic)}
+                        accessibilityRole="button"
+                        accessibilityLabel={`Karten von ${deck.topic} verwalten`}
+                        style={({ pressed }) => [s.iconBtn, pressed && s.pressed]}
+                      >
+                        <Ionicons name="list-outline" size={22} color={c.textSub} />
+                      </Pressable>
 
-                  {deck.due > 0
-                    ? <TouchableOpacity onPress={() => startDeck(deck.course, deck.topic)}>
-                        <View style={s.dueBadge}><Text style={s.dueBadgeText}>{deck.due}</Text></View>
-                      </TouchableOpacity>
-                    : <Ionicons name="checkmark-circle" size={22} color="#4ade80" />
-                  }
-                </View>
-              ))}
+                      {deck.due > 0 ? (
+                        <Pressable
+                          onPress={() => startDeck(deck.course, deck.topic)}
+                          accessibilityRole="button"
+                          accessibilityLabel={`${deck.due} Karten fällig, jetzt lernen`}
+                          style={({ pressed }) => [s.iconBtn, pressed && s.pressed]}
+                        >
+                          <View style={s.dueBadge}>
+                            <Text style={s.dueBadgeText} maxFontSizeMultiplier={MAX_SCALE_CHROME}>{deck.due}</Text>
+                          </View>
+                        </Pressable>
+                      ) : (
+                        <View style={s.iconBtn} accessible accessibilityLabel="Alles gelernt">
+                          <Ionicons name="checkmark-circle" size={24} color={c.green} />
+                        </View>
+                      )}
+                    </View>
+                  </View>
+                ))}
+              </View>
             </View>
           );
         })}
 
         {decks.length === 0 && (
           <View style={s.emptyState}>
-            <Ionicons name="albums-outline" size={52} color="#374151" />
-            <Text style={s.emptyText}>Noch keine Karten vorhanden</Text>
-            <Text style={s.emptyHint}>Importiere eine JSON-Datei mit dem Button oben</Text>
+            <Ionicons name="albums-outline" size={52} color={c.textSub} />
+            <Text style={s.emptyTitle}>Noch keine Karten vorhanden</Text>
+            <Text style={s.emptyText}>Importiere eine JSON-Datei, um Stapel hinzuzufügen.</Text>
+            <Pressable
+              onPress={uploadDeck}
+              style={({ pressed }) => [s.primaryBtn, pressed && s.pressed]}
+              accessibilityRole="button"
+              accessibilityLabel="Stapel aus JSON-Datei importieren"
+            >
+              <Ionicons name="cloud-upload-outline" size={20} color={c.onAccent} />
+              <Text style={s.primaryBtnText}>Stapel importieren</Text>
+            </Pressable>
           </View>
         )}
       </ScrollView>
@@ -651,25 +741,31 @@ export default function FlashcardsScreen() {
   if (sessionDone) {
     const total = sessionStats.knew + sessionStats.didnt;
     const pct = total > 0 ? Math.round((sessionStats.knew / total) * 100) : 0;
+    const doneIcon = pct >= 70 ? 'trophy' : pct >= 40 ? 'trending-up' : 'book';
     return (
       <View style={s.center}>
-        <Text style={s.doneEmoji}>{pct >= 70 ? '🎉' : pct >= 40 ? '💪' : '📖'}</Text>
-        <Text style={s.doneTitle}>Session fertig!</Text>
+        <Ionicons name={doneIcon} size={56} color={c.accent} />
+        <Text style={s.doneTitle} accessibilityRole="header">Durchgang abgeschlossen</Text>
         <Text style={s.doneSub}>{pct}% gewusst</Text>
         <View style={s.doneRow}>
           <View style={s.doneStat}>
-            <Text style={[s.doneNum, { color: '#4ade80' }]}>{sessionStats.knew}</Text>
+            <Text style={[s.doneNum, { color: c.green }]}>{sessionStats.knew}</Text>
             <Text style={s.doneLabel}>Gewusst</Text>
           </View>
           <View style={s.doneDivider} />
           <View style={s.doneStat}>
-            <Text style={[s.doneNum, { color: '#f87171' }]}>{sessionStats.didnt}</Text>
-            <Text style={s.doneLabel}>Nicht gewusst</Text>
+            <Text style={[s.doneNum, { color: c.red }]}>{sessionStats.didnt}</Text>
+            <Text style={s.doneLabel}>Nochmal</Text>
           </View>
         </View>
-        <TouchableOpacity style={s.backBtn} onPress={() => { setScreen('selector'); loadDecks(); }}>
-          <Text style={s.backBtnText}>Zurück zur Übersicht</Text>
-        </TouchableOpacity>
+        <Pressable
+          style={({ pressed }) => [s.primaryBtn, s.primaryBtnWide, pressed && s.pressed]}
+          onPress={() => { setScreen('selector'); loadDecks(); }}
+          accessibilityRole="button"
+          accessibilityLabel="Zurück zur Übersicht"
+        >
+          <Text style={s.primaryBtnText}>Zurück zur Übersicht</Text>
+        </Pressable>
       </View>
     );
   }
@@ -681,60 +777,81 @@ export default function FlashcardsScreen() {
   return (
     <View style={s.container}>
       <View style={s.studyHeader}>
-        <TouchableOpacity onPress={() => setScreen('selector')} hitSlop={16}>
-          <Ionicons name="arrow-back" size={22} color="#9ca3af" />
-        </TouchableOpacity>
+        {renderBack(() => setScreen('selector'), 'Beenden')}
         <View style={s.pill}>
           <Text style={s.pillText}>{currentIndex + 1} / {cards.length}</Text>
         </View>
-        <Text style={s.coursePill}>{card.course}</Text>
+        <Text style={s.coursePill} numberOfLines={1}>{card.course}</Text>
       </View>
 
-      <View style={s.progressBar}>
+      <View
+        style={s.progressBar}
+        accessible
+        accessibilityRole="progressbar"
+        accessibilityLabel={`Karte ${currentIndex + 1} von ${cards.length}`}
+      >
         <View style={[s.progressFill, { width: `${(currentIndex / cards.length) * 100}%` as any }]} />
       </View>
 
       <GestureDetector gesture={panGesture}>
         <Animated.View style={[s.cardWrapper, cardAnimStyle]}>
           <Animated.View style={[s.swipeOverlayLeft, didntOverlay]} pointerEvents="none">
-            <Text style={s.swipeOverlayTextLeft}>✗</Text>
+            <Ionicons name="close" size={18} color={c.red} />
+            <Text style={s.swipeOverlayTextLeft}>Nochmal</Text>
           </Animated.View>
           <Animated.View style={[s.swipeOverlayRight, knewOverlay]} pointerEvents="none">
-            <Text style={s.swipeOverlayTextRight}>✓</Text>
+            <Ionicons name="checkmark" size={18} color={c.green} />
+            <Text style={s.swipeOverlayTextRight}>Gewusst</Text>
           </Animated.View>
 
-          <TouchableOpacity
-            style={[s.card, isFlipped && s.cardFlipped]}
+          <Pressable
+            style={s.card}
             onPress={() => setIsFlipped(f => !f)}
-            activeOpacity={0.95}
+            accessibilityRole="button"
+            accessibilityLabel={isFlipped ? 'Antwort, tippen um die Frage zu zeigen' : 'Frage, tippen um die Antwort aufzudecken'}
           >
-            <Text style={[s.cardSide, isFlipped && { color: '#818cf8' }]}>
-              {isFlipped ? 'ANTWORT' : 'FRAGE'}
+            <Text style={[s.cardSide, isFlipped && { color: c.accent }]}>
+              {isFlipped ? 'Antwort' : 'Frage'}
             </Text>
-            <Text style={s.cardText}>{isFlipped ? card.back : card.front}</Text>
+            <Text style={isFlipped ? s.cardBack : s.cardFront}>{isFlipped ? card.back : card.front}</Text>
             {!isFlipped && <Text style={s.tapHint}>Tippen zum Aufdecken</Text>}
-          </TouchableOpacity>
+          </Pressable>
         </Animated.View>
       </GestureDetector>
 
       {isFlipped ? (
         <View style={s.ratingRow}>
-          <TouchableOpacity style={[s.ratingBtn, s.ratingNo]} onPress={() => advanceCard(0)}>
-            <Ionicons name="close" size={20} color="#f87171" />
-            <Text style={s.ratingLabel}>Nein</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[s.ratingBtn, s.ratingAlmost]} onPress={() => advanceCard(1)}>
-            <Ionicons name="remove" size={20} color="#fbbf24" />
-            <Text style={s.ratingLabel}>Fast</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[s.ratingBtn, s.ratingYes]} onPress={() => advanceCard(2)}>
-            <Ionicons name="checkmark" size={20} color="#4ade80" />
-            <Text style={s.ratingLabel}>Ja</Text>
-          </TouchableOpacity>
+          <Pressable
+            style={({ pressed }) => [s.ratingBtn, s.ratingNo, pressed && s.pressed]}
+            onPress={() => advanceCard(0)}
+            accessibilityRole="button"
+            accessibilityLabel="Nochmal, nicht gewusst"
+          >
+            <Ionicons name="close" size={22} color={c.red} />
+            <Text style={[s.ratingLabel, { color: c.red }]}>Nochmal</Text>
+          </Pressable>
+          <Pressable
+            style={({ pressed }) => [s.ratingBtn, s.ratingAlmost, pressed && s.pressed]}
+            onPress={() => advanceCard(1)}
+            accessibilityRole="button"
+            accessibilityLabel="Fast gewusst"
+          >
+            <Ionicons name="remove" size={22} color={c.yellow} />
+            <Text style={[s.ratingLabel, { color: c.yellow }]}>Fast</Text>
+          </Pressable>
+          <Pressable
+            style={({ pressed }) => [s.ratingBtn, s.ratingYes, pressed && s.pressed]}
+            onPress={() => advanceCard(2)}
+            accessibilityRole="button"
+            accessibilityLabel="Gewusst"
+          >
+            <Ionicons name="checkmark" size={22} color={c.green} />
+            <Text style={[s.ratingLabel, { color: c.green }]}>Gewusst</Text>
+          </Pressable>
         </View>
       ) : (
         <View style={s.swipeHintRow}>
-          <Text style={s.swipeHintText}>← Nein · oder wischen · Ja →</Text>
+          <Text style={s.swipeHintText}>Wische nach links für nochmal, nach rechts für gewusst</Text>
         </View>
       )}
     </View>
@@ -750,164 +867,160 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
-const s = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#0d1117' },
-  listContent: { padding: 16, paddingTop: 56, paddingBottom: 40 },
-  center: { flex: 1, backgroundColor: '#0d1117', alignItems: 'center', justifyContent: 'center', gap: 16, padding: 24 },
-
-  // Selector header
-  selectorHeader: { flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 4 },
-  heading: { color: '#f9fafb', fontSize: 26, fontWeight: '800', marginBottom: 4 },
-  hint: { color: '#4b5563', fontSize: 12, marginBottom: 24 },
-  uploadBtn: {
-    flexDirection: 'row', alignItems: 'center', gap: 6,
-    backgroundColor: '#6366f122', borderRadius: 10,
-    paddingHorizontal: 12, paddingVertical: 8, borderWidth: 1, borderColor: '#6366f133',
-  },
-  uploadBtnText: { color: '#6366f1', fontSize: 13, fontWeight: '700' },
-
-  // Deck list
-  section: { marginBottom: 24 },
-  sectionRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 10 },
-  sectionTitle: { color: '#e5e7eb', fontSize: 15, fontWeight: '700' },
-  badge: { backgroundColor: '#6366f122', borderRadius: 8, paddingHorizontal: 8, paddingVertical: 2 },
-  badgeText: { color: '#818cf8', fontSize: 11, fontWeight: '700' },
-  deckCard: {
-    backgroundColor: '#161b22', borderRadius: 12, padding: 14,
-    flexDirection: 'row', alignItems: 'center', marginBottom: 8, gap: 8,
-  },
-  deckInfo: { flex: 1 },
-  deckTopic: { color: '#f9fafb', fontSize: 14, fontWeight: '600' },
-  deckMeta: { color: '#6b7280', fontSize: 12, marginTop: 2 },
-  deckEditBtn: { padding: 6 },
-  dueBadge: {
-    backgroundColor: '#6366f1', borderRadius: 20, width: 32, height: 32,
-    alignItems: 'center', justifyContent: 'center',
-  },
-  dueBadgeText: { color: '#fff', fontSize: 13, fontWeight: '800' },
-  emptyState: { alignItems: 'center', paddingTop: 60, gap: 12 },
-  emptyText: { color: '#6b7280', fontSize: 15 },
-  emptyHint: { color: '#374151', fontSize: 12 },
-  addCardBtn: {
-    flexDirection: 'row', alignItems: 'center', gap: 6,
-    backgroundColor: '#6366f1', borderRadius: 10,
-    paddingHorizontal: 16, paddingVertical: 10, marginTop: 8,
-  },
-  addCardBtnText: { color: '#fff', fontSize: 14, fontWeight: '700' },
-
-  // Nav header (browser + edit)
-  navHeader: {
-    flexDirection: 'row', alignItems: 'center',
-    paddingHorizontal: 16, paddingTop: 56, paddingBottom: 14,
-    borderBottomWidth: 1, borderBottomColor: '#21262d',
-  },
-  navTitle: { color: '#f9fafb', fontSize: 16, fontWeight: '700' },
-  navSub: { color: '#6b7280', fontSize: 12, marginTop: 1 },
-  headerIcon: { marginLeft: 12, padding: 4 },
-  saveBtn: { color: '#6366f1', fontSize: 15, fontWeight: '700' },
-
-  // Browser
-  browserContent: { padding: 16, paddingBottom: 40, gap: 10 },
-  browserCard: {
-    backgroundColor: '#161b22', borderRadius: 12,
-    borderWidth: 1, borderColor: '#21262d',
-    flexDirection: 'row', alignItems: 'stretch',
-  },
-  browserCardBody: { flex: 1, padding: 14, gap: 8 },
-  browserFront: { color: '#f9fafb', fontSize: 14, fontWeight: '600', lineHeight: 20 },
-  browserDivider: { height: 1, backgroundColor: '#21262d' },
-  browserBack: { color: '#818cf8', fontSize: 13, lineHeight: 19 },
-  browserActions: {
-    borderLeftWidth: 1, borderLeftColor: '#21262d',
-    alignItems: 'center', justifyContent: 'center',
-    paddingHorizontal: 12, gap: 16,
-  },
-  browserAction: { padding: 4 },
-  browserCount: { color: '#374151', fontSize: 12, textAlign: 'center', marginTop: 8 },
-
-  // Changelog
-  changelogEntry: {
-    backgroundColor: '#161b22', borderRadius: 12,
-    borderWidth: 1, borderColor: '#21262d', padding: 14, gap: 10,
-  },
-  changelogMeta: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  changelogDate: { color: '#4b5563', fontSize: 12, fontWeight: '600' },
-  changelogDiff: { gap: 4 },
-  changelogField: { color: '#6b7280', fontSize: 11, fontWeight: '700', textTransform: 'uppercase', letterSpacing: 0.8 },
-  changelogOld: { color: '#ef4444', fontSize: 13, textDecorationLine: 'line-through', opacity: 0.7 },
-  changelogArrow: { color: '#4b5563', fontSize: 12 },
-  changelogNew: { color: '#4ade80', fontSize: 13 },
-
-  // Edit screen
-  editContent: { padding: 20, paddingBottom: 60 },
-  editLabel: {
-    color: '#4b5563', fontSize: 11, fontWeight: '700',
-    textTransform: 'uppercase', letterSpacing: 1, marginBottom: 8,
-  },
-  editInput: {
-    backgroundColor: '#161b22', borderRadius: 12,
-    borderWidth: 1, borderColor: '#21262d',
-    color: '#f9fafb', fontSize: 16, padding: 14,
+function makeStyles(c: ColorTokens, top: number) {
+  const input = {
+    ...T.body,
+    backgroundColor: c.surface, borderRadius: R.md,
+    borderWidth: StyleSheet.hairlineWidth, borderColor: c.border,
+    color: c.text, padding: S.lg,
     minHeight: 120, textAlignVertical: 'top',
-  },
-  editInputBack: { borderColor: '#312e81', backgroundColor: '#13112a', color: '#a5b4fc' },
+  } as const;
 
-  // Study
-  studyHeader: {
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    paddingHorizontal: 16, paddingTop: 56, paddingBottom: 12,
-  },
-  pill: { backgroundColor: '#161b22', borderRadius: 20, paddingHorizontal: 12, paddingVertical: 4 },
-  pillText: { color: '#9ca3af', fontSize: 13, fontWeight: '600' },
-  coursePill: { color: '#818cf8', fontSize: 12, fontWeight: '700' },
-  progressBar: { height: 2, backgroundColor: '#161b22', marginHorizontal: 16, borderRadius: 2 },
-  progressFill: { height: 2, backgroundColor: '#6366f1', borderRadius: 2 },
-  cardWrapper: { flex: 1, margin: 16 },
-  card: {
-    flex: 1, backgroundColor: '#161b22', borderRadius: 20, padding: 28,
-    alignItems: 'center', justifyContent: 'center',
-    borderWidth: 1, borderColor: '#21262d',
-  },
-  cardFlipped: { backgroundColor: '#13112a', borderColor: '#312e81' },
-  cardSide: {
-    color: '#6b7280', fontSize: 11, fontWeight: '700',
-    textTransform: 'uppercase', letterSpacing: 1.5, marginBottom: 20,
-  },
-  cardText: { color: '#f9fafb', fontSize: 18, lineHeight: 28, textAlign: 'center', fontWeight: '600' },
-  tapHint: { color: '#374151', fontSize: 12, marginTop: 24 },
-  swipeOverlayLeft: {
-    position: 'absolute', left: 16, top: 16, zIndex: 10,
-    borderWidth: 2, borderColor: '#ef4444', borderRadius: 8,
-    paddingHorizontal: 10, paddingVertical: 4,
-  },
-  swipeOverlayRight: {
-    position: 'absolute', right: 16, top: 16, zIndex: 10,
-    borderWidth: 2, borderColor: '#4ade80', borderRadius: 8,
-    paddingHorizontal: 10, paddingVertical: 4,
-  },
-  swipeOverlayTextLeft: { color: '#ef4444', fontWeight: '800', fontSize: 16 },
-  swipeOverlayTextRight: { color: '#4ade80', fontWeight: '800', fontSize: 16 },
-  ratingRow: { flexDirection: 'row', gap: 8, padding: 16, paddingBottom: 16 },
-  ratingBtn: {
-    flex: 1, borderRadius: 14, paddingVertical: 14,
-    alignItems: 'center', justifyContent: 'center', gap: 4, borderWidth: 1,
-  },
-  ratingNo: { backgroundColor: '#1c0a0a', borderColor: '#450a0a' },
-  ratingAlmost: { backgroundColor: '#1c1200', borderColor: '#431407' },
-  ratingYes: { backgroundColor: '#0a1c0e', borderColor: '#052e16' },
-  ratingLabel: { color: '#9ca3af', fontSize: 11, fontWeight: '600' },
-  swipeHintRow: { alignItems: 'center', paddingBottom: 24 },
-  swipeHintText: { color: '#374151', fontSize: 12 },
+  return StyleSheet.create({
+    container: { flex: 1, backgroundColor: c.bg },
+    listContent: { paddingHorizontal: GUTTER, paddingTop: top + S.sm, paddingBottom: 100 },
+    center: { flex: 1, backgroundColor: c.bg, alignItems: 'center', justifyContent: 'center', gap: S.md, padding: S.xl },
+    pressed: { opacity: 0.6 },
 
-  // Done
-  doneEmoji: { fontSize: 64 },
-  doneTitle: { color: '#f9fafb', fontSize: 22, fontWeight: '800' },
-  doneSub: { color: '#9ca3af', fontSize: 16 },
-  doneRow: { flexDirection: 'row', backgroundColor: '#161b22', borderRadius: 16, padding: 20, gap: 20 },
-  doneStat: { flex: 1, alignItems: 'center' },
-  doneNum: { fontSize: 32, fontWeight: '800' },
-  doneLabel: { color: '#6b7280', fontSize: 12, marginTop: 4 },
-  doneDivider: { width: 1, backgroundColor: '#374151' },
-  backBtn: { backgroundColor: '#6366f1', borderRadius: 14, paddingVertical: 16, paddingHorizontal: 32 },
-  backBtnText: { color: '#fff', fontWeight: '700', fontSize: 15 },
-});
+    // Buttons
+    primaryBtn: {
+      flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: S.sm,
+      backgroundColor: c.accent, borderRadius: R.md,
+      paddingHorizontal: S.xl, minHeight: 50, marginTop: S.sm,
+    },
+    primaryBtnWide: { alignSelf: 'stretch', marginTop: S.lg },
+    primaryBtnText: { ...T.headline, color: c.onAccent },
+    secondaryBtn: {
+      flexDirection: 'row', alignItems: 'center', gap: S.xs,
+      backgroundColor: c.accentSoft, borderRadius: R.md,
+      paddingHorizontal: S.md, minHeight: HIT,
+    },
+    secondaryBtnText: { ...T.subhead, fontWeight: '600', color: c.accent },
+    iconBtn: { width: HIT, height: HIT, alignItems: 'center', justifyContent: 'center' },
+    textBtn: { width: undefined, paddingHorizontal: S.sm },
+    backButton: { flexDirection: 'row', alignItems: 'center', minHeight: HIT, paddingRight: S.sm },
+    backButtonText: { ...T.body, color: c.accent },
+
+    // Selector header
+    selectorHeader: { flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', gap: S.md, marginBottom: S.xl },
+    heading: { ...T.largeTitle, color: c.text },
+    hint: { ...T.footnote, color: c.textSub, marginTop: S.xs },
+
+    // Deck list
+    section: { marginBottom: S.xl },
+    sectionRow: { flexDirection: 'row', alignItems: 'center', gap: S.sm, marginBottom: S.sm, paddingHorizontal: S.xs },
+    sectionTitle: { ...T.footnote, fontWeight: '600', color: c.textSub, textTransform: 'uppercase', letterSpacing: 0.4, flexShrink: 1 },
+    badge: { backgroundColor: c.accentSoft, borderRadius: R.sm, paddingHorizontal: S.sm, paddingVertical: S.xxs },
+    badgeText: { ...T.caption1, fontWeight: '600', color: c.accent },
+    group: { backgroundColor: c.surface, borderRadius: R.md, overflow: 'hidden' },
+    rowSeparator: { height: StyleSheet.hairlineWidth, backgroundColor: c.separator, marginLeft: S.lg },
+    deckRow: { flexDirection: 'row', alignItems: 'center', paddingLeft: S.lg, paddingRight: S.xs },
+    deckInfo: { flex: 1, minHeight: 56, justifyContent: 'center', paddingVertical: S.md },
+    deckTopic: { ...T.body, color: c.text },
+    deckMeta: { ...T.footnote, color: c.textSub, marginTop: S.xxs },
+    dueBadge: {
+      backgroundColor: c.accent, borderRadius: R.full, minWidth: 28, height: 28,
+      paddingHorizontal: S.sm, alignItems: 'center', justifyContent: 'center',
+    },
+    dueBadgeText: { ...T.footnote, fontWeight: '700', color: c.onAccent },
+    emptyState: { alignItems: 'center', paddingTop: S.xxxl, paddingHorizontal: S.xl, gap: S.sm },
+    emptyTitle: { ...T.title3, color: c.text, textAlign: 'center' },
+    emptyText: { ...T.subhead, color: c.textSub, textAlign: 'center' },
+
+    // Nav header (browser + edit + changelog)
+    navHeader: {
+      flexDirection: 'row', alignItems: 'center',
+      paddingHorizontal: S.sm, paddingTop: top, paddingBottom: S.xs,
+      borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: c.separator,
+    },
+    navTitleWrap: { flex: 1, minWidth: 0 },
+    navTitle: { ...T.headline, color: c.text },
+    navSub: { ...T.footnote, color: c.textSub },
+    saveBtn: { ...T.headline, color: c.accent },
+
+    // Browser
+    browserContent: { padding: GUTTER, paddingBottom: 100, gap: S.md },
+    browserCard: {
+      backgroundColor: c.surface, borderRadius: R.md,
+      flexDirection: 'row', alignItems: 'stretch',
+    },
+    browserCardBody: { flex: 1, padding: S.lg, gap: S.sm },
+    browserFront: { ...T.callout, fontWeight: '600', color: c.text },
+    browserDivider: { height: StyleSheet.hairlineWidth, backgroundColor: c.separator },
+    browserBack: { ...T.subhead, color: c.textSub },
+    browserActions: {
+      borderLeftWidth: StyleSheet.hairlineWidth, borderLeftColor: c.separator,
+      alignItems: 'center', justifyContent: 'center',
+    },
+    browserCount: { ...T.footnote, color: c.textSub, textAlign: 'center', marginTop: S.sm },
+
+    // Changelog
+    changelogEntry: { backgroundColor: c.surface, borderRadius: R.md, padding: S.lg, gap: S.md },
+    changelogMeta: { flexDirection: 'row', alignItems: 'center', gap: S.xs },
+    changelogDate: { ...T.footnote, color: c.textSub },
+    changelogDiff: { gap: S.xs },
+    changelogField: { ...T.caption1, fontWeight: '600', color: c.textSub, textTransform: 'uppercase', letterSpacing: 0.4 },
+    changelogOld: { ...T.subhead, color: c.red, textDecorationLine: 'line-through' },
+    changelogNew: { ...T.subhead, color: c.green },
+
+    // Edit screen
+    editContent: { padding: GUTTER, paddingBottom: 100 },
+    editLabel: { ...T.footnote, fontWeight: '600', color: c.textSub, textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: S.sm },
+    editInput: input,
+
+    // Study
+    studyHeader: {
+      flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', gap: S.sm,
+      paddingHorizontal: S.sm, paddingTop: top, paddingBottom: S.xs,
+    },
+    pill: { backgroundColor: c.surfaceHigh, borderRadius: R.full, paddingHorizontal: S.md, paddingVertical: S.xs },
+    pillText: { ...T.footnote, fontWeight: '600', color: c.textSub },
+    coursePill: { ...T.footnote, fontWeight: '600', color: c.textSub, flexShrink: 1, maxWidth: '35%', paddingRight: S.sm },
+    progressBar: { height: 4, backgroundColor: c.surfaceHigh, marginHorizontal: GUTTER, borderRadius: 2, overflow: 'hidden' },
+    progressFill: { height: 4, backgroundColor: c.accent, borderRadius: 2 },
+    cardWrapper: { flex: 1, margin: GUTTER },
+    card: {
+      flex: 1, backgroundColor: c.surface, borderRadius: R.lg, padding: S.xl,
+      alignItems: 'center', justifyContent: 'center',
+      borderWidth: StyleSheet.hairlineWidth, borderColor: c.border,
+    },
+    cardSide: { ...T.footnote, fontWeight: '600', color: c.textSub, textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: S.lg },
+    cardFront: { ...T.title3, color: c.text, textAlign: 'center' },
+    cardBack: { ...T.body, color: c.text, textAlign: 'center' },
+    tapHint: { ...T.footnote, color: c.textSub, marginTop: S.xl },
+    swipeOverlayLeft: {
+      position: 'absolute', left: S.lg, top: S.lg, zIndex: 10,
+      flexDirection: 'row', alignItems: 'center', gap: S.xs,
+      backgroundColor: c.redSoft, borderRadius: R.sm,
+      paddingHorizontal: S.sm, paddingVertical: S.xs,
+    },
+    swipeOverlayRight: {
+      position: 'absolute', right: S.lg, top: S.lg, zIndex: 10,
+      flexDirection: 'row', alignItems: 'center', gap: S.xs,
+      backgroundColor: c.greenSoft, borderRadius: R.sm,
+      paddingHorizontal: S.sm, paddingVertical: S.xs,
+    },
+    swipeOverlayTextLeft: { ...T.subhead, fontWeight: '600', color: c.red },
+    swipeOverlayTextRight: { ...T.subhead, fontWeight: '600', color: c.green },
+    ratingRow: { flexDirection: 'row', gap: S.sm, paddingHorizontal: GUTTER, paddingBottom: S.lg },
+    ratingBtn: {
+      flex: 1, borderRadius: R.md, minHeight: 56, paddingVertical: S.md, paddingHorizontal: S.xs,
+      alignItems: 'center', justifyContent: 'center', gap: S.xs,
+    },
+    ratingNo: { backgroundColor: c.redSoft },
+    ratingAlmost: { backgroundColor: c.yellowSoft },
+    ratingYes: { backgroundColor: c.greenSoft },
+    ratingLabel: { ...T.subhead, fontWeight: '600', textAlign: 'center' },
+    swipeHintRow: { alignItems: 'center', paddingHorizontal: GUTTER, paddingBottom: S.xl },
+    swipeHintText: { ...T.footnote, color: c.textSub, textAlign: 'center' },
+
+    // Done
+    doneTitle: { ...T.title2, color: c.text, textAlign: 'center' },
+    doneSub: { ...T.body, color: c.textSub },
+    doneRow: { flexDirection: 'row', backgroundColor: c.surface, borderRadius: R.lg, padding: S.xl, gap: S.xl },
+    doneStat: { flex: 1, alignItems: 'center' },
+    doneNum: { ...T.title1 },
+    doneLabel: { ...T.footnote, color: c.textSub, marginTop: S.xs },
+    doneDivider: { width: StyleSheet.hairlineWidth, backgroundColor: c.separator },
+  });
+}

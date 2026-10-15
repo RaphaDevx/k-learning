@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
-import { View, Text, TouchableOpacity, Dimensions, StyleSheet } from 'react-native';
+import { View, Text, Pressable, Dimensions, StyleSheet } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useVideoPlayer, VideoView } from 'expo-video';
-import { supabase } from '../lib/supabase';
+import { DarkColors as d, T, S, R, GUTTER, HIT, MAX_SCALE_CHROME } from '../constants/theme';
 
 const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
 
@@ -26,7 +27,8 @@ interface Props {
 
 export default function VideoCard({ card, isVisible, isMuted, onRate }: Props) {
   const src = card.hls_src || card.video_src || '';
-  const color = card.course_color ?? '#7c3aed';
+  const color = card.course_color ?? d.accent;
+  const insets = useSafeAreaInsets();
 
   const player = useVideoPlayer(src, p => {
     p.loop = true;
@@ -48,6 +50,7 @@ export default function VideoCard({ card, isVisible, isMuted, onRate }: Props) {
     if (player) player.muted = isMuted;
   }, [isMuted, player]);
 
+  // Content layer: video stays dark in both appearances, so it uses the dark tokens.
   return (
     <View style={styles.card}>
       <VideoView
@@ -57,31 +60,43 @@ export default function VideoCard({ card, isVisible, isMuted, onRate }: Props) {
         nativeControls={false}
       />
 
+      {/* Scrim: stacked translucent bands approximate a bottom gradient */}
+      <View style={styles.scrim} pointerEvents="none">
+        {[360, 270, 180, 90].map(h => (
+          <View key={h} style={[styles.scrimBand, { height: h }]} />
+        ))}
+      </View>
+
       {/* Info overlay */}
-      <View style={styles.overlay}>
+      <View style={[styles.overlay, { paddingBottom: insets.bottom + 49 + GUTTER }]}>
         <View style={styles.badges}>
-          <View style={[styles.badge, { backgroundColor: color + '44', borderColor: color + '99' }]}>
-            <Text style={styles.badgeText}>{card.course}</Text>
+          <View style={styles.badge}>
+            <View style={[styles.badgeDot, { backgroundColor: color }]} />
+            <Text style={styles.badgeText} maxFontSizeMultiplier={MAX_SCALE_CHROME}>{card.course}</Text>
           </View>
-          <Text style={styles.duration}>{card.duration ?? ''}</Text>
+          {card.duration ? (
+            <Text style={styles.duration} maxFontSizeMultiplier={MAX_SCALE_CHROME}>{card.duration}</Text>
+          ) : null}
         </View>
 
         <Text style={styles.title}>{card.title}</Text>
-        {card.subtitle ? <Text style={[styles.subtitle, { color: color }]}>{card.subtitle}</Text> : null}
+        {card.subtitle ? <Text style={styles.subtitle}>{card.subtitle}</Text> : null}
 
         <View style={styles.buttons}>
-          <TouchableOpacity
-            style={[styles.btn, styles.btnGreen]}
+          <Pressable
+            style={({ pressed }) => [styles.btn, styles.btnGreen, pressed && styles.pressed]}
             onPress={() => onRate(card.slug, card.id, 'knew')}
+            accessibilityRole="button"
           >
-            <Text style={[styles.btnText, { color: '#34d399' }]}>✅ Kapiert</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.btn, styles.btnRed]}
+            <Text style={[styles.btnText, { color: d.green }]}>✅ Kapiert</Text>
+          </Pressable>
+          <Pressable
+            style={({ pressed }) => [styles.btn, styles.btnRed, pressed && styles.pressed]}
             onPress={() => onRate(card.slug, card.id, 'didnt')}
+            accessibilityRole="button"
           >
-            <Text style={[styles.btnText, { color: '#f87171' }]}>🔁 Nochmal</Text>
-          </TouchableOpacity>
+            <Text style={[styles.btnText, { color: d.red }]}>🔁 Nochmal</Text>
+          </Pressable>
         </View>
       </View>
     </View>
@@ -92,7 +107,7 @@ const styles = StyleSheet.create({
   card: {
     width: SCREEN_WIDTH,
     height: SCREEN_HEIGHT,
-    backgroundColor: '#000',
+    backgroundColor: 'black',
   },
   video: {
     position: 'absolute',
@@ -101,73 +116,59 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
+  scrim: { position: 'absolute', left: 0, right: 0, bottom: 0 },
+  scrimBand: { position: 'absolute', left: 0, right: 0, bottom: 0, backgroundColor: 'black', opacity: 0.16 },
   overlay: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
-    paddingHorizontal: 16,
-    paddingBottom: 100,
-    paddingTop: 80,
+    paddingHorizontal: GUTTER,
+    paddingTop: S.xxxl,
     backgroundColor: 'transparent',
   },
   badges: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
-    marginBottom: 6,
+    gap: S.sm,
+    marginBottom: S.sm,
   },
   badge: {
-    borderWidth: 1,
-    borderRadius: 20,
-    paddingHorizontal: 10,
-    paddingVertical: 3,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: S.xs + 2,
+    backgroundColor: d.overlay,
+    borderRadius: R.full,
+    paddingHorizontal: S.md,
+    paddingVertical: S.xs,
   },
-  badgeText: {
-    color: '#fff',
-    fontSize: 11,
-    fontWeight: '700',
-  },
-  duration: {
-    color: '#d1d5db',
-    fontSize: 11,
-    marginLeft: 'auto',
-  },
+  badgeDot: { width: 8, height: 8, borderRadius: 4 },
+  badgeText: { ...T.caption1, fontWeight: '600', color: d.text },
+  duration: { ...T.caption1, color: d.textSub, marginLeft: 'auto' },
   title: {
-    color: '#fff',
-    fontSize: 16,
-    fontWeight: '800',
-    lineHeight: 22,
-    marginBottom: 4,
-    textShadowColor: 'rgba(0,0,0,0.8)',
+    ...T.title3,
+    color: d.text,
+    marginBottom: S.xs,
+    textShadowColor: d.overlay,
     textShadowOffset: { width: 0, height: 1 },
     textShadowRadius: 4,
   },
-  subtitle: {
-    fontSize: 13,
-    marginBottom: 16,
-  },
+  subtitle: { ...T.subhead, color: d.textSub, marginBottom: S.lg },
   buttons: {
     flexDirection: 'row',
-    gap: 8,
+    gap: S.sm,
+    marginTop: S.xs,
   },
   btn: {
     flex: 1,
-    paddingVertical: 12,
-    borderRadius: 14,
+    minHeight: HIT + 6,
+    paddingVertical: S.md,
+    borderRadius: R.md,
     alignItems: 'center',
-    borderWidth: 1,
+    justifyContent: 'center',
   },
-  btnGreen: {
-    backgroundColor: 'rgba(52,211,153,0.2)',
-    borderColor: 'rgba(52,211,153,0.5)',
-  },
-  btnRed: {
-    backgroundColor: 'rgba(248,113,113,0.2)',
-    borderColor: 'rgba(248,113,113,0.5)',
-  },
-  btnText: {
-    fontWeight: '700',
-    fontSize: 13,
-  },
+  btnGreen: { backgroundColor: d.overlay, borderWidth: 1, borderColor: d.green },
+  btnRed: { backgroundColor: d.overlay, borderWidth: 1, borderColor: d.red },
+  pressed: { opacity: 0.6 },
+  btnText: { ...T.headline },
 });

@@ -1,0 +1,27 @@
+appId: com.raphael.klearning
+---
+# Test: Home zeigt "Meine Kurse" und das Sheet "Kurs hinzufügen" listet öffentliche Kurse
+# Nicht-destruktiv: kein Kurs wird beigetreten (enroll_in_course würde Backend-State des Testusers ändern).
+# Der Testuser hat keine Kurse: der Flow prüft Leerzustand bzw. Kursliste und das Sheet (QR/Code/Eigener Kurs, öffentliche Kurse).
+
+- runFlow: e2e_login.yaml
+
+- tapOn: "Home, tab.*"
+- assertVisible: "Meine Kurse"
+
+# Header-Button "Hinzufügen" (Label mit Icon-Glyph: "<glyph>, Hinzufügen")
+- tapOn: ".*, Hinzufügen"
+
+- extendedWaitUntil:
+    visible: ".*ÖFFENTLICHE KURSE BEITRETEN.*"
+    timeout: 15000
+- assertVisible: ".*QR scannen.*"
+- assertVisible: ".*Statistik.*"
+
+- takeScreenshot: add_course_sheet
+
+# Sheet schliessen ohne Beitritt: auf den abgedunkelten Bereich oben tippen
+- tapOn:
+    point: "50%,8%"
+- assertVisible: "Meine Kurse"
+- assertNotVisible: ".*ÖFFENTLICHE KURSE BEITRETEN.*"

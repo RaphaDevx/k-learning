@@ -1,4 +1,10 @@
 flows:
   - flows/auth_flow.yaml
   - flows/google_login_no_browser_leak.yaml
+  - flows/e2e_login.yaml
   - flows/post_auth_navigation.yaml
+  - flows/feed_function.yaml
+  - flows/home_courses.yaml
+  - flows/flashcards_flip.yaml
+  - flows/exam_runner.yaml
+  - flows/profile_logout.yaml

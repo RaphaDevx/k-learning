@@ -1,16 +1,18 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useState, useCallback, useMemo } from 'react';
 import {
-  View, Text, ScrollView, TouchableOpacity,
+  View, Text, ScrollView, Pressable,
   StyleSheet, ActivityIndicator, RefreshControl,
 } from 'react-native';
 import { router, useFocusEffect } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { supabase } from '../../lib/supabase';
 import { loadExamRegistry, getExamsByCategory } from '../../data/examRegistry';
 import { useCourses } from '../../lib/courses';
 import { useCourse } from '../../lib/courseContext';
 import type { ExamMeta } from '../../types/exam';
-import { C, R, F } from '../../constants/theme';
+import { useColors, T, S, R, GUTTER, HIT, MAX_SCALE_CHROME } from '../../constants/theme';
+import type { ColorTokens } from '../../constants/theme';
 
 interface ResultMap {
   [examId: string]: { scorePct: number; takenAt: string };
@@ -21,14 +23,17 @@ function gradeFromPct(pct: number): string {
   return (Math.round(g * 2) / 2).toFixed(1);
 }
 
-function gradeColor(pct: number): string {
-  if (pct >= 65) return C.green;
-  if (pct >= 55) return C.yellow;
-  return C.red;
+type Status = { tone: 'green' | 'yellow' | 'red'; label: string; icon: 'checkmark-circle' | 'alert-circle' | 'close-circle' };
+function statusFor(pct: number): Status {
+  if (pct >= 65) return { tone: 'green', label: 'Bestanden', icon: 'checkmark-circle' };
+  if (pct >= 55) return { tone: 'yellow', label: 'Knapp', icon: 'alert-circle' };
+  return { tone: 'red', label: 'Nicht bestanden', icon: 'close-circle' };
 }
 
 export default function ExamTab() {
   const insets = useSafeAreaInsets();
+  const c = useColors();
+  const styles = useMemo(() => makeStyles(c), [c]);
   const courses = useCourses();
   const { activeCourse } = useCourse();
 
@@ -77,7 +82,6 @@ export default function ExamTab() {
     router.push(`/exam/${exam.id}` as any);
   }
 
-  // Filter by active course if set
   const filteredRegistry = activeCourse
     ? registry.filter(e => e.course === activeCourse)
     : registry;
@@ -86,85 +90,92 @@ export default function ExamTab() {
 
   if (loading) {
     return (
-      <View style={[styles.center, { backgroundColor: C.bg }]}>
-        <ActivityIndicator color={C.accentLight} size="large" />
+      <View style={styles.center}>
+        <ActivityIndicator color={c.textSub} size="large" />
       </View>
     );
   }
 
   return (
     <ScrollView
-      style={[styles.container, { backgroundColor: C.bg }]}
-      contentContainerStyle={[styles.content, { paddingTop: insets.top + 16, paddingBottom: 100 }]}
-      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => loadAll(true)} tintColor={C.accentLight} />}
+      style={styles.container}
+      contentContainerStyle={[styles.content, { paddingTop: insets.top + S.lg, paddingBottom: 100 }]}
+      refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => loadAll(true)} tintColor={c.textSub} />}
     >
       <View style={styles.titleRow}>
-        <Text style={styles.heading}>Prüfungen</Text>
+        <Text style={styles.heading} accessibilityRole="header">Prüfungen</Text>
         {activeCourse && (
           <View style={styles.filterChip}>
-            <Text style={styles.filterChipText}>{activeCourse}</Text>
+            <Text style={styles.filterChipText} maxFontSizeMultiplier={MAX_SCALE_CHROME}>{activeCourse}</Text>
           </View>
         )}
       </View>
 
       {Object.keys(grouped).length === 0 && (
         <View style={styles.emptyState}>
-          <Text style={styles.emptyEmoji}>📝</Text>
+          <Ionicons name="document-text-outline" size={44} color={c.textSub} />
           <Text style={styles.emptyTitle}>Keine Prüfungen</Text>
           <Text style={styles.emptyText}>
-            {activeCourse ? `Kein Kurs "${activeCourse}" mit Prüfungen gefunden` : 'Noch keine Prüfungen verfügbar'}
+            {activeCourse ? `Für den Kurs "${activeCourse}" gibt es noch keine Prüfungen.` : 'Noch keine Prüfungen verfügbar.'}
           </Text>
         </View>
       )}
 
       {Object.entries(grouped).map(([course, exams]) => {
         const info = courses[course];
-        const cfg = { label: info?.label ?? course, color: info?.hex ?? exams[0]?.courseColor ?? C.accent };
+        const cfg = { label: info?.label ?? course, color: info?.hex ?? exams[0]?.courseColor ?? c.accent };
         return (
           <View key={course} style={styles.section}>
-            <View style={[styles.sectionHeader, { borderLeftColor: cfg.color }]}>
-              <Text style={styles.sectionTitle}>{cfg.label}</Text>
+            <View style={styles.sectionHeader}>
+              <View style={[styles.dot, { backgroundColor: cfg.color }]} />
+              <Text style={styles.sectionTitle} accessibilityRole="header">{cfg.label}</Text>
             </View>
 
-            {exams.map(exam => {
-              const result = resultMap[exam.id];
-              const canStart = exam.available;
+            <View style={styles.group}>
+              {exams.map((exam, i) => {
+                const result = resultMap[exam.id];
+                const canStart = exam.available;
+                const st = result ? statusFor(result.scorePct) : null;
+                const tone = st ? c[st.tone] : c.textSub;
+                const toneSoft = st ? c[`${st.tone}Soft` as 'greenSoft' | 'yellowSoft' | 'redSoft'] : 'transparent';
 
-              return (
-                <TouchableOpacity
-                  key={exam.id}
-                  style={[styles.card, !canStart && styles.cardDisabled]}
-                  onPress={() => startExam(exam)}
-                  disabled={!canStart}
-                  activeOpacity={0.7}
-                >
-                  <View style={styles.cardBody}>
-                    <View style={[styles.dot, { backgroundColor: cfg.color }]} />
-                    <View style={styles.cardText}>
-                      <Text style={[styles.cardTitle, !canStart && styles.textMuted]}>
-                        {exam.title}
-                      </Text>
-                      <Text style={styles.cardMeta}>
+                return (
+                  <Pressable
+                    key={exam.id}
+                    style={({ pressed }) => [
+                      styles.row,
+                      i > 0 && styles.rowSep,
+                      pressed && canStart && { backgroundColor: c.surfaceHigh },
+                      !canStart && styles.rowDisabled,
+                    ]}
+                    onPress={() => startExam(exam)}
+                    disabled={!canStart}
+                    accessibilityRole="button"
+                    accessibilityState={{ disabled: !canStart }}
+                    accessibilityLabel={`${exam.title}, ${exam.durationMinutes} Minuten, ${exam.totalPoints} Punkte${
+                      !canStart ? ', bald verfügbar' : result && st ? `, letztes Resultat ${gradeFromPct(result.scorePct)}, ${st.label}` : ''
+                    }`}
+                  >
+                    <View style={styles.rowText}>
+                      <Text style={styles.rowTitle}>{exam.title}</Text>
+                      <Text style={styles.rowMeta}>
                         {exam.durationMinutes} Min · {exam.totalPoints} Pkt
                         {!canStart ? ' · Bald verfügbar' : ''}
                       </Text>
                     </View>
-                    {result ? (
-                      <View style={styles.resultBadge}>
-                        <Text style={[styles.grade, { color: gradeColor(result.scorePct) }]}>
-                          {gradeFromPct(result.scorePct)}
+                    {result && st && canStart ? (
+                      <View style={[styles.badge, { backgroundColor: toneSoft }]}>
+                        <Ionicons name={st.icon} size={14} color={tone} />
+                        <Text style={[styles.badgeText, { color: tone }]} maxFontSizeMultiplier={MAX_SCALE_CHROME}>
+                          {gradeFromPct(result.scorePct)} · {st.label}
                         </Text>
-                        <Text style={styles.gradePct}>{result.scorePct}%</Text>
-                      </View>
-                    ) : canStart ? (
-                      <View style={[styles.startBadge, { backgroundColor: cfg.color + '18' }]}>
-                        <Text style={[styles.startLabel, { color: cfg.color }]}>Start</Text>
                       </View>
                     ) : null}
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
+                    {canStart && <Ionicons name="chevron-forward" size={16} color={c.textMuted} />}
+                  </Pressable>
+                );
+              })}
+            </View>
           </View>
         );
       })}
@@ -172,45 +183,42 @@ export default function ExamTab() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1 },
-  content: { paddingHorizontal: 16, gap: 0 },
-  center: { flex: 1, alignItems: 'center', justifyContent: 'center' },
+const makeStyles = (c: ColorTokens) => StyleSheet.create({
+  container: { flex: 1, backgroundColor: c.bg },
+  content: { paddingHorizontal: GUTTER },
+  center: { flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: c.bg },
 
-  titleRow: { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 20 },
-  heading: { color: C.text, fontSize: F.xxl, fontWeight: '800', flex: 1 },
+  titleRow: { flexDirection: 'row', alignItems: 'center', gap: S.md, marginBottom: S.lg },
+  heading: { ...T.largeTitle, color: c.text, flexShrink: 1 },
   filterChip: {
-    backgroundColor: C.accent + '18', borderRadius: R.full,
-    paddingHorizontal: 10, paddingVertical: 4, borderWidth: 1, borderColor: C.accent + '30',
+    backgroundColor: c.accentSoft, borderRadius: R.full,
+    paddingHorizontal: S.md, paddingVertical: S.xs,
   },
-  filterChipText: { color: C.accentLight, fontSize: F.xs, fontWeight: '700' },
+  filterChipText: { ...T.footnote, color: c.accent, fontWeight: '600' },
 
-  emptyState: { alignItems: 'center', paddingVertical: 48, gap: 8 },
-  emptyEmoji: { fontSize: 48 },
-  emptyTitle: { color: C.text, fontSize: F.md, fontWeight: '700' },
-  emptyText: { color: C.textSub, fontSize: F.sm, textAlign: 'center', lineHeight: 20 },
+  emptyState: { alignItems: 'center', paddingVertical: S.xxxl, gap: S.sm },
+  emptyTitle: { ...T.title3, color: c.text },
+  emptyText: { ...T.subhead, color: c.textSub, textAlign: 'center' },
 
-  section: { marginBottom: 24 },
-  sectionHeader: { borderLeftWidth: 3, paddingLeft: 10, marginBottom: 10 },
-  sectionTitle: { color: C.text, fontSize: F.base, fontWeight: '700' },
+  section: { marginBottom: S.xl },
+  sectionHeader: { flexDirection: 'row', alignItems: 'center', gap: S.sm, paddingHorizontal: S.lg, marginBottom: S.sm },
+  dot: { width: 8, height: 8, borderRadius: 4 },
+  sectionTitle: { ...T.footnote, color: c.textSub, textTransform: 'uppercase', flexShrink: 1 },
 
-  card: {
-    backgroundColor: C.surface, borderRadius: R.lg,
-    borderWidth: 1, borderColor: C.border,
-    padding: 14, marginBottom: 8,
+  group: { backgroundColor: c.surface, borderRadius: R.md, overflow: 'hidden' },
+  row: {
+    flexDirection: 'row', alignItems: 'center', gap: S.md,
+    minHeight: HIT, paddingHorizontal: S.lg, paddingVertical: S.md,
   },
-  cardDisabled: { opacity: 0.45 },
-  cardBody: { flexDirection: 'row', alignItems: 'center', gap: 12 },
-  dot: { width: 8, height: 8, borderRadius: 4, flexShrink: 0 },
-  cardText: { flex: 1 },
-  cardTitle: { color: C.text, fontSize: F.sm, fontWeight: '600' },
-  cardMeta: { color: C.textMuted, fontSize: F.xs, marginTop: 2 },
-  textMuted: { color: C.textMuted },
+  rowSep: { borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: c.separator },
+  rowDisabled: { opacity: 0.5 },
+  rowText: { flex: 1 },
+  rowTitle: { ...T.body, color: c.text },
+  rowMeta: { ...T.footnote, color: c.textSub, marginTop: S.xxs },
 
-  resultBadge: { alignItems: 'flex-end' },
-  grade: { fontSize: F.md, fontWeight: '800' },
-  gradePct: { color: C.textMuted, fontSize: F.xs },
-
-  startBadge: { borderRadius: R.sm, paddingHorizontal: 10, paddingVertical: 5 },
-  startLabel: { fontSize: F.xs, fontWeight: '800' },
+  badge: {
+    flexDirection: 'row', alignItems: 'center', gap: S.xs,
+    borderRadius: R.full, paddingHorizontal: S.sm, paddingVertical: S.xs,
+  },
+  badgeText: { ...T.footnote, fontWeight: '600' },
 });

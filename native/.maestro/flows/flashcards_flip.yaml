@@ -1,0 +1,29 @@
+appId: com.raphael.klearning
+---
+# Test: Karten-Tab listet Decks, ein Deck zeigt eine Karte (Frage) und Tippen dreht sie auf die Antwort
+# Nicht-destruktiv: keine Karte wird bewertet (Nein/Fast/Ja nur sichtbar, nicht getippt)
+
+- runFlow: e2e_login.yaml
+
+- tapOn: "Karten, tab.*"
+- assertVisible: "Flashcards"
+
+# Erstes Deck öffnen (Label z. B. "Trusts, 8 Karten · 8 fällig")
+- tapOn: ".*Karten · .*fällig.*"
+
+- extendedWaitUntil:
+    visible: "1 / [0-9]+"
+    timeout: 15000
+- assertVisible: "FRAGE.*"
+- takeScreenshot: card_question
+
+# Karte umdrehen
+- tapOn: "FRAGE.*"
+- extendedWaitUntil:
+    visible: "ANTWORT.*"
+    timeout: 10000
+- assertNotVisible: "FRAGE.*"
+- assertVisible: ".*, Ja"
+- assertVisible: ".*, Nein"
+
+- takeScreenshot: card_answer

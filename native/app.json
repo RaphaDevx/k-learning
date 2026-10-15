@@ -6,8 +6,12 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "scheme": "k-learning",
-    "userInterfaceStyle": "light",
+    "splash": {
+      "backgroundColor": "#FBF9F5"
+    },
+    "userInterfaceStyle": "automatic",
     "ios": {
+      "userInterfaceStyle": "automatic",
       "supportsTablet": false,
       "usesAppleSignIn": true,
       "bundleIdentifier": "com.raphael.klearning",

@@ -7,21 +7,30 @@ appId: com.raphael.klearning
     clearState: true
 
 - assertVisible:
-    text: "Mit Google anmelden"
+    text: ".*Mit Google anmelden.*"
 
 # Google-Button tippen
 - tapOn:
-    text: "Mit Google anmelden"
+    text: ".*Mit Google anmelden.*"
 
-# Native OAuth-Sheet erscheint (nicht ein echter Safari-Tab)
-# Wir warten kurz und brechen dann ab — kein Crash = kein echter Browser geöffnet
-- waitForAnimationToEnd
+# iOS zeigt zuerst den System-Dialog der Auth-Session ("... möchte zum Anmelden "supabase.co" verwenden").
+# Das belegt: natives Sheet statt externem Safari-Tab.
+- extendedWaitUntil:
+    visible: ".*supabase\\.co.*"
+    timeout: 15000
 
-# Zurück-Button des System-Sheets
-- pressKey: Back
+- takeScreenshot: google_auth_sheet
+
+# Auf iOS gibt es kein "Back": Sheet über "Abbrechen" (de) bzw. "Cancel" (en) schliessen
+- tapOn:
+    text: "Abbrechen|Cancel"
 
 # App ist noch da (kein Crash, kein Browser-Leak)
-- assertVisible:
-    text: "Mit Google anmelden"
+- extendedWaitUntil:
+    visible: ".*Mit Google anmelden.*"
+    timeout: 15000
+
+- assertNotVisible:
+    text: ".*supabase\\.co.*"
 
 - takeScreenshot: after_google_cancel

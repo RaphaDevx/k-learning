@@ -1,0 +1,42 @@
+appId: com.raphael.klearning
+---
+# Test: Profil zeigt die Testuser-E-Mail und die Lernstatistik; Abmelden führt zurück auf den Login-Screen
+
+- runFlow: e2e_login.yaml
+
+- tapOn: "Profil, tab.*"
+
+# Eingeloggter Account: E-Mail des Testusers (Env zur Laufzeit) und Statistik
+- extendedWaitUntil:
+    visible: "LERNSTATISTIK"
+    timeout: 15000
+- assertVisible: ${MAESTRO_E2E_EMAIL}
+- assertVisible: "KI Testuser"
+
+- takeScreenshot: profile
+
+# "Abmelden" liegt unter der Tab-Bar: scrollen
+- scrollUntilVisible:
+    element: ".*Abmelden.*"
+    direction: DOWN
+    timeout: 20000
+- tapOn: ".*Abmelden.*"
+
+# Bestätigungsdialog (destruktive Aktion): dort erneut "Abmelden" tippen
+- extendedWaitUntil:
+    visible: "Abbrechen"
+    timeout: 5000
+- tapOn:
+    text: "Abmelden"
+    index: 1
+
+# Session beendet, Router führt zurück auf den Login-Screen
+- extendedWaitUntil:
+    visible: ".*Mit Google anmelden.*"
+    timeout: 20000
+- assertVisible: ".*Mit Apple anmelden.*"
+- assertVisible:
+    id: "e2e-login"
+- assertNotVisible: "LERNSTATISTIK"
+
+- takeScreenshot: after_logout

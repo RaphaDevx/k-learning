@@ -12,14 +12,13 @@ appId: com.raphael.klearning
 - assertVisible:
     text: "HSG · Lern wie auf Instagram"
 
-# Google-Button vorhanden
+# Google-Button vorhanden (Accessibility-Label "G, Mit Google anmelden" -> Teiltreffer per Regex)
 - assertVisible:
-    text: "Mit Google anmelden"
+    text: ".*Mit Google anmelden.*"
 
-# Apple-Button — nur auf iOS sichtbar (nativer Button ohne Text-Assertion möglich)
-# Der Apple-Button ist ein natives UI-Element; wir prüfen per Accessibility-Label
+# Apple-Button: nativer Button, Accessibility-Label "Mit Apple anmelden" (kein id)
 - assertVisible:
-    id: "Sign in with Apple"
+    text: ".*Mit Apple anmelden.*"
 
 # Hint-Text vorhanden
 - assertVisible:

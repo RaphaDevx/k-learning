@@ -1,12 +1,16 @@
-import { useEffect, useState, useRef, useCallback } from 'react';
+import { useEffect, useState, useRef, useMemo } from 'react';
 import {
-  View, Text, ScrollView, TouchableOpacity, StyleSheet,
+  View, Text, ScrollView, Pressable, StyleSheet,
   ActivityIndicator, Alert, BackHandler,
 } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import QuestionFigure from '../../components/QuestionFigure';
 import { loadExam } from '../../data/examLoader';
 import type { ExamData, ExamQuestion, ExamSection, AnswerMap } from '../../types/exam';
-import { C, R, F } from '../../constants/theme';
+import { useColors, T, S, R, GUTTER, HIT } from '../../constants/theme';
+import type { ColorTokens } from '../../constants/theme';
 
 function scoreExam(data: ExamData, answers: AnswerMap): { earned: number; total: number; pct: number } {
   const rules = data.scoringRules;
@@ -53,6 +57,10 @@ function formatTime(seconds: number): string {
 
 export default function ExamScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
+  const c = useColors();
+  const styles = useMemo(() => makeStyles(c), [c]);
+  const insets = useSafeAreaInsets();
+  const [revealed, setRevealed] = useState<Record<string, boolean>>({});
   const [examData, setExamData] = useState<ExamData | null>(null);
   const [loading, setLoading] = useState(true);
   const [answers, setAnswers] = useState<AnswerMap>({});
@@ -70,10 +78,7 @@ export default function ExamScreen() {
   useEffect(() => {
     const sub = BackHandler.addEventListener('hardwareBackPress', () => {
       if (!submitted) {
-        Alert.alert('Prüfung abbrechen?', 'Dein Fortschritt geht verloren.', [
-          { text: 'Weiter', style: 'cancel' },
-          { text: 'Abbrechen', style: 'destructive', onPress: () => router.back() },
-        ]);
+        confirmExit();
         return true;
       }
       return false;
@@ -109,6 +114,13 @@ export default function ExamScreen() {
   useEffect(() => {
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
   }, []);
+
+  function confirmExit() {
+    Alert.alert('Prüfung beenden?', 'Dein Fortschritt geht verloren.', [
+      { text: 'Abbrechen', style: 'cancel' },
+      { text: 'Beenden', style: 'destructive', onPress: () => router.back() },
+    ]);
+  }
 
   function toggleAnswer(questionId: string, key: string, isMultiple: boolean) {
     setAnswers(prev => {
@@ -207,7 +219,7 @@ export default function ExamScreen() {
   if (loading) {
     return (
       <View style={styles.center}>
-        <ActivityIndicator color={C.accent} size="large" />
+        <ActivityIndicator color={c.textSub} size="large" />
         <Text style={styles.loadingText}>Prüfung wird geladen…</Text>
       </View>
     );
@@ -218,34 +230,46 @@ export default function ExamScreen() {
   const section = examData.sections[currentSection];
   const question = section.questions[currentQuestion];
   const given = answers[question.id] ?? [];
+  const isOpen = question.type === 'open';
   const isMultiple = question.type === 'multiple_choice';
   const progress = totalQuestionIndex();
   const timerWarn = secondsLeft < 300;
+  const isFirst = currentSection === 0 && currentQuestion === 0;
+  const modelAnswer = question.modelAnswer ?? question.explanation;
+  const showModel = !!revealed[question.id];
 
   return (
     <View style={styles.container}>
       {/* Header */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => {
-          Alert.alert('Prüfung abbrechen?', 'Dein Fortschritt geht verloren.', [
-            { text: 'Weiter', style: 'cancel' },
-            { text: 'Abbrechen', style: 'destructive', onPress: () => router.back() },
-          ]);
-        }}>
-          <Text style={styles.closeBtn}>✕</Text>
-        </TouchableOpacity>
+      <View style={[styles.header, { paddingTop: insets.top + S.sm }]}>
+        <Pressable
+          onPress={confirmExit}
+          style={({ pressed }) => [styles.endBtn, pressed && { opacity: 0.6 }]}
+          accessibilityRole="button"
+          accessibilityLabel="Prüfung beenden"
+        >
+          <Text style={styles.endBtnText}>Beenden</Text>
+        </Pressable>
 
-        <Text style={styles.progressText}>
-          {progress.current} / {progress.total}
+        <Text style={styles.progressText} accessibilityLabel={`Frage ${progress.current} von ${progress.total}`}>
+          Frage {progress.current} von {progress.total}
         </Text>
 
-        <Text style={[styles.timer, timerWarn && styles.timerWarn]}>
-          {formatTime(secondsLeft)}
+        <Text
+          style={[styles.timer, timerWarn && styles.timerWarn]}
+          accessibilityRole="timer"
+          accessibilityLabel={`Verbleibende Zeit ${formatTime(Math.max(0, secondsLeft))}`}
+        >
+          {formatTime(Math.max(0, secondsLeft))}
         </Text>
       </View>
 
       {/* Progress bar */}
-      <View style={styles.progressBar}>
+      <View
+        style={styles.progressBar}
+        accessibilityRole="progressbar"
+        accessibilityValue={{ min: 0, max: progress.total, now: progress.current }}
+      >
         <View style={[styles.progressFill, { width: `${(progress.current / progress.total) * 100}%` as any }]} />
       </View>
 
@@ -262,124 +286,170 @@ export default function ExamScreen() {
 
         {/* Question */}
         <Text style={styles.questionText}>{question.text}</Text>
+        {question.imageHtml ? (
+          <View style={{ marginBottom: S.md }}>
+            <QuestionFigure html={question.imageHtml} label={`Abbildung zu Frage ${question.number}`} />
+          </View>
+        ) : null}
         <Text style={styles.questionMeta}>
-          {isMultiple ? 'Mehrere Antworten möglich' : 'Eine Antwort'} · {question.points} Pkt
+          {isOpen
+            ? 'Offene Frage — selbst bewerten'
+            : `${isMultiple ? 'Mehrere Antworten möglich' : 'Eine Antwort'} · ${question.points} Pkt`}
         </Text>
 
-        {/* Choices */}
-        <View style={styles.choices}>
-          {question.choices.map(choice => {
-            const selected = given.includes(choice.key);
-            return (
-              <TouchableOpacity
-                key={choice.key}
-                style={[styles.choice, selected && styles.choiceSelected]}
-                onPress={() => toggleAnswer(question.id, choice.key, isMultiple)}
-                activeOpacity={0.7}
+        {isOpen ? (
+          <View style={styles.openBox}>
+            {showModel ? (
+              <View style={styles.modelBox}>
+                <Text style={styles.modelLabel}>Musterlösung</Text>
+                <Text style={styles.modelText}>{modelAnswer || 'Keine Musterlösung hinterlegt.'}</Text>
+              </View>
+            ) : (
+              <Pressable
+                onPress={() => setRevealed(prev => ({ ...prev, [question.id]: true }))}
+                style={({ pressed }) => [styles.secondaryBtn, pressed && { opacity: 0.6 }]}
+                accessibilityRole="button"
+                accessibilityLabel="Musterlösung zeigen"
               >
-                <View style={[styles.choiceKey, selected && styles.choiceKeySelected]}>
-                  <Text style={[styles.choiceKeyText, selected && styles.choiceKeyTextSelected]}>
-                    {choice.key}
-                  </Text>
-                </View>
-                <Text style={[styles.choiceText, selected && styles.choiceTextSelected]}>
-                  {choice.text}
-                </Text>
-              </TouchableOpacity>
-            );
-          })}
-        </View>
+                <Ionicons name="eye-outline" size={20} color={c.accent} />
+                <Text style={styles.secondaryBtnText}>Musterlösung zeigen</Text>
+              </Pressable>
+            )}
+          </View>
+        ) : (
+          <View style={styles.choices}>
+            {question.choices.map(choice => {
+              const selected = given.includes(choice.key);
+              const icon = isMultiple
+                ? (selected ? 'checkbox' : 'square-outline')
+                : (selected ? 'radio-button-on' : 'radio-button-off');
+              return (
+                <Pressable
+                  key={choice.key}
+                  style={({ pressed }) => [
+                    styles.choice,
+                    selected && styles.choiceSelected,
+                    pressed && { opacity: 0.6 },
+                  ]}
+                  onPress={() => toggleAnswer(question.id, choice.key, isMultiple)}
+                  accessibilityRole={isMultiple ? 'checkbox' : 'radio'}
+                  accessibilityState={isMultiple ? { checked: selected } : { selected }}
+                  accessibilityLabel={`${choice.key}. ${choice.text}`}
+                >
+                  <Ionicons name={icon} size={24} color={selected ? c.accent : c.textSub} />
+                  <Text style={styles.choiceKey}>{choice.key}</Text>
+                  <Text style={styles.choiceText}>{choice.text}</Text>
+                </Pressable>
+              );
+            })}
+          </View>
+        )}
       </ScrollView>
 
       {/* Navigation */}
-      <View style={styles.nav}>
-        <TouchableOpacity
-          style={[styles.navBtn, currentSection === 0 && currentQuestion === 0 && styles.navBtnDisabled]}
+      <View style={[styles.nav, { paddingBottom: Math.max(insets.bottom, S.lg) }]}>
+        <Pressable
+          style={({ pressed }) => [styles.navBtn, isFirst && styles.navBtnDisabled, pressed && { opacity: 0.6 }]}
           onPress={() => navigateQuestion('prev')}
-          disabled={currentSection === 0 && currentQuestion === 0}
+          disabled={isFirst}
+          accessibilityRole="button"
+          accessibilityLabel="Vorherige Frage"
+          accessibilityState={{ disabled: isFirst }}
         >
           <Text style={styles.navBtnText}>Zurück</Text>
-        </TouchableOpacity>
+        </Pressable>
 
         {isLastQuestion() ? (
-          <TouchableOpacity style={styles.submitBtn} onPress={() => handleSubmit(false)}>
-            <Text style={styles.submitBtnText}>Abgeben</Text>
-          </TouchableOpacity>
+          <Pressable
+            style={({ pressed }) => [styles.primaryBtn, pressed && { opacity: 0.6 }]}
+            onPress={() => handleSubmit(false)}
+            accessibilityRole="button"
+            accessibilityLabel="Prüfung abgeben"
+          >
+            <Text style={styles.primaryBtnText}>Abgeben</Text>
+          </Pressable>
         ) : (
-          <TouchableOpacity style={styles.navBtnNext} onPress={() => navigateQuestion('next')}>
-            <Text style={styles.navBtnNextText}>Weiter</Text>
-          </TouchableOpacity>
+          <Pressable
+            style={({ pressed }) => [styles.primaryBtn, pressed && { opacity: 0.6 }]}
+            onPress={() => navigateQuestion('next')}
+            accessibilityRole="button"
+            accessibilityLabel="Nächste Frage"
+          >
+            <Text style={styles.primaryBtnText}>Weiter</Text>
+          </Pressable>
         )}
       </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: C.bg },
-  center: { flex: 1, backgroundColor: C.bg, alignItems: 'center', justifyContent: 'center', gap: 12 },
-  loadingText: { color: C.textSub, fontSize: F.base },
+const makeStyles = (c: ColorTokens) => StyleSheet.create({
+  container: { flex: 1, backgroundColor: c.bg },
+  center: { flex: 1, backgroundColor: c.bg, alignItems: 'center', justifyContent: 'center', gap: S.md },
+  loadingText: { ...T.subhead, color: c.textSub },
 
   header: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
-    paddingHorizontal: 16, paddingTop: 56, paddingBottom: 12,
+    paddingHorizontal: GUTTER, paddingBottom: S.sm, gap: S.sm,
   },
-  closeBtn: { color: C.textSub, fontSize: 20, width: 36 },
-  progressText: { color: C.textSub, fontSize: F.sm },
-  timer: { color: C.text, fontSize: F.base, fontWeight: '700', minWidth: 50, textAlign: 'right' },
-  timerWarn: { color: C.red },
+  endBtn: { minHeight: HIT, minWidth: HIT, justifyContent: 'center' },
+  endBtnText: { ...T.body, color: c.accent },
+  progressText: { ...T.footnote, color: c.textSub, flexShrink: 1, textAlign: 'center' },
+  timer: {
+    ...T.headline, color: c.text, minWidth: 56, textAlign: 'right',
+    fontVariant: ['tabular-nums'],
+  },
+  timerWarn: { color: c.red },
 
-  progressBar: { height: 3, backgroundColor: C.border, marginHorizontal: 16 },
-  progressFill: { height: 3, backgroundColor: C.accent, borderRadius: 2 },
+  progressBar: { height: 4, backgroundColor: c.separator, marginHorizontal: GUTTER, borderRadius: 2 },
+  progressFill: { height: 4, backgroundColor: c.accent, borderRadius: 2 },
 
   scroll: { flex: 1 },
-  scrollContent: { padding: 16, paddingBottom: 32 },
+  scrollContent: { padding: GUTTER, paddingBottom: S.xxl },
 
   contextBox: {
-    backgroundColor: C.accentGlow, borderRadius: R.md, padding: 12, marginBottom: 16,
-    borderLeftWidth: 3, borderLeftColor: C.accent,
+    backgroundColor: c.accentSoft, borderRadius: R.md, padding: S.md, marginBottom: S.lg,
   },
-  contextText: { color: C.textSub, fontSize: F.sm, lineHeight: 20 },
+  contextText: { ...T.subhead, color: c.textSub },
 
-  sectionLabel: { color: C.textMuted, fontSize: F.xs, fontWeight: '600', marginBottom: 8, textTransform: 'uppercase', letterSpacing: 0.5 },
-  questionText: { color: C.text, fontSize: F.base, lineHeight: 24, fontWeight: '600', marginBottom: 6 },
-  questionMeta: { color: C.textMuted, fontSize: F.xs, marginBottom: 20 },
+  sectionLabel: { ...T.footnote, color: c.textSub, marginBottom: S.sm, textTransform: 'uppercase' },
+  questionText: { ...T.headline, color: c.text, marginBottom: S.xs },
+  questionMeta: { ...T.footnote, color: c.textSub, marginBottom: S.lg },
 
-  choices: { gap: 10 },
+  choices: { gap: S.sm },
   choice: {
-    flexDirection: 'row', alignItems: 'flex-start', gap: 12,
-    backgroundColor: C.surface, borderRadius: R.md, padding: 14,
-    borderWidth: 1, borderColor: C.border,
+    flexDirection: 'row', alignItems: 'center', gap: S.md,
+    minHeight: HIT + S.md, backgroundColor: c.surface, borderRadius: R.md,
+    paddingHorizontal: S.lg, paddingVertical: S.md,
+    borderWidth: 1.5, borderColor: 'transparent',
   },
-  choiceSelected: { borderColor: C.accent, backgroundColor: C.accentGlow },
-  choiceKey: {
-    width: 28, height: 28, borderRadius: R.sm,
-    backgroundColor: C.surfaceHigh, alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+  choiceSelected: { borderColor: c.accent, backgroundColor: c.accentSoft },
+  choiceKey: { ...T.subhead, color: c.textSub, fontWeight: '600', minWidth: 16 },
+  choiceText: { ...T.body, color: c.text, flex: 1 },
+
+  openBox: { gap: S.md },
+  secondaryBtn: {
+    flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: S.sm,
+    minHeight: 50, borderRadius: R.md, backgroundColor: c.accentSoft, paddingHorizontal: S.lg,
   },
-  choiceKeySelected: { backgroundColor: C.accent },
-  choiceKeyText: { color: C.textSub, fontSize: F.sm, fontWeight: '700' },
-  choiceKeyTextSelected: { color: '#fff' },
-  choiceText: { color: C.textSub, fontSize: 14, lineHeight: 20, flex: 1, paddingTop: 4 },
-  choiceTextSelected: { color: C.text },
+  secondaryBtnText: { ...T.headline, color: c.accent },
+  modelBox: { backgroundColor: c.surface, borderRadius: R.md, padding: S.lg, gap: S.xs },
+  modelLabel: { ...T.footnote, color: c.textSub, textTransform: 'uppercase' },
+  modelText: { ...T.body, color: c.text },
 
   nav: {
-    flexDirection: 'row', gap: 12, padding: 16, paddingBottom: 32,
-    borderTopWidth: 1, borderTopColor: C.border,
+    flexDirection: 'row', gap: S.md, paddingHorizontal: GUTTER, paddingTop: S.md,
+    borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: c.separator,
   },
   navBtn: {
-    flex: 1, paddingVertical: 14, borderRadius: R.md,
-    backgroundColor: C.surface, borderWidth: 1, borderColor: C.border, alignItems: 'center',
+    flex: 1, minHeight: 50, borderRadius: R.md, justifyContent: 'center',
+    backgroundColor: c.accentSoft, alignItems: 'center',
   },
-  navBtnDisabled: { opacity: 0.3 },
-  navBtnText: { color: C.textSub, fontWeight: '600', fontSize: F.base },
-  navBtnNext: {
-    flex: 2, paddingVertical: 14, borderRadius: R.md,
-    backgroundColor: C.accent, alignItems: 'center',
+  navBtnDisabled: { opacity: 0.4 },
+  navBtnText: { ...T.headline, color: c.accent },
+  primaryBtn: {
+    flex: 2, minHeight: 50, borderRadius: R.md, justifyContent: 'center',
+    backgroundColor: c.accent, alignItems: 'center',
   },
-  navBtnNextText: { color: '#fff', fontWeight: '700', fontSize: F.base },
-  submitBtn: {
-    flex: 2, paddingVertical: 14, borderRadius: R.md,
-    backgroundColor: C.green, alignItems: 'center',
-  },
-  submitBtnText: { color: '#fff', fontWeight: '700', fontSize: F.base },
+  primaryBtnText: { ...T.headline, color: c.onAccent },
 });

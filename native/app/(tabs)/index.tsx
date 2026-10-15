@@ -1,18 +1,21 @@
 import { useState, useCallback, useRef } from 'react';
 import {
-  View, FlatList, Dimensions, TouchableOpacity, Text,
+  View, FlatList, Dimensions, Pressable, Text,
   StyleSheet, ActivityIndicator, ViewToken,
 } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from 'expo-router';
 import { supabase } from '../../lib/supabase';
 import { useCourse } from '../../lib/courseContext';
 import VideoCard, { FeedCard } from '../../components/VideoCard';
-import { C } from '../../constants/theme';
+import { useColors, DarkColors as d, T, S, R, GUTTER, HIT, MAX_SCALE_CHROME } from '../../constants/theme';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 export default function FeedScreen() {
+  const c = useColors();
+  const insets = useSafeAreaInsets();
   const [cards, setCards] = useState<FeedCard[]>([]);
   const [loading, setLoading] = useState(true);
   const [visibleIndex, setVisibleIndex] = useState(0);
@@ -77,17 +80,28 @@ export default function FeedScreen() {
 
   if (loading) {
     return (
-      <View style={styles.center}>
-        <ActivityIndicator size="large" color={C.accent} />
+      <View style={[styles.center, { backgroundColor: c.bg }]}>
+        <ActivityIndicator size="large" color={c.textSub} />
       </View>
     );
   }
 
   if (!cards.length) {
     return (
-      <View style={styles.center}>
-        <Text style={styles.emptyEmoji}>⚡</Text>
-        <Text style={styles.emptyText}>Keine Videos verfügbar</Text>
+      <View style={[styles.center, { backgroundColor: c.bg }]}>
+        <Ionicons name="videocam-outline" size={48} color={c.textSub} />
+        <Text style={[T.title3, { color: c.text }]}>Keine Videos verfügbar</Text>
+        <Text style={[T.subhead, { color: c.textSub, textAlign: 'center' }]}>
+          Für diese Auswahl gibt es noch keine Lernvideos.
+        </Text>
+        <Pressable
+          style={({ pressed }) => [styles.retryBtn, { backgroundColor: c.accentSoft }, pressed && styles.pressed]}
+          onPress={loadFeed}
+          accessibilityRole="button"
+          accessibilityLabel="Feed neu laden"
+        >
+          <Text style={[T.headline, { color: c.accent }]}>Neu laden</Text>
+        </Pressable>
       </View>
     );
   }
@@ -95,9 +109,9 @@ export default function FeedScreen() {
   return (
     <View style={styles.container}>
       {activeCourse && (
-        <View style={styles.courseChip} pointerEvents="none">
-          <Ionicons name="filter" size={12} color="#fff" />
-          <Text style={styles.courseChipText}>{activeCourse}</Text>
+        <View style={[styles.courseChip, { top: insets.top + S.sm }]} pointerEvents="none">
+          <Ionicons name="filter" size={14} color={d.text} />
+          <Text style={styles.courseChipText} maxFontSizeMultiplier={MAX_SCALE_CHROME}>{activeCourse}</Text>
         </View>
       )}
       <FlatList
@@ -129,9 +143,15 @@ export default function FeedScreen() {
       />
 
       {/* Mute toggle */}
-      <TouchableOpacity style={styles.muteBtn} onPress={() => setIsMuted(m => !m)}>
-        <Text style={styles.muteIcon}>{isMuted ? '🔇' : '🔊'}</Text>
-      </TouchableOpacity>
+      <Pressable
+        style={({ pressed }) => [styles.muteBtn, { top: insets.top + S.sm }, pressed && styles.pressed]}
+        onPress={() => setIsMuted(m => !m)}
+        accessibilityRole="button"
+        accessibilityLabel={isMuted ? 'Ton einschalten' : 'Ton ausschalten'}
+      >
+        <Ionicons name={isMuted ? 'volume-mute' : 'volume-high'} size={22} color={d.text} />
+        <Text style={styles.muteLabel} maxFontSizeMultiplier={MAX_SCALE_CHROME}>{isMuted ? 'Ton aus' : 'Ton an'}</Text>
+      </Pressable>
     </View>
   );
 }
@@ -139,41 +159,40 @@ export default function FeedScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000', // video player stays black
+    backgroundColor: 'black', // content layer: video stays black in both appearances
   },
   center: {
     flex: 1,
-    backgroundColor: C.bg,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 12,
+    gap: S.md,
+    paddingHorizontal: S.xl,
   },
-  emptyEmoji: {
-    fontSize: 48,
+  retryBtn: {
+    minHeight: HIT, paddingHorizontal: S.xl, borderRadius: R.md,
+    alignItems: 'center', justifyContent: 'center', marginTop: S.sm,
   },
-  emptyText: {
-    color: C.textSub,
-    fontSize: 16,
-  },
+  pressed: { opacity: 0.6 },
   muteBtn: {
     position: 'absolute',
-    top: 56,
-    right: 16,
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: 'rgba(0,0,0,0.55)',
+    right: GUTTER,
+    minHeight: HIT,
+    minWidth: HIT,
+    flexDirection: 'row',
     alignItems: 'center',
+    gap: S.xs + 2,
+    paddingHorizontal: S.md,
+    borderRadius: R.full,
+    backgroundColor: d.overlay,
     justifyContent: 'center',
   },
-  muteIcon: {
-    fontSize: 20,
-  },
+  muteLabel: { ...T.footnote, fontWeight: '600', color: d.text },
   courseChip: {
-    position: 'absolute', top: 56, left: 16, zIndex: 10,
-    flexDirection: 'row', alignItems: 'center', gap: 5,
-    backgroundColor: 'rgba(0,0,0,0.55)',
-    borderRadius: 20, paddingHorizontal: 10, paddingVertical: 5,
+    position: 'absolute', left: GUTTER, zIndex: 10,
+    minHeight: HIT,
+    flexDirection: 'row', alignItems: 'center', gap: S.xs + 1,
+    backgroundColor: d.overlay,
+    borderRadius: R.full, paddingHorizontal: S.md,
   },
-  courseChipText: { color: '#fff', fontSize: 12, fontWeight: '700' },
+  courseChipText: { ...T.footnote, fontWeight: '600', color: d.text },
 });
