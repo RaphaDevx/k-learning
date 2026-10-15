@@ -7,31 +7,34 @@ appId: com.raphael.klearning
 
 - tapOn: "Prüfungen, tab.*"
 - assertVisible: "Makro II"
-- assertVisible: "Probeklausur FS26.*"
+- assertVisible: ".*Probeklausur FS26.*"
 
-- tapOn: "Probeklausur FS26.*"
+- tapOn: ".*Probeklausur FS26.*"
 
 # Prüfungs-Runner: Fortschritt, Timer, Frage mit Antwortoptionen
 - extendedWaitUntil:
-    visible: "1 / [0-9]+"
+    visible: "Frage 1 von [0-9]+"
     timeout: 20000
-- assertVisible: "A, .*"
+- assertVisible: "A\\. .*"
 
 # Antwort wählen, weiter zur nächsten Frage
-- tapOn: "A, .*"
-- tapOn: "Weiter"
+- tapOn: "A\\. .*"
+- tapOn: "Nächste Frage"
 - extendedWaitUntil:
-    visible: "2 / [0-9]+"
+    visible: "Frage 2 von [0-9]+"
     timeout: 10000
 
 - takeScreenshot: exam_question_2
 
-# Abbrechen (Bestätigungsdialog), zurück auf die Prüfungsliste
-- tapOn: "✕"
+# Beenden (Bestätigungsdialog, destruktiv), zurück auf die Prüfungsliste
+- tapOn: "Prüfung beenden"
 - extendedWaitUntil:
-    visible: "Prüfung abbrechen\\?"
+    visible: "Prüfung beenden\\?"
     timeout: 10000
-- tapOn: "Abbrechen|Cancel"
+- tapOn:
+    text: "Beenden"
+    rightOf:
+      text: "Abbrechen"
 - extendedWaitUntil:
     visible: "Makro II"
     timeout: 10000

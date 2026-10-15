@@ -23,7 +23,8 @@ appId: com.raphael.klearning
     visible: "ANTWORT.*"
     timeout: 10000
 - assertNotVisible: "FRAGE.*"
-- assertVisible: ".*, Ja"
-- assertVisible: ".*, Nein"
+# Bewertung seit HIG-Redesign: Nochmal / Fast / Gewusst (nur sichtbar, nicht getippt)
+- assertVisible: "Nochmal, nicht gewusst"
+- assertVisible: "Gewusst"
 
 - takeScreenshot: card_answer
