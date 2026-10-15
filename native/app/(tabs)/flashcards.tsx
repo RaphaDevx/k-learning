@@ -678,7 +678,8 @@ export default function FlashcardsScreen() {
                         style={({ pressed }) => [s.deckInfo, pressed && s.pressed]}
                         onPress={() => startDeck(deck.course, deck.topic)}
                         accessibilityRole="button"
-                        accessibilityLabel={`${deck.topic} lernen, ${deck.total} Karten, ${deck.due} fällig`}
+                        accessibilityLabel={`${deck.topic}, ${deck.total} Karten · ${deck.due} fällig`}
+                        accessibilityHint="Startet das Lernen dieses Decks"
                       >
                         <Text style={s.deckTopic}>{deck.topic}</Text>
                         <Text style={s.deckMeta}>{deck.total} Karten · {deck.due} fällig</Text>
