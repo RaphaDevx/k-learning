@@ -5,7 +5,6 @@ import {
 } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
 import { loadExam } from '../../data/examLoader';
-import { getExamMeta } from '../../data/examRegistry';
 import type { ExamData, ExamQuestion, ExamSection, AnswerMap } from '../../types/exam';
 import { C, R, F } from '../../constants/theme';
 
@@ -16,18 +15,22 @@ function scoreExam(data: ExamData, answers: AnswerMap): { earned: number; total:
 
   for (const section of data.sections) {
     for (const q of section.questions) {
+      // Open questions are self-assessed and not part of the automatic score.
+      if (q.type === 'open') continue;
       total += q.points;
       const given = answers[q.id] ?? [];
-      if (given.length === 0) continue;
 
       if (q.type === 'single_choice') {
-        if (given[0] === q.correct[0]) earned += rules.single_choice.correct;
+        if (given.length === 0) continue;
+        if (given[0] === q.correct[0]) earned += q.points;
         else earned += rules.single_choice.wrong;
       } else if (q.type === 'multiple_choice') {
+        // An empty `correct` means "no statement is true": leaving it blank is right.
+        if (given.length === 0 && q.correct.length > 0) continue;
         const correctSet = new Set(q.correct);
         const givenSet = new Set(given);
         const allRight = q.correct.every(k => givenSet.has(k)) && given.every(k => correctSet.has(k));
-        if (allRight) earned += rules.multiple_choice.allCorrect;
+        if (allRight) earned += q.points;
         else earned += rules.multiple_choice.anyWrong;
       }
     }
@@ -141,7 +144,6 @@ export default function ExamScreen() {
     const durationSeconds = Math.round((Date.now() - startTimeRef.current) / 1000);
     const score = scoreExam(examData, answers);
     const grade = gradeFromPct(score.pct);
-    const meta = getExamMeta(id!);
 
     router.replace({
       pathname: '/exam/results' as any,

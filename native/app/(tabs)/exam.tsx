@@ -6,7 +6,8 @@ import {
 import { router, useFocusEffect } from 'expo-router';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { supabase } from '../../lib/supabase';
-import { loadExamRegistry, getExamsByCategory, COURSE_CONFIG } from '../../data/examRegistry';
+import { loadExamRegistry, getExamsByCategory } from '../../data/examRegistry';
+import { useCourses } from '../../lib/courses';
 import { useCourse } from '../../lib/courseContext';
 import type { ExamMeta } from '../../types/exam';
 import { C, R, F } from '../../constants/theme';
@@ -28,6 +29,7 @@ function gradeColor(pct: number): string {
 
 export default function ExamTab() {
   const insets = useSafeAreaInsets();
+  const courses = useCourses();
   const { activeCourse } = useCourse();
 
   const [registry, setRegistry]     = useState<ExamMeta[]>([]);
@@ -71,7 +73,7 @@ export default function ExamTab() {
   }
 
   function startExam(exam: ExamMeta) {
-    if (!exam.bundled) return;
+    if (!exam.available) return;
     router.push(`/exam/${exam.id}` as any);
   }
 
@@ -116,7 +118,8 @@ export default function ExamTab() {
       )}
 
       {Object.entries(grouped).map(([course, exams]) => {
-        const cfg = COURSE_CONFIG[course] ?? { label: course, color: C.accent };
+        const info = courses[course];
+        const cfg = { label: info?.label ?? course, color: info?.hex ?? exams[0]?.courseColor ?? C.accent };
         return (
           <View key={course} style={styles.section}>
             <View style={[styles.sectionHeader, { borderLeftColor: cfg.color }]}>
@@ -125,7 +128,7 @@ export default function ExamTab() {
 
             {exams.map(exam => {
               const result = resultMap[exam.id];
-              const canStart = exam.bundled;
+              const canStart = exam.available;
 
               return (
                 <TouchableOpacity

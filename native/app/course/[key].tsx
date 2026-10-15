@@ -36,7 +36,7 @@ interface ExamItem {
   title: string;
   duration_minutes: number;
   total_points: number;
-  storage_path: string | null;
+  has_content: boolean;
 }
 
 interface ExamResult {
@@ -100,7 +100,7 @@ export default function CourseLernenScreen() {
           .order('sort_order')
           .limit(8),
         supabase.from('k_exams')
-          .select('id,title,duration_minutes,total_points,storage_path')
+          .select('id,title,duration_minutes,total_points,has_content')
           .eq('course', key)
           .eq('active', true)
           .order('sort_order'),
@@ -278,7 +278,7 @@ export default function CourseLernenScreen() {
             <Text style={s.sectionTitle}>Prüfungen</Text>
             {exams.map(exam => {
               const result = results[exam.id];
-              const hasData = !!exam.storage_path || ['makro2-probeklausur-fs26', 'makro2-probeklausur-b'].includes(exam.id);
+              const hasData = exam.has_content;
               return (
                 <TouchableOpacity
                   key={exam.id}

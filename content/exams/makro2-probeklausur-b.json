@@ -1,25 +1,10 @@
 {
-  "_meta": {
-    "schemaVersion": "1",
-    "sourceFile": "generated",
-    "createdAt": "2026-07-11",
-    "promptVersion": "create-exam-v3",
-    "status": "final"
-  },
   "id": "makro2-probeklausur-b",
   "title": "MakroII — Probeklausur B (Juli 2026)",
   "course": "MakroII",
   "courseColor": "#0d47a1",
   "durationMinutes": 90,
   "totalPoints": 90,
-  "resourceLink": null,
-  "examInfo": {
-    "date": "Juli 2026",
-    "duration": "90 Minuten",
-    "format": "45 Multiple Choice",
-    "allowedAids": "TI-30 Taschenrechner",
-    "grading": "Note 6.0: ≥85%, Note 5.5: ≥75%, Note 5.0: ≥65%, Note 4.5: ≥55%, Note 4.0: ≥45%, Note 3.5: ≥35%, Note 3.0: ≥25%"
-  },
   "scoringRules": {
     "single_choice": {
       "correct": 2,
@@ -32,7 +17,13 @@
       "blank": 0
     }
   },
-  "telemetry": null,
+  "examInfo": {
+    "date": "Juli 2026",
+    "duration": "90 Minuten",
+    "format": "45 Multiple Choice",
+    "allowedAids": "TI-30 Taschenrechner",
+    "grading": "Note 6.0: ≥85%, Note 5.5: ≥75%, Note 5.0: ≥65%, Note 4.5: ≥55%, Note 4.0: ≥45%, Note 3.5: ≥35%, Note 3.0: ≥25%"
+  },
   "sections": [
     {
       "id": "block1",
@@ -40,7 +31,6 @@
       "description": "Markiere alle wahren Aussagen (0, 1, 2, 3, 4 oder 5 können korrekt sein).",
       "context": null,
       "points": 10,
-      "questionType": "multiple_choice",
       "questions": [
         {
           "id": "makro2-probeklausur-b-q01",
@@ -287,7 +277,8 @@
             "_generated": true
           }
         }
-      ]
+      ],
+      "question_type": "multiple_choice"
     },
     {
       "id": "block2",
@@ -295,7 +286,6 @@
       "description": "Markiere alle wahren Aussagen.",
       "context": null,
       "points": 10,
-      "questionType": "multiple_choice",
       "questions": [
         {
           "id": "makro2-probeklausur-b-q06",
@@ -545,7 +535,8 @@
             "_generated": true
           }
         }
-      ]
+      ],
+      "question_type": "multiple_choice"
     },
     {
       "id": "block3",
@@ -553,7 +544,6 @@
       "description": "Markiere alle wahren Aussagen. Mengennotierung: $E$ = Preis von 1 CHF in Fremdwährung.",
       "context": null,
       "points": 10,
-      "questionType": "multiple_choice",
       "questions": [
         {
           "id": "makro2-probeklausur-b-q11",
@@ -806,7 +796,8 @@
             "_generated": true
           }
         }
-      ]
+      ],
+      "question_type": "multiple_choice"
     },
     {
       "id": "block4",
@@ -814,7 +805,6 @@
       "description": "Markiere alle wahren Aussagen.",
       "context": null,
       "points": 10,
-      "questionType": "multiple_choice",
       "questions": [
         {
           "id": "makro2-probeklausur-b-q16",
@@ -1061,7 +1051,8 @@
             "_generated": true
           }
         }
-      ]
+      ],
+      "question_type": "multiple_choice"
     },
     {
       "id": "block5",
@@ -1069,7 +1060,6 @@
       "description": "Markiere alle wahren Aussagen.",
       "context": null,
       "points": 10,
-      "questionType": "multiple_choice",
       "questions": [
         {
           "id": "makro2-probeklausur-b-q21",
@@ -1322,7 +1312,8 @@
             "_generated": true
           }
         }
-      ]
+      ],
+      "question_type": "multiple_choice"
     },
     {
       "id": "block6",
@@ -1330,7 +1321,6 @@
       "description": "Markiere alle wahren Aussagen. $\\Delta b_t = (r-g)\\,b_{t-1} - (t - g_{\\text{Staat}})$, wobei $t$ = Steuerquote, $g_{\\text{Staat}}$ = Staatsausgabenquote.",
       "context": null,
       "points": 10,
-      "questionType": "multiple_choice",
       "questions": [
         {
           "id": "makro2-probeklausur-b-q26",
@@ -1580,7 +1570,8 @@
             "_generated": true
           }
         }
-      ]
+      ],
+      "question_type": "multiple_choice"
     },
     {
       "id": "block7",
@@ -1588,7 +1579,6 @@
       "description": "Markiere alle wahren Aussagen.",
       "context": null,
       "points": 30,
-      "questionType": "multiple_choice",
       "questions": [
         {
           "id": "makro2-probeklausur-b-q31",
@@ -2345,8 +2335,8 @@
             "_generated": true
           }
         }
-      ]
+      ],
+      "question_type": "multiple_choice"
     }
-  ],
-  "_validation": []
+  ]
 }

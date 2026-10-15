@@ -1,32 +1,38 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { ExamData } from '../types/exam';
 import { supabase } from '../lib/supabase';
 
-const BUNDLED: Record<string, () => ExamData> = {
-  'makro2-probeklausur-fs26': () => require('./exams/makro2-probeklausur-fs26-data.json'),
-  'makro2-probeklausur-b':    () => require('./exams/makro2-probeklausur-b-data.json'),
-};
+// The app ships no exam content. Exams live in Supabase (k_exams.content) and are
+// cached on the device per content_version, so a started exam also works offline.
+const CACHE_PREFIX = '@klearning_exam:';
 
-export async function loadExam(id: string): Promise<ExamData | null> {
-  // 1. Try bundled first (zero latency, works offline)
-  const loader = BUNDLED[id];
-  if (loader) {
-    try { return loader() as ExamData; } catch {}
-  }
+interface CachedExam { version: number; data: ExamData }
 
-  // 2. Fetch from Supabase Storage (bucket: exams, path: {id}.json)
+async function readCache(id: string): Promise<CachedExam | null> {
   try {
-    const { data, error } = await supabase.storage
-      .from('exams')
-      .download(`${id}.json`);
-
-    if (error || !data) return null;
-    const text = await data.text();
-    return JSON.parse(text) as ExamData;
+    const raw = await AsyncStorage.getItem(CACHE_PREFIX + id);
+    return raw ? (JSON.parse(raw) as CachedExam) : null;
   } catch {
     return null;
   }
 }
 
-export function isExamBundled(id: string): boolean {
-  return id in BUNDLED;
+export async function loadExam(id: string): Promise<ExamData | null> {
+  const cached = await readCache(id);
+
+  const { data, error } = await supabase
+    .from('k_exams')
+    .select('content,content_version')
+    .eq('id', id)
+    .maybeSingle();
+
+  if (error || !data?.content) return cached?.data ?? null;
+  if (cached && cached.version === data.content_version) return cached.data;
+
+  const exam = data.content as ExamData;
+  AsyncStorage.setItem(
+    CACHE_PREFIX + id,
+    JSON.stringify({ version: data.content_version, data: exam } satisfies CachedExam),
+  ).catch(() => {});
+  return exam;
 }

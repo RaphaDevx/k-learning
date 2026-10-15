@@ -15,6 +15,7 @@ export interface ExamQuestion {
   explanation?: string | null;
   imageHtml?: string | null;
   imageAsset?: string | null;
+  modelAnswer?: string | null;
 }
 
 export interface ExamSection {
@@ -58,7 +59,6 @@ export interface ExamMeta {
   durationMinutes: number;
   totalPoints: number;
   available: boolean;
-  bundled: boolean;
 }
 
 export type AnswerMap = Record<string, string[]>;
