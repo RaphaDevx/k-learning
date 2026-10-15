@@ -28,13 +28,14 @@ appId: com.raphael.klearning
     timeout: 5000
 - tapOn:
     text: "Abmelden"
-    index: 1
+    rightOf:
+      text: "Abbrechen"
 
 # Session beendet, Router führt zurück auf den Login-Screen
 - extendedWaitUntil:
     visible: ".*Mit Google anmelden.*"
     timeout: 20000
-- assertVisible: ".*Mit Apple anmelden.*"
+- assertVisible: ".*(Mit Apple anmelden|Sign in with Apple).*"
 - assertVisible:
     id: "e2e-login"
 - assertNotVisible: "LERNSTATISTIK"

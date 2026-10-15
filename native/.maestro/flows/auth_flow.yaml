@@ -18,7 +18,7 @@ appId: com.raphael.klearning
 
 # Apple-Button: nativer Button, Accessibility-Label "Mit Apple anmelden" (kein id)
 - assertVisible:
-    text: ".*Mit Apple anmelden.*"
+    text: ".*(Mit Apple anmelden|Sign in with Apple).*"
 
 # Hint-Text vorhanden
 - assertVisible:
