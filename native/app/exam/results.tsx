@@ -9,6 +9,7 @@ import QuestionFigure from '../../components/QuestionFigure';
 import type { AnswerMap, ExamData, ExamQuestion } from '../../types/exam';
 import { useColors, T, S, R, GUTTER, HIT } from '../../constants/theme';
 import RichText from '../../components/RichText';
+import StatusBarScrim from '../../components/StatusBarScrim';
 import type { ColorTokens } from '../../constants/theme';
 
 type Tone = 'green' | 'yellow' | 'red';
@@ -123,6 +124,7 @@ export default function ResultsScreen() {
 
   return (
     <View style={styles.container}>
+      <StatusBarScrim />
       <ScrollView contentContainerStyle={[styles.content, { paddingTop: insets.top + S.xl, paddingBottom: insets.bottom + S.xxl }]}>
         {/* Score */}
         <View style={styles.scoreBlock} accessible accessibilityLabel={`Note ${params.grade}, ${scorePct} Prozent, ${gradeLabel(scorePct)}, ${pointsEarned} von ${totalPoints} Punkten`}>

@@ -10,7 +10,6 @@ import { supabase } from '../../lib/supabase';
 import { useCourse } from '../../lib/courseContext';
 import { useColors, T, S, R, GUTTER, HIT, MAX_SCALE_CHROME } from '../../constants/theme';
 import SectionHeader from '../../components/SectionHeader';
-import StatusBarScrim from '../../components/StatusBarScrim';
 import type { ColorTokens } from '../../constants/theme';
 
 interface CourseInfo {
