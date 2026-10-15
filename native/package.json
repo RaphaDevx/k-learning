@@ -40,5 +40,8 @@
     "android": "expo start --android",
     "ios": "expo start --ios"
   },
-  "private": true
+  "private": true,
+  "overrides": {
+    "shell-quote": "^1.12.0"
+  }
 }
