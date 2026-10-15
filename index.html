@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>K-Learning</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📚%3C/text%3E%3C/svg%3E">
   <!-- ── Branding Kit V2.1 ── -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +30,7 @@
   <script src="data/lernset-data.js?v=3132"></script>
   <script src="data/makro-uebungen-open.js?v=3132"></script>
 
-  <!-- ── Exam Data ── -->
+  <!-- ── Exam Data ── (Prüfungen aus Supabase k_exams; hier nur Themenblock-/Quiz-/Legacy-Daten) -->
   <script src="exams/makro-tb1-teil1-data.js?v=3132"></script>
   <script src="exams/makro-tb1-teil2-data.js?v=3132"></script>
   <script src="exams/makro-tb2-data.js?v=3132"></script>
@@ -38,14 +39,6 @@
   <script src="exams/makro-tb5-data.js?v=3132"></script>
   <script src="exams/makro-tb6-data.js?v=3132"></script>
   <script src="exams/bwl-hs22-data.js?v=3132"></script>
-  <script src="exams/om-fs26-data.js?v=3132"></script>
-  <script src="exams/om-hs23-data.js?v=3132"></script>
-  <script src="exams/om-hs24-data.js?v=3132"></script>
-  <script src="exams/om-fs20-data.js?v=3132"></script>
-  <script src="exams/om-hs20-data.js?v=3132"></script>
-  <script src="exams/om-fs21-data.js?v=3132"></script>
-  <script src="exams/esf-hs23-data.js?v=3132"></script>
-  <script src="exams/esf-hs22-data.js?v=3132"></script>
   <script src="exams/esf-hs22-new-data.js?v=3132"></script>
   <script src="exams/esf-uebung23-data.js?v=3132"></script>
   <script src="exams/esf-eigenklausur-data.js?v=3132"></script>
@@ -59,15 +52,12 @@
   <script src="exams/esf-sitzung4-data.js?v=3132"></script>
   <script src="exams/esf-sitzung5-data.js?v=3132"></script>
   <script src="exams/esf-sitzung6-data.js?v=3132"></script>
-  <script src="exams/statistik-pk2-data.js?v=3132"></script>
-  <script src="exams/statistik-pk1-data.js?v=3132"></script>
   <script src="exams/statistik-topic1-data.js?v=3132"></script>
   <script src="exams/statistik-topic2-data.js?v=3132"></script>
   <script src="exams/statistik-topic3-data.js?v=3132"></script>
   <script src="exams/statistik-topic4-data.js?v=3132"></script>
   <script src="exams/statistik-topic5-data.js?v=3132"></script>
   <script src="exams/statistik-topic6-data.js?v=3132"></script>
-  <script src="exams/englischc1-hs22-data.js?v=3132"></script>
 
   <!-- ── App Logic ── -->
   <script src="js/gemini-live.js?v=3132"></script>
@@ -1074,7 +1064,7 @@
 <!-- ══════════════════════════════════════════════════════════════════════ -->
 <!-- EXAM FULL-SCREEN OVERLAY                                              -->
 <!-- ══════════════════════════════════════════════════════════════════════ -->
-<div id="exam-overlay" class="hidden fixed inset-0 z-[150] flex flex-col" style="background:#080b14">
+<div id="exam-overlay" class="hidden fixed inset-0 z-[150] flex flex-col" style="background:#080b14;color:#e5e7eb">
 
   <!-- Sticky header -->
   <div class="flex-shrink-0 border-b border-gray-800 px-4 py-3 flex items-center gap-3" style="background:#0f1623">
@@ -1098,7 +1088,7 @@
   </div>
 
   <!-- Pause overlay (replaces scroll area while paused) -->
-  <div id="exam-pause-overlay" style="display:none;flex:1;flex-direction:column;align-items:center;justify-content:center;background:#080b14">
+  <div id="exam-pause-overlay" style="display:none;flex:1;flex-direction:column;align-items:center;justify-content:center;background:#080b14;color:#e5e7eb">
     <div style="font-size:3.5rem;margin-bottom:1rem">⏸</div>
     <div class="text-xl font-bold text-white mb-2">Pausiert</div>
     <div class="text-sm text-gray-400 mb-8">Inhalt ausgeblendet</div>
@@ -1145,14 +1135,14 @@
 <!-- ══════════════════════════════════════════════════════════════════════ -->
 <!-- EXAM RESULTS OVERLAY                                                  -->
 <!-- ══════════════════════════════════════════════════════════════════════ -->
-<div id="exam-results-overlay" class="hidden fixed inset-0 z-[150] overflow-y-auto" style="background:#080b14">
+<div id="exam-results-overlay" class="hidden fixed inset-0 z-[150] overflow-y-auto" style="background:#080b14;color:#e5e7eb">
   <!-- content rendered by ExamScreen._renderResults() -->
 </div>
 
 <!-- ══════════════════════════════════════════════════════════════════════ -->
 <!-- QUIZ FULLSCREEN OVERLAY                                               -->
 <!-- ══════════════════════════════════════════════════════════════════════ -->
-<div id="quiz-overlay" class="hidden fixed inset-0 z-[170] flex flex-col" style="background:#080b14">
+<div id="quiz-overlay" class="hidden fixed inset-0 z-[170] flex flex-col" style="background:#080b14;color:#e5e7eb">
   <!-- Content rendered dynamically by QuizScreen -->
 </div>
 
@@ -1220,20 +1210,21 @@
   Auth.init();
   AIChat.init();
 
-  // Render dynamic sidebar exam list
-  (function renderSidebarExams() {
+  // Render dynamic sidebar exam list (erneut aufgerufen, sobald der Katalog aus k_courses geladen ist)
+  window.renderSidebarExams = function renderSidebarExams() {
     const el = document.getElementById('sidebar-exam-list');
     if (!el || !window.COURSES_CONFIG) return;
     const enrolled = AppState.get('enrolledCourses') || COURSES_CONFIG.map(c => c.key);
     const sorted = COURSES_CONFIG
-      .filter(c => enrolled.includes(c.key) && c.examDate)
+      .filter(c => enrolled.includes(c.key) && c.examDate && !c.hidden)
       .sort((a, b) => new Date(a.examDate) - new Date(b.examDate));
     el.innerHTML = sorted.map(c => {
       const days = Math.ceil((new Date(c.examDate) - new Date()) / 864e5);
       const col = days <= 3 ? 'text-red-400' : days <= 10 ? 'text-yellow-400' : 'text-gray-400';
       return `<div class="flex justify-between"><span>${c.icon} ${c.label}</span><span class="${col}">${c.examDate.slice(5).replace('-','.')}</span></div>`;
     }).join('');
-  })();
+  };
+  renderSidebarExams();
 </script>
 
 <!-- ── Unified Report Modal ─────────────────────────────────────────── -->

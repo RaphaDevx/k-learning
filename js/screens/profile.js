@@ -1148,9 +1148,10 @@ window.ProfileScreen = (function () {
       if (error || !result) throw new Error('Ergebnis nicht gefunden');
 
       // Find exam data from registry
-      const registry = window.ExamScreen?.EXAM_REGISTRY || [];
-      const entry = registry.find(e => e.id === examId);
-      const examData = entry?.dataVar ? window[entry.dataVar] : null;
+      await window.ExamScreen?.syncRegistry();
+      const entry = (window.ExamScreen?.EXAM_REGISTRY || []).find(e => e.id === examId);
+      let examData = null;
+      try { examData = await window.ExamScreen?.loadExamData(examId); } catch (e) { console.warn('exam data:', e); }
 
       const answersMap = {};
       (result.answers || []).forEach(a => { answersMap[a.question_id] = a; });

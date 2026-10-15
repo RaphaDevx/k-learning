@@ -21,6 +21,7 @@ window.CoursesDB = (function () {
     teal:   { bg:'bg-teal-900',   hover:'hover:bg-teal-800',   bar:'bg-teal-700',   fill:'bg-teal-300',   text:'text-teal-300',   rgb:'13,148,136'  },
     red:    { bg:'bg-red-900',    hover:'hover:bg-red-800',    bar:'bg-red-700',    fill:'bg-red-300',    text:'text-red-300',    rgb:'220,38,38'   },
     rose:   { bg:'bg-rose-900',   hover:'hover:bg-rose-800',   bar:'bg-rose-700',   fill:'bg-rose-300',   text:'text-rose-300',   rgb:'225,29,72'   },
+    indigo: { bg:'bg-indigo-900', hover:'hover:bg-indigo-800', bar:'bg-indigo-700', fill:'bg-indigo-300', text:'text-indigo-300', rgb:'79,70,229'   },
     amber:  { bg:'bg-amber-900',  hover:'hover:bg-amber-800',  bar:'bg-amber-700',  fill:'bg-amber-300',  text:'text-amber-300',  rgb:'217,119,6'   },
   };
 
@@ -140,7 +141,8 @@ window.CoursesDB = (function () {
       examFormat: r.exam_format || null,
       notebookId: r.notebook_id || null,
       dataDir:    r.data_dir    || r.key,
-      hidden:     r.hidden      || false,
+      // is_secret-Kurse nie im Katalog zeigen (RLS k_courses_anon_read liefert sie auch anon)
+      hidden:     r.hidden      || r.is_secret || false,
       tailwind:   tw,
       rgb:        tw.rgb,
     };

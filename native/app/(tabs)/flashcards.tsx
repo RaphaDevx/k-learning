@@ -919,7 +919,7 @@ function makeStyles(c: ColorTokens, top: number) {
     deckTopic: { ...T.body, color: c.text },
     deckMeta: { ...T.footnote, color: c.textSub, marginTop: S.xxs },
     dueBadge: {
-      backgroundColor: c.accent, borderRadius: R.full, minWidth: 28, height: 28,
+      backgroundColor: c.accent, borderRadius: R.full, minWidth: 28, minHeight: 28,
       paddingHorizontal: S.sm, alignItems: 'center', justifyContent: 'center',
     },
     dueBadgeText: { ...T.footnote, fontWeight: '700', color: c.onAccent },

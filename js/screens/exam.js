@@ -6,46 +6,6 @@ window.ExamScreen = (function() {
   // ── Registry of available exams ──────────────────────────────────────────
   const EXAM_REGISTRY = [
     {
-      id: 'stat-pk1',
-      label: 'Statistik — Probeklausur 1',
-      course: 'Statistik',
-      dataVar: 'EXAM_DATA_STATISTIK_PK1',
-      file: 'exams/statistik-pk1-data.js',
-      available: true,
-    },
-    {
-      id: 'stat-pk2',
-      label: 'Statistik — Probeklausur 2',
-      course: 'Statistik',
-      dataVar: 'EXAM_DATA_STATISTIK_PK2',
-      file: 'exams/statistik-pk2-data.js',
-      available: true,
-    },
-    {
-      id: 'esf-eigenklausur',
-      label: 'ESF — Eigenklausur (Konzeptprüfung)',
-      course: 'ESF',
-      dataVar: 'EXAM_DATA_ESF_EIGENKLAUSUR',
-      file: 'exams/esf-eigenklausur-data.js',
-      available: true,
-    },
-    {
-      id: 'esf-hs23',
-      label: 'ESF — HS 2023',
-      course: 'ESF',
-      dataVar: 'EXAM_DATA_ESF_HS23',
-      file: 'exams/esf-hs23-data.js',
-      available: true,
-    },
-    {
-      id: 'esf-hs22',
-      label: 'ESF — HS 2022',
-      course: 'ESF',
-      dataVar: 'EXAM_DATA_ESF_HS22',
-      file: 'exams/esf-hs22-data.js',
-      available: true,
-    },
-    {
       id: 'esf-hs22-new',
       label: 'ESF HS22 (new)',
       course: 'ESF',
@@ -59,54 +19,6 @@ window.ExamScreen = (function() {
       course: 'ESF',
       dataVar: 'EXAM_DATA_ESF_UEBUNG23',
       file: 'exams/esf-uebung23-data.js',
-      available: true,
-    },
-    {
-      id: 'om-fs26',
-      label: 'OM — Probeprüfung FS 2026 ⭐',
-      course: 'OM',
-      dataVar: 'EXAM_DATA_OM_FS26',
-      file: 'exams/om-fs26-data.js',
-      available: true,
-    },
-    {
-      id: 'om-hs24',
-      label: 'OM — Prüfung HS 2024',
-      course: 'OM',
-      dataVar: 'EXAM_DATA_OM_HS24',
-      file: 'exams/om-hs24-data.js',
-      available: true,
-    },
-    {
-      id: 'om-hs23',
-      label: 'OM — Prüfung HS 2023',
-      course: 'OM',
-      dataVar: 'EXAM_DATA_OM_HS23',
-      file: 'exams/om-hs23-data.js',
-      available: true,
-    },
-    {
-      id: 'om-fs21',
-      label: 'OM — Prüfung FS 2021',
-      course: 'OM',
-      dataVar: 'EXAM_DATA_OM_FS21',
-      file: 'exams/om-fs21-data.js',
-      available: true,
-    },
-    {
-      id: 'om-hs20',
-      label: 'OM — Final Exam HS 2020',
-      course: 'OM',
-      dataVar: 'EXAM_DATA_OM_HS20',
-      file: 'exams/om-hs20-data.js',
-      available: true,
-    },
-    {
-      id: 'om-fs20',
-      label: 'OM — Prüfung FS 2020',
-      course: 'OM',
-      dataVar: 'EXAM_DATA_OM_FS20',
-      file: 'exams/om-fs20-data.js',
       available: true,
     },
     {
@@ -181,42 +93,6 @@ window.ExamScreen = (function() {
       type: 'themenblock',
     },
     {
-      id: 'makro2-probeklausur-b',
-      label: 'MakroII — Probeklausur B (Juli 2026)',
-      course: 'MakroII',
-      dataVar: null,
-      file: 'exams/makro2-probeklausur-b-data.json',
-      format: 'json',
-      available: true,
-    },
-    {
-      id: 'makro2-probeklausur-fs26',
-      label: 'MakroII — Probeklausur FS26',
-      course: 'MakroII',
-      dataVar: null,
-      file: 'exams/makro2-probeklausur-fs26-data.json',
-      format: 'json',
-      available: true,
-    },
-    {
-      id: 'makro2-ki-exam-01',
-      label: 'MakroII — KI-Prüfung 01 (IS-LM · Offene VW · PC · Schulden)',
-      course: 'MakroII',
-      dataVar: null,
-      file: 'exams/makro2-ki-exam-01-data.json',
-      format: 'json',
-      available: true,
-    },
-    {
-      id: 'makro2-probeklausur-21',
-      label: 'MakroII — Probeklausur 2021',
-      course: 'MakroII',
-      dataVar: null,
-      file: 'exams/makro2-probeklausur-21-data.json',
-      format: 'json',
-      available: true,
-    },
-    {
       id: 'makro2-hs21',
       label: 'MakroII — Prüfung HS 2021',
       course: 'MakroII',
@@ -226,47 +102,11 @@ window.ExamScreen = (function() {
       available: true,
     },
     {
-      id: 'makro2-hs23',
-      label: 'MakroII — Prüfung HS 2023',
-      course: 'MakroII',
-      dataVar: null,
-      file: 'exams/makro2-hs23-data.json',
-      format: 'json',
-      available: true,
-    },
-    {
       id: 'bwl-hs22',
       label: 'BWL — HS 2022',
       course: 'BWL',
       dataVar: 'EXAM_DATA_BWL_HS22',
       file: 'exams/bwl-hs22-data.js',
-      available: true,
-    },
-    {
-      id: 'bwl-b-fs25',
-      label: 'BWL B — FS 2025',
-      course: 'BWL',
-      dataVar: null,
-      file: 'exams/bwl-b-fs25-data.json',
-      format: 'json',
-      available: true,
-    },
-    {
-      id: 'bwl-fifu-2021',
-      label: 'BWL — Finanzielle Führung FS 2021',
-      course: 'BWL',
-      dataVar: null,
-      file: 'exams/bwl-fifu-2021-data.json',
-      format: 'json',
-      available: true,
-    },
-    {
-      id: 'c1-lang-functions',
-      label: 'Englisch C1 — Language Functions Practice',
-      course: 'EnglischC1',
-      dataVar: null,
-      file: 'exams/c1-lang-functions-data.json',
-      format: 'json',
       available: true,
     },
     {
@@ -297,6 +137,64 @@ window.ExamScreen = (function() {
       available: true,
     },
   ];
+
+  // ── Supabase k_exams: Prüfungsliste + Inhalt (Quelle der Wahrheit) ───────
+  // Lokale exams/*.js bleiben nur Quelle für scripts/build-exam-content.mjs.
+  // Registry = k_exams-Zeilen (format:'db') + die statischen Einträge oben.
+  const _STATIC_ENTRIES = EXAM_REGISTRY.slice();
+  const EXAM_LIST_COLUMNS = 'id,title,course,course_color,duration_minutes,total_points,sort_order,has_content,active';
+  let _dbSyncPromise = null;
+  const _dbContentCache = {};
+
+  function syncRegistry(force) {
+    if (force) _dbSyncPromise = null;
+    if (_dbSyncPromise) return _dbSyncPromise;
+    _dbSyncPromise = (async () => {
+      const sb = window.supabaseClient;
+      if (!sb) return false;
+      const { data, error } = await sb.from('k_exams')
+        .select(EXAM_LIST_COLUMNS).eq('active', true).order('sort_order');
+      if (error) { console.warn('ExamScreen.syncRegistry:', error.message); _dbSyncPromise = null; return false; }
+      const dbEntries = (data || []).map(r => ({
+        id: r.id, label: r.title, course: r.course, format: 'db',
+        dataVar: null, available: !!r.has_content,
+        durationMinutes: r.duration_minutes, totalPoints: r.total_points,
+      }));
+      EXAM_REGISTRY.splice(0, EXAM_REGISTRY.length, ...dbEntries, ..._STATIC_ENTRIES);
+      return true;
+    })().catch(e => { console.warn('ExamScreen.syncRegistry:', e); _dbSyncPromise = null; return false; });
+    return _dbSyncPromise;
+  }
+
+  // Adapter: k_exams.content (camelCase, native/types/exam.ts) -> internes Web-Format.
+  // Ergänzt die snake_case-Felder, die exam.js liest, ohne die camelCase-Felder zu entfernen.
+  function _normalizeExam(data) {
+    if (data.durationMinutes != null && data.duration_minutes == null) data.duration_minutes = data.durationMinutes;
+    if (data.totalPoints     != null && data.total_points     == null) data.total_points     = data.totalPoints;
+    if (data.examInfo        && !data.exam_info)     data.exam_info     = data.examInfo;
+    if (data.scoringRules    && !data.scoring_rules) data.scoring_rules = data.scoringRules;
+    (data.sections || []).forEach(sec => (sec.questions || []).forEach(q => {
+      if (q.modelAnswer != null && q.model_answer == null) q.model_answer = q.modelAnswer;
+    }));
+    return data;
+  }
+
+  async function _loadExamData(entry) {
+    if (entry.format === 'db') {
+      if (!_dbContentCache[entry.id]) {
+        const { data, error } = await window.supabaseClient
+          .from('k_exams').select('content').eq('id', entry.id).single();
+        if (error || !data?.content) throw new Error(error?.message || 'Prüfung hat keinen Inhalt');
+        _dbContentCache[entry.id] = data.content;
+      }
+      // Kopie, damit Normalisierung/Antworten den Cache nicht verändern
+      return _normalizeExam(JSON.parse(JSON.stringify(_dbContentCache[entry.id])));
+    }
+    if (entry.format === 'json') return _normalizeExam(await _loadExamJSON(entry));
+    const data = window[entry.dataVar];
+    if (!data) throw new Error('Prüfungsdaten konnten nicht geladen werden.');
+    return _normalizeExam(data);
+  }
 
   // ── Internal state ────────────────────────────────────────────────────────
   let _examData = null;
@@ -355,6 +253,7 @@ window.ExamScreen = (function() {
       }
     } catch(_) {}
 
+    await syncRegistry();
     const enrolled = _enrolledCourses();
     const grouped = {};
     enrolled.forEach(k => { grouped[k] = []; });
@@ -378,6 +277,7 @@ window.ExamScreen = (function() {
         const res = resultMap[exam.id] || null;
         if (exam.available) {
           const isQuiz = exam.id === 'esf-eigenklausur';
+          const quizVar = 'EXAM_DATA_ESF_EIGENKLAUSUR';
           html += `
             <div class="rounded-2xl p-4 transition tap-card"
                  style="background:var(--card-raised);border:1px solid ${res ? 'rgba(99,102,241,0.25)' : 'var(--border)'}">
@@ -389,7 +289,7 @@ window.ExamScreen = (function() {
                 ${_resultBadge(res)}
               </div>
               <div class="flex gap-2 mt-3 justify-end">
-                ${isQuiz ? `<button onclick="QuizScreen.launch('${exam.dataVar}')"
+                ${isQuiz ? `<button onclick="QuizScreen.launch('${quizVar}')"
                   class="text-xs px-3 py-1.5 rounded-xl font-semibold text-white transition"
                   style="background:#4f46e5">Quiz</button>` : ''}
                 <button onclick="ExamScreen.showSetup('${exam.id}')"
@@ -495,15 +395,7 @@ window.ExamScreen = (function() {
     if (!entry) return;
 
     let data;
-    if (entry.format === 'json') {
-      try { data = await _loadExamJSON(entry); } catch(e) { alert('JSON-Prüfung konnte nicht geladen werden: ' + e.message); return; }
-      if (data.durationMinutes && !data.duration_minutes) data.duration_minutes = data.durationMinutes;
-      if (data.totalPoints    && !data.total_points)    data.total_points    = data.totalPoints;
-      if (data.examInfo       && !data.exam_info)       data.exam_info       = data.examInfo;
-    } else {
-      data = window[entry.dataVar];
-      if (!data) { alert('Prüfungsdaten konnten nicht geladen werden.'); return; }
-    }
+    try { data = await _loadExamData(entry); } catch(e) { alert('Prüfung konnte nicht geladen werden: ' + e.message); return; }
 
     const modal = document.getElementById('exam-setup-modal');
     if (!modal) return;
@@ -797,18 +689,7 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
     if (!entry) return;
 
     let data;
-    if (entry.format === 'json') {
-      try { data = await _loadExamJSON(entry); } catch(e) { console.error(e); return; }
-    } else {
-      data = window[entry.dataVar];
-      if (!data) return;
-    }
-
-    // Normalize field names (JSON uses camelCase, legacy JS uses snake_case)
-    if (data.durationMinutes && !data.duration_minutes) data.duration_minutes = data.durationMinutes;
-    if (data.totalPoints    && !data.total_points)    data.total_points    = data.totalPoints;
-    if (data.examInfo       && !data.exam_info)       data.exam_info       = data.examInfo;
-    if (data.scoringRules   && !data.scoring_rules)   data.scoring_rules   = data.scoringRules;
+    try { data = await _loadExamData(entry); } catch(e) { console.error(e); alert('Prüfung konnte nicht geladen werden: ' + e.message); return; }
 
     _startExamWithData(data, entry, useTimer);
   }
@@ -1207,6 +1088,9 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
 
       section.questions.forEach(q => {
         const qtype = q.type || qt;
+        // Regelwerk je Fragetyp (k_exams: multiple_choice nutzt anyWrong/blank)
+        const qRules = (qtype === 'single_choice' || qtype === 'multiple_choice') && scoring[qtype] ? scoring[qtype] : rules;
+        const wrongPts = Number(qRules.wrong ?? qRules.anyWrong ?? 0) || 0;
         const maxPts = q.points || 0;
         secMax += maxPts;
         const userAnswer = _answers[q.id];
@@ -1245,12 +1129,12 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
               earned = maxPts; // "none are correct" question — blank is the right answer
               isCorrect = true;
             } else {
-              earned = rules.blank || 0;
+              earned = qRules.blank || 0;
             }
           } else {
             const userArr = Array.isArray(userAnswer) ? userAnswer : [userAnswer];
             if (correct.length === 0) {
-              earned = 0; // should have selected nothing
+              earned = wrongPts; // should have selected nothing
               isCorrect = false;
             } else {
               const isFullyCorrect = correct.length === userArr.length
@@ -1259,7 +1143,7 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
                 earned = maxPts; // full points for correct
                 isCorrect = true;
               } else {
-                earned = 0; // standard: wrong = 0
+                earned = wrongPts; // falsch = Regelwert wrong/anyWrong (meist 0)
                 isCorrect = false;
               }
             }
@@ -2093,11 +1977,7 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
     if (!isAIExam && entry) {
       let examData;
       try {
-        if (entry.format === 'json') {
-          examData = await _loadExamJSON(entry);
-        } else {
-          examData = window[entry.dataVar];
-        }
+        examData = await _loadExamData(entry);
       } catch(e) { console.warn('startHistoricalReview load:', e); }
       if (examData?.sections) {
         examData.sections.forEach(sec => {
@@ -2180,6 +2060,12 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
   // Store last results for review
   let _lastResults = null;
 
+  // Liste neu laden, sobald eine Session existiert (k_exams ist nur für authenticated lesbar).
+  // setTimeout: keine Supabase-Calls synchron im Auth-Callback (Deadlock-Gefahr).
+  window.supabaseClient?.auth.onAuthStateChange((_event, session) => {
+    if (session) setTimeout(() => syncRegistry(true), 0);
+  });
+
   return {
     init, renderSelector,
     showSetup, closeSetup, startFromSetup, startExam,
@@ -2187,7 +2073,7 @@ Antworte NUR mit diesem JSON (kein Text davor oder danach):
     confirmAbort, cancelAbort, abortExam,
     submitExam, closeResults, togglePause,
     isExamActive, requestAiFeedback,
-    getExamsByCourse,
+    getExamsByCourse, syncRegistry, loadExamData: id => { const e = EXAM_REGISTRY.find(x => x.id === id); return e ? _loadExamData(e) : Promise.resolve(null); },
     get EXAM_REGISTRY() { return EXAM_REGISTRY; },
     playSectionAudio, stopSectionAudio, toggleTranscript,
     callAIGrader: _callAIGrader,

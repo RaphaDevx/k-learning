@@ -249,8 +249,9 @@ window.CourseHubScreen = (function () {
 
   // ── Tab 3: Klausuren ──────────────────────────────────────────────────────
 
-  function _renderExams(container) {
+  async function _renderExams(container) {
     const courseKey = AppState.get('activeCourse');
+    if (window.ExamScreen) await ExamScreen.syncRegistry();
     const exams = window.ExamScreen ? ExamScreen.getExamsByCourse(courseKey) : [];
 
     if (exams.length === 0) {

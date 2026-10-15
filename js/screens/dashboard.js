@@ -12,6 +12,7 @@ window.DashboardScreen = (function() {
     _enrolled = await CoursesDB.getEnrolledKeys();
     // Expose merged catalog globally so other screens can use it
     window.COURSES_CONFIG = _catalog;
+    window.renderSidebarExams?.();
     renderCourseGrid();
     renderDueToday();
     LevelSystem.render();
