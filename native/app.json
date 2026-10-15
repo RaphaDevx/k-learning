@@ -6,9 +6,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "scheme": "k-learning",
-    "splash": {
-      "backgroundColor": "#FBF9F5"
-    },
     "userInterfaceStyle": "automatic",
     "ios": {
       "userInterfaceStyle": "automatic",
@@ -41,7 +38,8 @@
         {
           "cameraPermission": "K-Learning benötigt die Kamera um QR-Codes zu scannen."
         }
-      ]
+      ],
+      "expo-web-browser"
     ],
     "experiments": {
       "typedRoutes": false
