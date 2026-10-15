@@ -12,6 +12,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { supabase } from '../../lib/supabase';
 import { useScrollContext } from './_layout';
 import { useColors, T, S, R, GUTTER, HIT, MAX_SCALE_CHROME } from '../../constants/theme';
+import SectionHeader from '../../components/SectionHeader';
+import StatusBarScrim from '../../components/StatusBarScrim';
 import type { ColorTokens } from '../../constants/theme';
 import type { User } from '@supabase/supabase-js';
 
@@ -158,10 +160,11 @@ export default function ProfileScreen() {
   ];
 
   return (
+    <View style={[styles.container, { backgroundColor: c.bg }]}>
+    <StatusBarScrim />
     <ScrollView
       style={[styles.container, { backgroundColor: c.bg }]}
-      contentContainerStyle={[styles.content, { paddingTop: insets.top + S.sm, paddingBottom: 100 }]}
-      contentInsetAdjustmentBehavior="automatic"
+      contentContainerStyle={[styles.content, { paddingTop: insets.top + S.lg, paddingBottom: S.xl }]}
       scrollEventThrottle={16}
       onScroll={({ nativeEvent }) => {
         const dy = nativeEvent.contentOffset.y - lastY.current;
@@ -189,7 +192,7 @@ export default function ProfileScreen() {
       </View>
 
       {/* Stats */}
-      <Text style={styles.sectionTitle} accessibilityRole="header">Lernstatistik</Text>
+      <SectionHeader style={styles.sectionTitle}>Lernstatistik</SectionHeader>
       <View style={styles.group}>
         {statRows.map((r, i) => (
           <View key={r.label}>
@@ -204,7 +207,7 @@ export default function ProfileScreen() {
       </View>
 
       {/* Actions */}
-      <Text style={styles.sectionTitle} accessibilityRole="header">Aktionen</Text>
+      <SectionHeader style={styles.sectionTitle}>Aktionen</SectionHeader>
       <View style={styles.group}>
         <NavRow
           styles={styles} c={c}
@@ -222,7 +225,7 @@ export default function ProfileScreen() {
       </View>
 
       {/* Linked accounts */}
-      <Text style={styles.sectionTitle} accessibilityRole="header">Verknüpfte Accounts</Text>
+      <SectionHeader style={styles.sectionTitle}>Verknüpfte Accounts</SectionHeader>
       <View style={styles.group}>
         {linkedProviders.map((provider, i) => (
           <View key={provider}>
@@ -276,6 +279,7 @@ export default function ProfileScreen() {
         </Pressable>
       </View>
     </ScrollView>
+    </View>
   );
 }
 
@@ -307,13 +311,7 @@ const makeStyles = (c: ColorTokens) => StyleSheet.create({
 
   largeTitle: { ...T.largeTitle, color: c.text, marginBottom: S.sm },
 
-  sectionTitle: {
-    ...T.footnote,
-    color: c.textSub,
-    textTransform: 'uppercase',
-    marginTop: S.lg,
-    paddingHorizontal: S.lg,
-  },
+  sectionTitle: { marginTop: S.lg },
 
   group: {
     backgroundColor: c.surface,

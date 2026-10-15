@@ -34,7 +34,7 @@ export interface ColorTokens {
 
   text: string;          // primary label
   textSub: string;       // secondary label (≥4.5:1)
-  textMuted: string;     // tertiary: placeholders, disabled, decorative only
+  textMuted: string;     // tertiary: placeholders, captions (≥4.5:1)
 
   accent: string;        // tint: primary actions, selection, links
   onAccent: string;      // text/icons on accent fill
@@ -61,7 +61,7 @@ export const LightColors: ColorTokens = {
 
   text:        palette.charcoal, // 17.2:1
   textSub:     '#6B6862',        // 5.3:1
-  textMuted:   '#8C887F',        // 3.4:1 — never for essential text
+  textMuted:   '#75716A',        // 4.85:1 on #FFFFFF, 4.62:1 on #FBF9F5
 
   accent:      palette.bordeaux, // 9.8:1
   onAccent:    '#FFFFFF',        // 10.3:1 on accent
@@ -88,7 +88,7 @@ export const DarkColors: ColorTokens = {
 
   text:        palette.paper,    // 16.1:1
   textSub:     '#A8A39A',        // 7.4:1
-  textMuted:   '#7E796F',        // 4.3:1
+  textMuted:   '#8C877D',        // 5.22:1 on #141213, 4.78:1 on #1E1B1C
 
   accent:      palette.rose,     // 5.5:1
   onAccent:    palette.ink,      // 5.5:1 on accent

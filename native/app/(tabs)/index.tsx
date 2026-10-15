@@ -1,7 +1,8 @@
 import { useState, useCallback, useRef } from 'react';
+import { setStatusBarStyle } from 'expo-status-bar';
 import {
-  View, FlatList, Dimensions, Pressable, Text,
-  StyleSheet, ActivityIndicator, ViewToken,
+  View, FlatList, Pressable, Text,
+  StyleSheet, ActivityIndicator, ViewToken, LayoutChangeEvent,
 } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
@@ -11,8 +12,6 @@ import { useCourse } from '../../lib/courseContext';
 import VideoCard, { FeedCard } from '../../components/VideoCard';
 import { useColors, DarkColors as d, T, S, R, GUTTER, HIT, MAX_SCALE_CHROME } from '../../constants/theme';
 
-const { height: SCREEN_HEIGHT } = Dimensions.get('window');
-
 export default function FeedScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
@@ -20,7 +19,16 @@ export default function FeedScreen() {
   const [loading, setLoading] = useState(true);
   const [visibleIndex, setVisibleIndex] = useState(0);
   const [isMuted, setIsMuted] = useState(true);
+  const [pageHeight, setPageHeight] = useState(0);
   const { activeCourse } = useCourse();
+
+  // Feed ist immer dunkel: Statusleiste hell, beim Verlassen zurück auf System.
+  useFocusEffect(
+    useCallback(() => {
+      setStatusBarStyle('light');
+      return () => setStatusBarStyle('auto');
+    }, [])
+  );
 
   useFocusEffect(
     useCallback(() => {
@@ -107,13 +115,20 @@ export default function FeedScreen() {
   }
 
   return (
-    <View style={styles.container}>
+    <View
+      style={styles.container}
+      onLayout={(e: LayoutChangeEvent) => {
+        const h = Math.round(e.nativeEvent.layout.height);
+        if (h > 0 && h !== pageHeight) setPageHeight(h);
+      }}
+    >
       {activeCourse && (
         <View style={[styles.courseChip, { top: insets.top + S.sm }]} pointerEvents="none">
           <Ionicons name="filter" size={14} color={d.text} />
           <Text style={styles.courseChipText} maxFontSizeMultiplier={MAX_SCALE_CHROME}>{activeCourse}</Text>
         </View>
       )}
+      {pageHeight > 0 && (
       <FlatList
         data={cards}
         keyExtractor={item => item.id}
@@ -122,6 +137,7 @@ export default function FeedScreen() {
             card={item}
             isVisible={index === visibleIndex}
             isMuted={isMuted}
+            height={pageHeight}
             onRate={handleRate}
           />
         )}
@@ -130,17 +146,18 @@ export default function FeedScreen() {
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={viewabilityConfig}
         getItemLayout={(_, index) => ({
-          length: SCREEN_HEIGHT,
-          offset: SCREEN_HEIGHT * index,
+          length: pageHeight,
+          offset: pageHeight * index,
           index,
         })}
-        snapToInterval={SCREEN_HEIGHT}
+        snapToInterval={pageHeight}
         snapToAlignment="start"
         decelerationRate="fast"
         removeClippedSubviews
         maxToRenderPerBatch={3}
         windowSize={3}
       />
+      )}
 
       {/* Mute toggle */}
       <Pressable

@@ -2,7 +2,7 @@ import React, { createContext, useContext } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { useColors, T, MAX_SCALE_CHROME } from '../../constants/theme';
+import { useColors, DarkColors, T, MAX_SCALE_CHROME } from '../../constants/theme';
 
 type ScrollCtx = { onScroll: (dy: number) => void };
 const ScrollContext = createContext<ScrollCtx>({ onScroll: () => {} });
@@ -30,10 +30,9 @@ export default function TabLayout() {
           tabBarInactiveTintColor: c.textSub,
           // Keine feste Höhe: System berücksichtigt Safe-Area unten und Dynamic Type.
           tabBarStyle: {
-            backgroundColor: c.tabBar,
+            backgroundColor: c.surface,
             borderTopWidth: StyleSheet.hairlineWidth,
             borderTopColor: c.separator,
-            position: 'absolute',
             elevation: 0,
           },
         }}
@@ -44,6 +43,17 @@ export default function TabLayout() {
             name={t.name}
             options={{
               title: t.title,
+              // Feed ist immer dunkel (Video) — Tab-Bar dort ebenfalls dunkel.
+              ...(t.name === 'index' && {
+                tabBarStyle: {
+                  backgroundColor: DarkColors.surface,
+                  borderTopWidth: StyleSheet.hairlineWidth,
+                  borderTopColor: DarkColors.separator,
+                  elevation: 0,
+                },
+                tabBarActiveTintColor: DarkColors.accent,
+                tabBarInactiveTintColor: DarkColors.textSub,
+              }),
               tabBarAccessibilityLabel: `${t.title}, tab, ${i + 1} of ${TABS.length}`,
               tabBarLabel: ({ color }) => (
                 <Text

@@ -9,6 +9,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { supabase } from '../../lib/supabase';
 import { useCourse } from '../../lib/courseContext';
 import { useColors, T, S, R, GUTTER, HIT, MAX_SCALE_CHROME } from '../../constants/theme';
+import SectionHeader from '../../components/SectionHeader';
+import StatusBarScrim from '../../components/StatusBarScrim';
 import type { ColorTokens } from '../../constants/theme';
 
 interface CourseInfo {
@@ -261,7 +263,7 @@ export default function CourseLernenScreen() {
         {/* Cards / Topics */}
         {topics.length > 0 && (
           <View style={s.section}>
-            <Text style={s.sectionTitle} accessibilityRole="header">Karten · {totalCards}</Text>
+            <SectionHeader>Karten · {totalCards}</SectionHeader>
             <View style={s.group}>
               {topics.map((t, i) => (
                 <Pressable
@@ -292,7 +294,7 @@ export default function CourseLernenScreen() {
         {/* Videos */}
         {videos.length > 0 && (
           <View style={s.section}>
-            <Text style={s.sectionTitle} accessibilityRole="header">Videos · {videos.length}</Text>
+            <SectionHeader>Videos · {videos.length}</SectionHeader>
             <View style={s.group}>
               {videos.map((v, i) => (
                 <View key={v.id} style={[s.row, i > 0 && s.rowSep]} accessible accessibilityLabel={`${v.title}${v.duration_seconds ? `, ${fmtDuration(v.duration_seconds)}` : ''}`}>
@@ -319,7 +321,7 @@ export default function CourseLernenScreen() {
         {/* Exams */}
         {exams.length > 0 && (
           <View style={s.section}>
-            <Text style={s.sectionTitle} accessibilityRole="header">Prüfungen · {exams.length}</Text>
+            <SectionHeader>Prüfungen · {exams.length}</SectionHeader>
             <View style={s.group}>
               {exams.map((exam, i) => {
                 const result = results[exam.id];
@@ -403,7 +405,6 @@ const makeStyles = (c: ColorTokens) => StyleSheet.create({
   subtitle: { ...T.subhead, color: c.textSub },
 
   section: { gap: S.sm },
-  sectionTitle: { ...T.footnote, color: c.textSub, textTransform: 'uppercase', paddingHorizontal: S.lg },
 
   group: { backgroundColor: c.surface, borderRadius: R.md, overflow: 'hidden' },
   row: {

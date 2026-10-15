@@ -1,10 +1,7 @@
 import { useEffect } from 'react';
-import { View, Text, Pressable, Dimensions, StyleSheet } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useVideoPlayer, VideoView } from 'expo-video';
 import { DarkColors as d, T, S, R, GUTTER, HIT, MAX_SCALE_CHROME } from '../constants/theme';
-
-const { height: SCREEN_HEIGHT, width: SCREEN_WIDTH } = Dimensions.get('window');
 
 export interface FeedCard {
   id: string;
@@ -22,13 +19,13 @@ interface Props {
   card: FeedCard;
   isVisible: boolean;
   isMuted: boolean;
+  height: number;
   onRate: (slug: string, dbId: string, rating: 'knew' | 'didnt') => void;
 }
 
-export default function VideoCard({ card, isVisible, isMuted, onRate }: Props) {
+export default function VideoCard({ card, isVisible, isMuted, height, onRate }: Props) {
   const src = card.hls_src || card.video_src || '';
   const color = card.course_color ?? d.accent;
-  const insets = useSafeAreaInsets();
 
   const player = useVideoPlayer(src, p => {
     p.loop = true;
@@ -52,11 +49,11 @@ export default function VideoCard({ card, isVisible, isMuted, onRate }: Props) {
 
   // Content layer: video stays dark in both appearances, so it uses the dark tokens.
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, { height }]}>
       <VideoView
         player={player}
         style={styles.video}
-        contentFit="cover"
+        contentFit="contain"
         nativeControls={false}
       />
 
@@ -68,7 +65,7 @@ export default function VideoCard({ card, isVisible, isMuted, onRate }: Props) {
       </View>
 
       {/* Info overlay */}
-      <View style={[styles.overlay, { paddingBottom: insets.bottom + 49 + GUTTER }]}>
+      <View style={[styles.overlay, { paddingBottom: GUTTER }]}>
         <View style={styles.badges}>
           <View style={styles.badge}>
             <View style={[styles.badgeDot, { backgroundColor: color }]} />
@@ -105,8 +102,7 @@ export default function VideoCard({ card, isVisible, isMuted, onRate }: Props) {
 
 const styles = StyleSheet.create({
   card: {
-    width: SCREEN_WIDTH,
-    height: SCREEN_HEIGHT,
+    width: '100%',
     backgroundColor: 'black',
   },
   video: {

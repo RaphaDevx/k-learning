@@ -8,6 +8,7 @@ import { loadExam } from '../../data/examLoader';
 import QuestionFigure from '../../components/QuestionFigure';
 import type { AnswerMap, ExamData, ExamQuestion } from '../../types/exam';
 import { useColors, T, S, R, GUTTER, HIT } from '../../constants/theme';
+import RichText from '../../components/RichText';
 import type { ColorTokens } from '../../constants/theme';
 
 type Tone = 'green' | 'yellow' | 'red';
@@ -175,7 +176,7 @@ export default function ResultsScreen() {
                   >
                     <Ionicons name={m.icon} size={22} color={m.color} />
                     <View style={styles.qText}>
-                      <Text style={styles.qTitle} numberOfLines={isOpenRow ? undefined : 2}>{q.number}. {q.text}</Text>
+                      <RichText text={`${q.number}. ${q.text}`} numberOfLines={isOpenRow ? undefined : 2} />
                       <Text style={[styles.qVerdict, { color: m.color }]}>{m.label}</Text>
                     </View>
                     {canExpand && <Ionicons name={isOpenRow ? 'chevron-up' : 'chevron-down'} size={16} color={c.textMuted} />}
@@ -261,7 +262,6 @@ const makeStyles = (c: ColorTokens) => StyleSheet.create({
     minHeight: HIT, paddingHorizontal: S.lg, paddingVertical: S.md,
   },
   qText: { flex: 1, gap: S.xxs },
-  qTitle: { ...T.body, color: c.text },
   qVerdict: { ...T.footnote, fontWeight: '600' },
   detail: { paddingHorizontal: S.lg, paddingBottom: S.md, paddingLeft: S.lg + 22 + S.md, gap: S.xs },
   detailLine: { ...T.subhead, color: c.text },

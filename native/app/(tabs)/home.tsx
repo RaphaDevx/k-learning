@@ -12,6 +12,8 @@ import { supabase } from '../../lib/supabase';
 import { useCourse } from '../../lib/courseContext';
 import { useScrollContext } from './_layout';
 import { useColors, DarkColors as d, T, S, R, GUTTER, HIT, HIT_SLOP, MAX_SCALE_CHROME } from '../../constants/theme';
+import SectionHeader from '../../components/SectionHeader';
+import StatusBarScrim from '../../components/StatusBarScrim';
 import type { ColorTokens } from '../../constants/theme';
 
 interface Course {
@@ -173,8 +175,9 @@ export default function HomeScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: c.bg }}>
+      <StatusBarScrim />
       <ScrollView
-        contentContainerStyle={[styles.content, { paddingTop: insets.top + S.sm, paddingBottom: 100 }]}
+        contentContainerStyle={[styles.content, { paddingTop: insets.top + S.lg, paddingBottom: S.xl }]}
         scrollEventThrottle={16}
         onScroll={({ nativeEvent }) => {
           const dy = nativeEvent.contentOffset.y - lastY.current;
@@ -348,7 +351,7 @@ export default function HomeScreen() {
 
                   {available.length > 0 && (
                     <>
-                      <Text style={styles.sheetSection}>Öffentliche Kurse beitreten</Text>
+                      <SectionHeader inset={0}>Öffentliche Kurse beitreten</SectionHeader>
                       <ScrollView style={styles.availableList} bounces={false}>
                         {available.map((course, i) => (
                           <View key={course.key}>
@@ -428,7 +431,7 @@ export default function HomeScreen() {
                     autoFocus
                     accessibilityLabel="Kursname"
                   />
-                  <Text style={styles.sheetSection}>Symbol</Text>
+                  <SectionHeader inset={0}>Symbol</SectionHeader>
                   <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.emojiRow}>
                     {EMOJIS.map(e => (
                       <Pressable
@@ -442,7 +445,7 @@ export default function HomeScreen() {
                       </Pressable>
                     ))}
                   </ScrollView>
-                  <Text style={styles.sheetSection}>Farbe</Text>
+                  <SectionHeader inset={0}>Farbe</SectionHeader>
                   <View style={styles.colorRow}>
                     {COLORS.map((col, idx) => (
                       <Pressable
@@ -580,7 +583,6 @@ const makeStyles = (c: ColorTokens) => StyleSheet.create({
   sheetHandle: { width: 36, height: 5, backgroundColor: c.separator, borderRadius: 3, alignSelf: 'center', marginBottom: S.xs },
   sheetTitle: { ...T.title2, color: c.text },
   sheetSub: { ...T.subhead, color: c.textSub, marginTop: -S.sm },
-  sheetSection: { ...T.footnote, color: c.textSub, textTransform: 'uppercase' },
 
   addOptionGrid: { flexDirection: 'row', gap: S.sm },
   addOption: {

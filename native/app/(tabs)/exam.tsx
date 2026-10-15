@@ -12,6 +12,8 @@ import { useCourses } from '../../lib/courses';
 import { useCourse } from '../../lib/courseContext';
 import type { ExamMeta } from '../../types/exam';
 import { useColors, T, S, R, GUTTER, HIT, MAX_SCALE_CHROME } from '../../constants/theme';
+import SectionHeader from '../../components/SectionHeader';
+import StatusBarScrim from '../../components/StatusBarScrim';
 import type { ColorTokens } from '../../constants/theme';
 
 interface ResultMap {
@@ -97,9 +99,11 @@ export default function ExamTab() {
   }
 
   return (
+    <View style={styles.container}>
+    <StatusBarScrim />
     <ScrollView
       style={styles.container}
-      contentContainerStyle={[styles.content, { paddingTop: insets.top + S.lg, paddingBottom: 100 }]}
+      contentContainerStyle={[styles.content, { paddingTop: insets.top + S.lg, paddingBottom: S.xl }]}
       refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => loadAll(true)} tintColor={c.textSub} />}
     >
       <View style={styles.titleRow}>
@@ -126,10 +130,7 @@ export default function ExamTab() {
         const cfg = { label: info?.label ?? course, color: info?.hex ?? exams[0]?.courseColor ?? c.accent };
         return (
           <View key={course} style={styles.section}>
-            <View style={styles.sectionHeader}>
-              <View style={[styles.dot, { backgroundColor: cfg.color }]} />
-              <Text style={styles.sectionTitle} accessibilityRole="header">{cfg.label}</Text>
-            </View>
+            <SectionHeader dotColor={cfg.color} style={styles.sectionHeader}>{cfg.label}</SectionHeader>
 
             <View style={styles.group}>
               {exams.map((exam, i) => {
@@ -180,6 +181,7 @@ export default function ExamTab() {
         );
       })}
     </ScrollView>
+    </View>
   );
 }
 
@@ -201,9 +203,8 @@ const makeStyles = (c: ColorTokens) => StyleSheet.create({
   emptyText: { ...T.subhead, color: c.textSub, textAlign: 'center' },
 
   section: { marginBottom: S.xl },
-  sectionHeader: { flexDirection: 'row', alignItems: 'center', gap: S.sm, paddingHorizontal: S.lg, marginBottom: S.sm },
+  sectionHeader: { marginBottom: S.sm },
   dot: { width: 8, height: 8, borderRadius: 4 },
-  sectionTitle: { ...T.footnote, color: c.textSub, textTransform: 'uppercase', flexShrink: 1 },
 
   group: { backgroundColor: c.surface, borderRadius: R.md, overflow: 'hidden' },
   row: {

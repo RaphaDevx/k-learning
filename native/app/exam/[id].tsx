@@ -10,6 +10,7 @@ import QuestionFigure from '../../components/QuestionFigure';
 import { loadExam } from '../../data/examLoader';
 import type { ExamData, ExamQuestion, ExamSection, AnswerMap } from '../../types/exam';
 import { useColors, T, S, R, GUTTER, HIT } from '../../constants/theme';
+import RichText from '../../components/RichText';
 import type { ColorTokens } from '../../constants/theme';
 
 function scoreExam(data: ExamData, answers: AnswerMap): { earned: number; total: number; pct: number } {
@@ -285,7 +286,7 @@ export default function ExamScreen() {
         <Text style={styles.sectionLabel}>{section.title}</Text>
 
         {/* Question */}
-        <Text style={styles.questionText}>{question.text}</Text>
+        <View style={styles.questionText}><RichText text={question.text} variant="headline" /></View>
         {question.imageHtml ? (
           <View style={{ marginBottom: S.md }}>
             <QuestionFigure html={question.imageHtml} label={`Abbildung zu Frage ${question.number}`} />
@@ -338,7 +339,7 @@ export default function ExamScreen() {
                 >
                   <Ionicons name={icon} size={24} color={selected ? c.accent : c.textSub} />
                   <Text style={styles.choiceKey}>{choice.key}</Text>
-                  <Text style={styles.choiceText}>{choice.text}</Text>
+                  <View style={styles.choiceText}><RichText text={choice.text} /></View>
                 </Pressable>
               );
             })}
@@ -413,7 +414,7 @@ const makeStyles = (c: ColorTokens) => StyleSheet.create({
   contextText: { ...T.subhead, color: c.textSub },
 
   sectionLabel: { ...T.footnote, color: c.textSub, marginBottom: S.sm, textTransform: 'uppercase' },
-  questionText: { ...T.headline, color: c.text, marginBottom: S.xs },
+  questionText: { marginBottom: S.xs },
   questionMeta: { ...T.footnote, color: c.textSub, marginBottom: S.lg },
 
   choices: { gap: S.sm },
@@ -425,7 +426,7 @@ const makeStyles = (c: ColorTokens) => StyleSheet.create({
   },
   choiceSelected: { borderColor: c.accent, backgroundColor: c.accentSoft },
   choiceKey: { ...T.subhead, color: c.textSub, fontWeight: '600', minWidth: 16 },
-  choiceText: { ...T.body, color: c.text, flex: 1 },
+  choiceText: { flex: 1 },
 
   openBox: { gap: S.md },
   secondaryBtn: {

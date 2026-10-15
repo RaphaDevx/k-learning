@@ -18,6 +18,9 @@ import * as DocumentPicker from 'expo-document-picker';
 import { supabase } from '../../lib/supabase';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useColors, T, S, R, GUTTER, HIT, HIT_SLOP, MAX_SCALE_CHROME } from '../../constants/theme';
+import RichText from '../../components/RichText';
+import SectionHeader from '../../components/SectionHeader';
+import StatusBarScrim from '../../components/StatusBarScrim';
 import type { ColorTokens } from '../../constants/theme';
 
 const { width: SCREEN_W } = Dimensions.get('window');
@@ -639,6 +642,8 @@ export default function FlashcardsScreen() {
 
     const courses = [...new Set(decks.map(d => d.course))];
     return (
+      <View style={s.container}>
+      <StatusBarScrim />
       <ScrollView style={s.container} contentContainerStyle={s.listContent}>
         <View style={s.selectorHeader}>
           <View style={{ flex: 1 }}>
@@ -661,14 +666,14 @@ export default function FlashcardsScreen() {
           const totalDue = courseDecks.reduce((sum, d) => sum + d.due, 0);
           return (
             <View key={course} style={s.section}>
-              <View style={s.sectionRow}>
-                <Text style={s.sectionTitle}>{course}</Text>
-                {totalDue > 0 && (
+              <SectionHeader
+                style={s.sectionRow}
+                right={totalDue > 0 ? (
                   <View style={s.badge}>
                     <Text style={s.badgeText} maxFontSizeMultiplier={MAX_SCALE_CHROME}>{totalDue} fällig</Text>
                   </View>
-                )}
-              </View>
+                ) : undefined}
+              >{course}</SectionHeader>
               <View style={s.group}>
                 {courseDecks.map((deck, idx) => (
                   <View key={`${deck.course}::${deck.topic}`}>
@@ -735,6 +740,7 @@ export default function FlashcardsScreen() {
           </View>
         )}
       </ScrollView>
+      </View>
     );
   }
 
@@ -814,7 +820,14 @@ export default function FlashcardsScreen() {
             <Text style={[s.cardSide, isFlipped && { color: c.accent }]}>
               {isFlipped ? 'Antwort' : 'Frage'}
             </Text>
-            <Text style={isFlipped ? s.cardBack : s.cardFront}>{isFlipped ? card.back : card.front}</Text>
+            <View style={s.cardTextWrap} pointerEvents="none">
+              <RichText
+                text={isFlipped ? card.back : card.front}
+                variant={isFlipped ? 'body' : 'title'}
+                align="center"
+                cloze={card.type === 'cloze' ? (isFlipped ? 'reveal' : 'hide') : undefined}
+              />
+            </View>
             {!isFlipped && <Text style={s.tapHint}>Tippen zum Aufdecken</Text>}
           </Pressable>
         </Animated.View>
@@ -879,7 +892,7 @@ function makeStyles(c: ColorTokens, top: number) {
 
   return StyleSheet.create({
     container: { flex: 1, backgroundColor: c.bg },
-    listContent: { paddingHorizontal: GUTTER, paddingTop: top + S.sm, paddingBottom: 100 },
+    listContent: { paddingHorizontal: GUTTER, paddingTop: top + S.lg, paddingBottom: S.xl },
     center: { flex: 1, backgroundColor: c.bg, alignItems: 'center', justifyContent: 'center', gap: S.md, padding: S.xl },
     pressed: { opacity: 0.6 },
 
@@ -909,8 +922,7 @@ function makeStyles(c: ColorTokens, top: number) {
 
     // Deck list
     section: { marginBottom: S.xl },
-    sectionRow: { flexDirection: 'row', alignItems: 'center', gap: S.sm, marginBottom: S.sm, paddingHorizontal: S.xs },
-    sectionTitle: { ...T.footnote, fontWeight: '600', color: c.textSub, textTransform: 'uppercase', letterSpacing: 0.4, flexShrink: 1 },
+    sectionRow: { marginBottom: S.sm },
     badge: { backgroundColor: c.accentSoft, borderRadius: R.sm, paddingHorizontal: S.sm, paddingVertical: S.xxs },
     badgeText: { ...T.caption1, fontWeight: '600', color: c.accent },
     group: { backgroundColor: c.surface, borderRadius: R.md, overflow: 'hidden' },
@@ -940,7 +952,7 @@ function makeStyles(c: ColorTokens, top: number) {
     saveBtn: { ...T.headline, color: c.accent },
 
     // Browser
-    browserContent: { padding: GUTTER, paddingBottom: 100, gap: S.md },
+    browserContent: { padding: GUTTER, paddingBottom: S.xl, gap: S.md },
     browserCard: {
       backgroundColor: c.surface, borderRadius: R.md,
       flexDirection: 'row', alignItems: 'stretch',
@@ -965,7 +977,7 @@ function makeStyles(c: ColorTokens, top: number) {
     changelogNew: { ...T.subhead, color: c.green },
 
     // Edit screen
-    editContent: { padding: GUTTER, paddingBottom: 100 },
+    editContent: { padding: GUTTER, paddingBottom: S.xl },
     editLabel: { ...T.footnote, fontWeight: '600', color: c.textSub, textTransform: 'uppercase', letterSpacing: 0.4, marginBottom: S.sm },
     editInput: input,
 
@@ -986,8 +998,7 @@ function makeStyles(c: ColorTokens, top: number) {
       borderWidth: StyleSheet.hairlineWidth, borderColor: c.border,
     },
     cardSide: { ...T.footnote, fontWeight: '600', color: c.textSub, textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: S.lg },
-    cardFront: { ...T.title3, color: c.text, textAlign: 'center' },
-    cardBack: { ...T.body, color: c.text, textAlign: 'center' },
+    cardTextWrap: { alignSelf: 'stretch' },
     tapHint: { ...T.footnote, color: c.textSub, marginTop: S.xl },
     swipeOverlayLeft: {
       position: 'absolute', left: S.lg, top: S.lg, zIndex: 10,
