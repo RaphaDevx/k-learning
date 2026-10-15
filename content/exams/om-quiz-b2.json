@@ -1,0 +1,601 @@
+{
+  "id": "om-quiz-b2",
+  "title": "OM Quiz — Block 2: Inventory Management",
+  "course": "OM",
+  "courseColor": "#ea580c",
+  "sortOrder": 21,
+  "durationMinutes": 24,
+  "totalPoints": 16,
+  "scoringRules": {
+    "single_choice": {
+      "correct": 1,
+      "wrong": 0,
+      "blank": 0
+    },
+    "multiple_choice": {
+      "allCorrect": 1,
+      "anyWrong": 0,
+      "blank": 0
+    }
+  },
+  "examInfo": {
+    "date": "HS 2026 — Übungsset",
+    "duration": "24 Minuten",
+    "format": "12 Single Choice + 4 Multiple Choice (Prüfungsstil, mit Rechenfragen)",
+    "allowedAids": "Taschenrechner / Excel erlaubt (Übung)",
+    "grading": "Übungsset ohne Note — Ziel: ≥ 60 % der Punkte"
+  },
+  "sections": [
+    {
+      "id": "part-a",
+      "title": "Part A – Single Choice (12 Points)",
+      "description": "Exactly one answer is correct.",
+      "points": 12,
+      "question_type": "single_choice",
+      "questions": [
+        {
+          "id": "om-quiz-b2-q01",
+          "number": 1,
+          "text": "A retailer has an annual demand of D = 2'400 units, order costs of S = CHF 30 per order and holding costs of H = CHF 4 per unit and year.\n\nWhat is the economic order quantity (EOQ)?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "134"
+            },
+            {
+              "key": "B",
+              "text": "190"
+            },
+            {
+              "key": "C",
+              "text": "268"
+            },
+            {
+              "key": "D",
+              "text": "360"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "Q* = √(2·D·S/H) = √(2·2'400·30/4) = √36'000 ≈ 189.7 ⇒ 190. 134 wäre √(2DS/(2H)), 268 √(2DS/(H/2)).",
+          "topics": [
+            "EOQ",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b2-q02",
+          "number": 2,
+          "text": "Same data as before (D = 2'400, S = 30, H = 4). What are the total annual ordering and holding costs at the EOQ (excluding purchase costs)?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "CHF 380"
+            },
+            {
+              "key": "B",
+              "text": "CHF 759"
+            },
+            {
+              "key": "C",
+              "text": "CHF 1'518"
+            },
+            {
+              "key": "D",
+              "text": "CHF 2'400"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "Bestellkosten = D/Q·S = 12.65·30 ≈ 379.5; Lagerkosten = Q/2·H = 94.87·4 ≈ 379.5. Beide sind im Optimum gleich: Total ≈ 759.",
+          "topics": [
+            "EOQ",
+            "Gesamtkosten"
+          ]
+        },
+        {
+          "id": "om-quiz-b2-q03",
+          "number": 3,
+          "text": "The holding cost rate H doubles while D and S stay constant. How does the EOQ change?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "It decreases by the factor √2 (about −29 %)"
+            },
+            {
+              "key": "B",
+              "text": "It doubles"
+            },
+            {
+              "key": "C",
+              "text": "It does not change"
+            },
+            {
+              "key": "D",
+              "text": "It is halved"
+            }
+          ],
+          "correct": [
+            "A"
+          ],
+          "explanation": "Q* ∝ 1/√H. Doppeltes H ⇒ Q* sinkt auf 1/√2 ≈ 0.71 (−29 %). Mehr Bestellungen bei kleineren Losen.",
+          "topics": [
+            "EOQ",
+            "Sensitivität"
+          ]
+        },
+        {
+          "id": "om-quiz-b2-q04",
+          "number": 4,
+          "text": "EPQ: D = 3'600 units/year, production rate p = 12'000 units/year, S = CHF 200, H = CHF 6 per unit and year.\n\nWhat is the average inventory level?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "205"
+            },
+            {
+              "key": "B",
+              "text": "293"
+            },
+            {
+              "key": "C",
+              "text": "410"
+            },
+            {
+              "key": "D",
+              "text": "586"
+            }
+          ],
+          "correct": [
+            "A"
+          ],
+          "explanation": "Q* = √(2·3'600·200 / (6·(1−0.3))) ≈ 585.5; I_max = Q*·0.7 ≈ 409.9; Ø-Bestand = I_max/2 ≈ 205. Q*/2 = 293 wäre die klassische Falle.",
+          "topics": [
+            "EPQ",
+            "Rechnen",
+            "Fehlerstelle"
+          ]
+        },
+        {
+          "id": "om-quiz-b2-q05",
+          "number": 5,
+          "text": "Quantity discount: D = 1'000 units/year, S = CHF 20, holding cost rate 20 % of the price. Price CHF 10.00 for orders of 1–149 units, CHF 9.50 for orders from 150 units.\n\nWhich order quantity minimises the total annual costs?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "141 units"
+            },
+            {
+              "key": "B",
+              "text": "145 units"
+            },
+            {
+              "key": "C",
+              "text": "150 units"
+            },
+            {
+              "key": "D",
+              "text": "1'000 units"
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "Stufe 1: H = 2, EOQ = 141 (zulässig) ⇒ TC ≈ 10'283. Stufe 2: H = 1.90, EOQ = 145 < 150 ⇒ Q = 150 (Untergrenze), TC = 133 + 143 + 9'500 ≈ 9'776. Stufe 2 ist günstiger (Einsparung ≈ 507). Einkaufskosten D·p nicht vergessen.",
+          "topics": [
+            "Mengenrabatt",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b2-q06",
+          "number": 6,
+          "text": "Daily demand has a standard deviation of σ = 15 units, the lead time is L = 9 days, the target service level is 95 % (z = 1.645).\n\nHow large is the safety stock?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "25"
+            },
+            {
+              "key": "B",
+              "text": "74"
+            },
+            {
+              "key": "C",
+              "text": "148"
+            },
+            {
+              "key": "D",
+              "text": "222"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "SS = z·σ·√L = 1.645·15·3 ≈ 74.0. Wer L statt √L einsetzt, erhält 222 (1.645·15·9).",
+          "topics": [
+            "Safety Stock",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b2-q07",
+          "number": 7,
+          "text": "Average demand is 40 units/day, the lead time is 5 days, the safety stock is 50 units.\n\nAt which inventory level (reorder point) should a replenishment order be placed?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "90 units"
+            },
+            {
+              "key": "B",
+              "text": "200 units"
+            },
+            {
+              "key": "C",
+              "text": "250 units"
+            },
+            {
+              "key": "D",
+              "text": "300 units"
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "ROP = d·L + SS = 40·5 + 50 = 250.",
+          "topics": [
+            "ROP",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b2-q08",
+          "number": 8,
+          "text": "Newsvendor: selling price CHF 12, purchase cost CHF 7, salvage value CHF 2, demand ~ N(300, 50²).\n\nWhat is the optimal order quantity?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "250 units"
+            },
+            {
+              "key": "B",
+              "text": "284 units"
+            },
+            {
+              "key": "C",
+              "text": "300 units"
+            },
+            {
+              "key": "D",
+              "text": "350 units"
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "Cu = 12−7 = 5, Co = 7−2 = 5 ⇒ CR = 0.5 ⇒ z = 0 ⇒ Q* = μ = 300.",
+          "topics": [
+            "Newsvendor",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b2-q09",
+          "number": 9,
+          "text": "Newsvendor: Cu = CHF 30, Co = CHF 10, demand ~ N(200, 40²) (σ = 40, not 40²).\n\nWhat is the optimal order quantity?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "200 units"
+            },
+            {
+              "key": "B",
+              "text": "227 units"
+            },
+            {
+              "key": "C",
+              "text": "240 units"
+            },
+            {
+              "key": "D",
+              "text": "263 units"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "CR = 30/40 = 0.75 ⇒ z = NORM.S.INV(0.75) = 0.674 ⇒ Q* = 200 + 0.674·40 ≈ 227. Mit σ² = 1'600 anstelle von σ wäre das Ergebnis falsch.",
+          "topics": [
+            "Newsvendor",
+            "Rechnen",
+            "Fehlerstelle"
+          ]
+        },
+        {
+          "id": "om-quiz-b2-q10",
+          "number": 10,
+          "text": "The demand during lead time has σ = 25 units. By how many units does the safety stock increase if the service level is raised from 95 % to 99 % (z = 1.645 → 2.326)?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "about 41 units"
+            },
+            {
+              "key": "B",
+              "text": "about 4 units"
+            },
+            {
+              "key": "C",
+              "text": "about 17 units"
+            },
+            {
+              "key": "D",
+              "text": "about 58 units"
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "SS(95 %) = 41.1, SS(99 %) = 58.2 ⇒ +17.0 Einheiten. Die letzten Prozentpunkte Servicegrad sind überproportional teuer.",
+          "topics": [
+            "Safety Stock",
+            "Servicegrad"
+          ]
+        },
+        {
+          "id": "om-quiz-b2-q11",
+          "number": 11,
+          "text": "Periodic review with target inventory: μ = 100 units/week, σ = 20 units/week, lead time L = 2 weeks, z = 1.28. The target inventory is μ·(L+1) + z·σ·√(L+1). Current stock is 150, pipeline 80.\n\nHow many units are ordered?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "114 units"
+            },
+            {
+              "key": "B",
+              "text": "194 units"
+            },
+            {
+              "key": "C",
+              "text": "264 units"
+            },
+            {
+              "key": "D",
+              "text": "344 units"
+            }
+          ],
+          "correct": [
+            "A"
+          ],
+          "explanation": "Ziel = 300 + 1.28·20·1.732 ≈ 344.4. Bestellung = max(0, 344.4 − 150 − 80) = 114.4 ⇒ 114.",
+          "topics": [
+            "Target Inventory",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b2-q12",
+          "number": 12,
+          "text": "In an ABC analysis of annual expenditure, A-products are those that…",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "are the cheapest items per unit"
+            },
+            {
+              "key": "B",
+              "text": "account for about 80 % of the period costs (with a small share of the items)"
+            },
+            {
+              "key": "C",
+              "text": "account for about 20 % of the period costs"
+            },
+            {
+              "key": "D",
+              "text": "are ordered most frequently"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "A = wenige Artikel mit ca. 80 % des Wertanteils; B ca. 15 %, C ca. 5 %. Es zählt der Jahresverbrauchswert (Preis × Menge), nicht der Stückpreis.",
+          "topics": [
+            "ABC-Analyse"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-b",
+      "title": "Part B – Multiple Choice (4 Points)",
+      "description": "At least two answers are correct. Only the complete correct combination scores (no partial points).",
+      "points": 4,
+      "question_type": "multiple_choice",
+      "questions": [
+        {
+          "id": "om-quiz-b2-q13",
+          "number": 13,
+          "text": "Which statements about the EOQ model are correct?",
+          "type": "multiple_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "The model minimises the sum of order costs and holding costs."
+            },
+            {
+              "key": "B",
+              "text": "The average inventory is Q*·(1 − D/p)/2."
+            },
+            {
+              "key": "C",
+              "text": "Replenishment is assumed to happen instantaneously."
+            },
+            {
+              "key": "D",
+              "text": "Higher order costs lead to a smaller EOQ."
+            },
+            {
+              "key": "E",
+              "text": "At the optimum the order costs equal the holding costs."
+            }
+          ],
+          "correct": [
+            "A",
+            "C",
+            "E"
+          ],
+          "explanation": "EOQ: Trade-off Bestell- vs Lagerkosten; sofortige Wiederauffüllung; im Optimum gleich hohe Kostenanteile. Der Ø-Bestand ist Q*/2 (die andere Formel gehört zum EPQ). Höhere Bestellkosten S erhöhen Q*.",
+          "topics": [
+            "EOQ",
+            "Annahmen"
+          ]
+        },
+        {
+          "id": "om-quiz-b2-q14",
+          "number": 14,
+          "text": "Which statements about EOQ and EPQ are correct?",
+          "type": "multiple_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "EPQ and EOQ use the same total cost formula without any change."
+            },
+            {
+              "key": "B",
+              "text": "The average inventory in the EPQ model is Q*/2."
+            },
+            {
+              "key": "C",
+              "text": "The EPQ lot size is larger than the EOQ lot size for the same D, S, H."
+            },
+            {
+              "key": "D",
+              "text": "For p → ∞ the EPQ turns into the EOQ."
+            },
+            {
+              "key": "E",
+              "text": "EPQ assumes a finite production rate p > d."
+            }
+          ],
+          "correct": [
+            "C",
+            "D",
+            "E"
+          ],
+          "explanation": "EPQ: Q* = √(2DS/(H(1−d/p))) > EOQ; für p → ∞ ⇒ 1 − d/p → 1. Ø-Bestand EPQ = I_max/2 = Q*(1−d/p)/2, nicht Q*/2.",
+          "topics": [
+            "EPQ",
+            "EOQ"
+          ]
+        },
+        {
+          "id": "om-quiz-b2-q15",
+          "number": 15,
+          "text": "Which statements about quantity discounts (all-units) are correct?",
+          "type": "multiple_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "The holding cost per unit may differ per price tier if it is a percentage of the price."
+            },
+            {
+              "key": "B",
+              "text": "If the EOQ of a tier is below its lower bound, the lower bound is the candidate quantity."
+            },
+            {
+              "key": "C",
+              "text": "The EOQ of the cheapest tier is always optimal."
+            },
+            {
+              "key": "D",
+              "text": "The total costs must include the purchase costs D·p."
+            },
+            {
+              "key": "E",
+              "text": "The lower price applies to all units of the order once the threshold is reached."
+            }
+          ],
+          "correct": [
+            "A",
+            "B",
+            "D",
+            "E"
+          ],
+          "explanation": "All-units: Preis gilt für die ganze Bestellung. H = i·p variiert. TC = Bestell + Lager + Einkauf. EOQ < Untergrenze ⇒ Untergrenze testen. Die billigste Stufe ist nicht automatisch optimal – alle zulässigen Stufen vergleichen.",
+          "topics": [
+            "Mengenrabatt"
+          ]
+        },
+        {
+          "id": "om-quiz-b2-q16",
+          "number": 16,
+          "text": "Which statements about the newsvendor model are correct?",
+          "type": "multiple_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "The critical ratio is Cu/(Cu + Co)."
+            },
+            {
+              "key": "B",
+              "text": "A service level of 100 % is achievable for any demand distribution."
+            },
+            {
+              "key": "C",
+              "text": "It is best suited for long-living products with stable demand."
+            },
+            {
+              "key": "D",
+              "text": "It is suited for perishable goods with a short product life and volatile demand."
+            },
+            {
+              "key": "E",
+              "text": "If the critical ratio CR is below 0.5, the order quantity should be below the mean demand."
+            }
+          ],
+          "correct": [
+            "A",
+            "D",
+            "E"
+          ],
+          "explanation": "Newsvendor: einperiodig, verderbliche Güter. CR = Cu/(Cu+Co); CR < 0.5 ⇒ Überschuss teurer ⇒ vorsichtig bestellen. 100 % Servicegrad ist bei unsicherer Nachfrage nicht erreichbar; langlebige Güter mit stabiler Nachfrage → EOQ/ROP.",
+          "topics": [
+            "Newsvendor",
+            "HS23"
+          ]
+        }
+      ]
+    }
+  ]
+}

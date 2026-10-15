@@ -1,0 +1,609 @@
+{
+  "id": "om-quiz-b4",
+  "title": "OM Quiz — Block 4: Supply Chain Management",
+  "course": "OM",
+  "courseColor": "#ea580c",
+  "sortOrder": 23,
+  "durationMinutes": 24,
+  "totalPoints": 16,
+  "scoringRules": {
+    "single_choice": {
+      "correct": 1,
+      "wrong": 0,
+      "blank": 0
+    },
+    "multiple_choice": {
+      "allCorrect": 1,
+      "anyWrong": 0,
+      "blank": 0
+    }
+  },
+  "examInfo": {
+    "date": "HS 2026 — Übungsset",
+    "duration": "24 Minuten",
+    "format": "12 Single Choice + 4 Multiple Choice (Prüfungsstil, mit Rechenfragen)",
+    "allowedAids": "Taschenrechner / Excel erlaubt (Übung)",
+    "grading": "Übungsset ohne Note — Ziel: ≥ 60 % der Punkte"
+  },
+  "sections": [
+    {
+      "id": "part-a",
+      "title": "Part A – Single Choice (12 Points)",
+      "description": "Exactly one answer is correct.",
+      "points": 12,
+      "question_type": "single_choice",
+      "questions": [
+        {
+          "id": "om-quiz-b4-q01",
+          "number": 1,
+          "text": "The bullwhip effect describes the amplification of demand variability…",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "from the manufacturer downstream towards the end customer"
+            },
+            {
+              "key": "B",
+              "text": "only within the retail store"
+            },
+            {
+              "key": "C",
+              "text": "only in supply chains with a single stage"
+            },
+            {
+              "key": "D",
+              "text": "from the end customer upstream towards the manufacturer and suppliers"
+            }
+          ],
+          "correct": [
+            "D"
+          ],
+          "explanation": "Bullwhip = Verstärkung der Schwankungen entgegen dem Warenfluss (upstream): kleine Schwankungen beim Endkunden führen zu grossen Bestellschwankungen beim Hersteller und Zulieferer.",
+          "topics": [
+            "Bullwhip",
+            "Prüfungsklassiker"
+          ]
+        },
+        {
+          "id": "om-quiz-b4-q02",
+          "number": 2,
+          "text": "Which of the following is NOT one of the main drivers of the bullwhip effect?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Unused production capacity"
+            },
+            {
+              "key": "B",
+              "text": "Order batching"
+            },
+            {
+              "key": "C",
+              "text": "Price fluctuations and promotions"
+            },
+            {
+              "key": "D",
+              "text": "Rationing and shortage gaming"
+            }
+          ],
+          "correct": [
+            "A"
+          ],
+          "explanation": "Haupttreiber: Demand Signal Processing/Forecast Updating, Order Batching, Price Fluctuations, Rationing & Gaming. Leerkapazität gehört nicht dazu.",
+          "topics": [
+            "Bullwhip",
+            "HS23",
+            "Fehlerstelle"
+          ]
+        },
+        {
+          "id": "om-quiz-b4-q03",
+          "number": 3,
+          "text": "The variance of the customer demand is 25 and the variance of the orders placed at the manufacturer is 150.\n\nHow large is the bullwhip effect?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "0.17"
+            },
+            {
+              "key": "B",
+              "text": "6"
+            },
+            {
+              "key": "C",
+              "text": "125"
+            },
+            {
+              "key": "D",
+              "text": "175"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "Bullwhip = Var(Bestellungen)/Var(Nachfrage) = 150/25 = 6 (> 1 ⇒ Verstärkung).",
+          "topics": [
+            "Bullwhip",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b4-q04",
+          "number": 4,
+          "text": "An order-up-to policy sets the target inventory T. In week 1 the target is 120 units, in week 2 it is 150 units. The actual demand in week 2 is 100 units.\n\nHow many units are ordered in week 2 (order = demand + change of the target)?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "100 units"
+            },
+            {
+              "key": "B",
+              "text": "130 units"
+            },
+            {
+              "key": "C",
+              "text": "150 units"
+            },
+            {
+              "key": "D",
+              "text": "250 units"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "Bestellung = D + (T2 − T1) = 100 + (150 − 120) = 130. Die Änderung des Zielbestands (Prognose-Update) verstärkt die Bestellvarianz gegenüber der Nachfragevarianz.",
+          "topics": [
+            "Bullwhip",
+            "Order-up-to",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b4-q05",
+          "number": 5,
+          "text": "Two independent markets have a demand standard deviation of 60 and 80 units per week.\n\nHow large is the standard deviation of the pooled demand (postponement)?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "70"
+            },
+            {
+              "key": "B",
+              "text": "100"
+            },
+            {
+              "key": "C",
+              "text": "110"
+            },
+            {
+              "key": "D",
+              "text": "140"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "σ_pool = √(60² + 80²) = √10'000 = 100. Varianzen addieren sich, nicht die Standardabweichungen (140 wäre die Summe).",
+          "topics": [
+            "Postponement",
+            "Risk Pooling",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b4-q06",
+          "number": 6,
+          "text": "Same data (σ = 60 and 80, pooled σ = 100). The safety stock is proportional to σ (same service level z).\n\nBy how much does the total safety stock fall with postponement?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "about 10 %"
+            },
+            {
+              "key": "B",
+              "text": "about 28.6 %"
+            },
+            {
+              "key": "C",
+              "text": "about 50 %"
+            },
+            {
+              "key": "D",
+              "text": "about 14.3 %"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "Einsparung = 1 − 100/(60 + 80) = 1 − 0.714 = 28.6 %. Bei vier gleichen unabhängigen Märkten wären es 50 % (1 − 1/√4).",
+          "topics": [
+            "Postponement",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b4-q07",
+          "number": 7,
+          "text": "Postponement newsvendor: holding cost h = CHF 20 and penalty cost p = CHF 60 per unit and week.\n\nWhat is the critical ratio CR = p/(p + h) used for z*?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "0.25"
+            },
+            {
+              "key": "B",
+              "text": "0.33"
+            },
+            {
+              "key": "C",
+              "text": "0.60"
+            },
+            {
+              "key": "D",
+              "text": "0.75"
+            }
+          ],
+          "correct": [
+            "D"
+          ],
+          "explanation": "CR = 60/(60 + 20) = 0.75 ⇒ z* = NORM.S.INV(0.75) = 0.674. Die Rollen von h und p nicht vertauschen (0.25).",
+          "topics": [
+            "Postponement",
+            "Newsvendor",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b4-q08",
+          "number": 8,
+          "text": "Which Excel function returns the density φ(z) of the standard normal distribution, as needed for f01(z*) in the postponement cost formula?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "NORM.S.DIST(z; FALSE)"
+            },
+            {
+              "key": "B",
+              "text": "NORM.S.INV(z)"
+            },
+            {
+              "key": "C",
+              "text": "NORM.S.DIST(z; TRUE)"
+            },
+            {
+              "key": "D",
+              "text": "NORM.DIST(z; 0; 1; TRUE)"
+            }
+          ],
+          "correct": [
+            "A"
+          ],
+          "explanation": "FALSE = Dichte (Höhe der Kurve), TRUE = Verteilungsfunktion (Fläche). NORM.S.INV ist die Umkehrfunktion (Quantil).",
+          "topics": [
+            "Excel",
+            "Postponement"
+          ]
+        },
+        {
+          "id": "om-quiz-b4-q09",
+          "number": 9,
+          "text": "Inventory simulation: Day 1: begin inventory 20, receipt 0, demand 15. Day 2: demand 10, receipt 0. Day 3: receipt 30, demand 12. Demand filled = MIN(available, demand).\n\nHow many units of demand are lost (stockout) over the three days?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "0 units"
+            },
+            {
+              "key": "B",
+              "text": "5 units"
+            },
+            {
+              "key": "C",
+              "text": "10 units"
+            },
+            {
+              "key": "D",
+              "text": "15 units"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "Tag 1: Ende 5. Tag 2: verfügbar 5, Nachfrage 10 ⇒ gefüllt 5, Stockout 5, Ende 0. Tag 3: verfügbar 30, Nachfrage 12 ⇒ Ende 18, kein Stockout. Total 5.",
+          "topics": [
+            "Simulation",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b4-q10",
+          "number": 10,
+          "text": "A bootstrap analysis gives an 80 % confidence interval of [−0.4, 2.6] for the difference Δ = (new machine − old machine) of parts per cycle.\n\nWhat is the sensible decision?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "No decision is possible, because bootstrap results are random"
+            },
+            {
+              "key": "B",
+              "text": "Switch to the new machine, because the interval is wider than 2"
+            },
+            {
+              "key": "C",
+              "text": "Switch to the new machine, because the upper limit is above 0"
+            },
+            {
+              "key": "D",
+              "text": "Keep the old machine, because the lower limit is below 0"
+            }
+          ],
+          "correct": [
+            "D"
+          ],
+          "explanation": "Wechsel nur, wenn die untere KI-Grenze > 0 ist. Hier −0.4 < 0 ⇒ nicht eindeutig besser ⇒ alte Maschine behalten. Wegen der Zufälligkeit mehrfach rechnen.",
+          "topics": [
+            "Bootstrap",
+            "HS23",
+            "HS25"
+          ]
+        },
+        {
+          "id": "om-quiz-b4-q11",
+          "number": 11,
+          "text": "Which product and demand situation fits an agile (responsive) supply chain best?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Commodity products with stable, predictable demand"
+            },
+            {
+              "key": "B",
+              "text": "Products with a single customer and fixed annual volumes"
+            },
+            {
+              "key": "C",
+              "text": "Innovative products with short life cycle and volatile demand"
+            },
+            {
+              "key": "D",
+              "text": "Standardised bulk goods with minimal stock goals"
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "Agile: volatile Nachfrage, innovative Produkte, Reaktionsfähigkeit, Pull/Kundenauftrag. Lean passt zu stabiler Nachfrage und Commodities (Effizienz).",
+          "topics": [
+            "Lean",
+            "Agile"
+          ]
+        },
+        {
+          "id": "om-quiz-b4-q12",
+          "number": 12,
+          "text": "In a dependent-sample bootstrap (same machines before and after an upgrade), what is resampled?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "The mean of the sample, without replacement"
+            },
+            {
+              "key": "B",
+              "text": "Only the before-values"
+            },
+            {
+              "key": "C",
+              "text": "The per-machine differences (after − before), drawn with replacement"
+            },
+            {
+              "key": "D",
+              "text": "The two groups separately and independently"
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "Bei abhängigen Stichproben (gepaart) werden die Differenzen pro Einheit gebildet und resampled. Bei unabhängigen Gruppen werden beide Gruppen getrennt resampled.",
+          "topics": [
+            "Bootstrap"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-b",
+      "title": "Part B – Multiple Choice (4 Points)",
+      "description": "At least two answers are correct. Only the complete correct combination scores (no partial points).",
+      "points": 4,
+      "question_type": "multiple_choice",
+      "questions": [
+        {
+          "id": "om-quiz-b4-q13",
+          "number": 13,
+          "text": "Which statements about the bullwhip effect are correct?",
+          "type": "multiple_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Price promotions can trigger forward buying and thus amplify it."
+            },
+            {
+              "key": "B",
+              "text": "It can be measured as Var(orders) / Var(demand)."
+            },
+            {
+              "key": "C",
+              "text": "It is mainly caused by unused production capacity."
+            },
+            {
+              "key": "D",
+              "text": "It moves downstream from the manufacturer to the consumer."
+            },
+            {
+              "key": "E",
+              "text": "Sharing point-of-sale data along the chain reduces it."
+            }
+          ],
+          "correct": [
+            "A",
+            "B",
+            "E"
+          ],
+          "explanation": "Kennzahl Var(Orders)/Var(Demand) > 1; POS-Datenaustausch reduziert Demand Signal Processing; Promotionen verursachen Vorratskäufe. Leerkapazität ist kein Treiber; der Effekt läuft upstream.",
+          "topics": [
+            "Bullwhip",
+            "HS24"
+          ]
+        },
+        {
+          "id": "om-quiz-b4-q14",
+          "number": 14,
+          "text": "Which measures help to reduce the bullwhip effect?",
+          "type": "multiple_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Shorter lead times"
+            },
+            {
+              "key": "B",
+              "text": "Larger and rarer batch orders to the supplier"
+            },
+            {
+              "key": "C",
+              "text": "Coordinating the demand forecasts of the companies in the chain"
+            },
+            {
+              "key": "D",
+              "text": "Stable prices instead of frequent promotions (every-day-low-price)"
+            },
+            {
+              "key": "E",
+              "text": "Reducing the order lot sizes"
+            }
+          ],
+          "correct": [
+            "A",
+            "C",
+            "D",
+            "E"
+          ],
+          "explanation": "Koordinierte Prognosen (CPFR), kleinere Bestelllose, stabile Preise, kürzere Lieferzeiten dämpfen den Effekt. Grosse, seltene Batch-Bestellungen verstärken ihn.",
+          "topics": [
+            "Bullwhip",
+            "Gegenmassnahmen"
+          ]
+        },
+        {
+          "id": "om-quiz-b4-q15",
+          "number": 15,
+          "text": "Which statements about postponement are correct?",
+          "type": "multiple_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "The pooled standard deviation of independent markets is √(σ1² + σ2² + … + σn²)."
+            },
+            {
+              "key": "B",
+              "text": "It increases the required safety stock because uncertainties of the markets simply add up."
+            },
+            {
+              "key": "C",
+              "text": "It allows flexible reaction to demand fluctuations in different sub-markets."
+            },
+            {
+              "key": "D",
+              "text": "It shifts the product configuration point towards the customer."
+            },
+            {
+              "key": "E",
+              "text": "It reduces the total safety stock needed."
+            }
+          ],
+          "correct": [
+            "A",
+            "C",
+            "D",
+            "E"
+          ],
+          "explanation": "Postponement: späte Differenzierung ⇒ Risk Pooling: σ_pool = √Σσ² < Σσ ⇒ weniger Sicherheitsbestand. Die Aussage «Unsicherheiten addieren sich» ist falsch (HS23 Q21).",
+          "topics": [
+            "Postponement",
+            "HS23",
+            "HS24"
+          ]
+        },
+        {
+          "id": "om-quiz-b4-q16",
+          "number": 16,
+          "text": "Which statements about supply chain simulation and bootstrap are correct?",
+          "type": "multiple_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Supply chains cannot always be optimised analytically; simulation is often necessary."
+            },
+            {
+              "key": "B",
+              "text": "Bootstrap resamples the observed data with replacement."
+            },
+            {
+              "key": "C",
+              "text": "Demand filled in a daily simulation equals MIN(available inventory, demand)."
+            },
+            {
+              "key": "D",
+              "text": "The stockout in a daily simulation equals MIN(available inventory, demand)."
+            },
+            {
+              "key": "E",
+              "text": "A single simulation run is a random result; several runs should be evaluated."
+            }
+          ],
+          "correct": [
+            "A",
+            "B",
+            "C",
+            "E"
+          ],
+          "explanation": "Simulation (Monte Carlo) bei nicht analytisch lösbaren Ketten; mehrfach laufen lassen; Bootstrap = Ziehen mit Zurücklegen; Demand Filled = MIN(Verfügbar, Nachfrage), Stockout = MAX(0, Nachfrage − Verfügbar).",
+          "topics": [
+            "Simulation",
+            "Bootstrap",
+            "HS24"
+          ]
+        }
+      ]
+    }
+  ]
+}

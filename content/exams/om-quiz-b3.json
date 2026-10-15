@@ -1,0 +1,610 @@
+{
+  "id": "om-quiz-b3",
+  "title": "OM Quiz — Block 3: Production Management",
+  "course": "OM",
+  "courseColor": "#ea580c",
+  "sortOrder": 22,
+  "durationMinutes": 24,
+  "totalPoints": 16,
+  "scoringRules": {
+    "single_choice": {
+      "correct": 1,
+      "wrong": 0,
+      "blank": 0
+    },
+    "multiple_choice": {
+      "allCorrect": 1,
+      "anyWrong": 0,
+      "blank": 0
+    }
+  },
+  "examInfo": {
+    "date": "HS 2026 — Übungsset",
+    "duration": "24 Minuten",
+    "format": "12 Single Choice + 4 Multiple Choice (Prüfungsstil, mit Rechenfragen)",
+    "allowedAids": "Taschenrechner / Excel erlaubt (Übung)",
+    "grading": "Übungsset ohne Note — Ziel: ≥ 60 % der Punkte"
+  },
+  "sections": [
+    {
+      "id": "part-a",
+      "title": "Part A – Single Choice (12 Points)",
+      "description": "Exactly one answer is correct.",
+      "points": 12,
+      "question_type": "single_choice",
+      "questions": [
+        {
+          "id": "om-quiz-b3-q01",
+          "number": 1,
+          "text": "In MRP II, Material Requirements Planning (MRP) is…",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "step 5 of 5 and is carried out daily"
+            },
+            {
+              "key": "B",
+              "text": "step 4 of 5 and is carried out weekly"
+            },
+            {
+              "key": "C",
+              "text": "step 4 of 6 and is carried out monthly"
+            },
+            {
+              "key": "D",
+              "text": "step 3 of 5 and is carried out annually"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "MRP II: 1 Business Planning, 2 S&OP/Aggregated Planning, 3 MPS, 4 MRP, 5 Production Activity Control/Scheduling. MRP ist Schritt 4 und wird wöchentlich gerechnet – nicht jährlich.",
+          "topics": [
+            "MRP II",
+            "Prüfungsklassiker"
+          ]
+        },
+        {
+          "id": "om-quiz-b3-q02",
+          "number": 2,
+          "text": "A chair consists of 1 seat (CHF 15), 4 legs and assembly work of CHF 8. Each leg costs CHF 5 own cost plus 2 bolts at CHF 0.50 each.\n\nWhat are the total costs of one chair?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "CHF 43"
+            },
+            {
+              "key": "B",
+              "text": "CHF 44"
+            },
+            {
+              "key": "C",
+              "text": "CHF 47"
+            },
+            {
+              "key": "D",
+              "text": "CHF 51"
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "Bottom-up: Bein = 5 + 2·0.5 = 6. Stuhl = 8 + 15 + 4·6 = 47. Ohne Schrauben: 43; Schrauben nur einmal pro Stuhl statt pro Bein: 44.",
+          "topics": [
+            "BOM",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b3-q03",
+          "number": 3,
+          "text": "MRP: gross requirements of a component in week 6 are 120 units, on-hand inventory is 45 units, scheduled receipts amount to 30 units.\n\nWhat is the net requirement?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "45 units"
+            },
+            {
+              "key": "B",
+              "text": "75 units"
+            },
+            {
+              "key": "C",
+              "text": "90 units"
+            },
+            {
+              "key": "D",
+              "text": "195 units"
+            }
+          ],
+          "correct": [
+            "A"
+          ],
+          "explanation": "Net = Gross − On-hand − Scheduled Receipts = 120 − 45 − 30 = 45.",
+          "topics": [
+            "MRP",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b3-q04",
+          "number": 4,
+          "text": "A component is needed in week 7. Its lead time is 3 weeks.\n\nIn which week must the planned order be released?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Week 10"
+            },
+            {
+              "key": "B",
+              "text": "Week 3"
+            },
+            {
+              "key": "C",
+              "text": "Week 4"
+            },
+            {
+              "key": "D",
+              "text": "Week 7"
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "Offset rückwärts: Bestelldatum = Bedarfsdatum − Lead Time = 7 − 3 = 4. Addieren (Woche 10) ist die klassische Falle.",
+          "topics": [
+            "MRP",
+            "Offset",
+            "Fehlerstelle"
+          ]
+        },
+        {
+          "id": "om-quiz-b3-q05",
+          "number": 5,
+          "text": "MRP with lot-for-lot ordering: on-hand at the start is 50 units, lead time 2 weeks, no scheduled receipts. Gross requirements: week 1: 20, week 2: 30, week 3: 40, week 4: 10.\n\nWhat quantity is released in week 1?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "10 units"
+            },
+            {
+              "key": "B",
+              "text": "20 units"
+            },
+            {
+              "key": "C",
+              "text": "40 units"
+            },
+            {
+              "key": "D",
+              "text": "50 units"
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "Bestand: W1 50−20 = 30; W2 30−30 = 0. W3 Netto = 40 ⇒ Release 2 Wochen früher = W1: 40. (W4 Netto 10 ⇒ Release W2: 10.)",
+          "topics": [
+            "MRP",
+            "Rechnen",
+            "Fehlerstelle"
+          ]
+        },
+        {
+          "id": "om-quiz-b3-q06",
+          "number": 6,
+          "text": "The MPS releases 80 bikes in week 5. Each bike needs 2 wheels. 60 wheels are on hand, no receipts are scheduled.\n\nWhat is the net requirement of wheels in week 5?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "60 units"
+            },
+            {
+              "key": "B",
+              "text": "100 units"
+            },
+            {
+              "key": "C",
+              "text": "160 units"
+            },
+            {
+              "key": "D",
+              "text": "220 units"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "Bruttobedarf des Kindes = 80·2 = 160; Netto = 160 − 60 = 100. Multi-Level-MRP: Release des Elternteils × BOM-Menge = Bruttobedarf des Kindes.",
+          "topics": [
+            "MRP",
+            "Multi-Level",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b3-q07",
+          "number": 7,
+          "text": "Chase strategy: a month requires 130 units, one worker produces 20 units per month.\n\nHow many workers are needed?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "6"
+            },
+            {
+              "key": "B",
+              "text": "6.5"
+            },
+            {
+              "key": "C",
+              "text": "7"
+            },
+            {
+              "key": "D",
+              "text": "8"
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "130/20 = 6.5 ⇒ aufrunden auf ganze Mitarbeiter: 7 (Ceiling).",
+          "topics": [
+            "Aggregated Planning",
+            "Chase",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b3-q08",
+          "number": 8,
+          "text": "Demand per month: 100, 160, 100, 140 units. One worker produces 20 units per month; 5 workers are employed at the start. Wage CHF 2'000 per worker and month, hiring cost CHF 1'000, firing cost CHF 1'500 per worker.\n\nWhat are the total costs of the chase strategy?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "CHF 50'000"
+            },
+            {
+              "key": "B",
+              "text": "CHF 54'500"
+            },
+            {
+              "key": "C",
+              "text": "CHF 59'500"
+            },
+            {
+              "key": "D",
+              "text": "CHF 64'000"
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "Workers 5, 8, 5, 7 ⇒ 25 Worker-Monate = 50'000. Einstellungen 3 + 2 = 5 ⇒ 5'000. Entlassungen 3 ⇒ 4'500. Total 59'500.",
+          "topics": [
+            "Chase",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b3-q09",
+          "number": 9,
+          "text": "Same data as in the previous question. How many workers does the level strategy employ (constant workforce, no negative inventory)?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "5"
+            },
+            {
+              "key": "B",
+              "text": "6"
+            },
+            {
+              "key": "C",
+              "text": "7"
+            },
+            {
+              "key": "D",
+              "text": "8"
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "Gesamtbedarf 500 / (4 Monate · 20) = 6.25 ⇒ 7. Mit 6 Mitarbeitern wäre der Lagerbestand in Monat 2 negativ (20 + 120 − 160 = −20).",
+          "topics": [
+            "Level",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b3-q10",
+          "number": 10,
+          "text": "Three jobs arrive at the same time: A (3 days, due day 8), B (5 days, due day 6), C (1 day, due day 4).\n\nWhat is the total tardiness under the SPT rule?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "3 days"
+            },
+            {
+              "key": "B",
+              "text": "0 days"
+            },
+            {
+              "key": "C",
+              "text": "7 days"
+            },
+            {
+              "key": "D",
+              "text": "1 day"
+            }
+          ],
+          "correct": [
+            "A"
+          ],
+          "explanation": "SPT = C, A, B: Completion 1, 4, 9 ⇒ Tardiness 0, 0, max(0, 9−6) = 3. (EDD: Total 1, FCFS A-B-C: Total 7.)",
+          "topics": [
+            "Scheduling",
+            "SPT",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b3-q11",
+          "number": 11,
+          "text": "Same three jobs. Which priority rule gives the smallest MAXIMUM tardiness?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "LPT (longest processing time)"
+            },
+            {
+              "key": "B",
+              "text": "FCFS (first come first served)"
+            },
+            {
+              "key": "C",
+              "text": "SPT (shortest processing time)"
+            },
+            {
+              "key": "D",
+              "text": "EDD (earliest due date)"
+            }
+          ],
+          "correct": [
+            "D"
+          ],
+          "explanation": "EDD (C, B, A): Completion 1, 6, 9 ⇒ Tardiness 0, 0, 1 ⇒ Max 1. SPT hat Max 3, FCFS Max 5. EDD minimiert die maximale Verspätung, SPT die mittlere Durchlaufzeit.",
+          "topics": [
+            "Scheduling",
+            "EDD"
+          ]
+        },
+        {
+          "id": "om-quiz-b3-q12",
+          "number": 12,
+          "text": "A manufacturer wants to assign 4 warehouses to 4 cities (each exactly once) at minimum transport cost using the Excel Solver. Which setup is appropriate?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Newsvendor model with critical ratio"
+            },
+            {
+              "key": "B",
+              "text": "Binary decision variables x_ij, row and column sums equal to 1, Simplex LP"
+            },
+            {
+              "key": "C",
+              "text": "Continuous variable alpha between 0 and 1, GRG Nonlinear"
+            },
+            {
+              "key": "D",
+              "text": "Exponential smoothing with Solver on the MSE"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "Zuordnungsproblem = LP mit binären Variablen x_ij ∈ {0,1}; Zeilen- und Spaltensummen = 1; Zielfunktion Σ c_ij·x_ij minimieren (Simplex LP).",
+          "topics": [
+            "LP",
+            "Solver"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-b",
+      "title": "Part B – Multiple Choice (4 Points)",
+      "description": "At least two answers are correct. Only the complete correct combination scores (no partial points).",
+      "points": 4,
+      "question_type": "multiple_choice",
+      "questions": [
+        {
+          "id": "om-quiz-b3-q13",
+          "number": 13,
+          "text": "Which statements about MRP II are correct?",
+          "type": "multiple_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Aggregated Planning determines, for example, how many employees and machines are required."
+            },
+            {
+              "key": "B",
+              "text": "The steps of MRP II are coordinated and give feedback to each other."
+            },
+            {
+              "key": "C",
+              "text": "Material Requirements Planning is the third step."
+            },
+            {
+              "key": "D",
+              "text": "MRP II consists of 5 steps."
+            },
+            {
+              "key": "E",
+              "text": "MRP is typically carried out annually."
+            }
+          ],
+          "correct": [
+            "A",
+            "B",
+            "D"
+          ],
+          "explanation": "5 Schritte: Business Planning, S&OP/Aggregated, MPS, MRP, Production Activity Control. Schritte sind koordiniert mit Feedback. MRP ist Schritt 4 und wöchentlich.",
+          "topics": [
+            "MRP II",
+            "HS23"
+          ]
+        },
+        {
+          "id": "om-quiz-b3-q14",
+          "number": 14,
+          "text": "Which statements about Just-in-Time (JIT) are correct?",
+          "type": "multiple_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "JIT requires flexible, multi-skilled employees."
+            },
+            {
+              "key": "B",
+              "text": "JIT follows the pull principle: actual demand drives production."
+            },
+            {
+              "key": "C",
+              "text": "The goal of JIT is to produce as fast as possible (Seiso)."
+            },
+            {
+              "key": "D",
+              "text": "Standardisation of processes and products is an important component."
+            },
+            {
+              "key": "E",
+              "text": "JIT is always superior to planning-based approaches like MRP II."
+            }
+          ],
+          "correct": [
+            "A",
+            "B",
+            "D"
+          ],
+          "explanation": "JIT = Pull (Kanban), Standardisierung (5S), flexible Mitarbeiter. Ziel ist nicht Geschwindigkeit, sondern Verschwendung vermeiden («genau dann, wenn nötig»). Seiso = Säubern (5S). JIT ist MRP II nicht per se überlegen.",
+          "topics": [
+            "JIT",
+            "Lean",
+            "HS23"
+          ]
+        },
+        {
+          "id": "om-quiz-b3-q15",
+          "number": 15,
+          "text": "Which statements about sequencing (scheduling) rules are correct?",
+          "type": "multiple_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "No priority rule is superior in all performance measures."
+            },
+            {
+              "key": "B",
+              "text": "SPT minimises the mean flow time of the jobs."
+            },
+            {
+              "key": "C",
+              "text": "EDD minimises the maximum tardiness."
+            },
+            {
+              "key": "D",
+              "text": "Sequencing is also relevant in the service sector."
+            },
+            {
+              "key": "E",
+              "text": "FCFS always leads to the lowest average tardiness."
+            }
+          ],
+          "correct": [
+            "A",
+            "B",
+            "C",
+            "D"
+          ],
+          "explanation": "SPT: mittlere Durchlaufzeit; EDD: maximale Verspätung; keine Regel dominiert überall; Sequenzplanung gilt auch für Services (Beratung, Praxis). FCFS ist nicht per se besser als SPT/EDD.",
+          "topics": [
+            "Scheduling",
+            "HS23",
+            "HS24"
+          ]
+        },
+        {
+          "id": "om-quiz-b3-q16",
+          "number": 16,
+          "text": "Which statements about chase and level strategy are correct?",
+          "type": "multiple_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "The chase strategy adapts the workforce to the demand of every month."
+            },
+            {
+              "key": "B",
+              "text": "The chase strategy leads to higher hiring and firing costs."
+            },
+            {
+              "key": "C",
+              "text": "The level strategy has no inventory holding costs."
+            },
+            {
+              "key": "D",
+              "text": "In the level strategy the inventory must not become negative."
+            },
+            {
+              "key": "E",
+              "text": "The level strategy uses inventory to absorb demand fluctuations."
+            }
+          ],
+          "correct": [
+            "A",
+            "B",
+            "D",
+            "E"
+          ],
+          "explanation": "Chase: Belegschaft folgt der Nachfrage ⇒ Einstellungs-/Entlassungskosten. Level: konstante Belegschaft ⇒ Lager (Haltekosten), Bestand darf nicht negativ werden. Level hat also gerade Lagerkosten.",
+          "topics": [
+            "Aggregated Planning",
+            "Chase",
+            "Level"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,599 @@
+{
+  "id": "om-quiz-b1",
+  "title": "OM Quiz — Block 1: Forecasting",
+  "course": "OM",
+  "courseColor": "#ea580c",
+  "sortOrder": 20,
+  "durationMinutes": 24,
+  "totalPoints": 16,
+  "scoringRules": {
+    "single_choice": {
+      "correct": 1,
+      "wrong": 0,
+      "blank": 0
+    },
+    "multiple_choice": {
+      "allCorrect": 1,
+      "anyWrong": 0,
+      "blank": 0
+    }
+  },
+  "examInfo": {
+    "date": "HS 2026 — Übungsset",
+    "duration": "24 Minuten",
+    "format": "12 Single Choice + 4 Multiple Choice (Prüfungsstil, mit Rechenfragen)",
+    "allowedAids": "Taschenrechner / Excel erlaubt (Übung)",
+    "grading": "Übungsset ohne Note — Ziel: ≥ 60 % der Punkte"
+  },
+  "sections": [
+    {
+      "id": "part-a",
+      "title": "Part A – Single Choice (12 Points)",
+      "description": "Exactly one answer is correct.",
+      "points": 12,
+      "question_type": "single_choice",
+      "questions": [
+        {
+          "id": "om-quiz-b1-q01",
+          "number": 1,
+          "text": "A company has to set the size of a new call centre but has no own experience. A relationship between the number of key products sold and the number of incoming calls can be assumed.\n\nWhich method class should be preferred first?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Time series method (moving average of past calls)"
+            },
+            {
+              "key": "B",
+              "text": "Naive method (last observed value)"
+            },
+            {
+              "key": "C",
+              "text": "Qualitative method (expert opinion only)"
+            },
+            {
+              "key": "D",
+              "text": "Causal method (regression on products sold)"
+            }
+          ],
+          "correct": [
+            "D"
+          ],
+          "explanation": "Die Anrufzahl (abhängige Variable) hängt von den verkauften Produkten (unabhängige Variable) ab. Ohne eigene Historie ist die Time-Series-Methode nicht möglich, die Regression nutzt den bekannten Treiber.",
+          "topics": [
+            "Forecasting-Methoden",
+            "Causal"
+          ]
+        },
+        {
+          "id": "om-quiz-b1-q02",
+          "number": 2,
+          "text": "Which formula calculates the MAPE for a single period t?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "|Actual_t − Forecast_t| / Forecast_t"
+            },
+            {
+              "key": "B",
+              "text": "|Actual_t − Forecast_t| / Actual_t"
+            },
+            {
+              "key": "C",
+              "text": "(Actual_t − Forecast_t)² / Actual_t"
+            },
+            {
+              "key": "D",
+              "text": "(Actual_t − Forecast_t) / Actual_t"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "MAPE = |Ist − Prognose| / Ist. Ohne Betrag wäre es der (vorzeichenbehaftete) relative Fehler, mit Prognose im Nenner falsche Basis, quadriert wäre es eine MSE-Variante.",
+          "topics": [
+            "MAPE",
+            "Fehlermasse"
+          ]
+        },
+        {
+          "id": "om-quiz-b1-q03",
+          "number": 3,
+          "text": "A series has 36 monthly observations. A moving average MA(4) is used. For how many periods can MAD, MSE and MAPE be calculated?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "31"
+            },
+            {
+              "key": "B",
+              "text": "32"
+            },
+            {
+              "key": "C",
+              "text": "35"
+            },
+            {
+              "key": "D",
+              "text": "36"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "MA(4) liefert die erste Prognose in Periode 5. Fehler existieren nur für die Perioden 5 bis 36, also 36 − 4 = 32 Werte.",
+          "topics": [
+            "Moving Average",
+            "Fehlermasse"
+          ]
+        },
+        {
+          "id": "om-quiz-b1-q04",
+          "number": 4,
+          "text": "Exponential smoothing with α = 0.4: the last actual value is y_t = 50 and the last forecast is F_t = 40.\n\nWhat is the forecast for the next period?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "42"
+            },
+            {
+              "key": "B",
+              "text": "44"
+            },
+            {
+              "key": "C",
+              "text": "45"
+            },
+            {
+              "key": "D",
+              "text": "46"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "F(t+1) = 0.4 · 50 + 0.6 · 40 = 20 + 24 = 44.",
+          "topics": [
+            "Exponential Smoothing"
+          ]
+        },
+        {
+          "id": "om-quiz-b1-q05",
+          "number": 5,
+          "text": "The last three monthly demands are y(t−1) = 120, y(t−2) = 100, y(t−3) = 80. A weighted moving average uses the weights 0.5 (t−1), 0.3 (t−2), 0.2 (t−3).\n\nWhat is the forecast for the next month?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "100"
+            },
+            {
+              "key": "B",
+              "text": "103"
+            },
+            {
+              "key": "C",
+              "text": "106"
+            },
+            {
+              "key": "D",
+              "text": "110"
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "WMA = 0.5·120 + 0.3·100 + 0.2·80 = 60 + 30 + 16 = 106. Der einfache Durchschnitt wäre 100; das höchste Gewicht gehört zum neuesten Wert.",
+          "topics": [
+            "WMA"
+          ]
+        },
+        {
+          "id": "om-quiz-b1-q06",
+          "number": 6,
+          "text": "Actual demand: 10, 12, 14, 16. Forecast: 11, 11, 15, 13.\n\nWhat is the Mean Absolute Deviation (MAD)?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "1.00"
+            },
+            {
+              "key": "B",
+              "text": "1.50"
+            },
+            {
+              "key": "C",
+              "text": "2.00"
+            },
+            {
+              "key": "D",
+              "text": "3.00"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "Fehler = −1, +1, −1, +3 ⇒ Beträge 1, 1, 1, 3 ⇒ MAD = 6/4 = 1.5. (MSE wäre (1+1+1+9)/4 = 3; ME = 0.5.)",
+          "topics": [
+            "MAD",
+            "Fehlermasse"
+          ]
+        },
+        {
+          "id": "om-quiz-b1-q07",
+          "number": 7,
+          "text": "Quarterly sales are decomposed with a centered moving average CMA(4). For which period t is the FIRST CMA(4) value available?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "t = 5"
+            },
+            {
+              "key": "B",
+              "text": "t = 1"
+            },
+            {
+              "key": "C",
+              "text": "t = 2"
+            },
+            {
+              "key": "D",
+              "text": "t = 3"
+            }
+          ],
+          "correct": [
+            "D"
+          ],
+          "explanation": "Gerades k = 4: MA über t = 1..4 und t = 2..5 werden zentriert und gehören zu t = 3. Am Anfang und am Ende fehlen je k/2 = 2 Perioden.",
+          "topics": [
+            "CMA",
+            "Saisonalität"
+          ]
+        },
+        {
+          "id": "om-quiz-b1-q08",
+          "number": 8,
+          "text": "For the first quarter, the seasonal ratios of three years are 0.80, 0.84 and 0.88.\n\nWhat is the seasonal index of the first quarter?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "0.80"
+            },
+            {
+              "key": "B",
+              "text": "0.84"
+            },
+            {
+              "key": "C",
+              "text": "0.88"
+            },
+            {
+              "key": "D",
+              "text": "0.92"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "Der Seasonal Index ist der Durchschnitt aller Seasonal Ratios derselben Saison: (0.80 + 0.84 + 0.88)/3 = 0.84. Der Index bedeutet: Q1 liegt im Schnitt 16 % unter dem Durchschnitt.",
+          "topics": [
+            "Seasonal Index",
+            "Saisonalität"
+          ]
+        },
+        {
+          "id": "om-quiz-b1-q09",
+          "number": 9,
+          "text": "A regression on the deseasonalized demand gives Demand = 1'200 + 15·t. The seasonal index of the target month is 0.90.\n\nWhat is the seasonal forecast for t = 40?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "1'350"
+            },
+            {
+              "key": "B",
+              "text": "1'620"
+            },
+            {
+              "key": "C",
+              "text": "1'740"
+            },
+            {
+              "key": "D",
+              "text": "1'800"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "Trend t = 40: 1'200 + 600 = 1'800. Re-Seasonalisierung durch Multiplikation: 1'800 · 0.90 = 1'620. Division würde 2'000 ergeben.",
+          "topics": [
+            "Decomposition",
+            "Trend"
+          ]
+        },
+        {
+          "id": "om-quiz-b1-q10",
+          "number": 10,
+          "text": "A linear trend analysis on 60 weeks of data gives intercept 100 and slope 4 per week.\n\nWhat is the forecast for week 61?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "304"
+            },
+            {
+              "key": "B",
+              "text": "340"
+            },
+            {
+              "key": "C",
+              "text": "344"
+            },
+            {
+              "key": "D",
+              "text": "348"
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "ŷ = 100 + 4 · 61 = 344. Der x-Wert ist der Zeitindex der Zielwoche (61), nicht 60.",
+          "topics": [
+            "Linear Trend",
+            "Excel"
+          ]
+        },
+        {
+          "id": "om-quiz-b1-q11",
+          "number": 11,
+          "text": "In a decomposition, the seasonal ratio of an observation is calculated as…",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "actual demand divided by the CMA"
+            },
+            {
+              "key": "B",
+              "text": "actual demand divided by the fitted trend line"
+            },
+            {
+              "key": "C",
+              "text": "CMA divided by the annual average"
+            },
+            {
+              "key": "D",
+              "text": "actual demand multiplied by the CMA"
+            }
+          ],
+          "correct": [
+            "A"
+          ],
+          "explanation": "Seasonal Ratio = Ist / CMA, denn der CMA glättet die Saison heraus. Wer durch die Trendgerade teilt, erhält falsche Indices (Summe ≠ k).",
+          "topics": [
+            "CMA",
+            "Seasonal Ratio",
+            "Fehlerstelle"
+          ]
+        },
+        {
+          "id": "om-quiz-b1-q12",
+          "number": 12,
+          "text": "Quarterly series of 12 periods: a fit with MAPE 8 % for method A and 11 % for method B. What can be concluded?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Method A is on average closer to the actual values in relative terms"
+            },
+            {
+              "key": "B",
+              "text": "Both methods are equally good"
+            },
+            {
+              "key": "C",
+              "text": "No conclusion is possible because MAPE has a unit"
+            },
+            {
+              "key": "D",
+              "text": "Method B is better because its MAPE is higher"
+            }
+          ],
+          "correct": [
+            "A"
+          ],
+          "explanation": "Kleineres MAPE = im Mittel geringere relative Abweichung. MAPE ist einheitenlos und gerade deshalb zum Methodenvergleich geeignet.",
+          "topics": [
+            "MAPE",
+            "Methodenvergleich"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-b",
+      "title": "Part B – Multiple Choice (4 Points)",
+      "description": "At least two answers are correct. Only the complete correct combination scores (no partial points).",
+      "points": 4,
+      "question_type": "multiple_choice",
+      "questions": [
+        {
+          "id": "om-quiz-b1-q13",
+          "number": 13,
+          "text": "Which statements about forecast error measures are correct?",
+          "type": "multiple_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "The MSE puts more weight on large deviations than on small ones."
+            },
+            {
+              "key": "B",
+              "text": "The MAD is not suitable if the actual demand can be zero."
+            },
+            {
+              "key": "C",
+              "text": "If the ME is 0, the MSE is also 0."
+            },
+            {
+              "key": "D",
+              "text": "The MAPE is not suitable if the actual demand can become zero."
+            },
+            {
+              "key": "E",
+              "text": "The Mean Error (ME) is not suitable for the final evaluation because positive and negative errors cancel out."
+            }
+          ],
+          "correct": [
+            "A",
+            "D",
+            "E"
+          ],
+          "explanation": "ME: Fehler gleichen sich aus. MSE quadriert und bestraft grosse Fehler überproportional. MAPE teilt durch Ist ⇒ Problem bei 0. MAD ist ein Betragsmittel und nie negativ und hat kein Nullproblem. ME = 0 sagt nichts über Einzelfehler.",
+          "topics": [
+            "Fehlermasse",
+            "Prüfungsklassiker"
+          ]
+        },
+        {
+          "id": "om-quiz-b1-q14",
+          "number": 14,
+          "text": "Which statements about exponential smoothing are correct?",
+          "type": "multiple_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Simplex LP is the appropriate Solver method for optimising α."
+            },
+            {
+              "key": "B",
+              "text": "With a rising trend the forecast tends to lag below the actual demand."
+            },
+            {
+              "key": "C",
+              "text": "An α close to 0 means that the forecast follows the last actual value almost exactly."
+            },
+            {
+              "key": "D",
+              "text": "A larger α makes the forecast react faster to recent changes."
+            },
+            {
+              "key": "E",
+              "text": "The smoothing factor can be optimised with the Excel Solver (GRG Nonlinear)."
+            }
+          ],
+          "correct": [
+            "B",
+            "D",
+            "E"
+          ],
+          "explanation": "Startwert F1 = y1. Grosses α = reaktiv. Bei steigendem Trend hinkt ES hinterher. α wird per GRG Nonlinear optimiert, nicht per Simplex LP (nicht-linear). α → 0 heisst fast keine Anpassung, α → 1 folgt dem letzten Wert.",
+          "topics": [
+            "Exponential Smoothing",
+            "Solver"
+          ]
+        },
+        {
+          "id": "om-quiz-b1-q15",
+          "number": 15,
+          "text": "Which statements about seasonal decomposition with the CMA are correct?",
+          "type": "multiple_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "For an even k (e.g. 12) a centering step is required."
+            },
+            {
+              "key": "B",
+              "text": "The seasonal indices of 12 months should add up to approximately 12."
+            },
+            {
+              "key": "C",
+              "text": "Reseasonalizing a trend forecast is done by dividing by the seasonal index."
+            },
+            {
+              "key": "D",
+              "text": "The seasonal forecast is obtained by multiplying the trend value by the seasonal index."
+            },
+            {
+              "key": "E",
+              "text": "The last six periods of a CMA(12) can be calculated with the same formula."
+            }
+          ],
+          "correct": [
+            "A",
+            "B",
+            "D"
+          ],
+          "explanation": "Gerades k braucht Zentrierung (Mittel zweier MAs), ungerades nicht. Indices summieren zu ≈ k. Re-Seasonalisierung = Multiplikation. Am Ende fehlen k/2 = 6 Perioden (not possible to calculate).",
+          "topics": [
+            "CMA",
+            "Decomposition",
+            "Prüfungsklassiker"
+          ]
+        },
+        {
+          "id": "om-quiz-b1-q16",
+          "number": 16,
+          "text": "Which statements about forecasting method classes are correct?",
+          "type": "multiple_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Qualitative methods are suitable when no or only expensive quantitative data is available."
+            },
+            {
+              "key": "B",
+              "text": "Causal methods can only be used for short-term forecasts."
+            },
+            {
+              "key": "C",
+              "text": "Time series methods assume that the past is relevant for the future."
+            },
+            {
+              "key": "D",
+              "text": "Qualitative methods are the first choice when long, clean historical data exists."
+            },
+            {
+              "key": "E",
+              "text": "Causal methods model the demand as a function of explanatory variables."
+            }
+          ],
+          "correct": [
+            "A",
+            "C",
+            "E"
+          ],
+          "explanation": "Qualitativ: fehlende/teure Daten, Neuprodukte (z. B. Delphi). Zeitreihen: Vergangenheit ist relevant. Kausal: Regression mit Treibern (Preis, Temperatur). Bei langer Historie ist qualitativ gerade nicht die erste Wahl.",
+          "topics": [
+            "Forecasting-Methoden"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,611 @@
+{
+  "id": "om-quiz-b5",
+  "title": "OM Quiz — Block 5: Revenue Management",
+  "course": "OM",
+  "courseColor": "#ea580c",
+  "sortOrder": 24,
+  "durationMinutes": 24,
+  "totalPoints": 16,
+  "scoringRules": {
+    "single_choice": {
+      "correct": 1,
+      "wrong": 0,
+      "blank": 0
+    },
+    "multiple_choice": {
+      "allCorrect": 1,
+      "anyWrong": 0,
+      "blank": 0
+    }
+  },
+  "examInfo": {
+    "date": "HS 2026 — Übungsset",
+    "duration": "24 Minuten",
+    "format": "12 Single Choice + 4 Multiple Choice (Prüfungsstil, mit Rechenfragen)",
+    "allowedAids": "Taschenrechner / Excel erlaubt (Übung)",
+    "grading": "Übungsset ohne Note — Ziel: ≥ 60 % der Punkte"
+  },
+  "sections": [
+    {
+      "id": "part-a",
+      "title": "Part A – Single Choice (12 Points)",
+      "description": "Exactly one answer is correct.",
+      "points": 12,
+      "question_type": "single_choice",
+      "questions": [
+        {
+          "id": "om-quiz-b5-q01",
+          "number": 1,
+          "text": "Which condition is typically NOT favourable for revenue management?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Perishable capacity (unsold seats have no value after the event)"
+            },
+            {
+              "key": "B",
+              "text": "Constant demand and high marginal cost per additional customer"
+            },
+            {
+              "key": "C",
+              "text": "Segmentable demand with different willingness to pay"
+            },
+            {
+              "key": "D",
+              "text": "Fixed capacity in the short term"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "RM braucht verderbliche Kapazität, segmentierbare Nachfrage, kurzfristig fixe Kapazität, volatile Nachfrage und niedrige Grenzkosten. Konstante Nachfrage und hohe Grenzkosten sprechen dagegen.",
+          "topics": [
+            "Revenue Management",
+            "Voraussetzungen",
+            "HS23"
+          ]
+        },
+        {
+          "id": "om-quiz-b5-q02",
+          "number": 2,
+          "text": "Five potential customers have the following willingness to pay (WTP): CHF 6, 8, 10, 12 and 15. A customer buys if WTP ≥ price.\n\nWhich single price maximises the revenue?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "CHF 6"
+            },
+            {
+              "key": "B",
+              "text": "CHF 8"
+            },
+            {
+              "key": "C",
+              "text": "CHF 10"
+            },
+            {
+              "key": "D",
+              "text": "CHF 12"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "Umsatz: Preis 6 → 5·6 = 30; 8 → 4·8 = 32; 10 → 3·10 = 30; 12 → 2·12 = 24; 15 → 15. Maximum bei 8.",
+          "topics": [
+            "WTP",
+            "Preisoptimierung",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b5-q03",
+          "number": 3,
+          "text": "A survey covering 1 % of the target market (40 respondents) shows that 12 respondents would buy at a price of CHF 90.\n\nHow large is the market demand at CHF 90?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "12 units"
+            },
+            {
+              "key": "B",
+              "text": "120 units"
+            },
+            {
+              "key": "C",
+              "text": "1'200 units"
+            },
+            {
+              "key": "D",
+              "text": "4'000 units"
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "Market Demand = Sample Demand / Anteil = 12 / 0.01 = 1'200. Excel: Sample Demand =COUNTIF(WTP; \">=\"&Preis).",
+          "topics": [
+            "WTP",
+            "Nachfragekurve",
+            "Excel"
+          ]
+        },
+        {
+          "id": "om-quiz-b5-q04",
+          "number": 4,
+          "text": "The demand is linear: D(p) = 1'000 − 10·p, the marginal cost is zero and the capacity is 400 units.\n\nWhich price should be set?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "CHF 40"
+            },
+            {
+              "key": "B",
+              "text": "CHF 50"
+            },
+            {
+              "key": "C",
+              "text": "CHF 60"
+            },
+            {
+              "key": "D",
+              "text": "CHF 100"
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "Unbeschränktes Umsatzmaximum bei p = a/(2b) = 50 mit D = 500 > Kapazität 400. Deshalb Preis, bei dem D = 400: p = (1'000 − 400)/10 = 60.",
+          "topics": [
+            "Preisoptimierung",
+            "Kapazität",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b5-q05",
+          "number": 5,
+          "text": "The demand follows D(p) = a·e^(−0.002·p) with zero marginal cost.\n\nWhich price maximises the revenue?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "CHF 0.002"
+            },
+            {
+              "key": "B",
+              "text": "CHF 250"
+            },
+            {
+              "key": "C",
+              "text": "CHF 500"
+            },
+            {
+              "key": "D",
+              "text": "CHF 1'000"
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "Umsatz p·a·e^(−bp): Ableitung ergibt p* = 1/b = 1/0.002 = 500. Mit Grenzkosten c wäre p* = c + 1/b.",
+          "topics": [
+            "Preisoptimierung",
+            "Exponentiell",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b5-q06",
+          "number": 6,
+          "text": "Littlewood: high fare p_H = CHF 200, low fare p_L = CHF 50, demand of the high-fare class D_H ~ N(80, 20²), capacity 150.\n\nHow many seats should be protected for the high fare (z = 0.674 for 75 %)?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "about 67 seats"
+            },
+            {
+              "key": "B",
+              "text": "about 93 seats"
+            },
+            {
+              "key": "C",
+              "text": "about 107 seats"
+            },
+            {
+              "key": "D",
+              "text": "about 80 seats"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "P(D_H > y*) = p_L/p_H = 0.25 ⇒ z = NORM.S.INV(0.75) = 0.674 ⇒ y* = 80 + 0.674·20 ≈ 93.5. Booking Limit Low = 150 − 93 = 57.",
+          "topics": [
+            "Littlewood",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b5-q07",
+          "number": 7,
+          "text": "A flight has 100 seats and a show-up rate of 95 %. The airline accepts 105 bookings.\n\nHow many passengers are expected to show up?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "95.0"
+            },
+            {
+              "key": "B",
+              "text": "99.75"
+            },
+            {
+              "key": "C",
+              "text": "100.0"
+            },
+            {
+              "key": "D",
+              "text": "105.0"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "105 · 0.95 = 99.75. Das Risiko, dass mehr als 100 erscheinen, hängt von der Streuung ab (Binomial); Overbooking bis P(Shows ≥ C) ≤ p/(p + c_d).",
+          "topics": [
+            "Overbooking",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b5-q08",
+          "number": 8,
+          "text": "Four customers have WTP for product A: 10, 2, 6, 5 and for product B: 2, 10, 5, 6. All costs are zero.\n\nWhat is the maximum total revenue of pure bundling (one price for A + B)?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "30"
+            },
+            {
+              "key": "B",
+              "text": "40"
+            },
+            {
+              "key": "C",
+              "text": "44"
+            },
+            {
+              "key": "D",
+              "text": "48"
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "Bundle-WTP: 12, 12, 11, 11 ⇒ Preis 11 ⇒ alle 4 kaufen ⇒ 44. Einzeln: A bester Preis 5 ⇒ 15, B ebenso 15 ⇒ 30. Bündelung lohnt hier wegen der negativ korrelierten WTP.",
+          "topics": [
+            "Bundling",
+            "Rechnen"
+          ]
+        },
+        {
+          "id": "om-quiz-b5-q09",
+          "number": 9,
+          "text": "Which of the following is NOT a valid segmentation criterion (fence) for price differentiation?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Product variant (business vs. economy)"
+            },
+            {
+              "key": "B",
+              "text": "Booking time (early bird vs. last minute)"
+            },
+            {
+              "key": "C",
+              "text": "Religion of the customer"
+            },
+            {
+              "key": "D",
+              "text": "Region of the customer"
+            }
+          ],
+          "correct": [
+            "C"
+          ],
+          "explanation": "Gültige Fences: Region, Produktvariante, Buchungszeitpunkt, Flexibilität, Kanal. Religion/Ethnizität sind diskriminierend und unzulässig.",
+          "topics": [
+            "Fencing",
+            "HS23",
+            "HS24"
+          ]
+        },
+        {
+          "id": "om-quiz-b5-q10",
+          "number": 10,
+          "text": "In a bundling or two-part-tariff spreadsheet, a customer's WTP minus the price is negative for one option.\n\nHow should this value be treated?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Set to 0, because the customer simply does not buy that option"
+            },
+            {
+              "key": "B",
+              "text": "Replace it with the price"
+            },
+            {
+              "key": "C",
+              "text": "Keep it negative, because it reduces the revenue"
+            },
+            {
+              "key": "D",
+              "text": "Delete the customer from the sample"
+            }
+          ],
+          "correct": [
+            "A"
+          ],
+          "explanation": "Negative Konsumentenrente ⇒ Kauf findet nicht statt ⇒ Wert 0 (=MAX(0; WTP−Preis)). Typische Fehlerstelle bei Mixed Bundling und Two-Part Tariff.",
+          "topics": [
+            "Bundling",
+            "Two-Part Tariff",
+            "Fehlerstelle"
+          ]
+        },
+        {
+          "id": "om-quiz-b5-q11",
+          "number": 11,
+          "text": "Which sentence about the relationship between overbooking and the newsvendor logic is correct?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Overbooking only makes sense if all passengers show up"
+            },
+            {
+              "key": "B",
+              "text": "Overbooking follows newsvendor logic: Cu = revenue of an empty seat, Co = cost of denied service"
+            },
+            {
+              "key": "C",
+              "text": "Overbooking is limited to physical products"
+            },
+            {
+              "key": "D",
+              "text": "Overbooking has nothing to do with the newsvendor model"
+            }
+          ],
+          "correct": [
+            "B"
+          ],
+          "explanation": "Weitere Buchung annehmen, solange P(Shows ≥ C) ≤ p/(p + c_d): Der leere Platz entspricht den Underage-Kosten, die Verweigerung den Overage-Kosten.",
+          "topics": [
+            "Overbooking",
+            "Newsvendor"
+          ]
+        },
+        {
+          "id": "om-quiz-b5-q12",
+          "number": 12,
+          "text": "An airline sells economy tickets at CHF 120 and business tickets at CHF 400 for the same flight. Which concept does this illustrate?",
+          "type": "single_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Price differentiation by product variant (fencing)"
+            },
+            {
+              "key": "B",
+              "text": "Bullwhip effect"
+            },
+            {
+              "key": "C",
+              "text": "Overbooking"
+            },
+            {
+              "key": "D",
+              "text": "Resource bundling"
+            }
+          ],
+          "correct": [
+            "A"
+          ],
+          "explanation": "Zwei Produktvarianten für Segmente mit unterschiedlicher Zahlungsbereitschaft, abgesichert durch Leistungsunterschiede (Fence).",
+          "topics": [
+            "Preisdifferenzierung",
+            "Fencing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "part-b",
+      "title": "Part B – Multiple Choice (4 Points)",
+      "description": "At least two answers are correct. Only the complete correct combination scores (no partial points).",
+      "points": 4,
+      "question_type": "multiple_choice",
+      "questions": [
+        {
+          "id": "om-quiz-b5-q13",
+          "number": 13,
+          "text": "When is revenue management typically used?",
+          "type": "multiple_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Demand is constant over time"
+            },
+            {
+              "key": "B",
+              "text": "Capacity is fixed in the short term"
+            },
+            {
+              "key": "C",
+              "text": "Goods cannot be stored"
+            },
+            {
+              "key": "D",
+              "text": "Demand can be segmented"
+            },
+            {
+              "key": "E",
+              "text": "Marginal costs of an additional customer are low"
+            }
+          ],
+          "correct": [
+            "B",
+            "C",
+            "D",
+            "E"
+          ],
+          "explanation": "Voraussetzungen: nicht lagerbar, segmentierbar, fixe Kapazität, niedrige Grenzkosten, volatile Nachfrage. Konstante Nachfrage ist keine Voraussetzung.",
+          "topics": [
+            "Revenue Management",
+            "Voraussetzungen",
+            "HS23"
+          ]
+        },
+        {
+          "id": "om-quiz-b5-q14",
+          "number": 14,
+          "text": "Which statements about revenue management are correct?",
+          "type": "multiple_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "It assumes that demand depends on the price."
+            },
+            {
+              "key": "B",
+              "text": "Product bundling is one of the classic methods."
+            },
+            {
+              "key": "C",
+              "text": "It is limited to product companies, because services cannot be stored."
+            },
+            {
+              "key": "D",
+              "text": "It refers to methods for optimising revenue and profit."
+            },
+            {
+              "key": "E",
+              "text": "It is especially relevant for services such as airlines and hotels."
+            }
+          ],
+          "correct": [
+            "A",
+            "B",
+            "D",
+            "E"
+          ],
+          "explanation": "Definition und Preisabhängigkeit der Nachfrage sind zentral; Product Bundling ist klassisch; RM ist besonders für Dienstleistungen relevant (nicht lagerbar), nicht auf Produktunternehmen beschränkt.",
+          "topics": [
+            "Revenue Management",
+            "HS23"
+          ]
+        },
+        {
+          "id": "om-quiz-b5-q15",
+          "number": 15,
+          "text": "Which statements about valid fences are correct?",
+          "type": "multiple_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "Booking lead time is a valid fence."
+            },
+            {
+              "key": "B",
+              "text": "Geographic location or a verified student status can be used as a fence."
+            },
+            {
+              "key": "C",
+              "text": "Income is always an easily enforceable fence."
+            },
+            {
+              "key": "D",
+              "text": "Religion is a valid fence as long as it is easy to verify."
+            },
+            {
+              "key": "E",
+              "text": "Ticket flexibility (refundable vs. non-refundable) is a valid fence."
+            }
+          ],
+          "correct": [
+            "A",
+            "B",
+            "E"
+          ],
+          "explanation": "Gültig: Buchungszeitpunkt, Flexibilität, Geografie/Status. Religion ist diskriminierend; Einkommen ist schwer verifizierbar und rechtlich heikel.",
+          "topics": [
+            "Fencing",
+            "HS24"
+          ]
+        },
+        {
+          "id": "om-quiz-b5-q16",
+          "number": 16,
+          "text": "Which statements about bundling and non-linear pricing are correct?",
+          "type": "multiple_choice",
+          "points": 1,
+          "choices": [
+            {
+              "key": "A",
+              "text": "A two-part tariff consists of a fixed fee and a usage-dependent price."
+            },
+            {
+              "key": "B",
+              "text": "In pure bundling the single products are also offered separately."
+            },
+            {
+              "key": "C",
+              "text": "Bundling is most profitable when the WTPs of the products are negatively correlated."
+            },
+            {
+              "key": "D",
+              "text": "Bundling is never profitable if customers have different WTPs."
+            },
+            {
+              "key": "E",
+              "text": "In mixed bundling the bundle and the single products are offered."
+            }
+          ],
+          "correct": [
+            "A",
+            "C",
+            "E"
+          ],
+          "explanation": "Negative Korrelation der WTP macht Bündelung attraktiv; Mixed Bundling = beides; Two-Part Tariff = Grundgebühr + Nutzungspreis. Pure Bundling bietet gerade keine Einzelprodukte.",
+          "topics": [
+            "Bundling",
+            "Two-Part Tariff",
+            "Non-Linear Pricing"
+          ]
+        }
+      ]
+    }
+  ]
+}

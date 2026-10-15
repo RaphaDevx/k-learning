@@ -1,0 +1,3460 @@
+[
+  {
+    "id": "om-hs26-b1-001",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Wozu dient Forecasting im Operations Management?",
+    "back": "Prognosen bilden die Grundlage für Bestands-, Kapazitäts- und Beschaffungsplanung. Beispiel Retail: Die Prognose bestimmt, wie viele Produkte bei den Lieferanten bestellt werden.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Grundlagen"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-002",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Welche drei Familien von Forecasting-Methoden unterscheidet der Kurs?",
+    "back": "Qualitative Methoden (Expertenurteil), Time-Series-Methoden (Muster aus Vergangenheitsdaten: MA, WMA, Exponential Smoothing, Trend, Decomposition) und Causal-Methoden (Regression: Nachfrage als Funktion erklärender Variablen).",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Methoden"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-003",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Wann setzt man qualitative Forecasting-Methoden ein, und welche Beispiele nennt der Kurs?",
+    "back": "Wenn quantitative Daten fehlen oder zu teuer zu beschaffen sind, bei Neuprodukten, langfristigen Prognosen und wenn Expertenwissen zentral ist. Beispiele: Delphi-Methode, Jury of Executive Opinion, Sales Force Composite, Consumer Market Study.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "qualitativ"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-004",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Wann sind Time-Series-Methoden angebracht?",
+    "back": "Wenn historische quantitative Daten vorliegen und die Vergangenheit für die Zukunft relevant ist (z. B. Absatz von Rasenmähern). Methoden: Moving Average, Weighted Moving Average, Exponential Smoothing, Trend Analysis, Decomposition.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Time Series"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-005",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Wann wählt man eine Causal Method (Regression) statt einer Time-Series-Methode?",
+    "back": "Wenn die Zielgrösse (abhängige Variable) von bekannten anderen Grössen abhängt, z. B. Temperatur und Softdrink-Absatz oder Zahl verkaufter Schlüsselprodukte und Zahl der Anrufe im Call Center. Einfache oder multiple Regression.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Causal",
+      "Regression"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-006",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "why",
+    "front": "Warum ist für die Grösse eines neuen Call Centers ohne Erfahrung eine Causal Method die erste Wahl (Quiz 1.1.c)?",
+    "back": "Weil ein Zusammenhang zwischen verkauften Schlüsselprodukten (unabhängige Variable) und eingehenden Anrufen (abhängige Variable) angenommen werden kann. Eine Zeitreihe fehlt (keine Erfahrung), aber der Treiber ist bekannt – genau das nutzt die Regression.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Causal",
+      "Quiz"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-007",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "cloze",
+    "front": "Naive Methode: $\\hat{y}_{t+1} = {{y_t}}$, die Prognose ist der {{letzte Ist-Wert}}.",
+    "back": "Einfachstes Benchmark-Modell: Prognose = letzter beobachteter Wert. Jede komplexere Methode muss sich an der Naive-Prognose messen.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Naive"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-008",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Wie berechnet sich der Moving Average $MA(n)$ und ab welcher Periode liefert $MA(4)$ die erste Prognose?",
+    "back": "$\\hat{y}_{t+1}=\\frac{1}{n}\\sum_{i=0}^{n-1} y_{t-i}$. Für $MA(4)$ braucht man 4 Datenpunkte, die erste Prognose steht daher in Periode 5.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Moving Average"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-009",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Wie wirkt sich die Fensterlänge $n$ beim Moving Average aus?",
+    "back": "Grosses $n$: stärker geglättet, weniger Rauschen, aber träge (reagiert verzögert auf Trendwechsel). Kleines $n$: reaktiv, aber unruhig.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Moving Average"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-010",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "cloze",
+    "front": "Beim Weighted Moving Average (WMA) gilt $\\hat{y}_{t+1}=\\sum_i w_i\\, y_{t+1-i}$ mit der Bedingung $\\sum w_i = {{1}}$.",
+    "back": "Gewichte sind frei wählbar (typisch: neuere Perioden höher). In Excel immer prüfen, dass die Gewichte exakt auf 1.0 summieren – sonst ist die Prognose skaliert falsch.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "WMA"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-011",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Ist ein WMA mit gleichen Gewichten $1/n$ dasselbe wie der einfache Moving Average?",
+    "back": "Ja, bei gleicher Periodenzahl $n$ ist er identisch. Der Unterschied entsteht erst, wenn die Gewichte ungleich sind.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "WMA",
+      "Moving Average"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-012",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "HS24: Ein WMA gewichtet die Lags $t-1$, $t-3$, $t-5$ (nicht-konsekutiv). Ab welcher Periode ist die erste Prognose möglich?",
+    "back": "Der grösste Lag ist 5, also braucht man Daten bis zu $t-5$: Die erste Prognose steht in Periode 6, und MAPE/MAD/MSE werden erst ab dann gerechnet. Nicht-konsekutive Lags können saisonale Zyklen besser abbilden als konsekutive.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "WMA",
+      "HS24"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-013",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "why",
+    "front": "Warum liefert ein WMA bei fallender Nachfrage mit hohem Gewicht auf $t-5$ höhere Prognosewerte als einer mit hohem Gewicht auf $t-1$?",
+    "back": "Bei fallendem Trend sind ältere Werte höher als aktuelle. Wer die älteren Perioden stark gewichtet, mittelt also höhere Zahlen und liegt über dem Ist-Verlauf. Bei Trends sind höhere Gewichte auf aktuellen Werten besser (WMA ist hier dem einfachen MA überlegen).",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "WMA",
+      "Trend"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-014",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Wie lautet die Formel des Exponential Smoothing und was steuert $\\alpha$?",
+    "back": "$\\hat{y}_{t+1}=\\alpha\\, y_t+(1-\\alpha)\\,\\hat{y}_t$ mit $0<\\alpha<1$. $\\alpha$ ist das Gewicht des letzten Ist-Werts, $(1-\\alpha)$ das Gewicht der alten Prognose.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Exponential Smoothing"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-015",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Wie verhält sich Exponential Smoothing bei $\\alpha$ nahe 1 bzw. nahe 0?",
+    "back": "$\\alpha\\to 1$: Prognose folgt fast dem letzten Ist-Wert (wie Naive, reaktiv, unruhig). $\\alpha\\to 0$: Prognose bleibt fast bei der alten Prognose (stark geglättet, träge).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Exponential Smoothing",
+      "alpha"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-016",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "cloze",
+    "front": "Beim Exponential Smoothing ist die Startprognose $\\hat{y}_1 = {{y_1}}$; der erste Prognosefehler entsteht deshalb erst in Periode {{2}}.",
+    "back": "$\\hat{y}_1=y_1$ wird als fester Wert eingetragen (nicht als Formel). Für MAD/MSE/MAPE zählen bei ES die Perioden 2 bis $T$, also $T-1$ Fehlerwerte.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Exponential Smoothing"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-017",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "why",
+    "front": "Warum unterschätzt Exponential Smoothing bei einem steigenden Trend systematisch die Nachfrage?",
+    "back": "Die Prognose ist ein gewichteter Durchschnitt vergangener Werte, die alle unter dem aktuellen Niveau liegen. Sie hinkt dem Trend hinterher (lag). Das gilt auch für MA und WMA; ES bildet keinen Trend ab, solange keine Trendkomponente (Holt) ergänzt wird.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Exponential Smoothing",
+      "Trend"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-018",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Wie bestimmt man das optimale $\\alpha$ in Excel?",
+    "back": "Solver: Zielzelle = MAD oder MSE (Minimieren), veränderliche Zelle = $\\alpha$, Nebenbedingungen $0\\le\\alpha\\le 1$, Methode GRG Nonlinear. Startwert z. B. 0.5; bei Verdacht auf lokale Minima mit mehreren Startwerten wiederholen.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Exponential Smoothing",
+      "Solver",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-019",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Fehlerstelle: Welche Solver-Methode ist für die $\\alpha$-Optimierung falsch und warum?",
+    "back": "Simplex LP ist falsch: Das Modell ist nicht linear in $\\alpha$ (Rekursion, Quadrate bei MSE). Richtig ist GRG Nonlinear. Typische Fallen: Nebenbedingung $\\alpha\\le 1$ vergessen, $\\hat{y}_1$ als Formel statt fester Wert.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Solver",
+      "Fehlerstelle",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-020",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Wie sieht die Methode von Holt aus (Trend-Erweiterung des Exponential Smoothing)? (Zusatzwissen)",
+    "back": "Zwei Parameter: Niveau $L_t=\\alpha y_t+(1-\\alpha)(L_{t-1}+T_{t-1})$ und Trend $T_t=\\beta(L_t-L_{t-1})+(1-\\beta)T_{t-1}$. Prognose $\\hat{y}_{t+m}=L_t+m\\,T_t$. Holt-Winters ergänzt eine Saisonkomponente. Im Kurs-Kern stehen sonst MA, WMA, ES, linearer Trend und Decomposition.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Holt",
+      "Zusatz"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-021",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Was ist das Ziel der Linear Trend Analysis und mit wie vielen Konstanten wird die Gerade beschrieben?",
+    "back": "Eine Gerade $\\hat{y}_t=b_0+b_1 t$ so legen, dass die Summe der quadrierten Abweichungen (Sum of Squared Errors, Least Squares) zu den Datenpunkten minimal ist. Zwei Konstanten: Achsenabschnitt $b_0$ (Intercept) und Steigung $b_1$ (Slope), eine Variable ist die Zeit $t$.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Trend",
+      "Least Squares"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-022",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "cloze",
+    "front": "Excel-Linear-Trend: Steigung mit {{=SLOPE(y; t)}}, Achsenabschnitt mit {{=INTERCEPT(y; t)}}, Prognose direkt mit {{=FORECAST.LINEAR(x; y; t)}} (älter: FORECAST).",
+    "back": "Prognose für Woche 61 bei 60 Wochen Daten: $\\hat{y}_{61}=b_0+b_1\\cdot 61$ bzw. =FORECAST.LINEAR(61; y-Bereich; t-Bereich). Wichtig: das $x$ ist der Zeitindex $t$, nicht die Zeilennummer im Sheet.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Trend",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-023",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Wie wählt man in Excel zwischen Polynom 2. und 3. Grades als Trendlinie und wie erhält man die Prognose?",
+    "back": "Beide Trendlinien im Streudiagramm einfügen, Gleichung und $R^2$ anzeigen, die Kurve mit höherem $R^2$ nehmen, wenn sie visuell sinnvoll ist. Prognose: Zeitindex $t$ der Zielperiode in die Gleichung einsetzen (genug Dezimalstellen anzeigen).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Trend",
+      "Excel",
+      "R2"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-024",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Fehlerstelle (Decomposition 1.4.d): Warum ist es riskant, die Trendgleichung aus dem Diagramm abzutippen?",
+    "back": "1) Die Trendlinie kann über die falsche Datenreihe laufen (z. B. CMA statt saisonbereinigte Werte). 2) Die x-Achse beginnt beim ersten Datenpunkt (z. B. $t=7$ statt 1) und verschiebt die Gerade. 3) Gerundete Koeffizienten. Besser per Formel: =INTERCEPT(unseasoned; t) und =SLOPE(unseasoned; t).",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Decomposition",
+      "Fehlerstelle",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-025",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "cloze",
+    "front": "Der Prognosefehler ist $e_t = {{y_t - \\hat{y}_t}}$ (Ist minus Prognose).",
+    "back": "Positiver Fehler: Prognose zu tief (Unterschätzung). Negativer Fehler: Prognose zu hoch.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Fehlermasse"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-026",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "why",
+    "front": "Warum eignet sich der Mean Error (ME) nicht zur finalen Beurteilung einer Prognose?",
+    "back": "Positive und negative Fehler heben sich auf. Ein ME von 0 kann trotz grosser Einzelfehler entstehen. Der ME zeigt nur einen systematischen Bias (Über- oder Unterschätzung), nicht die Genauigkeit.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Fehlermasse",
+      "ME"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-027",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Worin unterscheiden sich MAD und MSE bei der Gewichtung grosser Fehler?",
+    "back": "MAD gewichtet alle Abweichungen linear (grosse nicht stärker als kleine). MSE quadriert: grosse Abweichungen zählen überproportional, kleine tragen weniger bei.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "MAD",
+      "MSE"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-028",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Welche Eigenschaft hat MAPE gegenüber MAD und MSE, und wann ist MAPE ungeeignet?",
+    "back": "MAPE ist einheitenlos (in %), daher vergleichbar über Produkte und Grössenordnungen; MAD und MSE sind skalenabhängig. Ungeeignet, wenn die Ist-Nachfrage 0 werden kann (Division durch $y_t$). Beachte: Nur MAPE hat dieses Nullproblem, MAD nicht.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "MAPE",
+      "MAD"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-029",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Wie interpretiert man ein MAPE von 18 %?",
+    "back": "Die Prognose weicht im Durchschnitt um 18 % vom tatsächlichen Wert ab (relativ zum Ist-Wert).",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "MAPE"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-030",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Welche der Masse ME, MAD, MSE, MAPE können negativ werden und gilt «ME = 0 ⇒ MSE = 0»?",
+    "back": "Nur der ME kann negativ sein. MAD, MSE, MAPE sind per Definition $\\ge 0$ (Betrag bzw. Quadrat). «ME = 0 ⇒ MSE = 0» gilt nicht: der MSE wird nur 0, wenn alle Einzelfehler 0 sind.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Fehlermasse",
+      "Quiz"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-031",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "FAQ-Falle: Für wie viele Perioden berechnet man MAD, MSE, MAPE bei WMA5 bzw. bei Exponential Smoothing?",
+    "back": "Nur für Perioden mit vorhandener Prognose. WMA5/MA5: erste Prognose in Periode 6, also $T-5$ Fehlerwerte. ES: erste Prognose in Periode 2 (mit $\\hat{y}_1=y_1$ in Periode 1 ohne Fehler), also $T-1$ Fehlerwerte. Leere Zeilen nicht mitmitteln.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Fehlermasse",
+      "FAQ",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-032",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Rechenbeispiel: Ist $y=(100,120,110,130)$, Prognose $\\hat y=(105,110,115,120)$. Wie gross sind MAD und MSE?",
+    "back": "Fehler $|e|=(5,10,5,10)$: $MAD=30/4=7.5$. Quadrate $(25,100,25,100)$: $MSE=250/4=62.5$.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "MAD",
+      "MSE",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-033",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Rechenbeispiel: Gleiche Daten $y=(100,120,110,130)$, $\\hat y=(105,110,115,120)$. Wie gross sind MAPE und ME?",
+    "back": "$|e|/y=(5.00\\%,\\,8.33\\%,\\,4.55\\%,\\,7.69\\%)$ → $MAPE\\approx 6.39\\%$. Fehler $e=(-5,+10,-5,+10)$ → $ME=+10/4=2.5$ (leichte Unterschätzung im Mittel).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "MAPE",
+      "ME",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-034",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Rechenbeispiel Exponential Smoothing: $y=(100,120,110,130)$, $\\alpha=0.3$, $\\hat y_1=100$. Wie lauten die Prognosen für Periode 2 bis 5?",
+    "back": "$\\hat y_2=0.3\\cdot100+0.7\\cdot100=100$; $\\hat y_3=0.3\\cdot120+0.7\\cdot100=106$; $\\hat y_4=0.3\\cdot110+0.7\\cdot106=107.2$; $\\hat y_5=0.3\\cdot130+0.7\\cdot107.2=114.04$.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Exponential Smoothing",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-035",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Rechenbeispiel: Letzte drei Werte $110, 130, 120$ (älteste zuerst). Wie gross sind $MA(3)$ und der WMA mit Gewichten $0.5/0.3/0.2$ (neuester Wert 0.5)?",
+    "back": "$MA(3)=(110+130+120)/3=120$. $WMA=0.5\\cdot120+0.3\\cdot130+0.2\\cdot110=60+39+22=121$. Achtung Reihenfolge: das grösste Gewicht gehört zum neuesten Wert (Lag 1).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "WMA",
+      "Moving Average",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-036",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Wie vergleicht man mehrere WMA-Gewichtsoptionen oder Methoden in Excel korrekt?",
+    "back": "Pro Option eine Prognosespalte (absolute Gewichte, relative Perioden: =w1*B3+w2*B2+w3*B1), daneben Fehlerspalte =ABS(B4-C4)/B4, dann MAPE =AVERAGE(Fehlerbereich) nur über Perioden mit Prognose. Option mit kleinstem MAPE wählen und damit die nächste Periode prognostizieren.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "WMA",
+      "MAPE",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-037",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Wie lautet das multiplikative Decomposition-Modell?",
+    "back": "Zeitreihe = Trend × Saisonindex (× Rest). Die Prognose entsteht durch Trendprognose multipliziert mit dem Saisonindex der Zielperiode.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Decomposition"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-038",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Welche 7 Schritte hat die Decomposition mit CMA (Merkregel, Reihenfolge)?",
+    "back": "1) CMA($k$) berechnen. 2) Seasonal Ratio $=y/\\mathrm{CMA}$. 3) Seasonal Index $=$ Mittel der Ratios pro Saison (AVERAGEIF), Summe $\\approx k$ prüfen. 4) Unseasoned $=y/SI$. 5) Trend per INTERCEPT/SLOPE auf den unseasoned Werten über $t$. 6) Prognose $=$ Trend$(t)\\times SI$. 7) Fehler (MAD/MSE/MAPE).",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Decomposition",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-039",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Wann braucht man beim Centered Moving Average einen Zentrierungsschritt?",
+    "back": "Nur bei geradem $k$ (z. B. 4 für Quartale, 12 für Monate): CMA $=$ Mittel zweier aufeinanderfolgender $k$-MAs. Bei ungeradem $k$ (z. B. 7 für Wochentage, 5) reicht das einfache zentrierte AVERAGE ohne Zentrierung.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "CMA",
+      "Seasonality"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-040",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Ab welcher Periode ist der erste CMA verfügbar, und wo fehlen die letzten Werte? (k = 4, 5, 7, 12)",
+    "back": "Es fehlen am Anfang und am Ende je $\\lfloor k/2\\rfloor$ Perioden: erster CMA bei $t=3$ ($k=4$), $t=3$ ($k=5$), $t=4$ ($k=7$), $t=7$ ($k=12$). Für die letzten Perioden gilt «not possible to calculate» (Prüfungsantwort bei Fragen nach Ratio im letzten Halbjahr).",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "CMA",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-041",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Wie lautet die korrekte CMA(12)-Formel in Excel für Zeile $t$ mit Nachfrage in F?",
+    "back": "13 Werte: die 11 mittleren voll, die zwei Randwerte je halb: =(SUM(F[t-5]:F[t+5]) + (F[t-6]+F[t+6])/2)/12, gleichwertig =(AVERAGE(F[t-6]:F[t+5]) + AVERAGE(F[t-5]:F[t+6]))/2. Beispiel Zeile 12: =(SUM(F7:F17)+(F6+F18)/2)/12.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "CMA",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-042",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Fehlerstelle 1.4.d: Was war falsch an =AVERAGE(F6:F12)+AVERAGE(F12:F18)/2 als CMA(12)?",
+    "back": "Zwei Fehler: 1) Klammern fehlen (Punkt vor Strich: nur der zweite Mittelwert wird halbiert), richtig wäre (…+…)/2. 2) Falsches Fenster: je 7 Monate statt 13 Werte. Folge: CMA ca. 36 % zu hoch.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "CMA",
+      "Fehlerstelle",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-043",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Was ist der Unterschied zwischen Seasonal Ratio und Seasonal Index?",
+    "back": "Seasonal Ratio $=y_t/\\mathrm{CMA}_t$ für jede einzelne Beobachtung. Seasonal Index $=$ Durchschnitt aller Ratios derselben Saison (z. B. alle Januare) über alle Jahre; in Excel AVERAGEIF.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Seasonality",
+      "Quiz"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-044",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Wie interpretiert man einen Seasonal Index von 0.91 bzw. 1.25?",
+    "back": "0.91: Die Saison hat im Mittel 9 % weniger Nachfrage als der Durchschnitt. 1.25: 25 % über dem Durchschnitt.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Seasonality"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-045",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Welche Kontrolle gilt für die Seasonal Indices einer Zeitreihe mit $k$ Saisons?",
+    "back": "Die Indices müssen sich zu etwa $k$ addieren (Mittelwert $\\approx 1$, bei Monaten Summe $\\approx 12$). Weicht die Summe deutlich ab (Fehlerfall: 7.82), ist die Ratio-Basis falsch.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Seasonality",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-046",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Fehlerstelle: Gegen welche Grösse teilt man die Nachfrage für die Seasonal Ratio – CMA oder Trendgerade?",
+    "back": "Gegen den CMA: Der CMA glättet genau die Saison heraus. Wer durch die Trendgerade teilt (und der Trend dazu noch auf falschen Daten beruht), erhält zu tiefe Indices (Summe 7.82 statt 12) und ein Ergebnis, das nur zufällig fast stimmt.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Decomposition",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-047",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Wie bereinigt man eine Zeitreihe um die Saison und wie setzt man die Saison in der Prognose wieder ein?",
+    "back": "Saisonbereinigt (unseasoned) $=y_t/SI$. Wieder einsetzen (reseasonalize): Trendprognose $\\times SI$ – Multiplikation, nicht Division.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Decomposition"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-048",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Rechenbeispiel CMA(4): $y=(20,30,50,40,24,34,54,44)$. Wie gross sind CMA und Seasonal Ratio bei $t=3$?",
+    "back": "MA(4) über $t=1..4$ $=35$, über $t=2..5$ $=36$. CMA bei $t=3$ $=(35+36)/2=35.5$. Ratio $=50/35.5\\approx 1.41$.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "CMA",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-049",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "Rechenbeispiel Prognose: Regression der saisonbereinigten Werte ergibt Intercept 1200, Slope 15; Saisonindex März 1.032. Prognose für März Jahr 4 ($t=39$)?",
+    "back": "Trend $=1200+15\\cdot39=1785$; mal $SI$: $1785\\times1.032\\approx1842$. Der Intercept gehört zu $t=0$; $t$ muss in der Regression exakt dem Zeitindex entsprechen.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "Decomposition",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b1-050",
+    "course": "OM",
+    "topic": "Block 1 — Forecasting",
+    "type": "qa",
+    "front": "FAQ-Tipp zum Runden: Wie wählt man bei Multiple Choice die «most accurate» Antwort?",
+    "back": "Mit ungerundeten Zahlen rechnen und erst am Ende zur nächstliegenden Antwortoption wählen (z. B. 43.49 liegt näher bei 43.5 als bei 43.0). Zwischenergebnisse in Excel nie runden.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Forecasting",
+      "FAQ",
+      "Prüfung"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-001",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Welche Gründe für Lagerhaltung nennt der Kurs (Inventory Functions)?",
+    "back": "1) Entkopplung (Decoupling) der Produktionsschritte, 2) Puffer gegen Unsicherheit bei Nachfrage und Produktion, 3) Ausgleich zyklischer/saisonaler Märkte, 4) Mengenrabatte und Losgrössen, 5) lange Wertschöpfungsketten und Lieferzeiten. Lager koordinieren Abhängigkeiten zwischen Prozessschritten.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Grundlagen",
+      "Quiz"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-002",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Wie verändert sich der Lagerwert entlang der Wertschöpfungskette Richtung Endkunde?",
+    "back": "Er steigt typischerweise, weil die Produkte mit jeder Stufe mehr Arbeit und Kapital enthalten.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Grundlagen",
+      "Quiz"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-003",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "cloze",
+    "front": "Typische Wertanteile im Lager (HS23): Rohmaterial ca. {{30}} %, Work in Progress ca. {{40}} %, Fertigwaren ca. {{30}} %.",
+    "back": "In der HS23-Prüfung waren «Raw materials ~30 %» und «Finished goods ~30 %» richtig, «WIP ~30 %» falsch (WIP ca. 40 %). Die «Safety function» bedeutet Puffer gegen Unsicherheit, nicht Kreditsicherheit.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Grundlagen",
+      "HS23"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-004",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Was besagt die ABC-Analyse und wie viel Wertanteil haben A-Produkte?",
+    "back": "Klassifizierung der Artikel nach ihrem Anteil an den Periodenkosten/-umsätzen. A-Produkte machen ca. 80 % des Wertes aus (bei ca. 20 % der Artikel), B etwa 15 %, C etwa 5 %. A-Artikel verdienen die engste Steuerung.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Inventory",
+      "ABC",
+      "HS23"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-005",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "ABC-Analyse in Excel: Welche Schritte führen zur Klassifizierung?",
+    "back": "Jahresverbrauchswert je Artikel (Preis × Menge) berechnen, absteigend sortieren, kumulierte Anteile bilden, an den Grenzen (80 %, 95 %) in A/B/C schneiden. Typische Frage: Welcher Anteil der Gesamtausgaben entfällt auf die obersten 20 % der Artikel?",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "ABC",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-006",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Welche zwei Kostenarten bilden das Herz des EOQ-Modells?",
+    "back": "Bestellkosten (Order/Setup Cost $S$) und Lagerhaltungskosten (Holding Cost $H$). Je grösser die Bestellmenge, desto weniger Bestellungen, aber desto mehr Lager.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Inventory",
+      "EOQ"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-007",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Welche Annahmen trifft das EOQ-Modell?",
+    "back": "Konstante, bekannte Nachfrage; sofortige Wiederauffüllung (instantaneous replenishment, Bestand springt auf $Q$); keine Fehlmengen; konstante Kostensätze. Der Bestand sinkt linear (Sägezahn) und wird sofort wieder aufgefüllt.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "EOQ"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-008",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "cloze",
+    "front": "EOQ: $Q^* = \\sqrt{ 2 \\cdot {{D}} \\cdot {{S}} / {{H}} }$",
+    "back": "$D$ = Jahresbedarf, $S$ = Bestellkosten pro Bestellung, $H$ = Lagerkosten pro Stück und Jahr. Excel: =SQRT(2*D*S/H).",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Inventory",
+      "EOQ",
+      "Formel"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-009",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Prüfungsfalle EOQ: Worauf muss man bei den Einheiten von $D$, $S$, $H$ achten?",
+    "back": "$D$ und $H$ müssen auf dieselbe Zeiteinheit bezogen sein (beide pro Jahr oder beide pro Woche). Beispiel: Nachfrage 25/Tag × 365 Tage = 9125/Jahr, wenn $H$ in CHF/Stück/Jahr gegeben ist.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "EOQ",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-010",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "cloze",
+    "front": "Gesamtkosten im EOQ-Modell (ohne Einkaufspreis): $TC(Q)=\\dfrac{D}{Q}\\cdot {{S}} + \\dfrac{Q}{2}\\cdot {{H}}$",
+    "back": "Erster Term: Bestellkosten ($D/Q$ Bestellungen pro Jahr). Zweiter Term: Lagerkosten (durchschnittlicher Bestand $Q/2$).",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Inventory",
+      "EOQ",
+      "Formel"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-011",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "why",
+    "front": "Warum sind im EOQ-Optimum Bestellkosten und Lagerkosten gleich hoch?",
+    "back": "Ableitung: $TC'(Q)=-\\frac{DS}{Q^2}+\\frac{H}{2}=0$ ⇒ $\\frac{DS}{Q}=\\frac{QH}{2}$, also Bestellkosten $=$ Lagerkosten. Auflösen nach $Q$ ergibt $Q^2=2DS/H$.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Inventory",
+      "EOQ",
+      "Herleitung"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-012",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Wie leitet man die EOQ-Formel her (Klausur-Liebling)?",
+    "back": "1) $TC(Q)=\\frac{D}{Q}S+\\frac{Q}{2}H$ aufstellen. 2) Nach $Q$ ableiten und 0 setzen: $-\\frac{DS}{Q^2}+\\frac{H}{2}=0$. 3) Umformen: $Q^2=\\frac{2DS}{H}$. 4) Wurzel: $Q^*=\\sqrt{2DS/H}$. Der Kern ist der Trade-off zweier gegenläufiger Kostenarten.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Inventory",
+      "EOQ",
+      "Herleitung"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-013",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "why",
+    "front": "Warum beträgt der durchschnittliche Lagerbestand im EOQ-Modell $Q^*/2$?",
+    "back": "Der Bestand fällt linear von $Q$ auf 0 und wird dann sofort wieder auf $Q$ aufgefüllt (Sägezahn). Der Mittelwert einer linear fallenden Grösse zwischen $Q$ und 0 ist $Q/2$.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Inventory",
+      "EOQ"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-014",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Wie berechnet man Bestellhäufigkeit und Zyklusdauer im EOQ-Modell?",
+    "back": "Bestellungen pro Jahr $N=D/Q^*$, Zykluszeit $T=Q^*/D$ (Jahre). Beispiel: $D=9125$, $Q^*=100$ ⇒ 91.25 Bestellungen pro Jahr, also alle 4 Tage bei 25 Stück/Tag.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Inventory",
+      "EOQ"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-015",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Rechenbeispiel EOQ: $D=1200$, $S=50$ CHF, $H=6$ CHF/Stück/Jahr. $Q^*$, Bestellungen pro Jahr, Ø-Bestand, Kosten?",
+    "back": "$Q^*=\\sqrt{2\\cdot1200\\cdot50/6}=\\sqrt{20000}\\approx141.4$. $N=1200/141.4\\approx8.49$. Ø-Bestand $\\approx70.7$. $TC=8.49\\cdot50+70.7\\cdot6\\approx424.3+424.3=848.5$ CHF (beide Anteile gleich).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "EOQ",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-016",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "HS25-Beispiel: Nachfrage 25/Tag, 365 Tage, $S=5$, $H=9.125$. EOQ und Lagerbestand am Ende von Tag 7?",
+    "back": "$D=9125$, $Q^*=\\sqrt{2\\cdot9125\\cdot5/9.125}=100$. Start 100 → Tag 4: 0, dann Auffüllung auf 100 → Ende Tag 7: $100-3\\cdot25=25$ Stück.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Inventory",
+      "EOQ",
+      "HS25",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-017",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "why",
+    "front": "Warum sinkt die optimale Bestellmenge, wenn Produkte schnell veralten oder verderben (hoher Wertverlust)?",
+    "back": "Der Wertverlust erhöht die Lagerhaltungskosten $H$. Bei höherem $H$ wird weniger gelagert: kleinere $Q^*$, dafür mehr Bestellungen. Die Bestellkosten bleiben davon unberührt.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "EOQ",
+      "Quiz"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-018",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "why",
+    "front": "Warum bestellt eine Filiale mit höheren Entlade- und Kontrollkosten pro Lieferung seltener?",
+    "back": "Entlade- und Kontrollkosten gehören zu den Bestellkosten $S$. Ein höheres $S$ erhöht $Q^*$ und senkt damit die Bestellhäufigkeit (Billig mit 2 Mitarbeitern bestellt seltener als Really-Cheap mit 1).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "EOQ",
+      "Quiz"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-019",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Wie verändert sich $Q^*$, wenn der Jahresbedarf $D$ vervierfacht wird?",
+    "back": "$Q^*\\propto\\sqrt{D}$: bei vierfachem $D$ verdoppelt sich $Q^*$ (Wurzelgesetz). Entsprechend $Q^*\\propto\\sqrt{S}$ und $Q^*\\propto 1/\\sqrt{H}$.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "EOQ"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-020",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Wie empfindlich sind die Gesamtkosten gegenüber Abweichungen von $Q^*$?",
+    "back": "Das Optimum ist flach: $TC(Q)/TC(Q^*)=\\tfrac12\\left(\\tfrac{Q^*}{Q}+\\tfrac{Q}{Q^*}\\right)$. Bestellt man 50 % mehr als $Q^*$, steigen die Kosten nur um etwa 8.3 % ($\\tfrac12(0.667+1.5)=1.083$).",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Inventory",
+      "EOQ"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-021",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Was ändert das EPQ-Modell (Economic Production Quantity) gegenüber dem EOQ-Modell?",
+    "back": "Die Auffüllung erfolgt nicht sofort, sondern mit endlicher Produktionsrate $p$ (> Nachfragerate $d$). Der Bestand steigt linear während der Produktion und fällt linear, wenn nicht produziert wird. Bestellkosten $S$ werden zu Rüstkosten (Setup Costs).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "EPQ"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-022",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "cloze",
+    "front": "EPQ: $Q^*=\\sqrt{ 2DS / ( H \\cdot (1 - {{d/p}} ) ) }$ und $I_{max}=Q^* \\cdot (1 - {{d/p}} )$",
+    "back": "$d$ = Nachfragerate, $p$ = Produktionsrate, beide in derselben Zeiteinheit. Excel: =SQRT(2*D*S/(H*(1-d/p))); d/p aus Zellen referenzieren, nicht hartkodieren (HS23-Falle: 30/50 = 0.6).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "EPQ",
+      "Formel"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-023",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Fehlerstelle EPQ: Wie gross ist der durchschnittliche Lagerbestand?",
+    "back": "$\\bar I_{EPQ}=I_{max}/2=\\frac{Q^*}{2}(1-\\frac{d}{p})$ – nicht $Q^*/2$. Häufiger Fehler in Klausuren. Der Ø-Bestand ist kleiner als bei EOQ-Logik, weil schon während der Produktion verbraucht wird.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "EPQ",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-024",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "why",
+    "front": "Warum ist die EPQ-Losgrösse grösser als die EOQ-Losgrösse bei gleichen $D$, $S$, $H$?",
+    "back": "Der Bestand erreicht nur $I_{max}=Q(1-d/p)<Q$, die Lagerkosten pro Stück sind also effektiv kleiner. Das erlaubt grössere Lose: $Q_{EPQ}=Q_{EOQ}/\\sqrt{1-d/p}$. Für $p\\to\\infty$ geht EPQ in EOQ über.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Inventory",
+      "EPQ",
+      "EOQ"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-025",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Rechenbeispiel EPQ: $D=1000$/Jahr, $p=4000$/Jahr, $S=100$, $H=4$. $Q^*$, $I_{max}$, Ø-Bestand? Vergleich mit EOQ?",
+    "back": "$d/p=0.25$. $Q^*=\\sqrt{2\\cdot1000\\cdot100/(4\\cdot0.75)}\\approx258.2$. $I_{max}=258.2\\cdot0.75\\approx193.6$, Ø-Bestand $\\approx96.8$. EOQ wäre $\\sqrt{50000}\\approx223.6$ (kleiner).",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Inventory",
+      "EPQ",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-026",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Was ist ein All-Units-Mengenrabatt?",
+    "back": "Ab einer Schwellenmenge gilt der niedrigere Preis für alle Einheiten der Bestellung (nicht nur für die über der Schwelle). Beispiel: 1–4 Stück 5.50, 5–9 Stück 5.00, ab 10 Stück 4.70 pro Stück.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Mengenrabatt"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-027",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Welche 4 Schritte lösen eine EOQ-Aufgabe mit Mengenrabatten?",
+    "back": "Pro Preisstufe $i$: 1) $H_i=i\\cdot p_i$ (Lagerkostensatz × Preis). 2) $EOQ_i=\\sqrt{2DS/H_i}$. 3) Machbarkeit: liegt $EOQ_i$ im Intervall? Ja ⇒ $Q=EOQ_i$; zu klein ⇒ Untergrenze der Stufe; zu gross ⇒ Stufe unzulässig. 4) $TC_i=\\frac{D}{Q}S+\\frac{Q}{2}H_i+D\\,p_i$. Kleinstes $TC_i$ gewinnt.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Mengenrabatt",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-028",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "why",
+    "front": "Warum ändert sich $H$ mit der Preisstufe?",
+    "back": "Lagerkosten werden meist als Satz auf den Warenwert angegeben: $H=i\\cdot p$. Ein niedrigerer Stückpreis bedeutet gebundenes Kapital pro Stück und damit niedrigeres $H$ – und ein anderes EOQ je Stufe.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Mengenrabatt"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-029",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Fehlerstelle Mengenrabatt: Was ist der kritischste Fehler bei der Gesamtkostenrechnung?",
+    "back": "Die Einkaufskosten $D\\cdot p_i$ vergessen. Ohne sie ist kein Vergleich zwischen Preisstufen möglich. Zweitens: Wenn $EOQ<$ Untergrenze, ist $Q_{eff}=$ Untergrenze (nicht $EOQ$).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Mengenrabatt",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-030",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Fehlerstelle HS23: In welche Preisstufe gehört ein EOQ von 5 Stück?",
+    "back": "In die Stufe, deren Mengenintervall die 5 enthält (dort 4–9 Stück: 304 CHF, nicht 349 CHF der Stufe darüber/darunter). Zuerst EOQ rechnen, dann den Preis der Stufe verwenden, in die $Q^*$ fällt. Einsparung $=TC_{EOQ}-TC_{optimal}$; sie kann 0 sein.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Mengenrabatt",
+      "HS23",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-031",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Rechenbeispiel Mengenrabatt: $D=1000$, $S=40$, $i=20\\%$; Preise 10.00 (0–499), 9.50 (500–999), 9.00 (ab 1000). Optimum?",
+    "back": "Stufe 1: $H=2$, EOQ 200 ✓, $TC=10\\,400$. Stufe 2: $H=1.9$, EOQ 205 < 500 ⇒ $Q=500$, $TC=10\\,055$. Stufe 3: $H=1.8$, EOQ 211 < 1000 ⇒ $Q=1000$, $TC=9\\,940$. Optimum: $Q=1000$ zu 9.00; Ersparnis gegenüber EOQ-Stufe 460.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Mengenrabatt",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-032",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Wozu dient der Sicherheitsbestand (Safety Stock)?",
+    "back": "Er puffert Nachfrageschwankungen (und Lieferunsicherheit) während der Wiederbeschaffungszeit $L$ ab, damit der Zielservicegrad erreicht wird.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Safety Stock"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-033",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "cloze",
+    "front": "Safety Stock: $SS = {{z}} \\cdot {{\\sigma}} \\cdot \\sqrt{ {{L}} }$",
+    "back": "$z$ = Servicegrad-Faktor =NORM.S.INV(SL), $\\sigma$ = Standardabweichung der Nachfrage pro Periode, $L$ = Lieferzeit in derselben Periode. Mit dem Jahresbedarf ergibt sich Gesamtbedarf $=D+SS$.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Safety Stock",
+      "Formel"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-034",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "why",
+    "front": "Warum taucht die Lieferzeit als $\\sqrt{L}$ auf?",
+    "back": "Bei unabhängigen Perioden addieren sich Varianzen: $\\sigma^2_L=L\\cdot\\sigma^2$. Die Standardabweichung über $L$ Perioden ist daher $\\sigma\\sqrt{L}$ – nicht $L\\sigma$.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Safety Stock"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-035",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Welche $z$-Werte gehören zu den üblichen Servicegraden und wie bestimmt man sie in Excel?",
+    "back": "=NORM.S.INV(SL): 90 % ⇒ 1.282, 95 % ⇒ 1.645, 97.5 % ⇒ 1.960, 98 % ⇒ 2.054, 99 % ⇒ 2.326, 99.9 % ⇒ 3.090. In Aufgaben den $z$-Wert aus der Aufgabenstellung bzw. NORM.S.INV nehmen, nicht erfinden.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Safety Stock",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-036",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "cloze",
+    "front": "Reorder Point mit Sicherheitsbestand: $ROP = \\bar{d}\\cdot{{L}} + {{SS}}$",
+    "back": "Bestellung auslösen, wenn der Bestand (inkl. offener Lieferungen) den ROP erreicht. Ohne Unsicherheit ist $ROP=\\bar d\\,L$ (kein Safety Stock nötig).",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Inventory",
+      "ROP",
+      "Formel"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-037",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Rechenbeispiel: $\\bar d=50$/Tag, $\\sigma=20$/Tag, $L=4$ Tage, Servicegrad 95 %. Safety Stock und ROP?",
+    "back": "$z=1.645$. $SS=1.645\\cdot20\\cdot\\sqrt4\\approx65.8$. $ROP=50\\cdot4+65.8\\approx265.8$ Stück.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Safety Stock",
+      "ROP",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-038",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Was bedeutet ein Servicegrad von 98 % im Newsvendor-/Safety-Stock-Kontext?",
+    "back": "In 98 % der Bestellzyklen kann die Nachfrage vollständig erfüllt werden (kein Stockout); in 2 % der Fälle nicht. Ein Servicegrad von 100 % ist bei normalverteilter Nachfrage unendlich teuer ($z\\to\\infty$).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Servicegrad"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-039",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Rechenbeispiel: $\\mu_L=200$, $\\sigma_L=25$. Um wie viele Einheiten wächst der Safety Stock beim Wechsel von 99 % auf 99.9 % Servicegrad?",
+    "back": "$SS_{99\\%}=2.3263\\cdot25\\approx58.16$, $SS_{99.9\\%}=3.0902\\cdot25\\approx77.26$. Zuwachs $\\approx19.10$ Einheiten (bei 20 CHF je Einheit ca. 382 CHF). Letzte Prozentpunkte sind überproportional teuer.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Safety Stock",
+      "HS24",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-040",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Wann ist das Newsvendor-Modell anwendbar?",
+    "back": "Einperiodige Bestellentscheidung bei unsicherer Nachfrage und kurzer Lebensdauer/Verderblichkeit (Zeitungen, Frischwaren, Saisonware). Nicht geeignet für langlebige Produkte mit stabiler Nachfrage (dafür EOQ/ROP).",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Newsvendor"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-041",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "cloze",
+    "front": "Critical Ratio: $CR = {{C_u}} / ( {{C_u}} + {{C_o}} )$, also Underage Cost geteilt durch (Underage Cost + Overage Cost).",
+    "back": "$C_u$ = Kosten einer fehlenden Einheit (entgangener Gewinn, z. B. Preis − Einstandspreis). $C_o$ = Kosten einer überschüssigen Einheit (Einstandspreis − Restwert). $CR$ ist der optimale Servicegrad.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Newsvendor",
+      "Formel"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-042",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Was folgt aus $CR<0.5$ bzw. $CR>0.5$ für die Bestellmenge?",
+    "back": "$CR<0.5$ ($C_u<C_o$): Überschuss ist teurer als Fehlmenge ⇒ vorsichtig bestellen (unter dem Mittelwert). $CR>0.5$: Fehlmenge teurer ⇒ grosszügig bestellen (über dem Mittelwert).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Newsvendor",
+      "HS23"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-043",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Wie lautet die optimale Bestellmenge bei normalverteilter Nachfrage (Newsvendor) und wo liegt die Falle?",
+    "back": "$Q^*=\\mu+z^*\\sigma$ mit $z^*=$ NORM.S.INV(CR). Excel: =mu + NORM.S.INV(CR)*sigma. Fallen: $\\sigma$ nicht $\\sigma^2$ einsetzen (Wurzel der Varianz); =NORM.S.INV(CR)*mu ist falsch.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Newsvendor",
+      "Fehlerstelle",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-044",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Rechenbeispiel Newsvendor: Preis 15, Einstand 5, Restwert 2, $\\mu=1000$, $\\sigma=200$. Optimale Menge?",
+    "back": "$C_u=15-5=10$, $C_o=5-2=3$ ⇒ $CR=10/13\\approx0.769$, $z\\approx0.736$ ⇒ $Q^*=1000+0.736\\cdot200\\approx1147$ Stück.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Newsvendor",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-045",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Wie löst man das Newsvendor-Problem mit diskreter Nachfrage (Wahrscheinlichkeitstabelle)?",
+    "back": "Entweder kleinste Menge $Q$ mit kumulierter Wahrscheinlichkeit $F(Q)\\ge CR$ wählen, oder eine Profit-Matrix aufbauen (Zeilen = Bestellmengen, Spalten = Nachfrageszenarien) und die Menge mit dem höchsten Erwartungsgewinn nehmen.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Newsvendor",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-046",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Wie berechnet man in der Profit-Matrix den Gewinn pro Zelle und den Erwartungswert?",
+    "back": "Gewinn $=$ MIN(Q; D)·Preis + MAX(Q−D; 0)·Restwert − Q·Stückkosten − Fixkosten. Erwartungsgewinn je Zeile $=$ SUMPRODUCT(Gewinne; Wahrscheinlichkeiten) bzw. AVERAGE bei gleich wahrscheinlichen Szenarien. Optimale Menge = Zeile mit dem höchsten Wert.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Newsvendor",
+      "HS25",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-047",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Wie funktioniert eine dynamische Bestellregel mit Zielbestand (Target Inventory), wie in der HS25-Simulation?",
+    "back": "Zielbestand $=\\mu(L+1)+z\\,\\sigma\\sqrt{L+1}$ (Schutzintervall $L+1$ Perioden). Bestellmenge $=\\max(0;\\ \\text{Ziel}-\\text{Lagerbestand}-\\text{Pipeline})$, jede Periode neu.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Target Inventory",
+      "HS25",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-048",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Wie bestimmt man den optimalen ROP mit expliziten Stockout-Kosten (HS24)?",
+    "back": "Für jeden ROP-Kandidaten Lagerkosten des Safety Stocks plus erwartete Fehlmengenkosten berechnen und den ROP mit den kleinsten Gesamtkosten wählen. Erwartete Fehlmengenkosten $=$ Kosten je Stockout × Stockout-Wahrscheinlichkeit × Bestellzyklen pro Jahr. EOQ und ROP sind getrennte Entscheidungen.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Inventory",
+      "ROP",
+      "HS24"
+    ]
+  },
+  {
+    "id": "om-hs26-b2-049",
+    "course": "OM",
+    "topic": "Block 2 — Inventory Management",
+    "type": "qa",
+    "front": "Was bringt höherer Servicegrad in Bezug auf Kosten, und was ist Zielkonflikt im Inventory Management?",
+    "back": "Höherer Servicegrad ⇒ höherer Safety Stock ⇒ höhere Lagerkosten, dafür weniger Fehlmengenkosten. Optimum: Grenzkosten des zusätzlichen Bestands = erwarteter Grenznutzen. Newsvendor löst das über $CR=C_u/(C_u+C_o)$.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Inventory",
+      "Servicegrad"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-001",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Was sind die «Right 5» des Production Management?",
+    "back": "Das richtige Produkt, in der richtigen Menge, zur richtigen Zeit, am richtigen Ort und in der richtigen Qualität. Production Management plant und steuert die Leistungserstellung entlang dieser fünf Dimensionen.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Production",
+      "Grundlagen"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-002",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Was ist MRP II (Manufacturing Resource Planning)?",
+    "back": "Eine Top-down-Methode zur effizienten Ressourcenplanung des ganzen Unternehmens in fünf koordinierten Stufen, mit Rückkopplung zwischen den Ebenen (Feedback).",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Production",
+      "MRP II"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-003",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Nenne die 5 Schritte von MRP II mit ihrer Planungsfrequenz.",
+    "back": "1) Business Planning (jährlich, strategisch). 2) Sales & Operations Planning / Aggregated Planning (monatlich, Produktgruppen, Personal/Maschinen). 3) Master Production Schedule, MPS (wöchentlich, Endprodukt/Termin/Menge). 4) Material Requirements Planning, MRP (wöchentlich, Materialbedarf aus BOM). 5) Production Activity Control / Scheduling (täglich, Reihenfolge an den Maschinen).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Production",
+      "MRP II",
+      "Prüfungsklassiker"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-004",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "cloze",
+    "front": "MRP ist Schritt {{4}} von {{5}} in MRP II und wird {{wöchentlich}} (nicht jährlich) durchgeführt.",
+    "back": "Prüfungsfalle: MRP ist nicht Schritt 3 (das ist der MPS) und MRP II hat nicht 6 Schritte. Merkformel «5-4-W»: 5 Schritte, MRP = Schritt 4, Woche.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Production",
+      "MRP II",
+      "Fehlerstelle",
+      "HS23"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-005",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Was unterscheidet MRP I von MRP II?",
+    "back": "MRP I plant nur den Materialbedarf (BOM-Explosion, Netto-Bedarf, Vorlaufzeiten). MRP II erweitert um Kapazitäts- und Ressourcenplanung, Absatz- und Produktionsplanung (S&OP, MPS) und verbindet alle Ebenen mit Feedback; MRP I ist darin Schritt 4.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Production",
+      "MRP II",
+      "MRP"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-006",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Was legt der Master Production Schedule (MPS) fest?",
+    "back": "Welches Endprodukt in welcher Menge zu welchem Termin gefertigt werden soll (kurzfristig, wöchentlich). Der MPS ist die Eingabe (Independent Demand) für das MRP.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Production",
+      "MPS"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-007",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Was untersucht die Aggregated Planning (Schritt 2 von MRP II)?",
+    "back": "Mittelfristig auf Produktgruppenebene, wie viele Mitarbeiter und Maschinen gebraucht werden und wie Nachfrageschwankungen abgefangen werden (Chase, Level, Überstunden, Fremdvergabe, Lager).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Production",
+      "Aggregated Planning"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-008",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Was ist eine Bill of Materials (BOM) und was bedeuten die Levels?",
+    "back": "Die mehrstufige Stückliste eines Produkts mit Mengen je Elternteil. Level 0 ist das Endprodukt, höhere Levels sind tiefere Komponenten (Baugruppen, Rohmaterial).",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Production",
+      "BOM"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-009",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Wie berechnet man die Kosten eines Produkts aus der Multi-Level-BOM?",
+    "back": "Bottom-up: unterste Ebene zuerst, dann nach oben aufrollen. $\\text{Kosten}_{Knoten}=\\sum_{Kinder}(\\text{Menge}\\times\\text{Kosten}_{Kind})+\\text{Fertigungskosten}_{Knoten}$.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Production",
+      "BOM"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-010",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Fehlerstelle BOM: Wie behandelt man Komponenten, die unter mehreren Elternteilen vorkommen?",
+    "back": "Jedes Vorkommen einzeln mit seiner eigenen Gesamtmenge multiplizieren und aufsummieren: Gesamtbedarf $=\\sum(\\text{Menge des Elternteils}\\times\\text{Menge pro Elternteil})$. Mengen über die Ebenen hinweg multiplizieren (2 × 6 × 4 = 48).",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Production",
+      "BOM",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-011",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Rechenbeispiel BOM: Velo = 1 Rahmen (50 CHF) + 2 Räder; Rad = 1 Felge (20) + 36 Speichen (0.50 je); Montage Rad 4 CHF, Montage Velo 10 CHF. Kosten?",
+    "back": "Rad $=4+20+36\\cdot0.5=42$. Velo $=10+50+2\\cdot42=144$ CHF. Reihenfolge: Speichen/Felge → Rad → Velo.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Production",
+      "BOM",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-012",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Welche Logik hat das MRP (Gross → Net → Offset → Release)?",
+    "back": "Bruttobedarf (Gross Requirements) aus MPS oder Eltern-Ebene → Nettobedarf $=$ Brutto − Lagerbestand − Scheduled Receipts → Zeitversatz (Offset): Bestelltermin $=$ Bedarfstermin − Lead Time → Planned Order Release.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Production",
+      "MRP"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-013",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Fehlerstelle MRP: In welche Richtung wirkt die Lead Time beim Offset?",
+    "back": "Rückwärts: Lead Time wird vom Bedarfstermin abgezogen (Bestellung früher auslösen), nicht addiert. Bedarf in Woche 5 bei Lead Time 2 ⇒ Release in Woche 3.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Production",
+      "MRP",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-014",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "cloze",
+    "front": "Nettobedarf $= {{Bruttobedarf}} - {{Lagerbestand}} - {{Scheduled Receipts}}$ (nicht negativ).",
+    "back": "Ein negativer Wert heisst: Bedarf ist gedeckt, der Überschuss bleibt als Bestand für spätere Perioden erhalten. Mit Sicherheitsbestand: Netto $=$ Brutto + Safety Stock − Bestand − Receipts.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Production",
+      "MRP",
+      "Formel"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-015",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Rechenbeispiel MRP (Lot-for-Lot): Anfangsbestand 50, Lead Time 2 Wochen, Bruttobedarf W1 20, W2 30, W3 40, W4 10, keine Scheduled Receipts. Welche Planned Order Releases entstehen?",
+    "back": "Bestand: W1 $50-20=30$; W2 $30-30=0$. W3 Netto $=40$ ⇒ Receipt W3, Release W1: 40. W4 Netto $=10$ ⇒ Receipt W4, Release W2: 10.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Production",
+      "MRP",
+      "Rechnen",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-016",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Wie führt man den projizierten Lagerbestand im MRP-Raster fort?",
+    "back": "Bestand$_t=$ Bestand$_{t-1}+$ Receipts$_t-$ Bruttobedarf$_t$ (+ geplante Eingänge aus Planned Orders). Der Bestand wird von Periode zu Periode übertragen; Netto-Bedarf entsteht erst, wenn er unter 0 (bzw. Sicherheitsbestand) fällt.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Production",
+      "MRP",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-017",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Was bedeutet Lot-for-Lot im Vergleich zu einer festen Losgrösse im MRP?",
+    "back": "Lot-for-Lot bestellt exakt den Nettobedarf jeder Periode. Bei fester Losgrösse (z. B. Vielfache von 50) wird aufgerundet, der Überschuss wandert als Bestand in die Folgeperiode und reduziert den späteren Nettobedarf.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Production",
+      "MRP",
+      "Lot Sizing"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-018",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Wie wirkt sich ein Planned Order Release einer Eltern-Ebene auf die Komponenten im Multi-Level-MRP aus?",
+    "back": "Der Release des Elternteils wird zum Bruttobedarf des Kindes (× Menge pro Elternteil) in derselben Woche. Dann wieder Netto, Offset mit der Lead Time des Kindes. Planung läuft Top-down: Level 0 → Level 1 → Level 2. Beispiel: Release 100 Velos in W3 ⇒ 200 Räder Brutto in W3, bei LT 1 Release in W2.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Production",
+      "MRP",
+      "BOM",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-019",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Was ist der Unterschied zwischen unabhängigem und abhängigem Bedarf (Independent vs. Dependent Demand)?",
+    "back": "Independent Demand: Endprodukte, durch den Markt bestimmt, werden prognostiziert/im MPS festgelegt. Dependent Demand: Komponenten, deren Bedarf sich über die BOM aus dem Elternbedarf berechnet. MRP berechnet Dependent Demand, prognostiziert ihn nicht.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Production",
+      "MRP"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-020",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "why",
+    "front": "Warum nutzt man für Komponenten MRP statt einer ROP-Regel?",
+    "back": "Abhängiger Bedarf fällt «klumpig» an, sobald Eltern-Lose aufgelegt werden. Eine ROP-Regel nimmt kontinuierlichen, konstanten Verbrauch an und hält deshalb zu viel Sicherheitsbestand. MRP plant exakt nach Zeitpunkt und Menge des Elternbedarfs.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Production",
+      "MRP",
+      "ROP"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-021",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Welche typischen Fehler passieren bei MRP-Aufgaben (Checkliste)?",
+    "back": "1) Lead Time addieren statt abziehen. 2) Anfangsbestand oder Scheduled Receipts ignorieren. 3) Bestand nicht in die nächste Periode fortführen. 4) BOM-Menge je Elternteil nicht multiplizieren. 5) Ebenen nicht Top-down planen. 6) Schrittnummer/Frequenz (MRP = Schritt 4, wöchentlich) verwechseln.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Production",
+      "MRP",
+      "Fehlerstelle",
+      "Checkliste"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-022",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Was ist die Chase-Strategie in der Aggregated Planning?",
+    "back": "Die Produktion folgt der Nachfrage: Belegschaft wird monatlich durch Einstellen/Entlassen angepasst. Wenig Lager, aber hohe Einstellungs- und Entlassungskosten.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Production",
+      "Aggregated Planning",
+      "Chase"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-023",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Was ist die Level-Strategie?",
+    "back": "Konstante Belegschaft bzw. konstante Produktionsrate; Nachfrageschwankungen werden über Lager (oder Überstunden/Rückstände) abgefangen. Stabile Beschäftigung, dafür Lagerkosten. Der Lagerbestand darf dabei nicht negativ werden.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Production",
+      "Aggregated Planning",
+      "Level"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-024",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "cloze",
+    "front": "Chase: Mitarbeiter$_t = {{\\lceil \\text{Demand}_t / \\text{Output pro MA} \\rceil}}$ (aufrunden!); Hiring $=\\max(0, MA_t-MA_{t-1})$, Firing $=\\max(0, MA_{t-1}-MA_t)$.",
+    "back": "Der erste Monat wird mit dem Anfangsbestand an Mitarbeitern verglichen (nicht mit 0). Gesamtkosten $=$ Lohnkosten (MA-Monate × Lohn) + Einstellungen × $c_H$ + Entlassungen × $c_F$.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Production",
+      "Aggregated Planning",
+      "Chase",
+      "Formel"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-025",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Fehlerstelle HS23 Q18: Wie rechnet man die Level-Strategie, wenn «sofort das Maximum» eingestellt wird?",
+    "back": "Level $=\\max_t(\\text{MA}^{Chase}_t)$ ab Monat 1. MA-Monate $=\\text{Max}\\times T$ (nicht die Summe der monatlichen Minima, kein schrittweiser Aufbau). Dazu Lagerkosten und die einmalige Einstellung am Anfang.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Production",
+      "Aggregated Planning",
+      "Level",
+      "HS23",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-026",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Rechenbeispiel Chase: Nachfrage 100, 160, 100, 140; Output 20 Stück/MA und Monat; Anfangs-MA 5; Lohn 2000, Einstellung 1000, Entlassung 1500. Gesamtkosten?",
+    "back": "MA $=5,8,5,7$ ⇒ 25 MA-Monate. Einstellungen $3+2=5$, Entlassungen $3$. Kosten $=25\\cdot2000+5\\cdot1000+3\\cdot1500=50\\,000+5\\,000+4\\,500=59\\,500$ CHF.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Production",
+      "Chase",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-027",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Rechenbeispiel Level (gleiche Daten wie Chase-Karte; Lagerkosten 2 CHF/Stück und Monat): Kosten?",
+    "back": "MA $=\\lceil500/(4\\cdot20)\\rceil=7$, Produktion 140/Monat. Lager Monatsende: $40, 20, 60, 60$ (alle $\\ge0$, Summe 180). Kosten $=7\\cdot4\\cdot2000+2\\cdot1000$ (Einstellung 5→7) $+180\\cdot2=56\\,000+2\\,000+360=58\\,360$ CHF, also etwas günstiger als Chase (59 500).",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Production",
+      "Level",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-028",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Make-or-Buy (HS23 Q17): Wie vergleicht man Eigenproduktion und Subcontracting?",
+    "back": "Eigenproduktion: Mitarbeiterzahl $=\\lceil\\sum(\\text{Menge}\\times h_i)/\\text{Arbeitsstunden}\\rceil$, Kosten $=\\max_t(MA)\\times\\text{Lohn}\\times T$. Subcontracting: Gesamtmenge × CHF/Stück (nicht × Stunden). Break-even-Lohn: höchster Lohn, bei dem Eigenproduktion nicht teurer ist.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Production",
+      "Make or Buy",
+      "HS23",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-029",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Welche 4 Schritte nennt die FAQ, um ein optimales Produktionsmodell für den Solver herzuleiten?",
+    "back": "1) Zielfunktion definieren. 2) Nebenbedingungen definieren. 3) Nebenbedingungen umformulieren (Variablen links, Konstanten rechts). 4) In Excel implementieren und Solver ausführen.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Production",
+      "Solver",
+      "FAQ"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-030",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "cloze",
+    "front": "Zielfunktion: $\\min \\sum_t ( c_h h_t + c_d d_t + c_w w_t + c_s s_t + c_i i_t )$ mit $h_t$ = {{Einstellungen}}, $d_t$ = {{Entlassungen}}, $w_t$ = {{Mitarbeiter}}, $s_t$ = {{Subcontracting}}, $i_t$ = {{Lagerbestand}}.",
+    "back": "Minimiere die Summe aller Kostenarten (Hiring, Dismissal, Workforce, Subcontracting, Inventory). Jede Variable hat ihren Kostensatz $c$.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Production",
+      "Solver",
+      "Optimierung",
+      "FAQ"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-031",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Welche Nebenbedingungen gehören zum Produktionsmodell (Lagerbilanz, Personal, Kapazität)?",
+    "back": "Lager: $i_{t+1}=i_t+p_t+s_t-dm_t$. Personal: $w_t=w_{t-1}+h_t-d_t$. Kapazität: Produktion $p_t\\le w_t\\cdot$ (Output pro Mitarbeiter). Alle Variablen $\\ge0$ (Solver: «Make unconstrained variables non-negative»).",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Production",
+      "Solver",
+      "Optimierung"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-032",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Wie formuliert man die Lagerbilanz für den Solver um?",
+    "back": "Variablen nach links, Konstante nach rechts: $i_t-i_{t+1}+p_t+s_t=dm_t$. Jede Nebenbedingung wird so zu einer Zeile «Linke Seite (SUMPRODUCT) = / ≤ rechte Seite».",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Production",
+      "Solver",
+      "FAQ"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-033",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Worauf zielt Sequencing/Scheduling (Reihenfolgeplanung) und für welche Bereiche gilt es?",
+    "back": "Auf die optimale Reihenfolge von Aufträgen an einer Maschine/Ressource. Gilt auch im Servicesektor (Projektplanung in der Beratung, Arztpraxis, Call Center), nicht nur in der Fertigung.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Production",
+      "Scheduling"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-034",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Nenne die Prioritätsregeln FCFS, SPT, EDD und ihre Optimierungseigenschaft.",
+    "back": "FCFS: Ankunftsreihenfolge (keine Optimalität). SPT (kürzeste Bearbeitungszeit zuerst): minimiert die mittlere Durchlaufzeit (Mean Flow Time). EDD (frühestes Fälligkeitsdatum zuerst): minimiert die maximale Verspätung. Keine Regel dominiert in allen Kennzahlen.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Production",
+      "Scheduling",
+      "HS24"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-035",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Wie berechnet man Completion Time, Tardiness und Lateness?",
+    "back": "Completion Time $C_j=$ Summe der Bearbeitungszeiten bis einschliesslich Job $j$. Lateness $=C_j-d_j$ (kann negativ sein). Tardiness $=\\max(0,\\,C_j-d_j)$. Excel: =MAX(0; C−Due).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Production",
+      "Scheduling",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-036",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Rechenbeispiel Scheduling: Jobs A (3 Tage, Due 8), B (5, 6), C (1, 4). Total Tardiness und mittlere Durchlaufzeit bei SPT, EDD, FCFS (A-B-C)?",
+    "back": "SPT (C-A-B): Completion 1, 4, 9 ⇒ Tardiness 0, 0, 3, Total 3, Ø-Flow 4.67. EDD (C-B-A): 1, 6, 9 ⇒ 0, 0, 1, Total 1, Max 1, Ø-Flow 5.33. FCFS (A-B-C): 3, 8, 9 ⇒ 0, 2, 5, Total 7, Max 5, Ø-Flow 6.67.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Production",
+      "Scheduling",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-037",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Wofür setzt man Linear Programming (LP) mit dem Excel Solver in Production Management ein (Transport, Assignment)?",
+    "back": "Zur Minimierung linearer Kosten $\\sum c_{ij}x_{ij}$ unter linearen Nebenbedingungen: Transportproblem (Angebot je Lager, Nachfrage je Stadt), Zuordnung (binäre Variablen $x_{ij}\\in\\{0,1\\}$, je Zeile und Spalte Summe = 1), Deployment Planning. Methode: Simplex LP.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Production",
+      "LP",
+      "Solver",
+      "HS24"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-038",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Rechenbeispiel Transportproblem: Lager 1 (30 Stück) und Lager 2 (20) beliefern Stadt 1 und 2 (je 25 Stück). Kosten: L1→S1 2, L1→S2 4, L2→S1 3, L2→S2 1. Minimale Kosten?",
+    "back": "Billigste Kante zuerst: L2→S2 = 20 (Kosten 1), Rest S2 mit 5 von L1 (4), S1 mit 25 von L1 (2). Total $=20\\cdot1+5\\cdot4+25\\cdot2=90$. Solver: Zielzelle SUMPRODUCT(Kosten; Menge) minimieren, Zeilensumme ≤ Angebot, Spaltensumme = Nachfrage.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Production",
+      "LP",
+      "Solver",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-039",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Was sagt die FAQ zu Solver- und Scenario-Manager-Fragen in der Prüfung?",
+    "back": "Solver- und Scenario-Manager-Fragen werden gestellt (Theorie/Setup verstehen), aber ein aktives Bedienen ist nicht zwingend nötig. Bei Solver-Aufgaben im Kurs die vorgegebenen Werte als Startwerte stehen lassen.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Production",
+      "Solver",
+      "FAQ",
+      "Prüfung"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-040",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Wie funktioniert das Pull-Prinzip von Just-in-Time (JIT)?",
+    "back": "Die tatsächliche Nachfrage (Kunde, nachfolgende Stufe) löst die Produktion aus, gesteuert z. B. per Kanban. Gegenteil ist das Push-Prinzip, bei dem nach Plan (MRP) produziert wird.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Production",
+      "JIT",
+      "Pull"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-041",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Was bedeutet Kanban?",
+    "back": "Ein Kartensignal, das den Materialnachschub steuert: Eine Karte löst Produktion/Nachschub erst aus, wenn die nachgelagerte Stufe Material verbraucht hat. Begrenzt WIP und setzt das Pull-Prinzip um.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Production",
+      "JIT",
+      "Kanban"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-042",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Nenne die 5S (japanisch und deutsch).",
+    "back": "Seiri (Aussortieren), Seiton (Ordnen), Seiso (Säubern), Seiketsu (Standardisieren), Shitsuke (Selbstdisziplin/Aufrechterhalten). Seiso ist ein 5S-Element, kein JIT-Ziel «so schnell wie möglich».",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Production",
+      "JIT",
+      "5S",
+      "HS23"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-043",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Welche Arten von Verschwendung (Muda) kennt Lean? Nenne 7.",
+    "back": "Überproduktion, Wartezeit, unnötiger Transport, Übererfüllung/Überbearbeitung, Lagerbestände, unnötige Bewegung, Fehler/Nacharbeit. Daneben Mura (Unausgeglichenheit) und Muri (Überlastung).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Production",
+      "Lean",
+      "Muda"
+    ]
+  },
+  {
+    "id": "om-hs26-b3-044",
+    "course": "OM",
+    "topic": "Block 3 — Production Management",
+    "type": "qa",
+    "front": "Welche Aussagen über JIT sind Prüfungsfallen (HS23 Q16)?",
+    "back": "Falsch: «JIT = so schnell wie möglich produzieren» (Ziel: genau dann, wenn nötig, Verschwendung vermeiden). Falsch: JIT sei MRP II generell überlegen (beide haben Vor-/Nachteile). Falsch: Spezialisierung der Mitarbeiter (JIT verlangt flexible, multiskilled Mitarbeiter). Richtig: Pull-Prinzip, Standardisierung von Prozessen und Produkten.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Production",
+      "JIT",
+      "HS23",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-001",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Was umfasst Supply Chain Management (SCM)?",
+    "back": "Beschaffung, Produktion und Distribution/Auslieferung: die gesamte Wertschöpfungskette upstream und downstream, nicht nur die Teile vor der eigenen Produktion.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "SCM",
+      "Grundlagen",
+      "HS23"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-002",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Welcher klassische Interessenkonflikt tritt in der Supply Chain zwischen Lieferant und Kunde auf?",
+    "back": "Der Lieferant bevorzugt grosse Mengen in grossen Abständen (Skaleneffekte), der Kunde kleine Mengen in kurzen Abständen (wenig Lagerbestand). Daraus entstehen Order Batching und Bullwhip-Effekte.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "SCM",
+      "Grundlagen"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-003",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Was ist der Bullwhip-Effekt?",
+    "back": "Die Verstärkung der Nachfrageschwankungen entlang der Lieferkette in Richtung Hersteller/Lieferant (upstream): Schon kleine Schwankungen beim Endkunden führen zu immer grösseren Bestellschwankungen bei Grosshändler, Hersteller und Zulieferer.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "SCM",
+      "Bullwhip"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-004",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Fehlerstelle: In welche Richtung läuft der Bullwhip-Effekt?",
+    "back": "Vom Kunden Richtung Hersteller (upstream). Die Aussage «Fluktuationen verstärken sich von Hersteller zu Kunden» (downstream) ist falsch, ebenso «gilt nur für Händler».",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "SCM",
+      "Bullwhip",
+      "Fehlerstelle",
+      "HS23"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-005",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Nenne die vier Haupttreiber des Bullwhip-Effekts.",
+    "back": "1) Demand Signal Processing / Forecast Updating (jede Stufe prognostiziert aus Bestellungen der Folgestufe). 2) Order Batching (gebündelte Bestellungen). 3) Price Fluctuations (Promotions verleiten zu Vorratskäufen). 4) Rationing & Shortage Gaming (überhöhte Bestellungen bei Knappheit).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "SCM",
+      "Bullwhip",
+      "Prüfungsklassiker"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-006",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Fehlerstelle: Ist ungenutzte Produktionskapazität (Leerkapazität) ein Treiber des Bullwhip-Effekts?",
+    "back": "Nein. Ungenutzte Kapazität gehört nicht zu den Haupttreibern. Prüfungsklassiker neben Preisschwankungen, Nachfrageprognosen (Forecast Updating), Order Batching und Rationing/Gaming.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "SCM",
+      "Bullwhip",
+      "Fehlerstelle",
+      "HS23"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-007",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "why",
+    "front": "Warum verstärken Preisaktionen (Promotions) den Bullwhip-Effekt?",
+    "back": "Kunden kaufen bei Rabatten auf Vorrat und später kaum noch. Die Bestellkurve wird zackig und hat nichts mit dem echten Verbrauch zu tun. Die Folgestufen deuten die Peaks als Nachfragetrend und bauen Bestände auf. Gegenmittel: stabile Preise (Every Day Low Price).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "SCM",
+      "Bullwhip",
+      "Preisschwankungen"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-008",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "why",
+    "front": "Warum verstärkt Order Batching die Schwankungen?",
+    "back": "Bestellungen werden gesammelt (z. B. wöchentlich oder in Palettengrössen) statt laufend abgesetzt. Der Lieferant sieht abwechselnd keine und grosse Bestellungen, obwohl der Endverbrauch gleichmässig ist. Gegenmittel: kleinere Bestelllose, EDI, häufigere Lieferungen.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "SCM",
+      "Bullwhip",
+      "Batching"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-009",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "why",
+    "front": "Warum führt Rationing & Shortage Gaming zum Bullwhip?",
+    "back": "Bei knappem Angebot bestellen Kunden mehr, als sie brauchen, um eine höhere Zuteilung zu erhalten. Entspannt sich die Lage, werden Bestellungen storniert. Der Lieferant sieht eine künstlich überhöhte, dann einbrechende Nachfrage. Gegenmittel: Zuteilung nach historischem Absatz, Transparenz.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "SCM",
+      "Bullwhip",
+      "Gaming"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-010",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "why",
+    "front": "Wie entsteht der Bullwhip mathematisch bei der Bestellpolitik mit Zielbestand (Order-up-to)?",
+    "back": "Zielbestand $T_t=D_{t+1}+z\\sigma_{t+1}$ hängt von der Prognose ab. Bestellung $q_t=D_t+(T_t-T_{t-1})$ enthält zusätzlich die Änderung des Zielbestands. Dadurch ist $\\mathrm{Var}(q)>\\mathrm{Var}(D)$. Je länger die Lead Time, desto stärker (Prognose-Updating-Effekt).",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "SCM",
+      "Bullwhip",
+      "Simulation"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-011",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Wie misst man den Bullwhip-Effekt?",
+    "back": "$\\text{Bullwhip}=\\dfrac{\\mathrm{Var}(\\text{Bestellungen})}{\\mathrm{Var}(\\text{Nachfrage})}$. Werte $>1$ bedeuten Verstärkung. Beispiel HS23 Q24: Ergebnis 8, d. h. die Bestellvarianz ist 8-mal so hoch wie die Nachfragevarianz.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "SCM",
+      "Bullwhip",
+      "Formel",
+      "HS23"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-012",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Welche Massnahmen reduzieren den Bullwhip-Effekt?",
+    "back": "Informationstransparenz (POS-Daten teilen, EDI), Koordination der Prognosen (CPFR, VMI), kleinere Bestelllose, stabile Preise statt Promotions (EDLP), kürzere Lieferzeiten, Zuteilung nach historischem Absatz statt nach Bestellmenge.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "SCM",
+      "Bullwhip",
+      "Gegenmassnahmen",
+      "Prüfungsklassiker"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-013",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Warum ist es wichtig, dass alle Stufen der Kette ihre Nachfrageprognosen koordinieren?",
+    "back": "Wenn jede Stufe aus den Bestellungen der Folgestufe neu prognostiziert, verstärken sich die Prognosefehler stufenweise (Demand Signal Processing). Gemeinsame Prognosen oder geteilte POS-Daten geben allen dasselbe Signal und senken den Effekt.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "SCM",
+      "Bullwhip",
+      "CPFR"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-014",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Was bedeutet Postponement (Verzögerung der Produktdifferenzierung)?",
+    "back": "Der Produktkonfigurationspunkt (Zeitpunkt der Variantenbildung) wird in Richtung Kunde verschoben: Standardteile werden gemeinsam gefertigt/gelagert, die Endkonfiguration erfolgt erst, wenn die Nachfrage bekannt ist.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "SCM",
+      "Postponement"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-015",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Welche Vor- und Nachteile hat Postponement?",
+    "back": "Vorteile: Flexibilität gegenüber Nachfrageschwankungen in verschiedenen Teilmärkten, Risk Pooling (ein gemeinsamer Puffer statt vieler), geringerer Sicherheitsbestand und Prognosefehler auf aggregierter Ebene. Nachteil: aufwendigere Prozesse (modulares Design, späte Montage/Anpassung).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "SCM",
+      "Postponement",
+      "Risk Pooling"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-016",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Prüfungsfalle: Erhöht Postponement den Sicherheitsbestand («Unsicherheiten der Teilmärkte addieren sich»)?",
+    "back": "Nein, das Gegenteil: Der Sicherheitsbestand sinkt, weil sich die Unsicherheiten teilweise ausgleichen. Zusätzlich: Der Konfigurationspunkt könnte prinzipiell auch Richtung Hersteller verschoben werden. Die Aussage «Postponement lohnt sich besonders, wenn sich die Konfigurationen stark unterscheiden» war in HS23 falsch; der Nutzen entsteht bei Varianten mit gemeinsamer Basis, die spät differenziert werden.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "SCM",
+      "Postponement",
+      "HS23",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-017",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "cloze",
+    "front": "Risk Pooling: $\\sigma_{pool}=\\sqrt{ {{\\sigma_1^2+\\sigma_2^2+\\dots+\\sigma_n^2}} }$, nicht $\\sigma_1+\\sigma_2+\\dots+\\sigma_n$.",
+    "back": "Bei unabhängiger Nachfrage addieren sich Varianzen, nicht Standardabweichungen. Deshalb gilt immer $\\sigma_{pool}<\\sum\\sigma_i$. Excel: =SQRT(E13^2+E14^2+E15^2).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "SCM",
+      "Postponement",
+      "Formel",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-018",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Wie gross ist die relative Einsparung beim Pooling, wenn Safety Stock $\\propto\\sigma$ (gleiches $z$) ist? Beispiel $\\sigma=(40,30)$.",
+    "back": "Einsparung $=1-\\sigma_{pool}/\\sum\\sigma_i$. Hier: $\\sigma_{pool}=\\sqrt{40^2+30^2}=50$, Summe 70 ⇒ $1-50/70\\approx28.6\\%$. Bei $n$ gleichen Märkten: $1-1/\\sqrt n$ (4 Märkte: 50 %).",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "SCM",
+      "Postponement",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-019",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "why",
+    "front": "Wann bringt Pooling weniger, und wann mehr Nutzen?",
+    "back": "Hängt von der Korrelation ab: $\\sigma_{pool}=\\sqrt{\\sigma_1^2+\\sigma_2^2+2\\rho\\sigma_1\\sigma_2}$. Unabhängig ($\\rho=0$): 50 (Beispiel 40/30), $\\rho=1$: 70 (kein Nutzen), negative Korrelation: noch kleiner. Je höher die Variabilität (Variationskoeffizient) der Teilmärkte, desto wertvoller Pooling.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "SCM",
+      "Postponement",
+      "Risk Pooling"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-020",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Welche Formeln gelten im Postponement-Newsvendor mit Lead Time (Wochen)?",
+    "back": "$CR=p/(p+h)$, $z^*=$ NORM.S.INV(CR), Bestellmenge $S^*=\\mu(LT+1)+z^*\\sigma\\sqrt{LT+1}$, erwartete Wochenkosten $Z^*=(h+p)\\cdot\\sigma\\sqrt{LT+1}\\cdot f_{01}(z^*)$ mit $f_{01}=$ NORM.S.DIST($z^*$; FALSE) (Dichte). $h$ = Lagerkosten, $p$ = Penalty/Stockout-Kosten je Einheit und Woche.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "SCM",
+      "Postponement",
+      "Newsvendor",
+      "Formel",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-021",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Excel-Falle: Was bedeutet FALSE bzw. TRUE bei NORM.S.DIST?",
+    "back": "NORM.S.DIST($z$; FALSE) liefert die Dichte $\\varphi(z)$ (Höhe der Kurve, nötig für $f_{01}$). NORM.S.DIST($z$; TRUE) liefert die Verteilungsfunktion $\\Phi(z)$ (Fläche links von $z$). Umkehrfunktion: NORM.S.INV(Wahrscheinlichkeit).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "SCM",
+      "Postponement",
+      "Excel",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-022",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Rechenbeispiel Postponement: $h=20$, $p=30$, $LT=3$, zwei Märkte mit $\\sigma=40$ und $30$. Wochenkosten-Einsparung?",
+    "back": "$CR=0.6$, $z^*=0.2533$, $f_{01}=0.3863$, $\\sqrt{LT+1}=2$. $Z^*=50\\cdot0.3863\\cdot2\\cdot\\sigma=38.63\\,\\sigma$. Getrennt: $38.63\\cdot(40+30)=2\\,704$. Gepoolt: $\\sigma_{pool}=50$ ⇒ $1\\,932$. Einsparung $\\approx772$ pro Woche bzw. $28.6\\%$.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "SCM",
+      "Postponement",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-023",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Wofür dient eine Supply-Chain-Simulation und warum reicht eine einzelne Simulationsrunde nicht?",
+    "back": "Supply Chains lassen sich nicht immer analytisch lösen; Simulation (Monte Carlo) bildet Zufallsschwankungen nach. Ein einzelner Lauf ist ein Zufallsergebnis, deshalb mehrfach simulieren und Kennzahlen mitteln.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "SCM",
+      "Simulation"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-024",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Welche Formeln gelten in der Tages-Lagersimulation (Available, Filled, Stockout, End Inventory)?",
+    "back": "Available $=$ Anfangsbestand + Wareneingang. Demand Filled $=\\min(\\text{Available},\\text{Demand})$. Stockout $=\\max(0,\\text{Demand}-\\text{Available})$. End Inventory $=\\text{Available}-\\text{Demand Filled}$. Bestellung bei End Inventory + Pipeline $\\le$ ROP.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "SCM",
+      "Simulation",
+      "Excel",
+      "HS24"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-025",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Wie zählt man Stockout-Tage in der Simulation und wie simuliert man zufällige Nachfrage in Excel?",
+    "back": "Stockout-Tage: =COUNTIF(Stockout-Spalte; \">0\"). Zufallsnachfrage: RANDBETWEEN(min; max) oder inverse Verteilung (z. B. NORM.INV(RAND(); mu; sigma)). Zufallszahlen ändern sich bei jeder Neuberechnung (F9), deshalb mehrere Läufe.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "SCM",
+      "Simulation",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-026",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Wie sucht man in der Simulation den besten ROP oder die beste Bestellmenge (Simulation Optimization)?",
+    "back": "Für Kandidatenwerte (ROP, $Q$) mehrfach simulieren (z. B. Data Table), pro Kandidat Durchschnitt von Kosten oder Servicegrad bestimmen und den besten wählen. Zielkonflikt: Lagerkosten vs. Stockout-Kosten.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "SCM",
+      "Simulation",
+      "Optimization"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-027",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Was ist Bootstrapping und wozu dient es im Supply Chain Decision Making (4.5)?",
+    "back": "Aus einer kleinen Stichprobe wird mit Zurücklegen neu gezogen (Resampling, z. B. INDEX + RANDBETWEEN), um die Verteilung einer Kennzahl (Mittelwert, Differenz) und ein Konfidenzintervall zu schätzen, ohne Verteilungsannahmen.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "SCM",
+      "Bootstrap",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-028",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Wie entscheidet man mit einem Bootstrap-Konfidenzintervall über den Wechsel auf eine neue Maschine?",
+    "back": "Differenz $\\Delta=\\mu_{neu}-\\mu_{alt}$ bilden. Liegt die untere KI-Grenze $>0$ ⇒ neue Maschine ist besser ⇒ wechseln. Liegt sie $<0$ ⇒ Unsicherheit, alte Maschine behalten. Mehrfach rechnen, weil Resampling zufällig ist.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "SCM",
+      "Bootstrap",
+      "HS23",
+      "HS25"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-029",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Wie unterscheiden sich Bootstrap bei abhängiger (gepaarter) und unabhängiger Stichprobe?",
+    "back": "Abhängig (dieselben Einheiten vorher/nachher): Differenzen pro Einheit bilden und diese resamplen. Unabhängig (zwei getrennte Gruppen): beide Gruppen getrennt resamplen und die Mittelwerte vergleichen.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "SCM",
+      "Bootstrap"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-030",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Wie bildet man in Excel ein 80 %-Konfidenzintervall für den Mittelwert der Differenzen (Normalapproximation)?",
+    "back": "$\\bar x\\pm z\\cdot s/\\sqrt n$ mit $z=$ NORM.S.INV(0.9) $=1.2816$ (zweiseitig 80 % ⇒ 10 % je Seite). Excel: =MITTEL ± NORM.S.INV(0.9)*STABW/SQRT(n). Bei kleinen Stichproben t-Verteilung: T.INV.2T(0.2; n−1).",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "SCM",
+      "Bootstrap",
+      "Konfidenzintervall",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-031",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Lean vs. Agile Supply Chain: Wann passt welche Strategie?",
+    "back": "Lean: stabile, vorhersehbare Nachfrage, Commodity-Produkte, Ziel Effizienz/Kostensenkung, minimale Bestände, Push/Prognose. Agile: volatile Nachfrage, innovative Produkte mit kurzem Lebenszyklus, Ziel Reaktionsfähigkeit, Pull/Kundenauftrag, Sicherheitsbestände akzeptiert. Leagile: lean upstream, agile downstream (oft mit Postponement).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "SCM",
+      "Lean",
+      "Agile"
+    ]
+  },
+  {
+    "id": "om-hs26-b4-032",
+    "course": "OM",
+    "topic": "Block 4 — Supply Chain Management",
+    "type": "qa",
+    "front": "Wie bewertet man Lieferanten und Standorte im SCM (Scoring-Modell, Netzwerkdesign)?",
+    "back": "Scoring: Kriterien gewichten (Qualität, Preis, Termintreue, Flexibilität), Punkte vergeben, Gesamtscore $=\\sum(\\text{Gewicht}\\times\\text{Punkte})$. Netzwerkdesign: Gesamtkosten (Transport + Lager + Fixkosten) minimieren unter Berücksichtigung von Kundennähe, Infrastruktur, Arbeitskosten, Steuern (oft per LP/Solver).",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "SCM",
+      "Netzwerkdesign",
+      "Supplier"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-001",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Wie definiert der Kurs Revenue Management (RM)?",
+    "back": "Die richtige Kapazität an den richtigen Kunden zum richtigen Preis und Zeitpunkt zuweisen, um Umsatz bzw. Gewinn (Yield) zu maximieren. Entstanden in der Airline-Industrie, später Hotels, Konzerte, Autovermietung u. a.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Grundlagen"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-002",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Welche Voraussetzungen müssen für Revenue Management erfüllt sein?",
+    "back": "Nicht lagerbare/verderbliche Güter (keine Bestände für spätere Verkäufe), kurzfristig fixe Kapazität, segmentierbare Nachfrage (unterschiedliche Zahlungsbereitschaft), schwankende/volatile Nachfrage, niedrige Grenzkosten, oft Vorverkauf der Leistung.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Grundlagen",
+      "Prüfungsklassiker"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-003",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Prüfungsfalle: Passt Revenue Management bei konstanter Nachfrage oder hohen Grenzkosten?",
+    "back": "Nein. RM braucht schwankende Nachfrage und niedrige Grenzkosten (z. B. ein zusätzlicher Konzertbesucher kostet fast nichts). Bei hohen Grenzkosten und konstanter Nachfrage lohnt sich dynamische Preissteuerung kaum.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Grundlagen",
+      "Fehlerstelle",
+      "HS23"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-004",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Gilt Revenue Management nur für Produktunternehmen?",
+    "back": "Nein, im Gegenteil: Es ist vor allem für Dienstleistungen relevant (Airlines, Hotels, Freizeitparks), weil Kapazität nicht lagerbar ist. Zu den klassischen Methoden zählen Preisdifferenzierung, Kapazitätszuteilung, Overbooking und Product Bundling (nicht Resource Bundling).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Grundlagen",
+      "HS23",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-005",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Welche Methoden gehören zum Instrumentarium des Revenue Management?",
+    "back": "Preisoptimierung, Nachfragedifferenzierung (Segmentierung/Fencing), Preissenkungen, Kapazitätssteuerung mit Buchungsklassen und Overbooking, Product Bundling, Non-Linear Pricing. Grundannahme: die Nachfrage hängt vom Preis ab.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Methoden"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-006",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Was sind gültige und ungültige Fences (Segmentierungskriterien)?",
+    "back": "Gültig: Region/Geografie, Produktvariante (Business vs. Economy), Buchungszeitpunkt (Early Bird vs. Last Minute), Flexibilität (erstattbar vs. nicht erstattbar), Kanal, Status (Studierendenrabatt mit Ausweis). Ungültig: Religion, Ethnizität (Diskriminierung). Einkommen ist schwer verifizierbar und deshalb kein verlässlicher Fence.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Fencing",
+      "HS23",
+      "HS24"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-007",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "why",
+    "front": "Warum ist Preisdifferenzierung auch bei Kapazitätsbeschränkung möglich und sinnvoll?",
+    "back": "Gerade bei knapper Kapazität lohnt es sich, Plätze an Kunden mit hoher Zahlungsbereitschaft zu geben und nur Restkapazität günstig zu verkaufen. Fences verhindern, dass Hochpreis-Kunden in den Billigtarif ausweichen.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Fencing",
+      "Preisdifferenzierung"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-008",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Wie leitet man aus einer Zahlungsbereitschafts-Umfrage (WTP) die Nachfragekurve ab?",
+    "back": "Sample Demand$(p)=$ Anzahl Befragter mit WTP $\\ge p$ (Excel: =COUNTIF(WTP-Bereich; \">=\"&p)). Market Demand $=$ Sample Demand ÷ Anteil der Befragten am Markt (z. B. 30 Befragte = 5 % ⇒ ÷ 0.05). Revenue$(p)=p\\times$ Market Demand$(p)$.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Revenue",
+      "WTP",
+      "Nachfragekurve",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-009",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Rechenbeispiel optimaler Einzelpreis: WTP von 5 Kunden $6, 8, 10, 12, 15$. Welcher Preis maximiert den Umsatz?",
+    "back": "Käufer bei Preis: 6 → 5 (30), 8 → 4 (32), 10 → 3 (30), 12 → 2 (24), 15 → 1 (15). Optimum $p=8$ mit Umsatz 32. Der optimale Preis liegt auf einem der WTP-Werte.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Revenue",
+      "WTP",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-010",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Wie skaliert man das Ergebnis, wenn die Umfrage 5 % des Marktes abdeckt?",
+    "back": "Nachfrage und Umsatz ×20 ($1/0.05$). Beispiel: Umsatz 32 aus der Stichprobe ⇒ 640 im Markt. Preise bleiben unverändert, nur die Mengen werden hochgerechnet.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Revenue",
+      "WTP"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-011",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Wie bestimmt man den optimalen Preis bei linearer Nachfrage $D(p)=a-bp$ ohne und mit Kapazitätsgrenze?",
+    "back": "Umsatzmaximum: $p^*=a/(2b)$ (mit Grenzkosten $c$: $p^*=(a/b+c)/2$). Kapazität $C$: Preis, bei dem $D(p)=C$, also $p=(a-C)/b$. Es gilt der höhere der beiden Preise, falls die Nachfrage beim Optimum die Kapazität übersteigt. Beispiel $D=1000-10p$, $C=400$: Optimum 50 (D=500 > C) ⇒ Preis 60.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Preisoptimierung",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-012",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Wie bestimmt man in Excel den Preis bei Kapazitätsgrenze (HS23: 2 136 Besucher) aus einer Trendlinie?",
+    "back": "Streudiagramm Preis vs. Nachfrage, lineare Trendlinie mit Gleichung $D=a+b\\,p$ anzeigen, nach $p$ auflösen: $p=(C-a)/b$ (mit $b<0$). Oder =FORECAST(C; Preise; Nachfragen) bei umgekehrter Regression (Preis als Funktion der Nachfrage).",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Trendlinie",
+      "HS23",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-013",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Welche Preisregel ergibt sich bei exponentieller Nachfragekurve $D=a\\,e^{-bp}$?",
+    "back": "Umsatzmaximum bei $p^*=1/b$, mit Grenzkosten $c$: $p^*=c+1/b$ (Ableitung $a e^{-bp}(1-b(p-c))=0$). Beispiel HS25: $D=1330.6\\,e^{-0.0006p}$ ⇒ $p^*=1/0.0006\\approx1667$.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Preisoptimierung",
+      "HS25",
+      "Trendlinie"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-014",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Welche Trendlinientypen nutzt der Kurs für Preis-Absatz-Funktionen und wie wählt man?",
+    "back": "Linear, exponentiell, Polynom. Der Typ steht meist in der Aufgabe (Hinweis beachten); sonst nach $R^2$ und Plausibilität wählen. Fehler: zu wenige Dezimalstellen der Gleichung, falsche Trendlinienart.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Trendlinie",
+      "Excel",
+      "Fehlerstelle"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-015",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Wie maximiert man den Gewinn bei mehreren Preissegmenten mit dem Solver?",
+    "back": "Zielzelle: Gewinn $=\\sum_i(p_i-c)\\,D_i(p_i)$ maximieren; Nachfrage $D_i$ aus der Trendlinie als Funktion des Preises. Veränderliche: Preise $p_i$. Nebenbedingungen: Summe der Nachfragen ≤ Kapazität, Preisreihenfolge (High > Mid > Low), Preise ≥ 0. Methode GRG Nonlinear.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Solver",
+      "Segmentierung",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-016",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Was sind Preisdifferenzierung 1., 2. und 3. Grades?",
+    "back": "1. Grad: jeder Kunde zahlt seine individuelle WTP. 2. Grad: Selbstselektion über Menge/Version (Mengenrabatte, Tarifmodelle, Menüs). 3. Grad: Preise nach Kundensegment (Studierende, Region, Buchungszeit), abgesichert durch Fences.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Preisdifferenzierung"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-017",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Was besagt Littlewood's Rule bei zwei Preisklassen?",
+    "back": "Schütze für die teure Klasse (High, $p_H$) so viele Plätze $y^*$, dass $P(D_H>y^*)=p_L/p_H$. Einen weiteren Low-Fare-Platz nur verkaufen, solange $p_L\\ge p_H\\cdot P(D_H>y)$. Booking Limit Low $=C-y^*$.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Littlewood"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-018",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Rechenbeispiel Littlewood: $C=100$, $p_H=200$, $p_L=60$, $D_H\\sim N(40,10)$. Schutzlevel und Booking Limit für Low?",
+    "back": "$p_L/p_H=0.3$ ⇒ $P(D_H>y)=0.3$ ⇒ $y^*=40+z_{0.7}\\cdot10$ mit $z_{0.7}=0.524$ ⇒ $y^*\\approx45.2$ (≈ 45 Plätze schützen). Excel: =NORM.INV(1−0.3; 40; 10). Booking Limit Low $=100-45=55$.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Littlewood",
+      "Rechnen",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-019",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "why",
+    "front": "Warum liegt das Schutzlevel bei Preisverhältnis 0.5 genau beim Erwartungswert $\\mu_H$ (Normalverteilung)?",
+    "back": "$P(D_H>y)=0.5$ gilt beim Median, bei der Normalverteilung also bei $\\mu_H$ ($z=0$). Je tiefer der Low-Preis im Verhältnis zum High-Preis, desto mehr Plätze werden über $\\mu_H$ hinaus geschützt.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Littlewood"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-020",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Was ist EMSR (Expected Marginal Seat Revenue) und wie erweitert es Littlewood?",
+    "back": "Für mehrere Klassen: $EMSR_j(y)=p_j\\,P(D_j>y)$ ist der erwartete Grenzerlös des $y$-ten Platzes in Klasse $j$. Man schützt Plätze für Klasse $j$, solange $EMSR_j\\ge p_{j+1}$ (Preis der nächst-tieferen Klasse). Für zwei Klassen identisch mit Littlewood.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Revenue",
+      "EMSR"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-021",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Wozu dient Overbooking und welche zwei Kosten werden abgewogen?",
+    "back": "Es gleicht No-Shows aus, damit die Kapazität nicht leer bleibt. Abgewogen werden Kosten leerer Plätze (entgangener Umsatz $p$) und Kosten der Verweigerung/Entschädigung (Denied Service $c_d$) bei zu vielen Erscheinenden.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Overbooking"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-022",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Wie lautet die Entscheidungsregel für das optimale Overbooking-Niveau?",
+    "back": "Eine weitere Buchung annehmen, solange $P(\\text{Shows}\\ge C)\\le \\dfrac{p}{p+c_d}$ (Critical-Ratio-Logik wie Newsvendor: $C_u=p$, $C_o=c_d$). Beispiel $p=200$, $c_d=300$: weiter überbuchen, bis die Wahrscheinlichkeit, dass mind. $C$ erscheinen, über 40 % steigt.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Overbooking",
+      "Newsvendor"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-023",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Rechenbeispiel Overbooking: Kapazität 100, Show-up-Rate 90 %. Wie viele Gäste erscheinen im Mittel bei 105 Buchungen?",
+    "back": "$105\\times0.9=94.5$ erwartete Shows. Erwartete freie Plätze bei Mittelwert $\\approx5.5$; das Risiko, dass mehr als 100 erscheinen, hängt von der Streuung ab (Binomial mit $n=105$, $p=0.9$).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Overbooking",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-024",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Was ist Product Bundling und welche Formen unterscheidet der Kurs?",
+    "back": "Mehrere Produkte zu einem Paket verkaufen. Pure Bundling: nur als Bundle erhältlich. Mixed Bundling: Bundle und Einzelprodukte. Two-Part Tariff: Grundgebühr plus nutzungsabhängiger Preis. (Product Bundling ist RM-Methode, Resource Bundling nicht.)",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Bundling",
+      "HS23"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-025",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "why",
+    "front": "Wann erhöht Bündelung den Gewinn am stärksten?",
+    "back": "Bei heterogener, negativ korrelierter Zahlungsbereitschaft: Wer A wenig schätzt, schätzt B viel (und umgekehrt). Die Summe der WTP ist dann gleichmässiger verteilt, ein Bundle-Preis holt mehr Käufer und mehr Consumer Surplus ab. Bei identischer WTP aller Kunden bringt Bündelung nichts.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Bundling"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-026",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Wie bestimmt man den optimalen Bundle-Preis?",
+    "back": "WTP$_{Bundle}=$ WTP$_A+$ WTP$_B$ pro Kunde. Profit$(p_B)=p_B\\cdot|\\{i:\\text{WTP}^A_i+\\text{WTP}^B_i\\ge p_B\\}|-c_{Bundle}\\cdot$ Käufer. Enumeration über die Kunden-WTP-Summen; der optimale Preis ist die kleinste WTP-Summe der Kunden, die kaufen sollen. Gewinnsteigerung $=\\pi^*_{Bundle}-\\pi^*_A-\\pi^*_B$.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Bundling",
+      "HS23",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-027",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Rechenbeispiel Bundling: WTP A $=(10,2,6,5)$, WTP B $=(2,10,5,6)$ für 4 Kunden, Kosten 0. Einzelpreise vs. Bundle?",
+    "back": "Einzeln: Produkt A bestes Preisniveau 5 (3 Käufer, 15), B analog 15 ⇒ 30. Bundle-WTP $=(12,12,11,11)$ ⇒ Preis 11, alle 4 kaufen ⇒ 44. Gewinnsteigerung $+14$ (≈ 47 %), weil die WTP negativ korreliert sind.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Bundling",
+      "Rechnen"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-028",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Fehlerstelle bei Mixed Bundling und Two-Part Tariff: Was macht man mit negativen Werten?",
+    "back": "Entstehen negative Differenzen (z. B. Kunde will Produkt B nicht, WTP − Preis < 0), werden sie in der Rechnung auf 0 gesetzt (Kunde kauft nicht), z. B. =MAX(0; WTP−Preis). Kunden wählen die Option mit dem grössten Konsumentenüberschuss.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Bundling",
+      "Two-Part Tariff",
+      "Fehlerstelle",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-029",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Was ist ein Two-Part Tariff und wann lohnt er sich?",
+    "back": "Preis besteht aus fixer Grundgebühr (Mitgliedschaft, Eintritt) plus variablem Preis pro Nutzung. Lohnt sich, wenn Kunden stark unterschiedliche Nutzungsintensität haben: Die Grundgebühr schöpft Konsumentenrente ab, der variable Teil steuert die Nutzung. Hoher Fixpreis schreckt Wenignutzer ab.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Non-Linear Pricing",
+      "Two-Part Tariff"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-030",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Was bedeutet Non-Linear Pricing (5.5)?",
+    "back": "Der Preis pro Einheit hängt von der Menge ab (nicht proportional): Mengenrabatte, Blocktarife, Two-Part Tariffs, Menüs. Kunden wählen per Selbstselektion die für sie beste Option (Preisdifferenzierung 2. Grades), z. B. über unterschiedliche Besuchsfrequenz.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Non-Linear Pricing"
+    ]
+  },
+  {
+    "id": "om-hs26-b5-031",
+    "course": "OM",
+    "topic": "Block 5 — Revenue Management",
+    "type": "qa",
+    "front": "Welche Schritte sind bei einer typischen RM-Excel-Aufgabe (Segment-Pricing) zu beachten?",
+    "back": "1) Nachfrage je Preis mit COUNTIF aus WTP-Daten ableiten. 2) Umsatz/Gewinn je Preis (oder Preispaar) rechnen. 3) Negative Konsumentenrenten auf 0 setzen. 4) Optimum per Enumeration oder Solver (GRG Nonlinear) bestimmen. 5) Die Resultatzelle (gelb) und alle Hilfszellen (grün) befüllen und mit ungerundeten Werten rechnen.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Revenue",
+      "Excel",
+      "Prüfung"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-001",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "cloze",
+    "front": "Mean Absolute Percentage Error: $MAPE=\\dfrac{1}{T}\\sum \\dfrac{|y_t-\\hat{y}_t|}{ {{y_t}} }$ (Nenner = {{Ist-Wert}}, nicht die Prognose).",
+    "back": "MAPE ist einheitenlos; ungeeignet bei $y_t=0$. Excel: =AVERAGE(ABS(Ist−Prognose)/Ist) als Fehlerspalte mitteln.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Formeln",
+      "MAPE",
+      "Forecasting"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-002",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "cloze",
+    "front": "$MAD=\\dfrac{1}{T}\\sum {{|y_t-\\hat{y}_t|}}$ und $MSE=\\dfrac{1}{T}\\sum {{(y_t-\\hat{y}_t)^2}}$",
+    "back": "Excel: Fehlerspalten =ABS(Ist−Prognose) bzw. =(Ist−Prognose)^2, dann AVERAGE. ME $=\\frac1T\\sum(y_t-\\hat y_t)$ (ohne Betrag, Bias).",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Formeln",
+      "MAD",
+      "MSE",
+      "Forecasting"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-003",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "cloze",
+    "front": "Exponential Smoothing: $\\hat{y}_{t+1}={{\\alpha}}\\,y_t+(1-{{\\alpha}})\\,{{\\hat{y}_t}}$, Start $\\hat{y}_1=y_1$.",
+    "back": "Excel: $\\alpha$ in einer eigenen Zelle (absolut referenziert), Prognosezelle = alpha*Ist_vorher + (1−alpha)*Prognose_vorher, nach unten ziehen. Solver: GRG Nonlinear, $0\\le\\alpha\\le1$.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Formeln",
+      "Exponential Smoothing",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-004",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "cloze",
+    "front": "Linearer Trend: $\\hat{y}_t={{b_0}}+{{b_1}}\\,t$ mit $b_1=${{SLOPE}} und $b_0=${{INTERCEPT}} in Excel.",
+    "back": "$b_1=\\frac{\\sum(t-\\bar t)(y-\\bar y)}{\\sum(t-\\bar t)^2}$, $b_0=\\bar y-b_1\\bar t$ (Least Squares). =FORECAST.LINEAR(t; y; t-Bereich).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Formeln",
+      "Trend",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-005",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "cloze",
+    "front": "$CMA_t=\\dfrac{MA_t+MA_{t+1}}{2}$ nur bei {{geradem}} $k$; Seasonal Ratio $=\\dfrac{y_t}{ {{CMA_t}} }$; Seasonal Index $=$ {{Mittel der Ratios je Saison}}.",
+    "back": "Summe der Indices $\\approx k$. Unseasoned $=y/SI$. Prognose $=(b_0+b_1t)\\times SI$.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Formeln",
+      "CMA",
+      "Seasonality"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-006",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "cloze",
+    "front": "EOQ: $Q^*=\\sqrt{ {{2DS/H}} }$; $TC=\\dfrac{D}{Q}S+\\dfrac{Q}{2}H$; Ø-Bestand $={{Q^*/2}}$.",
+    "back": "Excel: =SQRT(2*D*S/H). Optimum: Bestellkosten $=$ Lagerkosten. Mengenrabatt: $TC$ plus $D\\cdot p$ und $H=i\\cdot p$.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Formeln",
+      "EOQ",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-007",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "cloze",
+    "front": "EPQ: $Q^*=\\sqrt{ 2DS/(H(1-d/p)) }$; $I_{max}=Q^*(1-d/p)$; Ø-Bestand $={{I_{max}/2}}$.",
+    "back": "Excel (HS23): =SQRT(2*D3*D8/(D10*(1-D7/D11))) und =D14/2*(1-D7/D11). $d/p$ aus Zellen, nicht hartkodieren.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Formeln",
+      "EPQ",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-008",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "cloze",
+    "front": "All-Units-Rabatt: $TC(Q,P)={{P\\cdot D}}+{{\\dfrac{D}{Q}S}}+{{\\dfrac{Q}{2}H(P)}}$ mit $H(P)=i\\cdot P$.",
+    "back": "Für jede Stufe mit EOQ$_i$ bzw. Untergrenze rechnen und die tiefsten Gesamtkosten wählen. Einsparung $=TC_{EOQ}-TC_{opt}$.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Formeln",
+      "Mengenrabatt"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-009",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "cloze",
+    "front": "Safety Stock $=z\\,\\sigma\\,\\sqrt{L}$ und $ROP=\\bar{d}\\,L+{{SS}}$ mit $z=${{NORM.S.INV(Servicegrad)}}.",
+    "back": "Beispiel 95 %: $z=1.645$. Jahresbedarf inkl. SS: $D+SS$.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Formeln",
+      "Safety Stock",
+      "ROP"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-010",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "cloze",
+    "front": "Newsvendor: $CR={{C_u}}/({{C_u}}+{{C_o}})$ und $Q^*=\\mu+{{z^*}}\\,{{\\sigma}}$ mit $z^*=$ NORM.S.INV(CR).",
+    "back": "Excel: =E3+NORM.S.INV(E6)*E5. Falsch wäre =NORM.S.INV(E6)*E3 (z × μ). $\\sigma=\\sqrt{\\sigma^2}$.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Formeln",
+      "Newsvendor",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-011",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "cloze",
+    "front": "Postponement: $S^*=\\mu(LT+1)+z^*\\sigma\\sqrt{LT+1}$; $Z^*=(h+p)\\,\\sigma\\sqrt{LT+1}\\,f_{01}(z^*)$; $CR=\\dfrac{ {{p}} }{p+{{h}} }$.",
+    "back": "$f_{01}(z^*)=$ NORM.S.DIST($z^*$; FALSE). $\\sigma_{pool}=\\sqrt{\\sum\\sigma_i^2}$. Einsparung $=(\\sum Z_i-Z_{pool})/\\sum Z_i$.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Formeln",
+      "Postponement",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-012",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "cloze",
+    "front": "Bullwhip $=\\dfrac{ {{Var(Bestellungen)}} }{ {{Var(Nachfrage)}} }$; Werte $>1$ = Verstärkung upstream.",
+    "back": "Treiber: Demand Signal Processing, Order Batching, Price Fluctuations, Rationing/Gaming. Nicht: Leerkapazität.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Formeln",
+      "Bullwhip"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-013",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "cloze",
+    "front": "MRP: Nettobedarf $=$ {{Brutto}} − {{Bestand}} − {{Scheduled Receipts}}; Bestelltermin $=$ Bedarfstermin {{−}} Lead Time.",
+    "back": "Ablauf: Gross → Net → Offset → Release. Multi-Level: Top-down, Release des Elternteils × BOM-Menge = Bruttobedarf des Kindes.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Formeln",
+      "MRP"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-014",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "cloze",
+    "front": "Chase: MA$_t=\\lceil D_t/\\text{Output}\\rceil$; Level (Max-Variante): MA $=\\max_t MA_t^{Chase}$; Kosten $=$ MA-Monate × {{Lohn}} + Hiring × $c_H$ + Firing × $c_F$ (+ Lager).",
+    "back": "Level: MA-Monate $=\\text{Max}\\times T$. Bestandsbilanz: $i_t=i_{t-1}+p_t+s_t-d_t$.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Formeln",
+      "Aggregated Planning"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-015",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "cloze",
+    "front": "Scheduling: Tardiness $=\\max(0,\\ {{C_j - d_j}})$; {{SPT}} minimiert die mittlere Durchlaufzeit, {{EDD}} minimiert die maximale Verspätung.",
+    "back": "Completion Time $C_j$ = kumulierte Bearbeitungszeit. Keine Regel dominiert in allen Kennzahlen.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Formeln",
+      "Scheduling"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-016",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "cloze",
+    "front": "Littlewood: Schutzlevel $y^*$ für High, so dass $P(D_H>y^*)={{p_L/p_H}}$; Normal: $y^*=\\mu_H+z\\sigma_H$ mit $z=$ NORM.S.INV(1−$p_L/p_H$).",
+    "back": "EMSR: $p_j\\,P(D_j>y)$ so lange schützen, wie er $\\ge$ Preis der nächst-tieferen Klasse ist.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Formeln",
+      "Littlewood",
+      "EMSR"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-017",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "cloze",
+    "front": "Overbooking: weiter buchen, solange $P(\\text{Shows}\\ge C)\\le \\dfrac{p}{ {{p+c_d}} }$ ($p$ = Umsatz je Platz, $c_d$ = Kosten bei Verweigerung).",
+    "back": "Analog Newsvendor: $C_u=p$ (leerer Platz), $C_o=c_d$ (Denied Service).",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Formeln",
+      "Overbooking"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-018",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "cloze",
+    "front": "Lineare Nachfrage $D=a-bp$: Umsatzmaximum bei $p^*=${{a/(2b)}}; mit Kosten $c$: $p^*=(a/b+c)/2$; exponentiell $D=ae^{-bp}$: $p^*=${{1/b}} (plus $c$).",
+    "back": "Kapazität $C$: $p=(a-C)/b$. Der höhere Preis aus Optimum und Kapazitätspreis gilt.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Formeln",
+      "Preisoptimierung"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-019",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "cloze",
+    "front": "Bundle: $\\pi(p_B)=p_B\\cdot|\\{i:WTP^A_i+WTP^B_i\\ge p_B\\}|-c_B\\cdot N$; optimaler Preis = {{kleinste WTP-Summe der Käufer}}.",
+    "back": "Bündelung lohnt bei negativer Korrelation der WTP. Gewinnsteigerung $=\\pi^*_B-\\pi^*_A-\\pi^*_{B'}$.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Formeln",
+      "Bundling"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-020",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "cloze",
+    "front": "KI Mittelwertdifferenz: $\\bar x_1-\\bar x_2\\pm t_{\\alpha/2,df}\\sqrt{ s_1^2/n_1+s_2^2/n_2 }$ mit $t=${{T.INV.2T(α; df)}}.",
+    "back": "$df=n_1+n_2-2$. In Excel: VAR() für die Varianzen nicht vergessen (sonst #DIV/0!). Untere Grenze $>0$ ⇒ Wechsel.",
+    "difficulty": 3,
+    "tags": [
+      "OM",
+      "Formeln",
+      "Konfidenzintervall",
+      "HS23"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-021",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "qa",
+    "front": "Welche Excel-Funktionen müssen für die OM-Prüfung sitzen (Forecasting)?",
+    "back": "AVERAGE, ABS, SQRT, SUM, SLOPE, INTERCEPT, FORECAST(.LINEAR), AVERAGEIF (Saisonindex pro Monat), COUNTIF, ROUNDUP/CEILING, SUMPRODUCT, Trendlinie im Diagramm (R², Gleichung), Solver (GRG Nonlinear).",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Formeln",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-022",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "qa",
+    "front": "Welche Excel-Funktionen müssen für Inventory, SCM und Revenue sitzen?",
+    "back": "NORM.S.INV (z), NORM.S.DIST (FALSE = Dichte, TRUE = Fläche), NORM.INV(p; mu; sigma), SQRT, MAX/MIN, SUMPRODUCT, COUNTIF mit \">=\"&Zelle, RAND/RANDBETWEEN, INDEX, VAR/STDEV, T.INV.2T, FORECAST.",
+    "difficulty": 2,
+    "tags": [
+      "OM",
+      "Formeln",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-023",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "qa",
+    "front": "Wie sind Fehlermasse in der Prüfung zu behandeln, wenn Ergebnis und Antwortoptionen nahe beieinander liegen?",
+    "back": "Mit ungerundeten Werten rechnen (Hinweis der Prüfung), erst am Ende zur nächstliegenden Option wählen und keine Zwischenergebnisse manuell runden. Die Aufgaben sind voneinander unabhängig, Folgefehler übertragen sich nicht.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Formeln",
+      "Prüfung",
+      "Excel"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-024",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "qa",
+    "front": "Wie ist das Prüfungsformat des OM-Final-Exams (Wortmann)?",
+    "back": "90 Minuten, zentral an der HSG, BYOD mit Excel (Office 2016/365), Fragen auf Papier, Antworten auf dem Teleform-Bogen. SC (genau 1 richtig) und MC (mind. 2 richtig), keine Teilpunkte. Alle 5 Themenblöcke (Theorie und Excel), 90 % der Note; Online-Quizze 10 %.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Formeln",
+      "Prüfung",
+      "Format"
+    ]
+  },
+  {
+    "id": "om-hs26-fm-025",
+    "course": "OM",
+    "topic": "Formeln",
+    "type": "qa",
+    "front": "Welche Farbmarkierungen und Regeln gelten im Prüfungs-Excel?",
+    "back": "Gelb = gesuchte Ergebniszelle; Grün = Zelle, die für das richtige Ergebnis gefüllt werden muss (weitere Hilfszellen können nötig sein). Aufgabe $n$ hat Arbeitsblatt «n». Excel-Passwort steht auf der ersten Seite der Prüfung. Ergebnisse sofort auf den Antwortbogen übertragen, mehrmals speichern.",
+    "difficulty": 1,
+    "tags": [
+      "OM",
+      "Formeln",
+      "Prüfung",
+      "Excel"
+    ]
+  }
+]
