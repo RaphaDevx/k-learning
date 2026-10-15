@@ -15,11 +15,14 @@ appId: com.raphael.klearning
 
 - takeScreenshot: profile
 
-# "Abmelden" liegt unter der Tab-Bar: scrollen
+# "Abmelden" liegt unterhalb des sichtbaren Bereichs: scrollen
 - scrollUntilVisible:
     element: ".*Abmelden.*"
     direction: DOWN
     timeout: 20000
+    # Maestro prüft nur die Bildschirmgrenzen, nicht das Clipping der ScrollView:
+    # ohne Zentrieren liegt die Zeile knapp hinter der (deckenden) Tab-Bar und der Tap trifft "Karten"
+    centerElement: true
 - tapOn: ".*Abmelden.*"
 
 # Bestätigungsdialog (destruktive Aktion): dort erneut "Abmelden" tippen
