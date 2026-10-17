@@ -10,7 +10,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { supabase } from '../../lib/supabase';
 import { useCourse } from '../../lib/courseContext';
-import { useScrollContext } from './_layout';
+import Animated from 'react-native-reanimated';
+import { useCollapsingTabBar, useTabBarInset } from '../../lib/tabBar';
 import { useColors, DarkColors as d, T, S, R, GUTTER, HIT, HIT_SLOP, MAX_SCALE_CHROME } from '../../constants/theme';
 import SectionHeader from '../../components/SectionHeader';
 import StatusBarScrim from '../../components/StatusBarScrim';
@@ -36,8 +37,8 @@ export default function HomeScreen() {
   const c = useColors();
   const styles = useMemo(() => makeStyles(c), [c]);
   const insets = useSafeAreaInsets();
-  const { onScroll } = useScrollContext();
-  const lastY = useRef(0);
+  const onScroll = useCollapsingTabBar();
+  const tabInset = useTabBarInset();
   const { activeCourse, setActiveCourse } = useCourse();
   const [cameraPermission, requestCameraPermission] = useCameraPermissions();
 
@@ -176,14 +177,10 @@ export default function HomeScreen() {
   return (
     <View style={{ flex: 1, backgroundColor: c.bg }}>
       <StatusBarScrim />
-      <ScrollView
-        contentContainerStyle={[styles.content, { paddingTop: insets.top + S.lg, paddingBottom: S.xl }]}
+      <Animated.ScrollView
+        contentContainerStyle={[styles.content, { paddingTop: insets.top + S.lg, paddingBottom: tabInset }]}
         scrollEventThrottle={16}
-        onScroll={({ nativeEvent }) => {
-          const dy = nativeEvent.contentOffset.y - lastY.current;
-          lastY.current = nativeEvent.contentOffset.y;
-          onScroll(dy);
-        }}
+        onScroll={onScroll}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => loadCourses(true)} tintColor={c.textSub} />}
       >
         <View style={styles.header}>
@@ -293,7 +290,7 @@ export default function HomeScreen() {
         <Text style={styles.tip}>
           Tippe einen Kurs, um Lerninhalte zu öffnen. Mit dem Filter-Symbol zeigt der Feed nur diesen Kurs.
         </Text>
-      </ScrollView>
+      </Animated.ScrollView>
 
       {/* ── MODAL ── */}
       <Modal visible={modal !== 'none'} animationType="slide" transparent onRequestClose={closeModal}>

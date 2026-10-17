@@ -17,6 +17,7 @@ import * as Sharing from 'expo-sharing';
 import * as DocumentPicker from 'expo-document-picker';
 import { supabase } from '../../lib/supabase';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useCollapsingTabBar, useTabBarInset } from '../../lib/tabBar';
 import { useColors, T, S, R, GUTTER, HIT, HIT_SLOP, MAX_SCALE_CHROME } from '../../constants/theme';
 import RichText from '../../components/RichText';
 import SectionHeader from '../../components/SectionHeader';
@@ -63,6 +64,8 @@ function sm2Next(quality: 0 | 1 | 2): string {
 export default function FlashcardsScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
+  const onScroll = useCollapsingTabBar();
+  const tabInset = useTabBarInset();
   const s = useMemo(() => makeStyles(c, insets.top + S.xs), [c, insets.top]);
   const [screen, setScreen] = useState<Screen>('selector');
   const [decks, setDecks] = useState<DeckMeta[]>([]);
@@ -453,7 +456,7 @@ export default function FlashcardsScreen() {
             <Text style={s.emptyText}>Änderungen werden ab jetzt gespeichert.</Text>
           </View>
         ) : (
-          <ScrollView contentContainerStyle={s.browserContent}>
+          <ScrollView contentContainerStyle={[s.browserContent, { paddingBottom: tabInset }]}>
             {changelog.map((entry) => {
               const date = new Date(entry.changed_at);
               const label = date.toLocaleString('de-CH', {
@@ -518,7 +521,7 @@ export default function FlashcardsScreen() {
           </Pressable>
         </View>
 
-        <ScrollView style={{ flex: 1 }} contentContainerStyle={s.editContent} keyboardShouldPersistTaps="handled">
+        <ScrollView style={{ flex: 1 }} contentContainerStyle={[s.editContent, { paddingBottom: tabInset }]} keyboardShouldPersistTaps="handled">
           <Text style={s.editLabel}>Vorderseite</Text>
           <TextInput
             style={s.editInput}
@@ -575,7 +578,7 @@ export default function FlashcardsScreen() {
         </View>
 
         {browserLoading ? renderLoading() : (
-          <ScrollView contentContainerStyle={s.browserContent}>
+          <ScrollView contentContainerStyle={[s.browserContent, { paddingBottom: tabInset }]}>
             {browserCards.length === 0 && (
               <View style={s.emptyState}>
                 <Ionicons name="albums-outline" size={44} color={c.textSub} />
@@ -644,7 +647,12 @@ export default function FlashcardsScreen() {
     return (
       <View style={s.container}>
       <StatusBarScrim />
-      <ScrollView style={s.container} contentContainerStyle={s.listContent}>
+      <Animated.ScrollView
+        style={s.container}
+        contentContainerStyle={[s.listContent, { paddingBottom: tabInset }]}
+        onScroll={onScroll}
+        scrollEventThrottle={16}
+      >
         <View style={s.selectorHeader}>
           <View style={{ flex: 1 }}>
             <Text style={s.heading} accessibilityRole="header">Flashcards</Text>
@@ -739,7 +747,7 @@ export default function FlashcardsScreen() {
             </Pressable>
           </View>
         )}
-      </ScrollView>
+      </Animated.ScrollView>
       </View>
     );
   }
@@ -834,7 +842,7 @@ export default function FlashcardsScreen() {
       </GestureDetector>
 
       {isFlipped ? (
-        <View style={s.ratingRow}>
+        <View style={[s.ratingRow, { paddingBottom: tabInset }]}>
           <Pressable
             style={({ pressed }) => [s.ratingBtn, s.ratingNo, pressed && s.pressed]}
             onPress={() => advanceCard(0)}
@@ -864,7 +872,7 @@ export default function FlashcardsScreen() {
           </Pressable>
         </View>
       ) : (
-        <View style={s.swipeHintRow}>
+        <View style={[s.swipeHintRow, { paddingBottom: tabInset }]}>
           <Text style={s.swipeHintText}>Wische nach links für nochmal, nach rechts für gewusst</Text>
         </View>
       )}

@@ -10,7 +10,8 @@ import { router, useFocusEffect } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { supabase } from '../../lib/supabase';
-import { useScrollContext } from './_layout';
+import Animated from 'react-native-reanimated';
+import { useCollapsingTabBar, useTabBarInset } from '../../lib/tabBar';
 import { useColors, T, S, R, GUTTER, HIT, MAX_SCALE_CHROME } from '../../constants/theme';
 import SectionHeader from '../../components/SectionHeader';
 import StatusBarScrim from '../../components/StatusBarScrim';
@@ -32,8 +33,8 @@ export default function ProfileScreen() {
   const c = useColors();
   const styles = useMemo(() => makeStyles(c), [c]);
   const insets = useSafeAreaInsets();
-  const { onScroll } = useScrollContext();
-  const lastY = useRef(0);
+  const onScroll = useCollapsingTabBar();
+  const tabInset = useTabBarInset();
 
   const [user, setUser] = useState<User | null>(null);
   const [stats, setStats] = useState<ProfileStats>({
@@ -162,15 +163,11 @@ export default function ProfileScreen() {
   return (
     <View style={[styles.container, { backgroundColor: c.bg }]}>
     <StatusBarScrim />
-    <ScrollView
+    <Animated.ScrollView
       style={[styles.container, { backgroundColor: c.bg }]}
-      contentContainerStyle={[styles.content, { paddingTop: insets.top + S.lg, paddingBottom: S.xl }]}
+      contentContainerStyle={[styles.content, { paddingTop: insets.top + S.lg, paddingBottom: tabInset }]}
       scrollEventThrottle={16}
-      onScroll={({ nativeEvent }) => {
-        const dy = nativeEvent.contentOffset.y - lastY.current;
-        lastY.current = nativeEvent.contentOffset.y;
-        onScroll(dy);
-      }}
+      onScroll={onScroll}
     >
       <Text style={styles.largeTitle} accessibilityRole="header">Profil</Text>
 
@@ -278,7 +275,7 @@ export default function ProfileScreen() {
           <Text style={[styles.rowLabel, { color: c.red }]}>Abmelden</Text>
         </Pressable>
       </View>
-    </ScrollView>
+    </Animated.ScrollView>
     </View>
   );
 }

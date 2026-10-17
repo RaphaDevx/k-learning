@@ -10,7 +10,8 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { CameraView, useCameraPermissions } from 'expo-camera';
 import { supabase } from '../../lib/supabase';
 import { useCourse } from '../../lib/courseContext';
-import { useScrollContext } from './_layout';
+import Animated from 'react-native-reanimated';
+import { useCollapsingTabBar, useTabBarInset } from '../../lib/tabBar';
 import { useColors, T, S, R, GUTTER, HIT, HIT_SLOP } from '../../constants/theme';
 import StatusBarScrim from '../../components/StatusBarScrim';
 import type { ColorTokens } from '../../constants/theme';
@@ -33,8 +34,8 @@ const COLORS  = ['#6366f1','#2563eb','#059669','#ea580c','#0d9488','#e11d48','#7
 export default function DashboardScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
-  const { onScroll } = useScrollContext();
-  const lastY = useRef(0);
+  const onScroll = useCollapsingTabBar();
+  const tabInset = useTabBarInset();
   const styles = useMemo(() => makeStyles(c), [c]);
   const { activeCourse, setActiveCourse } = useCourse();
   const [cameraPermission, requestCameraPermission] = useCameraPermissions();
@@ -169,14 +170,10 @@ export default function DashboardScreen() {
   return (
     <View style={{ flex: 1, backgroundColor: c.bg }}>
       <StatusBarScrim />
-      <ScrollView
-        contentContainerStyle={[styles.content, { paddingTop: insets.top + S.lg, paddingBottom: S.xl }]}
+      <Animated.ScrollView
+        contentContainerStyle={[styles.content, { paddingTop: insets.top + S.lg, paddingBottom: tabInset }]}
         scrollEventThrottle={16}
-        onScroll={({ nativeEvent }) => {
-          const dy = nativeEvent.contentOffset.y - lastY.current;
-          lastY.current = nativeEvent.contentOffset.y;
-          onScroll(dy);
-        }}
+        onScroll={onScroll}
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => loadCourses(true)} tintColor={c.textSub} />}
       >
         <View style={styles.header}>
@@ -268,7 +265,7 @@ export default function DashboardScreen() {
         <Text style={styles.tip}>
           {activeCourse ? 'Tippe erneut, um den Filter aufzuheben.' : 'Tippe auf einen Kurs, um Feed und Karten zu filtern.'}
         </Text>
-      </ScrollView>
+      </Animated.ScrollView>
 
       {/* ── MODAL ── */}
       <Modal visible={modal !== 'none'} animationType="slide" transparent onRequestClose={closeModal}>

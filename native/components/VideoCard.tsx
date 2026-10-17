@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import { useVideoPlayer, VideoView } from 'expo-video';
+import { useTabBarInset } from '../lib/tabBar';
 import { DarkColors as d, T, S, R, GUTTER, HIT, MAX_SCALE_CHROME } from '../constants/theme';
 
 export interface FeedCard {
@@ -26,6 +27,7 @@ interface Props {
 export default function VideoCard({ card, isVisible, isMuted, height, onRate }: Props) {
   const src = card.hls_src || card.video_src || '';
   const color = card.course_color ?? d.accent;
+  const tabInset = useTabBarInset();
 
   const player = useVideoPlayer(src, p => {
     p.loop = true;
@@ -65,7 +67,7 @@ export default function VideoCard({ card, isVisible, isMuted, height, onRate }: 
       </View>
 
       {/* Info overlay */}
-      <View style={[styles.overlay, { paddingBottom: GUTTER }]}>
+      <View style={[styles.overlay, { paddingBottom: tabInset }]}>
         <View style={styles.badges}>
           <View style={styles.badge}>
             <View style={[styles.badgeDot, { backgroundColor: color }]} />

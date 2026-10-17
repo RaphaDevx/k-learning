@@ -1,11 +1,13 @@
 import { useState, useCallback, useMemo } from 'react';
 import {
-  View, Text, ScrollView, Pressable,
+  View, Text, Pressable,
   StyleSheet, ActivityIndicator, RefreshControl,
 } from 'react-native';
 import { router, useFocusEffect } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import Animated from 'react-native-reanimated';
+import { useCollapsingTabBar, useTabBarInset } from '../../lib/tabBar';
 import { supabase } from '../../lib/supabase';
 import { loadExamRegistry, getExamsByCategory } from '../../data/examRegistry';
 import { useCourses } from '../../lib/courses';
@@ -34,6 +36,8 @@ function statusFor(pct: number): Status {
 
 export default function ExamTab() {
   const insets = useSafeAreaInsets();
+  const onScroll = useCollapsingTabBar();
+  const tabInset = useTabBarInset();
   const c = useColors();
   const styles = useMemo(() => makeStyles(c), [c]);
   const courses = useCourses();
@@ -101,9 +105,11 @@ export default function ExamTab() {
   return (
     <View style={styles.container}>
     <StatusBarScrim />
-    <ScrollView
+    <Animated.ScrollView
       style={styles.container}
-      contentContainerStyle={[styles.content, { paddingTop: insets.top + S.lg, paddingBottom: S.xl }]}
+      contentContainerStyle={[styles.content, { paddingTop: insets.top + S.lg, paddingBottom: tabInset }]}
+      onScroll={onScroll}
+      scrollEventThrottle={16}
       refreshControl={<RefreshControl refreshing={refreshing} onRefresh={() => loadAll(true)} tintColor={c.textSub} />}
     >
       <View style={styles.titleRow}>
@@ -180,7 +186,7 @@ export default function ExamTab() {
           </View>
         );
       })}
-    </ScrollView>
+    </Animated.ScrollView>
     </View>
   );
 }

@@ -1,9 +1,11 @@
 import { useState, useCallback, useRef } from 'react';
 import { setStatusBarStyle } from 'expo-status-bar';
 import {
-  View, FlatList, Pressable, Text,
+  View, Pressable, Text,
   StyleSheet, ActivityIndicator, ViewToken, LayoutChangeEvent,
 } from 'react-native';
+import Animated from 'react-native-reanimated';
+import { useCollapsingTabBar } from '../../lib/tabBar';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from 'expo-router';
@@ -15,6 +17,7 @@ import { useColors, DarkColors as d, T, S, R, GUTTER, HIT, MAX_SCALE_CHROME } fr
 export default function FeedScreen() {
   const c = useColors();
   const insets = useSafeAreaInsets();
+  const onScroll = useCollapsingTabBar();
   const [cards, setCards] = useState<FeedCard[]>([]);
   const [loading, setLoading] = useState(true);
   const [visibleIndex, setVisibleIndex] = useState(0);
@@ -129,7 +132,7 @@ export default function FeedScreen() {
         </View>
       )}
       {pageHeight > 0 && (
-      <FlatList
+      <Animated.FlatList
         data={cards}
         keyExtractor={item => item.id}
         renderItem={({ item, index }) => (
@@ -142,6 +145,8 @@ export default function FeedScreen() {
           />
         )}
         pagingEnabled
+        onScroll={onScroll}
+        scrollEventThrottle={16}
         showsVerticalScrollIndicator={false}
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={viewabilityConfig}
