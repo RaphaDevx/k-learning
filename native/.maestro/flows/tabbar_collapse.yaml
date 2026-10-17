@@ -1,0 +1,40 @@
+appId: com.raphael.klearning
+---
+# Test: Schwebende Tab-Kapsel schrumpft beim Herunterscrollen, wächst beim Hochscrollen
+# und bleibt in beiden Zuständen bedienbar. Grössen werden über die Screenshots geprüft
+# (ausgefahren 348×64 pt, eingezogen ×0.85).
+
+- runFlow: e2e_login.yaml
+
+- tapOn: "Prüfungen, tab.*"
+- extendedWaitUntil:
+    visible: "Makro II"
+    timeout: 15000
+- takeScreenshot: tabbar_expanded
+
+# Herunterscrollen: Kapsel zieht sich zusammen
+- swipe:
+    direction: UP
+    duration: 600
+- waitForAnimationToEnd:
+    timeout: 3000
+- takeScreenshot: tabbar_collapsed
+
+# Eingezogen weiterhin bedienbar: Tab wechseln
+- tapOn: "Profil, tab.*"
+- extendedWaitUntil:
+    visible: "LERNSTATISTIK"
+    timeout: 15000
+
+# Zurück und hochscrollen: Kapsel wird wieder gross
+- tapOn: "Prüfungen, tab.*"
+- swipe:
+    direction: UP
+    duration: 600
+- swipe:
+    direction: DOWN
+    duration: 600
+- waitForAnimationToEnd:
+    timeout: 3000
+- takeScreenshot: tabbar_expanded_again
+- assertVisible: "Home, tab.*"

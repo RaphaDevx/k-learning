@@ -8,3 +8,4 @@ flows:
   - flows/flashcards_flip.yaml
   - flows/exam_runner.yaml
   - flows/profile_logout.yaml
+  - flows/tabbar_collapse.yaml
