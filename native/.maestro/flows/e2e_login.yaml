@@ -23,23 +23,11 @@ appId: com.raphael.klearning
     commands:
       - tapOn: "Continue"
 
+# Erst tippen, wenn die Tastatur vollständig eingeblendet ist: sonst gehen die ersten
+# Tastendrücke verloren (beobachtet: "ai.…" wurde zu "a.…").
+- waitForAnimationToEnd:
+    timeout: 3000
 - inputText: ${MAESTRO_E2E_EMAIL}
-
-# Der "Slide to Type"-Hinweis erscheint teils erst nach dem ersten Zeichen und verschluckt dann
-# Tastendrücke (beobachtet: "ai.…" wurde zu "a.…"). Feldinhalt prüfen und sonst neu eingeben.
-- runFlow:
-    when:
-      visible: "Continue"
-    commands:
-      - tapOn: "Continue"
-- runFlow:
-    when:
-      notVisible: ${MAESTRO_E2E_EMAIL}
-    commands:
-      - tapOn:
-          id: "e2e-email"
-      - eraseText: 80
-      - inputText: ${MAESTRO_E2E_EMAIL}
 - assertVisible: ${MAESTRO_E2E_EMAIL}
 
 # Die Tastatur verdeckt sonst Passwortfeld und Login-Button; die Return-Taste schliesst sie
