@@ -7,7 +7,7 @@ set -euo pipefail
 
 BRANCH="${1:-preview}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-ALLOW=(index.html admin.html js data exams assets branding public functions)
+ALLOW=(index.html desktop-auth.html admin.html js data exams assets branding public functions)
 
 STAGE="$(mktemp -d)"
 trap 'rm -rf "$STAGE"' EXIT
@@ -15,6 +15,9 @@ trap 'rm -rf "$STAGE"' EXIT
 for entry in "${ALLOW[@]}"; do
   [ -e "$ROOT/$entry" ] && cp -r "$ROOT/$entry" "$STAGE/"
 done
+
+# Synchronization conflict copies are local recovery files, not app assets.
+find "$STAGE" -type f -name '*.conflict-*' -delete
 
 if grep -rlE 'service_role|BEGIN (EC |RSA )?PRIVATE KEY|sk_live_' "$STAGE" >/dev/null; then
   echo "Abbruch: Staging enthält mögliche Secrets:" >&2

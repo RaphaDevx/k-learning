@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="de">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="referrer" content="no-referrer"><title>K-Learning · Anmeldung</title>
+<style>body{font:17px system-ui;background:#f5f5f7;color:#1d1d1f;max-width:540px;margin:15vh auto;padding:24px}a{display:inline-block;padding:14px 22px;background:#4f46e5;color:white;border-radius:14px;text-decoration:none}p{line-height:1.5}</style></head>
+<body><h1>K-Learning Desktop</h1><p id="status">Anmeldung wird geprüft …</p><a id="return" hidden>Zur App zurückkehren</a>
+<script>
+(() => {
+  const params = new URLSearchParams(location.search);
+  const code = params.get('code');
+  const state = params.get('desktop_state');
+  const status = document.getElementById('status');
+  history.replaceState(null, '', location.pathname);
+  if (!state || !/^[A-Za-z0-9_-]{32,128}$/.test(state) || !code || code.length > 2048 || !/^[A-Za-z0-9._~-]+$/.test(code)) {
+    status.textContent = 'Dieser Anmeldelink ist ungültig oder abgelaufen. Starte die Anmeldung erneut in der Desktop-App.';
+    return;
+  }
+  const target = new URL('klearning://auth');
+  target.searchParams.set('code', code);
+  target.searchParams.set('desktop_state', state);
+  const link = document.getElementById('return');
+  link.href = target.href;
+  link.hidden = false;
+  status.textContent = 'Die Anmeldung ist bereit. Kehre zur K-Learning-App zurück. Bei einer Nachfrage des Browsers bestätige das Öffnen der App.';
+  location.replace(target.href);
+})();
+</script></body></html>

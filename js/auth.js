@@ -25,6 +25,12 @@ window.Auth = (function () {
   }
 
   async function signInWithGoogle() {
+    if (window.kLearningDesktop?.isDesktop) {
+      const session = await window.kLearningDesktop.signInWithGoogle();
+      const { error } = await _supabase.auth.setSession(session);
+      if (error) throw error;
+      return;
+    }
     await _supabase.auth.signInWithOAuth({
       provider: 'google',
       options: { redirectTo: window.location.origin + window.location.pathname },

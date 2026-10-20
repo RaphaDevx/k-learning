@@ -1,0 +1,2856 @@
+{
+  "_meta": {
+    "schemaVersion": "1",
+    "sourceFile": "BuSta Prüfung FS 25 mit Lösungen.pdf",
+    "sourceSha256": "f171c0d7bd9d0497f9d285c5aab1a91dcb08a62ca36d8e61c79ed6f68c713266",
+    "createdAt": "2026-10-20",
+    "promptVersion": "create-exam-v3+busta-source-audit-v1",
+    "status": "draft",
+    "sourcePages": 29,
+    "officialSolutionDisclaimer": "Die Musterlösungen erheben keinen Anspruch auf Vollständigkeit (PDF S. 13).",
+    "reviewedPageRange": [
+      1,
+      29
+    ],
+    "originalContainsSolutions": true,
+    "gradingCalibrationStatus": "pending-human-calibration"
+  },
+  "id": "busta-fs25",
+  "title": "BuSta — Prüfung FS 2025 (Schindler und Schmid)",
+  "course": "BuSta",
+  "courseColor": "#0891b2",
+  "durationMinutes": 180,
+  "totalPoints": 180,
+  "resourceLink": "assets/exams/busta-fs25/original-exam.pdf",
+  "examInfo": {
+    "date": "FS 2025",
+    "duration": "180 Minuten (je 90 Minuten Schindler und Schmid)",
+    "format": "8 Aufgaben, 26 offene Antwortfelder",
+    "allowedAids": "In der vorliegenden Prüfung nicht angegeben.",
+    "grading": "Kein offizieller Notenschlüssel in der Quelle; Punktebewertung ohne behauptete HSG-Note."
+  },
+  "scoringRules": {
+    "single_choice": {
+      "correct": 0,
+      "wrong": 0,
+      "blank": 0
+    },
+    "multiple_choice": {
+      "allCorrect": 0,
+      "anyWrong": 0,
+      "blank": 0
+    }
+  },
+  "sections": [
+    {
+      "id": "schindler-1",
+      "title": "Teil Schindler · Aufgabe 1",
+      "points": 24,
+      "questionType": "open",
+      "description": "Begründen Sie jede Antwort und nennen Sie die einschlägigen Rechtsnormen!",
+      "context": "Für lange Zeit war die Forschung am Menschen nur in Teilen durch das Bundesrecht\ngeregelt. Aufgrund der lückenhaften und unübersichtlichen Regelungen wurde der Bundesrat in einer Motion der ständerätlichen Kommission für Wissenschaft, Bildung und\nKultur beauftragt, eine Verfassungsbestimmung zur Forschung am Menschen vorzubereiten. Nach intensiven parlamentarischen Beratungen wurde die neue Verfassungsbestimmung am 29. September 2009 in der Schlussabstimmung der eidgenössischen Räte\nangenommen und anschliessend im Rahmen eines obligatorischen Referendums am\n7. März 2010 mit einer Zustimmung von 77% des Volkes und aller Kantone angenommen. Der neue Art. 118b BV trat am gleichen Tag in Kraft.",
+      "questions": [
+        {
+          "id": "busta-fs25-q01",
+          "number": 1,
+          "text": "Frage 1: [10 Punkte]\n\nÄussern Sie sich zunächst allgemein zur Kompetenzverteilung zwischen Bund und Kantonen. Legen Sie anschliessend die spezifische Kompetenzverteilung im Bereich der Humanforschung (Art. 118b Abs. 1 BV) dar und kategorisieren Sie die einschlägige Kompetenz nach Umfang, Wirkung und Staatsfunktion.",
+          "type": "open",
+          "points": 10,
+          "expectedDuration": 10,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Nach dem Grundsatz der Einzelermächtigung des Bundes durch die Bundesverfassung (Art. 42 BV) (1 Punkt) ist der Bund nur zuständig, soweit die Bundesverfassung\ndem Bund eine Kompetenz ausdrücklich zuweist (1 Punkt). Ansonsten bleiben aufgrund ihrer subsidiären Generalkompetenz (Art. 3 BV) die Kantone zuständig\n(1 Punkt). Dies entspricht auch dem Gedanken der Subsidiarität, der in Art 5a BV festgehalten ist; er ist aber nur eine «politische Klugheitsregel» und vermag die realen\nKompetenzen nicht zu beeinflussen (1 Bonuspunkt).\nArt. 118b Abs. 1 BV begründet eine Verbandskompetenz des Bundes (1 Punkt). Darauf\ndeuten der Wortlaut [Der Bunde erlässt…] (1 Punkt) und die Stellung der Norm innerhalb der Bundesverfassung [3. Titel: Bund Kantone und Gemeinden] (1 Punkt). Es\nhandelt sich dabei um eine umfassende Gesetzgebungskompetenz (1 Punkt) mit nachträglich derogatorischer Wirkung (1 Punkt), da es dem Sinn der Norm widersprechen\nwürde, wenn die Regelungen der Kantone wegfallen bevor der Bund seine Kompetenz\nausgeübt hat (1 Punkt). Art. 118b BV äussert sich nicht explizit zur Staatsfunktion,\nweshalb der Normalfall nach Art. 46 BV zum Zuge kommt (1 Punkt).",
+          "explanation": "Nach dem Grundsatz der Einzelermächtigung des Bundes durch die Bundesverfassung (Art. 42 BV) (1 Punkt) ist der Bund nur zuständig, soweit die Bundesverfassung\ndem Bund eine Kompetenz ausdrücklich zuweist (1 Punkt). Ansonsten bleiben aufgrund ihrer subsidiären Generalkompetenz (Art. 3 BV) die Kantone zuständig\n(1 Punkt). Dies entspricht auch dem Gedanken der Subsidiarität, der in Art 5a BV festgehalten ist; er ist aber nur eine «politische Klugheitsregel» und vermag die realen\nKompetenzen nicht zu beeinflussen (1 Bonuspunkt).\nArt. 118b Abs. 1 BV begründet eine Verbandskompetenz des Bundes (1 Punkt). Darauf\ndeuten der Wortlaut [Der Bunde erlässt…] (1 Punkt) und die Stellung der Norm innerhalb der Bundesverfassung [3. Titel: Bund Kantone und Gemeinden] (1 Punkt). Es\nhandelt sich dabei um eine umfassende Gesetzgebungskompetenz (1 Punkt) mit nachträglich derogatorischer Wirkung (1 Punkt), da es dem Sinn der Norm widersprechen\nwürde, wenn die Regelungen der Kantone wegfallen bevor der Bund seine Kompetenz\nausgeübt hat (1 Punkt). Art. 118b BV äussert sich nicht explizit zur Staatsfunktion,\nweshalb der Normalfall nach Art. 46 BV zum Zuge kommt (1 Punkt).",
+          "topics": [
+            "Kompetenzverteilung",
+            "Humanforschung"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Nach dem Grundsatz der Einzelermächtigung des Bundes durch die Bundesverfassung (Art. 42 BV)",
+              "expected": "Nach dem Grundsatz der Einzelermächtigung des Bundes durch die Bundesverfassung (Art. 42 BV)",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                2
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r02",
+              "criterion": "ist der Bund nur zuständig, soweit die Bundesverfassung\ndem Bund eine Kompetenz ausdrücklich zuweist",
+              "expected": "ist der Bund nur zuständig, soweit die Bundesverfassung\ndem Bund eine Kompetenz ausdrücklich zuweist",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                2
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r03",
+              "criterion": ". Ansonsten bleiben aufgrund ihrer subsidiären Generalkompetenz (Art. 3 BV) die Kantone zuständig",
+              "expected": ". Ansonsten bleiben aufgrund ihrer subsidiären Generalkompetenz (Art. 3 BV) die Kantone zuständig",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                2
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r05",
+              "criterion": ".\nArt. 118b Abs. 1 BV begründet eine Verbandskompetenz des Bundes",
+              "expected": ".\nArt. 118b Abs. 1 BV begründet eine Verbandskompetenz des Bundes",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                2
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r06",
+              "criterion": ". Darauf\ndeuten der Wortlaut [Der Bunde erlässt…]",
+              "expected": ". Darauf\ndeuten der Wortlaut [Der Bunde erlässt…]",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                2
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r07",
+              "criterion": "und die Stellung der Norm innerhalb der Bundesverfassung [3. Titel: Bund Kantone und Gemeinden]",
+              "expected": "und die Stellung der Norm innerhalb der Bundesverfassung [3. Titel: Bund Kantone und Gemeinden]",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                2
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r08",
+              "criterion": ". Es\nhandelt sich dabei um eine umfassende Gesetzgebungskompetenz",
+              "expected": ". Es\nhandelt sich dabei um eine umfassende Gesetzgebungskompetenz",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                2
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r09",
+              "criterion": "mit nachträglich derogatorischer Wirkung",
+              "expected": "mit nachträglich derogatorischer Wirkung",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                2
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r10",
+              "criterion": ", da es dem Sinn der Norm widersprechen\nwürde, wenn die Regelungen der Kantone wegfallen bevor der Bund seine Kompetenz\nausgeübt hat",
+              "expected": ", da es dem Sinn der Norm widersprechen\nwürde, wenn die Regelungen der Kantone wegfallen bevor der Bund seine Kompetenz\nausgeübt hat",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                2
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r11",
+              "criterion": ". Art. 118b BV äussert sich nicht explizit zur Staatsfunktion,\nweshalb der Normalfall nach Art. 46 BV zum Zuge kommt",
+              "expected": ". Art. 118b BV äussert sich nicht explizit zur Staatsfunktion,\nweshalb der Normalfall nach Art. 46 BV zum Zuge kommt",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                2
+              ],
+              "provenance": "official"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              2
+            ],
+            "originalLabel": "Schindler 1.1",
+            "professor": "Schindler",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "official",
+            "bonusRequiresHumanReview": true
+          },
+          "bonusRubric": [
+            {
+              "id": "r04",
+              "criterion": ". Dies entspricht auch dem Gedanken der Subsidiarität, der in Art 5a BV festgehalten ist; er ist aber nur eine «politische Klugheitsregel» und vermag die realen\nKompetenzen nicht zu beeinflussen",
+              "expected": ". Dies entspricht auch dem Gedanken der Subsidiarität, der in Art 5a BV festgehalten ist; er ist aber nur eine «politische Klugheitsregel» und vermag die realen\nKompetenzen nicht zu beeinflussen",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                2
+              ],
+              "provenance": "official"
+            }
+          ]
+        },
+        {
+          "id": "busta-fs25-q02",
+          "number": 2,
+          "text": "Fortsetzung des Sachverhalts:\n\nGestützt auf die neue Verfassungsbestimmung hat der Bund das Bundesgesetz über die\nForschung am Menschen (Humanforschungsgesetz, HFG) vom 30. September 2011 erlassen. Im Rahmen der Gesetzgebungsarbeiten herrschte jedoch Uneinigkeit darüber, wie\nweit der sachliche Geltungsbereich von Art. 118b Abs. 1 BV reicht. Eine Seite argumentierte, Art. 118b BV umfasse sämtliche Forschung am und über den Menschen und damit\nauch geistes- und sozialwissenschaftliche Forschung, die sich beispielsweise auf der\nGrundlage von anonymisierten Daten mit dem Ernährungsverhalten von Jugendlichen\naus verschiedenen Kulturkreisen beschäftigt. Die Gegenseite argumentierte, dass die\ngeistes- und sozialwissenschaftliche Forschung mit anonymisierten Daten nicht von\nArt. 118b Abs. 1 BV erfasst sei, da die physische und die psychische Integrität oder die\nWürde des Menschen mit dieser Forschungsmethode kaum verletzt werden könne. Die\nBundeskompetenz sei deshalb nur auf Forschung mit konkretem Gefährdungspotenzial\nbeschränkt.\n\nFrage 2: [14 Punkte]\n\nWie weit geht der Anwendungsbereich von Art. 118b Abs. 1 BV? Legen sie zur Beantwortung dieser Frage Art. 118b Abs. 1 BV aus. Stützen Sie sich im Rahmen Ihrer Auslegung\nauch auf den unten abgedruckten Auszug aus der Botschaft des Bundesrates zu Art. 118b\nBV. Welches Auslegungsresultat überzeugt Sie?\n\n Botschaft des Bundesrates zum Verfassungsartikel über die Forschung am Menschen vom 12. September 2007, BBl 2007 6721.\n\n «Der Bundesgesetzgeber darf dann – und nur dann – regulierend in die Forschung\n eingreifen, wenn eine Gefährdung von Würde oder Persönlichkeit dies notwendig\n macht. Ein solcher dynamischer Ansatz vermeidet eine Überregulierung. Bevor der Gesetzgeber aktiv werden kann, bedarf es einer Einschätzung der Gefährdungssituation.\n Gesetzgeberischer Handlungsbedarf entsteht dann, wenn ein Gefährdungspotenzial\n für Würde oder Persönlichkeit vorliegt; er muss verneint werden, falls dieses als vernachlässigbar eingeschätzt wird.»",
+          "type": "open",
+          "points": 14,
+          "expectedDuration": 14,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Bei der grammatikalischen Auslegung wird auf den Wortlaut abgestellt (1 Punkt).\n Art. 118b Abs. 1 BV sagt explizit, dass die Kompetenz nur soweit geht, als dass es der\n Schutz der Würde und Persönlichkeit erfordert (1 Punkt). Dies spricht für ein enges\n Verständnis der Norm (1 Punkt).\n Die teleologische Auslegung fragt nach dem mit der Norm verfolgten Normzweck\n (1 Punkt). Art. 118b Abs. 1 BV verfolgt den Zweck, die Würde und Persönlichkeit zu\n schützen, wenn der Mensch zum Objekt der Forschung gemacht wird (1 Punkt). Der\n Geltungsbereich kann daher nur soweit gehen, als dass diese Rechtgüter gefährdet\n sind, was ebenfalls für ein enges Normverständnis spricht (1 Punkt).\n Die historische Auslegung fragt nach der Entstehungsgeschichte einer Norm, wie sie\n in den Materialien zum Ausdruck kommt (1 Punkt). In der Botschaft des Bundesrates\n\nkommt zum Ausdruck, dass Überregulierung vermieden werden soll und die Kompetenz sich nur auf Bereiche mit Gefährdungspotenzial für die Würde und die Persönlichkeit erstreckt (1 Punkt). Dies spricht dafür, dass die Kompetenz sich nicht auf\nForschungsvorhaben mit vernachlässigbarem Gefährdungspotenzial, wie in den Geistes- und Sozialwissenschaften, erstreckt (1 Punkt).\nDie systematische Auslegung betrachtet die Stellung der Norm innerhalb der Verfassung und der Rechtsordnung überhaupt (1 Punkt). Art. 118b Abs. 2 BV stellt Grundsätze über die Forschung mit Personen auf, die sich jedoch nur auf die Biologie und die\nMedizin beschränken (1 Punkt). Dies spricht gegen ein weites Normverständnis, das\nauch geistes- und sozialwissenschaftliche Forschung ohne Gefährdungspotenzial umfasst (1 Punkt).\nDas Bundesgericht wendet die Auslegungsmethoden im Rahmen des pragmatischen\nMethodenpluralismus in der Kombination an, die am besten auf den Einzelfall zugeschnitten ist, und lehnt eine Priorisierung der Methoden ab (1 Punkt). Im vorliegenden Fall sprechen alle Auslegungsmethoden dafür, dass nur Forschungsprojekte, die\nden Menschen in seiner Würde und Persönlichkeit gefährden, von Art. 118b Abs. 1 BV\nerfasst werden, und sich die Bundeskompetenz daher auf die Forschung mit konkretem Gefährdungspotenzial beschränkt, wozu die Geistes- und Sozialwissenschaften\ntypischerweise nicht zählen (1 Punkt).",
+          "explanation": "Bei der grammatikalischen Auslegung wird auf den Wortlaut abgestellt (1 Punkt).\n Art. 118b Abs. 1 BV sagt explizit, dass die Kompetenz nur soweit geht, als dass es der\n Schutz der Würde und Persönlichkeit erfordert (1 Punkt). Dies spricht für ein enges\n Verständnis der Norm (1 Punkt).\n Die teleologische Auslegung fragt nach dem mit der Norm verfolgten Normzweck\n (1 Punkt). Art. 118b Abs. 1 BV verfolgt den Zweck, die Würde und Persönlichkeit zu\n schützen, wenn der Mensch zum Objekt der Forschung gemacht wird (1 Punkt). Der\n Geltungsbereich kann daher nur soweit gehen, als dass diese Rechtgüter gefährdet\n sind, was ebenfalls für ein enges Normverständnis spricht (1 Punkt).\n Die historische Auslegung fragt nach der Entstehungsgeschichte einer Norm, wie sie\n in den Materialien zum Ausdruck kommt (1 Punkt). In der Botschaft des Bundesrates\n\nkommt zum Ausdruck, dass Überregulierung vermieden werden soll und die Kompetenz sich nur auf Bereiche mit Gefährdungspotenzial für die Würde und die Persönlichkeit erstreckt (1 Punkt). Dies spricht dafür, dass die Kompetenz sich nicht auf\nForschungsvorhaben mit vernachlässigbarem Gefährdungspotenzial, wie in den Geistes- und Sozialwissenschaften, erstreckt (1 Punkt).\nDie systematische Auslegung betrachtet die Stellung der Norm innerhalb der Verfassung und der Rechtsordnung überhaupt (1 Punkt). Art. 118b Abs. 2 BV stellt Grundsätze über die Forschung mit Personen auf, die sich jedoch nur auf die Biologie und die\nMedizin beschränken (1 Punkt). Dies spricht gegen ein weites Normverständnis, das\nauch geistes- und sozialwissenschaftliche Forschung ohne Gefährdungspotenzial umfasst (1 Punkt).\nDas Bundesgericht wendet die Auslegungsmethoden im Rahmen des pragmatischen\nMethodenpluralismus in der Kombination an, die am besten auf den Einzelfall zugeschnitten ist, und lehnt eine Priorisierung der Methoden ab (1 Punkt). Im vorliegenden Fall sprechen alle Auslegungsmethoden dafür, dass nur Forschungsprojekte, die\nden Menschen in seiner Würde und Persönlichkeit gefährden, von Art. 118b Abs. 1 BV\nerfasst werden, und sich die Bundeskompetenz daher auf die Forschung mit konkretem Gefährdungspotenzial beschränkt, wozu die Geistes- und Sozialwissenschaften\ntypischerweise nicht zählen (1 Punkt).",
+          "topics": [
+            "Verfassungsauslegung",
+            "Humanforschung"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Bei der grammatikalischen Auslegung wird auf den Wortlaut abgestellt",
+              "expected": "Bei der grammatikalischen Auslegung wird auf den Wortlaut abgestellt",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                3,
+                4
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r02",
+              "criterion": ".\n Art. 118b Abs. 1 BV sagt explizit, dass die Kompetenz nur soweit geht, als dass es der\n Schutz der Würde und Persönlichkeit erfordert",
+              "expected": ".\n Art. 118b Abs. 1 BV sagt explizit, dass die Kompetenz nur soweit geht, als dass es der\n Schutz der Würde und Persönlichkeit erfordert",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                3,
+                4
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r03",
+              "criterion": ". Dies spricht für ein enges\n Verständnis der Norm",
+              "expected": ". Dies spricht für ein enges\n Verständnis der Norm",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                3,
+                4
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r04",
+              "criterion": ".\n Die teleologische Auslegung fragt nach dem mit der Norm verfolgten Normzweck",
+              "expected": ".\n Die teleologische Auslegung fragt nach dem mit der Norm verfolgten Normzweck",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                3,
+                4
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r05",
+              "criterion": ". Art. 118b Abs. 1 BV verfolgt den Zweck, die Würde und Persönlichkeit zu\n schützen, wenn der Mensch zum Objekt der Forschung gemacht wird",
+              "expected": ". Art. 118b Abs. 1 BV verfolgt den Zweck, die Würde und Persönlichkeit zu\n schützen, wenn der Mensch zum Objekt der Forschung gemacht wird",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                3,
+                4
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r06",
+              "criterion": ". Der\n Geltungsbereich kann daher nur soweit gehen, als dass diese Rechtgüter gefährdet\n sind, was ebenfalls für ein enges Normverständnis spricht",
+              "expected": ". Der\n Geltungsbereich kann daher nur soweit gehen, als dass diese Rechtgüter gefährdet\n sind, was ebenfalls für ein enges Normverständnis spricht",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                3,
+                4
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r07",
+              "criterion": ".\n Die historische Auslegung fragt nach der Entstehungsgeschichte einer Norm, wie sie\n in den Materialien zum Ausdruck kommt",
+              "expected": ".\n Die historische Auslegung fragt nach der Entstehungsgeschichte einer Norm, wie sie\n in den Materialien zum Ausdruck kommt",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                3,
+                4
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r08",
+              "criterion": ". In der Botschaft des Bundesrates\n\nkommt zum Ausdruck, dass Überregulierung vermieden werden soll und die Kompetenz sich nur auf Bereiche mit Gefährdungspotenzial für die Würde und die Persönlichkeit erstreckt",
+              "expected": ". In der Botschaft des Bundesrates\n\nkommt zum Ausdruck, dass Überregulierung vermieden werden soll und die Kompetenz sich nur auf Bereiche mit Gefährdungspotenzial für die Würde und die Persönlichkeit erstreckt",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                3,
+                4
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r09",
+              "criterion": ". Dies spricht dafür, dass die Kompetenz sich nicht auf\nForschungsvorhaben mit vernachlässigbarem Gefährdungspotenzial, wie in den Geistes- und Sozialwissenschaften, erstreckt",
+              "expected": ". Dies spricht dafür, dass die Kompetenz sich nicht auf\nForschungsvorhaben mit vernachlässigbarem Gefährdungspotenzial, wie in den Geistes- und Sozialwissenschaften, erstreckt",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                3,
+                4
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r10",
+              "criterion": ".\nDie systematische Auslegung betrachtet die Stellung der Norm innerhalb der Verfassung und der Rechtsordnung überhaupt",
+              "expected": ".\nDie systematische Auslegung betrachtet die Stellung der Norm innerhalb der Verfassung und der Rechtsordnung überhaupt",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                3,
+                4
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r11",
+              "criterion": ". Art. 118b Abs. 2 BV stellt Grundsätze über die Forschung mit Personen auf, die sich jedoch nur auf die Biologie und die\nMedizin beschränken",
+              "expected": ". Art. 118b Abs. 2 BV stellt Grundsätze über die Forschung mit Personen auf, die sich jedoch nur auf die Biologie und die\nMedizin beschränken",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                3,
+                4
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r12",
+              "criterion": ". Dies spricht gegen ein weites Normverständnis, das\nauch geistes- und sozialwissenschaftliche Forschung ohne Gefährdungspotenzial umfasst",
+              "expected": ". Dies spricht gegen ein weites Normverständnis, das\nauch geistes- und sozialwissenschaftliche Forschung ohne Gefährdungspotenzial umfasst",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                3,
+                4
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r13",
+              "criterion": ".\nDas Bundesgericht wendet die Auslegungsmethoden im Rahmen des pragmatischen\nMethodenpluralismus in der Kombination an, die am besten auf den Einzelfall zugeschnitten ist, und lehnt eine Priorisierung der Methoden ab",
+              "expected": ".\nDas Bundesgericht wendet die Auslegungsmethoden im Rahmen des pragmatischen\nMethodenpluralismus in der Kombination an, die am besten auf den Einzelfall zugeschnitten ist, und lehnt eine Priorisierung der Methoden ab",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                3,
+                4
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r14",
+              "criterion": ". Im vorliegenden Fall sprechen alle Auslegungsmethoden dafür, dass nur Forschungsprojekte, die\nden Menschen in seiner Würde und Persönlichkeit gefährden, von Art. 118b Abs. 1 BV\nerfasst werden, und sich die Bundeskompetenz daher auf die Forschung mit konkretem Gefährdungspotenzial beschränkt, wozu die Geistes- und Sozialwissenschaften\ntypischerweise nicht zählen",
+              "expected": ". Im vorliegenden Fall sprechen alle Auslegungsmethoden dafür, dass nur Forschungsprojekte, die\nden Menschen in seiner Würde und Persönlichkeit gefährden, von Art. 118b Abs. 1 BV\nerfasst werden, und sich die Bundeskompetenz daher auf die Forschung mit konkretem Gefährdungspotenzial beschränkt, wozu die Geistes- und Sozialwissenschaften\ntypischerweise nicht zählen",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                3,
+                4
+              ],
+              "provenance": "official"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              3,
+              4
+            ],
+            "originalLabel": "Schindler 1.2",
+            "professor": "Schindler",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "official"
+          }
+        }
+      ]
+    },
+    {
+      "id": "schindler-2",
+      "title": "Teil Schindler · Aufgabe 2",
+      "points": 24,
+      "questionType": "open",
+      "description": "",
+      "context": "Am 29. November 2009 wurde die eidgenössische Volksinitiative «Gegen den Bau von Minaretten» von Volk und Ständen angenommen. Dadurch fand Art. 72 Abs. 3 BV Eingang\nin die Bundesverfassung, der den Bau von Minaretten (schmaler Turm bei oder an einer\nMoschee, von dem aus fünf Mal am Tag zum Gebet gerufen wird) in der Schweiz verbietet.\nDie Gegner des Minarettverbots stören sich unter anderem am offenen Widerspruch, der\nzwischen Art. 72 Abs. 3 BV und der Glaubens- und Gewissensfreiheit (Art. 15 BV) sowie\nder Rechtsgleichheit (Art. 8 Abs. 1 BV) entstanden ist.",
+      "questions": [
+        {
+          "id": "busta-fs25-q03",
+          "number": 3,
+          "text": "Frage 1: [4 Punkte]\n\nWeshalb kommt es innerhalb der Bundesverfassung zu Widersprüchen? Wie versuchen\ndie Bundesbehörden solche Widersprüche zu bereinigen? Sehen Sie darin Gefahren?",
+          "type": "open",
+          "points": 4,
+          "expectedDuration": 4,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Die Bevölkerung in der Schweiz kann die Verfassung über die Volksinitiative jederzeit\n ändern. Dieses direktdemokratische Mitwirkungsinstrument kann dazu führen, dass\n aus einem aktuellen Anlass eine einzelne Bestimmung in die Verfassung eingefügt\n wird, die anderen Verfassungsnormen widerspricht (1 Punkt). Im Rahmen der systematischen Auslegung ist deshalb darauf zu achten, dass die Verfassungsbestimmungen in praktische Konkordanz gebracht werden (1 Punkt) und Widersprüche innerhalb der Verfassung geglättet werden, indem sie harmonisiert werden (1 Punkt). Es besteht hier aber die Gefahr, dass bewusst in Kauf genommene Konflikte entgegen dem\n Normsinn «wegharmonisiert» werden und eine wertende Normenhierarchie geschaffen wird (1 Punkt).\n (Vgl. Fragenkatalog 1, Frage 6)",
+          "explanation": "Die Bevölkerung in der Schweiz kann die Verfassung über die Volksinitiative jederzeit\n ändern. Dieses direktdemokratische Mitwirkungsinstrument kann dazu führen, dass\n aus einem aktuellen Anlass eine einzelne Bestimmung in die Verfassung eingefügt\n wird, die anderen Verfassungsnormen widerspricht (1 Punkt). Im Rahmen der systematischen Auslegung ist deshalb darauf zu achten, dass die Verfassungsbestimmungen in praktische Konkordanz gebracht werden (1 Punkt) und Widersprüche innerhalb der Verfassung geglättet werden, indem sie harmonisiert werden (1 Punkt). Es besteht hier aber die Gefahr, dass bewusst in Kauf genommene Konflikte entgegen dem\n Normsinn «wegharmonisiert» werden und eine wertende Normenhierarchie geschaffen wird (1 Punkt).\n (Vgl. Fragenkatalog 1, Frage 6)",
+          "topics": [
+            "Verfassungsauslegung",
+            "Volksinitiative"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Die Bevölkerung in der Schweiz kann die Verfassung über die Volksinitiative jederzeit\n ändern. Dieses direktdemokratische Mitwirkungsinstrument kann dazu führen, dass\n aus einem aktuellen Anlass eine einzelne Bestimmung in die Verfassung eingefügt\n wird, die anderen Verfassungsnormen widerspricht",
+              "expected": "Die Bevölkerung in der Schweiz kann die Verfassung über die Volksinitiative jederzeit\n ändern. Dieses direktdemokratische Mitwirkungsinstrument kann dazu führen, dass\n aus einem aktuellen Anlass eine einzelne Bestimmung in die Verfassung eingefügt\n wird, die anderen Verfassungsnormen widerspricht",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                5
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r02",
+              "criterion": ". Im Rahmen der systematischen Auslegung ist deshalb darauf zu achten, dass die Verfassungsbestimmungen in praktische Konkordanz gebracht werden",
+              "expected": ". Im Rahmen der systematischen Auslegung ist deshalb darauf zu achten, dass die Verfassungsbestimmungen in praktische Konkordanz gebracht werden",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                5
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r03",
+              "criterion": "und Widersprüche innerhalb der Verfassung geglättet werden, indem sie harmonisiert werden",
+              "expected": "und Widersprüche innerhalb der Verfassung geglättet werden, indem sie harmonisiert werden",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                5
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r04",
+              "criterion": ". Es besteht hier aber die Gefahr, dass bewusst in Kauf genommene Konflikte entgegen dem\n Normsinn «wegharmonisiert» werden und eine wertende Normenhierarchie geschaffen wird",
+              "expected": ". Es besteht hier aber die Gefahr, dass bewusst in Kauf genommene Konflikte entgegen dem\n Normsinn «wegharmonisiert» werden und eine wertende Normenhierarchie geschaffen wird",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                5
+              ],
+              "provenance": "official"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              5
+            ],
+            "originalLabel": "Schindler 2.1",
+            "professor": "Schindler",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "official"
+          }
+        },
+        {
+          "id": "busta-fs25-q04",
+          "number": 4,
+          "text": "Der Sachverhalts ist frei erfunden!\n\nDer muslimische Verein X plant, am Stadtrand von St. Gallen eine neue Moschee zu bauen,\ndie auch über ein kleines Minarett verfügt. Der Verein ist der Auffassung, das Minarettverbot stehe nicht nur in einem Widerspruch mit ihren verfassungsmässigen Grundrechten, sondern auch mit der Religionsfreiheit (Art. 9 EMRK) und dem Diskriminierungsverbot (Art. 14 EMRK) der Europäischen Menschenrechtskonvention. Da ihr Bauvorhaben mit\nVerweis auf Art. 72 Abs. 3 BV nicht bewilligt wurde, gelangen sie mit ihrem Anliegen vor\ndas zuständige Verwaltungsgericht des Kantons St. Gallen.\n\nFrage 2: [8 Punkte]\n\nKann sich der Verein X vor dem Verwaltungsgericht St. Gallen auf die Garantien der\nEMRK berufen und eine Verletzung dieser Normen geltend machen? Gehen Sie zur Beantwortung dieser Frage zuerst auf die verschiedenen Systeme betreffend innerstaatliche\nGeltung von Völkerrecht ein und beschreiben sie, welchem System die Schweiz folgt.\nGehen Sie anschliessend auf die innerstaatliche Anwendbarkeit von Art. 9 und 14 EMRK\nein.",
+          "type": "open",
+          "points": 8,
+          "expectedDuration": 8,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "In Bezug auf die innerstaatliche Geltung von Völkerrecht wird zwischen zwei Systemen unterschieden. Das dualistische System fordert, dass Völkerrecht zuerst durch\neinen nationalen Rechtsakt in nationales Recht überführt wird (1 Punkt). Das monistische System betrachtet Völker- und Landesrecht als Einheit, weshalb Völkerrecht unmittelbar innerstaatliche Wirkung entfaltet (1 Punkt). Die Schweiz ist dem Monismus\nverpflichtet (1 Punkt). Somit hat die EMRK automatisch Geltung im schweizerischen\nLandesrecht (1 Punkt).\nAuch im monistischen System kann nicht jede völkerrechtliche Norm im Einzelfall unmittelbar angerufen werden. Die Norm muss zusätzlich justiziabel (self-executing) sein\n(1 Punkt). Davon ist auszugehen, wenn diese Privaten individuelle Rechte und Pflichten vermitteln (1 Punkt) und genügend bestimmt sind für die direkte Anwendung\ndurch Verwaltung und Justiz (1 Punkt). Art. 9 und 14 EMRK gewähren dem Individuum einen Rechtsanspruch und sind genügend bestimmt, weshalb sich der Verein X\nauch vor dem innerstaatlichen Verwaltungsgericht darauf berufen kann (1 Punkt).",
+          "explanation": "In Bezug auf die innerstaatliche Geltung von Völkerrecht wird zwischen zwei Systemen unterschieden. Das dualistische System fordert, dass Völkerrecht zuerst durch\neinen nationalen Rechtsakt in nationales Recht überführt wird (1 Punkt). Das monistische System betrachtet Völker- und Landesrecht als Einheit, weshalb Völkerrecht unmittelbar innerstaatliche Wirkung entfaltet (1 Punkt). Die Schweiz ist dem Monismus\nverpflichtet (1 Punkt). Somit hat die EMRK automatisch Geltung im schweizerischen\nLandesrecht (1 Punkt).\nAuch im monistischen System kann nicht jede völkerrechtliche Norm im Einzelfall unmittelbar angerufen werden. Die Norm muss zusätzlich justiziabel (self-executing) sein\n(1 Punkt). Davon ist auszugehen, wenn diese Privaten individuelle Rechte und Pflichten vermitteln (1 Punkt) und genügend bestimmt sind für die direkte Anwendung\ndurch Verwaltung und Justiz (1 Punkt). Art. 9 und 14 EMRK gewähren dem Individuum einen Rechtsanspruch und sind genügend bestimmt, weshalb sich der Verein X\nauch vor dem innerstaatlichen Verwaltungsgericht darauf berufen kann (1 Punkt).",
+          "topics": [
+            "Völkerrecht",
+            "EMRK"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "In Bezug auf die innerstaatliche Geltung von Völkerrecht wird zwischen zwei Systemen unterschieden. Das dualistische System fordert, dass Völkerrecht zuerst durch\neinen nationalen Rechtsakt in nationales Recht überführt wird",
+              "expected": "In Bezug auf die innerstaatliche Geltung von Völkerrecht wird zwischen zwei Systemen unterschieden. Das dualistische System fordert, dass Völkerrecht zuerst durch\neinen nationalen Rechtsakt in nationales Recht überführt wird",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                5,
+                6
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r02",
+              "criterion": ". Das monistische System betrachtet Völker- und Landesrecht als Einheit, weshalb Völkerrecht unmittelbar innerstaatliche Wirkung entfaltet",
+              "expected": ". Das monistische System betrachtet Völker- und Landesrecht als Einheit, weshalb Völkerrecht unmittelbar innerstaatliche Wirkung entfaltet",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                5,
+                6
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r03",
+              "criterion": ". Die Schweiz ist dem Monismus\nverpflichtet",
+              "expected": ". Die Schweiz ist dem Monismus\nverpflichtet",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                5,
+                6
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r04",
+              "criterion": ". Somit hat die EMRK automatisch Geltung im schweizerischen\nLandesrecht",
+              "expected": ". Somit hat die EMRK automatisch Geltung im schweizerischen\nLandesrecht",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                5,
+                6
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r05",
+              "criterion": ".\nAuch im monistischen System kann nicht jede völkerrechtliche Norm im Einzelfall unmittelbar angerufen werden. Die Norm muss zusätzlich justiziabel (self-executing) sein",
+              "expected": ".\nAuch im monistischen System kann nicht jede völkerrechtliche Norm im Einzelfall unmittelbar angerufen werden. Die Norm muss zusätzlich justiziabel (self-executing) sein",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                5,
+                6
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r06",
+              "criterion": ". Davon ist auszugehen, wenn diese Privaten individuelle Rechte und Pflichten vermitteln",
+              "expected": ". Davon ist auszugehen, wenn diese Privaten individuelle Rechte und Pflichten vermitteln",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                5,
+                6
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r07",
+              "criterion": "und genügend bestimmt sind für die direkte Anwendung\ndurch Verwaltung und Justiz",
+              "expected": "und genügend bestimmt sind für die direkte Anwendung\ndurch Verwaltung und Justiz",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                5,
+                6
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r08",
+              "criterion": ". Art. 9 und 14 EMRK gewähren dem Individuum einen Rechtsanspruch und sind genügend bestimmt, weshalb sich der Verein X\nauch vor dem innerstaatlichen Verwaltungsgericht darauf berufen kann",
+              "expected": ". Art. 9 und 14 EMRK gewähren dem Individuum einen Rechtsanspruch und sind genügend bestimmt, weshalb sich der Verein X\nauch vor dem innerstaatlichen Verwaltungsgericht darauf berufen kann",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                5,
+                6
+              ],
+              "provenance": "official"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              5,
+              6
+            ],
+            "originalLabel": "Schindler 2.2",
+            "professor": "Schindler",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "official"
+          }
+        },
+        {
+          "id": "busta-fs25-q05",
+          "number": 5,
+          "text": "Frage 3: [12 Punkte]\n\nGehen Sie davon aus, dass das Verwaltungsgericht des Kantons St. Gallen in der Nichtbewilligung des Baus einer Moschee mit einem Minarett eine Verletzung von Art. 9 und\n14 EMRK erkennt, die aufgrund des klaren Wortlautes von Art. 72 Abs. 3 BV nicht durch\neine völkerrechtskonforme Auslegung der Bundesverfassung bereinigt werden kann.\nWie kann das Gericht mit diesem Konflikt zwischen der EMRK und der Bundesverfassung umgehen? Wäre Ihre Antwort anders, wenn das Minarettverbot nicht in der Bundesverfassung, sondern in einem Bundesgesetz verankert wäre?\n\nHinweis: Allfällige kompetenzrechtliche Probleme müssen Sie nicht thematisieren.",
+          "type": "open",
+          "points": 12,
+          "expectedDuration": 12,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Das Verhältnis zwischen Bundesverfassungsrecht und einfachem Völkerrecht ist nicht\nabschliessend geklärt (1 Punkt). Die Verfassung gibt folgende Anhaltspunkte:\n- In Art. 5 Abs. 4 BV (1 Punkt) erblickt ein grosser Teil der Lehre einen grundsätzlichen Vorrang des Völkerrechts vor dem Landesrecht (1 Punkt).\n- Art. 190 BV (1 Punkt) ist zwar keine abschliessende Kollisionsregel zwischen einfachem Völkerrecht und der Bundesverfassung (1 Punkt), spricht aber ebenfalls\n dafür, dass im Konfliktfall das Völkerrecht und nicht das Bundesverfassungsrecht\n massgeblich ist (1 Punkt).\nSomit hätte das Gericht die Möglichkeit, das Bauvorhaben entgegen dem klaren Wortlaut von Art. 72 Abs. 3 BV zu bewilligen (1 Punkt).\nFür den Fall, dass das Minarettverbot in einem Bundesgesetz verankert wäre, lässt sich\naus Art. 190 BV nichts ableiten, da dieser das Völkerrecht und Bundesgesetze für massgeblich erklärt (1 Punkt). Zum Verhältnis von Bundesgesetzen gegenüber Völkerrecht gibt es zwei Rechtsprechungslinien des Bundesgericht:\n- Nach der sog. «Schubert-Praxis» geht eine bundesgesetzliche Norm im Konfliktfall\n vor, wenn der Gesetzgeber einen allfälligen Konflikt mit dem Völkerrecht bewusst\n\n in Kauf genommen hat (1.5 Punkt).\n- Nach der sog. «PKK-Praxis» geht Völkerrecht dem Landesrecht prinzipiell vor, insbesondere dann, wenn die völkerrechtliche Norm dem Schutz der Menschenrechte\n dient (1.5 Punkt).\nDa die infragestehenden völkerrechtlichen Normen dem Schutz der Menschenrechte\ndienen, ist davon auszugehen, dass die «PKK-Praxis» zur Anwendung gelangt, womit\nder Bau ebenfalls bewilligt werden könnte (1 Punkt).",
+          "explanation": "Das Verhältnis zwischen Bundesverfassungsrecht und einfachem Völkerrecht ist nicht\nabschliessend geklärt (1 Punkt). Die Verfassung gibt folgende Anhaltspunkte:\n- In Art. 5 Abs. 4 BV (1 Punkt) erblickt ein grosser Teil der Lehre einen grundsätzlichen Vorrang des Völkerrechts vor dem Landesrecht (1 Punkt).\n- Art. 190 BV (1 Punkt) ist zwar keine abschliessende Kollisionsregel zwischen einfachem Völkerrecht und der Bundesverfassung (1 Punkt), spricht aber ebenfalls\n dafür, dass im Konfliktfall das Völkerrecht und nicht das Bundesverfassungsrecht\n massgeblich ist (1 Punkt).\nSomit hätte das Gericht die Möglichkeit, das Bauvorhaben entgegen dem klaren Wortlaut von Art. 72 Abs. 3 BV zu bewilligen (1 Punkt).\nFür den Fall, dass das Minarettverbot in einem Bundesgesetz verankert wäre, lässt sich\naus Art. 190 BV nichts ableiten, da dieser das Völkerrecht und Bundesgesetze für massgeblich erklärt (1 Punkt). Zum Verhältnis von Bundesgesetzen gegenüber Völkerrecht gibt es zwei Rechtsprechungslinien des Bundesgericht:\n- Nach der sog. «Schubert-Praxis» geht eine bundesgesetzliche Norm im Konfliktfall\n vor, wenn der Gesetzgeber einen allfälligen Konflikt mit dem Völkerrecht bewusst\n\n in Kauf genommen hat (1.5 Punkt).\n- Nach der sog. «PKK-Praxis» geht Völkerrecht dem Landesrecht prinzipiell vor, insbesondere dann, wenn die völkerrechtliche Norm dem Schutz der Menschenrechte\n dient (1.5 Punkt).\nDa die infragestehenden völkerrechtlichen Normen dem Schutz der Menschenrechte\ndienen, ist davon auszugehen, dass die «PKK-Praxis» zur Anwendung gelangt, womit\nder Bau ebenfalls bewilligt werden könnte (1 Punkt).",
+          "topics": [
+            "Völkerrecht",
+            "Normenkollision"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Das Verhältnis zwischen Bundesverfassungsrecht und einfachem Völkerrecht ist nicht\nabschliessend geklärt",
+              "expected": "Das Verhältnis zwischen Bundesverfassungsrecht und einfachem Völkerrecht ist nicht\nabschliessend geklärt",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                6,
+                7
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r02",
+              "criterion": ". Die Verfassung gibt folgende Anhaltspunkte:\n- In Art. 5 Abs. 4 BV",
+              "expected": ". Die Verfassung gibt folgende Anhaltspunkte:\n- In Art. 5 Abs. 4 BV",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                6,
+                7
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r03",
+              "criterion": "erblickt ein grosser Teil der Lehre einen grundsätzlichen Vorrang des Völkerrechts vor dem Landesrecht",
+              "expected": "erblickt ein grosser Teil der Lehre einen grundsätzlichen Vorrang des Völkerrechts vor dem Landesrecht",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                6,
+                7
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r04",
+              "criterion": ".\n- Art. 190 BV",
+              "expected": ".\n- Art. 190 BV",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                6,
+                7
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r05",
+              "criterion": "ist zwar keine abschliessende Kollisionsregel zwischen einfachem Völkerrecht und der Bundesverfassung",
+              "expected": "ist zwar keine abschliessende Kollisionsregel zwischen einfachem Völkerrecht und der Bundesverfassung",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                6,
+                7
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r06",
+              "criterion": ", spricht aber ebenfalls\n dafür, dass im Konfliktfall das Völkerrecht und nicht das Bundesverfassungsrecht\n massgeblich ist",
+              "expected": ", spricht aber ebenfalls\n dafür, dass im Konfliktfall das Völkerrecht und nicht das Bundesverfassungsrecht\n massgeblich ist",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                6,
+                7
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r07",
+              "criterion": ".\nSomit hätte das Gericht die Möglichkeit, das Bauvorhaben entgegen dem klaren Wortlaut von Art. 72 Abs. 3 BV zu bewilligen",
+              "expected": ".\nSomit hätte das Gericht die Möglichkeit, das Bauvorhaben entgegen dem klaren Wortlaut von Art. 72 Abs. 3 BV zu bewilligen",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                6,
+                7
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r08",
+              "criterion": ".\nFür den Fall, dass das Minarettverbot in einem Bundesgesetz verankert wäre, lässt sich\naus Art. 190 BV nichts ableiten, da dieser das Völkerrecht und Bundesgesetze für massgeblich erklärt",
+              "expected": ".\nFür den Fall, dass das Minarettverbot in einem Bundesgesetz verankert wäre, lässt sich\naus Art. 190 BV nichts ableiten, da dieser das Völkerrecht und Bundesgesetze für massgeblich erklärt",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                6,
+                7
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r09",
+              "criterion": ". Zum Verhältnis von Bundesgesetzen gegenüber Völkerrecht gibt es zwei Rechtsprechungslinien des Bundesgericht:\n- Nach der sog. «Schubert-Praxis» geht eine bundesgesetzliche Norm im Konfliktfall\n vor, wenn der Gesetzgeber einen allfälligen Konflikt mit dem Völkerrecht bewusst\n\n in Kauf genommen hat",
+              "expected": ". Zum Verhältnis von Bundesgesetzen gegenüber Völkerrecht gibt es zwei Rechtsprechungslinien des Bundesgericht:\n- Nach der sog. «Schubert-Praxis» geht eine bundesgesetzliche Norm im Konfliktfall\n vor, wenn der Gesetzgeber einen allfälligen Konflikt mit dem Völkerrecht bewusst\n\n in Kauf genommen hat",
+              "maxPoints": 1.5,
+              "sourcePages": [
+                6,
+                7
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r10",
+              "criterion": ".\n- Nach der sog. «PKK-Praxis» geht Völkerrecht dem Landesrecht prinzipiell vor, insbesondere dann, wenn die völkerrechtliche Norm dem Schutz der Menschenrechte\n dient",
+              "expected": ".\n- Nach der sog. «PKK-Praxis» geht Völkerrecht dem Landesrecht prinzipiell vor, insbesondere dann, wenn die völkerrechtliche Norm dem Schutz der Menschenrechte\n dient",
+              "maxPoints": 1.5,
+              "sourcePages": [
+                6,
+                7
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r11",
+              "criterion": ".\nDa die infragestehenden völkerrechtlichen Normen dem Schutz der Menschenrechte\ndienen, ist davon auszugehen, dass die «PKK-Praxis» zur Anwendung gelangt, womit\nder Bau ebenfalls bewilligt werden könnte",
+              "expected": ".\nDa die infragestehenden völkerrechtlichen Normen dem Schutz der Menschenrechte\ndienen, ist davon auszugehen, dass die «PKK-Praxis» zur Anwendung gelangt, womit\nder Bau ebenfalls bewilligt werden könnte",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                6,
+                7
+              ],
+              "provenance": "official"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              6,
+              7
+            ],
+            "originalLabel": "Schindler 2.3",
+            "professor": "Schindler",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "official"
+          }
+        }
+      ]
+    },
+    {
+      "id": "schindler-3",
+      "title": "Teil Schindler · Aufgabe 3",
+      "points": 26,
+      "questionType": "open",
+      "description": "",
+      "context": "Basel war ab dem frühen 16. Jahrhundert bis 1798 einer von dreizehn sogenannten «Orten» innerhalb der Alten Eidgenossenschaft. Diese «Orte» waren weitgehend selbständig,\nkoordinierten ihre Politik aber im Rahmen der Tagsatzung. Die Tagsatzung konnte einstimmig Beschlüsse fassen. Die Gesandten der «Orte» stimmten gemäss der Vorgabe (Instruktion) ihrer jeweiligen Regierungen.\n\nDas Territorium Basels bestand aus der befestigten Stadt am Rhein und den ländlichen\nUntertanengebieten, die durch Verträge und Eroberungen unter die Kontrolle Basels gelangt waren. Während die Stadtbürger wirtschaftliche und politische Privilegien genossen, hatte die Landbevölkerung kein Mitspracherecht und unterlag der Verwaltung und\nGerichtsbarkeit der Stadt.\n\nReligiös differenzierte sich Basel von den umliegenden Orten und vom Ausland durch\nden reformierten Glauben. Wirtschaftlich war Basel ein Handelszentrum mit engen Verbindungen zu Frankreich und dem heutigen Süddeutschland. Im Kriegsfall konnte Basel\nTruppen ausheben – die Stadt besass eine Miliz bestehend aus Bürgern, die in Zünften\norganisiert waren, sowie aus Landbewohnern, die im Kriegsfall zur Verteidigung verpflichtet werden konnten. Im Vergleich zu den grossen Nachbarstaaten war die Streitmacht jedoch klein und auf Verteidigung ausgerichtet, was zu aussenpolitischen Abhängigkeiten führte.",
+      "questions": [
+        {
+          "id": "busta-fs25-q06",
+          "number": 6,
+          "text": "Frage 1: [16 Punkte]\n\nWelche Elemente definieren einen Staat? Erfüllt Basel in der Zeit zwischen dem frühen\n16. Jahrhundert und 1798 diese Kriterien aus heutiger Sicht?",
+          "type": "open",
+          "points": 16,
+          "expectedDuration": 16,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Nach der Dreielementenlehre von GEORG JELLINEK (1 Punkt) benötigt ein Staat kumulativ ein Staatsgebiet (1 Punkt), ein Staatsvolk (1 Punkt) und eine Staatsgewalt\n(1 Punkte).\nDas Staatsgebiet ist ein räumlich abgegrenztes Territorium, über das der Staat seine\nHerrschaft ausübt (1 Punkt). Basel bestand aus einem fest definierten Gebiet, welches\ndie Stadt und die ländlichen Untertanengebiete umfasst (1 Punkt). Das zeigt sich auch\nin der Akzeptanz durch das Ausland, was jedoch nur deklaratorischen Wert hat (1 Zusatzpunkt). Das Staatsgebiet ist damit gegeben (1 Punkt).\nDas Staatsvolk ist eine Gruppe von Menschen, die auf dem Staatsgebiet lebt, gemeinsam vom Staat beherrscht wird oder durch ein anderes rechtliches oder politisches\nKriterium verbunden ist (1 Punkt). Im Fall von Basel ist das Staatvolk beispielsweise\nals kulturell-religiöse Einheit durch den reformierten Glauben verbunden (1 Punkt).\nDie strikte rechtliche Hierarchie zwischen Stadt- und Landbevölkerung spricht jedoch\ngegen ein einheitliches Staatsvolk (1 Zusatzpunkt bei Abwägung). Das Staatsvolk ist\ndamit erfüllt/nicht erfüllt (1 Punkt).\nStaatsgewalt bezeichnet die Herrschaft, die der Staat ausübt (1 Punkt). Je nach\n\nStaatsverständnis bedeutet dies Selbstherrschaft oder Souveränität. Selbstherrschaft\n(FLEINER/JELLINEK) bedeutet, dass dem Staat nicht weiter abgeleitete, ursprüngliche\nHerrschaftsgewalt zukommt (1 Punkt). Da sich die Macht von Basel nicht von der Alten Eidgenossenschaft ableitet, ist dies gegeben (1 Punkt). Souveränität bedeutet, dass\ndem Staat uneingeschränkte Letztentscheidungsmacht gegen innen und aussen zukommt (1 Punkt). Da Basel innerstaatlich die Letztentscheidungsmacht hatte und auch\ngegen aussen als mit anderen Staaten in Beziehung trat und über eine eigene Armee\nverfügte, ist die Souveränität gegeben (1 Punkt).\nHinweis: Jeweils abweichende sinnvolle Begründungen werden ebenfalls bepunktet.\nMax. 2 Bonuspunkte für sinnvolle Ausführungen (Definition und Argumentation) betreffend\nlegitime/legale Herrschaft als zusätzliche Kriterien der Staatsgewalt.\nDa Basel zu dieser Zeit über alle drei Elemente der Dreielementelehre verfügte, ist Basel als Staat zu betrachten (1 Punkt).",
+          "explanation": "Nach der Dreielementenlehre von GEORG JELLINEK (1 Punkt) benötigt ein Staat kumulativ ein Staatsgebiet (1 Punkt), ein Staatsvolk (1 Punkt) und eine Staatsgewalt\n(1 Punkte).\nDas Staatsgebiet ist ein räumlich abgegrenztes Territorium, über das der Staat seine\nHerrschaft ausübt (1 Punkt). Basel bestand aus einem fest definierten Gebiet, welches\ndie Stadt und die ländlichen Untertanengebiete umfasst (1 Punkt). Das zeigt sich auch\nin der Akzeptanz durch das Ausland, was jedoch nur deklaratorischen Wert hat (1 Zusatzpunkt). Das Staatsgebiet ist damit gegeben (1 Punkt).\nDas Staatsvolk ist eine Gruppe von Menschen, die auf dem Staatsgebiet lebt, gemeinsam vom Staat beherrscht wird oder durch ein anderes rechtliches oder politisches\nKriterium verbunden ist (1 Punkt). Im Fall von Basel ist das Staatvolk beispielsweise\nals kulturell-religiöse Einheit durch den reformierten Glauben verbunden (1 Punkt).\nDie strikte rechtliche Hierarchie zwischen Stadt- und Landbevölkerung spricht jedoch\ngegen ein einheitliches Staatsvolk (1 Zusatzpunkt bei Abwägung). Das Staatsvolk ist\ndamit erfüllt/nicht erfüllt (1 Punkt).\nStaatsgewalt bezeichnet die Herrschaft, die der Staat ausübt (1 Punkt). Je nach\n\nStaatsverständnis bedeutet dies Selbstherrschaft oder Souveränität. Selbstherrschaft\n(FLEINER/JELLINEK) bedeutet, dass dem Staat nicht weiter abgeleitete, ursprüngliche\nHerrschaftsgewalt zukommt (1 Punkt). Da sich die Macht von Basel nicht von der Alten Eidgenossenschaft ableitet, ist dies gegeben (1 Punkt). Souveränität bedeutet, dass\ndem Staat uneingeschränkte Letztentscheidungsmacht gegen innen und aussen zukommt (1 Punkt). Da Basel innerstaatlich die Letztentscheidungsmacht hatte und auch\ngegen aussen als mit anderen Staaten in Beziehung trat und über eine eigene Armee\nverfügte, ist die Souveränität gegeben (1 Punkt).\nHinweis: Jeweils abweichende sinnvolle Begründungen werden ebenfalls bepunktet.\nMax. 2 Bonuspunkte für sinnvolle Ausführungen (Definition und Argumentation) betreffend\nlegitime/legale Herrschaft als zusätzliche Kriterien der Staatsgewalt.\nDa Basel zu dieser Zeit über alle drei Elemente der Dreielementelehre verfügte, ist Basel als Staat zu betrachten (1 Punkt).",
+          "topics": [
+            "Staatsbegriff",
+            "Dreielementenlehre"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Nach der Dreielementenlehre von GEORG JELLINEK",
+              "expected": "Nach der Dreielementenlehre von GEORG JELLINEK",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                8,
+                9
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r02",
+              "criterion": "benötigt ein Staat kumulativ ein Staatsgebiet",
+              "expected": "benötigt ein Staat kumulativ ein Staatsgebiet",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                8,
+                9
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r03",
+              "criterion": ", ein Staatsvolk",
+              "expected": ", ein Staatsvolk",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                8,
+                9
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r04",
+              "criterion": "und eine Staatsgewalt",
+              "expected": "und eine Staatsgewalt",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                8,
+                9
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r05",
+              "criterion": ".\nDas Staatsgebiet ist ein räumlich abgegrenztes Territorium, über das der Staat seine\nHerrschaft ausübt",
+              "expected": ".\nDas Staatsgebiet ist ein räumlich abgegrenztes Territorium, über das der Staat seine\nHerrschaft ausübt",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                8,
+                9
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r06",
+              "criterion": ". Basel bestand aus einem fest definierten Gebiet, welches\ndie Stadt und die ländlichen Untertanengebiete umfasst",
+              "expected": ". Basel bestand aus einem fest definierten Gebiet, welches\ndie Stadt und die ländlichen Untertanengebiete umfasst",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                8,
+                9
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r08",
+              "criterion": ". Das Staatsgebiet ist damit gegeben",
+              "expected": ". Das Staatsgebiet ist damit gegeben",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                8,
+                9
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r09",
+              "criterion": ".\nDas Staatsvolk ist eine Gruppe von Menschen, die auf dem Staatsgebiet lebt, gemeinsam vom Staat beherrscht wird oder durch ein anderes rechtliches oder politisches\nKriterium verbunden ist",
+              "expected": ".\nDas Staatsvolk ist eine Gruppe von Menschen, die auf dem Staatsgebiet lebt, gemeinsam vom Staat beherrscht wird oder durch ein anderes rechtliches oder politisches\nKriterium verbunden ist",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                8,
+                9
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r10",
+              "criterion": ". Im Fall von Basel ist das Staatvolk beispielsweise\nals kulturell-religiöse Einheit durch den reformierten Glauben verbunden",
+              "expected": ". Im Fall von Basel ist das Staatvolk beispielsweise\nals kulturell-religiöse Einheit durch den reformierten Glauben verbunden",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                8,
+                9
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r12",
+              "criterion": ". Das Staatsvolk ist\ndamit erfüllt/nicht erfüllt",
+              "expected": ". Das Staatsvolk ist\ndamit erfüllt/nicht erfüllt",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                8,
+                9
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r13",
+              "criterion": ".\nStaatsgewalt bezeichnet die Herrschaft, die der Staat ausübt",
+              "expected": ".\nStaatsgewalt bezeichnet die Herrschaft, die der Staat ausübt",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                8,
+                9
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r14",
+              "criterion": ". Je nach\n\nStaatsverständnis bedeutet dies Selbstherrschaft oder Souveränität. Selbstherrschaft\n(FLEINER/JELLINEK) bedeutet, dass dem Staat nicht weiter abgeleitete, ursprüngliche\nHerrschaftsgewalt zukommt",
+              "expected": ". Je nach\n\nStaatsverständnis bedeutet dies Selbstherrschaft oder Souveränität. Selbstherrschaft\n(FLEINER/JELLINEK) bedeutet, dass dem Staat nicht weiter abgeleitete, ursprüngliche\nHerrschaftsgewalt zukommt",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                8,
+                9
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r15",
+              "criterion": ". Da sich die Macht von Basel nicht von der Alten Eidgenossenschaft ableitet, ist dies gegeben",
+              "expected": ". Da sich die Macht von Basel nicht von der Alten Eidgenossenschaft ableitet, ist dies gegeben",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                8,
+                9
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r16",
+              "criterion": ". Souveränität bedeutet, dass\ndem Staat uneingeschränkte Letztentscheidungsmacht gegen innen und aussen zukommt",
+              "expected": ". Souveränität bedeutet, dass\ndem Staat uneingeschränkte Letztentscheidungsmacht gegen innen und aussen zukommt",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                8,
+                9
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r17",
+              "criterion": ". Da Basel innerstaatlich die Letztentscheidungsmacht hatte und auch\ngegen aussen als mit anderen Staaten in Beziehung trat und über eine eigene Armee\nverfügte, ist die Souveränität gegeben",
+              "expected": ". Da Basel innerstaatlich die Letztentscheidungsmacht hatte und auch\ngegen aussen als mit anderen Staaten in Beziehung trat und über eine eigene Armee\nverfügte, ist die Souveränität gegeben",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                8,
+                9
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r18",
+              "criterion": "Da Basel zu dieser Zeit über alle drei Elemente der Dreielementelehre verfügte, ist Basel als Staat zu betrachten.",
+              "expected": "Da Basel zu dieser Zeit über alle drei Elemente der Dreielementelehre verfügte, ist Basel als Staat zu betrachten.",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                8,
+                9
+              ],
+              "provenance": "official"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              8,
+              9
+            ],
+            "originalLabel": "Schindler 3.1",
+            "professor": "Schindler",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [
+              "Jeweils abweichende sinnvolle Begründungen werden ebenfalls bepunktet.",
+              "Staatsvolk erfüllt/nicht erfüllt bei entsprechender Begründung."
+            ],
+            "rubricWeightProvenance": "official",
+            "bonusRequiresHumanReview": true
+          },
+          "bonusRubric": [
+            {
+              "id": "r07",
+              "criterion": ". Das zeigt sich auch\nin der Akzeptanz durch das Ausland, was jedoch nur deklaratorischen Wert hat",
+              "expected": ". Das zeigt sich auch\nin der Akzeptanz durch das Ausland, was jedoch nur deklaratorischen Wert hat",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                8,
+                9
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r11",
+              "criterion": ".\nDie strikte rechtliche Hierarchie zwischen Stadt- und Landbevölkerung spricht jedoch\ngegen ein einheitliches Staatsvolk",
+              "expected": ".\nDie strikte rechtliche Hierarchie zwischen Stadt- und Landbevölkerung spricht jedoch\ngegen ein einheitliches Staatsvolk",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                8,
+                9
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "bonus-legitimität",
+              "criterion": "Legitime/legale Herrschaft: Definition und Argumentation",
+              "expected": "Sinnvolle Ausführungen zu legitimer/legaler Herrschaft als zusätzliche Kriterien der Staatsgewalt.",
+              "maxPoints": 2,
+              "sourcePages": [
+                8,
+                9
+              ],
+              "provenance": "official"
+            }
+          ]
+        },
+        {
+          "id": "busta-fs25-q07",
+          "number": 7,
+          "text": "Frage 2: [10 Punkte]\n\n1798 besetzten französische Truppen Basel, womit die Alte Eidgenossenschaft abrupt endete und Basel in die Helvetische Republik integriert wurde. Im Gefolge der Verbreitung\nrevolutionären Gedankenguts verstärkten sich die Spannungen zwischen der Stadt und\ndem Umland – im Jahr 1833 wurde Basel in die politischen Einheiten Basel-Stadt und\nBasel-Landschaft getrennt.\n\nSeit langem gibt es Bestrebungen, die heutigen Kantone Basel-Stadt und Basel-Landschaft zu einem Kanton «Basel» zu vereinen. Unter welchen Voraussetzungen wäre eine\nsolche Wiedervereinigung der beiden Kantone nach der geltenden Bundesverfassung\nmöglich? Inwiefern müsste die Bundesverfassung dafür gegebenenfalls geändert werden?",
+          "type": "open",
+          "points": 10,
+          "expectedDuration": 10,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Eine Bestandesänderung (1 Punkt) ist unter den Voraussetzungen von Art. 53 Abs. 2\nBV (1 Punkt) zulässig:\n- Zustimmung der betroffenen Bevölkerung (1 Punkt), also der Bevölkerung der\n Kantone Basel-Stadt und Basel-Land (0.5 Punkte).\n- Zustimmung der unmittelbar betroffenen Kantone (1 Punkt), also der Bevölkerung\n der Kantone Basel-Stadt und Basel-Land (0.5 Punkte).\n- Zustimmung von Volk und Ständen (1 Punkt).\nDa die Bevölkerung und die betroffenen Kantone identisch sind, bräuchte es dafür nur\neine Abstimmung (1 Punkt). Im Falle einer Bestandesänderung müssten überdies die\nfolgenden Bestimmungen der Bundesverfassung geändert werden:\n- Art. 1 BV, da statt Basel-Land und Basel-Stadt nur noch Basel stehen müsste\n (1 Punkt)\n- Art. 150 Abs. 2 BV, da der neue Kanton Basel nun wohl zwei Ständeräte wählen\n dürfte (1 Punkt)\n\n- Art. 142 Abs. 4 BV, da der neue Kanton Basel nun wohl eine ganze Standesstimme\n hätte (1 Punkt)\n1 Zusatzpunkt zu Ausführungen zum obligatorischen Referendum mit Doppelmehrerfordernis nach Art. 140 Abs. 1 Bst. a i.V.m. Art. 142 Abs. 2 BV.",
+          "explanation": "Eine Bestandesänderung (1 Punkt) ist unter den Voraussetzungen von Art. 53 Abs. 2\nBV (1 Punkt) zulässig:\n- Zustimmung der betroffenen Bevölkerung (1 Punkt), also der Bevölkerung der\n Kantone Basel-Stadt und Basel-Land (0.5 Punkte).\n- Zustimmung der unmittelbar betroffenen Kantone (1 Punkt), also der Bevölkerung\n der Kantone Basel-Stadt und Basel-Land (0.5 Punkte).\n- Zustimmung von Volk und Ständen (1 Punkt).\nDa die Bevölkerung und die betroffenen Kantone identisch sind, bräuchte es dafür nur\neine Abstimmung (1 Punkt). Im Falle einer Bestandesänderung müssten überdies die\nfolgenden Bestimmungen der Bundesverfassung geändert werden:\n- Art. 1 BV, da statt Basel-Land und Basel-Stadt nur noch Basel stehen müsste\n (1 Punkt)\n- Art. 150 Abs. 2 BV, da der neue Kanton Basel nun wohl zwei Ständeräte wählen\n dürfte (1 Punkt)\n\n- Art. 142 Abs. 4 BV, da der neue Kanton Basel nun wohl eine ganze Standesstimme\n hätte (1 Punkt)\n1 Zusatzpunkt zu Ausführungen zum obligatorischen Referendum mit Doppelmehrerfordernis nach Art. 140 Abs. 1 Bst. a i.V.m. Art. 142 Abs. 2 BV.",
+          "topics": [
+            "Föderalismus",
+            "Bestandesänderung"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Eine Bestandesänderung",
+              "expected": "Eine Bestandesänderung",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                9,
+                10
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r02",
+              "criterion": "ist unter den Voraussetzungen von Art. 53 Abs. 2\nBV",
+              "expected": "ist unter den Voraussetzungen von Art. 53 Abs. 2\nBV",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                9,
+                10
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r03",
+              "criterion": "zulässig:\n- Zustimmung der betroffenen Bevölkerung",
+              "expected": "zulässig:\n- Zustimmung der betroffenen Bevölkerung",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                9,
+                10
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r04",
+              "criterion": ", also der Bevölkerung der\n Kantone Basel-Stadt und Basel-Land",
+              "expected": ", also der Bevölkerung der\n Kantone Basel-Stadt und Basel-Land",
+              "maxPoints": 0.5,
+              "sourcePages": [
+                9,
+                10
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r05",
+              "criterion": ".\n- Zustimmung der unmittelbar betroffenen Kantone",
+              "expected": ".\n- Zustimmung der unmittelbar betroffenen Kantone",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                9,
+                10
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r06",
+              "criterion": ", also der Bevölkerung\n der Kantone Basel-Stadt und Basel-Land",
+              "expected": ", also der Bevölkerung\n der Kantone Basel-Stadt und Basel-Land",
+              "maxPoints": 0.5,
+              "sourcePages": [
+                9,
+                10
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r07",
+              "criterion": ".\n- Zustimmung von Volk und Ständen",
+              "expected": ".\n- Zustimmung von Volk und Ständen",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                9,
+                10
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r08",
+              "criterion": ".\nDa die Bevölkerung und die betroffenen Kantone identisch sind, bräuchte es dafür nur\neine Abstimmung",
+              "expected": ".\nDa die Bevölkerung und die betroffenen Kantone identisch sind, bräuchte es dafür nur\neine Abstimmung",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                9,
+                10
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r09",
+              "criterion": ". Im Falle einer Bestandesänderung müssten überdies die\nfolgenden Bestimmungen der Bundesverfassung geändert werden:\n- Art. 1 BV, da statt Basel-Land und Basel-Stadt nur noch Basel stehen müsste",
+              "expected": ". Im Falle einer Bestandesänderung müssten überdies die\nfolgenden Bestimmungen der Bundesverfassung geändert werden:\n- Art. 1 BV, da statt Basel-Land und Basel-Stadt nur noch Basel stehen müsste",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                9,
+                10
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r10",
+              "criterion": "- Art. 150 Abs. 2 BV, da der neue Kanton Basel nun wohl zwei Ständeräte wählen\n dürfte",
+              "expected": "- Art. 150 Abs. 2 BV, da der neue Kanton Basel nun wohl zwei Ständeräte wählen\n dürfte",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                9,
+                10
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r11",
+              "criterion": "- Art. 142 Abs. 4 BV, da der neue Kanton Basel nun wohl eine ganze Standesstimme\n hätte",
+              "expected": "- Art. 142 Abs. 4 BV, da der neue Kanton Basel nun wohl eine ganze Standesstimme\n hätte",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                9,
+                10
+              ],
+              "provenance": "official"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              9,
+              10
+            ],
+            "originalLabel": "Schindler 3.2",
+            "professor": "Schindler",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "official",
+            "bonusRequiresHumanReview": true
+          },
+          "bonusRubric": [
+            {
+              "id": "bonus-referendum",
+              "criterion": "Obligatorisches Referendum mit Doppelmehr",
+              "expected": "Art. 140 Abs. 1 Bst. a i.V.m. Art. 142 Abs. 2 BV.",
+              "maxPoints": 1,
+              "sourcePages": [
+                10
+              ],
+              "provenance": "official"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "schindler-4",
+      "title": "Teil Schindler · Aufgabe 4",
+      "points": 16,
+      "questionType": "open",
+      "description": "",
+      "context": "Der Sachverhalt ist frei erfunden!\n\nKarl ist Arzt und plant, nachdem er im vergangenen Jahr den Facharzttitel für Allgemeine Innere Medizin erworben hat, eine eigene Hausarztpraxis im Kanton Bern zu eröffnen. Gemäss Art. 34 des Bundesgesetzes über die universitären Medizinalberufe vom\n23. Juni 2006 (MedBG) benötigt er hierfür eine kantonale Bewilligung. Eine zentrale Voraussetzung für deren Erteilung ist unter anderem, dass die gesuchstellende Person «vertrauenswürdig ist sowie physisch und psychisch Gewähr für eine einwandfreie Berufsausübung bietet» (Art. 36 Abs. 1 Bst. b MedBG).\n\nMartina hat vor vielen Jahren gemeinsam mit Karl studiert und später mit ihm als Assistenzärztin im Kantonsspital St. Gallen auf derselben Abteilung gearbeitet. Während dieser Zeit unterliefen Karl wiederholt administrative Fehler: Er dokumentierte Leistungen\nfehlerhaft und vertauschte Patientenakten. Dadurch musste Martina, ohnehin stark belastet, zahlreiche Überstunden leisten, um seine Versäumnisse zu korrigieren. Dies führte\nnicht nur zu erheblichem Stress für sie, sondern auch zu Spannungen im Team, da Karls\nNachlässigkeit regelmässig Missverständnisse und Verzögerungen in der Patientenversorgung verursachte.\n\nMittlerweile ist Martina beim Gesundheitsamt des Kantons Bern für die Erteilung von\nBerufsbewilligungen zuständig. Aufgrund ihrer früheren Erfahrungen hält sie Karl für\nungeeignet, eine eigene Praxis zu führen. Zudem trägt sie ihm seine damaligen Fehler\nnoch immer nach und will ihm «eins auswischen». Ohne eine Begründung teilt sie Karl\ndaher mit, dass die Voraussetzungen für die Berufsbewilligung nicht erfüllt seien.",
+      "questions": [
+        {
+          "id": "busta-fs25-q08",
+          "number": 8,
+          "text": "Frage 1: [10 Punkte]\n\nKarl ist empört über den Entscheid des Gesundheitsamts. Er erblickt darin eine Verletzung seiner Verfahrensgrundrechte. Auf welche Verfahrensgarantie könnte sich Karl im\nvorliegenden Fall berufen? Wurde diese im vorliegenden Fall verletzt? Begründen Sie.",
+          "type": "open",
+          "points": 10,
+          "expectedDuration": 10,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Im vorliegenden Verfahren entscheidet das Gesundheitsamt des Kantons Bern als\nstaatliche Behörde (1 Punkt) über die (individuell-konkrete) Frage, ob Karl eine Berufsbewilligung erhält (1 Punkt). Die allgemeinen Verfahrensgarantien gemäss Art. 29\nBV sind damit anwendbar (1 Punkt). Karl ist als natürliche Person Träger dieser Verfahrensgarantien (1 Punkt).\nArt. 29 Abs. 1 BV gewährt das Recht auf gleiche und gerechte Behandlung (1 Punkt)\nund verlangt insbesondere, dass am Entscheid nur unbefangene und unparteiliche\nPersonen mitwirken (1 Punkt). Da Martina Karl gegenüber voreingenommen ist und\nihm «eins auswischen» will, scheint sie aus objektiven Gesichtspunkten befangen zu\nsein. Sie hätte demnach in den Ausstand treten müssen (1 Punkt).\nNach Art. 29 Abs. 2 BV hat Karl Anspruch auf rechtliches Gehör (1 Punkt). Teilgehalt\ndes rechtlichen Gehörs ist der Anspruch auf Begründung des Entscheids (1 Punkt).\n\nDa das Schreiben des Amts für Baubewilligungen nicht begründet war, wurde das\nrechtliche Gehör verletzt (1 Punkt).",
+          "explanation": "Im vorliegenden Verfahren entscheidet das Gesundheitsamt des Kantons Bern als\nstaatliche Behörde (1 Punkt) über die (individuell-konkrete) Frage, ob Karl eine Berufsbewilligung erhält (1 Punkt). Die allgemeinen Verfahrensgarantien gemäss Art. 29\nBV sind damit anwendbar (1 Punkt). Karl ist als natürliche Person Träger dieser Verfahrensgarantien (1 Punkt).\nArt. 29 Abs. 1 BV gewährt das Recht auf gleiche und gerechte Behandlung (1 Punkt)\nund verlangt insbesondere, dass am Entscheid nur unbefangene und unparteiliche\nPersonen mitwirken (1 Punkt). Da Martina Karl gegenüber voreingenommen ist und\nihm «eins auswischen» will, scheint sie aus objektiven Gesichtspunkten befangen zu\nsein. Sie hätte demnach in den Ausstand treten müssen (1 Punkt).\nNach Art. 29 Abs. 2 BV hat Karl Anspruch auf rechtliches Gehör (1 Punkt). Teilgehalt\ndes rechtlichen Gehörs ist der Anspruch auf Begründung des Entscheids (1 Punkt).\n\nDa das Schreiben des Amts für Baubewilligungen nicht begründet war, wurde das\nrechtliche Gehör verletzt (1 Punkt).",
+          "topics": [
+            "Verfahrensgrundrechte",
+            "Rechtliches Gehör"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Im vorliegenden Verfahren entscheidet das Gesundheitsamt des Kantons Bern als\nstaatliche Behörde",
+              "expected": "Im vorliegenden Verfahren entscheidet das Gesundheitsamt des Kantons Bern als\nstaatliche Behörde",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                11,
+                12
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r02",
+              "criterion": "über die (individuell-konkrete) Frage, ob Karl eine Berufsbewilligung erhält",
+              "expected": "über die (individuell-konkrete) Frage, ob Karl eine Berufsbewilligung erhält",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                11,
+                12
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r03",
+              "criterion": ". Die allgemeinen Verfahrensgarantien gemäss Art. 29\nBV sind damit anwendbar",
+              "expected": ". Die allgemeinen Verfahrensgarantien gemäss Art. 29\nBV sind damit anwendbar",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                11,
+                12
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r04",
+              "criterion": ". Karl ist als natürliche Person Träger dieser Verfahrensgarantien",
+              "expected": ". Karl ist als natürliche Person Träger dieser Verfahrensgarantien",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                11,
+                12
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r05",
+              "criterion": ".\nArt. 29 Abs. 1 BV gewährt das Recht auf gleiche und gerechte Behandlung",
+              "expected": ".\nArt. 29 Abs. 1 BV gewährt das Recht auf gleiche und gerechte Behandlung",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                11,
+                12
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r06",
+              "criterion": "und verlangt insbesondere, dass am Entscheid nur unbefangene und unparteiliche\nPersonen mitwirken",
+              "expected": "und verlangt insbesondere, dass am Entscheid nur unbefangene und unparteiliche\nPersonen mitwirken",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                11,
+                12
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r07",
+              "criterion": ". Da Martina Karl gegenüber voreingenommen ist und\nihm «eins auswischen» will, scheint sie aus objektiven Gesichtspunkten befangen zu\nsein. Sie hätte demnach in den Ausstand treten müssen",
+              "expected": ". Da Martina Karl gegenüber voreingenommen ist und\nihm «eins auswischen» will, scheint sie aus objektiven Gesichtspunkten befangen zu\nsein. Sie hätte demnach in den Ausstand treten müssen",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                11,
+                12
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r08",
+              "criterion": ".\nNach Art. 29 Abs. 2 BV hat Karl Anspruch auf rechtliches Gehör",
+              "expected": ".\nNach Art. 29 Abs. 2 BV hat Karl Anspruch auf rechtliches Gehör",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                11,
+                12
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r09",
+              "criterion": ". Teilgehalt\ndes rechtlichen Gehörs ist der Anspruch auf Begründung des Entscheids",
+              "expected": ". Teilgehalt\ndes rechtlichen Gehörs ist der Anspruch auf Begründung des Entscheids",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                11,
+                12
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r10",
+              "criterion": ".\n\nDa das Schreiben des Amts für Baubewilligungen nicht begründet war, wurde das\nrechtliche Gehör verletzt",
+              "expected": ".\n\nDa das Schreiben des Amts für Baubewilligungen nicht begründet war, wurde das\nrechtliche Gehör verletzt",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                11,
+                12
+              ],
+              "provenance": "official"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              11,
+              12
+            ],
+            "originalLabel": "Schindler 4.1",
+            "professor": "Schindler",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "official"
+          }
+        },
+        {
+          "id": "busta-fs25-q09",
+          "number": 9,
+          "text": "Frage 2: [6 Punkte]\n\nKarl will sich gegen den unsachlichen Entscheid des Gesundheitsamtes wehren. Er ist\nsich jedoch unsicher, ob er dagegen überhaupt gerichtlich vorgehen kann. Hat Karl einen\nverfassungsmässigen Anspruch auf die Beurteilung durch ein Gericht?\nHinweis: Das Vorliegen eines Grundrechtsträgers und eines zulässigen Grundrechtsadressaten\nmüssen Sie nicht prüfen.",
+          "type": "open",
+          "points": 6,
+          "expectedDuration": 6,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Gemäss der in Art. 29a BV verankerten Rechtsweggarantie (1 Punkt) hat jede Person\nbei Rechtsstreitigkeiten (0.5 Punkte) Anspruch auf Beurteilung durch eine richterliche\nBehörde, sofern dies nicht durch Gesetz ausgeschlossen ist (0.5 Punkte).\nEine Rechtsstreitigkeit liegt vor, wenn ein Sachverhalt vom Verfassungs-, Gesetzes-\noder Verordnungsrecht erfasst wird (oder ein Beschwerdeführer dies behauptet) und\nwenn es um Interessen geht, die vom Recht als «schützenswert» anerkannt sind. Solche Interessen sind z.B. anzunehmen, wenn den betroffenen Privaten Pflichten auferlegt oder Rechte eingeräumt werden, nicht aber wenn es um Interessen der Allgemeinheit geht (2 Punkte).\nDa die Berufsbewilligung vom MedBG erfasst ist, liegt eine Rechtsstreitigkeit vor\n(0.5 Punkt). Da dem Sachverhalt zudem kein gesetzlicher Ausschluss der gerichtlichen\nBeurteilung der Rechtsstreitigkeit zu entnehmen ist (0.5 Punkt), hat Karl hat Anspruch\nauf Beurteilung durch eine richterliche Behörde (1 Punkt).",
+          "explanation": "Gemäss der in Art. 29a BV verankerten Rechtsweggarantie (1 Punkt) hat jede Person\nbei Rechtsstreitigkeiten (0.5 Punkte) Anspruch auf Beurteilung durch eine richterliche\nBehörde, sofern dies nicht durch Gesetz ausgeschlossen ist (0.5 Punkte).\nEine Rechtsstreitigkeit liegt vor, wenn ein Sachverhalt vom Verfassungs-, Gesetzes-\noder Verordnungsrecht erfasst wird (oder ein Beschwerdeführer dies behauptet) und\nwenn es um Interessen geht, die vom Recht als «schützenswert» anerkannt sind. Solche Interessen sind z.B. anzunehmen, wenn den betroffenen Privaten Pflichten auferlegt oder Rechte eingeräumt werden, nicht aber wenn es um Interessen der Allgemeinheit geht (2 Punkte).\nDa die Berufsbewilligung vom MedBG erfasst ist, liegt eine Rechtsstreitigkeit vor\n(0.5 Punkt). Da dem Sachverhalt zudem kein gesetzlicher Ausschluss der gerichtlichen\nBeurteilung der Rechtsstreitigkeit zu entnehmen ist (0.5 Punkt), hat Karl hat Anspruch\nauf Beurteilung durch eine richterliche Behörde (1 Punkt).",
+          "topics": [
+            "Rechtsweggarantie"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Gemäss der in Art. 29a BV verankerten Rechtsweggarantie",
+              "expected": "Gemäss der in Art. 29a BV verankerten Rechtsweggarantie",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                12
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r02",
+              "criterion": "hat jede Person\nbei Rechtsstreitigkeiten",
+              "expected": "hat jede Person\nbei Rechtsstreitigkeiten",
+              "maxPoints": 0.5,
+              "sourcePages": [
+                12
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r03",
+              "criterion": "Anspruch auf Beurteilung durch eine richterliche\nBehörde, sofern dies nicht durch Gesetz ausgeschlossen ist",
+              "expected": "Anspruch auf Beurteilung durch eine richterliche\nBehörde, sofern dies nicht durch Gesetz ausgeschlossen ist",
+              "maxPoints": 0.5,
+              "sourcePages": [
+                12
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r04",
+              "criterion": ".\nEine Rechtsstreitigkeit liegt vor, wenn ein Sachverhalt vom Verfassungs-, Gesetzes-\noder Verordnungsrecht erfasst wird (oder ein Beschwerdeführer dies behauptet) und\nwenn es um Interessen geht, die vom Recht als «schützenswert» anerkannt sind. Solche Interessen sind z.B. anzunehmen, wenn den betroffenen Privaten Pflichten auferlegt oder Rechte eingeräumt werden, nicht aber wenn es um Interessen der Allgemeinheit geht",
+              "expected": ".\nEine Rechtsstreitigkeit liegt vor, wenn ein Sachverhalt vom Verfassungs-, Gesetzes-\noder Verordnungsrecht erfasst wird (oder ein Beschwerdeführer dies behauptet) und\nwenn es um Interessen geht, die vom Recht als «schützenswert» anerkannt sind. Solche Interessen sind z.B. anzunehmen, wenn den betroffenen Privaten Pflichten auferlegt oder Rechte eingeräumt werden, nicht aber wenn es um Interessen der Allgemeinheit geht",
+              "maxPoints": 2.0,
+              "sourcePages": [
+                12
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r05",
+              "criterion": ".\nDa die Berufsbewilligung vom MedBG erfasst ist, liegt eine Rechtsstreitigkeit vor",
+              "expected": ".\nDa die Berufsbewilligung vom MedBG erfasst ist, liegt eine Rechtsstreitigkeit vor",
+              "maxPoints": 0.5,
+              "sourcePages": [
+                12
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r06",
+              "criterion": ". Da dem Sachverhalt zudem kein gesetzlicher Ausschluss der gerichtlichen\nBeurteilung der Rechtsstreitigkeit zu entnehmen ist",
+              "expected": ". Da dem Sachverhalt zudem kein gesetzlicher Ausschluss der gerichtlichen\nBeurteilung der Rechtsstreitigkeit zu entnehmen ist",
+              "maxPoints": 0.5,
+              "sourcePages": [
+                12
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r07",
+              "criterion": ", hat Karl hat Anspruch\nauf Beurteilung durch eine richterliche Behörde",
+              "expected": ", hat Karl hat Anspruch\nauf Beurteilung durch eine richterliche Behörde",
+              "maxPoints": 1.0,
+              "sourcePages": [
+                12
+              ],
+              "provenance": "official"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              12
+            ],
+            "originalLabel": "Schindler 4.2",
+            "professor": "Schindler",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "official"
+          }
+        }
+      ]
+    },
+    {
+      "id": "schmid-1",
+      "title": "Teil Schmid · Aufgabe 1: «Für eine Zukunft»",
+      "points": 30,
+      "questionType": "open",
+      "description": "Begründen Sie alle Antworten und nennen Sie, wo vorhanden, die entsprechenden rechtlichen Bestimmungen. Bitte formulieren Sie ganze Sätze und versuchen Sie, Ihre Ausführungen strukturiert und übersichtlich aufzubauen.",
+      "context": "Die eidgenössische Volksinitiative «Für eine soziale Klimapolitik – steuerlich gerecht\nfinanziert (Initiative für eine Zukunft)» wurde am 8. Februar 2024 mit 109'988 gültigen\nUnterschriften eingereicht. Die Initiative sieht die Einführung einer Bundeserbschafts-\nund -schenkungssteuer vor.\n\nDie vom Initiativkomitee lancierte Volksinitiative hat folgenden Wortlaut:\n\nDie Bundesverfassung wird wie folgt geändert:\n\nArt. 129a – Zukunftssteuer\n\n1Der Bund erhebt zum Aufbau und Erhalt einer lebenswerten Zukunft eine Steuer auf dem Nachlass und den Schenkungen von natürlichen Personen.\n\n2Der Bund und die Kantone verwenden den Rohertrag der Steuer zur sozial gerechten Bekämpfung\nder Klimakrise sowie für den dafür notwendigen Umbau der Gesamtwirtschaft.\n\n3Die Steuer wird von den Kantonen veranlagt und eingezogen. Der Rohertrag der Steuer fliesst zu\nzwei Dritteln dem Bund und zu einem Drittel den Kantonen zu. Die Kompetenz der Kantone, eine\nErbschafts- und Schenkungssteuer zu erheben, bleibt unberührt.\n\n4Der Steuersatz beträgt 50 Prozent. Nicht besteuert wird ein einmaliger Freibetrag von 50 Millionen\nFranken auf der Summe des Nachlasses und aller Schenkungen. Die Besteuerung erfolgt, sobald\nder Freibetrag überschritten ist.\n\n[…]\n\nArt. 197 Ziff. 15\n\n15. Übergangsbestimmungen zu Art. 129a (Zukunftssteuer)\n\n1 Der Bund und die Kantone erlassen Ausführungsbestimmungen über:\n 1. die Verhinderung von Steuervermeidung, insbesondere in Bezug auf den Wegzug aus der\n Schweiz, die Pflicht zur Aufzeichnung von Schenkungen und die lückenlose Besteuerung;\n 2. die Verwendung des Rohertrags zur Unterstützung des sozial gerechten, ökologischen Umbaus der Gesamtwirtschaft, insbesondere in den Bereichen der Arbeit, des Wohnens und der\n öffentlichen Dienstleistungen.\n\n[…]",
+      "questions": [
+        {
+          "id": "busta-fs25-q10",
+          "number": 10,
+          "text": "Frage 1)\n\nWelche Behörde befindet über die Gültigkeit einer zustande gekommenen eidgenössischen Volksinitiative, und in welcher Form ergeht dieser Entscheid (Art des Beschlusses)? (4 Punkte)",
+          "type": "open",
+          "points": 4,
+          "expectedDuration": 4,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Die Bundesversammlung befindet über die Gültigkeit zu Stande gekommener Volksinitiativen\n(Art. 173 Abs. 1 Bst. f BV; Art. 98 Abs. 1 ParlG). Der Entscheid ergeht in der Form des einfachen Bundesbeschlusses, der nicht dem Referendum untersteht (Art. 163 Abs. 2 BV i.V.m. Art.\n29 Abs. 1 ParlG).",
+          "explanation": "Die Bundesversammlung befindet über die Gültigkeit zu Stande gekommener Volksinitiativen\n(Art. 173 Abs. 1 Bst. f BV; Art. 98 Abs. 1 ParlG). Der Entscheid ergeht in der Form des einfachen Bundesbeschlusses, der nicht dem Referendum untersteht (Art. 163 Abs. 2 BV i.V.m. Art.\n29 Abs. 1 ParlG).",
+          "topics": [
+            "Volksinitiative",
+            "Politische Rechte"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Zuständige Behörde",
+              "expected": "Bundesversammlung; Art. 173 Abs. 1 Bst. f BV / Art. 98 Abs. 1 ParlG.",
+              "maxPoints": 2,
+              "sourcePages": [
+                16
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r02",
+              "criterion": "Beschlussform",
+              "expected": "Einfacher Bundesbeschluss, kein Referendum; Art. 163 Abs. 2 BV i.V.m. Art. 29 Abs. 1 ParlG.",
+              "maxPoints": 2,
+              "sourcePages": [
+                16
+              ],
+              "provenance": "derived"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              16
+            ],
+            "originalLabel": "Schmid 1.1",
+            "professor": "Schmid",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "derived"
+          }
+        },
+        {
+          "id": "busta-fs25-q11",
+          "number": 11,
+          "text": "Frage 2)\nNennen Sie einen Grund, weshalb sich die zuständige Behörde bei Ungültigerklärungen von Volksinitiativen Zurückhaltung auferlegt. Könnte ein Entscheid betreffend die\nGültigkeit beim Bundesgericht angefochten werden? (5 Punkte)",
+          "type": "open",
+          "points": 5,
+          "expectedDuration": 5,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Die Zurückhaltung der Bundesversammlung bezüglich Ungültigerklärungen von Volksinitiativen ist nicht zuletzt darauf zurückzuführen, dass zum Zeitpunkt der Gültigkeitsprüfung bereits die erforderliche Anzahl Unterschriften gesammelt worden ist.\n\nAkte der Bundesversammlung (und des Bundesrates) können beim Bundesgericht nicht angefochten werden; Ausnahmen bestimmt das Gesetz (Art. 189 Abs. 4 BV). Eine solche gesetzliche\nAusnahme liegt hier nicht vor, weshalb die Anfechtung des Entscheids betreffend die Gültigkeit\nbeim Bundesgericht nicht möglich ist.",
+          "explanation": "Die Zurückhaltung der Bundesversammlung bezüglich Ungültigerklärungen von Volksinitiativen ist nicht zuletzt darauf zurückzuführen, dass zum Zeitpunkt der Gültigkeitsprüfung bereits die erforderliche Anzahl Unterschriften gesammelt worden ist.\n\nAkte der Bundesversammlung (und des Bundesrates) können beim Bundesgericht nicht angefochten werden; Ausnahmen bestimmt das Gesetz (Art. 189 Abs. 4 BV). Eine solche gesetzliche\nAusnahme liegt hier nicht vor, weshalb die Anfechtung des Entscheids betreffend die Gültigkeit\nbeim Bundesgericht nicht möglich ist.",
+          "topics": [
+            "Volksinitiative",
+            "Politische Rechte"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Zurückhaltung",
+              "expected": "Erforderliche Anzahl Unterschriften ist bereits gesammelt.",
+              "maxPoints": 2,
+              "sourcePages": [
+                16
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r02",
+              "criterion": "Rechtsmittel",
+              "expected": "Keine Anfechtung beim Bundesgericht; Art. 189 Abs. 4 BV und keine gesetzliche Ausnahme.",
+              "maxPoints": 3,
+              "sourcePages": [
+                16
+              ],
+              "provenance": "derived"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              16
+            ],
+            "originalLabel": "Schmid 1.2",
+            "professor": "Schmid",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "derived"
+          }
+        },
+        {
+          "id": "busta-fs25-q12",
+          "number": 12,
+          "text": "Frage 3)\nEidgenössische Volksinitiativen auf Teilrevision der Bundesverfassung können entweder in der Form der allgemeinen Anregung oder des ausgearbeiteten Entwurfs eingereicht werden.\n\n a) Erläutern Sie, was unter einer allgemeinen Anregung und was unter einem ausgearbeiteten Entwurf zu verstehen ist. In welcher Form wurde die erwähnte\n Volksinitiative eingereicht? (4 Punkte)",
+          "type": "open",
+          "points": 4,
+          "expectedDuration": 4,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Mit der Volksinitiative in der Form des ausgearbeiteten Entwurfs wird ein konkreter\n Text vorgeschlagen, der den bestehenden Verfassungstext verändert. Der Initiativtext\n kann – abgesehen von offensichtlichen Übersetzungsfehlern und formellen Anpassungen – von der Bundesversammlung nicht angepasst werden (Art. 99 ParlG), d.h. ein\n ausgearbeiteter Entwurf wird wortwörtlich in die Verfassung aufgenommen, wenn die\n Volksinitiative in der Abstimmung angenommen wird.\n Die Initiative in der Form der allgemeinen Anregung enthält keinen konkreten Textvorschlag, sondern formuliert eine Zielvorstellung für eine künftige Regelung, die durchaus\n schon einen gewissen Detailierungsgrad aufweisen darf. Eigentliche Textvorschläge, die\n in der Folge in die Verfassung aufgenommen werden sollten, darf sie jedoch nicht umfassen, da dies eine Vermischung der Initiativform bedeutet. Vielmehr arbeitet die Bundesversammlung eine Verfassungsnorm aus, die der Zielrichtung der allgemeinen Anregung entspricht, und legt diese Volk und Ständen zur Abstimmung vor. Eine allgemeine Anregung ist also so formuliert, dass der Text nicht direkt in die Verfassung übernommen werden soll. Sie stellt vielmehr eine verpflichtende Anregung an das Parlament\n dar, einen oder mehrere Verfassungsartikel im Sinne der Initiative auszuarbeiten. Sie\n enthält eine Leitidee und gibt dem Parlament Spielraum bei der Ausarbeitung der Formulierung. (Art. 139 Abs. 2 i.V.m. 4 und 5 BV; Art. 75 Abs. 3 BPR)\n\n Subsumtion: Aus dem Wortlaut ergibt sich, dass der Initiativtext wortwörtlich in die\n Bundesverfassung übernommen werden kann.\n\n Fazit: Es handelt sich um einen ausgearbeiteten Entwurf.",
+          "explanation": "Mit der Volksinitiative in der Form des ausgearbeiteten Entwurfs wird ein konkreter\n Text vorgeschlagen, der den bestehenden Verfassungstext verändert. Der Initiativtext\n kann – abgesehen von offensichtlichen Übersetzungsfehlern und formellen Anpassungen – von der Bundesversammlung nicht angepasst werden (Art. 99 ParlG), d.h. ein\n ausgearbeiteter Entwurf wird wortwörtlich in die Verfassung aufgenommen, wenn die\n Volksinitiative in der Abstimmung angenommen wird.\n Die Initiative in der Form der allgemeinen Anregung enthält keinen konkreten Textvorschlag, sondern formuliert eine Zielvorstellung für eine künftige Regelung, die durchaus\n schon einen gewissen Detailierungsgrad aufweisen darf. Eigentliche Textvorschläge, die\n in der Folge in die Verfassung aufgenommen werden sollten, darf sie jedoch nicht umfassen, da dies eine Vermischung der Initiativform bedeutet. Vielmehr arbeitet die Bundesversammlung eine Verfassungsnorm aus, die der Zielrichtung der allgemeinen Anregung entspricht, und legt diese Volk und Ständen zur Abstimmung vor. Eine allgemeine Anregung ist also so formuliert, dass der Text nicht direkt in die Verfassung übernommen werden soll. Sie stellt vielmehr eine verpflichtende Anregung an das Parlament\n dar, einen oder mehrere Verfassungsartikel im Sinne der Initiative auszuarbeiten. Sie\n enthält eine Leitidee und gibt dem Parlament Spielraum bei der Ausarbeitung der Formulierung. (Art. 139 Abs. 2 i.V.m. 4 und 5 BV; Art. 75 Abs. 3 BPR)\n\n Subsumtion: Aus dem Wortlaut ergibt sich, dass der Initiativtext wortwörtlich in die\n Bundesverfassung übernommen werden kann.\n\n Fazit: Es handelt sich um einen ausgearbeiteten Entwurf.",
+          "topics": [
+            "Volksinitiative",
+            "Politische Rechte"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Ausgearbeiteter Entwurf",
+              "expected": "Konkreter grundsätzlich unveränderbarer Verfassungstext; Art. 99 ParlG.",
+              "maxPoints": 1,
+              "sourcePages": [
+                17
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r02",
+              "criterion": "Allgemeine Anregung",
+              "expected": "Zielvorstellung ohne übernehmbaren konkreten Text; Ausarbeitung durch Bundesversammlung; Art. 139 BV / Art. 75 Abs. 3 BPR.",
+              "maxPoints": 1,
+              "sourcePages": [
+                17
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r03",
+              "criterion": "Subsumtion",
+              "expected": "Text kann wortwörtlich übernommen werden.",
+              "maxPoints": 1,
+              "sourcePages": [
+                17
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r04",
+              "criterion": "Fazit",
+              "expected": "Ausgearbeiteter Entwurf.",
+              "maxPoints": 1,
+              "sourcePages": [
+                17
+              ],
+              "provenance": "derived"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              17
+            ],
+            "originalLabel": "Schmid 1.3a",
+            "professor": "Schmid",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "derived"
+          }
+        },
+        {
+          "id": "busta-fs25-q13",
+          "number": 13,
+          "text": "b) Welche der beiden Formen ist in der Praxis beliebter? Nennen Sie zudem je einen Vor- und einen Nachteil der beiden Formen. (5 Punkte)\n Hinweis: Nennen Sie nur eigenständige Vor- und Nachteile. Eine Umkehrung\n (z. B. Vorteil der einen Form = Nachteil der anderen) wird nicht berücksichtigt.",
+          "type": "open",
+          "points": 5,
+          "expectedDuration": 5,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Der ausgearbeitete Entwurf ist verbreiteter und beliebter als die allgemeine Anregung.\n\n Vorteile des ausgearbeiteten Entwurfs:\n − Das Initiativkomitee kann seine Ideen direkt in den Verfassungstext einbringen\n und diesen so, wie er lautet, zur Abstimmung bringen.\n Nachteile des ausgearbeiteten Entwurfs:\n − Kann dazu führen, dass Entwurf unklar und unausgereift ist\n − Das Parlament kann die Initiative nicht anpassen, selbst wenn sich Probleme in\n der praktischen Umsetzung abzeichnen.\n\n Vorteile der allgemeinen Anregung:\n − Erfordert keine Fachkenntnisse, da Ausarbeitung durch das Parlament\n − Gestaltungsspielraum des Parlaments, um die Initiative in die bestehende Rechtsordnung einzufügen und mögliche rechtliche oder praktische Probleme zu vermeiden\n Nachteile der allgemeinen Anregung:\n − Ausarbeitung durch das Parlament und somit nur indirekter Einfluss auf den definitiven Verfassungstext\n − Evtl. Verzögerung der Umsetzung der Initiative durch das Parlament\n\n Anmerkung: Weitere überzeugende Argumente wurden ebenfalls mit voller Punktzahl bewertet.",
+          "explanation": "Der ausgearbeitete Entwurf ist verbreiteter und beliebter als die allgemeine Anregung.\n\n Vorteile des ausgearbeiteten Entwurfs:\n − Das Initiativkomitee kann seine Ideen direkt in den Verfassungstext einbringen\n und diesen so, wie er lautet, zur Abstimmung bringen.\n Nachteile des ausgearbeiteten Entwurfs:\n − Kann dazu führen, dass Entwurf unklar und unausgereift ist\n − Das Parlament kann die Initiative nicht anpassen, selbst wenn sich Probleme in\n der praktischen Umsetzung abzeichnen.\n\n Vorteile der allgemeinen Anregung:\n − Erfordert keine Fachkenntnisse, da Ausarbeitung durch das Parlament\n − Gestaltungsspielraum des Parlaments, um die Initiative in die bestehende Rechtsordnung einzufügen und mögliche rechtliche oder praktische Probleme zu vermeiden\n Nachteile der allgemeinen Anregung:\n − Ausarbeitung durch das Parlament und somit nur indirekter Einfluss auf den definitiven Verfassungstext\n − Evtl. Verzögerung der Umsetzung der Initiative durch das Parlament\n\n Anmerkung: Weitere überzeugende Argumente wurden ebenfalls mit voller Punktzahl bewertet.",
+          "topics": [
+            "Volksinitiative",
+            "Politische Rechte"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Beliebtere Form",
+              "expected": "Ausgearbeiteter Entwurf.",
+              "maxPoints": 1,
+              "sourcePages": [
+                18
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r02",
+              "criterion": "Entwurf Vorteil",
+              "expected": "Direktes Einbringen der Ideen in Verfassungstext.",
+              "maxPoints": 1,
+              "sourcePages": [
+                18
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r03",
+              "criterion": "Entwurf Nachteil",
+              "expected": "Unklarheit/Unausgereiftheit oder keine Anpassungsmöglichkeit durch Parlament.",
+              "maxPoints": 1,
+              "sourcePages": [
+                18
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r04",
+              "criterion": "Anregung Vorteil",
+              "expected": "Keine Fachkenntnisse erforderlich oder Gestaltungsspielraum zur Einfügung in Rechtsordnung.",
+              "maxPoints": 1,
+              "sourcePages": [
+                18
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r05",
+              "criterion": "Anregung Nachteil",
+              "expected": "Nur indirekter Einfluss auf definitiven Text oder Verzögerung der Umsetzung.",
+              "maxPoints": 1,
+              "sourcePages": [
+                18
+              ],
+              "provenance": "derived"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              18
+            ],
+            "originalLabel": "Schmid 1.3b",
+            "professor": "Schmid",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [
+              "Weitere überzeugende Argumente wurden ebenfalls mit voller Punktzahl bewertet."
+            ],
+            "rubricWeightProvenance": "derived",
+            "distinctArgumentsRequired": true
+          }
+        },
+        {
+          "id": "busta-fs25-q14",
+          "number": 14,
+          "text": "Frage 4)\nPrüfen Sie, ob die erwähnte Volksinitiative die Einheit der Materie wahrt. (7 Punkte)\nHinweis: Führen Sie die Prüfung vollständig durch, auch wenn Sie glauben, den Entscheid schon früher treffen zu können.",
+          "type": "open",
+          "points": 7,
+          "expectedDuration": 7,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Mit dem Grundsatz der Einheit der Materie (Art. 139 Abs. 3, Art. 194 Abs. 2 BV; Art. 75 Abs.\n1 BPR) soll sichergestellt werden, dass die freie und unverfälschte Stimmabgabe gewährleistet\nist (Art. 34 Abs. 2 BV). Die einzelnen Teile der Volksinitiative müssen einen sachlichen Zusammenhang aufweisen (Art. 75 Abs. 2 BPR), damit die Stimmberechtigten ihre Stimme unverfälscht abgeben können. Der sachliche Zusammenhang gilt als gegeben, wenn die Regelungselemente einer Vorlage:\n - eine einheitliche Thematik betreffen; oder\n - dasselbe Ziel verfolgen; oder\n - in einem Zweck-Mittel-Verhältnis zueinanderstehen.\n\nSubsumtion:\n - Einheitliche Thematik: Die Initiative verlangt neben der «sozial gerechten Bekämpfung\n der Klimakrise» einen «Umbau der Gesamtwirtschaft». Die beiden Aspekte greifen in\n verschiedene gesellschafts-, umwelt-, wirtschafts- und steuerrechtliche Bereiche ein,\n weshalb eine einheitliche Thematik zu verneinen ist. (gegenteilige Argumentation möglich)\n - Verfolgung desselben Ziels: Die Regelungselemente der Initiative sind alle auf dasselbe\n übergeordnete Ziel ausgerichtet, nämlich auf den Aufbau und Erhalt einer nachhaltigen\n und lebenswerten Zukunft.\n - Zweck-Mittel-Verhältnis: Die Regelungselemente der Vorlage stehen in einem Zweck-\n Mittel-Verhältnis zueinander. Die Initiative will mithilfe neuer Steuereinnahmen die\n Bekämpfung der Klimakrise und den wirtschaftlichen Umbau bewirken. Mit diesen Mitteln soll wiederum das übergeordnete Ziel einer lebenswerten Zukunft erreicht werden.\n\nFazit: Die Einheit der Materie ist gewahrt.",
+          "explanation": "Mit dem Grundsatz der Einheit der Materie (Art. 139 Abs. 3, Art. 194 Abs. 2 BV; Art. 75 Abs.\n1 BPR) soll sichergestellt werden, dass die freie und unverfälschte Stimmabgabe gewährleistet\nist (Art. 34 Abs. 2 BV). Die einzelnen Teile der Volksinitiative müssen einen sachlichen Zusammenhang aufweisen (Art. 75 Abs. 2 BPR), damit die Stimmberechtigten ihre Stimme unverfälscht abgeben können. Der sachliche Zusammenhang gilt als gegeben, wenn die Regelungselemente einer Vorlage:\n - eine einheitliche Thematik betreffen; oder\n - dasselbe Ziel verfolgen; oder\n - in einem Zweck-Mittel-Verhältnis zueinanderstehen.\n\nSubsumtion:\n - Einheitliche Thematik: Die Initiative verlangt neben der «sozial gerechten Bekämpfung\n der Klimakrise» einen «Umbau der Gesamtwirtschaft». Die beiden Aspekte greifen in\n verschiedene gesellschafts-, umwelt-, wirtschafts- und steuerrechtliche Bereiche ein,\n weshalb eine einheitliche Thematik zu verneinen ist. (gegenteilige Argumentation möglich)\n - Verfolgung desselben Ziels: Die Regelungselemente der Initiative sind alle auf dasselbe\n übergeordnete Ziel ausgerichtet, nämlich auf den Aufbau und Erhalt einer nachhaltigen\n und lebenswerten Zukunft.\n - Zweck-Mittel-Verhältnis: Die Regelungselemente der Vorlage stehen in einem Zweck-\n Mittel-Verhältnis zueinander. Die Initiative will mithilfe neuer Steuereinnahmen die\n Bekämpfung der Klimakrise und den wirtschaftlichen Umbau bewirken. Mit diesen Mitteln soll wiederum das übergeordnete Ziel einer lebenswerten Zukunft erreicht werden.\n\nFazit: Die Einheit der Materie ist gewahrt.",
+          "topics": [
+            "Volksinitiative",
+            "Politische Rechte"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Normen und Schutzzweck",
+              "expected": "Art. 139 Abs. 3, 194 Abs. 2, 34 Abs. 2 BV; Art. 75 BPR; freie und unverfälschte Stimmabgabe.",
+              "maxPoints": 2,
+              "sourcePages": [
+                19
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r02",
+              "criterion": "Prüfmassstab",
+              "expected": "Sachlicher Zusammenhang: einheitliche Thematik ODER gleiches Ziel ODER Zweck-Mittel-Verhältnis.",
+              "maxPoints": 1,
+              "sourcePages": [
+                19
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r03",
+              "criterion": "Thematik",
+              "expected": "Verschiedene gesellschafts-, umwelt-, wirtschafts- und steuerrechtliche Bereiche; gegenteilige Argumentation möglich.",
+              "maxPoints": 1,
+              "sourcePages": [
+                19
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r04",
+              "criterion": "Gleiches Ziel",
+              "expected": "Aufbau und Erhalt einer nachhaltigen und lebenswerten Zukunft.",
+              "maxPoints": 1,
+              "sourcePages": [
+                19
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r05",
+              "criterion": "Zweck-Mittel-Verhältnis",
+              "expected": "Neue Steuereinnahmen zur Klimabekämpfung und zum wirtschaftlichen Umbau.",
+              "maxPoints": 1,
+              "sourcePages": [
+                19
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r06",
+              "criterion": "Fazit",
+              "expected": "Einheit der Materie gewahrt; vollständige Prüfung verlangt.",
+              "maxPoints": 1,
+              "sourcePages": [
+                19
+              ],
+              "provenance": "derived"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              19
+            ],
+            "originalLabel": "Schmid 1.4",
+            "professor": "Schmid",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [
+              "Gegenteilige Argumentation zur einheitlichen Thematik möglich."
+            ],
+            "rubricWeightProvenance": "derived"
+          }
+        },
+        {
+          "id": "busta-fs25-q15",
+          "number": 15,
+          "text": "Frage 5)\nWer entscheidet über den Rückzug einer eidgenössischen Volksinitiative? Welches\nQuorum ist hierfür erforderlich? Bis zu welchem Zeitpunkt ist ein Rückzug möglich?\n(5 Punkte)",
+          "type": "open",
+          "points": 5,
+          "expectedDuration": 5,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Der Entscheid über den Rückzug liegt beim Initiativkomitee, das mit der absoluten Mehrheit\nder (noch) stimmberechtigten Mitglieder entscheidet (Art. 73 Abs. 1 BPR). Der Rückzug einer\nVolksinitiative ist zulässig, bis der Bundesrat die Volksabstimmung festsetzt (Art. 73 Abs. 2\nBPR).",
+          "explanation": "Der Entscheid über den Rückzug liegt beim Initiativkomitee, das mit der absoluten Mehrheit\nder (noch) stimmberechtigten Mitglieder entscheidet (Art. 73 Abs. 1 BPR). Der Rückzug einer\nVolksinitiative ist zulässig, bis der Bundesrat die Volksabstimmung festsetzt (Art. 73 Abs. 2\nBPR).",
+          "topics": [
+            "Volksinitiative",
+            "Politische Rechte"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Zuständigkeit",
+              "expected": "Initiativkomitee.",
+              "maxPoints": 1,
+              "sourcePages": [
+                20
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r02",
+              "criterion": "Quorum",
+              "expected": "Absolute Mehrheit der noch stimmberechtigten Mitglieder; Art. 73 Abs. 1 BPR.",
+              "maxPoints": 2,
+              "sourcePages": [
+                20
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r03",
+              "criterion": "Frist",
+              "expected": "Bis Bundesrat Volksabstimmung festsetzt; Art. 73 Abs. 2 BPR.",
+              "maxPoints": 2,
+              "sourcePages": [
+                20
+              ],
+              "provenance": "derived"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              20
+            ],
+            "originalLabel": "Schmid 1.5",
+            "professor": "Schmid",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "derived"
+          }
+        }
+      ]
+    },
+    {
+      "id": "schmid-2",
+      "title": "Teil Schmid · Aufgabe 2: Parlamentswörterbuch",
+      "points": 10,
+      "questionType": "open",
+      "description": "Nennen Sie den gesuchten Begriff und eine dazugehörige Rechtsgrundgrundlage in\nder Bundesverfassung oder einem Bundesgesetz. (Keine Begründung erforderlich)\n\n\n\nBeispiel\nDas _________ schützt die Ratsmitglieder vor verbindlichen Weisungen. Es verbietet\njedoch nicht, dass sich die Ratsmitglieder freiwillig an Abreden halten oder dass sie\nInteressen vertreten. (2 Punkte)\n\n\nGesuchter Begriff: Instruktionsverbot (1 Wort)\n\nGesuchte Rechtsgrundlage: Art. 161 Abs. 1 BV\n\n\n\n\n",
+      "context": null,
+      "questions": [
+        {
+          "id": "busta-fs25-q16",
+          "number": 16,
+          "text": "Frage 1)\nAls _________ bezeichnet man die Amtsdauer eines Parlaments, nach deren Ablauf\neine Gesamterneuerungswahl erfolgt. Auf eidgenössischer Ebene kennt nur der Nationalrat eine solche. (2 Punkte)",
+          "type": "open",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Gesuchter Begriff: Legislaturperiode\nGesuchte Rechtsgrundlage: Art. 149 Abs. 2 BV",
+          "explanation": "Gesuchter Begriff: Legislaturperiode\nGesuchte Rechtsgrundlage: Art. 149 Abs. 2 BV",
+          "topics": [
+            "Bundesbehörden",
+            "Parlamentsrecht"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Gesuchter Begriff",
+              "expected": "Legislaturperiode",
+              "maxPoints": 1,
+              "sourcePages": [
+                21
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r02",
+              "criterion": "Eine dazugehörige Rechtsgrundlage",
+              "expected": "Art. 149 Abs. 2 BV",
+              "maxPoints": 1,
+              "sourcePages": [
+                21
+              ],
+              "provenance": "derived"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              21
+            ],
+            "originalLabel": "Schmid 2.1",
+            "professor": "Schmid",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "derived",
+            "answerFormat": "Begriff und eine dazugehörige Rechtsgrundlage; keine Begründung erforderlich."
+          }
+        },
+        {
+          "id": "busta-fs25-q17",
+          "number": 17,
+          "text": "Frage 2)\nMit einer ________ ________ kann ein Ratsmitglied, eine Fraktion oder eine Kommission den Entwurf zu einem Erlass der Bundesversammlung vorschlagen. (2 Punkte)",
+          "type": "open",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Gesuchter Begriff: parlamentarischen Initiative\nGesuchte Rechtsgrundlage: Art. 160 Abs. 1 BV; Art. 107 ff. ParlG",
+          "explanation": "Gesuchter Begriff: parlamentarischen Initiative\nGesuchte Rechtsgrundlage: Art. 160 Abs. 1 BV; Art. 107 ff. ParlG",
+          "topics": [
+            "Bundesbehörden",
+            "Parlamentsrecht"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Gesuchter Begriff",
+              "expected": "parlamentarischen Initiative",
+              "maxPoints": 1,
+              "sourcePages": [
+                21
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r02",
+              "criterion": "Eine dazugehörige Rechtsgrundlage",
+              "expected": "Art. 160 Abs. 1 BV; Art. 107 ff. ParlG",
+              "maxPoints": 1,
+              "sourcePages": [
+                21
+              ],
+              "provenance": "derived"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              21
+            ],
+            "originalLabel": "Schmid 2.2",
+            "professor": "Schmid",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "derived",
+            "answerFormat": "Begriff und eine dazugehörige Rechtsgrundlage; keine Begründung erforderlich."
+          }
+        },
+        {
+          "id": "busta-fs25-q18",
+          "number": 18,
+          "text": "Frage 3)\nDie _________ ist zuständig für die Vorbereitung der Wahl und Amtsenthebung von\nRichterinnen und Richtern der eidgenössischen Gerichte.",
+          "type": "open",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Gesuchter Begriff: Gerichtskommission\nGesuchte Rechtsgrundlage: Art. 40a ParlG",
+          "explanation": "Gesuchter Begriff: Gerichtskommission\nGesuchte Rechtsgrundlage: Art. 40a ParlG",
+          "topics": [
+            "Bundesbehörden",
+            "Parlamentsrecht"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Gesuchter Begriff",
+              "expected": "Gerichtskommission",
+              "maxPoints": 1,
+              "sourcePages": [
+                22
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r02",
+              "criterion": "Eine dazugehörige Rechtsgrundlage",
+              "expected": "Art. 40a ParlG",
+              "maxPoints": 1,
+              "sourcePages": [
+                22
+              ],
+              "provenance": "derived"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              22
+            ],
+            "originalLabel": "Schmid 2.3",
+            "professor": "Schmid",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "derived",
+            "answerFormat": "Begriff und eine dazugehörige Rechtsgrundlage; keine Begründung erforderlich.",
+            "pointsProvenance": "derived: 10 Aufgabenpunkte / fünf gleichartige Teilfragen; bei Frage 3 fehlt Punkteangabe."
+          }
+        },
+        {
+          "id": "busta-fs25-q19",
+          "number": 19,
+          "text": "Frage 4)\nDie dem ________ ________ unterstellten Erlasse der Bundesversammlung müssen\nden Stimmberechtigten zwingend zur Abstimmung unterbreitet werden. (2 Punkte)",
+          "type": "open",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Gesuchter Begriff: obligatorischen Referendum\nGesuchte Rechtsgrundlage: Art. 140 BV",
+          "explanation": "Gesuchter Begriff: obligatorischen Referendum\nGesuchte Rechtsgrundlage: Art. 140 BV",
+          "topics": [
+            "Bundesbehörden",
+            "Parlamentsrecht"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Gesuchter Begriff",
+              "expected": "obligatorischen Referendum",
+              "maxPoints": 1,
+              "sourcePages": [
+                22
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r02",
+              "criterion": "Eine dazugehörige Rechtsgrundlage",
+              "expected": "Art. 140 BV",
+              "maxPoints": 1,
+              "sourcePages": [
+                22
+              ],
+              "provenance": "derived"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              22
+            ],
+            "originalLabel": "Schmid 2.4",
+            "professor": "Schmid",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "derived",
+            "answerFormat": "Begriff und eine dazugehörige Rechtsgrundlage; keine Begründung erforderlich."
+          }
+        },
+        {
+          "id": "busta-fs25-q20",
+          "number": 20,
+          "text": "Frage 5)\nDie _________ ist die allgemeine Stabsstelle des Bundesrates. Sie berät und unterstützt das Bundesratskollegium und den Bundespräsidenten bzw. die Bundespräsidentin. (2 Punkte)",
+          "type": "open",
+          "points": 2,
+          "expectedDuration": 2,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Gesuchter Begriff: Bundeskanzlei\nGesuchte Rechtsgrundlage: Art. 179 BV; Art. 32 RVOG",
+          "explanation": "Gesuchter Begriff: Bundeskanzlei\nGesuchte Rechtsgrundlage: Art. 179 BV; Art. 32 RVOG",
+          "topics": [
+            "Bundesbehörden",
+            "Parlamentsrecht"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Gesuchter Begriff",
+              "expected": "Bundeskanzlei",
+              "maxPoints": 1,
+              "sourcePages": [
+                22
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r02",
+              "criterion": "Eine dazugehörige Rechtsgrundlage",
+              "expected": "Art. 179 BV; Art. 32 RVOG",
+              "maxPoints": 1,
+              "sourcePages": [
+                22
+              ],
+              "provenance": "derived"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              22
+            ],
+            "originalLabel": "Schmid 2.5",
+            "professor": "Schmid",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "derived",
+            "answerFormat": "Begriff und eine dazugehörige Rechtsgrundlage; keine Begründung erforderlich."
+          }
+        }
+      ]
+    },
+    {
+      "id": "schmid-3",
+      "title": "Teil Schmid · Aufgabe 3: Bundesstaatsrecht unter der Lupe",
+      "points": 20,
+      "questionType": "open",
+      "description": "In den folgenden Texten haben sich mehrere Fehler eingeschlichen. Korrigieren Sie\ndie Fehler direkt im Text, indem Sie ein Wort oder mehrere Wörter ersetzen. Die Nen-\nnung von rechtlichen Bestimmungen wird nicht verlangt.\n\n\n",
+      "context": null,
+      "questions": [
+        {
+          "id": "busta-fs25-q21",
+          "number": 21,
+          "text": "Text 1) (10 Punkte)\n\nDer Bundesrat besteht aus sieben Mitgliedern, die nach jeder Gesamterneuerung des Ständerates, also alle vier Jahre, vom Volk gewählt werden. Der Bundesrat setzt sich grundsätzlich im Verhältnis 3:2:1:1 aus Vertreterinnen und Vertretern der vier wählerstärksten Parteien zusammen, was als «Ancien Régime» bezeichnet wird. Wenn bei der Wahl eines neuen Mitglieds des Bundesrates eine Unvereinbarkeit vorliegt, ist die Wahl ungültig. Die faktischen Voraussetzungen widerspiegeln nur eine lange Praxis der Bundesversammlung, weshalb die Wahl trotz Missachtung derselben gültig wäre.\n\nNach ihrer Wahl schwören oder geloben die Mitglieder des Bundesrates, die Verfassung und die Konkordanz zu beachten. Die Bundespräsidentin oder der Bundespräsident und die Vizepräsidentin oder der Vizepräsident des Bundesrates werden aus dessen Mitgliedern einzeln und nacheinander für zwei Jahre gewählt. Den Vorsitz im Bundesrat führt die Bundespräsidentin bzw. der Bundespräsident, die auch Ceteris paribus genannt werden. Ein wichtiges Prinzip des Bundesrates ist das Departementalprinzip. Dies bedeutet unter anderem, dass die Mitglieder des Bundesrates Entscheidungen gemeinsam treffen. Weiter wichtig ist das sog. Kollegialprinzip, wonach die sieben Departemente auf die sieben Mitglieder des Bundesrates verteilt werden und jedes Mitglied einem Departement vorsteht.",
+          "type": "open",
+          "points": 10,
+          "expectedDuration": 10,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Ständerates → Nationalrates\nvom Volk → von der (Vereinigten) Bundesversammlung\n3:2:1:1 → 2:2:2:1\nAncien Régime → Zauberformel\nungültig → gültig\nKonkordanz → Gesetze\nzwei Jahre → ein Jahr\nCeteris paribus → Prima/Primus inter Pares\nDepartementalprinzip (gemeinsam treffen) → Kollegialprinzip\nKollegialprinzip (Departemente) → Departementalprinzip",
+          "explanation": "Ständerates → Nationalrates\nvom Volk → von der (Vereinigten) Bundesversammlung\n3:2:1:1 → 2:2:2:1\nAncien Régime → Zauberformel\nungültig → gültig\nKonkordanz → Gesetze\nzwei Jahre → ein Jahr\nCeteris paribus → Prima/Primus inter Pares\nDepartementalprinzip (gemeinsam treffen) → Kollegialprinzip\nKollegialprinzip (Departemente) → Departementalprinzip",
+          "topics": [
+            "Bundesbehörden",
+            "Behördenorganisation"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Korrektur 1",
+              "expected": "Ständerates → Nationalrates",
+              "maxPoints": 1,
+              "sourcePages": [
+                23
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r02",
+              "criterion": "Korrektur 2",
+              "expected": "vom Volk → von der (Vereinigten) Bundesversammlung",
+              "maxPoints": 1,
+              "sourcePages": [
+                23
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r03",
+              "criterion": "Korrektur 3",
+              "expected": "3:2:1:1 → 2:2:2:1",
+              "maxPoints": 1,
+              "sourcePages": [
+                23
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r04",
+              "criterion": "Korrektur 4",
+              "expected": "Ancien Régime → Zauberformel",
+              "maxPoints": 1,
+              "sourcePages": [
+                23
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r05",
+              "criterion": "Korrektur 5",
+              "expected": "ungültig → gültig",
+              "maxPoints": 1,
+              "sourcePages": [
+                23
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r06",
+              "criterion": "Korrektur 6",
+              "expected": "Konkordanz → Gesetze",
+              "maxPoints": 1,
+              "sourcePages": [
+                23
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r07",
+              "criterion": "Korrektur 7",
+              "expected": "zwei Jahre → ein Jahr",
+              "maxPoints": 1,
+              "sourcePages": [
+                23
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r08",
+              "criterion": "Korrektur 8",
+              "expected": "Ceteris paribus → Prima/Primus inter Pares",
+              "maxPoints": 1,
+              "sourcePages": [
+                23
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r09",
+              "criterion": "Korrektur 9",
+              "expected": "Departementalprinzip (gemeinsam treffen) → Kollegialprinzip",
+              "maxPoints": 1,
+              "sourcePages": [
+                23
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r10",
+              "criterion": "Korrektur 10",
+              "expected": "Kollegialprinzip (Departemente) → Departementalprinzip",
+              "maxPoints": 1,
+              "sourcePages": [
+                23
+              ],
+              "provenance": "derived"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              23
+            ],
+            "originalLabel": "Schmid 3.Text 1",
+            "professor": "Schmid",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "derived",
+            "transcription": "Originalfehlertext aus Grundzeilen rekonstruiert; überlagerte Korrekturwörter und Durchstreichungen ausschliesslich in Musterlösung.",
+            "correctionPairs": [
+              {
+                "original": "Ständerates",
+                "corrected": "Nationalrates"
+              },
+              {
+                "original": "vom Volk",
+                "corrected": "von der (Vereinigten) Bundesversammlung"
+              },
+              {
+                "original": "3:2:1:1",
+                "corrected": "2:2:2:1"
+              },
+              {
+                "original": "Ancien Régime",
+                "corrected": "Zauberformel"
+              },
+              {
+                "original": "ungültig",
+                "corrected": "gültig"
+              },
+              {
+                "original": "Konkordanz",
+                "corrected": "Gesetze"
+              },
+              {
+                "original": "zwei Jahre",
+                "corrected": "ein Jahr"
+              },
+              {
+                "original": "Ceteris paribus",
+                "corrected": "Prima/Primus inter Pares"
+              },
+              {
+                "original": "Departementalprinzip (gemeinsam treffen)",
+                "corrected": "Kollegialprinzip"
+              },
+              {
+                "original": "Kollegialprinzip (Departemente)",
+                "corrected": "Departementalprinzip"
+              }
+            ]
+          }
+        },
+        {
+          "id": "busta-fs25-q22",
+          "number": 22,
+          "text": "Text 2) (10 Punkte)\n\nDas Bundesgericht ist die oberste politische Behörde des Bundes. Die Richterinnen und Richter des Bundesgerichts werden von der Vereinigten Bundesversammlung auf Lebenszeit gewählt. Die Richterinnen und Richter des Bundesgerichts müssen ein Studium der Rechtswissenschaft abgeschlossen haben. Die Wählbarkeit ist stark an die Parteimitgliedschaft der Richterinnen und Richter geknüpft, woraus sich eine gewisse Politisierung der Wahl ergibt. Deshalb sind auch fast alle Richterinnen und Richter Mitglied einer Partei. Das Präsidium des Bundesgerichts wird durch die Bundesversammlung für drei Jahre gewählt. Der Sitz des Bundesgerichts befindet sich in Bern, wobei zwei Abteilungen ihren Standort in Luzern haben. Die Hauptaufgabe des Bundesgerichts ist die Verordnungsgebung. Das zuständige Richtergremium entscheidet immer schriftlich auf dem Weg der Aktenzirkulation. Die Öffentlichkeit hat jedoch Anspruch auf Information, weshalb unter anderem Urteile von grundsätzlicher Bedeutung veröffentlicht werden. Auch ist es äusserst wichtig, dass die richterliche Unabhängigkeit gewahrt bleibt, die Richterinnen und Richter also weisungsfrei entscheiden können. Das Bundesgericht übt eine umfassende Verfassungsgerichtsbarkeit aus; es kann Bestimmungen in Bundesgesetzen, die der Bundesverfassung widersprechen, sogar aufheben. Es gibt zwei Arten der Normenkontrolle: die abstrakte und die konkrete. Nur im Fall der konkreten Normenkontrolle wird eine Rechtsnorm direkt angefochten.",
+          "type": "open",
+          "points": 10,
+          "expectedDuration": 10,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "politische → rechtsprechende\nauf Lebenszeit → für sechs Jahre\nein Studium → kein Studium\ndrei Jahre → zwei Jahre\nBern → Lausanne\nVerordnungsgebung → Rechtsprechung\nimmer schriftlich → häufig schriftlich\numfassende → beschränkte\nBundesgesetzen → kantonalen Gesetzen\nkonkreten Normenkontrolle → abstrakten Normenkontrolle",
+          "explanation": "politische → rechtsprechende\nauf Lebenszeit → für sechs Jahre\nein Studium → kein Studium\ndrei Jahre → zwei Jahre\nBern → Lausanne\nVerordnungsgebung → Rechtsprechung\nimmer schriftlich → häufig schriftlich\numfassende → beschränkte\nBundesgesetzen → kantonalen Gesetzen\nkonkreten Normenkontrolle → abstrakten Normenkontrolle",
+          "topics": [
+            "Bundesbehörden",
+            "Behördenorganisation"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Korrektur 1",
+              "expected": "politische → rechtsprechende",
+              "maxPoints": 1,
+              "sourcePages": [
+                24
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r02",
+              "criterion": "Korrektur 2",
+              "expected": "auf Lebenszeit → für sechs Jahre",
+              "maxPoints": 1,
+              "sourcePages": [
+                24
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r03",
+              "criterion": "Korrektur 3",
+              "expected": "ein Studium → kein Studium",
+              "maxPoints": 1,
+              "sourcePages": [
+                24
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r04",
+              "criterion": "Korrektur 4",
+              "expected": "drei Jahre → zwei Jahre",
+              "maxPoints": 1,
+              "sourcePages": [
+                24
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r05",
+              "criterion": "Korrektur 5",
+              "expected": "Bern → Lausanne",
+              "maxPoints": 1,
+              "sourcePages": [
+                24
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r06",
+              "criterion": "Korrektur 6",
+              "expected": "Verordnungsgebung → Rechtsprechung",
+              "maxPoints": 1,
+              "sourcePages": [
+                24
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r07",
+              "criterion": "Korrektur 7",
+              "expected": "immer schriftlich → häufig schriftlich",
+              "maxPoints": 1,
+              "sourcePages": [
+                24
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r08",
+              "criterion": "Korrektur 8",
+              "expected": "umfassende → beschränkte",
+              "maxPoints": 1,
+              "sourcePages": [
+                24
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r09",
+              "criterion": "Korrektur 9",
+              "expected": "Bundesgesetzen → kantonalen Gesetzen",
+              "maxPoints": 1,
+              "sourcePages": [
+                24
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r10",
+              "criterion": "Korrektur 10",
+              "expected": "konkreten Normenkontrolle → abstrakten Normenkontrolle",
+              "maxPoints": 1,
+              "sourcePages": [
+                24
+              ],
+              "provenance": "derived"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              24
+            ],
+            "originalLabel": "Schmid 3.Text 2",
+            "professor": "Schmid",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "derived",
+            "transcription": "Originalfehlertext aus Grundzeilen rekonstruiert; überlagerte Korrekturwörter und Durchstreichungen ausschliesslich in Musterlösung.",
+            "correctionPairs": [
+              {
+                "original": "politische",
+                "corrected": "rechtsprechende"
+              },
+              {
+                "original": "auf Lebenszeit",
+                "corrected": "für sechs Jahre"
+              },
+              {
+                "original": "ein Studium",
+                "corrected": "kein Studium"
+              },
+              {
+                "original": "drei Jahre",
+                "corrected": "zwei Jahre"
+              },
+              {
+                "original": "Bern",
+                "corrected": "Lausanne"
+              },
+              {
+                "original": "Verordnungsgebung",
+                "corrected": "Rechtsprechung"
+              },
+              {
+                "original": "immer schriftlich",
+                "corrected": "häufig schriftlich"
+              },
+              {
+                "original": "umfassende",
+                "corrected": "beschränkte"
+              },
+              {
+                "original": "Bundesgesetzen",
+                "corrected": "kantonalen Gesetzen"
+              },
+              {
+                "original": "konkreten Normenkontrolle",
+                "corrected": "abstrakten Normenkontrolle"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "schmid-4",
+      "title": "Teil Schmid · Aufgabe 4: Taufe im Genfersee",
+      "points": 30,
+      "questionType": "open",
+      "description": "",
+      "context": "Die evangelische Freikirche von Cologny im Kanton Genf (nachfolgend Freikirche) ersuchte im Mai 2022 beim zuständigen kantonalen Departement (nachfolgend Departement) um eine Veranstaltungsbewilligung zur Durchführung der Tauffeier für eine erwachsene Person durch Eintauchen in den Genfersee an einem öffentlichen Strand. Die\nTaufe sollte an einem Sonntag zwischen 8.45 und 9.45 Uhr in Anwesenheit enger\nFreunde und der Familie des Taufempfängers (insgesamt 75 Personen) stattfinden und\ninsbesondere Gebete für den Taufempfänger sowie kurze Gesangseinlagen umfassen.\nDie Bewilligung wurde der Freikirche verweigert, weil diese nicht zu den religiösen\nOrganisationen gehöre, die vorgängig registriert worden seien.\n\nGemäss dem kantonalen Genfer Gesetz über den Laizismus können Bewilligungen für\nreligiöse kultische (d.h. rituelle) Veranstaltungen auf öffentlichem Grund erteilt werden, sofern die religiöse Organisation um die erforderliche Registrierung gemäss dem\nkantonalen Recht ersucht hat. Die Registrierung setzt die Unterzeichnung einer Verpflichtungserklärung durch die religiöse Organisation voraus. Die Erklärung beinhaltet die Anerkennung des Vorrangs der Schweizer Rechtsordnung vor allen ihr widersprechenden religiösen Pflichten, insbesondere im Bereich des Familienrechts. Der\nAufwand für die Registrierung ist gering: Die betreffenden Organisationen müssen lediglich die Registrierung beantragen und die Verpflichtungserklärung unterzeichnen;\nanschliessend gelten sie als registriert und sie können darum ersuchen, auf öffentlichem Grund religiöse Veranstaltungen durchzuführen.\n\nDie Freikirche stellt sich hingegen auf den Standpunkt, es widerspreche ihren Überzeugungen, eine Organisation zu sein, die «beim Staat registriert» sei. Deshalb habe sie\ndie Verpflichtungserklärung auch nicht unterzeichnet.\n\nBei der Freikirche handelt es sich um einen Verein (= juristische Person). Der Zweck\nwird in den Statuten wie folgt umschrieben: «Die evangelische Freikirche von Cologny\nverfolgt den Zweck, ihre Mitglieder zusammenzubringen, zu unterstützen und ihre\nAktivitäten zu fördern, um die Frohe Botschaft von Christus zu leben und zu bezeugen.»\n\nDie Freikirche sieht in der Verweigerung der Bewilligung für die Tauffeier eine Verletzung ihrer Glaubens- und Gewissensfreiheit sowie ihrer Versammlungsfreiheit.",
+      "questions": [
+        {
+          "id": "busta-fs25-q23",
+          "number": 23,
+          "text": "Frage 1)\nWelche Artikel der Bundesverfassung gewährleisten die Glaubens- und Gewissensfreiheit sowie die Versammlungsfreiheit? (1 Punkt)",
+          "type": "open",
+          "points": 1,
+          "expectedDuration": 1,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Die Glaubens- und Gewissensfreiheit wird in Art. 15 BV, die Versammlungsfreiheit in Art. 22\nBV gewährleistet.",
+          "explanation": "Die Glaubens- und Gewissensfreiheit wird in Art. 15 BV, die Versammlungsfreiheit in Art. 22\nBV gewährleistet.",
+          "topics": [
+            "Glaubensfreiheit",
+            "Versammlungsfreiheit"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Glaubens- und Gewissensfreiheit",
+              "expected": "Art. 15 BV",
+              "maxPoints": 0.5,
+              "sourcePages": [
+                26
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r02",
+              "criterion": "Versammlungsfreiheit",
+              "expected": "Art. 22 BV",
+              "maxPoints": 0.5,
+              "sourcePages": [
+                26
+              ],
+              "provenance": "derived"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              26
+            ],
+            "originalLabel": "Schmid 4.1",
+            "professor": "Schmid",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "derived"
+          }
+        },
+        {
+          "id": "busta-fs25-q24",
+          "number": 24,
+          "text": "Frage 2)\nErläutern Sie zunächst den persönlichen und sachlichen Schutzbereich der Glaubens-\nund Gewissensfreiheit sowie der Versammlungsfreiheit im Allgemeinen. Beantworten\nSie anschliessend die Frage, ob die Freikirche Trägerin der Glaubens- und Gewissensfreiheit sowie der Versammlungsfreiheit ist und ob im vorliegenden Fall die sachlichen\nSchutzbereiche der beiden Freiheitsreichte betroffen sind. (16 Punkte)\nHinweis: Es ist nur auf den persönlichen und sachlichen Schutzbereich der beiden Freiheitsrechte einzugehen. Eine vollständige Grundrechtsprüfung wird nicht verlangt!",
+          "type": "open",
+          "points": 16,
+          "expectedDuration": 16,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Persönlicher Schutzbereich der Glaubens- und Gewissensfreiheit\nTheorie (Umschreibung des persönlichen Schutzbereichs der Glaubens- und Gewissensfreiheit) (2 Punkte):\n\nGeschützt von der Glaubens- und Gewissensfreiheit sind alle natürlichen Personen, auch Kinder. Juristische Personen können sich nach ständiger Rechtsprechung des Bundesgerichts nicht\nauf die Religionsfreiheit berufen, es sei denn, sie verfolgen nach ihren Statuten ein religiöses\noder kirchliches Ziel.\n\nSubsumtion (in casu) (2 Punkte):\n\nBei der Freikirche handelt es sich gemäss Sachverhalt um eine juristische Person, die gemäss\nden Statuten ein religiöses/kirchliches Ziel (u.a. Bezeugung der «Frohen Botschaft von Christus») verfolgt.\n\nFazit (0.5 Punkte):\n\nDie Freikirche ist Trägerin der Glaubens- und Gewissensfreiheit.\n\nSachlicher Schutzbereich der Glaubens- und Gewissensfreiheit\nTheorie (Umschreibung des sachlichen Schutzbereichs der Glaubens- und Gewissensfreiheit) (3 Punkte):\n\nDie Glaubens- und Gewissensfreiheit ist das Recht der Einzelnen, in ihrer religiösen Überzeugung sowie deren Ausübung (allein sowie in Gemeinschaft) und Verbreitung nicht durch staatliche Vorschriften eingeschränkt zu werden. Die innere Glaubensfreiheit umfasst das Recht, an\n\nanerkannte oder auch nicht anerkannte Religionen zu glauben, das Recht, nicht zu glauben,\nsowie die Freiheit der Weltanschauung. Die äussere Bekenntnisfreiheit umfasst die Gemeindebildung, das Befolgen von Kleider-, Essens- und Hygienevorschriften, die religiöse Kindererziehung und auch die religiöse Werbung und Weiterverbreitung des Glaubens. Zur Bekenntnisfreiheit zählt auch die Kultusfreiheit, d.h. die Freiheit, in ritueller Form Glaubensbezeugungen\nzu äussern – sei es individuell (Gebet, Meditation, Fasten usw.) oder kollektiv (Gottesdienst,\nTaufe usw.).\n\nSubsumtion (1 Punkt):\n\nDa die Freikirche eine Taufe durchführen wollte, ist im vorliegenden Fall die äussere Bekenntnisfreiheit betroffen.\n\nFazit (0.5 Punkte):\n\nDer sachliche Schutzbereich der Glaubens- und Gewissensfreiheit ist berührt.\n\nPersönlicher Schutzbereich der Versammlungsfreiheit\nTheorie (Umschreibung des persönlichen Schutzbereichs der Versammlungsfreiheit)\n(1 Punkt):\n\nDie Versammlungsfreiheit steht allen natürlichen Personen zu. Juristische Personen können\nsich auf sie berufen, wenn sie eine Versammlung organisieren.\n\nSubsumtion (in casu) (1 Punkt):\n\nBei der Freikirche, welche die Tauffeier organisiert, handelt es sich um eine juristische Person.\n\nFazit (0.5 Punkte):\n\nDie Freikirche ist Trägerin der Versammlungsfreiheit.\n\nSachlicher Schutzbereich der Versammlungsfreiheit\nTheorie (Umschreibung des sachlichen Schutzbereichs der Versammlungsfreiheit (3\nPunkte):\n\nDie Versammlungsfreiheit gewährleistet das freie Abhalten von Versammlungen. Grundrechtlich geschützt sind Versammlungen, die meinungsbildend sind oder eine Meinungsäusserung\nbezwecken. Der demokratierelevante Aspekt der Versammlungsfreiheit bezieht sich vorwiegend\nauf politisch motivierte Versammlungen. Dessen ungeachtet sind auch freundschaftliche, wissenschaftliche, verwandtschaftliche, künstlerische, sportliche oder unterhaltende Zusammenkünfte von Menschen grundrechtlich gewährleistet. Der Inhalt der ausgetauschten und nach\n\naussen hin ausgedrückten Meinungen und Gedanken spielt keinerlei Rolle für den Schutzbereich. Keine Anwendung findet die Versammlungsfreiheit hingegen auf zufällige Ansammlungen von Menschen.\n\nSubsumtion (in casu) (1 Punkt):\n\nDie Freikirche möchte sich mit insgesamt 75 Personen an einem öffentlichen Strand am Genfersee versammeln, um eine Taufe durchzuführen.\n\nFazit (0.5 Punkte):\n\nDer sachliche Schutzbereich der Versammlungsfreiheit ist berührt.",
+          "explanation": "Persönlicher Schutzbereich der Glaubens- und Gewissensfreiheit\nTheorie (Umschreibung des persönlichen Schutzbereichs der Glaubens- und Gewissensfreiheit) (2 Punkte):\n\nGeschützt von der Glaubens- und Gewissensfreiheit sind alle natürlichen Personen, auch Kinder. Juristische Personen können sich nach ständiger Rechtsprechung des Bundesgerichts nicht\nauf die Religionsfreiheit berufen, es sei denn, sie verfolgen nach ihren Statuten ein religiöses\noder kirchliches Ziel.\n\nSubsumtion (in casu) (2 Punkte):\n\nBei der Freikirche handelt es sich gemäss Sachverhalt um eine juristische Person, die gemäss\nden Statuten ein religiöses/kirchliches Ziel (u.a. Bezeugung der «Frohen Botschaft von Christus») verfolgt.\n\nFazit (0.5 Punkte):\n\nDie Freikirche ist Trägerin der Glaubens- und Gewissensfreiheit.\n\nSachlicher Schutzbereich der Glaubens- und Gewissensfreiheit\nTheorie (Umschreibung des sachlichen Schutzbereichs der Glaubens- und Gewissensfreiheit) (3 Punkte):\n\nDie Glaubens- und Gewissensfreiheit ist das Recht der Einzelnen, in ihrer religiösen Überzeugung sowie deren Ausübung (allein sowie in Gemeinschaft) und Verbreitung nicht durch staatliche Vorschriften eingeschränkt zu werden. Die innere Glaubensfreiheit umfasst das Recht, an\n\nanerkannte oder auch nicht anerkannte Religionen zu glauben, das Recht, nicht zu glauben,\nsowie die Freiheit der Weltanschauung. Die äussere Bekenntnisfreiheit umfasst die Gemeindebildung, das Befolgen von Kleider-, Essens- und Hygienevorschriften, die religiöse Kindererziehung und auch die religiöse Werbung und Weiterverbreitung des Glaubens. Zur Bekenntnisfreiheit zählt auch die Kultusfreiheit, d.h. die Freiheit, in ritueller Form Glaubensbezeugungen\nzu äussern – sei es individuell (Gebet, Meditation, Fasten usw.) oder kollektiv (Gottesdienst,\nTaufe usw.).\n\nSubsumtion (1 Punkt):\n\nDa die Freikirche eine Taufe durchführen wollte, ist im vorliegenden Fall die äussere Bekenntnisfreiheit betroffen.\n\nFazit (0.5 Punkte):\n\nDer sachliche Schutzbereich der Glaubens- und Gewissensfreiheit ist berührt.\n\nPersönlicher Schutzbereich der Versammlungsfreiheit\nTheorie (Umschreibung des persönlichen Schutzbereichs der Versammlungsfreiheit)\n(1 Punkt):\n\nDie Versammlungsfreiheit steht allen natürlichen Personen zu. Juristische Personen können\nsich auf sie berufen, wenn sie eine Versammlung organisieren.\n\nSubsumtion (in casu) (1 Punkt):\n\nBei der Freikirche, welche die Tauffeier organisiert, handelt es sich um eine juristische Person.\n\nFazit (0.5 Punkte):\n\nDie Freikirche ist Trägerin der Versammlungsfreiheit.\n\nSachlicher Schutzbereich der Versammlungsfreiheit\nTheorie (Umschreibung des sachlichen Schutzbereichs der Versammlungsfreiheit (3\nPunkte):\n\nDie Versammlungsfreiheit gewährleistet das freie Abhalten von Versammlungen. Grundrechtlich geschützt sind Versammlungen, die meinungsbildend sind oder eine Meinungsäusserung\nbezwecken. Der demokratierelevante Aspekt der Versammlungsfreiheit bezieht sich vorwiegend\nauf politisch motivierte Versammlungen. Dessen ungeachtet sind auch freundschaftliche, wissenschaftliche, verwandtschaftliche, künstlerische, sportliche oder unterhaltende Zusammenkünfte von Menschen grundrechtlich gewährleistet. Der Inhalt der ausgetauschten und nach\n\naussen hin ausgedrückten Meinungen und Gedanken spielt keinerlei Rolle für den Schutzbereich. Keine Anwendung findet die Versammlungsfreiheit hingegen auf zufällige Ansammlungen von Menschen.\n\nSubsumtion (in casu) (1 Punkt):\n\nDie Freikirche möchte sich mit insgesamt 75 Personen an einem öffentlichen Strand am Genfersee versammeln, um eine Taufe durchzuführen.\n\nFazit (0.5 Punkte):\n\nDer sachliche Schutzbereich der Versammlungsfreiheit ist berührt.",
+          "topics": [
+            "Glaubensfreiheit",
+            "Versammlungsfreiheit",
+            "Schutzbereich"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Glaubensfreiheit persönlicher Schutzbereich Theorie",
+              "expected": "Alle natürlichen Personen; juristische Personen bei statutarisch religiösem/kirchlichem Ziel.",
+              "maxPoints": 2,
+              "sourcePages": [
+                26,
+                27,
+                28
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r02",
+              "criterion": "Glaubensfreiheit persönlicher Schutzbereich Subsumtion",
+              "expected": "Verein mit religiösem/kirchlichem statutarischem Ziel, Frohe Botschaft von Christus.",
+              "maxPoints": 2,
+              "sourcePages": [
+                26,
+                27,
+                28
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r03",
+              "criterion": "Glaubensfreiheit Trägerschaft Fazit",
+              "expected": "Freikirche ist Trägerin.",
+              "maxPoints": 0.5,
+              "sourcePages": [
+                26,
+                27,
+                28
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r04",
+              "criterion": "Glaubensfreiheit sachlicher Schutzbereich Theorie",
+              "expected": "Religiöse Überzeugung, Ausübung und Verbreitung; innere Glaubensfreiheit, äussere Bekenntnisfreiheit und Kultusfreiheit.",
+              "maxPoints": 3,
+              "sourcePages": [
+                26,
+                27,
+                28
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r05",
+              "criterion": "Glaubensfreiheit sachlicher Schutzbereich Subsumtion",
+              "expected": "Taufe betrifft äussere Bekenntnisfreiheit.",
+              "maxPoints": 1,
+              "sourcePages": [
+                26,
+                27,
+                28
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r06",
+              "criterion": "Glaubensfreiheit sachlicher Schutzbereich Fazit",
+              "expected": "Sachlicher Schutzbereich berührt.",
+              "maxPoints": 0.5,
+              "sourcePages": [
+                26,
+                27,
+                28
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r07",
+              "criterion": "Versammlungsfreiheit persönlicher Schutzbereich Theorie",
+              "expected": "Alle natürlichen Personen; juristische Personen wenn sie eine Versammlung organisieren.",
+              "maxPoints": 1,
+              "sourcePages": [
+                26,
+                27,
+                28
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r08",
+              "criterion": "Versammlungsfreiheit persönlicher Schutzbereich Subsumtion",
+              "expected": "Freikirche als organisierende juristische Person.",
+              "maxPoints": 1,
+              "sourcePages": [
+                26,
+                27,
+                28
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r09",
+              "criterion": "Versammlungsfreiheit Trägerschaft Fazit",
+              "expected": "Freikirche ist Trägerin.",
+              "maxPoints": 0.5,
+              "sourcePages": [
+                26,
+                27,
+                28
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r10",
+              "criterion": "Versammlungsfreiheit sachlicher Schutzbereich Theorie",
+              "expected": "Freies Abhalten meinungsbildender oder meinungsäussernder Versammlungen; auch nichtpolitische Zusammenkünfte; keine zufälligen Ansammlungen.",
+              "maxPoints": 3,
+              "sourcePages": [
+                26,
+                27,
+                28
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r11",
+              "criterion": "Versammlungsfreiheit sachlicher Schutzbereich Subsumtion",
+              "expected": "75 Personen versammeln sich am öffentlichen Strand zur Taufe.",
+              "maxPoints": 1,
+              "sourcePages": [
+                26,
+                27,
+                28
+              ],
+              "provenance": "official"
+            },
+            {
+              "id": "r12",
+              "criterion": "Versammlungsfreiheit sachlicher Schutzbereich Fazit",
+              "expected": "Sachlicher Schutzbereich berührt.",
+              "maxPoints": 0.5,
+              "sourcePages": [
+                26,
+                27,
+                28
+              ],
+              "provenance": "official"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              26,
+              27,
+              28
+            ],
+            "originalLabel": "Schmid 4.2",
+            "professor": "Schmid",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "official"
+          }
+        },
+        {
+          "id": "busta-fs25-q25",
+          "number": 25,
+          "text": "Frage 3)\nNehmen Sie an, bei der Verweigerung der Bewilligung für die Tauffeier handle es sich\num eine Grundrechtseinschränkung.\n a) Erklären Sie zunächst, was man allgemein unter rechtfertigenden Interessen im\n Rahmen einer Grundrechtseinschränkung versteht. Gehen Sie in der Folge darauf ein, auf welche rechtfertigenden Interessen sich der Kanton Genf im vorliegenden Fall berufen könnte. (6 Punkte)",
+          "type": "open",
+          "points": 6,
+          "expectedDuration": 6,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Rechtfertigende Interessen im Allgemeinen: Einschränkungen von Grundrechten müssen durch ein öffentliches Interesse oder durch den Schutz von Grundrechten Dritter\n gerechtfertigt sein (Art. 36 Abs. 2 BV). Im öffentlichen Interesse liegt alles, was der Staat\n zum Gemeinwohl vorkehren muss, um eine ihm obliegende Aufgabe zu erfüllen. Als\n hinreichendes öffentliches Interesse gilt etwa der Schutz der Polizeigüter (Ruhe und\n Ordnung, öffentliche Sicherheit, öffentliche Gesundheit, öffentliche Sittlichkeit, Treu\n und Glauben im Geschäftsverkehr). Weitere öffentliche Interessen ergeben sich aus der\n Bundesverfassung und der Gesetzgebung. Das Eingriffsinteresse des Schutzes von\n Grundrechten Dritter macht deutlich, dass die Grundrechtsansprüche verschiedener\n Grundrechtsträger miteinander kollidieren können.\n\n Rechtfertigende Interessen im vorliegenden Fall: Das Erfordernis der staatlichen Registrierung, einschliesslich der Unterzeichnung der Verpflichtungserklärung, bezweckt die\n Wahrung des religiösen Friedens, die Achtung der schweizerischen Rechtsordnung (öffentliche Ordnung; auch: öffentliche Ruhe) sowie den Schutz der Rechte und Freiheiten\n anderer. Letzteres u.a. deshalb, weil die nicht freiwilligen Zuschauerinnen und Zuschauer eines Kults (z.B. Spaziergängerinnen und Spaziergänger am Seeufer) zumindest die Gewissheit haben müssen, dass diejenigen, welche ihn ausüben, die hiesige\n Rechtsordnung bzw. die hiesigen Werte respektieren.",
+          "explanation": "Rechtfertigende Interessen im Allgemeinen: Einschränkungen von Grundrechten müssen durch ein öffentliches Interesse oder durch den Schutz von Grundrechten Dritter\n gerechtfertigt sein (Art. 36 Abs. 2 BV). Im öffentlichen Interesse liegt alles, was der Staat\n zum Gemeinwohl vorkehren muss, um eine ihm obliegende Aufgabe zu erfüllen. Als\n hinreichendes öffentliches Interesse gilt etwa der Schutz der Polizeigüter (Ruhe und\n Ordnung, öffentliche Sicherheit, öffentliche Gesundheit, öffentliche Sittlichkeit, Treu\n und Glauben im Geschäftsverkehr). Weitere öffentliche Interessen ergeben sich aus der\n Bundesverfassung und der Gesetzgebung. Das Eingriffsinteresse des Schutzes von\n Grundrechten Dritter macht deutlich, dass die Grundrechtsansprüche verschiedener\n Grundrechtsträger miteinander kollidieren können.\n\n Rechtfertigende Interessen im vorliegenden Fall: Das Erfordernis der staatlichen Registrierung, einschliesslich der Unterzeichnung der Verpflichtungserklärung, bezweckt die\n Wahrung des religiösen Friedens, die Achtung der schweizerischen Rechtsordnung (öffentliche Ordnung; auch: öffentliche Ruhe) sowie den Schutz der Rechte und Freiheiten\n anderer. Letzteres u.a. deshalb, weil die nicht freiwilligen Zuschauerinnen und Zuschauer eines Kults (z.B. Spaziergängerinnen und Spaziergänger am Seeufer) zumindest die Gewissheit haben müssen, dass diejenigen, welche ihn ausüben, die hiesige\n Rechtsordnung bzw. die hiesigen Werte respektieren.",
+          "topics": [
+            "Grundrechtseinschränkung",
+            "Öffentliches Interesse"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Allgemeiner Massstab",
+              "expected": "Öffentliches Interesse oder Schutz der Grundrechte Dritter; Art. 36 Abs. 2 BV; Gemeinwohl und Staatsaufgabe.",
+              "maxPoints": 2,
+              "sourcePages": [
+                28
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r02",
+              "criterion": "Konkretisierung",
+              "expected": "Polizeigüter und weitere Interessen aus Verfassung/Gesetz; kollidierende Grundrechtsansprüche.",
+              "maxPoints": 1,
+              "sourcePages": [
+                28
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r03",
+              "criterion": "Religiöser Frieden und Ordnung",
+              "expected": "Registrierung dient religiösem Frieden und Achtung schweizerischer Rechtsordnung, Ruhe/Ordnung.",
+              "maxPoints": 2,
+              "sourcePages": [
+                28
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r04",
+              "criterion": "Schutz Dritter",
+              "expected": "Rechte und Freiheiten anderer, insbesondere unfreiwilliger Zuschauer, die Rechtsachtung erwarten dürfen.",
+              "maxPoints": 1,
+              "sourcePages": [
+                28
+              ],
+              "provenance": "derived"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              28
+            ],
+            "originalLabel": "Schmid 4.3a",
+            "professor": "Schmid",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "derived"
+          }
+        },
+        {
+          "id": "busta-fs25-q26",
+          "number": 26,
+          "text": "b) Grundrechtseinschränkungen können von der Intensität her als (eher) leicht\n oder als (eher) schwer qualifiziert werden. Inwiefern hat diese Qualifikation\n eine Auswirkung auf die Beurteilung der Verhältnismässigkeit der Massnahme?\n Handelt es sich im vorliegenden Fall um einen eher leichten oder einen eher\n schweren Eingriff? (7 Punkte)\n Hinweis: Es wird keine Verhältnismässigkeitsprüfung verlangt!",
+          "type": "open",
+          "points": 7,
+          "expectedDuration": 7,
+          "imageHtml": null,
+          "imageAsset": null,
+          "correct": null,
+          "modelAnswer": "Theorie Grundrechtsintensität sowie Auswirkung auf die Verhältnismässigkeit: Für die\n Abgrenzung zwischen schwerwiegenden und leichten Einschränkungen hat die Rechtsprechung bisher kaum gefestigte Kriterien entwickelt. In allgemeiner Weise lässt sich\n festhalten: Je weiter eine Einschränkung die grundrechtlich vermittelten Ansprüche zurückbindet, desto schwerer wiegt sie. Ob dies zutrifft, ist für jeden Einzelfall unter Berücksichtigung sämtlicher Umstände gesondert zu untersuchen. Mögliche Indikatoren\n sind die Persönlichkeitsnähe, die Art und Dauer der Beeinträchtigung und die Auswirkungen auf den Lebensalltag der Betroffenen. Ebenfalls eine Rolle spielen kann die Zahl\n der von einer Einschränkung betroffenen Personen. Die Intensität wird nach objektiven\n Gesichtspunkten beurteilt, auf das subjektive Empfinden des Betroffenen kommt es nach\n der Rechtsprechung des Bundesgerichts nicht an.\n Schwerwiegende Grundrechtseinschränkungen müssen durch ein besonders gewichtiges öffentliches Interesse oder durch einen besonders beachtenswerten Schutz von\n Grundrechten Dritter gerechtfertigt werden können, um als verhältnismässig (Verhältnismässigkeit i.e.S. bzw. Zumutbarkeit) und somit als zulässig im Sinne von Art. 36\n BV qualifiziert zu werden.\n\n Subsumtion: Im Bereich der Glaubens- und Gewissensfreiheit ist die Beurteilung der\n Schwere des Eingriffs schwierig, weil religiöse Gefühle und Überzeugungen stets subjektiv begründet sind. Im vorliegenden Fall stellen die Anforderungen an die Registrierung als religiöse Organisation beim Staat – insbesondere die Unterzeichnung der Verpflichtungserklärung und die Verpflichtung zu deren Einhaltung – für sich genommen\n keinen schwerwiegenden Eingriff in die Religionsfreiheit der Beschwerdeführerin dar.\n Dies deshalb, weil die Einhaltung der demokratisch festgelegten Regeln des schweizerischen Rechts ohnehin für alle Personen, einschliesslich religiöser Organisationen, verbindlich ist und im Konfliktfall Vorrang vor persönlichen Überzeugungen hat. Diesbezüglich wiederholt die Verpflichtungserklärung bloss eine absolute Selbstverständlichkeit, weshalb von einem eher leichten Eingriff auszugehen ist.",
+          "explanation": "Theorie Grundrechtsintensität sowie Auswirkung auf die Verhältnismässigkeit: Für die\n Abgrenzung zwischen schwerwiegenden und leichten Einschränkungen hat die Rechtsprechung bisher kaum gefestigte Kriterien entwickelt. In allgemeiner Weise lässt sich\n festhalten: Je weiter eine Einschränkung die grundrechtlich vermittelten Ansprüche zurückbindet, desto schwerer wiegt sie. Ob dies zutrifft, ist für jeden Einzelfall unter Berücksichtigung sämtlicher Umstände gesondert zu untersuchen. Mögliche Indikatoren\n sind die Persönlichkeitsnähe, die Art und Dauer der Beeinträchtigung und die Auswirkungen auf den Lebensalltag der Betroffenen. Ebenfalls eine Rolle spielen kann die Zahl\n der von einer Einschränkung betroffenen Personen. Die Intensität wird nach objektiven\n Gesichtspunkten beurteilt, auf das subjektive Empfinden des Betroffenen kommt es nach\n der Rechtsprechung des Bundesgerichts nicht an.\n Schwerwiegende Grundrechtseinschränkungen müssen durch ein besonders gewichtiges öffentliches Interesse oder durch einen besonders beachtenswerten Schutz von\n Grundrechten Dritter gerechtfertigt werden können, um als verhältnismässig (Verhältnismässigkeit i.e.S. bzw. Zumutbarkeit) und somit als zulässig im Sinne von Art. 36\n BV qualifiziert zu werden.\n\n Subsumtion: Im Bereich der Glaubens- und Gewissensfreiheit ist die Beurteilung der\n Schwere des Eingriffs schwierig, weil religiöse Gefühle und Überzeugungen stets subjektiv begründet sind. Im vorliegenden Fall stellen die Anforderungen an die Registrierung als religiöse Organisation beim Staat – insbesondere die Unterzeichnung der Verpflichtungserklärung und die Verpflichtung zu deren Einhaltung – für sich genommen\n keinen schwerwiegenden Eingriff in die Religionsfreiheit der Beschwerdeführerin dar.\n Dies deshalb, weil die Einhaltung der demokratisch festgelegten Regeln des schweizerischen Rechts ohnehin für alle Personen, einschliesslich religiöser Organisationen, verbindlich ist und im Konfliktfall Vorrang vor persönlichen Überzeugungen hat. Diesbezüglich wiederholt die Verpflichtungserklärung bloss eine absolute Selbstverständlichkeit, weshalb von einem eher leichten Eingriff auszugehen ist.",
+          "topics": [
+            "Grundrechtseinschränkung",
+            "Verhältnismässigkeit"
+          ],
+          "gradingRubric": [
+            {
+              "id": "r01",
+              "criterion": "Einzelfall und objektive Intensität",
+              "expected": "Je weiter grundrechtliche Ansprüche zurückgebunden werden, desto schwerer; Einzelfall, objektive Kriterien, Persönlichkeitsnähe, Art/Dauer, Lebensalltag, Personenzahl.",
+              "maxPoints": 2,
+              "sourcePages": [
+                29
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r02",
+              "criterion": "Folge für Verhältnismässigkeit",
+              "expected": "Schwere Einschränkungen verlangen besonders gewichtiges öffentliches Interesse / besonders beachtenswerten Schutz Dritter für Zumutbarkeit.",
+              "maxPoints": 2,
+              "sourcePages": [
+                29
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r03",
+              "criterion": "Konkrete Subsumtion",
+              "expected": "Registrierung und Verpflichtung zur ohnehin allgemein verbindlichen demokratisch festgelegten schweizerischen Rechtsordnung sind kein schwerwiegender Eingriff; subjektives Empfinden nicht entscheidend.",
+              "maxPoints": 2,
+              "sourcePages": [
+                29
+              ],
+              "provenance": "derived"
+            },
+            {
+              "id": "r04",
+              "criterion": "Fazit",
+              "expected": "Eher leichter Eingriff; keine vollständige Verhältnismässigkeitsprüfung verlangt.",
+              "maxPoints": 1,
+              "sourcePages": [
+                29
+              ],
+              "provenance": "derived"
+            }
+          ],
+          "metadata": {
+            "sourcePages": [
+              29
+            ],
+            "originalLabel": "Schmid 4.3b",
+            "professor": "Schmid",
+            "difficulty": "hard",
+            "latex": false,
+            "_generated": false,
+            "acceptedAlternatives": [],
+            "rubricWeightProvenance": "derived"
+          }
+        }
+      ]
+    }
+  ],
+  "_validation": [
+    "Zeilenumbrüche, layoutbedingte Worttrennungen und Mehrfachleerzeichen normalisiert; keine inhaltliche Kürzung.",
+    "Schmid Aufgabe 3: Originalfehlertexte visuell aus Grundzeilen transkribiert; überlagerte offizielle Korrekturen ausschliesslich in Lösungen/Rubriken. Durchstreichung überdeckt teilweise Glyphen; Grundwortlaut aus sichtbarem Text eindeutig nachvollziehbar.",
+    "Schmid 2.3 nennt im Original keine Punktezahl. Aus fünf Teilfragen und 10 Aufgabenpunkten werden 2 Punkte zugeordnet (derived).",
+    "Schmid: Rubrikunterteilung und Einzelgewichte ausser 4.2 sind didaktisch abgeleitet; offizielle Fragegesamtpunkte bleiben erhalten. Vor produktivem KI-Grading kalibrieren.",
+    "Offizielle Zusatz-/Bonuspunkte werden separat geführt. Kein automatischer Bonus ohne menschliche Prüfung; Quelle bestimmt keine globale Bonusobergrenze/Übertragungsregel.",
+    "Schindler 4.1 nennt in offizieller Lösung irrtümlich «Amt für Baubewilligungen» statt Gesundheitsamt. Originalantwort erhalten; semantisch auf Gesundheitsamt beziehen.",
+    "Kein offizieller Notenschlüssel und keine Hilfsmittelliste enthalten. Kein HSG-Notenversprechen.",
+    "Original-PDF enthält Musterlösungen; Download darf während einer geschlossenen Prüfung nicht als Hilfsmittel angezeigt werden."
+  ]
+}

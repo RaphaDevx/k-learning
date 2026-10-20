@@ -1,0 +1,46 @@
+{
+  "name": "k-learning-desktop",
+  "productName": "K-Learning",
+  "version": "1.0.0",
+  "private": true,
+  "description": "K-Learning für macOS: Lernkarten, Übungen und Prüfungen.",
+  "author": "Raphael Markus Kaufmann",
+  "homepage": "https://kaufmannadvisory.ch/k-learning.html",
+  "main": "main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "build:mac": "electron-builder --mac dmg --universal --publish never"
+  },
+  "devDependencies": {
+    "electron": "44.9.1",
+    "electron-builder": "24.13.3"
+  },
+  "build": {
+    "appId": "ch.kaufmannadvisory.klearning",
+    "productName": "K-Learning",
+    "artifactName": "K-Learning-${version}-${arch}.${ext}",
+    "directories": { "output": "dist", "buildResources": "assets" },
+    "files": ["main.cjs", "preload.cjs", "offline.html", "package.json"],
+    "protocols": [{ "name": "K-Learning Anmeldung", "schemes": ["klearning"] }],
+    "mac": {
+      "target": [{ "target": "dmg", "arch": ["universal"] }],
+      "category": "public.app-category.education",
+      "icon": "assets/icon.png",
+      "minimumSystemVersion": "13.0",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "entitlements": "assets/entitlements.mac.plist",
+      "entitlementsInherit": "assets/entitlements.mac.plist",
+      "notarize": false
+    },
+    "dmg": {
+      "sign": true,
+      "title": "K-Learning installieren",
+      "window": { "width": 540, "height": 360 },
+      "contents": [
+        { "x": 150, "y": 160, "type": "file" },
+        { "x": 390, "y": 160, "type": "link", "path": "/Applications" }
+      ]
+    }
+  }
+}

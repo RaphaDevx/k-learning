@@ -5,3 +5,5 @@ native/lib/supabase.ts:generic-api-key:6
 native/eas.json:generic-api-key:42
 graphify-out/app_map.html:generic-api-key:324
 graphify-out/graph_offline.html:generic-api-key:39
+# Desktop-Client: Supabase publishable key (oeffentlich, wie in js/auth.js)
+desktop/main.cjs:generic-api-key:9

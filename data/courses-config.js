@@ -3,6 +3,12 @@
 
 window.COURSES_CONFIG = [
   {
+    key: 'BuSta', label: 'Bundesstaatsrecht (BuSta)', icon: '⚖️', color: 'cyan', hex: '#0891b2',
+    tailwind: { bg: 'bg-cyan-900', hover: 'hover:bg-cyan-800', bar: 'bg-cyan-700', fill: 'bg-cyan-300', text: 'text-cyan-300' },
+    examDate: null, examRoom: null, examFormat: '180 Minuten · offene juristische Aufgaben · zwei gleich gewichtete Teile',
+    notebookId: null, dataDir: 'BuSta',
+  },
+  {
     key: 'Statistik',
     label: 'Statistik',
     icon: '📊',

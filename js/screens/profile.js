@@ -459,7 +459,7 @@ window.ProfileScreen = (function () {
     if (!el) return;
 
     const [{ data: examResults }, { data: weights }, { data: deckCards }, { data: allVideos }, { data: myVideoProgress }, enrolled] = await Promise.all([
-      _supabase.from('exam_results').select('id, exam_id, score_pct, taken_at, answers').eq('user_id', user.id),
+      _supabase.from('exam_results').select('id, exam_id, score_pct, taken_at, answers').eq('user_id', user.id).not('score_pct', 'is', null),
       _supabase.from('topic_weights')
         .select('topic_tag, wrong_count, correct_count, priority, ema_accuracy, correct_streak')
         .eq('user_id', user.id).limit(200),
