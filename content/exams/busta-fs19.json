@@ -21,7 +21,7 @@
   "courseColor": "#0891b2",
   "durationMinutes": 180,
   "totalPoints": 180,
-  "resourceLink": "assets/exams/busta-fs19/original-exam.pdf",
+  "resourceLink": null,
   "metadata": {
     "originalContainsSolutions": true
   },

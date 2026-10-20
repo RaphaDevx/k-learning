@@ -46,3 +46,7 @@ venv/
 .DS_Store
 *.log
 # --- Ende K-Dev Phase 1 ---
+
+# BuSta: Original-PDFs (mit Loesungen) und Kontaktboegen nur lokal archiviert, nie ausliefern
+assets/exams/busta-*/original-exam.pdf
+assets/exams/busta-*/contact-*.png

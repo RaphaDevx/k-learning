@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // Validate complete BuSta training artifacts without sending answers to an AI provider.
 import { readFileSync, existsSync } from 'node:fs';
-import { resolve, dirname, relative, isAbsolute } from 'node:path';
+import { resolve, dirname, relative, isAbsolute, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
@@ -39,7 +39,10 @@ export function checkBustaContent({ root = PROJECT_ROOT, sourceDir = process.env
     check(sections.length === 8, `${id}: expected all eight original tasks`);
     check(close(sum(sections.map(section => section.points)), exam.totalPoints), `${id}: section point total differs`);
     check(Array.isArray(exam._validation), `${id}: source uncertainty list missing`);
-    const pdf = assetPath(exam.resourceLink, id);
+    // Original PDFs (with official solutions) are archived locally only, never in the repo or on Pages.
+    const archived = resolve(process.env.BUSTA_ARCHIVE_DIR || join(dirname(DEFAULT_SOURCE_DIR), 'Archiv'), id, 'original-exam.pdf');
+    check(exam.resourceLink == null, `${id}: resourceLink must stay empty (solved PDFs are not served)`);
+    const pdf = existsSync(archived) ? archived : null;
     let sourceHash = null, pageCount = null;
     if (pdf && existsSync(pdf)) {
       sourceHash = sha256(readFileSync(pdf));
