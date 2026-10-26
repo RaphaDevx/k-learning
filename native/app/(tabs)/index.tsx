@@ -21,26 +21,41 @@ export default function FeedScreen() {
   const [cards, setCards] = useState<FeedCard[]>([]);
   const [loading, setLoading] = useState(true);
   const [visibleIndex, setVisibleIndex] = useState(0);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const [pageHeight, setPageHeight] = useState(0);
+  // Tab im Fokus? Nur dann darf ein Reel laufen (Tabs bleiben sonst gemountet und spielen weiter).
+  const [focused, setFocused] = useState(false);
+  // Während eines Halten-Gestes am Rand bleibt der Feed stehen.
+  const [scrollLocked, setScrollLocked] = useState(false);
+  const loadedCourse = useRef<string | null | undefined>(undefined);
+  const listRef = useRef<Animated.FlatList<FeedCard>>(null);
   const { activeCourse } = useCourse();
 
   // Feed ist immer dunkel: Statusleiste hell, beim Verlassen zurück auf System.
   useFocusEffect(
     useCallback(() => {
       setStatusBarStyle('light');
-      return () => setStatusBarStyle('auto');
+      setFocused(true);
+      return () => {
+        setStatusBarStyle('auto');
+        setFocused(false);
+        setScrollLocked(false);
+      };
     }, [])
   );
 
+  // Nur laden, wenn noch nichts da ist oder der Kurs gewechselt hat — sonst würde jeder
+  // Tab-Wechsel die Liste neu aufbauen und alle Player neu starten.
   useFocusEffect(
     useCallback(() => {
+      if (loadedCourse.current === activeCourse && cards.length > 0) return;
       loadFeed();
-    }, [activeCourse])
+    }, [activeCourse, cards.length])
   );
 
   async function loadFeed() {
-    setLoading(true);
+    if (cards.length === 0) setLoading(true);
+    loadedCourse.current = activeCourse;
     try {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
@@ -49,18 +64,24 @@ export default function FeedScreen() {
           p_course: activeCourse ?? null,
           p_limit: 30,
         });
-        if (!error && data) { setCards(data); return; }
+        if (!error && data) { resetList(); setCards(data); return; }
       }
       // Fallback
       let query = supabase.from('videos').select('*').order('sort_order');
       if (activeCourse) query = query.eq('course', activeCourse);
       const { data } = await query;
+      resetList();
       setCards(data ?? []);
     } catch (e) {
       console.warn('Feed load error:', e);
     } finally {
       setLoading(false);
     }
+  }
+
+  function resetList() {
+    setVisibleIndex(0);
+    listRef.current?.scrollToOffset({ offset: 0, animated: false });
   }
 
   const onViewableItemsChanged = useCallback(
@@ -74,20 +95,7 @@ export default function FeedScreen() {
 
   const viewabilityConfig = useRef({ itemVisiblePercentThreshold: 60 }).current;
 
-  async function handleRate(slug: string, dbId: string, rating: 'knew' | 'didnt') {
-    try {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user && dbId) {
-        await supabase.rpc('rate_video', {
-          p_user_id: user.id,
-          p_video_id: dbId,
-          p_rating: rating,
-        });
-      }
-    } catch (e) {
-      console.warn('rate_video error:', e);
-    }
-  }
+  const toggleMute = useCallback(() => setIsMuted(m => !m), []);
 
   if (loading) {
     return (
@@ -133,15 +141,19 @@ export default function FeedScreen() {
       )}
       {pageHeight > 0 && (
       <Animated.FlatList
+        ref={listRef}
+        scrollEnabled={!scrollLocked}
         data={cards}
         keyExtractor={item => item.id}
         renderItem={({ item, index }) => (
           <VideoCard
             card={item}
-            isVisible={index === visibleIndex}
+            isActive={focused && index === visibleIndex}
+            shouldLoad={Math.abs(index - visibleIndex) <= 1}
             isMuted={isMuted}
             height={pageHeight}
-            onRate={handleRate}
+            onToggleMute={toggleMute}
+            onHoldChange={setScrollLocked}
           />
         )}
         pagingEnabled
@@ -164,16 +176,6 @@ export default function FeedScreen() {
       />
       )}
 
-      {/* Mute toggle */}
-      <Pressable
-        style={({ pressed }) => [styles.muteBtn, { top: insets.top + S.sm }, pressed && styles.pressed]}
-        onPress={() => setIsMuted(m => !m)}
-        accessibilityRole="button"
-        accessibilityLabel={isMuted ? 'Ton einschalten' : 'Ton ausschalten'}
-      >
-        <Ionicons name={isMuted ? 'volume-mute' : 'volume-high'} size={22} color={d.text} />
-        <Text style={styles.muteLabel} maxFontSizeMultiplier={MAX_SCALE_CHROME}>{isMuted ? 'Ton aus' : 'Ton an'}</Text>
-      </Pressable>
     </View>
   );
 }
@@ -195,20 +197,6 @@ const styles = StyleSheet.create({
     alignItems: 'center', justifyContent: 'center', marginTop: S.sm,
   },
   pressed: { opacity: 0.6 },
-  muteBtn: {
-    position: 'absolute',
-    right: GUTTER,
-    minHeight: HIT,
-    minWidth: HIT,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: S.xs + 2,
-    paddingHorizontal: S.md,
-    borderRadius: R.full,
-    backgroundColor: d.overlay,
-    justifyContent: 'center',
-  },
-  muteLabel: { ...T.footnote, fontWeight: '600', color: d.text },
   courseChip: {
     position: 'absolute', left: GUTTER, zIndex: 10,
     minHeight: HIT,
