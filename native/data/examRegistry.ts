@@ -9,7 +9,7 @@ const CACHE_KEY = '@klearning_exam_registry';
 export async function loadExamRegistry(): Promise<ExamMeta[]> {
   const { data, error } = await supabase
     .from('k_exams')
-    .select('id,title,course,course_color,duration_minutes,total_points,has_content')
+    .select('id,title,course,course_color,duration_minutes,total_points,has_content,content_key,content_hash,content_version')
     .eq('active', true)
     .order('sort_order');
 
@@ -29,7 +29,10 @@ export async function loadExamRegistry(): Promise<ExamMeta[]> {
     courseColor:     row.course_color,
     durationMinutes: row.duration_minutes,
     totalPoints:     row.total_points,
-    available:       row.has_content,
+    available:       !!row.has_content || !!row.content_key,
+    contentKey:      row.content_key,
+    contentHash:     row.content_hash,
+    contentVersion:  row.content_version,
   }));
   AsyncStorage.setItem(CACHE_KEY, JSON.stringify(registry)).catch(() => {});
   return registry;

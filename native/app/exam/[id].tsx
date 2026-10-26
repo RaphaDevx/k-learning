@@ -1,13 +1,14 @@
 import { useEffect, useState, useRef, useMemo } from 'react';
 import {
   View, Text, ScrollView, Pressable, StyleSheet,
-  ActivityIndicator, Alert, BackHandler,
+  ActivityIndicator, Alert, BackHandler, TextInput, KeyboardAvoidingView, Platform,
 } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useLocalSearchParams, router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import QuestionFigure from '../../components/QuestionFigure';
-import { loadExam } from '../../data/examLoader';
+import { loadExam, ExamAccessError } from '../../data/examLoader';
 import type { ExamData, ExamQuestion, ExamSection, AnswerMap } from '../../types/exam';
 import { useColors, T, S, R, GUTTER, HIT } from '../../constants/theme';
 import RichText from '../../components/RichText';
@@ -50,6 +51,9 @@ function gradeFromPct(pct: number): string {
   return (Math.round(g * 2) / 2).toFixed(1);
 }
 
+const DRAFT_MAX_AGE_MS = 7 * 24 * 3600 * 1000;
+const draftKey = (exam: ExamData) => `@klearning_exam_draft:${exam.id}:${exam.contentKey}`;
+
 function formatTime(seconds: number): string {
   const m = Math.floor(seconds / 60);
   const s = seconds % 60;
@@ -88,17 +92,47 @@ export default function ExamScreen() {
   }, [submitted]);
 
   async function loadExamData(examId: string) {
-    const data = await loadExam(examId);
+    let data: ExamData | null = null;
+    let message = 'Prüfungsdaten nicht gefunden.';
+    try {
+      data = await loadExam(examId);
+    } catch (e) {
+      message = e instanceof Error ? e.message : message;
+      if (!(e instanceof ExamAccessError)) console.warn('loadExam error:', e);
+    }
     if (!data) {
-      Alert.alert('Fehler', 'Prüfungsdaten nicht gefunden.', [{ text: 'OK', onPress: () => router.back() }]);
+      Alert.alert('Fehler', message, [{ text: 'OK', onPress: () => router.back() }]);
       return;
     }
+    if (data.contentKey) await restoreDraft(data);
     setExamData(data);
     setSecondsLeft(data.durationMinutes * 60);
     setLoading(false);
     startTimeRef.current = Date.now();
     startTimer(data.durationMinutes * 60);
   }
+
+  // Answers of a paywalled exam survive app restarts and offline phases (7 days).
+  async function restoreDraft(data: ExamData) {
+    try {
+      const raw = await AsyncStorage.getItem(draftKey(data));
+      const draft = raw ? JSON.parse(raw) as { saved: number; answers: AnswerMap } : null;
+      if (!draft || Date.now() - draft.saved > DRAFT_MAX_AGE_MS || !Object.keys(draft.answers).length) return;
+      await new Promise<void>(resolve => Alert.alert(
+        'Entwurf gefunden', 'Mit den gespeicherten Antworten weitermachen?', [
+          { text: 'Neu beginnen', style: 'destructive', onPress: () => { AsyncStorage.removeItem(draftKey(data)).catch(() => {}); resolve(); } },
+          { text: 'Fortsetzen', onPress: () => { setAnswers(draft.answers); resolve(); } },
+        ]));
+    } catch { /* no draft */ }
+  }
+
+  useEffect(() => {
+    if (!examData?.contentKey || submitted || !Object.keys(answers).length) return;
+    const t = setTimeout(() => {
+      AsyncStorage.setItem(draftKey(examData), JSON.stringify({ saved: Date.now(), answers })).catch(() => {});
+    }, 400);
+    return () => clearTimeout(t);
+  }, [answers, examData, submitted]);
 
   function startTimer(totalSeconds: number) {
     let remaining = totalSeconds;
@@ -154,6 +188,7 @@ export default function ExamScreen() {
   function submitExam() {
     if (!examData) return;
     setSubmitted(true);
+    if (examData.contentKey) AsyncStorage.removeItem(draftKey(examData)).catch(() => {});
     const durationSeconds = Math.round((Date.now() - startTimeRef.current) / 1000);
     const score = scoreExam(examData, answers);
     const grade = gradeFromPct(score.pct);
@@ -169,6 +204,7 @@ export default function ExamScreen() {
         totalPoints: score.total,
         grade,
         answers: JSON.stringify(answers),
+        split: examData.contentKey ? '1' : '',
         takenAt: new Date().toISOString(),
         durationSeconds,
       },
@@ -236,11 +272,12 @@ export default function ExamScreen() {
   const progress = totalQuestionIndex();
   const timerWarn = secondsLeft < 300;
   const isFirst = currentSection === 0 && currentQuestion === 0;
+  const isSplit = !!examData.contentKey;
   const modelAnswer = question.modelAnswer ?? question.explanation;
   const showModel = !!revealed[question.id];
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
       {/* Header */}
       <View style={[styles.header, { paddingTop: insets.top + S.sm }]}>
         <Pressable
@@ -294,11 +331,22 @@ export default function ExamScreen() {
         ) : null}
         <Text style={styles.questionMeta}>
           {isOpen
-            ? 'Offene Frage — selbst bewerten'
+            ? (isSplit ? `Offene Frage · ${question.points} Pkt · Bewertung nach Abgabe` : 'Offene Frage — selbst bewerten')
             : `${isMultiple ? 'Mehrere Antworten möglich' : 'Eine Antwort'} · ${question.points} Pkt`}
         </Text>
 
-        {isOpen ? (
+        {isOpen && isSplit ? (
+          <TextInput
+            style={styles.answerInput}
+            multiline
+            textAlignVertical="top"
+            value={given[0] ?? ''}
+            onChangeText={text => setAnswers(prev => ({ ...prev, [question.id]: text ? [text] : [] }))}
+            placeholder="Deine Antwort"
+            placeholderTextColor={c.textMuted}
+            accessibilityLabel={`Antwort zu Frage ${question.number}`}
+          />
+        ) : isOpen ? (
           <View style={styles.openBox}>
             {showModel ? (
               <View style={styles.modelBox}>
@@ -380,7 +428,7 @@ export default function ExamScreen() {
           </Pressable>
         )}
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 }
 
@@ -429,6 +477,10 @@ const makeStyles = (c: ColorTokens) => StyleSheet.create({
   choiceText: { flex: 1 },
 
   openBox: { gap: S.md },
+  answerInput: {
+    ...T.body, color: c.text, backgroundColor: c.surface, borderRadius: R.md,
+    padding: S.lg, minHeight: 220,
+  },
   secondaryBtn: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: S.sm,
     minHeight: 50, borderRadius: R.md, backgroundColor: c.accentSoft, paddingHorizontal: S.lg,

@@ -49,6 +49,8 @@ export interface ExamData {
     grading?: string;
   };
   sections: ExamSection[];
+  /** Set when the exam was loaded from the private content store (R2 via entitlement worker). */
+  contentKey?: string;
 }
 
 export interface ExamMeta {
@@ -59,6 +61,9 @@ export interface ExamMeta {
   durationMinutes: number;
   totalPoints: number;
   available: boolean;
+  contentKey?: string | null;
+  contentHash?: string | null;
+  contentVersion?: number | null;
 }
 
 export type AnswerMap = Record<string, string[]>;

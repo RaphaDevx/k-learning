@@ -10,6 +10,7 @@ import Animated from 'react-native-reanimated';
 import { useCollapsingTabBar, useTabBarInset } from '../../lib/tabBar';
 import { supabase } from '../../lib/supabase';
 import { loadExamRegistry, getExamsByCategory } from '../../data/examRegistry';
+import { flushPendingResults } from '../../data/examResults';
 import { useCourses } from '../../lib/courses';
 import { useCourse } from '../../lib/courseContext';
 import type { ExamMeta } from '../../types/exam';
@@ -55,6 +56,7 @@ export default function ExamTab() {
   async function loadAll(isRefresh = false) {
     if (isRefresh) setRefreshing(true); else setLoading(true);
     try {
+      flushPendingResults().catch(() => {});
       const [exams, user] = await Promise.all([
         loadExamRegistry(),
         supabase.auth.getUser(),

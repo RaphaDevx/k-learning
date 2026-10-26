@@ -4,7 +4,9 @@ import { useLocalSearchParams, router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { supabase } from '../../lib/supabase';
-import { loadExam } from '../../data/examLoader';
+import { loadExam, loadSolutions, applySolutions } from '../../data/examLoader';
+import { saveResultRow, flushPendingResults, gradeAnswer, persistGrades, totals } from '../../data/examResults';
+import type { Grade, ResultRow } from '../../data/examResults';
 import QuestionFigure from '../../components/QuestionFigure';
 import type { AnswerMap, ExamData, ExamQuestion } from '../../types/exam';
 import { useColors, T, S, R, GUTTER, HIT } from '../../constants/theme';
@@ -57,25 +59,27 @@ export default function ResultsScreen() {
     answers: string;
     takenAt: string;
     durationSeconds: string;
+    split?: string;
   }>();
 
   const saved = useRef(false);
+  const isSplit = params.split === '1';
 
-  const scorePct = parseInt(params.scorePct ?? '0', 10);
-  const pointsEarned = parseInt(params.pointsEarned ?? '0', 10);
-  const totalPoints = parseInt(params.totalPoints ?? '0', 10);
+  const [paramPct, paramEarned, paramTotal] = [params.scorePct, params.pointsEarned, params.totalPoints].map(v => parseInt(v ?? '0', 10));
   const durationSeconds = parseInt(params.durationSeconds ?? '0', 10);
   const answers: AnswerMap = params.answers ? JSON.parse(params.answers) : {};
   const c = useColors();
   const styles = useMemo(() => makeStyles(c), [c]);
-  const tone = gradeTone(scorePct);
-  const color = c[tone];
-  const soft = c[`${tone}Soft` as 'greenSoft' | 'yellowSoft' | 'redSoft'];
   const [exam, setExam] = useState<ExamData | null>(null);
   const [reviewLoading, setReviewLoading] = useState(true);
   const [expanded, setExpanded] = useState<string | null>(null);
+  const [row, setRow] = useState<ResultRow | null>(null);
+  const [grades, setGrades] = useState<Record<string, Grade>>({});
+  const [gradeError, setGradeError] = useState<string | null>(null);
+  const [queued, setQueued] = useState(false);
 
   useEffect(() => {
+    if (isSplit) { runSplitFlow(); return; }
     if (!saved.current) {
       saved.current = true;
       saveResult();
@@ -85,6 +89,49 @@ export default function ResultsScreen() {
       .catch(() => setExam(null))
       .finally(() => setReviewLoading(false));
   }, []);
+
+  // Paywalled exam: save the attempt first, then fetch model answers (server requires a saved attempt),
+  // then grade each written answer with the server-side AI grader.
+  async function runSplitFlow() {
+    if (saved.current) return;
+    saved.current = true;
+    let data: ExamData | null = null;
+    try { data = await loadExam(params.examId); } catch { /* cached copy only */ }
+    if (!data) { setReviewLoading(false); return; }
+    flushPendingResults().catch(() => {});
+    const { row: savedRow, saved: stored } = await saveResultRow(data, answers, params.takenAt ?? new Date().toISOString());
+    setRow(savedRow);
+    setQueued(!stored);
+    const solutions = stored ? await loadSolutions(params.examId) : null;
+    setExam(solutions ? applySolutions(data, solutions) : data);
+    setReviewLoading(false);
+    if (!savedRow || !stored) return;
+
+    const collected: Record<string, Grade> = {};
+    for (const a of savedRow.answers) {
+      if (!a.user_answer?.trim()) continue;
+      try {
+        collected[a.question_id] = await gradeAnswer(params.examId, a.question_id, a.user_answer);
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : 'grading_unavailable';
+        setGradeError(msg);
+        collected[a.question_id] = { earned: null, status: 'pending', feedback: 'Bewertung ausstehend. Du kannst es später erneut versuchen.' };
+      }
+      setGrades({ ...collected });
+    }
+    persistGrades(savedRow, collected).catch(() => {});
+  }
+
+  const splitTotals = useMemo(() => row ? totals(row.answers, grades) : null, [row, grades]);
+  // Paywalled exams: the score exists only once every written answer is graded.
+  const pendingScore = isSplit && (!splitTotals || splitTotals.pct == null);
+  const scorePct = isSplit ? (splitTotals?.pct ?? 0) : paramPct;
+  const pointsEarned = isSplit ? (splitTotals?.total ?? 0) : paramEarned;
+  const totalPoints = isSplit ? (splitTotals?.max ?? paramTotal) : paramTotal;
+  const gradeValue = isSplit ? (Math.round(Math.max(1, Math.min(6, 1 + 5 * (scorePct / 100))) * 2) / 2).toFixed(1) : params.grade;
+  const tone = gradeTone(scorePct);
+  const color = pendingScore ? c.textSub : c[tone];
+  const soft = pendingScore ? c.surfaceHigh : c[`${tone}Soft` as 'greenSoft' | 'yellowSoft' | 'redSoft'];
 
   async function saveResult() {
     try {
@@ -127,14 +174,14 @@ export default function ResultsScreen() {
       <StatusBarScrim />
       <ScrollView contentContainerStyle={[styles.content, { paddingTop: insets.top + S.xl, paddingBottom: insets.bottom + S.xxl }]}>
         {/* Score */}
-        <View style={styles.scoreBlock} accessible accessibilityLabel={`Note ${params.grade}, ${scorePct} Prozent, ${gradeLabel(scorePct)}, ${pointsEarned} von ${totalPoints} Punkten`}>
+        <View style={styles.scoreBlock} accessible accessibilityLabel={pendingScore ? 'Bewertung ausstehend' : `Note ${gradeValue}, ${scorePct} Prozent, ${gradeLabel(scorePct)}, ${pointsEarned} von ${totalPoints} Punkten`}>
           <Text style={styles.caption}>Deine Note</Text>
-          <Text style={[styles.gradeText, { color }]}>{params.grade}</Text>
+          <Text style={[styles.gradeText, { color }]}>{pendingScore ? '…' : gradeValue}</Text>
           <View style={[styles.statusPill, { backgroundColor: soft }]}>
-            <Ionicons name={tone === 'red' ? 'close-circle' : tone === 'yellow' ? 'alert-circle' : 'checkmark-circle'} size={18} color={color} />
-            <Text style={[styles.statusText, { color }]}>{gradeLabel(scorePct)}</Text>
+            <Ionicons name={pendingScore ? 'time-outline' : tone === 'red' ? 'close-circle' : tone === 'yellow' ? 'alert-circle' : 'checkmark-circle'} size={18} color={color} />
+            <Text style={[styles.statusText, { color }]}>{pendingScore ? (queued ? 'Wird nach Verbindung gespeichert' : 'Bewertung läuft / ausstehend') : gradeLabel(scorePct)}</Text>
           </View>
-          <Text style={styles.scoreLine}>{scorePct}% · {pointsEarned} / {totalPoints} Punkte</Text>
+          <Text style={styles.scoreLine}>{pendingScore ? `${pointsEarned} / ${totalPoints} Punkte · ${splitTotals?.pending ?? 0} Antworten offen` : `${scorePct}% · ${pointsEarned} / ${totalPoints} Punkte`}</Text>
           <Text style={styles.duration}>Dauer: {formatDuration(durationSeconds)}</Text>
         </View>
 
@@ -150,6 +197,9 @@ export default function ResultsScreen() {
             </Text>
           </View>
         </View>
+
+        {queued ? <Text style={styles.hint}>Offline: Dein Versuch ist lokal gesichert und wird bei Verbindung gespeichert. Musterlösung und Bewertung folgen danach.</Text> : null}
+        {gradeError ? <Text style={styles.hint}>Die KI-Bewertung ist gerade nicht verfügbar ({gradeError}). Die Antworten sind gespeichert.</Text> : null}
 
         {/* Review */}
         <Text style={styles.sectionTitle} accessibilityRole="header">Auswertung</Text>
@@ -186,6 +236,20 @@ export default function ResultsScreen() {
                   {isOpenRow && (
                     <View style={styles.detail}>
                       {q.imageHtml ? <QuestionFigure html={q.imageHtml} label={`Abbildung zu Frage ${q.number}`} /> : null}
+                      {isSplit && given[0] ? (
+                        <Text style={styles.detailLine}>
+                          <Text style={styles.detailKey}>Deine Antwort: </Text>{given[0]}
+                        </Text>
+                      ) : null}
+                      {isSplit && grades[q.id] ? (
+                        <Text style={styles.detailLine}>
+                          <Text style={styles.detailKey}>
+                            {grades[q.id].earned == null ? 'KI-Bewertung ausstehend: ' : `KI-Lernbewertung ${grades[q.id].earned}/${q.points} P: `}
+                          </Text>
+                          {grades[q.id].feedback}
+                          {grades[q.id].reviewReason ? `\n${grades[q.id].reviewReason}` : ''}
+                        </Text>
+                      ) : null}
                       {q.type !== 'open' && (
                         <>
                           <Text style={styles.detailLine}>
